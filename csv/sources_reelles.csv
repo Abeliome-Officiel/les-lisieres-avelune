@@ -1,0 +1,6 @@
+﻿ID;Source;Famille;Variables;URL;État;Notes
+SRC-001;Open-Meteo Weather Forecast API;Atmosphère;Température, pluie, vent, pression, couverture nuageuse;https://open-meteo.com/en/docs;Candidat principal;"Pas de clé pour usage non commercial; attribution et licence à vérifier avant production."
+SRC-002;Open-Meteo Marine Weather API;Océan;"Hauteur, période et direction des vagues; houle et variables marines";https://open-meteo.com/en/docs/marine-weather-api;Candidat principal;"Prévisions marines mises à jour régulièrement; cache obligatoire."
+SRC-003;NOAA GFS;Atmosphère et océan;Variables atmosphériques, sol, océan et glace de mer;https://www.ncei.noaa.gov/products/weather-climate-models/global-forecast;Source secondaire;Plus complexe à intégrer directement.
+SRC-004;NOAA Tides & Currents;Côtes;Niveaux d’eau, observations et séries historiques;https://tidesandcurrents.noaa.gov/web_services_info.html;À étudier;"Couverture surtout stations NOAA; utile comme signal indépendant."
+SRC-005;USGS Earthquake Catalog;Géophysique;Magnitude, localisation, fréquence et profondeur;https://earthquake.usgs.gov/fdsnws/event/1/;Reporté;À utiliser seulement comme tendance abstraite, jamais comme événement sensationnaliste.

@@ -1,0 +1,77 @@
+﻿ID;Domaine;Titre;Description;Statut décisionnel;Priorité;Phase;Dépendance
+DEC-001;Vision;Jeu sur navigateur;Le jeu est accessible depuis un navigateur et pensé dès le départ pour le téléphone.;Décision définitive;Critique;MVP;Tous
+DEC-002;Éthique;Aucun conflit entre joueurs;Aucun PvP, pillage, attaque de territoire ou destruction provoquée par un autre joueur.;Décision définitive;Critique;MVP;Social
+DEC-003;Coopération;Entraide structurelle;"Toute contribution aide le monde; l’entraide est intégrée aux systèmes sans imposer une sociabilité constante.";Décision définitive;Critique;Prototype;Boucle centrale
+DEC-004;Progression;Faible importance du niveau;L’ancienneté donne davantage d’options et d’automatisation mais ne rend jamais les nouveaux inutiles.;Décision définitive;Critique;Prototype;Équilibrage
+DEC-005;Expérience;Gestion, bac à sable, chill mais intense;Le jeu permet des sessions calmes ou engagées, avec profondeur de gestion et événements intenses.;Décision définitive;Haute;MVP;Interface
+DEC-006;Engagement;Collection sans prédation;La collection soutient le retour au jeu sans microtransaction aléatoire, FOMO ou punition d’absence.;Décision définitive;Critique;MVP;Économie
+DEC-007;Combat;Tower defense contre le monde;"La défense vise des phénomènes du jeu; les vagues peuvent être combattues, canalisées, accueillies ou transcendées.";Décision définitive;Critique;Prototype;Événements
+DEC-008;Événements;Diversité des vagues;Les vagues peuvent être hostiles, positives, ambiguës, environnementales, sociales, culturelles ou logistiques.;Décision définitive;Critique;Prototype;Contenu
+DEC-009;Événements;Effets ponctuels ou persistants;Un événement peut modifier temporairement ou durablement un territoire, un réseau, une région ou le monde.;Décision définitive;Haute;Prototype;Persistance
+DEC-010;Événements;Échos locaux;Des pseudo-fractures locales adaptées au style du joueur peuvent apparaître dans son territoire.;Décision provisoire;Haute;Prototype;Directeur adaptatif
+DEC-011;Événements;Événements positifs;Les phénomènes favorables, féeriques, fertiles ou culturels sont aussi importants que les menaces.;Décision définitive;Haute;Prototype;Ton
+DEC-012;Événements;Directeur adaptatif;Le monde observe les stratégies dominantes et varie progressivement ses réponses sans tricher.;Décision provisoire;Haute;Après MVP;Télémétrie
+DEC-013;Résolution;Victoires graduées;"Les résultats vont de la stabilisation à la transcendance; un échec tactique crée une suite jouable et peu de pertes.";Décision définitive;Critique;Prototype;Boucle centrale
+DEC-014;RPG;Plusieurs rôles complémentaires;Protection, soin, action, contrôle, logistique, exploration, médiation, art et passe-brèche sont utiles.;Décision définitive;Haute;Prototype;Personnage
+DEC-015;RPG;Passe-brèche;Le rôle de roublard devient spécialiste d’infiltration, récupération, chemins temporaires et prise de risque contrôlée.;Décision définitive;Moyenne;MVP;Éclats
+DEC-016;Progression;Reconversion souple;"Changer de spécialité conserve les acquis transversaux; la transition prend du temps mais ne remet pas à zéro.";Décision définitive;Haute;MVP;Arbres de progression
+DEC-017;Progression;Plusieurs voies de réussite;Productivité, résilience, beauté, hospitalité, culture, savoir, exploration et biodiversité sont des accomplissements valides.;Décision définitive;Haute;MVP;Tycoon
+DEC-018;Univers;Nom du jeu;Le titre retenu est « Les Lisières d’Avelune ».;Décision définitive;Haute;Vision;Identité
+DEC-019;Univers;Fantasy d’adaptation;Avelune est un monde féerique, ésotérique et post-effondrement qui refuse d’être figé.;Décision provisoire;Haute;Vision;Background
+DEC-020;Univers;Fêlure et Marées;"La Fêlure libère des Marées de Possibles; l’enjeu est d’apprendre à vivre avec la transformation.";Décision provisoire;Haute;Vision;Background
+DEC-021;Univers;Animaux humanoïdes;Les personnages peuvent prendre des formes animales humanoïdes ou hybrides.;Décision définitive;Haute;MVP;Direction artistique
+DEC-022;Identité;Forme expressive non déterministe;La forme animale participe à l’identification personnelle et aux perceptions sans imposer métier, personnalité ou valeur sociale.;Décision définitive;Critique;MVP;Accessibilité
+DEC-023;Ton;Poésie, cute et féerie;Le jeu inclut du positif, de la douceur, du merveilleux et une profondeur littéraire.;Décision définitive;Haute;Vision;Narration
+DEC-024;Culture;Les mots comme création;Les joueurs créatifs peuvent proposer noms, lexiques, fragments, chroniques et interprétations aux autres.;Décision définitive;Haute;Après MVP;Modération
+DEC-025;Culture;Culture intégrée au gameplay;Les créations culturelles peuvent faciliter une négociation, conserver une mémoire ou transformer un lieu.;Décision provisoire;Moyenne;Après MVP;Système culturel
+DEC-026;Tycoon;Le tycoon est un pilier;La gestion de flux, services, habitants, production, transports et adaptation est égale au RPG et aux événements collectifs.;Décision définitive;Critique;Prototype;Boucle centrale
+DEC-027;Tycoon;Automatisation à la Factorio;"Les chaînes répétitives peuvent être automatisées; les événements nouveaux exigent à nouveau des choix humains.";Décision définitive;Haute;Prototype;Production
+DEC-028;Tycoon;Transports à la Transport Tycoon;Les réseaux ont capacité, fréquence, priorité, redondance et résilience.;Décision définitive;Haute;MVP;Réseaux
+DEC-029;Commerce;Routes commerciales automatiques;"Le joueur déclare les ressources échangeables et les quantités; le réseau exécute automatiquement les échanges.";Décision définitive;Haute;Prototype;Marché automatisé
+DEC-030;Modes;Cité indépendante ou collaborative;Un joueur peut gérer seul sa cité ou ouvrir certaines fonctions à la collaboration, sans plafond de progression solo.;Décision définitive;Critique;Prototype;NPC
+DEC-031;Personnage;Modèle du corps-cité;Hypothèse majeure : l’avatar est lui-même une cité vivante abritant un écosystème intérieur.;Décision provisoire;Critique;Prototype;Direction conceptuelle
+DEC-032;Personnage;Économie biologique interne;Les métiers et industries deviennent des cycles, organes, chambres, symbiotes et flux intérieurs non réalistes et non horrifiques.;Décision provisoire;Haute;Prototype;Tycoon
+DEC-033;Personnage;Liens biologiques entre individus;Les routes commerciales et coopérations prennent la forme de filaments, courants ou symbioses entre corps-cités.;Décision provisoire;Haute;Prototype;Réseaux
+DEC-034;Territoire;Zone d’influence non exclusive;"Chaque avatar influence et protège un rayon autour de lui; les zones peuvent se chevaucher sans propriété exclusive.";Décision provisoire;Haute;Prototype;Carte
+DEC-035;Croissance;Bourgeonnement cellulaire;La croissance du monde peut créer de nouvelles cellules, cités ou territoires à partir des structures existantes.;Décision provisoire;Haute;MVP;Persistance
+DEC-036;Croissance;Fusion consentie;Une cité peut fusionner partiellement avec une présence NPC ou former une symbiose réversible avec un autre joueur.;Décision provisoire;Moyenne;Après MVP;Identité
+DEC-037;NPC;Présences non-joueuses permanentes;Des cités et communautés NPC assurent les rôles manquants, le commerce solo et la vie du monde dès 2 à 3 joueurs.;Décision définitive;Critique;Prototype;Échelle
+DEC-038;Social;Appartenance facultative;"On peut fonctionner sans groupe; aucune organisation ne bloque les contenus ou la progression.";Décision définitive;Critique;MVP;Social
+DEC-039;Social;Plusieurs appartenances limitées;Un joueur peut appartenir à plusieurs structures, avec une limite pour préserver la lisibilité et l’engagement.;Décision définitive;Haute;MVP;UX
+DEC-040;Social;Vocabulaire du vivant;Les organisations prennent des formes comme Récif, Essaim, Banc, Colonie, Mycélium ou Symbiose.;Décision provisoire;Moyenne;MVP;Univers
+DEC-041;Social;Aucun chef joueur permanent;"Le rôle central éventuel est tenu par le système ou un personnage non-joueur; les joueurs restent souverains.";Décision définitive;Critique;MVP;Gouvernance
+DEC-042;Communication;Aucun espace libre au lancement;Pas de forum, chat, message privé, commentaire ou galerie publique libre dans le périmètre initial.;Décision définitive;Critique;MVP;Modération
+DEC-043;Communication;Propositions structurées;La communication passe par observations, besoins, propositions, contre-propositions, coûts, durées et choix prédéfinis.;Décision définitive;Critique;Prototype;CNV
+DEC-044;Gouvernance;Vote sur propositions;"Un joueur peut proposer ou contre-proposer; les votes sont bornés dans le temps et le silence vaut abstention.";Décision définitive;Haute;MVP;Communication
+DEC-045;Gouvernance;Souveraineté du domaine;Un groupe ne peut pas modifier le domaine, les ressources ou la spécialisation d’un joueur sans consentement.;Décision définitive;Critique;MVP;Permissions
+DEC-046;Relations;Entrelacs de 2 à 4 joueurs;Des liens privilégiés non obligatoirement romantiques permettent refuge, continuité consentie et histoires partagées.;Décision provisoire;Moyenne;Après MVP;Social
+DEC-047;Instances;Éclats courts;Le jeu propose de petites instances rapides de route, atelier, fêlure, infiltration, veillée ou action collective asynchrone.;Décision définitive;Haute;Prototype;Boucle courte
+DEC-048;Instances;Alternative non réflexe;Chaque mini-jeu d’action doit proposer une option tactique, pause ou résolution accessible.;Décision définitive;Critique;Prototype;Accessibilité
+DEC-049;Interface;Deux niveaux d’affichage;Un mode Monde visuel et un mode Calme sobre présentent le même jeu avec des stimulations différentes.;Décision définitive;Critique;MVP;Accessibilité
+DEC-050;Interface;Mobile en priorité;Toutes les actions de maintien courant doivent être simples sur téléphone.;Décision définitive;Critique;MVP;Responsive
+DEC-051;Accessibilité;Réglages dys individualisés;Police, taille, espacement, largeur, fond, contraste, structure et lecture audio sont réglables séparément.;Décision définitive;Critique;MVP;Design system
+DEC-052;Accessibilité;Neurodiversité dès la conception;Reprise claire, tâches courtes, règles explicites, limitation des interruptions et complexité progressive sont natives.;Décision définitive;Critique;Prototype;UX
+DEC-053;Langue;Grammaire au choix;Le joueur choisit langue, forme d’adresse et grammaire traditionnelle, inclusive ou neutre.;Décision définitive;Haute;MVP;Internationalisation
+DEC-054;Genre;Pas de genre imposé;Joueurs, avatars, habitants et créatures ne sont pas genrés par défaut.;Décision définitive;Haute;MVP;Narration
+DEC-055;Engagement;Aucune punition d’absence;Pas de série perdue, destruction nocturne, culpabilisation ou fenêtre obligatoire.;Décision définitive;Critique;Prototype;Éthique
+DEC-056;Reprise;Dormance protectrice;"Une cité inactive continue à faible régime grâce aux NPC et automatismes; elle ne s’effondre pas.";Décision définitive;Critique;Prototype;Persistance
+DEC-057;Échelle;De 2 à plusieurs centaines;La dynamique s’adapte de 2–3 joueurs à des centaines d’inscrits et actifs.;Décision définitive;Critique;Prototype;Architecture
+DEC-058;Échelle;Capacité active raisonnable;Les événements globaux sont calibrés sur la capacité probable des joueurs actifs, pas sur le nombre de comptes.;Décision définitive;Critique;MVP;Équilibrage
+DEC-059;Échelle;Paliers de résolution 70/20/10;"Le besoin de base reste atteignable avec une participation raisonnable; la mobilisation améliore le résultat sans bloquer.";Décision provisoire;Haute;MVP;Équilibrage
+DEC-060;Données réelles;Météo réelle comme graine;Des données météorologiques mondiales alimentent les tendances sans décider seules de la difficulté.;Décision définitive;Haute;Prototype;API externe
+DEC-061;Données réelles;Météo marine;Hauteur, période et direction des vagues marines peuvent influencer les Marées d’Avelune.;Décision définitive;Moyenne;Prototype;Open-Meteo Marine
+DEC-062;Données réelles;Multi-source planétaire;Plusieurs points et familles de données limitent le biais d’une seule région ou d’un seul phénomène.;Décision définitive;Haute;MVP;Normalisation
+DEC-063;Données réelles;Cache et repli interne;"Les données brutes et graines sont conservées; une panne externe ne bloque jamais le jeu.";Décision définitive;Critique;Prototype;Résilience
+DEC-064;Données réelles;Aucune géolocalisation joueur;"Les sources utilisent des points fixes publics; la météo personnelle du joueur n’est pas nécessaire.";Décision définitive;Critique;Prototype;Vie privée
+DEC-065;Participatif;Calcul distribué;L’utilisation de puissance de calcul pour une cause est sortie du périmètre initial.;Décision reportée;Basse;Long terme;Éthique
+DEC-066;Communication;Interaction par courriel;La gestion du jeu par courriel est conservée comme idée mais retirée du périmètre initial.;Décision reportée;Basse;Long terme;Sécurité
+DEC-067;Modération;Création libre publique;"Les contenus libres publics nécessitant une modération sont reportés; les premières créations restent encadrées ou privées.";Décision reportée;Moyenne;Après MVP;Modération
+DEC-068;Outils;Dépôt GitHub actuel;Le dépôt courant est le compte/projet « Avelune-Officiel ».;Décision définitive;Haute;Vision;Infrastructure
+DEC-069;Outils;Forgejo futur;Forgejo sera déployé séparément puis synchronisé avec GitHub.;Décision définitive;Moyenne;Après MVP;Infrastructure
+DEC-070;Outils;Formats ouverts;Markdown, CSV, JSON, YAML, ODS/XLSX d’échange, SVG et PNG évitent l’enfermement propriétaire.;Décision définitive;Haute;Vision;Pérennité
+DEC-071;Documentation;Documentation dans le dépôt;"Le dossier docs versionné constitue la source principale; le wiki est une vue ou un outil d’édition synchronisé.";Décision provisoire;Haute;Vision;Wiki
+DEC-072;Documentation;Wiki du monde;Les actions et découvertes alimentent automatiquement une encyclopédie historique du monde.;Décision définitive;Haute;MVP;Persistance
+DEC-073;Persistance;Journal d’événements immuable;"Les changements significatifs sont enregistrés comme Traces; des instantanés accélèrent le chargement.";Décision provisoire;Critique;Prototype;Architecture
+DEC-074;Persistance;Pas de remise à zéro globale;Le monde évolue par époques et transformations tout en conservant les territoires, archives et conséquences.;Décision définitive;Critique;MVP;Saisons
+DEC-075;Persistance;Mémoire à plusieurs échelles;État intérieur, liens, régions, monde et connaissance collective persistent séparément.;Décision définitive;Critique;Prototype;Modèle de données
+DEC-076;Persistance;Monde extensible par cellules;La carte grandit par bourgeonnement de cellules plutôt que par saturation ou compétition foncière.;Décision provisoire;Haute;MVP;Carte

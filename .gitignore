@@ -1,0 +1,35 @@
+# Secrets et configurations privées
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Fichiers temporaires
+*.tmp
+*.bak
+*.swp
+*~
+~$*
+
+# Systèmes
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# JavaScript
+node_modules/
+dist/
+build/
+
+# Documentation MkDocs générée
+site/
+
+# Outils de développement
+.vscode/
+.idea/

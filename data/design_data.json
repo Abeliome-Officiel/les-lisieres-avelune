@@ -1,0 +1,1843 @@
+{
+  "project": "Les Lisières d’Avelune",
+  "version": "0.4",
+  "date": "2026-07-26",
+  "statuses": [
+    "Décision définitive",
+    "Décision provisoire",
+    "Décision reportée"
+  ],
+  "priorities": [
+    "Critique",
+    "Haute",
+    "Moyenne",
+    "Basse"
+  ],
+  "phases": [
+    "Vision",
+    "Prototype",
+    "MVP",
+    "Après MVP",
+    "Long terme"
+  ],
+  "decisions": [
+    [
+      "DEC-001",
+      "Vision",
+      "Jeu sur navigateur",
+      "Le jeu est accessible depuis un navigateur et pensé dès le départ pour le téléphone.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Tous"
+    ],
+    [
+      "DEC-002",
+      "Éthique",
+      "Aucun conflit entre joueurs",
+      "Aucun PvP, pillage, attaque de territoire ou destruction provoquée par un autre joueur.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Social"
+    ],
+    [
+      "DEC-003",
+      "Coopération",
+      "Entraide structurelle",
+      "Toute contribution aide le monde; l’entraide est intégrée aux systèmes sans imposer une sociabilité constante.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Boucle centrale"
+    ],
+    [
+      "DEC-004",
+      "Progression",
+      "Faible importance du niveau",
+      "L’ancienneté donne davantage d’options et d’automatisation mais ne rend jamais les nouveaux inutiles.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Équilibrage"
+    ],
+    [
+      "DEC-005",
+      "Expérience",
+      "Gestion, bac à sable, chill mais intense",
+      "Le jeu permet des sessions calmes ou engagées, avec profondeur de gestion et événements intenses.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Interface"
+    ],
+    [
+      "DEC-006",
+      "Engagement",
+      "Collection sans prédation",
+      "La collection soutient le retour au jeu sans microtransaction aléatoire, FOMO ou punition d’absence.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Économie"
+    ],
+    [
+      "DEC-007",
+      "Combat",
+      "Tower defense contre le monde",
+      "La défense vise des phénomènes du jeu; les vagues peuvent être combattues, canalisées, accueillies ou transcendées.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Événements"
+    ],
+    [
+      "DEC-008",
+      "Événements",
+      "Diversité des vagues",
+      "Les vagues peuvent être hostiles, positives, ambiguës, environnementales, sociales, culturelles ou logistiques.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Contenu"
+    ],
+    [
+      "DEC-009",
+      "Événements",
+      "Effets ponctuels ou persistants",
+      "Un événement peut modifier temporairement ou durablement un territoire, un réseau, une région ou le monde.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Persistance"
+    ],
+    [
+      "DEC-010",
+      "Événements",
+      "Échos locaux",
+      "Des pseudo-fractures locales adaptées au style du joueur peuvent apparaître dans son territoire.",
+      "Décision provisoire",
+      "Haute",
+      "Prototype",
+      "Directeur adaptatif"
+    ],
+    [
+      "DEC-011",
+      "Événements",
+      "Événements positifs",
+      "Les phénomènes favorables, féeriques, fertiles ou culturels sont aussi importants que les menaces.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Ton"
+    ],
+    [
+      "DEC-012",
+      "Événements",
+      "Directeur adaptatif",
+      "Le monde observe les stratégies dominantes et varie progressivement ses réponses sans tricher.",
+      "Décision provisoire",
+      "Haute",
+      "Après MVP",
+      "Télémétrie"
+    ],
+    [
+      "DEC-013",
+      "Résolution",
+      "Victoires graduées",
+      "Les résultats vont de la stabilisation à la transcendance; un échec tactique crée une suite jouable et peu de pertes.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Boucle centrale"
+    ],
+    [
+      "DEC-014",
+      "RPG",
+      "Plusieurs rôles complémentaires",
+      "Protection, soin, action, contrôle, logistique, exploration, médiation, art et passe-brèche sont utiles.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Personnage"
+    ],
+    [
+      "DEC-015",
+      "RPG",
+      "Passe-brèche",
+      "Le rôle de roublard devient spécialiste d’infiltration, récupération, chemins temporaires et prise de risque contrôlée.",
+      "Décision définitive",
+      "Moyenne",
+      "MVP",
+      "Éclats"
+    ],
+    [
+      "DEC-016",
+      "Progression",
+      "Reconversion souple",
+      "Changer de spécialité conserve les acquis transversaux; la transition prend du temps mais ne remet pas à zéro.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Arbres de progression"
+    ],
+    [
+      "DEC-017",
+      "Progression",
+      "Plusieurs voies de réussite",
+      "Productivité, résilience, beauté, hospitalité, culture, savoir, exploration et biodiversité sont des accomplissements valides.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Tycoon"
+    ],
+    [
+      "DEC-018",
+      "Univers",
+      "Nom du jeu",
+      "Le titre retenu est « Les Lisières d’Avelune ».",
+      "Décision définitive",
+      "Haute",
+      "Vision",
+      "Identité"
+    ],
+    [
+      "DEC-019",
+      "Univers",
+      "Fantasy d’adaptation",
+      "Avelune est un monde féerique, ésotérique et post-effondrement qui refuse d’être figé.",
+      "Décision provisoire",
+      "Haute",
+      "Vision",
+      "Background"
+    ],
+    [
+      "DEC-020",
+      "Univers",
+      "Fêlure et Marées",
+      "La Fêlure libère des Marées de Possibles; l’enjeu est d’apprendre à vivre avec la transformation.",
+      "Décision provisoire",
+      "Haute",
+      "Vision",
+      "Background"
+    ],
+    [
+      "DEC-021",
+      "Univers",
+      "Animaux humanoïdes",
+      "Les personnages peuvent prendre des formes animales humanoïdes ou hybrides.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Direction artistique"
+    ],
+    [
+      "DEC-022",
+      "Identité",
+      "Forme expressive non déterministe",
+      "La forme animale participe à l’identification personnelle et aux perceptions sans imposer métier, personnalité ou valeur sociale.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Accessibilité"
+    ],
+    [
+      "DEC-023",
+      "Ton",
+      "Poésie, cute et féerie",
+      "Le jeu inclut du positif, de la douceur, du merveilleux et une profondeur littéraire.",
+      "Décision définitive",
+      "Haute",
+      "Vision",
+      "Narration"
+    ],
+    [
+      "DEC-024",
+      "Culture",
+      "Les mots comme création",
+      "Les joueurs créatifs peuvent proposer noms, lexiques, fragments, chroniques et interprétations aux autres.",
+      "Décision définitive",
+      "Haute",
+      "Après MVP",
+      "Modération"
+    ],
+    [
+      "DEC-025",
+      "Culture",
+      "Culture intégrée au gameplay",
+      "Les créations culturelles peuvent faciliter une négociation, conserver une mémoire ou transformer un lieu.",
+      "Décision provisoire",
+      "Moyenne",
+      "Après MVP",
+      "Système culturel"
+    ],
+    [
+      "DEC-026",
+      "Tycoon",
+      "Le tycoon est un pilier",
+      "La gestion de flux, services, habitants, production, transports et adaptation est égale au RPG et aux événements collectifs.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Boucle centrale"
+    ],
+    [
+      "DEC-027",
+      "Tycoon",
+      "Automatisation à la Factorio",
+      "Les chaînes répétitives peuvent être automatisées; les événements nouveaux exigent à nouveau des choix humains.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Production"
+    ],
+    [
+      "DEC-028",
+      "Tycoon",
+      "Transports à la Transport Tycoon",
+      "Les réseaux ont capacité, fréquence, priorité, redondance et résilience.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Réseaux"
+    ],
+    [
+      "DEC-029",
+      "Commerce",
+      "Routes commerciales automatiques",
+      "Le joueur déclare les ressources échangeables et les quantités; le réseau exécute automatiquement les échanges.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Marché automatisé"
+    ],
+    [
+      "DEC-030",
+      "Modes",
+      "Cité indépendante ou collaborative",
+      "Un joueur peut gérer seul sa cité ou ouvrir certaines fonctions à la collaboration, sans plafond de progression solo.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "NPC"
+    ],
+    [
+      "DEC-031",
+      "Personnage",
+      "Modèle du corps-cité",
+      "Hypothèse majeure : l’avatar est lui-même une cité vivante abritant un écosystème intérieur.",
+      "Décision provisoire",
+      "Critique",
+      "Prototype",
+      "Direction conceptuelle"
+    ],
+    [
+      "DEC-032",
+      "Personnage",
+      "Économie biologique interne",
+      "Les métiers et industries deviennent des cycles, organes, chambres, symbiotes et flux intérieurs non réalistes et non horrifiques.",
+      "Décision provisoire",
+      "Haute",
+      "Prototype",
+      "Tycoon"
+    ],
+    [
+      "DEC-033",
+      "Personnage",
+      "Liens biologiques entre individus",
+      "Les routes commerciales et coopérations prennent la forme de filaments, courants ou symbioses entre corps-cités.",
+      "Décision provisoire",
+      "Haute",
+      "Prototype",
+      "Réseaux"
+    ],
+    [
+      "DEC-034",
+      "Territoire",
+      "Zone d’influence non exclusive",
+      "Chaque avatar influence et protège un rayon autour de lui; les zones peuvent se chevaucher sans propriété exclusive.",
+      "Décision provisoire",
+      "Haute",
+      "Prototype",
+      "Carte"
+    ],
+    [
+      "DEC-035",
+      "Croissance",
+      "Bourgeonnement cellulaire",
+      "La croissance du monde peut créer de nouvelles cellules, cités ou territoires à partir des structures existantes.",
+      "Décision provisoire",
+      "Haute",
+      "MVP",
+      "Persistance"
+    ],
+    [
+      "DEC-036",
+      "Croissance",
+      "Fusion consentie",
+      "Une cité peut fusionner partiellement avec une présence NPC ou former une symbiose réversible avec un autre joueur.",
+      "Décision provisoire",
+      "Moyenne",
+      "Après MVP",
+      "Identité"
+    ],
+    [
+      "DEC-037",
+      "NPC",
+      "Présences non-joueuses permanentes",
+      "Des cités et communautés NPC assurent les rôles manquants, le commerce solo et la vie du monde dès 2 à 3 joueurs.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Échelle"
+    ],
+    [
+      "DEC-038",
+      "Social",
+      "Appartenance facultative",
+      "On peut fonctionner sans groupe; aucune organisation ne bloque les contenus ou la progression.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Social"
+    ],
+    [
+      "DEC-039",
+      "Social",
+      "Plusieurs appartenances limitées",
+      "Un joueur peut appartenir à plusieurs structures, avec une limite pour préserver la lisibilité et l’engagement.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "UX"
+    ],
+    [
+      "DEC-040",
+      "Social",
+      "Vocabulaire du vivant",
+      "Les organisations prennent des formes comme Récif, Essaim, Banc, Colonie, Mycélium ou Symbiose.",
+      "Décision provisoire",
+      "Moyenne",
+      "MVP",
+      "Univers"
+    ],
+    [
+      "DEC-041",
+      "Social",
+      "Aucun chef joueur permanent",
+      "Le rôle central éventuel est tenu par le système ou un personnage non-joueur; les joueurs restent souverains.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Gouvernance"
+    ],
+    [
+      "DEC-042",
+      "Communication",
+      "Aucun espace libre au lancement",
+      "Pas de forum, chat, message privé, commentaire ou galerie publique libre dans le périmètre initial.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Modération"
+    ],
+    [
+      "DEC-043",
+      "Communication",
+      "Propositions structurées",
+      "La communication passe par observations, besoins, propositions, contre-propositions, coûts, durées et choix prédéfinis.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "CNV"
+    ],
+    [
+      "DEC-044",
+      "Gouvernance",
+      "Vote sur propositions",
+      "Un joueur peut proposer ou contre-proposer; les votes sont bornés dans le temps et le silence vaut abstention.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Communication"
+    ],
+    [
+      "DEC-045",
+      "Gouvernance",
+      "Souveraineté du domaine",
+      "Un groupe ne peut pas modifier le domaine, les ressources ou la spécialisation d’un joueur sans consentement.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Permissions"
+    ],
+    [
+      "DEC-046",
+      "Relations",
+      "Entrelacs de 2 à 4 joueurs",
+      "Des liens privilégiés non obligatoirement romantiques permettent refuge, continuité consentie et histoires partagées.",
+      "Décision provisoire",
+      "Moyenne",
+      "Après MVP",
+      "Social"
+    ],
+    [
+      "DEC-047",
+      "Instances",
+      "Éclats courts",
+      "Le jeu propose de petites instances rapides de route, atelier, fêlure, infiltration, veillée ou action collective asynchrone.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Boucle courte"
+    ],
+    [
+      "DEC-048",
+      "Instances",
+      "Alternative non réflexe",
+      "Chaque mini-jeu d’action doit proposer une option tactique, pause ou résolution accessible.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Accessibilité"
+    ],
+    [
+      "DEC-049",
+      "Interface",
+      "Deux niveaux d’affichage",
+      "Un mode Monde visuel et un mode Calme sobre présentent le même jeu avec des stimulations différentes.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Accessibilité"
+    ],
+    [
+      "DEC-050",
+      "Interface",
+      "Mobile en priorité",
+      "Toutes les actions de maintien courant doivent être simples sur téléphone.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Responsive"
+    ],
+    [
+      "DEC-051",
+      "Accessibilité",
+      "Réglages dys individualisés",
+      "Police, taille, espacement, largeur, fond, contraste, structure et lecture audio sont réglables séparément.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Design system"
+    ],
+    [
+      "DEC-052",
+      "Accessibilité",
+      "Neurodiversité dès la conception",
+      "Reprise claire, tâches courtes, règles explicites, limitation des interruptions et complexité progressive sont natives.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "UX"
+    ],
+    [
+      "DEC-053",
+      "Langue",
+      "Grammaire au choix",
+      "Le joueur choisit langue, forme d’adresse et grammaire traditionnelle, inclusive ou neutre.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Internationalisation"
+    ],
+    [
+      "DEC-054",
+      "Genre",
+      "Pas de genre imposé",
+      "Joueurs, avatars, habitants et créatures ne sont pas genrés par défaut.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Narration"
+    ],
+    [
+      "DEC-055",
+      "Engagement",
+      "Aucune punition d’absence",
+      "Pas de série perdue, destruction nocturne, culpabilisation ou fenêtre obligatoire.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Éthique"
+    ],
+    [
+      "DEC-056",
+      "Reprise",
+      "Dormance protectrice",
+      "Une cité inactive continue à faible régime grâce aux NPC et automatismes; elle ne s’effondre pas.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Persistance"
+    ],
+    [
+      "DEC-057",
+      "Échelle",
+      "De 2 à plusieurs centaines",
+      "La dynamique s’adapte de 2–3 joueurs à des centaines d’inscrits et actifs.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Architecture"
+    ],
+    [
+      "DEC-058",
+      "Échelle",
+      "Capacité active raisonnable",
+      "Les événements globaux sont calibrés sur la capacité probable des joueurs actifs, pas sur le nombre de comptes.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Équilibrage"
+    ],
+    [
+      "DEC-059",
+      "Échelle",
+      "Paliers de résolution 70/20/10",
+      "Le besoin de base reste atteignable avec une participation raisonnable; la mobilisation améliore le résultat sans bloquer.",
+      "Décision provisoire",
+      "Haute",
+      "MVP",
+      "Équilibrage"
+    ],
+    [
+      "DEC-060",
+      "Données réelles",
+      "Météo réelle comme graine",
+      "Des données météorologiques mondiales alimentent les tendances sans décider seules de la difficulté.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "API externe"
+    ],
+    [
+      "DEC-061",
+      "Données réelles",
+      "Météo marine",
+      "Hauteur, période et direction des vagues marines peuvent influencer les Marées d’Avelune.",
+      "Décision définitive",
+      "Moyenne",
+      "Prototype",
+      "Open-Meteo Marine"
+    ],
+    [
+      "DEC-062",
+      "Données réelles",
+      "Multi-source planétaire",
+      "Plusieurs points et familles de données limitent le biais d’une seule région ou d’un seul phénomène.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Normalisation"
+    ],
+    [
+      "DEC-063",
+      "Données réelles",
+      "Cache et repli interne",
+      "Les données brutes et graines sont conservées; une panne externe ne bloque jamais le jeu.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Résilience"
+    ],
+    [
+      "DEC-064",
+      "Données réelles",
+      "Aucune géolocalisation joueur",
+      "Les sources utilisent des points fixes publics; la météo personnelle du joueur n’est pas nécessaire.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Vie privée"
+    ],
+    [
+      "DEC-065",
+      "Participatif",
+      "Calcul distribué",
+      "L’utilisation de puissance de calcul pour une cause est sortie du périmètre initial.",
+      "Décision reportée",
+      "Basse",
+      "Long terme",
+      "Éthique"
+    ],
+    [
+      "DEC-066",
+      "Communication",
+      "Interaction par courriel",
+      "La gestion du jeu par courriel est conservée comme idée mais retirée du périmètre initial.",
+      "Décision reportée",
+      "Basse",
+      "Long terme",
+      "Sécurité"
+    ],
+    [
+      "DEC-067",
+      "Modération",
+      "Création libre publique",
+      "Les contenus libres publics nécessitant une modération sont reportés; les premières créations restent encadrées ou privées.",
+      "Décision reportée",
+      "Moyenne",
+      "Après MVP",
+      "Modération"
+    ],
+    [
+      "DEC-068",
+      "Outils",
+      "Dépôt GitHub actuel",
+      "Le dépôt courant est le compte/projet « Avelune-Officiel ».",
+      "Décision définitive",
+      "Haute",
+      "Vision",
+      "Infrastructure"
+    ],
+    [
+      "DEC-069",
+      "Outils",
+      "Forgejo futur",
+      "Forgejo sera déployé séparément puis synchronisé avec GitHub.",
+      "Décision définitive",
+      "Moyenne",
+      "Après MVP",
+      "Infrastructure"
+    ],
+    [
+      "DEC-070",
+      "Outils",
+      "Formats ouverts",
+      "Markdown, CSV, JSON, YAML, ODS/XLSX d’échange, SVG et PNG évitent l’enfermement propriétaire.",
+      "Décision définitive",
+      "Haute",
+      "Vision",
+      "Pérennité"
+    ],
+    [
+      "DEC-071",
+      "Documentation",
+      "Documentation dans le dépôt",
+      "Le dossier docs versionné constitue la source principale; le wiki est une vue ou un outil d’édition synchronisé.",
+      "Décision provisoire",
+      "Haute",
+      "Vision",
+      "Wiki"
+    ],
+    [
+      "DEC-072",
+      "Documentation",
+      "Wiki du monde",
+      "Les actions et découvertes alimentent automatiquement une encyclopédie historique du monde.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Persistance"
+    ],
+    [
+      "DEC-073",
+      "Persistance",
+      "Journal d’événements immuable",
+      "Les changements significatifs sont enregistrés comme Traces; des instantanés accélèrent le chargement.",
+      "Décision provisoire",
+      "Critique",
+      "Prototype",
+      "Architecture"
+    ],
+    [
+      "DEC-074",
+      "Persistance",
+      "Pas de remise à zéro globale",
+      "Le monde évolue par époques et transformations tout en conservant les territoires, archives et conséquences.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Saisons"
+    ],
+    [
+      "DEC-075",
+      "Persistance",
+      "Mémoire à plusieurs échelles",
+      "État intérieur, liens, régions, monde et connaissance collective persistent séparément.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Modèle de données"
+    ],
+    [
+      "DEC-076",
+      "Persistance",
+      "Monde extensible par cellules",
+      "La carte grandit par bourgeonnement de cellules plutôt que par saturation ou compétition foncière.",
+      "Décision provisoire",
+      "Haute",
+      "MVP",
+      "Carte"
+    ]
+  ],
+  "principles": [
+    [
+      "P-001",
+      "Aucune punition liée à l’absence",
+      "Une non-action ne produit pas de dette morale ou de destruction durable."
+    ],
+    [
+      "P-002",
+      "Toute action aide",
+      "Même une résolution imparfaite crée une information, une adaptation ou une ressource."
+    ],
+    [
+      "P-003",
+      "Sociabilité non forcée",
+      "Le joueur peut contribuer au collectif sans conversation libre ni présence synchrone."
+    ],
+    [
+      "P-004",
+      "Nouveaux joueurs utiles",
+      "La diversité, la plasticité et les tâches fondamentales donnent une vraie valeur aux faibles niveaux."
+    ],
+    [
+      "P-005",
+      "Pas de domination sociale",
+      "Aucun joueur ne détient un pouvoir permanent sur les autres ou leurs domaines."
+    ],
+    [
+      "P-006",
+      "Complexité progressive",
+      "Les systèmes avancés existent mais peuvent être masqués, automatisés ou introduits par étapes."
+    ],
+    [
+      "P-007",
+      "Engagement stimulant",
+      "Le jeu cherche la curiosité, la compréhension et la création plutôt que la micro-dopamine."
+    ],
+    [
+      "P-008",
+      "Échec fertile",
+      "L’échec crée une bifurcation, pas une invalidation de l’investissement du joueur."
+    ],
+    [
+      "P-009",
+      "Monde vivant",
+      "Le monde s’adapte, conserve les traces et ne se réduit pas à un décor consommable."
+    ],
+    [
+      "P-010",
+      "Culture jouable",
+      "Poésie, écriture, nomenclature et mémoire ont une fonction mécanique."
+    ],
+    [
+      "P-011",
+      "Accessibilité native",
+      "Les besoins TDAH, TSA, dys et les choix de langue/genre structurent le design initial."
+    ],
+    [
+      "P-012",
+      "Consentement",
+      "Les liens, groupes, fusions, délégations et publications sont explicites et réversibles."
+    ]
+  ],
+  "mechanisms": [
+    [
+      "MEC-001",
+      "Boucle",
+      "Action locale",
+      "Placer, réparer, produire, observer, soigner, nommer ou aider en quelques minutes.",
+      "Courte",
+      "Territoire",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-002",
+      "Boucle",
+      "Session thématique",
+      "Choisir gestion, expédition, atelier, récit ou projet collectif selon le temps disponible.",
+      "Session",
+      "Joueur",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-003",
+      "Boucle",
+      "Marée globale",
+      "Un phénomène traverse plusieurs cellules avec sous-objectifs indépendants et résolution graduée.",
+      "Longue",
+      "Monde",
+      "MVP",
+      "Décision définitive"
+    ],
+    [
+      "MEC-004",
+      "Boucle",
+      "Écho local",
+      "Une anomalie secondaire se forme en fonction de l’écosystème et des habitudes du joueur.",
+      "Moyenne",
+      "Territoire",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-005",
+      "Boucle",
+      "Époque",
+      "Une période de plusieurs semaines transforme les règles et laisse des traces sans reset.",
+      "Très longue",
+      "Monde",
+      "Après MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-006",
+      "Tycoon",
+      "Cycles métaboliques",
+      "Les chaînes de production deviennent des cycles de matière, énergie, soin, mémoire et culture.",
+      "Continue",
+      "Intérieur",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-007",
+      "Tycoon",
+      "Nœuds de transformation",
+      "Les bâtiments sont des chambres, jardins, ateliers symbiotiques ou organes fictionnels.",
+      "Continue",
+      "Intérieur",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-008",
+      "Tycoon",
+      "Flux visibles",
+      "Chaque ressource circule et les engorgements sont lisibles sans menus opaques.",
+      "Continue",
+      "Intérieur",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-009",
+      "Tycoon",
+      "Priorités automatiques",
+      "Le joueur définit seuils, réserves, quotas et priorités; le système exécute.",
+      "Continue",
+      "Intérieur",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-010",
+      "Tycoon",
+      "Services",
+      "Accueil, soin, orientation, culture et formation ont leurs propres files et capacités.",
+      "Continue",
+      "Intérieur",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-011",
+      "Tycoon",
+      "Résilience",
+      "Redondance, diversité et stockage souple valent autant que le rendement maximal.",
+      "Continue",
+      "Territoire",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-012",
+      "Commerce",
+      "Catalogue d’échange",
+      "Le joueur choisit les ressources exportables, quantités, réserves minimales et contreparties acceptées.",
+      "Continue",
+      "Réseau",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-013",
+      "Commerce",
+      "Routage automatique",
+      "Les liens disponibles exécutent les échanges selon capacité, coût et priorité.",
+      "Continue",
+      "Réseau",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-014",
+      "Commerce",
+      "Mode indépendant",
+      "Les NPC assurent une offre et une demande de base pour un joueur sans partenaires humains.",
+      "Continue",
+      "Réseau",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-015",
+      "Commerce",
+      "Mode collaboratif",
+      "Les joueurs ouvrent volontairement certains flux ou services à des partenaires et groupes.",
+      "Continue",
+      "Réseau",
+      "MVP",
+      "Décision définitive"
+    ],
+    [
+      "MEC-016",
+      "Carte",
+      "Écotone d’influence",
+      "Le corps-cité transforme un rayon non exclusif autour de lui; les influences se composent.",
+      "Continue",
+      "Territoire",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-017",
+      "Carte",
+      "Bourgeonnement",
+      "Une cellule mature peut créer une cellule fille NPC ou un emplacement d’accueil joueur.",
+      "Très longue",
+      "Région",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-018",
+      "Carte",
+      "Fusion NPC",
+      "Un joueur peut intégrer progressivement une cité NPC tout en conservant son histoire.",
+      "Très longue",
+      "Territoire",
+      "Après MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-019",
+      "Carte",
+      "Symbiose de joueurs",
+      "Des zones de chevauchement créent des fonctions communes réversibles sans fusion de comptes.",
+      "Longue",
+      "Réseau",
+      "Après MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-020",
+      "Événement",
+      "Hostile",
+      "Prédateurs, entités destructrices ou perturbations attaquent les flux et protections.",
+      "Moyenne",
+      "Variable",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-021",
+      "Événement",
+      "Migration",
+      "Des êtres cherchent passage, refuge, orientation ou transformation.",
+      "Moyenne",
+      "Variable",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-022",
+      "Événement",
+      "Climatique",
+      "Tempêtes magiques, sécheresses, brouillards ou courants modifient les règles locales.",
+      "Moyenne",
+      "Variable",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-023",
+      "Événement",
+      "Culturel",
+      "Mots, chants, souvenirs et identités demandent interprétation ou conservation.",
+      "Moyenne",
+      "Variable",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-024",
+      "Événement",
+      "Positif",
+      "Floraison, pluie fertile, sanctuaire, visite rare ou découverte enrichissent le monde.",
+      "Moyenne",
+      "Variable",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-025",
+      "Événement",
+      "Transformateur",
+      "Une espèce, une route ou une ressource change durablement.",
+      "Longue",
+      "Variable",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-026",
+      "Événement",
+      "Adaptatif",
+      "Les contre-mesures fréquentes augmentent la probabilité de variantes contournant les habitudes.",
+      "Longue",
+      "Variable",
+      "Après MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-027",
+      "Résolution",
+      "Combat",
+      "Protection, interception, contrôle du terrain ou destruction limitée.",
+      "Courte",
+      "Instance",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-028",
+      "Résolution",
+      "Canalisation",
+      "Modifier route, intensité, forme ou vitesse d’une Marée.",
+      "Moyenne",
+      "Variable",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-029",
+      "Résolution",
+      "Accueil",
+      "Créer une capacité d’hébergement, soin, intégration ou migration.",
+      "Moyenne",
+      "Territoire",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-030",
+      "Résolution",
+      "Recherche",
+      "Identifier propriétés, vulnérabilités, histoires et conséquences.",
+      "Moyenne",
+      "Monde",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-031",
+      "Résolution",
+      "Art et rituel",
+      "Nommer, composer ou interpréter pour transformer un phénomène symbolique.",
+      "Moyenne",
+      "Variable",
+      "Après MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-032",
+      "Résolution",
+      "Transcendance",
+      "Convertir un événement en ressource, relation, espèce, connaissance ou infrastructure durable.",
+      "Longue",
+      "Variable",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-033",
+      "RPG",
+      "Fiche du corps-cité",
+      "Le personnage possède affinités, perceptions, relations, compétences et état intérieur.",
+      "Continue",
+      "Joueur",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-034",
+      "RPG",
+      "Forme animale",
+      "La forme influence perception et interactions environnementales sans verrou de classe.",
+      "Continue",
+      "Joueur",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-035",
+      "RPG",
+      "Vocations",
+      "Les rôles se développent par pratique et peuvent être réorientés.",
+      "Continue",
+      "Joueur",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-036",
+      "RPG",
+      "Passe-brèche",
+      "Infiltration, chemins temporaires, récupération et retrait anticipé.",
+      "Courte",
+      "Instance",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-037",
+      "RPG",
+      "Entrelacs",
+      "Deux à quatre joueurs partagent refuge, continuité autorisée et récits spécifiques.",
+      "Longue",
+      "Social",
+      "Après MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-038",
+      "Social",
+      "Proposition CNV",
+      "Formulaire Observation → Impact → Besoin → Proposition → Coût → Durée → Réversibilité.",
+      "Moyenne",
+      "Groupe",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-039",
+      "Social",
+      "Contre-proposition bornée",
+      "Modifier quelques paramètres; nombre et délai de contre-propositions limités.",
+      "Moyenne",
+      "Groupe",
+      "MVP",
+      "Décision définitive"
+    ],
+    [
+      "MEC-040",
+      "Social",
+      "Réponses choisies",
+      "Soutenir, proposer un essai, demander une estimation, s’abstenir ou contribuer.",
+      "Courte",
+      "Groupe",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-041",
+      "Social",
+      "Organisation Récif",
+      "Autonomie forte et infrastructures communes résilientes.",
+      "Longue",
+      "Groupe",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-042",
+      "Social",
+      "Organisation Essaim",
+      "Accumulation de petites contributions courtes.",
+      "Longue",
+      "Groupe",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-043",
+      "Social",
+      "Organisation Banc",
+      "Coordination temporaire autour d’un mouvement ou événement.",
+      "Moyenne",
+      "Groupe",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-044",
+      "Social",
+      "Organisation Colonie",
+      "Chaînes de production, ateliers et spécialisation.",
+      "Longue",
+      "Groupe",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-045",
+      "Social",
+      "Organisation Mycélium",
+      "Connaissance, archives, art, noms et transmission.",
+      "Longue",
+      "Groupe",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-046",
+      "Social",
+      "Organisation Symbiose",
+      "Petit réseau de territoires très complémentaires.",
+      "Longue",
+      "Groupe",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-047",
+      "Instance",
+      "Éclat de route",
+      "Optimiser rapidement un trajet, une cargaison ou une priorité.",
+      "Courte",
+      "Instance",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-048",
+      "Instance",
+      "Éclat d’atelier",
+      "Réorganiser une chaîne ou traiter un engorgement.",
+      "Courte",
+      "Instance",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-049",
+      "Instance",
+      "Éclat de Fêlure",
+      "Traverser, éviter, observer et collecter en mode réflexe ou tactique.",
+      "Courte",
+      "Instance",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-050",
+      "Instance",
+      "Éclat d’infiltration",
+      "Choix successifs de chemin, outil, risque, objectif et retrait.",
+      "Courte",
+      "Instance",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-051",
+      "Instance",
+      "Éclat de veillée",
+      "Assembler mots, symboles, souvenirs ou noms.",
+      "Courte",
+      "Instance",
+      "MVP",
+      "Décision définitive"
+    ],
+    [
+      "MEC-052",
+      "Instance",
+      "Éclat asynchrone",
+      "Plusieurs joueurs ajoutent une étape sans connexion simultanée.",
+      "Moyenne",
+      "Groupe",
+      "MVP",
+      "Décision définitive"
+    ],
+    [
+      "MEC-053",
+      "Accessibilité",
+      "Temps de session",
+      "Le joueur choisit visite rapide, session normale ou approfondie.",
+      "Courte",
+      "Interface",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-054",
+      "Accessibilité",
+      "Résumé de retour",
+      "Répondre à ce qui a changé, ce qui compte, ce qui est perdu et quoi faire maintenant.",
+      "Courte",
+      "Interface",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-055",
+      "Accessibilité",
+      "Épingler une tâche",
+      "Une seule intention active peut être mise en avant.",
+      "Courte",
+      "Interface",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-056",
+      "Accessibilité",
+      "Mode Calme",
+      "Tableaux et cartes sobres, peu d’animations, informations hiérarchisées.",
+      "Continue",
+      "Interface",
+      "MVP",
+      "Décision définitive"
+    ],
+    [
+      "MEC-057",
+      "Accessibilité",
+      "Mode Monde",
+      "Carte illustrée, ambiance et flux animés avec réglages indépendants.",
+      "Continue",
+      "Interface",
+      "MVP",
+      "Décision définitive"
+    ],
+    [
+      "MEC-058",
+      "Wiki",
+      "Chronique automatique",
+      "Les Traces significatives deviennent des entrées chronologiques.",
+      "Continue",
+      "Monde",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-059",
+      "Wiki",
+      "Encyclopédie découverte",
+      "Espèces, lieux, événements et techniques se dévoilent selon les observations.",
+      "Continue",
+      "Monde",
+      "MVP",
+      "Décision définitive"
+    ],
+    [
+      "MEC-060",
+      "Wiki",
+      "Nomenclature participative",
+      "Les noms proposés sont attachés à une provenance et à un périmètre de publication.",
+      "Longue",
+      "Monde",
+      "Après MVP",
+      "Décision provisoire"
+    ]
+  ],
+  "persistent_layers": [
+    [
+      "PER-001",
+      "État intérieur",
+      "Cycles, structures, symbiotes, stocks, services et préférences du corps-cité.",
+      "Action ou minute",
+      "Le joueur",
+      "Aucune perte structurelle pendant l’absence."
+    ],
+    [
+      "PER-002",
+      "État territorial",
+      "Biomes, ressources, protections, espèces, Échos et transformations dans le rayon d’influence.",
+      "Minute à jour",
+      "Le joueur et NPC locaux",
+      "Les effets durables restent; les occasions temporaires expirent sans punition."
+    ],
+    [
+      "PER-003",
+      "État des liens",
+      "Routes biologiques, capacités, quotas, confiance, délégations et Entrelacs.",
+      "Action à heure",
+      "Parties consentantes",
+      "Un lien inactif se met en veille plutôt que de rompre."
+    ],
+    [
+      "PER-004",
+      "État régional",
+      "Santé du biome, infrastructures communes, migrations et projets de groupes.",
+      "Heure à jour",
+      "Région",
+      "Les NPC complètent le service minimal."
+    ],
+    [
+      "PER-005",
+      "État mondial",
+      "Fêlure, Marées, saisons, époque, ressources rares et grandes transformations.",
+      "Jour à semaine",
+      "Serveur",
+      "Aucun reset; passage d’époque avec héritage."
+    ],
+    [
+      "PER-006",
+      "Mémoire",
+      "Chroniques, encyclopédie, noms, cartes, décisions et provenance des connaissances.",
+      "Immédiat",
+      "Public selon droits",
+      "Historique versionné et jamais écrasé silencieusement."
+    ]
+  ],
+  "real_sources": [
+    [
+      "SRC-001",
+      "Open-Meteo Weather Forecast API",
+      "Atmosphère",
+      "Température, pluie, vent, pression, couverture nuageuse",
+      "https://open-meteo.com/en/docs",
+      "Candidat principal",
+      "Pas de clé pour usage non commercial; attribution et licence à vérifier avant production."
+    ],
+    [
+      "SRC-002",
+      "Open-Meteo Marine Weather API",
+      "Océan",
+      "Hauteur, période et direction des vagues; houle et variables marines",
+      "https://open-meteo.com/en/docs/marine-weather-api",
+      "Candidat principal",
+      "Prévisions marines mises à jour régulièrement; cache obligatoire."
+    ],
+    [
+      "SRC-003",
+      "NOAA GFS",
+      "Atmosphère et océan",
+      "Variables atmosphériques, sol, océan et glace de mer",
+      "https://www.ncei.noaa.gov/products/weather-climate-models/global-forecast",
+      "Source secondaire",
+      "Plus complexe à intégrer directement."
+    ],
+    [
+      "SRC-004",
+      "NOAA Tides & Currents",
+      "Côtes",
+      "Niveaux d’eau, observations et séries historiques",
+      "https://tidesandcurrents.noaa.gov/web_services_info.html",
+      "À étudier",
+      "Couverture surtout stations NOAA; utile comme signal indépendant."
+    ],
+    [
+      "SRC-005",
+      "USGS Earthquake Catalog",
+      "Géophysique",
+      "Magnitude, localisation, fréquence et profondeur",
+      "https://earthquake.usgs.gov/fdsnws/event/1/",
+      "Reporté",
+      "À utiliser seulement comme tendance abstraite, jamais comme événement sensationnaliste."
+    ]
+  ],
+  "risks": [
+    [
+      "R-001",
+      "Foisonnement fonctionnel",
+      "Trop de systèmes avant validation de la boucle centrale.",
+      "Critique",
+      "Prototype vertical limité; chaque idée est marquée Prototype/MVP/Après MVP."
+    ],
+    [
+      "R-002",
+      "Abstraction du corps-cité",
+      "Le concept peut être difficile à comprendre ou sembler organique/horrifique.",
+      "Haute",
+      "Direction biomorphique douce, métaphores végétales et minérales, prototype visuel très tôt."
+    ],
+    [
+      "R-003",
+      "Tycoon trop automatisé",
+      "Le joueur pourrait ne plus avoir de décisions intéressantes.",
+      "Haute",
+      "Automatiser la répétition mais créer variations, objectifs et arbitrages."
+    ],
+    [
+      "R-004",
+      "Tycoon trop manuel",
+      "La maintenance devient un emploi et pénalise les absences.",
+      "Critique",
+      "Seuils, règles, NPC, reprise et absence de dégradation punitive."
+    ],
+    [
+      "R-005",
+      "Monde vide au lancement",
+      "Deux joueurs ne couvrent pas les fonctions prévues pour une communauté.",
+      "Critique",
+      "NPC actifs, objectifs recalibrés et cellules préexistantes."
+    ],
+    [
+      "R-006",
+      "Monde saturé à grande échelle",
+      "Des centaines de joueurs rendent la carte illisible.",
+      "Haute",
+      "Carte cellulaire multi-échelle, bourgeonnement et agrégation régionale."
+    ],
+    [
+      "R-007",
+      "Données externes indisponibles",
+      "Panne, changement de licence ou modèle météo.",
+      "Haute",
+      "Cache, normalisation, sources multiples et générateur de repli déterministe."
+    ],
+    [
+      "R-008",
+      "Données réelles perçues comme aléatoires parfaites",
+      "La météo est imprévisible mais pas un générateur cryptographique.",
+      "Moyenne",
+      "Présenter le mécanisme comme un Souffle du monde reproductible, pas comme hasard pur."
+    ],
+    [
+      "R-009",
+      "Communication trop limitée",
+      "Les joueurs pourraient manquer de chaleur humaine sans texte libre.",
+      "Haute",
+      "Phrases empathiques, cadeaux, chroniques, réactions nuancées et liens privilégiés."
+    ],
+    [
+      "R-010",
+      "Communication détournée",
+      "Les combinaisons de noms ou propositions pourraient servir au harcèlement.",
+      "Moyenne",
+      "Lexiques contrôlés, droits de publication, blocage et audit."
+    ],
+    [
+      "R-011",
+      "Gouvernance lente",
+      "Trop de propositions et votes.",
+      "Haute",
+      "Périmètres privés, décisions automatiques, délais et contre-propositions limitées."
+    ],
+    [
+      "R-012",
+      "Nouveaux joueurs décoratifs",
+      "Le niveau finit malgré tout par dominer.",
+      "Critique",
+      "Rendement décroissant, bonus de diversité et aptitude de plasticité des jeunes cités."
+    ],
+    [
+      "R-013",
+      "Wiki illisible",
+      "L’accumulation automatique produit du bruit.",
+      "Moyenne",
+      "Entrées synthétiques, niveaux de lecture, tags et archivage par époque."
+    ],
+    [
+      "R-014",
+      "Charge de modération future",
+      "La publication créative ouverte exige une équipe.",
+      "Critique",
+      "Pas de contenu public libre au MVP; préparation des permissions et de la provenance."
+    ]
+  ],
+  "questions": [
+    [
+      "Q-001",
+      "Concept",
+      "Le corps-cité devient-il le concept définitif ou seulement une faction/forme jouable ?",
+      "Critique",
+      "Prototype papier et maquette visuelle."
+    ],
+    [
+      "Q-002",
+      "Représentation",
+      "Le corps-cité se déplace-t-il physiquement sur la carte ou projette-t-il un avatar mobile ?",
+      "Critique",
+      "Comparer lisibilité RPG et tycoon."
+    ],
+    [
+      "Q-003",
+      "Échelle intérieure",
+      "Voit-on des habitants individuels, des populations abstraites ou des symbiotes nommés ?",
+      "Haute",
+      "Tester 3 à 5 figures nommées plus flux agrégés."
+    ],
+    [
+      "Q-004",
+      "Carte",
+      "Quelle forme prend une cellule et comment les zones d’influence se chevauchent-elles visuellement ?",
+      "Haute",
+      "Prototype hexagonal/organique."
+    ],
+    [
+      "Q-005",
+      "Économie",
+      "Quelles trois ressources suffisent au premier prototype ?",
+      "Critique",
+      "Matière, énergie, mémoire comme hypothèse."
+    ],
+    [
+      "Q-006",
+      "Événement",
+      "Quel premier Écho démontre combat, adaptation et transcendance ?",
+      "Critique",
+      "Concevoir un événement vertical complet."
+    ],
+    [
+      "Q-007",
+      "Commerce",
+      "Les échanges utilisent-ils troc automatique, crédits communs ou demandes ciblées ?",
+      "Haute",
+      "Tester troc par quotas sans monnaie."
+    ],
+    [
+      "Q-008",
+      "NPC",
+      "À quel point les cités NPC évoluent-elles sans joueur ?",
+      "Haute",
+      "Service minimal plus traits persistants."
+    ],
+    [
+      "Q-009",
+      "Social",
+      "Combien d’organisations simultanées restent lisibles : 2, 3 ou 4 ?",
+      "Moyenne",
+      "Test utilisateur ultérieur."
+    ],
+    [
+      "Q-010",
+      "Persistance",
+      "Quelle durée réelle correspond à une époque d’Avelune ?",
+      "Moyenne",
+      "4 à 8 semaines comme plage initiale."
+    ],
+    [
+      "Q-011",
+      "Données réelles",
+      "Quels points fixes marins et terrestres composent le Souffle du monde ?",
+      "Moyenne",
+      "Choisir 8 à 12 points répartis globalement."
+    ],
+    [
+      "Q-012",
+      "Wiki",
+      "Le wiki est-il diégétique dans le jeu, documentaire hors jeu, ou les deux ?",
+      "Haute",
+      "Prévoir une base commune avec deux présentations."
+    ],
+    [
+      "Q-013",
+      "Visuel",
+      "Quel degré de cute et de lisibilité évite le body horror ?",
+      "Critique",
+      "Moodboard et silhouettes abstraites."
+    ],
+    [
+      "Q-014",
+      "MVP",
+      "Quelles fonctions doivent être simulées avant tout développement graphique ?",
+      "Critique",
+      "Flux, événement, adaptation, commerce automatique."
+    ]
+  ],
+  "vocabulary": [
+    [
+      "Jeu",
+      "Les Lisières d’Avelune",
+      "Titre définitif"
+    ],
+    [
+      "Monde",
+      "Avelune",
+      "Nom du monde"
+    ],
+    [
+      "Centre transformateur",
+      "La Fêlure",
+      "Nom provisoire"
+    ],
+    [
+      "Événement global",
+      "Marée de Possibles",
+      "Nom provisoire"
+    ],
+    [
+      "Événement local",
+      "Écho / Pli / Résurgence",
+      "À trancher"
+    ],
+    [
+      "Personnage-cité",
+      "Corps-cité / Corps-Monde / Cité vivante",
+      "À trancher"
+    ],
+    [
+      "Zone personnelle",
+      "Écotone / Rayon d’influence",
+      "Nom provisoire"
+    ],
+    [
+      "Action persistante",
+      "Trace",
+      "Nom provisoire"
+    ],
+    [
+      "Mini-instance",
+      "Éclat",
+      "Proposition forte"
+    ],
+    [
+      "Lien privilégié",
+      "Entrelacs",
+      "Proposition forte"
+    ],
+    [
+      "Organisation générique",
+      "Écosystème",
+      "Proposition forte"
+    ],
+    [
+      "Organisation autonome",
+      "Récif",
+      "Proposition"
+    ],
+    [
+      "Organisation contributive",
+      "Essaim",
+      "Proposition"
+    ],
+    [
+      "Organisation mobile",
+      "Banc",
+      "Proposition"
+    ],
+    [
+      "Organisation productive",
+      "Colonie",
+      "Proposition"
+    ],
+    [
+      "Organisation culturelle",
+      "Mycélium",
+      "Proposition"
+    ],
+    [
+      "Petit partenariat",
+      "Symbiose",
+      "Proposition"
+    ],
+    [
+      "Données planétaires",
+      "Souffle du monde",
+      "Proposition forte"
+    ],
+    [
+      "Spécialiste infiltration",
+      "Passe-brèche",
+      "Proposition forte"
+    ]
+  ]
+}

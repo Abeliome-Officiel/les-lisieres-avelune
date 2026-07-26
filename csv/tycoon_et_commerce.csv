@@ -1,0 +1,9 @@
+ID;Sous-système;Élément;Description;Statut décisionnel;Phase
+TYC-001;Production;Cycles métaboliques;Transformer matière, énergie et mémoire dans des nœuds intérieurs.;Décision définitive;Prototype
+TYC-002;Automatisation;Règles et seuils;Réserves minimales, quotas, priorités et destinations de secours.;Décision définitive;Prototype
+TYC-003;Commerce;Ressources échangeables;Le joueur choisit quoi, combien et avec quelle réserve minimale.;Décision définitive;Prototype
+TYC-004;Transport;Routage automatique;Le jeu sélectionne les liens compatibles selon capacité et priorité.;Décision définitive;Prototype
+TYC-005;Solo;Marchés NPC;Les NPC garantissent une économie viable sans partenaire joueur.;Décision définitive;Prototype
+TYC-006;Collaboratif;Ouverture de services;Le joueur peut rendre un atelier, un soin ou un relais disponible.;Décision définitive;MVP
+TYC-007;Équilibrage;Résilience;La redondance et la diversité sont aussi valables que le rendement.;Décision définitive;MVP
+TYC-008;Nouveaux;Plasticité;Les jeunes cités s’adaptent mieux aux nouveautés et premières contributions.;Décision provisoire;Prototype

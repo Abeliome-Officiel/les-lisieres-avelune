@@ -1,0 +1,7 @@
+﻿ID;Couche;Contenu;Fréquence;Responsable;Absence
+PER-001;État intérieur;Cycles, structures, symbiotes, stocks, services et préférences du corps-cité.;Action ou minute;Le joueur;Aucune perte structurelle pendant l’absence.
+PER-002;État territorial;Biomes, ressources, protections, espèces, Échos et transformations dans le rayon d’influence.;Minute à jour;Le joueur et NPC locaux;"Les effets durables restent; les occasions temporaires expirent sans punition."
+PER-003;État des liens;Routes biologiques, capacités, quotas, confiance, délégations et Entrelacs.;Action à heure;Parties consentantes;Un lien inactif se met en veille plutôt que de rompre.
+PER-004;État régional;Santé du biome, infrastructures communes, migrations et projets de groupes.;Heure à jour;Région;Les NPC complètent le service minimal.
+PER-005;État mondial;Fêlure, Marées, saisons, époque, ressources rares et grandes transformations.;Jour à semaine;Serveur;"Aucun reset; passage d’époque avec héritage."
+PER-006;Mémoire;Chroniques, encyclopédie, noms, cartes, décisions et provenance des connaissances.;Immédiat;Public selon droits;Historique versionné et jamais écrasé silencieusement.

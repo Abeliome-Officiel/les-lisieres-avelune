@@ -1,0 +1,61 @@
+﻿ID;Domaine;Nom;Description;Boucle;Portée;Phase;Statut décisionnel
+MEC-001;Boucle;Action locale;Placer, réparer, produire, observer, soigner, nommer ou aider en quelques minutes.;Courte;Territoire;Prototype;Décision définitive
+MEC-002;Boucle;Session thématique;Choisir gestion, expédition, atelier, récit ou projet collectif selon le temps disponible.;Session;Joueur;Prototype;Décision définitive
+MEC-003;Boucle;Marée globale;Un phénomène traverse plusieurs cellules avec sous-objectifs indépendants et résolution graduée.;Longue;Monde;MVP;Décision définitive
+MEC-004;Boucle;Écho local;Une anomalie secondaire se forme en fonction de l’écosystème et des habitudes du joueur.;Moyenne;Territoire;Prototype;Décision provisoire
+MEC-005;Boucle;Époque;Une période de plusieurs semaines transforme les règles et laisse des traces sans reset.;Très longue;Monde;Après MVP;Décision provisoire
+MEC-006;Tycoon;Cycles métaboliques;Les chaînes de production deviennent des cycles de matière, énergie, soin, mémoire et culture.;Continue;Intérieur;Prototype;Décision provisoire
+MEC-007;Tycoon;Nœuds de transformation;Les bâtiments sont des chambres, jardins, ateliers symbiotiques ou organes fictionnels.;Continue;Intérieur;Prototype;Décision provisoire
+MEC-008;Tycoon;Flux visibles;Chaque ressource circule et les engorgements sont lisibles sans menus opaques.;Continue;Intérieur;Prototype;Décision provisoire
+MEC-009;Tycoon;Priorités automatiques;"Le joueur définit seuils, réserves, quotas et priorités; le système exécute.";Continue;Intérieur;Prototype;Décision provisoire
+MEC-010;Tycoon;Services;Accueil, soin, orientation, culture et formation ont leurs propres files et capacités.;Continue;Intérieur;MVP;Décision provisoire
+MEC-011;Tycoon;Résilience;Redondance, diversité et stockage souple valent autant que le rendement maximal.;Continue;Territoire;MVP;Décision provisoire
+MEC-012;Commerce;Catalogue d’échange;Le joueur choisit les ressources exportables, quantités, réserves minimales et contreparties acceptées.;Continue;Réseau;Prototype;Décision définitive
+MEC-013;Commerce;Routage automatique;Les liens disponibles exécutent les échanges selon capacité, coût et priorité.;Continue;Réseau;Prototype;Décision définitive
+MEC-014;Commerce;Mode indépendant;Les NPC assurent une offre et une demande de base pour un joueur sans partenaires humains.;Continue;Réseau;Prototype;Décision définitive
+MEC-015;Commerce;Mode collaboratif;Les joueurs ouvrent volontairement certains flux ou services à des partenaires et groupes.;Continue;Réseau;MVP;Décision définitive
+MEC-016;Carte;Écotone d’influence;"Le corps-cité transforme un rayon non exclusif autour de lui; les influences se composent.";Continue;Territoire;Prototype;Décision provisoire
+MEC-017;Carte;Bourgeonnement;Une cellule mature peut créer une cellule fille NPC ou un emplacement d’accueil joueur.;Très longue;Région;MVP;Décision provisoire
+MEC-018;Carte;Fusion NPC;Un joueur peut intégrer progressivement une cité NPC tout en conservant son histoire.;Très longue;Territoire;Après MVP;Décision provisoire
+MEC-019;Carte;Symbiose de joueurs;Des zones de chevauchement créent des fonctions communes réversibles sans fusion de comptes.;Longue;Réseau;Après MVP;Décision provisoire
+MEC-020;Événement;Hostile;Prédateurs, entités destructrices ou perturbations attaquent les flux et protections.;Moyenne;Variable;Prototype;Décision provisoire
+MEC-021;Événement;Migration;Des êtres cherchent passage, refuge, orientation ou transformation.;Moyenne;Variable;Prototype;Décision provisoire
+MEC-022;Événement;Climatique;Tempêtes magiques, sécheresses, brouillards ou courants modifient les règles locales.;Moyenne;Variable;Prototype;Décision provisoire
+MEC-023;Événement;Culturel;Mots, chants, souvenirs et identités demandent interprétation ou conservation.;Moyenne;Variable;MVP;Décision provisoire
+MEC-024;Événement;Positif;Floraison, pluie fertile, sanctuaire, visite rare ou découverte enrichissent le monde.;Moyenne;Variable;Prototype;Décision définitive
+MEC-025;Événement;Transformateur;Une espèce, une route ou une ressource change durablement.;Longue;Variable;MVP;Décision provisoire
+MEC-026;Événement;Adaptatif;Les contre-mesures fréquentes augmentent la probabilité de variantes contournant les habitudes.;Longue;Variable;Après MVP;Décision provisoire
+MEC-027;Résolution;Combat;Protection, interception, contrôle du terrain ou destruction limitée.;Courte;Instance;Prototype;Décision provisoire
+MEC-028;Résolution;Canalisation;Modifier route, intensité, forme ou vitesse d’une Marée.;Moyenne;Variable;Prototype;Décision provisoire
+MEC-029;Résolution;Accueil;Créer une capacité d’hébergement, soin, intégration ou migration.;Moyenne;Territoire;MVP;Décision provisoire
+MEC-030;Résolution;Recherche;Identifier propriétés, vulnérabilités, histoires et conséquences.;Moyenne;Monde;Prototype;Décision provisoire
+MEC-031;Résolution;Art et rituel;Nommer, composer ou interpréter pour transformer un phénomène symbolique.;Moyenne;Variable;Après MVP;Décision provisoire
+MEC-032;Résolution;Transcendance;Convertir un événement en ressource, relation, espèce, connaissance ou infrastructure durable.;Longue;Variable;MVP;Décision provisoire
+MEC-033;RPG;Fiche du corps-cité;Le personnage possède affinités, perceptions, relations, compétences et état intérieur.;Continue;Joueur;Prototype;Décision provisoire
+MEC-034;RPG;Forme animale;La forme influence perception et interactions environnementales sans verrou de classe.;Continue;Joueur;MVP;Décision provisoire
+MEC-035;RPG;Vocations;Les rôles se développent par pratique et peuvent être réorientés.;Continue;Joueur;Prototype;Décision provisoire
+MEC-036;RPG;Passe-brèche;Infiltration, chemins temporaires, récupération et retrait anticipé.;Courte;Instance;Prototype;Décision provisoire
+MEC-037;RPG;Entrelacs;Deux à quatre joueurs partagent refuge, continuité autorisée et récits spécifiques.;Longue;Social;Après MVP;Décision provisoire
+MEC-038;Social;Proposition CNV;Formulaire Observation → Impact → Besoin → Proposition → Coût → Durée → Réversibilité.;Moyenne;Groupe;Prototype;Décision définitive
+MEC-039;Social;Contre-proposition bornée;"Modifier quelques paramètres; nombre et délai de contre-propositions limités.";Moyenne;Groupe;MVP;Décision définitive
+MEC-040;Social;Réponses choisies;Soutenir, proposer un essai, demander une estimation, s’abstenir ou contribuer.;Courte;Groupe;Prototype;Décision définitive
+MEC-041;Social;Organisation Récif;Autonomie forte et infrastructures communes résilientes.;Longue;Groupe;MVP;Décision provisoire
+MEC-042;Social;Organisation Essaim;Accumulation de petites contributions courtes.;Longue;Groupe;MVP;Décision provisoire
+MEC-043;Social;Organisation Banc;Coordination temporaire autour d’un mouvement ou événement.;Moyenne;Groupe;MVP;Décision provisoire
+MEC-044;Social;Organisation Colonie;Chaînes de production, ateliers et spécialisation.;Longue;Groupe;MVP;Décision provisoire
+MEC-045;Social;Organisation Mycélium;Connaissance, archives, art, noms et transmission.;Longue;Groupe;MVP;Décision provisoire
+MEC-046;Social;Organisation Symbiose;Petit réseau de territoires très complémentaires.;Longue;Groupe;MVP;Décision provisoire
+MEC-047;Instance;Éclat de route;Optimiser rapidement un trajet, une cargaison ou une priorité.;Courte;Instance;Prototype;Décision définitive
+MEC-048;Instance;Éclat d’atelier;Réorganiser une chaîne ou traiter un engorgement.;Courte;Instance;Prototype;Décision définitive
+MEC-049;Instance;Éclat de Fêlure;Traverser, éviter, observer et collecter en mode réflexe ou tactique.;Courte;Instance;Prototype;Décision définitive
+MEC-050;Instance;Éclat d’infiltration;Choix successifs de chemin, outil, risque, objectif et retrait.;Courte;Instance;Prototype;Décision définitive
+MEC-051;Instance;Éclat de veillée;Assembler mots, symboles, souvenirs ou noms.;Courte;Instance;MVP;Décision définitive
+MEC-052;Instance;Éclat asynchrone;Plusieurs joueurs ajoutent une étape sans connexion simultanée.;Moyenne;Groupe;MVP;Décision définitive
+MEC-053;Accessibilité;Temps de session;Le joueur choisit visite rapide, session normale ou approfondie.;Courte;Interface;Prototype;Décision définitive
+MEC-054;Accessibilité;Résumé de retour;Répondre à ce qui a changé, ce qui compte, ce qui est perdu et quoi faire maintenant.;Courte;Interface;Prototype;Décision définitive
+MEC-055;Accessibilité;Épingler une tâche;Une seule intention active peut être mise en avant.;Courte;Interface;Prototype;Décision définitive
+MEC-056;Accessibilité;Mode Calme;Tableaux et cartes sobres, peu d’animations, informations hiérarchisées.;Continue;Interface;MVP;Décision définitive
+MEC-057;Accessibilité;Mode Monde;Carte illustrée, ambiance et flux animés avec réglages indépendants.;Continue;Interface;MVP;Décision définitive
+MEC-058;Wiki;Chronique automatique;Les Traces significatives deviennent des entrées chronologiques.;Continue;Monde;Prototype;Décision définitive
+MEC-059;Wiki;Encyclopédie découverte;Espèces, lieux, événements et techniques se dévoilent selon les observations.;Continue;Monde;MVP;Décision définitive
+MEC-060;Wiki;Nomenclature participative;Les noms proposés sont attachés à une provenance et à un périmètre de publication.;Longue;Monde;Après MVP;Décision provisoire

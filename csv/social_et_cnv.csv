@@ -1,0 +1,11 @@
+ID;Domaine;Élément;Description;Statut décisionnel
+SOC-001;Communication;Proposition structurée;Observation, impact, besoin, proposition, coût, durée et réversibilité.;Décision définitive
+SOC-002;Communication;Contre-proposition;Modification bornée de paramètres sans discussion libre.;Décision définitive
+SOC-003;Communication;Réponses choisies;Soutenir, tester, estimer, s’abstenir ou contribuer.;Décision définitive
+SOC-004;Organisation;Récif;Autonomie et biens communs.;Décision provisoire
+SOC-005;Organisation;Essaim;Petites contributions rapides.;Décision provisoire
+SOC-006;Organisation;Banc;Coordination temporaire.;Décision provisoire
+SOC-007;Organisation;Colonie;Production et automatisation.;Décision provisoire
+SOC-008;Organisation;Mycélium;Connaissance, art et transmission.;Décision provisoire
+SOC-009;Organisation;Symbiose;Petit réseau complémentaire.;Décision provisoire
+SOC-010;Relations;Entrelacs;Lien privilégié de deux à quatre joueurs, non normatif.;Décision provisoire
