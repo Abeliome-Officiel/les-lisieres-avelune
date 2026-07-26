@@ -1,53 +1,23 @@
-# Feuille de route — Les Lisières d’Avelune
+# Feuille de route v0.5
 
-## Étape 0 — Consolider la vision
+## Étape actuelle - Revue de conception
 
-- relire le book et le registre des décisions ;
-- modifier les statuts décisionnels dans le classeur ;
-- trancher la place du corps-cité : concept central, forme jouable ou métaphore ;
-- choisir les trois ressources du prototype ;
-- définir le premier Écho vertical.
+- lire les arbitrages prioritaires ;
+- valider, invalider, modifier ou reporter les décisions ;
+- signaler les mécanismes trop complexes ou inutiles ;
+- confirmer le périmètre du prototype.
 
-## Étape 1 — Prototype de règles sans graphismes
+## Étape suivante - Architecture ludique lisible
 
-Objectif : vérifier la boucle `production → automatisation → événement → adaptation → Trace`.
+1. arbre technologique intérieur ;
+2. arbre d’évolution de l’écotone ;
+3. arbre commercial du Hub racinaire ;
+4. arbre d’adaptation aux crises ;
+5. arbre d’exploration ;
+6. matrice complète des interactions et dépendances.
 
-- simuler une vue intérieure du corps-cité ;
-- créer quatre nœuds de transformation ;
-- créer une cellule extérieure et un partenaire NPC ;
-- implémenter un catalogue d’échanges et un routage automatique ;
-- produire trois qualités de résolution : protection, adaptation et transcendance ;
-- simuler une période d’absence et le résumé de retour.
+## Ensuite
 
-## Étape 2 — Prototype navigateur vertical
-
-- interface calme et responsive ;
-- vue intérieure et vue des Lisières ;
-- premier Éclat court avec alternative tactique ;
-- journal de Traces et page de wiki générée ;
-- fonctionnement avec un joueur, deux joueurs ou des partenaires simulés.
-
-## Étape 3 — Test de la coopération asynchrone
-
-- propositions et contre-propositions structurées ;
-- ressources et services ouverts volontairement ;
-- événement régional calibré selon la capacité active probable ;
-- aucune discussion libre ni modération publique.
-
-## Étape 4 — Persistance élargie
-
-- croissance cellulaire par bourgeonnement ;
-- régions et époques sans remise à zéro ;
-- intégration de cités NPC ;
-- encyclopédie et chroniques du monde ;
-- premières données atmosphériques et marines multisources.
-
-## Hors périmètre initial
-
-- chat, forum, commentaires et messages privés ;
-- créations publiques libres ;
-- application mobile native ;
-- interaction par courriel ;
-- calcul distribué ;
-- grandes guildes ;
-- intelligence adaptative complexe.
+- simulation algorithmique dans le tableur ;
+- prototype navigateur sans graphismes complexes ;
+- tests de lisibilité, équilibre, solo et dormance.

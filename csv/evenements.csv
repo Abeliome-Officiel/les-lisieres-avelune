@@ -1,9 +1,0 @@
-ID;Famille;Durée;Réponses principales;Phase
-EVT-001;Hostile;Variable;Défendre, détourner, ralentir;Prototype
-EVT-002;Migration;Variable;Observer, guider, accueillir;Prototype
-EVT-003;Environnemental;Ponctuel ou durable;Adapter le territoire, canaliser;Prototype
-EVT-004;Culturel;Ponctuel ou durable;Interpréter, nommer, archiver;MVP
-EVT-005;Logistique;Ponctuel;Reconfigurer les réseaux;Prototype
-EVT-006;Positif;Ponctuel ou durable;Cultiver, partager, protéger;Prototype
-EVT-007;Transformateur;Durable;Accompagner, contenir, transcender;MVP
-EVT-008;Écho local;Adapté au joueur;Résoudre seul, déléguer ou accepter une issue moindre;Prototype

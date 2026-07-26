@@ -1,11 +1,13 @@
 {
   "project": "Les Lisières d’Avelune",
-  "version": "0.4",
+  "version": "0.5",
   "date": "2026-07-26",
   "statuses": [
     "Décision définitive",
     "Décision provisoire",
-    "Décision reportée"
+    "Décision reportée",
+    "Proposition écartée",
+    "À décider"
   ],
   "priorities": [
     "Critique",
@@ -34,8 +36,8 @@
     [
       "DEC-002",
       "Éthique",
-      "Aucun conflit entre joueurs",
-      "Aucun PvP, pillage, attaque de territoire ou destruction provoquée par un autre joueur.",
+      "Aucun conflit imposé entre joueurs",
+      "Le monde principal interdit pillage, attaque de territoire et confrontation forcée; un PvP volontaire pourra être étudié séparément.",
       "Décision définitive",
       "Critique",
       "MVP",
@@ -780,6 +782,136 @@
       "Haute",
       "MVP",
       "Carte"
+    ],
+    [
+      "DEC-077",
+      "Comptes",
+      "Une incarnation secondaire autorisée",
+      "Un compte joueur peut posséder une incarnation principale et une seule incarnation secondaire officiellement rattachée.",
+      "Décision provisoire",
+      "Haute",
+      "MVP",
+      "Authentification"
+    ],
+    [
+      "DEC-078",
+      "Comptes",
+      "Limiter les abus de la seconde incarnation",
+      "Une seule voix par personne, aucune validation mutuelle, aucun affrontement entre ses incarnations et aucun transfert direct de ressources.",
+      "Décision provisoire",
+      "Critique",
+      "MVP",
+      "Économie et votes"
+    ],
+    [
+      "DEC-079",
+      "PvP",
+      "PvP volontaire et instancié",
+      "Le moteur peut accueillir plus tard des épreuves PvP volontaires, sans pillage, perte durable ni avantage indispensable.",
+      "Décision reportée",
+      "Moyenne",
+      "Après MVP",
+      "Moteur de résolution"
+    ],
+    [
+      "DEC-080",
+      "Terrain",
+      "Monde cellulaire écologique",
+      "Le monde est divisé en cellules possédant des propriétés de sol, climat, magie, mémoire, accessibilité et ressources.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Carte"
+    ],
+    [
+      "DEC-081",
+      "Terrain",
+      "Écotone autour du corps-cité",
+      "Chaque corps-cité influence une zone non exclusive autour de son ancrage.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Corps-cité"
+    ],
+    [
+      "DEC-082",
+      "Terrain",
+      "Interaction des écotones",
+      "Le chevauchement de zones peut créer synergies, tensions ou transformations du terrain, sans sabotage direct.",
+      "Décision provisoire",
+      "Haute",
+      "MVP",
+      "Simulation écologique"
+    ],
+    [
+      "DEC-083",
+      "Déplacement",
+      "Ancrage et incarnation mobile",
+      "Le corps-cité possède un ancrage persistant tandis qu’une incarnation peut explorer et participer aux instances.",
+      "Décision provisoire",
+      "Critique",
+      "Prototype",
+      "RPG"
+    ],
+    [
+      "DEC-084",
+      "Déplacement",
+      "Migration très lente de l’ancrage",
+      "Le déplacement complet du corps-cité est possible comme projet long, sans mobilité tactique rapide.",
+      "Décision provisoire",
+      "Haute",
+      "MVP",
+      "Carte et commerce"
+    ],
+    [
+      "DEC-085",
+      "Terrain",
+      "Zones favorables, difficiles et saisonnières",
+      "Les secteurs peuvent être propices ou défavorables selon leurs propriétés, les saisons et les phénomènes mobiles.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Événements"
+    ],
+    [
+      "DEC-086",
+      "Formes",
+      "Affinités sans verrouillage",
+      "Les formes animales et affinités modifient les facilités d’interaction sans interdire définitivement une activité.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Progression"
+    ],
+    [
+      "DEC-087",
+      "Difficulté",
+      "Nœuds de crise semi-bloquants",
+      "Certaines difficultés bloquent une branche d’évolution jusqu’à observation, essais et maîtrise, mais jamais tout le compte.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Progression"
+    ],
+    [
+      "DEC-088",
+      "Difficulté",
+      "Échec informatif",
+      "Un essai infructueux apporte une information, élimine une hypothèse ou améliore une tentative future.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Éthique"
+    ],
+    [
+      "DEC-089",
+      "Interface",
+      "Carte générale et vue intérieure fixe",
+      "Le prototype emploie une carte générale cliquable et une vue fixe interne du corps-cité, inspirée des interfaces anciennes de RPG.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "UX"
     ]
   ],
   "principles": [
@@ -1444,6 +1576,86 @@
       "Monde",
       "Après MVP",
       "Décision provisoire"
+    ],
+    [
+      "MEC-061",
+      "Compte",
+      "Incarnation secondaire",
+      "Un compte possède au maximum deux incarnations séparées et identifiées.",
+      "Longue",
+      "Compte",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-062",
+      "Terrain",
+      "Propriétés cellulaires",
+      "Chaque cellule stocke ses caractéristiques écologiques, ressources, état saisonnier et influences.",
+      "Continue",
+      "Monde",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-063",
+      "Terrain",
+      "Propagation d’écotone",
+      "L’influence du corps-cité se diffuse dans les cellules proches selon portée et intensité.",
+      "Cycle",
+      "Territoire",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-064",
+      "Terrain",
+      "Interaction d’influences",
+      "Deux influences compatibles ou tendues modifient progressivement le sol.",
+      "Cycle",
+      "Région",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-065",
+      "Déplacement",
+      "Incarnation mobile",
+      "La projection ou incarnation parcourt la carte et déclenche exploration et instances.",
+      "Session",
+      "Joueur",
+      "Prototype",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-066",
+      "Déplacement",
+      "Migration de l’ancrage",
+      "Un projet long déplace l’ancrage et réorganise les liens.",
+      "Longue",
+      "Territoire",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-067",
+      "Difficulté",
+      "Nœud de crise",
+      "Une branche est limitée jusqu’à collecte d’indices, essais et maîtrise.",
+      "Moyenne",
+      "Joueur",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-068",
+      "Interface",
+      "Deux vues",
+      "Carte générale cliquable puis panneau intérieur fixe du corps-cité.",
+      "Session",
+      "Joueur",
+      "Prototype",
+      "Décision définitive"
     ]
   ],
   "persistent_layers": [
@@ -1641,6 +1853,27 @@
       "La publication créative ouverte exige une équipe.",
       "Critique",
       "Pas de contenu public libre au MVP; préparation des permissions et de la provenance."
+    ],
+    [
+      "R-015",
+      "Double incarnation exploitable",
+      "Le second personnage peut servir à voter, transférer ou contourner les limites.",
+      "Critique",
+      "Compte unique, restrictions mécaniques et ressources séparées."
+    ],
+    [
+      "R-016",
+      "Terrain trop complexe",
+      "Trop de propriétés et d’interactions rendent la carte illisible.",
+      "Critique",
+      "Limiter les propriétés actives et afficher des couches."
+    ],
+    [
+      "R-017",
+      "Blocage frustrant",
+      "Les Nœuds de crise peuvent immobiliser un joueur.",
+      "Haute",
+      "Bloquer une branche seulement et rendre chaque essai informatif."
     ]
   ],
   "questions": [
@@ -1741,6 +1974,34 @@
       "Quelles fonctions doivent être simulées avant tout développement graphique ?",
       "Critique",
       "Flux, événement, adaptation, commerce automatique."
+    ],
+    [
+      "Q-015",
+      "Comptes",
+      "À quel moment l’incarnation secondaire est-elle débloquée et quelles limites doivent être partagées ?",
+      "Haute",
+      "Définir les règles anti-abus."
+    ],
+    [
+      "Q-016",
+      "Carte",
+      "Carrés, hexagones ou cellules organiques pour l’affichage et les calculs ?",
+      "Critique",
+      "Comparer coûts techniques et lisibilité."
+    ],
+    [
+      "Q-017",
+      "Déplacement",
+      "Quelle vitesse réelle de migration rend la géographie importante sans enfermer le joueur ?",
+      "Haute",
+      "Simuler plusieurs durées."
+    ],
+    [
+      "Q-018",
+      "Crises",
+      "Quel premier Nœud de crise démontre observation, essais et dépassement ?",
+      "Critique",
+      "Concevoir un cas de test."
     ]
   ],
   "vocabulary": [
@@ -1838,6 +2099,241 @@
       "Spécialiste infiltration",
       "Passe-brèche",
       "Proposition forte"
+    ],
+    [
+      "Compte",
+      "Incarnation secondaire",
+      "Proposition forte"
+    ],
+    [
+      "Difficulté",
+      "Nœud de crise",
+      "Retenu"
+    ],
+    [
+      "Zone d’influence",
+      "Écotone",
+      "Retenu"
     ]
+  ],
+  "review_options": [
+    "À examiner",
+    "Validée",
+    "Invalidée",
+    "À modifier",
+    "Reportée"
+  ],
+  "work_options": [
+    "Non commencé",
+    "À préciser",
+    "À tester",
+    "En cours",
+    "Bloqué",
+    "Terminé"
+  ],
+  "interactions": [
+    [
+      "INT-001",
+      "Corps-cité",
+      "Hexagones",
+      "Le corps-cité s’ancre dans une cellule et influence les voisines.",
+      "Bidirectionnelle",
+      "Critique",
+      "Prototype"
+    ],
+    [
+      "INT-002",
+      "Corps-cité",
+      "Écotone",
+      "Les choix intérieurs modifient portée et nature de l’écotone.",
+      "Sortante",
+      "Critique",
+      "Prototype"
+    ],
+    [
+      "INT-003",
+      "Écotone",
+      "Terrain",
+      "L’écotone modifie progressivement certaines propriétés de cellules.",
+      "Sortante",
+      "Critique",
+      "Prototype"
+    ],
+    [
+      "INT-004",
+      "Terrain",
+      "Production",
+      "Les propriétés de la cellule favorisent ou renchérissent certaines productions.",
+      "Entrante",
+      "Critique",
+      "Prototype"
+    ],
+    [
+      "INT-005",
+      "Voiles",
+      "Terrain",
+      "Un Voile modifie temporairement les propriétés et la visibilité.",
+      "Sortante",
+      "Haute",
+      "Prototype"
+    ],
+    [
+      "INT-006",
+      "Voiles",
+      "Corps-cité",
+      "Les affinités du corps-cité déterminent si l’effet est favorable ou difficile.",
+      "Bidirectionnelle",
+      "Haute",
+      "Prototype"
+    ],
+    [
+      "INT-007",
+      "Hub racinaire",
+      "Distance",
+      "La distance limite portée, coût et débit des liens.",
+      "Entrante",
+      "Critique",
+      "Prototype"
+    ],
+    [
+      "INT-008",
+      "Hub racinaire",
+      "Dormance",
+      "Le passage en dormance réduit le débit des liens maintenus.",
+      "Entrante",
+      "Critique",
+      "Prototype"
+    ],
+    [
+      "INT-009",
+      "NPC",
+      "Commerce",
+      "Les NPC garantissent des partenaires de base et évoluent lentement.",
+      "Bidirectionnelle",
+      "Haute",
+      "Prototype"
+    ],
+    [
+      "INT-010",
+      "Nœud de crise",
+      "Arbre d’évolution",
+      "Une crise peut bloquer une branche jusqu’à maîtrise.",
+      "Sortante",
+      "Critique",
+      "Prototype"
+    ],
+    [
+      "INT-011",
+      "Époque",
+      "NPC",
+      "Une fin de chapitre peut changer l’orientation de certains NPC.",
+      "Sortante",
+      "Haute",
+      "MVP"
+    ],
+    [
+      "INT-012",
+      "Époque",
+      "Terrain",
+      "Le chapitre peut modifier durablement des propriétés régionales.",
+      "Sortante",
+      "Haute",
+      "MVP"
+    ],
+    [
+      "INT-013",
+      "Confluence",
+      "Quêtes",
+      "Une cité collaborative peut proposer des activités et instances.",
+      "Sortante",
+      "Moyenne",
+      "MVP"
+    ],
+    [
+      "INT-014",
+      "Symbiose",
+      "Instance",
+      "Le lien temporaire ouvre ou facilite une instance commune.",
+      "Sortante",
+      "Haute",
+      "MVP"
+    ],
+    [
+      "INT-015",
+      "Double incarnation",
+      "Votes",
+      "Les deux incarnations partagent une seule voix politique.",
+      "Entrante",
+      "Critique",
+      "MVP"
+    ]
+  ],
+  "tree_preparation": [
+    [
+      "ARB-001",
+      "Arbre technologique intérieur",
+      "Cœur du corps-cité",
+      "Production, stockage, automatismes, soins",
+      "Ressources initiales et chaînes",
+      "Prototype",
+      "À préparer"
+    ],
+    [
+      "ARB-002",
+      "Arbre d’évolution de l’écotone",
+      "Influence locale",
+      "Portée, adaptation, protection, transformation du sol",
+      "Hexagones et terrain",
+      "Prototype",
+      "À préparer"
+    ],
+    [
+      "ARB-003",
+      "Arbre commercial",
+      "Hub racinaire",
+      "Ports, débit, portée, règles, secours",
+      "Économie et distance",
+      "Prototype",
+      "À préparer"
+    ],
+    [
+      "ARB-004",
+      "Arbre d’exploration",
+      "Incarnation mobile",
+      "Observation, infiltration, prévision, traversée",
+      "Déplacement et Voiles",
+      "MVP",
+      "À préparer"
+    ],
+    [
+      "ARB-005",
+      "Arbre social",
+      "Confluences",
+      "Projets, services, décisions, quêtes",
+      "Validation du collectif",
+      "MVP",
+      "À préparer"
+    ],
+    [
+      "ARB-006",
+      "Arbre d’adaptation",
+      "Nœuds de crise",
+      "Hypothèses, essais, maîtrise, bifurcations",
+      "Difficulté fertile",
+      "Prototype",
+      "À préparer"
+    ],
+    [
+      "ARB-007",
+      "Arbre de forme",
+      "Forme animale et affinités",
+      "Sens, mobilité, adaptations sans verrouillage",
+      "Identité et équilibrage",
+      "MVP",
+      "À préparer"
+    ]
+  ],
+  "design_log_addenda": [
+    "## Addendum v0.5 - Terrain, mobilité, crises et double incarnation\n\n### Demande de conception\n- Autoriser un compte secondaire unique sans permettre les abus.\n- Prévoir éventuellement une section PvE/PvP sans en faire le coeur du jeu.\n- Donner aux cellules des propensions d'activité et faire interagir les écotones.\n- Étudier une présence fixe ou très lentement mobile dans le monde.\n- Introduire des zones favorables/difficiles et de vraies problématiques semi-bloquantes.\n- Utiliser une carte générale et une vue intérieure fixe pour faciliter le premier prototype.\n\n### Résultat consolidé\nLes décisions DEC-077 à DEC-089 et les mécanismes MEC-061 à MEC-068 ont été ajoutés. Le PvP est reporté; le terrain cellulaire, l'écotone, les crises de branche et la double vue sont intégrés au cadrage.\n"
   ]
 }

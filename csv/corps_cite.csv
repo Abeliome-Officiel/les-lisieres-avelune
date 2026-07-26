@@ -1,9 +1,0 @@
-ID;Type;Élément;Description;Statut décisionnel;Priorité;Prochaine action
-MIC-001;Hypothèse;Avatar = cité vivante;Le personnage contient une vie fourmillante et une économie intérieure.;Décision provisoire;Critique;Prototype papier
-MIC-002;Vue;Intérieur;Cycles, chambres, symbiotes, réserves et automatisations simples.;Décision provisoire;Critique;Maquette de flux
-MIC-003;Vue;Extérieur;Déplacement, écotone, routes biologiques, Échos et Marées.;Décision provisoire;Critique;Maquette de carte
-MIC-004;Représentation;Biomorphisme doux;Végétal, minéral, féerique et abstrait, sans anatomie ni body horror.;Décision définitive;Critique;Moodboard
-MIC-005;Réseau;Filaments commerciaux;Les routes deviennent des liens biologiques entre individus et NPC.;Décision provisoire;Haute;Prototype de routage
-MIC-006;Croissance;Bourgeonnement;Création de cellules filles ou d’emplacements d’accueil.;Décision provisoire;Haute;Simulation
-MIC-007;Coopération;Symbiose réversible;Chevauchement de fonctions sans perte de souveraineté.;Décision provisoire;Moyenne;Après MVP
-MIC-008;Question;Mobilité;Corps-cité mobile ou projection d’un avatar d’action ?;Décision provisoire;Critique;Trancher par prototype

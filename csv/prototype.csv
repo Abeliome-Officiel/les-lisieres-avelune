@@ -1,9 +1,0 @@
-ID;Bloc;Livrable;Priorité;Phase;État de travail
-MVP-001;Vue intérieure;Trois ressources, quatre nœuds et automatisations simples;Critique;Prototype;À tester
-MVP-002;Vue extérieure;Une cellule, un écotone et un lien NPC;Critique;Prototype;À tester
-MVP-003;Écho;Trois voies : protection, adaptation et transcendance;Critique;Prototype;À tester
-MVP-004;Éclat;Instance courte avec mode réflexe et tactique;Haute;Prototype;À tester
-MVP-005;Commerce;Catalogue et routage automatiques;Critique;Prototype;À tester
-MVP-006;Persistance;Traces, instantané et chronique wiki;Critique;Prototype;À tester
-MVP-007;Absence;Dormance et résumé de retour;Critique;Prototype;À tester
-MVP-008;Population;Un à trois joueurs réels ou simulés;Haute;Prototype;À tester

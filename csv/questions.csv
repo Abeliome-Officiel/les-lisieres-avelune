@@ -1,15 +1,19 @@
-﻿ID;Domaine;Question;Priorité;Prochaine action
-Q-001;Concept;Le corps-cité devient-il le concept définitif ou seulement une faction/forme jouable ?;Critique;Prototype papier et maquette visuelle.
-Q-002;Représentation;Le corps-cité se déplace-t-il physiquement sur la carte ou projette-t-il un avatar mobile ?;Critique;Comparer lisibilité RPG et tycoon.
-Q-003;Échelle intérieure;Voit-on des habitants individuels, des populations abstraites ou des symbiotes nommés ?;Haute;Tester 3 à 5 figures nommées plus flux agrégés.
-Q-004;Carte;Quelle forme prend une cellule et comment les zones d’influence se chevauchent-elles visuellement ?;Haute;Prototype hexagonal/organique.
-Q-005;Économie;Quelles trois ressources suffisent au premier prototype ?;Critique;Matière, énergie, mémoire comme hypothèse.
-Q-006;Événement;Quel premier Écho démontre combat, adaptation et transcendance ?;Critique;Concevoir un événement vertical complet.
-Q-007;Commerce;Les échanges utilisent-ils troc automatique, crédits communs ou demandes ciblées ?;Haute;Tester troc par quotas sans monnaie.
-Q-008;NPC;À quel point les cités NPC évoluent-elles sans joueur ?;Haute;Service minimal plus traits persistants.
-Q-009;Social;Combien d’organisations simultanées restent lisibles : 2, 3 ou 4 ?;Moyenne;Test utilisateur ultérieur.
-Q-010;Persistance;Quelle durée réelle correspond à une époque d’Avelune ?;Moyenne;4 à 8 semaines comme plage initiale.
-Q-011;Données réelles;Quels points fixes marins et terrestres composent le Souffle du monde ?;Moyenne;Choisir 8 à 12 points répartis globalement.
-Q-012;Wiki;Le wiki est-il diégétique dans le jeu, documentaire hors jeu, ou les deux ?;Haute;Prévoir une base commune avec deux présentations.
-Q-013;Visuel;Quel degré de cute et de lisibilité évite le body horror ?;Critique;Moodboard et silhouettes abstraites.
-Q-014;MVP;Quelles fonctions doivent être simulées avant tout développement graphique ?;Critique;Flux, événement, adaptation, commerce automatique.
+﻿ID;Domaine;Question;Priorité;Prochaine action;Validation utilisateur;Réponse
+Q-001;Concept;Le corps-cité devient-il le concept définitif ou seulement une faction/forme jouable ?;Critique;Prototype papier et maquette visuelle.;À examiner;
+Q-002;Représentation;Le corps-cité se déplace-t-il physiquement sur la carte ou projette-t-il un avatar mobile ?;Critique;Comparer lisibilité RPG et tycoon.;À examiner;
+Q-003;Échelle intérieure;Voit-on des habitants individuels, des populations abstraites ou des symbiotes nommés ?;Haute;Tester 3 à 5 figures nommées plus flux agrégés.;À examiner;
+Q-004;Carte;Quelle forme prend une cellule et comment les zones d’influence se chevauchent-elles visuellement ?;Haute;Prototype hexagonal/organique.;À examiner;
+Q-005;Économie;Quelles trois ressources suffisent au premier prototype ?;Critique;Matière, énergie, mémoire comme hypothèse.;À examiner;
+Q-006;Événement;Quel premier Écho démontre combat, adaptation et transcendance ?;Critique;Concevoir un événement vertical complet.;À examiner;
+Q-007;Commerce;Les échanges utilisent-ils troc automatique, crédits communs ou demandes ciblées ?;Haute;Tester troc par quotas sans monnaie.;À examiner;
+Q-008;NPC;À quel point les cités NPC évoluent-elles sans joueur ?;Haute;Service minimal plus traits persistants.;À examiner;
+Q-009;Social;Combien d’organisations simultanées restent lisibles : 2, 3 ou 4 ?;Moyenne;Test utilisateur ultérieur.;À examiner;
+Q-010;Persistance;Quelle durée réelle correspond à une époque d’Avelune ?;Moyenne;4 à 8 semaines comme plage initiale.;À examiner;
+Q-011;Données réelles;Quels points fixes marins et terrestres composent le Souffle du monde ?;Moyenne;Choisir 8 à 12 points répartis globalement.;À examiner;
+Q-012;Wiki;Le wiki est-il diégétique dans le jeu, documentaire hors jeu, ou les deux ?;Haute;Prévoir une base commune avec deux présentations.;À examiner;
+Q-013;Visuel;Quel degré de cute et de lisibilité évite le body horror ?;Critique;Moodboard et silhouettes abstraites.;À examiner;
+Q-014;MVP;Quelles fonctions doivent être simulées avant tout développement graphique ?;Critique;Flux, événement, adaptation, commerce automatique.;À examiner;
+Q-015;Comptes;À quel moment l’incarnation secondaire est-elle débloquée et quelles limites doivent être partagées ?;Haute;Définir les règles anti-abus.;À examiner;
+Q-016;Carte;Carrés, hexagones ou cellules organiques pour l’affichage et les calculs ?;Critique;Comparer coûts techniques et lisibilité.;À examiner;
+Q-017;Déplacement;Quelle vitesse réelle de migration rend la géographie importante sans enfermer le joueur ?;Haute;Simuler plusieurs durées.;À examiner;
+Q-018;Crises;Quel premier Nœud de crise démontre observation, essais et dépassement ?;Critique;Concevoir un cas de test.;À examiner;

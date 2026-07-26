@@ -1,15 +1,18 @@
-﻿ID;Risque;Description;Gravité;Réponse
-R-001;Foisonnement fonctionnel;Trop de systèmes avant validation de la boucle centrale.;Critique;"Prototype vertical limité; chaque idée est marquée Prototype/MVP/Après MVP."
-R-002;Abstraction du corps-cité;Le concept peut être difficile à comprendre ou sembler organique/horrifique.;Haute;Direction biomorphique douce, métaphores végétales et minérales, prototype visuel très tôt.
-R-003;Tycoon trop automatisé;Le joueur pourrait ne plus avoir de décisions intéressantes.;Haute;Automatiser la répétition mais créer variations, objectifs et arbitrages.
-R-004;Tycoon trop manuel;La maintenance devient un emploi et pénalise les absences.;Critique;Seuils, règles, NPC, reprise et absence de dégradation punitive.
-R-005;Monde vide au lancement;Deux joueurs ne couvrent pas les fonctions prévues pour une communauté.;Critique;NPC actifs, objectifs recalibrés et cellules préexistantes.
-R-006;Monde saturé à grande échelle;Des centaines de joueurs rendent la carte illisible.;Haute;Carte cellulaire multi-échelle, bourgeonnement et agrégation régionale.
-R-007;Données externes indisponibles;Panne, changement de licence ou modèle météo.;Haute;Cache, normalisation, sources multiples et générateur de repli déterministe.
-R-008;Données réelles perçues comme aléatoires parfaites;La météo est imprévisible mais pas un générateur cryptographique.;Moyenne;Présenter le mécanisme comme un Souffle du monde reproductible, pas comme hasard pur.
-R-009;Communication trop limitée;Les joueurs pourraient manquer de chaleur humaine sans texte libre.;Haute;Phrases empathiques, cadeaux, chroniques, réactions nuancées et liens privilégiés.
-R-010;Communication détournée;Les combinaisons de noms ou propositions pourraient servir au harcèlement.;Moyenne;Lexiques contrôlés, droits de publication, blocage et audit.
-R-011;Gouvernance lente;Trop de propositions et votes.;Haute;Périmètres privés, décisions automatiques, délais et contre-propositions limitées.
-R-012;Nouveaux joueurs décoratifs;Le niveau finit malgré tout par dominer.;Critique;Rendement décroissant, bonus de diversité et aptitude de plasticité des jeunes cités.
-R-013;Wiki illisible;L’accumulation automatique produit du bruit.;Moyenne;Entrées synthétiques, niveaux de lecture, tags et archivage par époque.
-R-014;Charge de modération future;La publication créative ouverte exige une équipe.;Critique;"Pas de contenu public libre au MVP; préparation des permissions et de la provenance."
+﻿ID;Risque;Description;Gravité;Réponse;Validation utilisateur;Commentaire
+R-001;Foisonnement fonctionnel;Trop de systèmes avant validation de la boucle centrale.;Critique;"Prototype vertical limité; chaque idée est marquée Prototype/MVP/Après MVP.";À examiner;
+R-002;Abstraction du corps-cité;Le concept peut être difficile à comprendre ou sembler organique/horrifique.;Haute;Direction biomorphique douce, métaphores végétales et minérales, prototype visuel très tôt.;À examiner;
+R-003;Tycoon trop automatisé;Le joueur pourrait ne plus avoir de décisions intéressantes.;Haute;Automatiser la répétition mais créer variations, objectifs et arbitrages.;À examiner;
+R-004;Tycoon trop manuel;La maintenance devient un emploi et pénalise les absences.;Critique;Seuils, règles, NPC, reprise et absence de dégradation punitive.;À examiner;
+R-005;Monde vide au lancement;Deux joueurs ne couvrent pas les fonctions prévues pour une communauté.;Critique;NPC actifs, objectifs recalibrés et cellules préexistantes.;À examiner;
+R-006;Monde saturé à grande échelle;Des centaines de joueurs rendent la carte illisible.;Haute;Carte cellulaire multi-échelle, bourgeonnement et agrégation régionale.;À examiner;
+R-007;Données externes indisponibles;Panne, changement de licence ou modèle météo.;Haute;Cache, normalisation, sources multiples et générateur de repli déterministe.;À examiner;
+R-008;Données réelles perçues comme aléatoires parfaites;La météo est imprévisible mais pas un générateur cryptographique.;Moyenne;Présenter le mécanisme comme un Souffle du monde reproductible, pas comme hasard pur.;À examiner;
+R-009;Communication trop limitée;Les joueurs pourraient manquer de chaleur humaine sans texte libre.;Haute;Phrases empathiques, cadeaux, chroniques, réactions nuancées et liens privilégiés.;À examiner;
+R-010;Communication détournée;Les combinaisons de noms ou propositions pourraient servir au harcèlement.;Moyenne;Lexiques contrôlés, droits de publication, blocage et audit.;À examiner;
+R-011;Gouvernance lente;Trop de propositions et votes.;Haute;Périmètres privés, décisions automatiques, délais et contre-propositions limitées.;À examiner;
+R-012;Nouveaux joueurs décoratifs;Le niveau finit malgré tout par dominer.;Critique;Rendement décroissant, bonus de diversité et aptitude de plasticité des jeunes cités.;À examiner;
+R-013;Wiki illisible;L’accumulation automatique produit du bruit.;Moyenne;Entrées synthétiques, niveaux de lecture, tags et archivage par époque.;À examiner;
+R-014;Charge de modération future;La publication créative ouverte exige une équipe.;Critique;"Pas de contenu public libre au MVP; préparation des permissions et de la provenance.";À examiner;
+R-015;Double incarnation exploitable;Le second personnage peut servir à voter, transférer ou contourner les limites.;Critique;Compte unique, restrictions mécaniques et ressources séparées.;À examiner;
+R-016;Terrain trop complexe;Trop de propriétés et d’interactions rendent la carte illisible.;Critique;Limiter les propriétés actives et afficher des couches.;À examiner;
+R-017;Blocage frustrant;Les Nœuds de crise peuvent immobiliser un joueur.;Haute;Bloquer une branche seulement et rendre chaque essai informatif.;À examiner;

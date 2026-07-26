@@ -1,7 +1,0 @@
-ID;Public ou principe;Exigence;Phase;Statut décisionnel
-ACC-001;TDAH;Tâches courtes, tâche épinglée, reprise claire et sessions choisies.;Prototype;Décision définitive
-ACC-002;TSA;Règles explicites, interface prévisible, sons et animations contrôlables.;Prototype;Décision définitive
-ACC-003;Dys;Réglages indépendants de police, espacement, largeur, fond, contraste et audio.;MVP;Décision définitive
-ACC-004;LGBTQIA+;Grammaire, pronoms et accords choisis, sans genre imposé.;MVP;Décision définitive
-ACC-005;Moteur;Alternative tactique aux mini-jeux réflexes.;Prototype;Décision définitive
-ACC-006;Éthique;Pas de FOMO, punition d’absence, classement humiliant ou micro-paiement prédateur.;Prototype;Décision définitive

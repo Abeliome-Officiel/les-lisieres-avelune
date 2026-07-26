@@ -1,0 +1,16 @@
+﻿ID;Source;Cible;Interaction;Sens;Importance;Phase
+INT-001;Corps-cité;Hexagones;Le corps-cité s’ancre dans une cellule et influence les voisines.;Bidirectionnelle;Critique;Prototype
+INT-002;Corps-cité;Écotone;Les choix intérieurs modifient portée et nature de l’écotone.;Sortante;Critique;Prototype
+INT-003;Écotone;Terrain;L’écotone modifie progressivement certaines propriétés de cellules.;Sortante;Critique;Prototype
+INT-004;Terrain;Production;Les propriétés de la cellule favorisent ou renchérissent certaines productions.;Entrante;Critique;Prototype
+INT-005;Voiles;Terrain;Un Voile modifie temporairement les propriétés et la visibilité.;Sortante;Haute;Prototype
+INT-006;Voiles;Corps-cité;Les affinités du corps-cité déterminent si l’effet est favorable ou difficile.;Bidirectionnelle;Haute;Prototype
+INT-007;Hub racinaire;Distance;La distance limite portée, coût et débit des liens.;Entrante;Critique;Prototype
+INT-008;Hub racinaire;Dormance;Le passage en dormance réduit le débit des liens maintenus.;Entrante;Critique;Prototype
+INT-009;NPC;Commerce;Les NPC garantissent des partenaires de base et évoluent lentement.;Bidirectionnelle;Haute;Prototype
+INT-010;Nœud de crise;Arbre d’évolution;Une crise peut bloquer une branche jusqu’à maîtrise.;Sortante;Critique;Prototype
+INT-011;Époque;NPC;Une fin de chapitre peut changer l’orientation de certains NPC.;Sortante;Haute;MVP
+INT-012;Époque;Terrain;Le chapitre peut modifier durablement des propriétés régionales.;Sortante;Haute;MVP
+INT-013;Confluence;Quêtes;Une cité collaborative peut proposer des activités et instances.;Sortante;Moyenne;MVP
+INT-014;Symbiose;Instance;Le lien temporaire ouvre ou facilite une instance commune.;Sortante;Haute;MVP
+INT-015;Double incarnation;Votes;Les deux incarnations partagent une seule voix politique.;Entrante;Critique;MVP

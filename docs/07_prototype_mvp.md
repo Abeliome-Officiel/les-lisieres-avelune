@@ -1,37 +1,19 @@
-# Prototype et MVP
+# Prototype v0.5
 
-## Question du prototype
+## Vue
 
-> Est-il plaisant de développer un corps-cité, automatiser quelques flux, traverser un Écho et voir une contribution modifier durablement le monde ?
+- carte générale cellulaire ;
+- vue intérieure fixe ;
+- panneaux de règles et d’événements.
 
-## Prototype vertical recommandé
+## Simulation minimale
 
-- une vue intérieure du corps-cité ;
-- une petite cellule extérieure ;
-- trois ressources : matière, énergie, mémoire ;
-- quatre nœuds de transformation ;
-- un lien commercial NPC automatique ;
-- un second joueur simulé ou réel ;
-- un Écho comportant trois voies : protection, adaptation et transcendance ;
-- un Éclat rapide avec alternative tactique ;
-- un journal de Traces et une page de wiki générée ;
-- dormance et résumé de retour simulés.
+- quelques ressources ;
+- chaînes de 3 à 4 transformations ;
+- un partenaire NPC ;
+- un échange automatique ;
+- un Écho et un Nœud de crise ;
+- une dormance ;
+- une Trace.
 
-## Hors prototype
-
-- contenu public libre ;
-- grandes guildes ;
-- application mobile native ;
-- interaction par courriel ;
-- calcul distribué ;
-- directeur adaptatif complexe ;
-- dizaines d'espèces ou arbres technologiques.
-
-## Critères de validation
-
-1. La boucle tycoon est compréhensible et satisfaisante.
-2. Le corps-cité ne provoque pas de malaise visuel non voulu.
-3. Le joueur comprend pourquoi sa petite contribution est utile.
-4. L'événement peut produire plusieurs qualités de résolution.
-5. Une absence simulée ne génère ni dette ni perte incompréhensible.
-6. Les Traces donnent le sentiment d'un monde qui se souvient.
+Les arbres technologiques et d’évolution seront construits après la validation des décisions.

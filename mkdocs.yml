@@ -1,20 +1,7 @@
-site_name: Les Lisières d’Avelune
-site_description: Documentation de conception du jeu Les Lisières d’Avelune
+site_name: Les Lisières d’Avelune v0.5
+docs_dir: docs
 nav:
-  - Accueil: docs/index.md
-  - Vision: docs/00_vision.md
-  - Corps-cité: docs/01_concept_corps_cite.md
-  - Monde persistant: docs/02_monde_persistant.md
-  - Tycoon et réseaux: docs/03_tycoon_et_reseaux.md
-  - Événements et données réelles: docs/04_evenements_et_donnees_reelles.md
-  - Social et communication: docs/05_social_et_communication.md
-  - Accessibilité et éthique: docs/06_accessibilite_ethique.md
-  - Prototype: docs/07_prototype_mvp.md
-  - Outils et wiki: docs/08_outils_et_wiki.md
-  - Sources: docs/09_sources.md
-  - Background: docs/10_background_avelune.md
-markdown_extensions:
-  - tables
-  - fenced_code
-  - toc:
-      permalink: true
+  - Accueil: index.md
+  - Vision: 00_vision.md
+  - Décisions à valider: 11_decisions_a_valider.md
+  - Préparation des arbres: 12_preparation_arbres.md

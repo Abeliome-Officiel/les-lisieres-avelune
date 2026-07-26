@@ -1,4 +1,4 @@
-# Les Lisières d’Avelune — conception v0.4
+# Les Lisières d’Avelune — conception v0.5
 
 Dépôt de conception et de développement du jeu navigateur coopératif **Les Lisières d’Avelune**.
 
@@ -6,9 +6,9 @@ Le projet est actuellement en phase de cadrage fonctionnel et de conception du p
 
 ## Book de conception
 
-- [Lire le book complet en Markdown](docs/book/BOOK_Les_Lisieres_Avelune_v0.4.md)
-- [Consulter le book complet en PDF](docs/book/BOOK_Les_Lisieres_Avelune_v0.4.pdf)
-- [Télécharger le classeur de pilotage](design-data/Avelune_Design_Book_v0.4.xlsx)
+- [Lire le book complet en Markdown](docs/book/BOOK_Les_Lisieres_Avelune.md)
+- [Consulter le book complet en PDF](docs/book/BOOK_Les_Lisieres_Avelune.pdf)
+- [Télécharger le classeur de pilotage](design-data/Avelune_Design_Book.xlsx)
 
 ## Documents principaux
 
@@ -52,7 +52,7 @@ Le classeur Excel sert d’interface de consultation et de pilotage. Les modific
 
 ## Ordre de lecture recommandé
 
-1. le [book complet](docs/book/BOOK_Les_Lisieres_Avelune_v0.4.md) ;
+1. le [book complet](docs/book/BOOK_Les_Lisieres_Avelune.md) ;
 2. la [vision](docs/00_vision.md) ;
 3. le [concept du corps-cité](docs/01_concept_corps_cite.md) ;
 4. le [monde persistant](docs/02_monde_persistant.md) ;
