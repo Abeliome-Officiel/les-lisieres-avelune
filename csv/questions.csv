@@ -17,3 +17,10 @@ Q-015;Comptes;À quel moment l’incarnation secondaire est-elle débloquée et 
 Q-016;Carte;Carrés, hexagones ou cellules organiques pour l’affichage et les calculs ?;Critique;Comparer coûts techniques et lisibilité.;À examiner;
 Q-017;Déplacement;Quelle vitesse réelle de migration rend la géographie importante sans enfermer le joueur ?;Haute;Simuler plusieurs durées.;À examiner;
 Q-018;Crises;Quel premier Nœud de crise démontre observation, essais et dépassement ?;Critique;Concevoir un cas de test.;À examiner;
+Q-019;Dormance;Après combien de temps un compte passe-t-il en dormance et quel débit minimal conserve-t-il ?;Critique;Simuler 3 profils d’absence.;À examiner;
+Q-020;NPC;Quelles orientations lentes suffisent pour donner une vie propre aux cités NPC ?;Haute;Limiter à 4 tendances pour le prototype.;À examiner;
+Q-021;Symbiose;Quel résultat justifie une symbiose sans créer de dépendance ou de propriété commune complexe ?;Critique;À simplifier.;À examiner;
+Q-022;Époques;Quelles conditions clôturent un chapitre et quelle échelle doit être testée en premier ?;Haute;Prototype régional.;À examiner;
+Q-023;Commerce;Quel nombre initial de ports, quelle portée et quel débit pour le hub racinaire ?;Critique;Simulation économique.;À examiner;
+Q-024;Collectif;Le nom Confluence et ses types fonctionnels conviennent-ils ?;Moyenne;Validation vocabulaire.;À examiner;
+Q-025;Événements;Le nom Voile convient-il aux zones d’ombre mobiles ?;Moyenne;Validation vocabulaire.;À examiner;

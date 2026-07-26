@@ -3122,3 +3122,20 @@ genere moi un zip avec ce qu'il faut dedans : log, texte, background, fichiers e
 
 ### Résultat consolidé
 Les décisions DEC-077 à DEC-089 et les mécanismes MEC-061 à MEC-068 ont été ajoutés. Le PvP est reporté; le terrain cellulaire, l'écotone, les crises de branche et la double vue sont intégrés au cadrage.
+
+
+## Addendum v0.6 - Dormance, NPC, Époques, commerce et collectif
+
+### Demande de conception
+- Rendre les Traces anonymes et naturelles.
+- Réduire fortement la progression des comptes dormants tout en maintenant les échanges demandés.
+- Faire évoluer lentement les écosystèmes NPC.
+- Étudier les conséquences et la réversibilité des symbioses.
+- Structurer l'histoire par Époques ou chapitres.
+- Limiter les chaînes de production afin de conserver un tycoon lisible.
+- Remplacer le marché abstrait par un hub racinaire à règles publiées.
+- Créer des cités collaboratives spécialisées et des quêtes encadrées.
+- Transformer les zones d'ombre en phénomènes mobiles indépendants.
+
+### Résultat consolidé
+Les décisions DEC-090 à DEC-112 et les mécanismes MEC-069 à MEC-078 ont été ajoutés. Plusieurs éléments restent provisoires, notamment le vocabulaire Confluence/Voile et la forme exacte de la symbiose.

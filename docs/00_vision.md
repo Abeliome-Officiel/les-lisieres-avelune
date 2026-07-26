@@ -1,4 +1,4 @@
-# Vision v0.5
+# Vision v0.6
 
 Les Lisières d’Avelune est un jeu navigateur de gestion, RPG, tycoon organique et monde persistant. Le jeu refuse la confrontation imposée, la punition d’absence et les boucles prédatrices.
 

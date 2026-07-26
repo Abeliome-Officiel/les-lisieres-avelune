@@ -1,8 +1,10 @@
-# Tycoon et réseaux v0.5
+# Tycoon et réseaux v0.6
 
 Les chaînes restent courtes, visibles et automatisables. Le joueur règle priorités, réserves, seuils et destinations.
 
-La forme détaillée du commerce reste à préciser.
+## Hub racinaire
+
+Offres, besoins, ratios, réserves, ports, débit et portée sont publiés. Un partenaire compatible peut se connecter sans validation supplémentaire.
 
 ## Complexité
 

@@ -67,3 +67,13 @@ MEC-065;Déplacement;Incarnation mobile;La projection ou incarnation parcourt la
 MEC-066;Déplacement;Migration de l’ancrage;Un projet long déplace l’ancrage et réorganise les liens.;Longue;Territoire;MVP;Décision provisoire;À examiner;
 MEC-067;Difficulté;Nœud de crise;Une branche est limitée jusqu’à collecte d’indices, essais et maîtrise.;Moyenne;Joueur;Prototype;Décision définitive;À examiner;
 MEC-068;Interface;Deux vues;Carte générale cliquable puis panneau intérieur fixe du corps-cité.;Session;Joueur;Prototype;Décision définitive;À examiner;
+MEC-069;Persistance;Trace écologique anonyme;Le terrain conserve la conséquence d’une action sans crédit nominatif public.;Longue;Monde;Prototype;Décision définitive;À examiner;
+MEC-070;Dormance;Régime minimal;Le corps-cité maintient seulement ses liens déjà paramétrés et ses fonctions vitales.;Continue;Joueur;Prototype;Décision définitive;À examiner;
+MEC-071;NPC;Orientation lente;Chaque écosystème NPC suit une tendance de développement réévaluée par Époque.;Longue;Monde;MVP;Décision définitive;À examiner;
+MEC-072;Époque;Clôture de chapitre;Un ensemble de conditions clôt une Époque et ouvre des orientations suivantes.;Longue;Monde;MVP;Décision définitive;À examiner;
+MEC-073;Commerce;Publication de catalogue;Le hub publie offres, besoins, réserves, ratios et capacité.;Cycle;Territoire;Prototype;Décision définitive;À examiner;
+MEC-074;Commerce;Appariement de partenaires;Un autre joueur ou NPC choisit une offre compatible et occupe un port.;Cycle;Liens;Prototype;Décision définitive;À examiner;
+MEC-075;Commerce;Dégradation en dormance;Le débit d’un lien vers un compte dormant baisse et alerte le partenaire.;Continue;Liens;Prototype;Décision définitive;À examiner;
+MEC-076;Collectif;Cité collaborative spécialisée;Un lieu non fusionnable réunit plusieurs joueurs pour projets et activités.;Longue;Collectif;MVP;Décision provisoire;À examiner;
+MEC-077;Événements;Déplacement des zones d’ombre;Des phénomènes mobiles avancent de cellule en cellule selon une trajectoire.;Cycle;Monde;Prototype;Décision définitive;À examiner;
+MEC-078;Création;Gabarit de quête;Un futur outil sépare texte libre et paramètres de jeu contrôlés.;Longue;Collectif;Après MVP;Décision reportée;À examiner;

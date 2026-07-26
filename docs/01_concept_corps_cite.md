@@ -1,4 +1,4 @@
-# Corps-cité v0.5
+# Corps-cité v0.6
 
 Le joueur incarne un microcosme vivant plutôt qu’un maire extérieur. L’intérieur remplit la fonction de la ville de tycoon. L’ancrage persiste dans le monde et une incarnation mobile explore.
 

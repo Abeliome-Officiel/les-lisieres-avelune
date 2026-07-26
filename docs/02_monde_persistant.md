@@ -1,15 +1,15 @@
-# Monde persistant v0.5
+# Monde persistant v0.6
 
-Les transformations significatives modifient l’état du terrain et du monde. La forme exacte des Traces doit encore être précisée.
+Les transformations significatives modifient l’état du terrain et du monde. Les Traces sont anonymes et naturelles.
 
 ## Dormance
 
-Régime réduit protecteur, détails à préciser.
+Maintien vital et échanges déjà demandés; progression presque nulle.
 
 ## NPC
 
-Les NPC garantissent le jeu solo.
+Les écosystèmes NPC évoluent lentement selon leurs orientations.
 
 ## Époques
 
-Le monde avance sans remise à zéro.
+Les chapitres peuvent être mondiaux, régionaux ou limités à un ensemble de participants.

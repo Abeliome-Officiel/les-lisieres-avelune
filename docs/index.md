@@ -1,4 +1,4 @@
-# Documentation v0.5
+# Documentation v0.6
 
 - [Vision](00_vision.md)
 - [Décisions à valider](11_decisions_a_valider.md)

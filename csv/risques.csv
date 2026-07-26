@@ -16,3 +16,7 @@ R-014;Charge de modération future;La publication créative ouverte exige une é
 R-015;Double incarnation exploitable;Le second personnage peut servir à voter, transférer ou contourner les limites.;Critique;Compte unique, restrictions mécaniques et ressources séparées.;À examiner;
 R-016;Terrain trop complexe;Trop de propriétés et d’interactions rendent la carte illisible.;Critique;Limiter les propriétés actives et afficher des couches.;À examiner;
 R-017;Blocage frustrant;Les Nœuds de crise peuvent immobiliser un joueur.;Haute;Bloquer une branche seulement et rendre chaque essai informatif.;À examiner;
+R-018;NPC trop autonomes;Le joueur peut avoir l’impression que le jeu joue seul.;Haute;Évolution lente, lisible et influençable, sans concurrence directe.;À examiner;
+R-019;Commerce opportuniste;Des règles ouvertes peuvent être exploitées à la limite des ratios.;Haute;Réserves, ports, plafonds, historiques et temporisation des ruptures.;À examiner;
+R-020;Symbiose administrative;La propriété d’un organe commun crée des litiges et dépendances.;Critique;Simplifier ou supprimer tout actif permanent partagé.;À examiner;
+R-021;Confluences obligatoires;Les lieux collectifs peuvent devenir des passages forcés.;Haute;Alternatives NPC et progression solo complète.;À examiner;

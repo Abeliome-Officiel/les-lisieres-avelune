@@ -1,6 +1,6 @@
 {
   "project": "Les Lisières d’Avelune",
-  "version": "0.5",
+  "version": "0.6",
   "date": "2026-07-26",
   "statuses": [
     "Décision définitive",
@@ -577,7 +577,7 @@
       "DEC-056",
       "Reprise",
       "Dormance protectrice",
-      "Une cité inactive continue à faible régime grâce aux NPC et automatismes; elle ne s’effondre pas.",
+      "Une cité inactive maintient seulement ses fonctions vitales et les échanges déjà autorisés; sa progression active s’arrête presque complètement.",
       "Décision définitive",
       "Critique",
       "Prototype",
@@ -747,7 +747,7 @@
       "DEC-073",
       "Persistance",
       "Journal d’événements immuable",
-      "Les changements significatifs sont enregistrés comme Traces; des instantanés accélèrent le chargement.",
+      "Les changements significatifs sont enregistrés comme Traces anonymes du terrain; des instantanés accélèrent le chargement.",
       "Décision provisoire",
       "Critique",
       "Prototype",
@@ -912,6 +912,236 @@
       "Critique",
       "Prototype",
       "UX"
+    ],
+    [
+      "DEC-090",
+      "Persistance",
+      "Traces non nominatives",
+      "Les actions laissent des transformations naturelles du terrain sans signature publique du joueur à l’origine.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Historique"
+    ],
+    [
+      "DEC-091",
+      "Dormance",
+      "Maintien minimal des liens",
+      "La dormance conserve seulement les fonctions vitales et les échanges déjà demandés, dans les limites publiées.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Économie"
+    ],
+    [
+      "DEC-092",
+      "Dormance",
+      "Progression quasi nulle en inactivité",
+      "Un compte dormant ne gagne pas, ou très peu, de progression, recherche et collection.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Équilibrage"
+    ],
+    [
+      "DEC-093",
+      "NPC",
+      "Écosystèmes NPC évolutifs",
+      "Les cités et écosystèmes NPC suivent lentement leurs propres orientations au lieu de rester figés.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Simulation"
+    ],
+    [
+      "DEC-094",
+      "Symbiose",
+      "Aucune création automatique de compte",
+      "Une symbiose ne crée jamais automatiquement un compte joueur, une seconde incarnation ou une fusion de comptes.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Comptes"
+    ],
+    [
+      "DEC-095",
+      "Symbiose",
+      "Organe commun réversible",
+      "Hypothèse v0.6 : une symbiose peut créer une structure commune réversible entre plusieurs corps-cités.",
+      "Décision provisoire",
+      "Moyenne",
+      "Après MVP",
+      "À réévaluer en v0.7"
+    ],
+    [
+      "DEC-096",
+      "Symbiose",
+      "Écosystème NPC issu d’une symbiose",
+      "Hypothèse rare : certaines symbioses pourraient autonomiser une présence NPC.",
+      "Décision reportée",
+      "Basse",
+      "Long terme",
+      "Modération et propriété"
+    ],
+    [
+      "DEC-097",
+      "Narration",
+      "Époques comme chapitres",
+      "Le monde avance par Époques ou chapitres qui structurent l’histoire persistante.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Persistance"
+    ],
+    [
+      "DEC-098",
+      "Narration",
+      "Époques à plusieurs échelles",
+      "Une Époque peut concerner le monde entier, une région, une Confluence, un groupe de participants ou un joueur.",
+      "Décision provisoire",
+      "Haute",
+      "MVP",
+      "Narration"
+    ],
+    [
+      "DEC-099",
+      "Narration",
+      "Nouvelle direction à la fin d’un chapitre",
+      "La clôture d’une Époque peut ouvrir plusieurs orientations pour le chapitre suivant.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Votes et événements"
+    ],
+    [
+      "DEC-100",
+      "Tycoon",
+      "Chaînes courtes et lisibles",
+      "Les chaînes de production doivent rester visibles et compréhensibles sur un seul écran.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "UX"
+    ],
+    [
+      "DEC-101",
+      "Tycoon",
+      "Quatre transformations au prototype",
+      "Le prototype limite les chaînes à quatre transformations; cinq ou six restent à évaluer pour les spécialisations avancées.",
+      "Décision provisoire",
+      "Haute",
+      "Prototype",
+      "Équilibrage"
+    ],
+    [
+      "DEC-102",
+      "Commerce",
+      "Hub racinaire à règles publiées",
+      "Le joueur publie ce qu’il offre, recherche, réserve et accepte dans un hub aux ports limités.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Économie"
+    ],
+    [
+      "DEC-103",
+      "Commerce",
+      "Connexion compatible sans seconde validation",
+      "Un partenaire peut établir un échange conforme aux règles déjà publiées, sans validation bilatérale à chaque fois.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Consentement préalable"
+    ],
+    [
+      "DEC-104",
+      "Commerce",
+      "Ports, débit, réserve, portée et distance",
+      "Le niveau du hub limite le nombre de liens, les débits, les réserves protégées et la portée géographique.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Carte"
+    ],
+    [
+      "DEC-105",
+      "Commerce",
+      "Rupture unilatérale avec alerte",
+      "Chaque partenaire peut couper un lien; l’autre reçoit une alerte et des propositions de remplacement.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Dormance"
+    ],
+    [
+      "DEC-106",
+      "Collectif",
+      "Confluence comme nom des cités collaboratives",
+      "Nom de travail pour des lieux collectifs spécialisés, accessibles à plusieurs corps-cités sans fusion.",
+      "Décision provisoire",
+      "Moyenne",
+      "MVP",
+      "Vocabulaire"
+    ],
+    [
+      "DEC-107",
+      "Collectif",
+      "Confluences spécialisées et non fusionnables",
+      "Chaque cité collaborative possède une spécialité et peut coopérer avec d’autres sans fusion institutionnelle.",
+      "Décision provisoire",
+      "Haute",
+      "MVP",
+      "Gouvernance"
+    ],
+    [
+      "DEC-108",
+      "Collectif",
+      "Activités des cités collaboratives",
+      "Elles peuvent accueillir projets, décisions structurées, quêtes, services et petites instances.",
+      "Décision provisoire",
+      "Haute",
+      "MVP",
+      "Social"
+    ],
+    [
+      "DEC-109",
+      "Création",
+      "Création encadrée de petites quêtes",
+      "Les créateurs peuvent proposer textes, objectifs et ambiances dans des modèles imposant durée, difficulté et récompenses.",
+      "Décision reportée",
+      "Moyenne",
+      "Après MVP",
+      "Modération"
+    ],
+    [
+      "DEC-110",
+      "Création",
+      "Récompenses plafonnées par le système",
+      "Les créateurs de contenu ne fixent pas librement les gains ni les conséquences durables.",
+      "Décision définitive",
+      "Haute",
+      "Après MVP",
+      "Équilibrage"
+    ],
+    [
+      "DEC-111",
+      "Événements",
+      "Zones d’ombre mobiles",
+      "Les zones d’ombre sont des phénomènes indépendants qui circulent comme des nuages, le jour, la nuit ou des courants.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Carte"
+    ],
+    [
+      "DEC-112",
+      "Événements",
+      "Voiles ambigus",
+      "Nom de travail : les Voiles peuvent être favorables, défavorables ou ambigus selon le corps-cité et le contexte.",
+      "Décision provisoire",
+      "Haute",
+      "Prototype",
+      "Vocabulaire"
     ]
   ],
   "principles": [
@@ -1656,6 +1886,106 @@
       "Joueur",
       "Prototype",
       "Décision définitive"
+    ],
+    [
+      "MEC-069",
+      "Persistance",
+      "Trace écologique anonyme",
+      "Le terrain conserve la conséquence d’une action sans crédit nominatif public.",
+      "Longue",
+      "Monde",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-070",
+      "Dormance",
+      "Régime minimal",
+      "Le corps-cité maintient seulement ses liens déjà paramétrés et ses fonctions vitales.",
+      "Continue",
+      "Joueur",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-071",
+      "NPC",
+      "Orientation lente",
+      "Chaque écosystème NPC suit une tendance de développement réévaluée par Époque.",
+      "Longue",
+      "Monde",
+      "MVP",
+      "Décision définitive"
+    ],
+    [
+      "MEC-072",
+      "Époque",
+      "Clôture de chapitre",
+      "Un ensemble de conditions clôt une Époque et ouvre des orientations suivantes.",
+      "Longue",
+      "Monde",
+      "MVP",
+      "Décision définitive"
+    ],
+    [
+      "MEC-073",
+      "Commerce",
+      "Publication de catalogue",
+      "Le hub publie offres, besoins, réserves, ratios et capacité.",
+      "Cycle",
+      "Territoire",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-074",
+      "Commerce",
+      "Appariement de partenaires",
+      "Un autre joueur ou NPC choisit une offre compatible et occupe un port.",
+      "Cycle",
+      "Liens",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-075",
+      "Commerce",
+      "Dégradation en dormance",
+      "Le débit d’un lien vers un compte dormant baisse et alerte le partenaire.",
+      "Continue",
+      "Liens",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-076",
+      "Collectif",
+      "Cité collaborative spécialisée",
+      "Un lieu non fusionnable réunit plusieurs joueurs pour projets et activités.",
+      "Longue",
+      "Collectif",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-077",
+      "Événements",
+      "Déplacement des zones d’ombre",
+      "Des phénomènes mobiles avancent de cellule en cellule selon une trajectoire.",
+      "Cycle",
+      "Monde",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-078",
+      "Création",
+      "Gabarit de quête",
+      "Un futur outil sépare texte libre et paramètres de jeu contrôlés.",
+      "Longue",
+      "Collectif",
+      "Après MVP",
+      "Décision reportée"
     ]
   ],
   "persistent_layers": [
@@ -1874,6 +2204,34 @@
       "Les Nœuds de crise peuvent immobiliser un joueur.",
       "Haute",
       "Bloquer une branche seulement et rendre chaque essai informatif."
+    ],
+    [
+      "R-018",
+      "NPC trop autonomes",
+      "Le joueur peut avoir l’impression que le jeu joue seul.",
+      "Haute",
+      "Évolution lente, lisible et influençable, sans concurrence directe."
+    ],
+    [
+      "R-019",
+      "Commerce opportuniste",
+      "Des règles ouvertes peuvent être exploitées à la limite des ratios.",
+      "Haute",
+      "Réserves, ports, plafonds, historiques et temporisation des ruptures."
+    ],
+    [
+      "R-020",
+      "Symbiose administrative",
+      "La propriété d’un organe commun crée des litiges et dépendances.",
+      "Critique",
+      "Simplifier ou supprimer tout actif permanent partagé."
+    ],
+    [
+      "R-021",
+      "Confluences obligatoires",
+      "Les lieux collectifs peuvent devenir des passages forcés.",
+      "Haute",
+      "Alternatives NPC et progression solo complète."
     ]
   ],
   "questions": [
@@ -2002,6 +2360,55 @@
       "Quel premier Nœud de crise démontre observation, essais et dépassement ?",
       "Critique",
       "Concevoir un cas de test."
+    ],
+    [
+      "Q-019",
+      "Dormance",
+      "Après combien de temps un compte passe-t-il en dormance et quel débit minimal conserve-t-il ?",
+      "Critique",
+      "Simuler 3 profils d’absence."
+    ],
+    [
+      "Q-020",
+      "NPC",
+      "Quelles orientations lentes suffisent pour donner une vie propre aux cités NPC ?",
+      "Haute",
+      "Limiter à 4 tendances pour le prototype."
+    ],
+    [
+      "Q-021",
+      "Symbiose",
+      "Quel résultat justifie une symbiose sans créer de dépendance ou de propriété commune complexe ?",
+      "Critique",
+      "À simplifier."
+    ],
+    [
+      "Q-022",
+      "Époques",
+      "Quelles conditions clôturent un chapitre et quelle échelle doit être testée en premier ?",
+      "Haute",
+      "Prototype régional."
+    ],
+    [
+      "Q-023",
+      "Commerce",
+      "Quel nombre initial de ports, quelle portée et quel débit pour le hub racinaire ?",
+      "Critique",
+      "Simulation économique."
+    ],
+    [
+      "Q-024",
+      "Collectif",
+      "Le nom Confluence et ses types fonctionnels conviennent-ils ?",
+      "Moyenne",
+      "Validation vocabulaire."
+    ],
+    [
+      "Q-025",
+      "Événements",
+      "Le nom Voile convient-il aux zones d’ombre mobiles ?",
+      "Moyenne",
+      "Validation vocabulaire."
     ]
   ],
   "vocabulary": [
@@ -2113,6 +2520,26 @@
     [
       "Zone d’influence",
       "Écotone",
+      "Retenu"
+    ],
+    [
+      "Commerce",
+      "Hub racinaire",
+      "Proposition forte"
+    ],
+    [
+      "Cité collaborative",
+      "Confluence",
+      "Proposition à valider"
+    ],
+    [
+      "Zone mobile",
+      "Voile",
+      "Proposition à valider"
+    ],
+    [
+      "Narration",
+      "Époque / chapitre",
       "Retenu"
     ]
   ],
@@ -2334,6 +2761,7 @@
     ]
   ],
   "design_log_addenda": [
-    "## Addendum v0.5 - Terrain, mobilité, crises et double incarnation\n\n### Demande de conception\n- Autoriser un compte secondaire unique sans permettre les abus.\n- Prévoir éventuellement une section PvE/PvP sans en faire le coeur du jeu.\n- Donner aux cellules des propensions d'activité et faire interagir les écotones.\n- Étudier une présence fixe ou très lentement mobile dans le monde.\n- Introduire des zones favorables/difficiles et de vraies problématiques semi-bloquantes.\n- Utiliser une carte générale et une vue intérieure fixe pour faciliter le premier prototype.\n\n### Résultat consolidé\nLes décisions DEC-077 à DEC-089 et les mécanismes MEC-061 à MEC-068 ont été ajoutés. Le PvP est reporté; le terrain cellulaire, l'écotone, les crises de branche et la double vue sont intégrés au cadrage.\n"
+    "## Addendum v0.5 - Terrain, mobilité, crises et double incarnation\n\n### Demande de conception\n- Autoriser un compte secondaire unique sans permettre les abus.\n- Prévoir éventuellement une section PvE/PvP sans en faire le coeur du jeu.\n- Donner aux cellules des propensions d'activité et faire interagir les écotones.\n- Étudier une présence fixe ou très lentement mobile dans le monde.\n- Introduire des zones favorables/difficiles et de vraies problématiques semi-bloquantes.\n- Utiliser une carte générale et une vue intérieure fixe pour faciliter le premier prototype.\n\n### Résultat consolidé\nLes décisions DEC-077 à DEC-089 et les mécanismes MEC-061 à MEC-068 ont été ajoutés. Le PvP est reporté; le terrain cellulaire, l'écotone, les crises de branche et la double vue sont intégrés au cadrage.\n",
+    "## Addendum v0.6 - Dormance, NPC, Époques, commerce et collectif\n\n### Demande de conception\n- Rendre les Traces anonymes et naturelles.\n- Réduire fortement la progression des comptes dormants tout en maintenant les échanges demandés.\n- Faire évoluer lentement les écosystèmes NPC.\n- Étudier les conséquences et la réversibilité des symbioses.\n- Structurer l'histoire par Époques ou chapitres.\n- Limiter les chaînes de production afin de conserver un tycoon lisible.\n- Remplacer le marché abstrait par un hub racinaire à règles publiées.\n- Créer des cités collaboratives spécialisées et des quêtes encadrées.\n- Transformer les zones d'ombre en phénomènes mobiles indépendants.\n\n### Résultat consolidé\nLes décisions DEC-090 à DEC-112 et les mécanismes MEC-069 à MEC-078 ont été ajoutés. Plusieurs éléments restent provisoires, notamment le vocabulaire Confluence/Voile et la forme exacte de la symbiose.\n"
   ]
 }

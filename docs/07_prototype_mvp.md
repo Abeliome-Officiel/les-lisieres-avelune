@@ -1,4 +1,4 @@
-# Prototype v0.5
+# Prototype v0.6
 
 ## Vue
 
