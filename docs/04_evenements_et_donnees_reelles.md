@@ -1,4 +1,4 @@
-# Événements et données v0.6
+# Événements et données v0.7
 
 La météo atmosphérique et marine peut alimenter le Souffle du monde, avec cache et repli interne. Les événements restent calibrés sur la capacité active raisonnable.
 

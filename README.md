@@ -1,8 +1,8 @@
-# Les Lisières d’Avelune — conception v0.6
+# Les Lisières d’Avelune — conception v0.7
 
 Dépôt de conception et de développement du jeu navigateur coopératif **Les Lisières d’Avelune**.
 
-Le projet est actuellement en phase de cadrage fonctionnel, de validation des décisions structurantes et de préparation des arbres de progression et des cartes d’interactions.
+Le projet est actuellement en phase de validation des décisions structurantes, avant la construction des arbres technologiques, des arbres d’évolution et des cartes d’interactions nécessaires au prototype.
 
 ## À examiner en priorité
 
@@ -11,13 +11,14 @@ Dans le classeur de pilotage :
 1. ouvrir l’onglet **Arbitrages prioritaires** ;
 2. renseigner la colonne **Validation utilisateur** ;
 3. préciser les décisions ou commentaires nécessaires ;
-4. poursuivre ensuite avec l’onglet **Décisions**.
+4. poursuivre avec l’onglet **Décisions**.
 
-Après cette validation seront préparés :
+La v0.7 consolide notamment :
 
-- les arbres technologiques ;
-- les arbres d’évolution ;
-- les cartes d’interactions et de dépendances entre mécanismes.
+- la carte du monde en cases hexagonales ;
+- le fonctionnement temporaire des symbioses ;
+- la distinction entre décisions retenues, simplifiées, reportées et rejetées ;
+- la préparation des arbres et des cartes de dépendances avant le code.
 
 ## Book de conception
 
@@ -49,7 +50,7 @@ Après cette validation seront préparés :
 - [Historique documentaire](CHANGELOG.md)
 - [Manifeste des fichiers](MANIFEST.md)
 
-Les données de conception sont également disponibles sous des formats ouverts :
+Les données de conception sont disponibles sous des formats ouverts :
 
 - `csv/` : tableaux exportés individuellement ;
 - `data/design_data.json` : données structurées ;
@@ -60,9 +61,9 @@ Les données de conception sont également disponibles sous des formats ouverts 
 
 Les fichiers Markdown, CSV et JSON suivis dans Git constituent la source documentaire durable.
 
-Le classeur Excel sert d’interface de consultation et de pilotage. Les modifications importantes réalisées dans le classeur doivent ensuite être reportées dans les fichiers structurés du dépôt.
+Le classeur Excel sert d’interface de consultation et de pilotage. Les modifications importantes validées dans le classeur doivent ensuite être reportées dans les fichiers structurés du dépôt.
 
-Les versions historiques sont identifiées par les tags Git `v0.4`, `v0.5`, `v0.6`, etc. Les archives complètes restent conservées séparément sur le serveur.
+Les versions historiques sont identifiées par les tags Git `v0.4`, `v0.5`, `v0.6`, `v0.7`, etc. Les archives complètes restent conservées séparément sur le serveur.
 
 ## Statuts décisionnels
 
@@ -75,7 +76,7 @@ Les versions historiques sont identifiées par les tags Git `v0.4`, `v0.5`, `v0.
 ## Ordre de lecture recommandé
 
 1. le [book complet](docs/book/BOOK_Les_Lisieres_Avelune.md) ;
-2. les [arbitrages et décisions à valider](docs/11_decisions_a_valider.md) ;
+2. les [décisions à valider](docs/11_decisions_a_valider.md) ;
 3. la [vision](docs/00_vision.md) ;
 4. le [concept du corps-cité](docs/01_concept_corps_cite.md) ;
 5. le [monde persistant](docs/02_monde_persistant.md) ;
@@ -88,4 +89,4 @@ Les versions historiques sont identifiées par les tags Git `v0.4`, `v0.5`, `v0.
 
 Le dépôt est privé. Aucun code jouable n’est encore présent.
 
-La prochaine étape de conception consiste à valider les décisions structurantes avant de construire les arbres technologiques, les arbres d’évolution et les cartes d’interactions nécessaires à la préparation du prototype.
+La prochaine étape consiste à examiner et valider les arbitrages de la v0.7 avant de produire les arbres technologiques, les arbres d’évolution et les cartes d’interactions.

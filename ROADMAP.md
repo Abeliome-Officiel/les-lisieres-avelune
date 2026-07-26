@@ -1,4 +1,4 @@
-# Feuille de route v0.6
+# Feuille de route v0.7
 
 ## Étape actuelle - Revue de conception
 

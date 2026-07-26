@@ -77,3 +77,7 @@ MEC-075;Commerce;Dégradation en dormance;Le débit d’un lien vers un compte d
 MEC-076;Collectif;Cité collaborative spécialisée;Un lieu non fusionnable réunit plusieurs joueurs pour projets et activités.;Longue;Collectif;MVP;Décision provisoire;À examiner;
 MEC-077;Événements;Déplacement des zones d’ombre;Des phénomènes mobiles avancent de cellule en cellule selon une trajectoire.;Cycle;Monde;Prototype;Décision définitive;À examiner;
 MEC-078;Création;Gabarit de quête;Un futur outil sépare texte libre et paramètres de jeu contrôlés.;Longue;Collectif;Après MVP;Décision reportée;À examiner;
+MEC-079;Terrain;Voisinage hexagonal;Chaque cellule possède jusqu’à six voisins avec un coût de déplacement cohérent.;Continue;Monde;Prototype;Décision définitive;À examiner;
+MEC-080;Symbiose;Projet temporaire à deux participants;Deux joueurs ou un joueur et un NPC contribuent pendant une durée limitée.;Moyenne;Liens;MVP;Décision provisoire;À examiner;
+MEC-081;Symbiose;Instance partagée;Une symbiose peut ouvrir une instance coopérative particulière, puis se dissoudre.;Session;Groupe;MVP;Décision provisoire;À examiner;
+MEC-082;Symbiose;Clôture automatique;L’objectif, la durée ou la sortie d’un participant ferme le lien temporaire.;Moyenne;Liens;MVP;Décision définitive;À examiner;

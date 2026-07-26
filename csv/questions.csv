@@ -2,7 +2,7 @@
 Q-001;Concept;Le corps-cité devient-il le concept définitif ou seulement une faction/forme jouable ?;Critique;Prototype papier et maquette visuelle.;À examiner;
 Q-002;Représentation;Le corps-cité se déplace-t-il physiquement sur la carte ou projette-t-il un avatar mobile ?;Critique;Comparer lisibilité RPG et tycoon.;À examiner;
 Q-003;Échelle intérieure;Voit-on des habitants individuels, des populations abstraites ou des symbiotes nommés ?;Haute;Tester 3 à 5 figures nommées plus flux agrégés.;À examiner;
-Q-004;Carte;Quelle forme prend une cellule et comment les zones d’influence se chevauchent-elles visuellement ?;Haute;Prototype hexagonal/organique.;À examiner;
+Q-004;Carte;Comment représenter lisiblement les hexagones et les écotones sur ordinateur et téléphone ?;Haute;Maquette de carte hexagonale.;À examiner;
 Q-005;Économie;Quelles trois ressources suffisent au premier prototype ?;Critique;Matière, énergie, mémoire comme hypothèse.;À examiner;
 Q-006;Événement;Quel premier Écho démontre combat, adaptation et transcendance ?;Critique;Concevoir un événement vertical complet.;À examiner;
 Q-007;Commerce;Les échanges utilisent-ils troc automatique, crédits communs ou demandes ciblées ?;Haute;Tester troc par quotas sans monnaie.;À examiner;
@@ -14,7 +14,7 @@ Q-012;Wiki;Le wiki est-il diégétique dans le jeu, documentaire hors jeu, ou le
 Q-013;Visuel;Quel degré de cute et de lisibilité évite le body horror ?;Critique;Moodboard et silhouettes abstraites.;À examiner;
 Q-014;MVP;Quelles fonctions doivent être simulées avant tout développement graphique ?;Critique;Flux, événement, adaptation, commerce automatique.;À examiner;
 Q-015;Comptes;À quel moment l’incarnation secondaire est-elle débloquée et quelles limites doivent être partagées ?;Haute;Définir les règles anti-abus.;À examiner;
-Q-016;Carte;Carrés, hexagones ou cellules organiques pour l’affichage et les calculs ?;Critique;Comparer coûts techniques et lisibilité.;À examiner;
+Q-016;Carte;Décision prise : terrain hexagonal. Reste à fixer taille, zoom et regroupement.;Haute;Voir Q-027.;À examiner;
 Q-017;Déplacement;Quelle vitesse réelle de migration rend la géographie importante sans enfermer le joueur ?;Haute;Simuler plusieurs durées.;À examiner;
 Q-018;Crises;Quel premier Nœud de crise démontre observation, essais et dépassement ?;Critique;Concevoir un cas de test.;À examiner;
 Q-019;Dormance;Après combien de temps un compte passe-t-il en dormance et quel débit minimal conserve-t-il ?;Critique;Simuler 3 profils d’absence.;À examiner;
@@ -24,3 +24,7 @@ Q-022;Époques;Quelles conditions clôturent un chapitre et quelle échelle doit
 Q-023;Commerce;Quel nombre initial de ports, quelle portée et quel débit pour le hub racinaire ?;Critique;Simulation économique.;À examiner;
 Q-024;Collectif;Le nom Confluence et ses types fonctionnels conviennent-ils ?;Moyenne;Validation vocabulaire.;À examiner;
 Q-025;Événements;Le nom Voile convient-il aux zones d’ombre mobiles ?;Moyenne;Validation vocabulaire.;À examiner;
+Q-026;Symbiose;Créer, améliorer ou instance commune : quelles récompenses sont assez utiles sans devenir obligatoires ?;Critique;Définir 3 scénarios comparables.;À examiner;
+Q-027;Hexagones;Quelle échelle représente un hexagone et combien sont visibles à l’écran ?;Critique;Maquette papier.;À examiner;
+Q-028;Arbres;Quelles familles doivent former les premiers arbres : intérieur, écotone, commerce, exploration ou adaptation ?;Critique;Après validation du classeur.;À examiner;
+Q-029;Interactions;Quelles dépendances entre mécanismes sont indispensables et lesquelles doivent être supprimées ?;Critique;Construire une matrice d’interactions.;À examiner;

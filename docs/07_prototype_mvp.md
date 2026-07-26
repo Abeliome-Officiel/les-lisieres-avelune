@@ -1,8 +1,8 @@
-# Prototype v0.6
+# Prototype v0.7
 
 ## Vue
 
-- carte générale cellulaire ;
+- carte générale hexagonale ;
 - vue intérieure fixe ;
 - panneaux de règles et d’événements.
 

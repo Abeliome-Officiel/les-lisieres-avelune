@@ -1,4 +1,4 @@
-# Tycoon et réseaux v0.6
+# Tycoon et réseaux v0.7
 
 Les chaînes restent courtes, visibles et automatisables. Le joueur règle priorités, réserves, seuils et destinations.
 

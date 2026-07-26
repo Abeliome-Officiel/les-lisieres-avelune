@@ -1,5 +1,5 @@
 # Les Lisières d’Avelune
-## Book de conception v0.6
+## Book de conception v0.7
 
 Date : 2026-07-26
 
@@ -22,7 +22,7 @@ Un jeu navigateur de gestion, RPG, tycoon organique et transformation collective
 
 - **Corps-cité et tycoon lisible** : cycles courts, automatismes et chaînes limitées.
 - **RPG, exploration et instances** : incarnation mobile, Éclats, crises et éventuellement PvP volontaire plus tard.
-- **Monde cellulaire persistant** : cellules, écotones, NPC, phénomènes et Époques.
+- **Monde hexagonal persistant** : cellules, écotones, NPC évolutifs, Voiles et Époques.
 
 # Corps-cité
 
@@ -36,7 +36,7 @@ La vue de prototype est volontairement simple :
 
 # Terrain, écotones et déplacement
 
-Le monde est composé de cellules écologiques. La forme graphique reste à choisir dans cette version.
+Le terrain est une grille **hexagonale**. Chaque cellule possède six voisines, ce qui simplifie les distances et rend plus naturelles les propagations de Voiles, d’écotones et de migrations.
 
 Chaque cellule peut contenir : type de sol, humidité, chaleur, minéralité, fertilité, mémoire, activité magique, accessibilité, ressources, saison, phénomène mobile et Traces.
 
@@ -80,7 +80,12 @@ Les cités collaboratives, nommées provisoirement **Confluences**, réunissent 
 
 # Symbiose
 
-La v0.6 explore une structure commune réversible et, à très long terme, l’autonomisation éventuelle d’un NPC. Ces hypothèses sont complexes et explicitement marquées comme provisoires ou reportées.
+La v0.7 simplifie fortement le système. Une symbiose est une coopération **temporaire** pour :
+
+- créer ou améliorer quelque chose dans le cadre normal du jeu ;
+- ouvrir ou accomplir une instance commune particulière.
+
+Elle prend fin à l’objectif, à la durée prévue, à la sortie d’un participant ou à la clôture de l’instance. Elle ne crée ni compte, ni organe commun permanent, ni NPC appartenant aux joueurs, ni dépendance durable.
 
 # Accessibilité et éthique
 
@@ -105,6 +110,8 @@ Le prototype doit pouvoir être simulé sans graphisme complexe avec :
 - un Nœud de crise ;
 - une dormance simulée ;
 - une Trace persistante.
+
+Le terrain du prototype est hexagonal. Les symbioses ne sont pas nécessaires au premier test, mais leur place doit être représentée dans les futures cartes d’interaction.
 
 # Étape suivante
 
@@ -139,13 +146,13 @@ Le propriétaire du projet relit le classeur et utilise les colonnes **Validatio
 - **DEC-082 - Interaction des écotones** (Décision provisoire, Haute, MVP) : Le chevauchement de zones peut créer synergies, tensions ou transformations du terrain, sans sabotage direct.
 - **DEC-083 - Ancrage et incarnation mobile** (Décision provisoire, Critique, Prototype) : Le corps-cité possède un ancrage persistant tandis qu’une incarnation peut explorer et participer aux instances.
 - **DEC-084 - Migration très lente de l’ancrage** (Décision provisoire, Haute, MVP) : Le déplacement complet du corps-cité est possible comme projet long, sans mobilité tactique rapide.
-- **DEC-095 - Organe commun réversible** (Décision provisoire, Moyenne, Après MVP) : Hypothèse v0.6 : une symbiose peut créer une structure commune réversible entre plusieurs corps-cités.
 - **DEC-098 - Époques à plusieurs échelles** (Décision provisoire, Haute, MVP) : Une Époque peut concerner le monde entier, une région, une Confluence, un groupe de participants ou un joueur.
 - **DEC-101 - Quatre transformations au prototype** (Décision provisoire, Haute, Prototype) : Le prototype limite les chaînes à quatre transformations; cinq ou six restent à évaluer pour les spécialisations avancées.
 - **DEC-106 - Confluence comme nom des cités collaboratives** (Décision provisoire, Moyenne, MVP) : Nom de travail pour des lieux collectifs spécialisés, accessibles à plusieurs corps-cités sans fusion.
 - **DEC-107 - Confluences spécialisées et non fusionnables** (Décision provisoire, Haute, MVP) : Chaque cité collaborative possède une spécialité et peut coopérer avec d’autres sans fusion institutionnelle.
 - **DEC-108 - Activités des cités collaboratives** (Décision provisoire, Haute, MVP) : Elles peuvent accueillir projets, décisions structurées, quêtes, services et petites instances.
 - **DEC-112 - Voiles ambigus** (Décision provisoire, Haute, Prototype) : Nom de travail : les Voiles peuvent être favorables, défavorables ou ambigus selon le corps-cité et le contexte.
+- **DEC-115 - Finalités limitées** (Décision provisoire, Haute, MVP) : Une symbiose sert uniquement à créer ou améliorer quelque chose dans le cadre normal du jeu, ou à ouvrir une instance commune particulière.
 
 # Registre complet des décisions
 
@@ -182,6 +189,10 @@ Le propriétaire du projet relit le classeur et utilise les colonnes **Validatio
 
 - **DEC-077 - Une incarnation secondaire autorisée** - *Décision provisoire / Haute / MVP* : Un compte joueur peut posséder une incarnation principale et une seule incarnation secondaire officiellement rattachée.
 - **DEC-078 - Limiter les abus de la seconde incarnation** - *Décision provisoire / Critique / MVP* : Une seule voix par personne, aucune validation mutuelle, aucun affrontement entre ses incarnations et aucun transfert direct de ressources.
+
+## Conception
+
+- **DEC-121 - Cartographier les interactions avant le code** - *Décision définitive / Critique / Prototype* : Les arbres technologiques, arbres d’évolution et interactions de mécanismes doivent être représentés lisiblement avant le prototype logiciel.
 
 ## Coopération
 
@@ -314,6 +325,11 @@ Le propriétaire du projet relit le classeur et utilise les colonnes **Validatio
 - **DEC-032 - Économie biologique interne** - *Décision provisoire / Haute / Prototype* : Les métiers et industries deviennent des cycles, organes, chambres, symbiotes et flux intérieurs non réalistes et non horrifiques.
 - **DEC-033 - Liens biologiques entre individus** - *Décision provisoire / Haute / Prototype* : Les routes commerciales et coopérations prennent la forme de filaments, courants ou symbioses entre corps-cités.
 
+## Pilotage
+
+- **DEC-119 - Sélection critique des idées** - *Décision définitive / Critique / Vision* : Toute nouvelle proposition doit être classée : retenir, simplifier, reporter ou écarter selon sa valeur et son coût.
+- **DEC-120 - Revue utilisateur avant les arbres** - *Décision définitive / Critique / Vision* : Le propriétaire du projet valide, invalide ou modifie les décisions du classeur avant la création des arbres technologiques et d’évolution.
+
 ## Progression
 
 - **DEC-004 - Faible importance du niveau** - *Décision définitive / Critique / Prototype* : L’ancienneté donne davantage d’options et d’automatisation mais ne rend jamais les nouveaux inutiles.
@@ -351,15 +367,21 @@ Le propriétaire du projet relit le classeur et utilise les colonnes **Validatio
 ## Symbiose
 
 - **DEC-094 - Aucune création automatique de compte** - *Décision définitive / Critique / MVP* : Une symbiose ne crée jamais automatiquement un compte joueur, une seconde incarnation ou une fusion de comptes.
-- **DEC-095 - Organe commun réversible** - *Décision provisoire / Moyenne / Après MVP* : Hypothèse v0.6 : une symbiose peut créer une structure commune réversible entre plusieurs corps-cités.
-- **DEC-096 - Écosystème NPC issu d’une symbiose** - *Décision reportée / Basse / Long terme* : Hypothèse rare : certaines symbioses pourraient autonomiser une présence NPC.
+- **DEC-095 - Organe commun réversible** - *Proposition écartée / Basse / Long terme* : Hypothèse v0.6 écartée en v0.7 : ne pas créer d’organe commun permanent ni de propriété partagée durable par symbiose.
+- **DEC-096 - Écosystème NPC issu d’une symbiose** - *Décision reportée / Basse / Long terme* : Idée conservée uniquement comme possibilité narrative lointaine; aucune entité NPC appartenant aux joueurs ne sera créée par le système courant.
+- **DEC-114 - Symbiose temporaire** - *Décision définitive / Critique / MVP* : La symbiose est une coopération limitée dans le temps; elle ne crée pas de lien, compte ou entité commune permanente.
+- **DEC-115 - Finalités limitées** - *Décision provisoire / Haute / MVP* : Une symbiose sert uniquement à créer ou améliorer quelque chose dans le cadre normal du jeu, ou à ouvrir une instance commune particulière.
+- **DEC-116 - Fin explicite** - *Décision définitive / Critique / MVP* : La symbiose prend fin à l’objectif, à la durée prévue, à la sortie d’un participant ou à la clôture de l’instance.
+- **DEC-117 - Aucun actif symbiotique durable** - *Décision définitive / Critique / MVP* : Le projet peut produire une récompense normale, mais pas un organe partagé permanent, une dépendance persistante ou un NPC appartenant aux joueurs.
+- **DEC-118 - Système optionnel** - *Décision définitive / Haute / MVP* : La symbiose améliore certaines possibilités mais n’est pas nécessaire à la progression principale.
 
 ## Terrain
 
-- **DEC-080 - Monde cellulaire écologique** - *Décision définitive / Critique / Prototype* : Le monde est divisé en cellules possédant des propriétés de sol, climat, magie, mémoire, accessibilité et ressources.
+- **DEC-080 - Monde en cellules hexagonales** - *Décision définitive / Critique / Prototype* : Le monde est divisé en hexagones écologiques possédant six voisinages équivalents et des propriétés de terrain.
 - **DEC-081 - Écotone autour du corps-cité** - *Décision définitive / Critique / Prototype* : Chaque corps-cité influence une zone non exclusive autour de son ancrage.
 - **DEC-082 - Interaction des écotones** - *Décision provisoire / Haute / MVP* : Le chevauchement de zones peut créer synergies, tensions ou transformations du terrain, sans sabotage direct.
 - **DEC-085 - Zones favorables, difficiles et saisonnières** - *Décision définitive / Haute / Prototype* : Les secteurs peuvent être propices ou défavorables selon leurs propriétés, les saisons et les phénomènes mobiles.
+- **DEC-113 - Carte hexagonale** - *Décision définitive / Critique / Prototype* : Les cellules du monde sont des hexagones : six voisinages équivalents, propagation et distances plus naturelles.
 
 ## Territoire
 
@@ -413,7 +435,7 @@ Le propriétaire du projet relit le classeur et utilise les colonnes **Validatio
 - **Q-001 - Concept** (Critique) : Le corps-cité devient-il le concept définitif ou seulement une faction/forme jouable ? — Prochaine action : Prototype papier et maquette visuelle.
 - **Q-002 - Représentation** (Critique) : Le corps-cité se déplace-t-il physiquement sur la carte ou projette-t-il un avatar mobile ? — Prochaine action : Comparer lisibilité RPG et tycoon.
 - **Q-003 - Échelle intérieure** (Haute) : Voit-on des habitants individuels, des populations abstraites ou des symbiotes nommés ? — Prochaine action : Tester 3 à 5 figures nommées plus flux agrégés.
-- **Q-004 - Carte** (Haute) : Quelle forme prend une cellule et comment les zones d’influence se chevauchent-elles visuellement ? — Prochaine action : Prototype hexagonal/organique.
+- **Q-004 - Carte** (Haute) : Comment représenter lisiblement les hexagones et les écotones sur ordinateur et téléphone ? — Prochaine action : Maquette de carte hexagonale.
 - **Q-005 - Économie** (Critique) : Quelles trois ressources suffisent au premier prototype ? — Prochaine action : Matière, énergie, mémoire comme hypothèse.
 - **Q-006 - Événement** (Critique) : Quel premier Écho démontre combat, adaptation et transcendance ? — Prochaine action : Concevoir un événement vertical complet.
 - **Q-007 - Commerce** (Haute) : Les échanges utilisent-ils troc automatique, crédits communs ou demandes ciblées ? — Prochaine action : Tester troc par quotas sans monnaie.
@@ -425,7 +447,7 @@ Le propriétaire du projet relit le classeur et utilise les colonnes **Validatio
 - **Q-013 - Visuel** (Critique) : Quel degré de cute et de lisibilité évite le body horror ? — Prochaine action : Moodboard et silhouettes abstraites.
 - **Q-014 - MVP** (Critique) : Quelles fonctions doivent être simulées avant tout développement graphique ? — Prochaine action : Flux, événement, adaptation, commerce automatique.
 - **Q-015 - Comptes** (Haute) : À quel moment l’incarnation secondaire est-elle débloquée et quelles limites doivent être partagées ? — Prochaine action : Définir les règles anti-abus.
-- **Q-016 - Carte** (Critique) : Carrés, hexagones ou cellules organiques pour l’affichage et les calculs ? — Prochaine action : Comparer coûts techniques et lisibilité.
+- **Q-016 - Carte** (Haute) : Décision prise : terrain hexagonal. Reste à fixer taille, zoom et regroupement. — Prochaine action : Voir Q-027.
 - **Q-017 - Déplacement** (Haute) : Quelle vitesse réelle de migration rend la géographie importante sans enfermer le joueur ? — Prochaine action : Simuler plusieurs durées.
 - **Q-018 - Crises** (Critique) : Quel premier Nœud de crise démontre observation, essais et dépassement ? — Prochaine action : Concevoir un cas de test.
 - **Q-019 - Dormance** (Critique) : Après combien de temps un compte passe-t-il en dormance et quel débit minimal conserve-t-il ? — Prochaine action : Simuler 3 profils d’absence.
@@ -435,6 +457,10 @@ Le propriétaire du projet relit le classeur et utilise les colonnes **Validatio
 - **Q-023 - Commerce** (Critique) : Quel nombre initial de ports, quelle portée et quel débit pour le hub racinaire ? — Prochaine action : Simulation économique.
 - **Q-024 - Collectif** (Moyenne) : Le nom Confluence et ses types fonctionnels conviennent-ils ? — Prochaine action : Validation vocabulaire.
 - **Q-025 - Événements** (Moyenne) : Le nom Voile convient-il aux zones d’ombre mobiles ? — Prochaine action : Validation vocabulaire.
+- **Q-026 - Symbiose** (Critique) : Créer, améliorer ou instance commune : quelles récompenses sont assez utiles sans devenir obligatoires ? — Prochaine action : Définir 3 scénarios comparables.
+- **Q-027 - Hexagones** (Critique) : Quelle échelle représente un hexagone et combien sont visibles à l’écran ? — Prochaine action : Maquette papier.
+- **Q-028 - Arbres** (Critique) : Quelles familles doivent former les premiers arbres : intérieur, écotone, commerce, exploration ou adaptation ? — Prochaine action : Après validation du classeur.
+- **Q-029 - Interactions** (Critique) : Quelles dépendances entre mécanismes sont indispensables et lesquelles doivent être supprimées ? — Prochaine action : Construire une matrice d’interactions.
 
 # Risques
 
@@ -459,6 +485,9 @@ Le propriétaire du projet relit le classeur et utilise les colonnes **Validatio
 - **R-019 - Commerce opportuniste** (Haute) : Des règles ouvertes peuvent être exploitées à la limite des ratios. Réponse : Réserves, ports, plafonds, historiques et temporisation des ruptures.
 - **R-020 - Symbiose administrative** (Critique) : La propriété d’un organe commun crée des litiges et dépendances. Réponse : Simplifier ou supprimer tout actif permanent partagé.
 - **R-021 - Confluences obligatoires** (Haute) : Les lieux collectifs peuvent devenir des passages forcés. Réponse : Alternatives NPC et progression solo complète.
+- **R-022 - Carte hexagonale sur mobile** (Haute) : Des hexagones trop petits ou nombreux nuisent à la lisibilité tactile. Réponse : Zoom, regroupement régional et panneaux plutôt que micro-clics.
+- **R-023 - Symbiose sans intérêt** (Haute) : Si le gain est trop faible, le système sera ignoré; trop fort, il deviendra obligatoire. Réponse : Tester trois finalités et plafonner l’avantage.
+- **R-024 - Accumulation de décisions** (Critique) : Le classeur peut devenir trop volumineux pour être relu. Réponse : Feuille d’arbitrages prioritaires, filtres et statut utilisateur.
 
 # Sources techniques
 

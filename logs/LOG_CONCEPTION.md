@@ -3139,3 +3139,15 @@ Les décisions DEC-077 à DEC-089 et les mécanismes MEC-061 à MEC-068 ont ét�
 
 ### Résultat consolidé
 Les décisions DEC-090 à DEC-112 et les mécanismes MEC-069 à MEC-078 ont été ajoutés. Plusieurs éléments restent provisoires, notamment le vocabulaire Confluence/Voile et la forme exacte de la symbiose.
+
+
+## Addendum v0.7 - Arbitrage, hexagones et simplification des symbioses
+
+### Demande de conception
+- Ne plus valider systématiquement toutes les idées : retenir, simplifier, reporter ou écarter.
+- Choisir les hexagones pour le terrain.
+- Écarter les résultats symbiotiques durables tout en gardant une coopération temporaire pour créer, améliorer ou jouer une instance commune.
+- Préparer ensuite les arbres technologiques, les arbres d'évolution et la carte des interactions.
+
+### Résultat consolidé
+Les décisions DEC-113 à DEC-121 ont été ajoutées. L'hypothèse d'un organe commun permanent (DEC-095) est classée comme écartée dans la v0.7; l'hypothèse de NPC issu d'une symbiose (DEC-096) reste reportée hors périmètre. La carte hexagonale est confirmée.

@@ -1,6 +1,6 @@
 {
   "project": "Les Lisières d’Avelune",
-  "version": "0.6",
+  "version": "0.7",
   "date": "2026-07-26",
   "statuses": [
     "Décision définitive",
@@ -816,8 +816,8 @@
     [
       "DEC-080",
       "Terrain",
-      "Monde cellulaire écologique",
-      "Le monde est divisé en cellules possédant des propriétés de sol, climat, magie, mémoire, accessibilité et ressources.",
+      "Monde en cellules hexagonales",
+      "Le monde est divisé en hexagones écologiques possédant six voisinages équivalents et des propriétés de terrain.",
       "Décision définitive",
       "Critique",
       "Prototype",
@@ -967,21 +967,21 @@
       "DEC-095",
       "Symbiose",
       "Organe commun réversible",
-      "Hypothèse v0.6 : une symbiose peut créer une structure commune réversible entre plusieurs corps-cités.",
-      "Décision provisoire",
-      "Moyenne",
-      "Après MVP",
-      "À réévaluer en v0.7"
+      "Hypothèse v0.6 écartée en v0.7 : ne pas créer d’organe commun permanent ni de propriété partagée durable par symbiose.",
+      "Proposition écartée",
+      "Basse",
+      "Long terme",
+      "Supplantée par DEC-114 à DEC-117"
     ],
     [
       "DEC-096",
       "Symbiose",
       "Écosystème NPC issu d’une symbiose",
-      "Hypothèse rare : certaines symbioses pourraient autonomiser une présence NPC.",
+      "Idée conservée uniquement comme possibilité narrative lointaine; aucune entité NPC appartenant aux joueurs ne sera créée par le système courant.",
       "Décision reportée",
       "Basse",
       "Long terme",
-      "Modération et propriété"
+      "Hors périmètre"
     ],
     [
       "DEC-097",
@@ -1142,6 +1142,96 @@
       "Haute",
       "Prototype",
       "Vocabulaire"
+    ],
+    [
+      "DEC-113",
+      "Terrain",
+      "Carte hexagonale",
+      "Les cellules du monde sont des hexagones : six voisinages équivalents, propagation et distances plus naturelles.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Remplace Q-004"
+    ],
+    [
+      "DEC-114",
+      "Symbiose",
+      "Symbiose temporaire",
+      "La symbiose est une coopération limitée dans le temps; elle ne crée pas de lien, compte ou entité commune permanente.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Simplification v0.7"
+    ],
+    [
+      "DEC-115",
+      "Symbiose",
+      "Finalités limitées",
+      "Une symbiose sert uniquement à créer ou améliorer quelque chose dans le cadre normal du jeu, ou à ouvrir une instance commune particulière.",
+      "Décision provisoire",
+      "Haute",
+      "MVP",
+      "Récompenses à préciser"
+    ],
+    [
+      "DEC-116",
+      "Symbiose",
+      "Fin explicite",
+      "La symbiose prend fin à l’objectif, à la durée prévue, à la sortie d’un participant ou à la clôture de l’instance.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Dormance"
+    ],
+    [
+      "DEC-117",
+      "Symbiose",
+      "Aucun actif symbiotique durable",
+      "Le projet peut produire une récompense normale, mais pas un organe partagé permanent, une dépendance persistante ou un NPC appartenant aux joueurs.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Écarte DEC-095 et DEC-096"
+    ],
+    [
+      "DEC-118",
+      "Symbiose",
+      "Système optionnel",
+      "La symbiose améliore certaines possibilités mais n’est pas nécessaire à la progression principale.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Solo"
+    ],
+    [
+      "DEC-119",
+      "Pilotage",
+      "Sélection critique des idées",
+      "Toute nouvelle proposition doit être classée : retenir, simplifier, reporter ou écarter selon sa valeur et son coût.",
+      "Décision définitive",
+      "Critique",
+      "Vision",
+      "Méthode de conception"
+    ],
+    [
+      "DEC-120",
+      "Pilotage",
+      "Revue utilisateur avant les arbres",
+      "Le propriétaire du projet valide, invalide ou modifie les décisions du classeur avant la création des arbres technologiques et d’évolution.",
+      "Décision définitive",
+      "Critique",
+      "Vision",
+      "Étape suivante"
+    ],
+    [
+      "DEC-121",
+      "Conception",
+      "Cartographier les interactions avant le code",
+      "Les arbres technologiques, arbres d’évolution et interactions de mécanismes doivent être représentés lisiblement avant le prototype logiciel.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Après revue des décisions"
     ]
   ],
   "principles": [
@@ -1986,6 +2076,46 @@
       "Collectif",
       "Après MVP",
       "Décision reportée"
+    ],
+    [
+      "MEC-079",
+      "Terrain",
+      "Voisinage hexagonal",
+      "Chaque cellule possède jusqu’à six voisins avec un coût de déplacement cohérent.",
+      "Continue",
+      "Monde",
+      "Prototype",
+      "Décision définitive"
+    ],
+    [
+      "MEC-080",
+      "Symbiose",
+      "Projet temporaire à deux participants",
+      "Deux joueurs ou un joueur et un NPC contribuent pendant une durée limitée.",
+      "Moyenne",
+      "Liens",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-081",
+      "Symbiose",
+      "Instance partagée",
+      "Une symbiose peut ouvrir une instance coopérative particulière, puis se dissoudre.",
+      "Session",
+      "Groupe",
+      "MVP",
+      "Décision provisoire"
+    ],
+    [
+      "MEC-082",
+      "Symbiose",
+      "Clôture automatique",
+      "L’objectif, la durée ou la sortie d’un participant ferme le lien temporaire.",
+      "Moyenne",
+      "Liens",
+      "MVP",
+      "Décision définitive"
     ]
   ],
   "persistent_layers": [
@@ -2232,6 +2362,27 @@
       "Les lieux collectifs peuvent devenir des passages forcés.",
       "Haute",
       "Alternatives NPC et progression solo complète."
+    ],
+    [
+      "R-022",
+      "Carte hexagonale sur mobile",
+      "Des hexagones trop petits ou nombreux nuisent à la lisibilité tactile.",
+      "Haute",
+      "Zoom, regroupement régional et panneaux plutôt que micro-clics."
+    ],
+    [
+      "R-023",
+      "Symbiose sans intérêt",
+      "Si le gain est trop faible, le système sera ignoré; trop fort, il deviendra obligatoire.",
+      "Haute",
+      "Tester trois finalités et plafonner l’avantage."
+    ],
+    [
+      "R-024",
+      "Accumulation de décisions",
+      "Le classeur peut devenir trop volumineux pour être relu.",
+      "Critique",
+      "Feuille d’arbitrages prioritaires, filtres et statut utilisateur."
     ]
   ],
   "questions": [
@@ -2259,9 +2410,9 @@
     [
       "Q-004",
       "Carte",
-      "Quelle forme prend une cellule et comment les zones d’influence se chevauchent-elles visuellement ?",
+      "Comment représenter lisiblement les hexagones et les écotones sur ordinateur et téléphone ?",
       "Haute",
-      "Prototype hexagonal/organique."
+      "Maquette de carte hexagonale."
     ],
     [
       "Q-005",
@@ -2343,9 +2494,9 @@
     [
       "Q-016",
       "Carte",
-      "Carrés, hexagones ou cellules organiques pour l’affichage et les calculs ?",
-      "Critique",
-      "Comparer coûts techniques et lisibilité."
+      "Décision prise : terrain hexagonal. Reste à fixer taille, zoom et regroupement.",
+      "Haute",
+      "Voir Q-027."
     ],
     [
       "Q-017",
@@ -2409,6 +2560,34 @@
       "Le nom Voile convient-il aux zones d’ombre mobiles ?",
       "Moyenne",
       "Validation vocabulaire."
+    ],
+    [
+      "Q-026",
+      "Symbiose",
+      "Créer, améliorer ou instance commune : quelles récompenses sont assez utiles sans devenir obligatoires ?",
+      "Critique",
+      "Définir 3 scénarios comparables."
+    ],
+    [
+      "Q-027",
+      "Hexagones",
+      "Quelle échelle représente un hexagone et combien sont visibles à l’écran ?",
+      "Critique",
+      "Maquette papier."
+    ],
+    [
+      "Q-028",
+      "Arbres",
+      "Quelles familles doivent former les premiers arbres : intérieur, écotone, commerce, exploration ou adaptation ?",
+      "Critique",
+      "Après validation du classeur."
+    ],
+    [
+      "Q-029",
+      "Interactions",
+      "Quelles dépendances entre mécanismes sont indispensables et lesquelles doivent être supprimées ?",
+      "Critique",
+      "Construire une matrice d’interactions."
     ]
   ],
   "vocabulary": [
@@ -2541,6 +2720,16 @@
       "Narration",
       "Époque / chapitre",
       "Retenu"
+    ],
+    [
+      "Terrain",
+      "Hexagone",
+      "Définitif"
+    ],
+    [
+      "Coopération temporaire",
+      "Symbiose",
+      "Retenu avec périmètre réduit"
     ]
   ],
   "review_options": [
@@ -2762,6 +2951,7 @@
   ],
   "design_log_addenda": [
     "## Addendum v0.5 - Terrain, mobilité, crises et double incarnation\n\n### Demande de conception\n- Autoriser un compte secondaire unique sans permettre les abus.\n- Prévoir éventuellement une section PvE/PvP sans en faire le coeur du jeu.\n- Donner aux cellules des propensions d'activité et faire interagir les écotones.\n- Étudier une présence fixe ou très lentement mobile dans le monde.\n- Introduire des zones favorables/difficiles et de vraies problématiques semi-bloquantes.\n- Utiliser une carte générale et une vue intérieure fixe pour faciliter le premier prototype.\n\n### Résultat consolidé\nLes décisions DEC-077 à DEC-089 et les mécanismes MEC-061 à MEC-068 ont été ajoutés. Le PvP est reporté; le terrain cellulaire, l'écotone, les crises de branche et la double vue sont intégrés au cadrage.\n",
-    "## Addendum v0.6 - Dormance, NPC, Époques, commerce et collectif\n\n### Demande de conception\n- Rendre les Traces anonymes et naturelles.\n- Réduire fortement la progression des comptes dormants tout en maintenant les échanges demandés.\n- Faire évoluer lentement les écosystèmes NPC.\n- Étudier les conséquences et la réversibilité des symbioses.\n- Structurer l'histoire par Époques ou chapitres.\n- Limiter les chaînes de production afin de conserver un tycoon lisible.\n- Remplacer le marché abstrait par un hub racinaire à règles publiées.\n- Créer des cités collaboratives spécialisées et des quêtes encadrées.\n- Transformer les zones d'ombre en phénomènes mobiles indépendants.\n\n### Résultat consolidé\nLes décisions DEC-090 à DEC-112 et les mécanismes MEC-069 à MEC-078 ont été ajoutés. Plusieurs éléments restent provisoires, notamment le vocabulaire Confluence/Voile et la forme exacte de la symbiose.\n"
+    "## Addendum v0.6 - Dormance, NPC, Époques, commerce et collectif\n\n### Demande de conception\n- Rendre les Traces anonymes et naturelles.\n- Réduire fortement la progression des comptes dormants tout en maintenant les échanges demandés.\n- Faire évoluer lentement les écosystèmes NPC.\n- Étudier les conséquences et la réversibilité des symbioses.\n- Structurer l'histoire par Époques ou chapitres.\n- Limiter les chaînes de production afin de conserver un tycoon lisible.\n- Remplacer le marché abstrait par un hub racinaire à règles publiées.\n- Créer des cités collaboratives spécialisées et des quêtes encadrées.\n- Transformer les zones d'ombre en phénomènes mobiles indépendants.\n\n### Résultat consolidé\nLes décisions DEC-090 à DEC-112 et les mécanismes MEC-069 à MEC-078 ont été ajoutés. Plusieurs éléments restent provisoires, notamment le vocabulaire Confluence/Voile et la forme exacte de la symbiose.\n",
+    "## Addendum v0.7 - Arbitrage, hexagones et simplification des symbioses\n\n### Demande de conception\n- Ne plus valider systématiquement toutes les idées : retenir, simplifier, reporter ou écarter.\n- Choisir les hexagones pour le terrain.\n- Écarter les résultats symbiotiques durables tout en gardant une coopération temporaire pour créer, améliorer ou jouer une instance commune.\n- Préparer ensuite les arbres technologiques, les arbres d'évolution et la carte des interactions.\n\n### Résultat consolidé\nLes décisions DEC-113 à DEC-121 ont été ajoutées. L'hypothèse d'un organe commun permanent (DEC-095) est classée comme écartée dans la v0.7; l'hypothèse de NPC issu d'une symbiose (DEC-096) reste reportée hors périmètre. La carte hexagonale est confirmée.\n"
   ]
 }

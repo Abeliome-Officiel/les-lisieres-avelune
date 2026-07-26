@@ -1,4 +1,4 @@
-# Journal des décisions v0.6
+# Journal des décisions v0.7
 
 - **DEC-001 - Jeu sur navigateur** : Le jeu est accessible depuis un navigateur et pensé dès le départ pour le téléphone. (*Décision définitive / Critique / MVP*)
 - **DEC-002 - Aucun conflit imposé entre joueurs** : Le monde principal interdit pillage, attaque de territoire et confrontation forcée; un PvP volontaire pourra être étudié séparément. (*Décision définitive / Critique / MVP*)
@@ -79,7 +79,7 @@
 - **DEC-077 - Une incarnation secondaire autorisée** : Un compte joueur peut posséder une incarnation principale et une seule incarnation secondaire officiellement rattachée. (*Décision provisoire / Haute / MVP*)
 - **DEC-078 - Limiter les abus de la seconde incarnation** : Une seule voix par personne, aucune validation mutuelle, aucun affrontement entre ses incarnations et aucun transfert direct de ressources. (*Décision provisoire / Critique / MVP*)
 - **DEC-079 - PvP volontaire et instancié** : Le moteur peut accueillir plus tard des épreuves PvP volontaires, sans pillage, perte durable ni avantage indispensable. (*Décision reportée / Moyenne / Après MVP*)
-- **DEC-080 - Monde cellulaire écologique** : Le monde est divisé en cellules possédant des propriétés de sol, climat, magie, mémoire, accessibilité et ressources. (*Décision définitive / Critique / Prototype*)
+- **DEC-080 - Monde en cellules hexagonales** : Le monde est divisé en hexagones écologiques possédant six voisinages équivalents et des propriétés de terrain. (*Décision définitive / Critique / Prototype*)
 - **DEC-081 - Écotone autour du corps-cité** : Chaque corps-cité influence une zone non exclusive autour de son ancrage. (*Décision définitive / Critique / Prototype*)
 - **DEC-082 - Interaction des écotones** : Le chevauchement de zones peut créer synergies, tensions ou transformations du terrain, sans sabotage direct. (*Décision provisoire / Haute / MVP*)
 - **DEC-083 - Ancrage et incarnation mobile** : Le corps-cité possède un ancrage persistant tandis qu’une incarnation peut explorer et participer aux instances. (*Décision provisoire / Critique / Prototype*)
@@ -94,8 +94,8 @@
 - **DEC-092 - Progression quasi nulle en inactivité** : Un compte dormant ne gagne pas, ou très peu, de progression, recherche et collection. (*Décision définitive / Critique / Prototype*)
 - **DEC-093 - Écosystèmes NPC évolutifs** : Les cités et écosystèmes NPC suivent lentement leurs propres orientations au lieu de rester figés. (*Décision définitive / Haute / MVP*)
 - **DEC-094 - Aucune création automatique de compte** : Une symbiose ne crée jamais automatiquement un compte joueur, une seconde incarnation ou une fusion de comptes. (*Décision définitive / Critique / MVP*)
-- **DEC-095 - Organe commun réversible** : Hypothèse v0.6 : une symbiose peut créer une structure commune réversible entre plusieurs corps-cités. (*Décision provisoire / Moyenne / Après MVP*)
-- **DEC-096 - Écosystème NPC issu d’une symbiose** : Hypothèse rare : certaines symbioses pourraient autonomiser une présence NPC. (*Décision reportée / Basse / Long terme*)
+- **DEC-095 - Organe commun réversible** : Hypothèse v0.6 écartée en v0.7 : ne pas créer d’organe commun permanent ni de propriété partagée durable par symbiose. (*Proposition écartée / Basse / Long terme*)
+- **DEC-096 - Écosystème NPC issu d’une symbiose** : Idée conservée uniquement comme possibilité narrative lointaine; aucune entité NPC appartenant aux joueurs ne sera créée par le système courant. (*Décision reportée / Basse / Long terme*)
 - **DEC-097 - Époques comme chapitres** : Le monde avance par Époques ou chapitres qui structurent l’histoire persistante. (*Décision définitive / Critique / MVP*)
 - **DEC-098 - Époques à plusieurs échelles** : Une Époque peut concerner le monde entier, une région, une Confluence, un groupe de participants ou un joueur. (*Décision provisoire / Haute / MVP*)
 - **DEC-099 - Nouvelle direction à la fin d’un chapitre** : La clôture d’une Époque peut ouvrir plusieurs orientations pour le chapitre suivant. (*Décision définitive / Haute / MVP*)
@@ -112,3 +112,12 @@
 - **DEC-110 - Récompenses plafonnées par le système** : Les créateurs de contenu ne fixent pas librement les gains ni les conséquences durables. (*Décision définitive / Haute / Après MVP*)
 - **DEC-111 - Zones d’ombre mobiles** : Les zones d’ombre sont des phénomènes indépendants qui circulent comme des nuages, le jour, la nuit ou des courants. (*Décision définitive / Critique / Prototype*)
 - **DEC-112 - Voiles ambigus** : Nom de travail : les Voiles peuvent être favorables, défavorables ou ambigus selon le corps-cité et le contexte. (*Décision provisoire / Haute / Prototype*)
+- **DEC-113 - Carte hexagonale** : Les cellules du monde sont des hexagones : six voisinages équivalents, propagation et distances plus naturelles. (*Décision définitive / Critique / Prototype*)
+- **DEC-114 - Symbiose temporaire** : La symbiose est une coopération limitée dans le temps; elle ne crée pas de lien, compte ou entité commune permanente. (*Décision définitive / Critique / MVP*)
+- **DEC-115 - Finalités limitées** : Une symbiose sert uniquement à créer ou améliorer quelque chose dans le cadre normal du jeu, ou à ouvrir une instance commune particulière. (*Décision provisoire / Haute / MVP*)
+- **DEC-116 - Fin explicite** : La symbiose prend fin à l’objectif, à la durée prévue, à la sortie d’un participant ou à la clôture de l’instance. (*Décision définitive / Critique / MVP*)
+- **DEC-117 - Aucun actif symbiotique durable** : Le projet peut produire une récompense normale, mais pas un organe partagé permanent, une dépendance persistante ou un NPC appartenant aux joueurs. (*Décision définitive / Critique / MVP*)
+- **DEC-118 - Système optionnel** : La symbiose améliore certaines possibilités mais n’est pas nécessaire à la progression principale. (*Décision définitive / Haute / MVP*)
+- **DEC-119 - Sélection critique des idées** : Toute nouvelle proposition doit être classée : retenir, simplifier, reporter ou écarter selon sa valeur et son coût. (*Décision définitive / Critique / Vision*)
+- **DEC-120 - Revue utilisateur avant les arbres** : Le propriétaire du projet valide, invalide ou modifie les décisions du classeur avant la création des arbres technologiques et d’évolution. (*Décision définitive / Critique / Vision*)
+- **DEC-121 - Cartographier les interactions avant le code** : Les arbres technologiques, arbres d’évolution et interactions de mécanismes doivent être représentés lisiblement avant le prototype logiciel. (*Décision définitive / Critique / Prototype*)

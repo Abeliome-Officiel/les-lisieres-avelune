@@ -20,3 +20,6 @@ R-018;NPC trop autonomes;Le joueur peut avoir l’impression que le jeu joue seu
 R-019;Commerce opportuniste;Des règles ouvertes peuvent être exploitées à la limite des ratios.;Haute;Réserves, ports, plafonds, historiques et temporisation des ruptures.;À examiner;
 R-020;Symbiose administrative;La propriété d’un organe commun crée des litiges et dépendances.;Critique;Simplifier ou supprimer tout actif permanent partagé.;À examiner;
 R-021;Confluences obligatoires;Les lieux collectifs peuvent devenir des passages forcés.;Haute;Alternatives NPC et progression solo complète.;À examiner;
+R-022;Carte hexagonale sur mobile;Des hexagones trop petits ou nombreux nuisent à la lisibilité tactile.;Haute;Zoom, regroupement régional et panneaux plutôt que micro-clics.;À examiner;
+R-023;Symbiose sans intérêt;"Si le gain est trop faible, le système sera ignoré; trop fort, il deviendra obligatoire.";Haute;Tester trois finalités et plafonner l’avantage.;À examiner;
+R-024;Accumulation de décisions;Le classeur peut devenir trop volumineux pour être relu.;Critique;Feuille d’arbitrages prioritaires, filtres et statut utilisateur.;À examiner;

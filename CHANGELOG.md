@@ -1,8 +1,9 @@
 # Changelog
 
-## v0.6 - 2026-07-26
+## v0.7 - 2026-07-26
 
-- Traces anonymes, dormance minimale et NPC évolutifs ;
-- Époques, Hub racinaire et cités collaboratives ;
-- chaînes courtes et zones d’ombre mobiles ;
-- premières hypothèses de symbiose.
+- terrain hexagonal confirmé ;
+- symbiose simplifiée et temporaire ;
+- organe commun permanent écarté ;
+- classeur orienté validation utilisateur ;
+- préparation explicite des arbres et interactions.

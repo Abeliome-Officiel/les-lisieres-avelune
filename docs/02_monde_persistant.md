@@ -1,4 +1,4 @@
-# Monde persistant v0.6
+# Monde persistant v0.7
 
 Les transformations significatives modifient l’état du terrain et du monde. Les Traces sont anonymes et naturelles.
 
