@@ -33,3 +33,8 @@ site/
 # Outils de développement
 .vscode/
 .idea/
+
+# Prototype navigateur v0.9
+infra/.env
+runtime/
+*.log

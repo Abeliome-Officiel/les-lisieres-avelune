@@ -1,0 +1,67 @@
+services:
+  database:
+    image: postgres:17-alpine
+    container_name: avelune-proto-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: avelune
+      POSTGRES_USER: avelune
+      POSTGRES_PASSWORD: ${AVELUNE_DB_PASSWORD:?Variable AVELUNE_DB_PASSWORD absente}
+    volumes:
+      - ${AVELUNE_DB_DATA:?Variable AVELUNE_DB_DATA absente}:/var/lib/postgresql/data
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U avelune -d avelune"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    security_opt:
+      - no-new-privileges:true
+
+  application:
+    build:
+      context: ../app
+      dockerfile: Dockerfile
+    image: avelune-proto:0.9-dev
+    container_name: avelune-proto-app
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+      ORIGIN: ${AVELUNE_PUBLIC_URL:-https://proto.avelune.duckdns.org}
+      DATABASE_URL: postgresql://avelune:${AVELUNE_DB_PASSWORD}@database:5432/avelune
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - internal
+      - proxy
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  internal:
+    name: avelune-proto-internal
+    internal: true
+
+  proxy:
+    external: true
+    name: nginxpm_default
