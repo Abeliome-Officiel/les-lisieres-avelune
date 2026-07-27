@@ -1,8 +1,8 @@
-﻿ID;Type;Racine;Branches;Dépendances;Phase;État
-ARB-001;Arbre technologique intérieur;Cœur du corps-cité;Production, stockage, automatismes, soins;Ressources initiales et chaînes;Prototype;À préparer
-ARB-002;Arbre d’évolution de l’écotone;Influence locale;Portée, adaptation, protection, transformation du sol;Hexagones et terrain;Prototype;À préparer
-ARB-003;Arbre commercial;Hub racinaire;Ports, débit, portée, règles, secours;Économie et distance;Prototype;À préparer
-ARB-004;Arbre d’exploration;Incarnation mobile;Observation, infiltration, prévision, traversée;Déplacement et Voiles;MVP;À préparer
-ARB-005;Arbre social;Confluences;Projets, services, décisions, quêtes;Validation du collectif;MVP;À préparer
-ARB-006;Arbre d’adaptation;Nœuds de crise;Hypothèses, essais, maîtrise, bifurcations;Difficulté fertile;Prototype;À préparer
-ARB-007;Arbre de forme;Forme animale et affinités;Sens, mobilité, adaptations sans verrouillage;Identité et équilibrage;MVP;À préparer
+﻿ID;Type d’arbre;Racine;Branches;Décisions préalables;Phase;État de travail;Validation utilisateur;Commentaire
+ARB-001;Arbre technologique intérieur;Cœur du corps-cité;Production, stockage, automatismes, soins;Ressources initiales et chaînes;Prototype;À préparer;Non commencé;À examiner
+ARB-002;Arbre d’évolution de l’écotone;Influence locale;Portée, adaptation, protection, transformation du sol;Hexagones et terrain;Prototype;À préparer;Non commencé;À examiner
+ARB-003;Arbre commercial;Hub racinaire;Ports, débit, portée, règles, secours;Économie et distance;Prototype;À préparer;Non commencé;À examiner
+ARB-004;Arbre d’exploration;Incarnation mobile;Observation, infiltration, prévision, traversée;Déplacement et Voiles;MVP;À préparer;Non commencé;À examiner
+ARB-005;Arbre social;Confluences;Projets, services, décisions, quêtes;Validation du collectif;MVP;À préparer;Non commencé;À examiner
+ARB-006;Arbre d’adaptation;Nœuds de crise;Hypothèses, essais, maîtrise, bifurcations;Difficulté fertile;Prototype;À préparer;Non commencé;À examiner
+ARB-007;Arbre de forme;Forme animale et affinités;Sens, mobilité, adaptations sans verrouillage;Identité et équilibrage;MVP;À préparer;Non commencé;À examiner

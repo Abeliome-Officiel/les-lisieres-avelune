@@ -1,31 +1,16 @@
-# Décisions à valider
+# Décisions ouvertes après v0.8
 
-- **DEC-010 - Échos locaux** : Des pseudo-fractures locales adaptées au style du joueur peuvent apparaître dans son territoire. (*Décision provisoire, Haute, Prototype*)
-- **DEC-012 - Directeur adaptatif** : Le monde observe les stratégies dominantes et varie progressivement ses réponses sans tricher. (*Décision provisoire, Haute, Après MVP*)
-- **DEC-019 - Fantasy d’adaptation** : Avelune est un monde féerique, ésotérique et post-effondrement qui refuse d’être figé. (*Décision provisoire, Haute, Vision*)
-- **DEC-020 - Fêlure et Marées** : La Fêlure libère des Marées de Possibles; l’enjeu est d’apprendre à vivre avec la transformation. (*Décision provisoire, Haute, Vision*)
-- **DEC-025 - Culture intégrée au gameplay** : Les créations culturelles peuvent faciliter une négociation, conserver une mémoire ou transformer un lieu. (*Décision provisoire, Moyenne, Après MVP*)
-- **DEC-031 - Modèle du corps-cité** : Hypothèse majeure : l’avatar est lui-même une cité vivante abritant un écosystème intérieur. (*Décision provisoire, Critique, Prototype*)
-- **DEC-032 - Économie biologique interne** : Les métiers et industries deviennent des cycles, organes, chambres, symbiotes et flux intérieurs non réalistes et non horrifiques. (*Décision provisoire, Haute, Prototype*)
-- **DEC-033 - Liens biologiques entre individus** : Les routes commerciales et coopérations prennent la forme de filaments, courants ou symbioses entre corps-cités. (*Décision provisoire, Haute, Prototype*)
-- **DEC-034 - Zone d’influence non exclusive** : Chaque avatar influence et protège un rayon autour de lui; les zones peuvent se chevaucher sans propriété exclusive. (*Décision provisoire, Haute, Prototype*)
-- **DEC-035 - Bourgeonnement cellulaire** : La croissance du monde peut créer de nouvelles cellules, cités ou territoires à partir des structures existantes. (*Décision provisoire, Haute, MVP*)
-- **DEC-036 - Fusion consentie** : Une cité peut fusionner partiellement avec une présence NPC ou former une symbiose réversible avec un autre joueur. (*Décision provisoire, Moyenne, Après MVP*)
-- **DEC-040 - Vocabulaire du vivant** : Les organisations prennent des formes comme Récif, Essaim, Banc, Colonie, Mycélium ou Symbiose. (*Décision provisoire, Moyenne, MVP*)
-- **DEC-046 - Entrelacs de 2 à 4 joueurs** : Des liens privilégiés non obligatoirement romantiques permettent refuge, continuité consentie et histoires partagées. (*Décision provisoire, Moyenne, Après MVP*)
-- **DEC-059 - Paliers de résolution 70/20/10** : Le besoin de base reste atteignable avec une participation raisonnable; la mobilisation améliore le résultat sans bloquer. (*Décision provisoire, Haute, MVP*)
-- **DEC-071 - Documentation dans le dépôt** : Le dossier docs versionné constitue la source principale; le wiki est une vue ou un outil d’édition synchronisé. (*Décision provisoire, Haute, Vision*)
-- **DEC-073 - Journal d’événements immuable** : Les changements significatifs sont enregistrés comme Traces anonymes du terrain; des instantanés accélèrent le chargement. (*Décision provisoire, Critique, Prototype*)
-- **DEC-076 - Monde extensible par cellules** : La carte grandit par bourgeonnement de cellules plutôt que par saturation ou compétition foncière. (*Décision provisoire, Haute, MVP*)
-- **DEC-077 - Une incarnation secondaire autorisée** : Un compte joueur peut posséder une incarnation principale et une seule incarnation secondaire officiellement rattachée. (*Décision provisoire, Haute, MVP*)
-- **DEC-078 - Limiter les abus de la seconde incarnation** : Une seule voix par personne, aucune validation mutuelle, aucun affrontement entre ses incarnations et aucun transfert direct de ressources. (*Décision provisoire, Critique, MVP*)
-- **DEC-082 - Interaction des écotones** : Le chevauchement de zones peut créer synergies, tensions ou transformations du terrain, sans sabotage direct. (*Décision provisoire, Haute, MVP*)
-- **DEC-083 - Ancrage et incarnation mobile** : Le corps-cité possède un ancrage persistant tandis qu’une incarnation peut explorer et participer aux instances. (*Décision provisoire, Critique, Prototype*)
-- **DEC-084 - Migration très lente de l’ancrage** : Le déplacement complet du corps-cité est possible comme projet long, sans mobilité tactique rapide. (*Décision provisoire, Haute, MVP*)
-- **DEC-098 - Époques à plusieurs échelles** : Une Époque peut concerner le monde entier, une région, une Confluence, un groupe de participants ou un joueur. (*Décision provisoire, Haute, MVP*)
-- **DEC-101 - Quatre transformations au prototype** : Le prototype limite les chaînes à quatre transformations; cinq ou six restent à évaluer pour les spécialisations avancées. (*Décision provisoire, Haute, Prototype*)
-- **DEC-106 - Confluence comme nom des cités collaboratives** : Nom de travail pour des lieux collectifs spécialisés, accessibles à plusieurs corps-cités sans fusion. (*Décision provisoire, Moyenne, MVP*)
-- **DEC-107 - Confluences spécialisées et non fusionnables** : Chaque cité collaborative possède une spécialité et peut coopérer avec d’autres sans fusion institutionnelle. (*Décision provisoire, Haute, MVP*)
-- **DEC-108 - Activités des cités collaboratives** : Elles peuvent accueillir projets, décisions structurées, quêtes, services et petites instances. (*Décision provisoire, Haute, MVP*)
-- **DEC-112 - Voiles ambigus** : Nom de travail : les Voiles peuvent être favorables, défavorables ou ambigus selon le corps-cité et le contexte. (*Décision provisoire, Haute, Prototype*)
-- **DEC-115 - Finalités limitées** : Une symbiose sert uniquement à créer ou améliorer quelque chose dans le cadre normal du jeu, ou à ouvrir une instance commune particulière. (*Décision provisoire, Haute, MVP*)
+Le socle du mini-prototype est fixé. Les valeurs suivantes restent ouvertes :
+
+- résistance et seuils précis de la Lisière ;
+- poids météorologique final selon les familles de vagues ;
+- budget et coût d’influence ;
+- nombre de tours réels, durée des recettes et vitesse de transport ;
+- fréquence et seuils des Échos ;
+- marge exacte de réussite avec coût dans la Trame d’Avelune ;
+- talents, spécialisations et contenu des trois paliers de Vocation ;
+- catalogue TF initial de six à dix constructions ;
+- règles d’inactivité et délais de contraction ;
+- algorithme futur d’expansion du monde et de poussée des lieux.
+
+Ces décisions ne bloquent pas un prototype logiciel succinct du cycle v0.8.

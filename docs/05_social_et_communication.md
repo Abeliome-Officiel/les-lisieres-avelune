@@ -1,11 +1,14 @@
-# Social et collectif v0.7
+# Monde partagé et coopération reportée
 
-Pas de forum, chat ou messages libres au lancement. Les interactions utilisent propositions structurées et réponses choisies.
+Le prototype fonctionne dans un monde partagé, mais ne simule pas encore de coopération active. Une personne peut jouer de manière autonome : elle partage les événements régionaux et la géographie, sans devoir dialoguer ou attendre d’autres personnes.
 
-Un compte peut disposer d’une incarnation secondaire limitée.
+La future coopération utilisera :
 
-Les cités collaboratives, nommées provisoirement Confluences, peuvent être spécialisées et accueillir projets, quêtes et instances.
+- contributions identifiées à une défense ou un projet ;
+- offres, besoins, réserves et débits ;
+- propositions et réponses structurées ;
+- consentement explicite ;
+- aucun classement humiliant ;
+- aucune dépendance permanente obligatoire.
 
-## Symbiose
-
-Coopération temporaire sans actif commun durable; création, amélioration ou instance commune uniquement.
+Le Passage interrompt par défaut commerce, échanges, transports externes, déplacements et modification des défenses. La gestion interne, les scènes RPG et la préparation de l’après-vague restent accessibles. Le profil de fermeture pourra varier selon la nature de la vague.

@@ -3151,3 +3151,22 @@ Les décisions DEC-090 à DEC-112 et les mécanismes MEC-069 à MEC-078 ont ét�
 
 ### Résultat consolidé
 Les décisions DEC-113 à DEC-121 ont été ajoutées. L'hypothèse d'un organe commun permanent (DEC-095) est classée comme écartée dans la v0.7; l'hypothèse de NPC issu d'une symbiose (DEC-096) reste reportée hors périmètre. La carte hexagonale est confirmée.
+
+
+# Synthèse de conception v0.8
+
+## Passage du concept au socle mécanique
+
+La période postérieure à la v0.7 a été consacrée aux règles détaillées des trois axes. La Fracture est replacée au centre du Tower Defense et émet un Passage radial. Le monde initial est fixé à R7 avec Fracture F1, Lisière extérieure et deux anneaux de confort. Le monde ne rétrécit jamais. Les corps-cités commencent à une case, grandissent case par case jusqu’à sept durant La Genèse et peuvent décroître.
+
+La vague de La Genèse utilise un seul secteur, sans dérive ni scission et sans dissipation naturelle générique. Chaque corps-cité reçoit le résiduel laissé par les précédents. La Lisière possède cinq états locaux d’Entame. Le cycle est structuré en Murmures, Veille, Scellement, Passage et Retombées.
+
+Le Tycoon-Factorio conserve les principes classiques de production, stockage, débits, files, construction et réparation. Sa progression devient horizontale par modules, qualités, sous-produits, catalyseurs, terrains, saisons et réseaux. Huit familles de constructions sont définies.
+
+Le RPG adopte la Trame d’Avelune : d100 sous seuil, choix structurés, pistes de progression, position, effet, trois vues de fiche et Dissonance de 0 à 12. Six caractéristiques, dix-huit compétences et six Vocations de trois paliers forment la première structure.
+
+Les Échos peuvent apparaître dans une zone ou à l’intérieur d’un corps-cité. L’histoire réelle du développement devient l’Âge zéro La Genèse ; la bêta devient Les Prémices ; l’ouverture publique devient L’Éveil. Les traces narratives peuvent être conservées sans avantage mécanique permanent.
+
+## Livrable
+
+La v0.8 fournit un mini-prototype tableur intégré reliant TF, RPG et Tower Defense. Il permet de comparer météo, allocation TF, Dissonance et nombre de corps-cités actifs. Les systèmes de coopération active, commerce inter-joueurs, déplacement, dérive, scission et interface finale restent reportés.

@@ -1,11 +1,30 @@
-# Préparation des arbres
+# Préparation des progressions
 
-La prochaine phase doit formaliser les arbres technologiques, d’évolution et les interactions.
+Les arbres complets ne sont pas nécessaires au mini-prototype. La v0.8 fixe seulement leur grammaire.
 
-- **ARB-001 - Arbre technologique intérieur** : racine Cœur du corps-cité; branches Production, stockage, automatismes, soins; dépendances Ressources initiales et chaînes.
-- **ARB-002 - Arbre d’évolution de l’écotone** : racine Influence locale; branches Portée, adaptation, protection, transformation du sol; dépendances Hexagones et terrain.
-- **ARB-003 - Arbre commercial** : racine Hub racinaire; branches Ports, débit, portée, règles, secours; dépendances Économie et distance.
-- **ARB-004 - Arbre d’exploration** : racine Incarnation mobile; branches Observation, infiltration, prévision, traversée; dépendances Déplacement et Voiles.
-- **ARB-005 - Arbre social** : racine Confluences; branches Projets, services, décisions, quêtes; dépendances Validation du collectif.
-- **ARB-006 - Arbre d’adaptation** : racine Nœuds de crise; branches Hypothèses, essais, maîtrise, bifurcations; dépendances Difficulté fertile.
-- **ARB-007 - Arbre de forme** : racine Forme animale et affinités; branches Sens, mobilité, adaptations sans verrouillage; dépendances Identité et équilibrage.
+## Corps-cité
+
+- croissance physique case par case ;
+- influence par budget ;
+- densification interne ;
+- décroissance possible ;
+- déplacement reporté.
+
+## TF
+
+- modules et alternatives plutôt que simples niveaux ;
+- une nouvelle mécanique majeure par Chapitre ;
+- nouvelles ressources uniquement lorsqu’elles créent un choix.
+
+## RPG
+
+- six Vocations ;
+- trois paliers par Vocation ;
+- compétences accessibles hors Vocation avec coûts différents ;
+- talents qualitatifs ;
+- relations, connaissances et Dissonance comme progressions séparées.
+
+## Monde
+
+- Cycle, Saison, Chapitre et éventuellement Époque ;
+- expansion du monde et croissance de la Fracture seulement lors de transitions majeures.

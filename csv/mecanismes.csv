@@ -1,4 +1,4 @@
-﻿ID;Domaine;Mécanisme;Description;Boucle;Portée;Phase;Statut;Validation utilisateur;Commentaire
+﻿ID;Domaine;Mécanisme;Description;Boucle;Portée;Phase;Statut proposé;Validation utilisateur;Commentaire
 MEC-001;Boucle;Action locale;Placer, réparer, produire, observer, soigner, nommer ou aider en quelques minutes.;Courte;Territoire;Prototype;Décision définitive;À examiner;
 MEC-002;Boucle;Session thématique;Choisir gestion, expédition, atelier, récit ou projet collectif selon le temps disponible.;Session;Joueur;Prototype;Décision définitive;À examiner;
 MEC-003;Boucle;Marée globale;Un phénomène traverse plusieurs cellules avec sous-objectifs indépendants et résolution graduée.;Longue;Monde;MVP;Décision définitive;À examiner;
@@ -81,3 +81,21 @@ MEC-079;Terrain;Voisinage hexagonal;Chaque cellule possède jusqu’à six voisi
 MEC-080;Symbiose;Projet temporaire à deux participants;Deux joueurs ou un joueur et un NPC contribuent pendant une durée limitée.;Moyenne;Liens;MVP;Décision provisoire;À examiner;
 MEC-081;Symbiose;Instance partagée;Une symbiose peut ouvrir une instance coopérative particulière, puis se dissoudre.;Session;Groupe;MVP;Décision provisoire;À examiner;
 MEC-082;Symbiose;Clôture automatique;L’objectif, la durée ou la sortie d’un participant ferme le lien temporaire.;Moyenne;Liens;MVP;Décision définitive;À examiner;
+MEC-083;Temporalité;Murmures;Le jeu annonce la nature, la plage de puissance et les incertitudes de la prochaine vague.;Courte;Région;Prototype;Décision définitive;Validée;
+MEC-084;Temporalité;Veille;Les joueurs produisent, construisent, étudient et préparent leurs règles automatiques.;Moyenne;Corps-cité;Prototype;Décision définitive;Validée;
+MEC-085;Temporalité;Scellement;Un instantané verrouille ressources, défenses et liens utiles au Passage.;Courte;Région;Prototype;Décision définitive;Validée;
+MEC-086;Tower defense;Passage par pulsations;La vague progresse d’un anneau par pulsation et chaque défense reçoit le résiduel des précédentes.;Moyenne;Région;Prototype;Décision définitive;Validée;
+MEC-087;Temporalité;Retombées;Le jeu calcule Lisière, résidus, Traces, Échos, réparations et Dissonance.;Moyenne;Région;Prototype;Décision définitive;Validée;
+MEC-088;Lisière;Entame locale;Chaque secteur de Lisière passe de Sereine à Frémissement, Amincissement, Cicatrice ou Brèche.;Longue;Lisière;Prototype;Décision définitive;Validée;
+MEC-089;Corps-cité;Polyhexagone choisi;L’empreinte grandit d’un hexagone adjacent choisi à la fois jusqu’au plafond du Chapitre.;Longue;Territoire;Prototype;Décision définitive;Validée;
+MEC-090;Influence;Propagation par budget;Le joueur dépense un budget sur des chemins de cases dont le coût dépend de distance, terrain et saturation.;Continue;Territoire;MVP;Décision définitive;Validée;
+MEC-091;RPG;Test d100 sous seuil;Le seuil combine caractéristique, compétence, objet, difficulté et condition avec une marge de résultat.;Courte;Incarnation;Prototype;Décision définitive;Validée;
+MEC-092;RPG;Choix structuré;Une scène sociale ou interprétative peut être résolue par intentions et réponses prévues sans lancer de dé.;Courte;Incarnation;Prototype;Décision définitive;Validée;
+MEC-093;RPG;Piste de progression;Les instances, enquêtes, relations et projets longs avancent sur une piste avec conséquences.;Session;Instance;MVP;Décision définitive;Validée;
+MEC-094;RPG;Dissonance;Le joueur accepte un risque durable pour augmenter un seuil, un effet ou réduire une conséquence.;Continue;Incarnation;Prototype;Décision définitive;Validée;
+MEC-095;Accessibilité;Vues de fiche;Les modes Simple, Intermédiaire et Profond masquent ou exposent les mêmes données.;Continue;Interface;Prototype;Décision définitive;Validée;
+MEC-096;Tycoon;Cycle minimal TF;Trois ressources et des chaînes courtes produisent défense, prévision, réparation et objets.;Moyenne;Corps-cité;Prototype;Décision définitive;Validée;
+MEC-097;Tycoon;Modules et tags;Les constructions partagent un moteur générique d’entrées, sorties, débits, modules, états et tags.;Continue;Tous;MVP;Décision définitive;Validée;
+MEC-098;Échos;Sélection après Passage;Les lieux éligibles sont classés par exposition, saturation, affinité et Dissonance avant un faible aléa reproductible.;Moyenne;Zone ou intérieur;MVP;Décision définitive;Validée;
+MEC-099;Monde;Expansion de Chapitre;Une région ajoute plusieurs anneaux lorsqu’une pression durable et une transition narrative le justifient.;Très longue;Monde;Après MVP;Décision définitive;Validée;
+MEC-100;Chronologie;Mémoire de développement;Les anciennes règles, prototypes et événements de bêta deviennent des traces fictionnelles sélectionnées.;Très longue;Monde;MVP;Décision définitive;Validée;

@@ -121,3 +121,236 @@
 - **DEC-119 - Sélection critique des idées** : Toute nouvelle proposition doit être classée : retenir, simplifier, reporter ou écarter selon sa valeur et son coût. (*Décision définitive / Critique / Vision*)
 - **DEC-120 - Revue utilisateur avant les arbres** : Le propriétaire du projet valide, invalide ou modifie les décisions du classeur avant la création des arbres technologiques et d’évolution. (*Décision définitive / Critique / Vision*)
 - **DEC-121 - Cartographier les interactions avant le code** : Les arbres technologiques, arbres d’évolution et interactions de mécanismes doivent être représentés lisiblement avant le prototype logiciel. (*Décision définitive / Critique / Prototype*)
+
+
+# Addendum v0.8 - Socle mécanique simulable
+
+## DEC-122 - Monde partagé sans mode solo séparé
+
+- Domaine : Monde
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+Avelune est un monde multijoueur persistant; une personne peut jouer de manière autonome sans dépendance obligatoire aux autres.
+
+## DEC-123 - La région ne rétrécit jamais
+
+- Domaine : Monde
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+Une région peut s’étendre par anneaux lors d’un changement de Chapitre, mais ne supprime jamais d’anneaux existants.
+
+## DEC-124 - Rayon initial fixé à 7
+
+- Domaine : Carte
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+Le premier monde de développement utilise un disque hexagonal de rayon 7, soit 169 hexagones.
+
+## DEC-125 - Deux anneaux de confort
+
+- Domaine : Carte
+- Statut : Décision définitive
+- Priorité : Haute
+- Phase : Prototype
+- Version : 0.8
+
+Deux anneaux jouables extérieurs servent de réserve de croissance sans être interdits.
+
+## DEC-126 - Fracture initiale de rayon 1
+
+- Domaine : Fracture
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+La Fracture occupe l’hexagone central et le premier anneau, soit sept hexagones inutilisables.
+
+## DEC-127 - Dernier anneau vital et localisé
+
+- Domaine : Lisière
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+Le dernier anneau est non constructible et divisé en secteurs possédant une vigueur et un niveau d’Entame.
+
+## DEC-128 - Croissance case par case jusqu’à sept
+
+- Domaine : Corps-cité
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+Un corps-cité commence sur un hexagone puis choisit chaque nouvelle case adjacente; le plafond physique de La Genèse est sept cases.
+
+## DEC-129 - Décroissance possible
+
+- Domaine : Corps-cité
+- Statut : Décision définitive
+- Priorité : Haute
+- Phase : MVP
+- Version : 0.8
+
+Le corps-cité peut libérer des cases périphériques jusqu’à un minimum d’un hexagone; les cases libérées conservent des Traces.
+
+## DEC-130 - Budget de cases choisies
+
+- Domaine : Influence
+- Statut : Décision définitive
+- Priorité : Haute
+- Phase : MVP
+- Version : 0.8
+
+L’influence opérationnelle progresse sur des cases choisies selon un budget et des coûts de trajet, distinctement de l’empreinte physique.
+
+## DEC-131 - Vague simple pendant La Genèse
+
+- Domaine : Vague
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+La première vague suit un seul secteur sans dérive, scission ni fusion; les nouveautés sont réservées aux Chapitres ultérieurs.
+
+## DEC-132 - Aucune dissipation générique
+
+- Domaine : Vague
+- Statut : Décision définitive
+- Priorité : Haute
+- Phase : Prototype
+- Version : 0.8
+
+La puissance totale ne diminue pas naturellement par anneau pendant La Genèse; seule sa densité baisse avec l’élargissement du front.
+
+## DEC-133 - Puissance multifactorielle et météo bornée
+
+- Domaine : Vague
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+La puissance dépend d’une base de Chapitre, de la pression de Fracture, des résidus et d’une météo pondérée; elle n’est pas ajustée à la défense posée au dernier moment.
+
+## DEC-134 - Cycle Murmures-Veille-Scellement-Passage-Retombées
+
+- Domaine : Temporalité
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+Le Passage utilise un instantané pris au Scellement; les échanges, transports externes et modifications de défense sont bloqués tandis que les activités internes restent disponibles.
+
+## DEC-135 - Échos territoriaux ou internes
+
+- Domaine : Échos
+- Statut : Décision définitive
+- Priorité : Haute
+- Phase : MVP
+- Version : 0.8
+
+Après le Passage, zéro ou un Écho peut apparaître dans une zone ou à l’intérieur d’un corps-cité selon exposition, saturation, affinité et Dissonance.
+
+## DEC-136 - Trame d’Avelune d100 hybride
+
+- Domaine : RPG
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+Le RPG combine test d100 sous seuil, choix structurés sans jet, pistes pour les scènes longues, position, effet et conséquences graduées.
+
+## DEC-137 - Trois modes de fiche
+
+- Domaine : RPG
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+Les modes Simple, Intermédiaire et Profond affichent la même fiche sous différents niveaux de contrôle, sans avantage exclusif.
+
+## DEC-138 - Dissonance de zéro à douze
+
+- Domaine : RPG
+- Statut : Décision définitive
+- Priorité : Haute
+- Phase : Prototype
+- Version : 0.8
+
+La Dissonance est une ressource de risque volontaire avec seuils à 3, 6, 9 et 12; la Bascule transforme sans supprimer le personnage.
+
+## DEC-139 - Six caractéristiques, dix-huit compétences et six Vocations
+
+- Domaine : RPG
+- Statut : Décision définitive
+- Priorité : Haute
+- Phase : Prototype
+- Version : 0.8
+
+La fiche initiale possède six caractéristiques, trois compétences par caractéristique et six Vocations de trois paliers.
+
+## DEC-140 - Progression horizontale par mécanismes
+
+- Domaine : Tycoon-Factorio
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : MVP
+- Version : 0.8
+
+Le TF introduit par Chapitre qualités, sous-produits, modules, catalyseurs, terrain, saisons, automatisation et commerce plutôt qu’une inflation continue de niveaux.
+
+## DEC-141 - Huit familles de constructions
+
+- Domaine : Tycoon-Factorio
+- Statut : Décision définitive
+- Priorité : Haute
+- Phase : Prototype
+- Version : 0.8
+
+Les constructions couvrent cœur, production, logistique, veille, défense, exploration, culture et liaisons; elles sont décrites par des données et modules génériques.
+
+## DEC-142 - La Genèse, Les Prémices et L’Éveil
+
+- Domaine : Chronologie
+- Statut : Décision définitive
+- Priorité : Haute
+- Phase : Vision
+- Version : 0.8
+
+La création du jeu forme l’Âge zéro La Genèse; la bêta devient le Chapitre Les Prémices; l’ouverture publique devient L’Éveil.
+
+## DEC-143 - Mémoire du développement sans privilège
+
+- Domaine : Chronologie
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : MVP
+- Version : 0.8
+
+Les décisions, prototypes et bêta-tests peuvent devenir Chroniques, Échos, lieux ou traces, mais n’accordent aucun avantage mécanique durable exclusif.
+
+## DEC-144 - Socle des trois axes simulable
+
+- Domaine : Prototype
+- Statut : Décision définitive
+- Priorité : Critique
+- Phase : Prototype
+- Version : 0.8
+
+Un mini-prototype relie une préparation TF, une résolution RPG, un Passage TD, une Lisière, la Dissonance et un Écho candidat avec un contenu minimal.

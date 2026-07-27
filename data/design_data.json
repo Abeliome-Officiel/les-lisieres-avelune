@@ -1,27 +1,33 @@
 {
   "project": "Les Lisières d’Avelune",
-  "version": "0.7",
-  "date": "2026-07-26",
-  "statuses": [
-    "Décision définitive",
-    "Décision provisoire",
-    "Décision reportée",
-    "Proposition écartée",
-    "À décider"
-  ],
-  "priorities": [
-    "Critique",
-    "Haute",
-    "Moyenne",
-    "Basse"
-  ],
-  "phases": [
-    "Vision",
-    "Prototype",
-    "MVP",
-    "Après MVP",
-    "Long terme"
-  ],
+  "version": "0.8",
+  "date": "2026-07-27",
+  "scope": "Socle mécanique minimal simulable pour Tower Defense, Tycoon-Factorio et RPG",
+  "fixed": {
+    "world_radius": 7,
+    "fracture_radius": 1,
+    "comfort_rings": 2,
+    "potential_players": 10,
+    "active_simulation_range": [
+      3,
+      6
+    ],
+    "body_city_genesis_cap": 7,
+    "generic_wave_dissipation": 0,
+    "rpg_characteristics": 6,
+    "rpg_skills": 18,
+    "rpg_vocations": 6,
+    "character_sheet_modes": [
+      "Simple",
+      "Intermédiaire",
+      "Profond"
+    ],
+    "timeline": [
+      "La Genèse",
+      "Les Prémices",
+      "L’Éveil"
+    ]
+  },
   "decisions": [
     [
       "DEC-001",
@@ -31,7 +37,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Tous"
+      "Tous",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-002",
@@ -41,7 +53,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Social"
+      "Social",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-003",
@@ -51,7 +69,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Boucle centrale"
+      "Boucle centrale",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-004",
@@ -61,7 +85,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Équilibrage"
+      "Équilibrage",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-005",
@@ -71,7 +101,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Interface"
+      "Interface",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-006",
@@ -81,7 +117,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Économie"
+      "Économie",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-007",
@@ -91,7 +133,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Événements"
+      "Événements",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-008",
@@ -101,7 +149,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Contenu"
+      "Contenu",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-009",
@@ -111,7 +165,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "Persistance"
+      "Persistance",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-010",
@@ -121,7 +181,13 @@
       "Décision provisoire",
       "Haute",
       "Prototype",
-      "Directeur adaptatif"
+      "Directeur adaptatif",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-011",
@@ -131,7 +197,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "Ton"
+      "Ton",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-012",
@@ -141,7 +213,13 @@
       "Décision provisoire",
       "Haute",
       "Après MVP",
-      "Télémétrie"
+      "Télémétrie",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-013",
@@ -151,7 +229,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Boucle centrale"
+      "Boucle centrale",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-014",
@@ -161,7 +245,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "Personnage"
+      "Personnage",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-015",
@@ -171,7 +261,13 @@
       "Décision définitive",
       "Moyenne",
       "MVP",
-      "Éclats"
+      "Éclats",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-016",
@@ -181,7 +277,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Arbres de progression"
+      "Arbres de progression",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-017",
@@ -191,7 +293,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Tycoon"
+      "Tycoon",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-018",
@@ -201,7 +309,13 @@
       "Décision définitive",
       "Haute",
       "Vision",
-      "Identité"
+      "Identité",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-019",
@@ -211,7 +325,13 @@
       "Décision provisoire",
       "Haute",
       "Vision",
-      "Background"
+      "Background",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-020",
@@ -221,7 +341,13 @@
       "Décision provisoire",
       "Haute",
       "Vision",
-      "Background"
+      "Background",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-021",
@@ -231,7 +357,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Direction artistique"
+      "Direction artistique",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-022",
@@ -241,7 +373,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Accessibilité"
+      "Accessibilité",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-023",
@@ -251,7 +389,13 @@
       "Décision définitive",
       "Haute",
       "Vision",
-      "Narration"
+      "Narration",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-024",
@@ -261,7 +405,13 @@
       "Décision définitive",
       "Haute",
       "Après MVP",
-      "Modération"
+      "Modération",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-025",
@@ -271,7 +421,13 @@
       "Décision provisoire",
       "Moyenne",
       "Après MVP",
-      "Système culturel"
+      "Système culturel",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-026",
@@ -281,7 +437,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Boucle centrale"
+      "Boucle centrale",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-027",
@@ -291,7 +453,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "Production"
+      "Production",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-028",
@@ -301,7 +469,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Réseaux"
+      "Réseaux",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-029",
@@ -311,7 +485,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "Marché automatisé"
+      "Marché automatisé",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-030",
@@ -321,7 +501,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "NPC"
+      "NPC",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-031",
@@ -331,7 +517,13 @@
       "Décision provisoire",
       "Critique",
       "Prototype",
-      "Direction conceptuelle"
+      "Direction conceptuelle",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-032",
@@ -341,7 +533,13 @@
       "Décision provisoire",
       "Haute",
       "Prototype",
-      "Tycoon"
+      "Tycoon",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-033",
@@ -351,7 +549,13 @@
       "Décision provisoire",
       "Haute",
       "Prototype",
-      "Réseaux"
+      "Réseaux",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-034",
@@ -361,7 +565,13 @@
       "Décision provisoire",
       "Haute",
       "Prototype",
-      "Carte"
+      "Carte",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-035",
@@ -371,7 +581,13 @@
       "Décision provisoire",
       "Haute",
       "MVP",
-      "Persistance"
+      "Persistance",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-036",
@@ -381,7 +597,13 @@
       "Décision provisoire",
       "Moyenne",
       "Après MVP",
-      "Identité"
+      "Identité",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-037",
@@ -391,7 +613,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Échelle"
+      "Échelle",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-038",
@@ -401,7 +629,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Social"
+      "Social",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-039",
@@ -411,7 +645,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "UX"
+      "UX",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-040",
@@ -421,7 +661,13 @@
       "Décision provisoire",
       "Moyenne",
       "MVP",
-      "Univers"
+      "Univers",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-041",
@@ -431,7 +677,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Gouvernance"
+      "Gouvernance",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-042",
@@ -441,7 +693,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Modération"
+      "Modération",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-043",
@@ -451,7 +709,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "CNV"
+      "CNV",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-044",
@@ -461,7 +725,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Communication"
+      "Communication",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-045",
@@ -471,7 +741,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Permissions"
+      "Permissions",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-046",
@@ -481,7 +757,13 @@
       "Décision provisoire",
       "Moyenne",
       "Après MVP",
-      "Social"
+      "Social",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-047",
@@ -491,7 +773,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "Boucle courte"
+      "Boucle courte",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-048",
@@ -501,7 +789,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Accessibilité"
+      "Accessibilité",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-049",
@@ -511,7 +805,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Accessibilité"
+      "Accessibilité",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-050",
@@ -521,7 +821,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Responsive"
+      "Responsive",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-051",
@@ -531,7 +837,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Design system"
+      "Design system",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-052",
@@ -541,7 +853,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "UX"
+      "UX",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-053",
@@ -551,7 +869,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Internationalisation"
+      "Internationalisation",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-054",
@@ -561,7 +885,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Narration"
+      "Narration",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-055",
@@ -571,7 +901,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Éthique"
+      "Éthique",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-056",
@@ -581,7 +917,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Persistance"
+      "Persistance",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-057",
@@ -591,7 +933,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Architecture"
+      "Architecture",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-058",
@@ -601,7 +949,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Équilibrage"
+      "Équilibrage",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-059",
@@ -611,7 +965,13 @@
       "Décision provisoire",
       "Haute",
       "MVP",
-      "Équilibrage"
+      "Équilibrage",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-060",
@@ -621,7 +981,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "API externe"
+      "API externe",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-061",
@@ -631,7 +997,13 @@
       "Décision définitive",
       "Moyenne",
       "Prototype",
-      "Open-Meteo Marine"
+      "Open-Meteo Marine",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-062",
@@ -641,7 +1013,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Normalisation"
+      "Normalisation",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-063",
@@ -651,7 +1029,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Résilience"
+      "Résilience",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-064",
@@ -661,7 +1045,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Vie privée"
+      "Vie privée",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-065",
@@ -671,7 +1061,13 @@
       "Décision reportée",
       "Basse",
       "Long terme",
-      "Éthique"
+      "Éthique",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-066",
@@ -681,7 +1077,13 @@
       "Décision reportée",
       "Basse",
       "Long terme",
-      "Sécurité"
+      "Sécurité",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-067",
@@ -691,7 +1093,13 @@
       "Décision reportée",
       "Moyenne",
       "Après MVP",
-      "Modération"
+      "Modération",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-068",
@@ -701,7 +1109,13 @@
       "Décision définitive",
       "Haute",
       "Vision",
-      "Infrastructure"
+      "Infrastructure",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-069",
@@ -711,7 +1125,13 @@
       "Décision définitive",
       "Moyenne",
       "Après MVP",
-      "Infrastructure"
+      "Infrastructure",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-070",
@@ -721,7 +1141,13 @@
       "Décision définitive",
       "Haute",
       "Vision",
-      "Pérennité"
+      "Pérennité",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-071",
@@ -731,7 +1157,13 @@
       "Décision provisoire",
       "Haute",
       "Vision",
-      "Wiki"
+      "Wiki",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-072",
@@ -741,7 +1173,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Persistance"
+      "Persistance",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-073",
@@ -751,7 +1189,13 @@
       "Décision provisoire",
       "Critique",
       "Prototype",
-      "Architecture"
+      "Architecture",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-074",
@@ -761,7 +1205,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Saisons"
+      "Saisons",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-075",
@@ -771,7 +1221,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Modèle de données"
+      "Modèle de données",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-076",
@@ -781,7 +1237,13 @@
       "Décision provisoire",
       "Haute",
       "MVP",
-      "Carte"
+      "Carte",
+      "0.4",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-077",
@@ -791,7 +1253,13 @@
       "Décision provisoire",
       "Haute",
       "MVP",
-      "Authentification"
+      "Authentification",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-078",
@@ -801,7 +1269,13 @@
       "Décision provisoire",
       "Critique",
       "MVP",
-      "Économie et votes"
+      "Économie et votes",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-079",
@@ -811,7 +1285,13 @@
       "Décision reportée",
       "Moyenne",
       "Après MVP",
-      "Moteur de résolution"
+      "Moteur de résolution",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-080",
@@ -821,7 +1301,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Carte"
+      "Carte",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-081",
@@ -831,7 +1317,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Corps-cité"
+      "Corps-cité",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-082",
@@ -841,7 +1333,13 @@
       "Décision provisoire",
       "Haute",
       "MVP",
-      "Simulation écologique"
+      "Simulation écologique",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-083",
@@ -851,7 +1349,13 @@
       "Décision provisoire",
       "Critique",
       "Prototype",
-      "RPG"
+      "RPG",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-084",
@@ -861,7 +1365,13 @@
       "Décision provisoire",
       "Haute",
       "MVP",
-      "Carte et commerce"
+      "Carte et commerce",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-085",
@@ -871,7 +1381,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "Événements"
+      "Événements",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-086",
@@ -881,7 +1397,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "Progression"
+      "Progression",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-087",
@@ -891,7 +1413,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Progression"
+      "Progression",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-088",
@@ -901,7 +1429,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Éthique"
+      "Éthique",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-089",
@@ -911,7 +1445,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "UX"
+      "UX",
+      "0.5",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-090",
@@ -921,7 +1461,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Historique"
+      "Historique",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-091",
@@ -931,7 +1477,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Économie"
+      "Économie",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-092",
@@ -941,7 +1493,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Équilibrage"
+      "Équilibrage",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-093",
@@ -951,7 +1509,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Simulation"
+      "Simulation",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-094",
@@ -961,7 +1525,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Comptes"
+      "Comptes",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-095",
@@ -971,7 +1541,13 @@
       "Proposition écartée",
       "Basse",
       "Long terme",
-      "Supplantée par DEC-114 à DEC-117"
+      "Supplantée par DEC-114 à DEC-117",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-096",
@@ -981,7 +1557,13 @@
       "Décision reportée",
       "Basse",
       "Long terme",
-      "Hors périmètre"
+      "Hors périmètre",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-097",
@@ -991,7 +1573,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Persistance"
+      "Persistance",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-098",
@@ -1001,7 +1589,13 @@
       "Décision provisoire",
       "Haute",
       "MVP",
-      "Narration"
+      "Narration",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-099",
@@ -1011,7 +1605,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Votes et événements"
+      "Votes et événements",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-100",
@@ -1021,7 +1621,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "UX"
+      "UX",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-101",
@@ -1031,7 +1637,13 @@
       "Décision provisoire",
       "Haute",
       "Prototype",
-      "Équilibrage"
+      "Équilibrage",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-102",
@@ -1041,7 +1653,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Économie"
+      "Économie",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-103",
@@ -1051,7 +1669,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "Consentement préalable"
+      "Consentement préalable",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-104",
@@ -1061,7 +1685,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Carte"
+      "Carte",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-105",
@@ -1071,7 +1701,13 @@
       "Décision définitive",
       "Haute",
       "Prototype",
-      "Dormance"
+      "Dormance",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-106",
@@ -1081,7 +1717,13 @@
       "Décision provisoire",
       "Moyenne",
       "MVP",
-      "Vocabulaire"
+      "Vocabulaire",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-107",
@@ -1091,7 +1733,13 @@
       "Décision provisoire",
       "Haute",
       "MVP",
-      "Gouvernance"
+      "Gouvernance",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-108",
@@ -1101,7 +1749,13 @@
       "Décision provisoire",
       "Haute",
       "MVP",
-      "Social"
+      "Social",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-109",
@@ -1111,7 +1765,13 @@
       "Décision reportée",
       "Moyenne",
       "Après MVP",
-      "Modération"
+      "Modération",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-110",
@@ -1121,7 +1781,13 @@
       "Décision définitive",
       "Haute",
       "Après MVP",
-      "Équilibrage"
+      "Équilibrage",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-111",
@@ -1131,7 +1797,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Carte"
+      "Carte",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-112",
@@ -1141,7 +1813,13 @@
       "Décision provisoire",
       "Haute",
       "Prototype",
-      "Vocabulaire"
+      "Vocabulaire",
+      "0.6",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-113",
@@ -1151,7 +1829,13 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Remplace Q-004"
+      "Remplace Q-004",
+      "0.7",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-114",
@@ -1161,7 +1845,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Simplification v0.7"
+      "Simplification v0.7",
+      "0.7",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-115",
@@ -1171,7 +1861,13 @@
       "Décision provisoire",
       "Haute",
       "MVP",
-      "Récompenses à préciser"
+      "Récompenses à préciser",
+      "0.7",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-116",
@@ -1181,7 +1877,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Dormance"
+      "Dormance",
+      "0.7",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-117",
@@ -1191,7 +1893,13 @@
       "Décision définitive",
       "Critique",
       "MVP",
-      "Écarte DEC-095 et DEC-096"
+      "Écarte DEC-095 et DEC-096",
+      "0.7",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-118",
@@ -1201,7 +1909,13 @@
       "Décision définitive",
       "Haute",
       "MVP",
-      "Solo"
+      "Solo",
+      "0.7",
+      "À examiner",
+      null,
+      null,
+      "À analyser lors de la revue.",
+      "Non commencé"
     ],
     [
       "DEC-119",
@@ -1211,7 +1925,13 @@
       "Décision définitive",
       "Critique",
       "Vision",
-      "Méthode de conception"
+      "Méthode de conception",
+      "0.7",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-120",
@@ -1221,7 +1941,13 @@
       "Décision définitive",
       "Critique",
       "Vision",
-      "Étape suivante"
+      "Étape suivante",
+      "0.7",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
       "DEC-121",
@@ -1231,69 +1957,381 @@
       "Décision définitive",
       "Critique",
       "Prototype",
-      "Après revue des décisions"
-    ]
-  ],
-  "principles": [
-    [
-      "P-001",
-      "Aucune punition liée à l’absence",
-      "Une non-action ne produit pas de dette morale ou de destruction durable."
+      "Après revue des décisions",
+      "0.7",
+      "À examiner",
+      null,
+      null,
+      "Peut modifier le prototype ou plusieurs mécanismes dépendants.",
+      "Non commencé"
     ],
     [
-      "P-002",
-      "Toute action aide",
-      "Même une résolution imparfaite crée une information, une adaptation ou une ressource."
+      "DEC-122",
+      "Monde",
+      "Monde partagé sans mode solo séparé",
+      "Avelune est un monde multijoueur persistant; une personne peut jouer de manière autonome sans dépendance obligatoire aux autres.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Architecture multijoueur",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Changerait la structure du prototype et de la persistance.",
+      "Terminé"
     ],
     [
-      "P-003",
-      "Sociabilité non forcée",
-      "Le joueur peut contribuer au collectif sans conversation libre ni présence synchrone."
+      "DEC-123",
+      "Monde",
+      "La région ne rétrécit jamais",
+      "Une région peut s’étendre par anneaux lors d’un changement de Chapitre, mais ne supprime jamais d’anneaux existants.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Persistance",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Impliquerait la suppression ou migration arbitraire de lieux.",
+      "Terminé"
     ],
     [
-      "P-004",
-      "Nouveaux joueurs utiles",
-      "La diversité, la plasticité et les tâches fondamentales donnent une vraie valeur aux faibles niveaux."
+      "DEC-124",
+      "Carte",
+      "Rayon initial fixé à 7",
+      "Le premier monde de développement utilise un disque hexagonal de rayon 7, soit 169 hexagones.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "DEC-123",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Modifierait toutes les simulations d’occupation et de vague.",
+      "Terminé"
     ],
     [
-      "P-005",
-      "Pas de domination sociale",
-      "Aucun joueur ne détient un pouvoir permanent sur les autres ou leurs domaines."
+      "DEC-125",
+      "Carte",
+      "Deux anneaux de confort",
+      "Deux anneaux jouables extérieurs servent de réserve de croissance sans être interdits.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "DEC-124",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Changerait la pression spatiale du premier Chapitre.",
+      "Terminé"
     ],
     [
-      "P-006",
-      "Complexité progressive",
-      "Les systèmes avancés existent mais peuvent être masqués, automatisés ou introduits par étapes."
+      "DEC-126",
+      "Fracture",
+      "Fracture initiale de rayon 1",
+      "La Fracture occupe l’hexagone central et le premier anneau, soit sept hexagones inutilisables.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Carte",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Changerait la durée du Passage et l’espace initial.",
+      "Terminé"
     ],
     [
-      "P-007",
-      "Engagement stimulant",
-      "Le jeu cherche la curiosité, la compréhension et la création plutôt que la micro-dopamine."
+      "DEC-127",
+      "Lisière",
+      "Dernier anneau vital et localisé",
+      "Le dernier anneau est non constructible et divisé en secteurs possédant une vigueur et un niveau d’Entame.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Tower defense",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Réduirait le Tower Defense à une barre de vie globale.",
+      "Terminé"
     ],
     [
-      "P-008",
-      "Échec fertile",
-      "L’échec crée une bifurcation, pas une invalidation de l’investissement du joueur."
+      "DEC-128",
+      "Corps-cité",
+      "Croissance case par case jusqu’à sept",
+      "Un corps-cité commence sur un hexagone puis choisit chaque nouvelle case adjacente; le plafond physique de La Genèse est sept cases.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Occupation",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Changerait la pression géographique et les gabarits.",
+      "Terminé"
     ],
     [
-      "P-009",
-      "Monde vivant",
-      "Le monde s’adapte, conserve les traces et ne se réduit pas à un décor consommable."
+      "DEC-129",
+      "Corps-cité",
+      "Décroissance possible",
+      "Le corps-cité peut libérer des cases périphériques jusqu’à un minimum d’un hexagone; les cases libérées conservent des Traces.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "DEC-128",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Retirerait un outil de gestion de l’espace et de dormance.",
+      "Terminé"
     ],
     [
-      "P-010",
-      "Culture jouable",
-      "Poésie, écriture, nomenclature et mémoire ont une fonction mécanique."
+      "DEC-130",
+      "Influence",
+      "Budget de cases choisies",
+      "L’influence opérationnelle progresse sur des cases choisies selon un budget et des coûts de trajet, distinctement de l’empreinte physique.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "TF et terrain",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Une influence par rayon croîtrait trop rapidement.",
+      "Terminé"
     ],
     [
-      "P-011",
-      "Accessibilité native",
-      "Les besoins TDAH, TSA, dys et les choix de langue/genre structurent le design initial."
+      "DEC-131",
+      "Vague",
+      "Vague simple pendant La Genèse",
+      "La première vague suit un seul secteur sans dérive, scission ni fusion; les nouveautés sont réservées aux Chapitres ultérieurs.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Tower defense",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Ajouterait une complexité prématurée.",
+      "Terminé"
     ],
     [
-      "P-012",
-      "Consentement",
-      "Les liens, groupes, fusions, délégations et publications sont explicites et réversibles."
+      "DEC-132",
+      "Vague",
+      "Aucune dissipation générique",
+      "La puissance totale ne diminue pas naturellement par anneau pendant La Genèse; seule sa densité baisse avec l’élargissement du front.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "DEC-131",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Les grandes cartes deviendraient automatiquement plus faciles.",
+      "Terminé"
+    ],
+    [
+      "DEC-133",
+      "Vague",
+      "Puissance multifactorielle et météo bornée",
+      "La puissance dépend d’une base de Chapitre, de la pression de Fracture, des résidus et d’une météo pondérée; elle n’est pas ajustée à la défense posée au dernier moment.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Équilibrage",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "La progression du joueur deviendrait fictive.",
+      "Terminé"
+    ],
+    [
+      "DEC-134",
+      "Temporalité",
+      "Cycle Murmures-Veille-Scellement-Passage-Retombées",
+      "Le Passage utilise un instantané pris au Scellement; les échanges, transports externes et modifications de défense sont bloqués tandis que les activités internes restent disponibles.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Tous axes",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Le cataclysme perdrait son poids ou bloquerait toute l’application.",
+      "Terminé"
+    ],
+    [
+      "DEC-135",
+      "Échos",
+      "Échos territoriaux ou internes",
+      "Après le Passage, zéro ou un Écho peut apparaître dans une zone ou à l’intérieur d’un corps-cité selon exposition, saturation, affinité et Dissonance.",
+      "Décision définitive",
+      "Haute",
+      "MVP",
+      "Retombées",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Réduirait les conséquences transversales.",
+      "Terminé"
+    ],
+    [
+      "DEC-136",
+      "RPG",
+      "Trame d’Avelune d100 hybride",
+      "Le RPG combine test d100 sous seuil, choix structurés sans jet, pistes pour les scènes longues, position, effet et conséquences graduées.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "RPG",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Le RPG manquerait de profondeur ou d’automatisation.",
+      "Terminé"
+    ],
+    [
+      "DEC-137",
+      "RPG",
+      "Trois modes de fiche",
+      "Les modes Simple, Intermédiaire et Profond affichent la même fiche sous différents niveaux de contrôle, sans avantage exclusif.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "Accessibilité",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Une partie du public serait exclue ou le système appauvri.",
+      "Terminé"
+    ],
+    [
+      "DEC-138",
+      "RPG",
+      "Dissonance de zéro à douze",
+      "La Dissonance est une ressource de risque volontaire avec seuils à 3, 6, 9 et 12; la Bascule transforme sans supprimer le personnage.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "Échos",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Le risque RPG perdrait son épée de Damoclès.",
+      "Terminé"
+    ],
+    [
+      "DEC-139",
+      "RPG",
+      "Six caractéristiques, dix-huit compétences et six Vocations",
+      "La fiche initiale possède six caractéristiques, trois compétences par caractéristique et six Vocations de trois paliers.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "DEC-136",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Modifierait le volume et les probabilités du prototype RPG.",
+      "Terminé"
+    ],
+    [
+      "DEC-140",
+      "Tycoon-Factorio",
+      "Progression horizontale par mécanismes",
+      "Le TF introduit par Chapitre qualités, sous-produits, modules, catalyseurs, terrain, saisons, automatisation et commerce plutôt qu’une inflation continue de niveaux.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "TF",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Le contenu deviendrait plat ou un gouffre de production.",
+      "Terminé"
+    ],
+    [
+      "DEC-141",
+      "Tycoon-Factorio",
+      "Huit familles de constructions",
+      "Les constructions couvrent cœur, production, logistique, veille, défense, exploration, culture et liaisons; elles sont décrites par des données et modules génériques.",
+      "Décision définitive",
+      "Haute",
+      "Prototype",
+      "DEC-140",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Chaque bâtiment nécessiterait un moteur spécifique.",
+      "Terminé"
+    ],
+    [
+      "DEC-142",
+      "Chronologie",
+      "La Genèse, Les Prémices et L’Éveil",
+      "La création du jeu forme l’Âge zéro La Genèse; la bêta devient le Chapitre Les Prémices; l’ouverture publique devient L’Éveil.",
+      "Décision définitive",
+      "Haute",
+      "Vision",
+      "Background",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "L’histoire de création serait séparée du monde.",
+      "Terminé"
+    ],
+    [
+      "DEC-143",
+      "Chronologie",
+      "Mémoire du développement sans privilège",
+      "Les décisions, prototypes et bêta-tests peuvent devenir Chroniques, Échos, lieux ou traces, mais n’accordent aucun avantage mécanique durable exclusif.",
+      "Décision définitive",
+      "Critique",
+      "MVP",
+      "Éthique",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Créerait une aristocratie des premiers joueurs.",
+      "Terminé"
+    ],
+    [
+      "DEC-144",
+      "Prototype",
+      "Socle des trois axes simulable",
+      "Un mini-prototype relie une préparation TF, une résolution RPG, un Passage TD, une Lisière, la Dissonance et un Écho candidat avec un contenu minimal.",
+      "Décision définitive",
+      "Critique",
+      "Prototype",
+      "DEC-124 à DEC-141",
+      "0.8",
+      "Validée",
+      "Conserver",
+      null,
+      "Le projet ne disposerait pas d’un test intégré.",
+      "Terminé"
     ]
   ],
   "mechanisms": [
@@ -1305,7 +2343,10 @@
       "Courte",
       "Territoire",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-002",
@@ -1315,7 +2356,10 @@
       "Session",
       "Joueur",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-003",
@@ -1325,7 +2369,10 @@
       "Longue",
       "Monde",
       "MVP",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-004",
@@ -1335,7 +2382,10 @@
       "Moyenne",
       "Territoire",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-005",
@@ -1345,7 +2395,10 @@
       "Très longue",
       "Monde",
       "Après MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-006",
@@ -1355,7 +2408,10 @@
       "Continue",
       "Intérieur",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-007",
@@ -1365,7 +2421,10 @@
       "Continue",
       "Intérieur",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-008",
@@ -1375,7 +2434,10 @@
       "Continue",
       "Intérieur",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-009",
@@ -1385,7 +2447,10 @@
       "Continue",
       "Intérieur",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-010",
@@ -1395,7 +2460,10 @@
       "Continue",
       "Intérieur",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-011",
@@ -1405,7 +2473,10 @@
       "Continue",
       "Territoire",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-012",
@@ -1415,7 +2486,10 @@
       "Continue",
       "Réseau",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-013",
@@ -1425,7 +2499,10 @@
       "Continue",
       "Réseau",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-014",
@@ -1435,7 +2512,10 @@
       "Continue",
       "Réseau",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-015",
@@ -1445,7 +2525,10 @@
       "Continue",
       "Réseau",
       "MVP",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-016",
@@ -1455,7 +2538,10 @@
       "Continue",
       "Territoire",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-017",
@@ -1465,7 +2551,10 @@
       "Très longue",
       "Région",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-018",
@@ -1475,7 +2564,10 @@
       "Très longue",
       "Territoire",
       "Après MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-019",
@@ -1485,7 +2577,10 @@
       "Longue",
       "Réseau",
       "Après MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-020",
@@ -1495,7 +2590,10 @@
       "Moyenne",
       "Variable",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-021",
@@ -1505,7 +2603,10 @@
       "Moyenne",
       "Variable",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-022",
@@ -1515,7 +2616,10 @@
       "Moyenne",
       "Variable",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-023",
@@ -1525,7 +2629,10 @@
       "Moyenne",
       "Variable",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-024",
@@ -1535,7 +2642,10 @@
       "Moyenne",
       "Variable",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-025",
@@ -1545,7 +2655,10 @@
       "Longue",
       "Variable",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-026",
@@ -1555,7 +2668,10 @@
       "Longue",
       "Variable",
       "Après MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-027",
@@ -1565,7 +2681,10 @@
       "Courte",
       "Instance",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-028",
@@ -1575,7 +2694,10 @@
       "Moyenne",
       "Variable",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-029",
@@ -1585,7 +2707,10 @@
       "Moyenne",
       "Territoire",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-030",
@@ -1595,7 +2720,10 @@
       "Moyenne",
       "Monde",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-031",
@@ -1605,7 +2733,10 @@
       "Moyenne",
       "Variable",
       "Après MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-032",
@@ -1615,7 +2746,10 @@
       "Longue",
       "Variable",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-033",
@@ -1625,7 +2759,10 @@
       "Continue",
       "Joueur",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-034",
@@ -1635,7 +2772,10 @@
       "Continue",
       "Joueur",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-035",
@@ -1645,7 +2785,10 @@
       "Continue",
       "Joueur",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-036",
@@ -1655,7 +2798,10 @@
       "Courte",
       "Instance",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-037",
@@ -1665,7 +2811,10 @@
       "Longue",
       "Social",
       "Après MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-038",
@@ -1675,7 +2824,10 @@
       "Moyenne",
       "Groupe",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-039",
@@ -1685,7 +2837,10 @@
       "Moyenne",
       "Groupe",
       "MVP",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-040",
@@ -1695,7 +2850,10 @@
       "Courte",
       "Groupe",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-041",
@@ -1705,7 +2863,10 @@
       "Longue",
       "Groupe",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-042",
@@ -1715,7 +2876,10 @@
       "Longue",
       "Groupe",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-043",
@@ -1725,7 +2889,10 @@
       "Moyenne",
       "Groupe",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-044",
@@ -1735,7 +2902,10 @@
       "Longue",
       "Groupe",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-045",
@@ -1745,7 +2915,10 @@
       "Longue",
       "Groupe",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-046",
@@ -1755,7 +2928,10 @@
       "Longue",
       "Groupe",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-047",
@@ -1765,7 +2941,10 @@
       "Courte",
       "Instance",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-048",
@@ -1775,7 +2954,10 @@
       "Courte",
       "Instance",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-049",
@@ -1785,7 +2967,10 @@
       "Courte",
       "Instance",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-050",
@@ -1795,7 +2980,10 @@
       "Courte",
       "Instance",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-051",
@@ -1805,7 +2993,10 @@
       "Courte",
       "Instance",
       "MVP",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-052",
@@ -1815,7 +3006,10 @@
       "Moyenne",
       "Groupe",
       "MVP",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-053",
@@ -1825,7 +3019,10 @@
       "Courte",
       "Interface",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-054",
@@ -1835,7 +3032,10 @@
       "Courte",
       "Interface",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-055",
@@ -1845,7 +3045,10 @@
       "Courte",
       "Interface",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-056",
@@ -1855,7 +3058,10 @@
       "Continue",
       "Interface",
       "MVP",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-057",
@@ -1865,7 +3071,10 @@
       "Continue",
       "Interface",
       "MVP",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-058",
@@ -1875,7 +3084,10 @@
       "Continue",
       "Monde",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-059",
@@ -1885,7 +3097,10 @@
       "Continue",
       "Monde",
       "MVP",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-060",
@@ -1895,7 +3110,10 @@
       "Longue",
       "Monde",
       "Après MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-061",
@@ -1905,7 +3123,10 @@
       "Longue",
       "Compte",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-062",
@@ -1915,7 +3136,10 @@
       "Continue",
       "Monde",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-063",
@@ -1925,7 +3149,10 @@
       "Cycle",
       "Territoire",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-064",
@@ -1935,7 +3162,10 @@
       "Cycle",
       "Région",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-065",
@@ -1945,7 +3175,10 @@
       "Session",
       "Joueur",
       "Prototype",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-066",
@@ -1955,7 +3188,10 @@
       "Longue",
       "Territoire",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-067",
@@ -1965,7 +3201,10 @@
       "Moyenne",
       "Joueur",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-068",
@@ -1975,7 +3214,10 @@
       "Session",
       "Joueur",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-069",
@@ -1985,7 +3227,10 @@
       "Longue",
       "Monde",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-070",
@@ -1995,7 +3240,10 @@
       "Continue",
       "Joueur",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-071",
@@ -2005,7 +3253,10 @@
       "Longue",
       "Monde",
       "MVP",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-072",
@@ -2015,7 +3266,10 @@
       "Longue",
       "Monde",
       "MVP",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-073",
@@ -2025,7 +3279,10 @@
       "Cycle",
       "Territoire",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-074",
@@ -2035,7 +3292,10 @@
       "Cycle",
       "Liens",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-075",
@@ -2045,7 +3305,10 @@
       "Continue",
       "Liens",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-076",
@@ -2055,7 +3318,10 @@
       "Longue",
       "Collectif",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-077",
@@ -2065,7 +3331,10 @@
       "Cycle",
       "Monde",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-078",
@@ -2075,7 +3344,10 @@
       "Longue",
       "Collectif",
       "Après MVP",
-      "Décision reportée"
+      "Décision reportée",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-079",
@@ -2085,7 +3357,10 @@
       "Continue",
       "Monde",
       "Prototype",
-      "Décision définitive"
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-080",
@@ -2095,7 +3370,10 @@
       "Moyenne",
       "Liens",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-081",
@@ -2105,7 +3383,10 @@
       "Session",
       "Groupe",
       "MVP",
-      "Décision provisoire"
+      "Décision provisoire",
+      "À examiner",
+      null,
+      null
     ],
     [
       "MEC-082",
@@ -2115,60 +3396,814 @@
       "Moyenne",
       "Liens",
       "MVP",
-      "Décision définitive"
-    ]
-  ],
-  "persistent_layers": [
-    [
-      "PER-001",
-      "État intérieur",
-      "Cycles, structures, symbiotes, stocks, services et préférences du corps-cité.",
-      "Action ou minute",
-      "Le joueur",
-      "Aucune perte structurelle pendant l’absence."
+      "Décision définitive",
+      "À examiner",
+      null,
+      null
     ],
     [
-      "PER-002",
-      "État territorial",
-      "Biomes, ressources, protections, espèces, Échos et transformations dans le rayon d’influence.",
-      "Minute à jour",
-      "Le joueur et NPC locaux",
-      "Les effets durables restent; les occasions temporaires expirent sans punition."
-    ],
-    [
-      "PER-003",
-      "État des liens",
-      "Routes biologiques, capacités, quotas, confiance, délégations et Entrelacs.",
-      "Action à heure",
-      "Parties consentantes",
-      "Un lien inactif se met en veille plutôt que de rompre."
-    ],
-    [
-      "PER-004",
-      "État régional",
-      "Santé du biome, infrastructures communes, migrations et projets de groupes.",
-      "Heure à jour",
+      "MEC-083",
+      "Temporalité",
+      "Murmures",
+      "Le jeu annonce la nature, la plage de puissance et les incertitudes de la prochaine vague.",
+      "Courte",
       "Région",
-      "Les NPC complètent le service minimal."
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "RPG et TD"
     ],
     [
-      "PER-005",
-      "État mondial",
-      "Fêlure, Marées, saisons, époque, ressources rares et grandes transformations.",
-      "Jour à semaine",
-      "Serveur",
-      "Aucun reset; passage d’époque avec héritage."
+      "MEC-084",
+      "Temporalité",
+      "Veille",
+      "Les joueurs produisent, construisent, étudient et préparent leurs règles automatiques.",
+      "Moyenne",
+      "Corps-cité",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "TF"
     ],
     [
-      "PER-006",
-      "Mémoire",
-      "Chroniques, encyclopédie, noms, cartes, décisions et provenance des connaissances.",
-      "Immédiat",
-      "Public selon droits",
-      "Historique versionné et jamais écrasé silencieusement."
+      "MEC-085",
+      "Temporalité",
+      "Scellement",
+      "Un instantané verrouille ressources, défenses et liens utiles au Passage.",
+      "Courte",
+      "Région",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Persistance"
+    ],
+    [
+      "MEC-086",
+      "Tower defense",
+      "Passage par pulsations",
+      "La vague progresse d’un anneau par pulsation et chaque défense reçoit le résiduel des précédentes.",
+      "Moyenne",
+      "Région",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Carte"
+    ],
+    [
+      "MEC-087",
+      "Temporalité",
+      "Retombées",
+      "Le jeu calcule Lisière, résidus, Traces, Échos, réparations et Dissonance.",
+      "Moyenne",
+      "Région",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Tous axes"
+    ],
+    [
+      "MEC-088",
+      "Lisière",
+      "Entame locale",
+      "Chaque secteur de Lisière passe de Sereine à Frémissement, Amincissement, Cicatrice ou Brèche.",
+      "Longue",
+      "Lisière",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "TD et monde"
+    ],
+    [
+      "MEC-089",
+      "Corps-cité",
+      "Polyhexagone choisi",
+      "L’empreinte grandit d’un hexagone adjacent choisi à la fois jusqu’au plafond du Chapitre.",
+      "Longue",
+      "Territoire",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Occupation"
+    ],
+    [
+      "MEC-090",
+      "Influence",
+      "Propagation par budget",
+      "Le joueur dépense un budget sur des chemins de cases dont le coût dépend de distance, terrain et saturation.",
+      "Continue",
+      "Territoire",
+      "MVP",
+      "Décision définitive",
+      "Validée",
+      null,
+      "TF et carte"
+    ],
+    [
+      "MEC-091",
+      "RPG",
+      "Test d100 sous seuil",
+      "Le seuil combine caractéristique, compétence, objet, difficulté et condition avec une marge de résultat.",
+      "Courte",
+      "Incarnation",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Fiche RPG"
+    ],
+    [
+      "MEC-092",
+      "RPG",
+      "Choix structuré",
+      "Une scène sociale ou interprétative peut être résolue par intentions et réponses prévues sans lancer de dé.",
+      "Courte",
+      "Incarnation",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Communication"
+    ],
+    [
+      "MEC-093",
+      "RPG",
+      "Piste de progression",
+      "Les instances, enquêtes, relations et projets longs avancent sur une piste avec conséquences.",
+      "Session",
+      "Instance",
+      "MVP",
+      "Décision définitive",
+      "Validée",
+      null,
+      "RPG"
+    ],
+    [
+      "MEC-094",
+      "RPG",
+      "Dissonance",
+      "Le joueur accepte un risque durable pour augmenter un seuil, un effet ou réduire une conséquence.",
+      "Continue",
+      "Incarnation",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Échos"
+    ],
+    [
+      "MEC-095",
+      "Accessibilité",
+      "Vues de fiche",
+      "Les modes Simple, Intermédiaire et Profond masquent ou exposent les mêmes données.",
+      "Continue",
+      "Interface",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "RPG"
+    ],
+    [
+      "MEC-096",
+      "Tycoon",
+      "Cycle minimal TF",
+      "Trois ressources et des chaînes courtes produisent défense, prévision, réparation et objets.",
+      "Moyenne",
+      "Corps-cité",
+      "Prototype",
+      "Décision définitive",
+      "Validée",
+      null,
+      "TD et RPG"
+    ],
+    [
+      "MEC-097",
+      "Tycoon",
+      "Modules et tags",
+      "Les constructions partagent un moteur générique d’entrées, sorties, débits, modules, états et tags.",
+      "Continue",
+      "Tous",
+      "MVP",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Contenu"
+    ],
+    [
+      "MEC-098",
+      "Échos",
+      "Sélection après Passage",
+      "Les lieux éligibles sont classés par exposition, saturation, affinité et Dissonance avant un faible aléa reproductible.",
+      "Moyenne",
+      "Zone ou intérieur",
+      "MVP",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Retombées"
+    ],
+    [
+      "MEC-099",
+      "Monde",
+      "Expansion de Chapitre",
+      "Une région ajoute plusieurs anneaux lorsqu’une pression durable et une transition narrative le justifient.",
+      "Très longue",
+      "Monde",
+      "Après MVP",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Persistance"
+    ],
+    [
+      "MEC-100",
+      "Chronologie",
+      "Mémoire de développement",
+      "Les anciennes règles, prototypes et événements de bêta deviennent des traces fictionnelles sélectionnées.",
+      "Très longue",
+      "Monde",
+      "MVP",
+      "Décision définitive",
+      "Validée",
+      null,
+      "Documentation"
     ]
   ],
-  "real_sources": [
+  "principles": [
+    [
+      "P-001",
+      "Aucune punition liée à l’absence",
+      "Une non-action ne produit pas de dette morale ou de destruction durable.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-002",
+      "Toute action aide",
+      "Même une résolution imparfaite crée une information, une adaptation ou une ressource.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-003",
+      "Sociabilité non forcée",
+      "Le joueur peut contribuer au collectif sans conversation libre ni présence synchrone.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-004",
+      "Nouveaux joueurs utiles",
+      "La diversité, la plasticité et les tâches fondamentales donnent une vraie valeur aux faibles niveaux.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-005",
+      "Pas de domination sociale",
+      "Aucun joueur ne détient un pouvoir permanent sur les autres ou leurs domaines.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-006",
+      "Complexité progressive",
+      "Les systèmes avancés existent mais peuvent être masqués, automatisés ou introduits par étapes.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-007",
+      "Engagement stimulant",
+      "Le jeu cherche la curiosité, la compréhension et la création plutôt que la micro-dopamine.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-008",
+      "Échec fertile",
+      "L’échec crée une bifurcation, pas une invalidation de l’investissement du joueur.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-009",
+      "Monde vivant",
+      "Le monde s’adapte, conserve les traces et ne se réduit pas à un décor consommable.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-010",
+      "Culture jouable",
+      "Poésie, écriture, nomenclature et mémoire ont une fonction mécanique.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-011",
+      "Accessibilité native",
+      "Les besoins TDAH, TSA, dys et les choix de langue/genre structurent le design initial.",
+      "À examiner",
+      null
+    ],
+    [
+      "P-012",
+      "Consentement",
+      "Les liens, groupes, fusions, délégations et publications sont explicites et réversibles.",
+      "À examiner",
+      null
+    ]
+  ],
+  "questions": [
+    [
+      "Q-001",
+      "Concept",
+      "Le corps-cité devient-il le concept définitif ou seulement une faction/forme jouable ?",
+      "Critique",
+      "Prototype papier et maquette visuelle.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-002",
+      "Représentation",
+      "Le corps-cité se déplace-t-il physiquement sur la carte ou projette-t-il un avatar mobile ?",
+      "Critique",
+      "Comparer lisibilité RPG et tycoon.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-003",
+      "Échelle intérieure",
+      "Voit-on des habitants individuels, des populations abstraites ou des symbiotes nommés ?",
+      "Haute",
+      "Tester 3 à 5 figures nommées plus flux agrégés.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-004",
+      "Carte",
+      "Comment représenter lisiblement les hexagones et les écotones sur ordinateur et téléphone ?",
+      "Haute",
+      "Maquette de carte hexagonale.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-005",
+      "Économie",
+      "Quelles trois ressources suffisent au premier prototype ?",
+      "Critique",
+      "Matière, énergie, mémoire comme hypothèse.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-006",
+      "Événement",
+      "Quel premier Écho démontre combat, adaptation et transcendance ?",
+      "Critique",
+      "Concevoir un événement vertical complet.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-007",
+      "Commerce",
+      "Les échanges utilisent-ils troc automatique, crédits communs ou demandes ciblées ?",
+      "Haute",
+      "Tester troc par quotas sans monnaie.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-008",
+      "NPC",
+      "À quel point les cités NPC évoluent-elles sans joueur ?",
+      "Haute",
+      "Service minimal plus traits persistants.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-009",
+      "Social",
+      "Combien d’organisations simultanées restent lisibles : 2, 3 ou 4 ?",
+      "Moyenne",
+      "Test utilisateur ultérieur.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-010",
+      "Persistance",
+      "Quelle durée réelle correspond à une époque d’Avelune ?",
+      "Moyenne",
+      "4 à 8 semaines comme plage initiale.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-011",
+      "Données réelles",
+      "Quels points fixes marins et terrestres composent le Souffle du monde ?",
+      "Moyenne",
+      "Choisir 8 à 12 points répartis globalement.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-012",
+      "Wiki",
+      "Le wiki est-il diégétique dans le jeu, documentaire hors jeu, ou les deux ?",
+      "Haute",
+      "Prévoir une base commune avec deux présentations.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-013",
+      "Visuel",
+      "Quel degré de cute et de lisibilité évite le body horror ?",
+      "Critique",
+      "Moodboard et silhouettes abstraites.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-014",
+      "MVP",
+      "Quelles fonctions doivent être simulées avant tout développement graphique ?",
+      "Critique",
+      "Flux, événement, adaptation, commerce automatique.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-015",
+      "Comptes",
+      "À quel moment l’incarnation secondaire est-elle débloquée et quelles limites doivent être partagées ?",
+      "Haute",
+      "Définir les règles anti-abus.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-016",
+      "Carte",
+      "Décision prise : terrain hexagonal. Reste à fixer taille, zoom et regroupement.",
+      "Haute",
+      "Voir Q-027.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-017",
+      "Déplacement",
+      "Quelle vitesse réelle de migration rend la géographie importante sans enfermer le joueur ?",
+      "Haute",
+      "Simuler plusieurs durées.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-018",
+      "Crises",
+      "Quel premier Nœud de crise démontre observation, essais et dépassement ?",
+      "Critique",
+      "Concevoir un cas de test.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-019",
+      "Dormance",
+      "Après combien de temps un compte passe-t-il en dormance et quel débit minimal conserve-t-il ?",
+      "Critique",
+      "Simuler 3 profils d’absence.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-020",
+      "NPC",
+      "Quelles orientations lentes suffisent pour donner une vie propre aux cités NPC ?",
+      "Haute",
+      "Limiter à 4 tendances pour le prototype.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-021",
+      "Symbiose",
+      "Quel résultat justifie une symbiose sans créer de dépendance ou de propriété commune complexe ?",
+      "Critique",
+      "À simplifier.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-022",
+      "Époques",
+      "Quelles conditions clôturent un chapitre et quelle échelle doit être testée en premier ?",
+      "Haute",
+      "Prototype régional.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-023",
+      "Commerce",
+      "Quel nombre initial de ports, quelle portée et quel débit pour le hub racinaire ?",
+      "Critique",
+      "Simulation économique.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-024",
+      "Collectif",
+      "Le nom Confluence et ses types fonctionnels conviennent-ils ?",
+      "Moyenne",
+      "Validation vocabulaire.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-025",
+      "Événements",
+      "Le nom Voile convient-il aux zones d’ombre mobiles ?",
+      "Moyenne",
+      "Validation vocabulaire.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-026",
+      "Symbiose",
+      "Créer, améliorer ou instance commune : quelles récompenses sont assez utiles sans devenir obligatoires ?",
+      "Critique",
+      "Définir 3 scénarios comparables.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-027",
+      "Hexagones",
+      "Quelle échelle représente un hexagone et combien sont visibles à l’écran ?",
+      "Critique",
+      "Maquette papier.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-028",
+      "Arbres",
+      "Quelles familles doivent former les premiers arbres : intérieur, écotone, commerce, exploration ou adaptation ?",
+      "Critique",
+      "Après validation du classeur.",
+      "À examiner",
+      null
+    ],
+    [
+      "Q-029",
+      "Interactions",
+      "Quelles dépendances entre mécanismes sont indispensables et lesquelles doivent être supprimées ?",
+      "Critique",
+      "Construire une matrice d’interactions.",
+      "À examiner",
+      null
+    ]
+  ],
+  "risks": [
+    [
+      "R-001",
+      "Foisonnement fonctionnel",
+      "Trop de systèmes avant validation de la boucle centrale.",
+      "Critique",
+      "Prototype vertical limité; chaque idée est marquée Prototype/MVP/Après MVP.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-002",
+      "Abstraction du corps-cité",
+      "Le concept peut être difficile à comprendre ou sembler organique/horrifique.",
+      "Haute",
+      "Direction biomorphique douce, métaphores végétales et minérales, prototype visuel très tôt.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-003",
+      "Tycoon trop automatisé",
+      "Le joueur pourrait ne plus avoir de décisions intéressantes.",
+      "Haute",
+      "Automatiser la répétition mais créer variations, objectifs et arbitrages.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-004",
+      "Tycoon trop manuel",
+      "La maintenance devient un emploi et pénalise les absences.",
+      "Critique",
+      "Seuils, règles, NPC, reprise et absence de dégradation punitive.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-005",
+      "Monde vide au lancement",
+      "Deux joueurs ne couvrent pas les fonctions prévues pour une communauté.",
+      "Critique",
+      "NPC actifs, objectifs recalibrés et cellules préexistantes.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-006",
+      "Monde saturé à grande échelle",
+      "Des centaines de joueurs rendent la carte illisible.",
+      "Haute",
+      "Carte cellulaire multi-échelle, bourgeonnement et agrégation régionale.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-007",
+      "Données externes indisponibles",
+      "Panne, changement de licence ou modèle météo.",
+      "Haute",
+      "Cache, normalisation, sources multiples et générateur de repli déterministe.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-008",
+      "Données réelles perçues comme aléatoires parfaites",
+      "La météo est imprévisible mais pas un générateur cryptographique.",
+      "Moyenne",
+      "Présenter le mécanisme comme un Souffle du monde reproductible, pas comme hasard pur.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-009",
+      "Communication trop limitée",
+      "Les joueurs pourraient manquer de chaleur humaine sans texte libre.",
+      "Haute",
+      "Phrases empathiques, cadeaux, chroniques, réactions nuancées et liens privilégiés.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-010",
+      "Communication détournée",
+      "Les combinaisons de noms ou propositions pourraient servir au harcèlement.",
+      "Moyenne",
+      "Lexiques contrôlés, droits de publication, blocage et audit.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-011",
+      "Gouvernance lente",
+      "Trop de propositions et votes.",
+      "Haute",
+      "Périmètres privés, décisions automatiques, délais et contre-propositions limitées.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-012",
+      "Nouveaux joueurs décoratifs",
+      "Le niveau finit malgré tout par dominer.",
+      "Critique",
+      "Rendement décroissant, bonus de diversité et aptitude de plasticité des jeunes cités.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-013",
+      "Wiki illisible",
+      "L’accumulation automatique produit du bruit.",
+      "Moyenne",
+      "Entrées synthétiques, niveaux de lecture, tags et archivage par époque.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-014",
+      "Charge de modération future",
+      "La publication créative ouverte exige une équipe.",
+      "Critique",
+      "Pas de contenu public libre au MVP; préparation des permissions et de la provenance.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-015",
+      "Double incarnation exploitable",
+      "Le second personnage peut servir à voter, transférer ou contourner les limites.",
+      "Critique",
+      "Compte unique, restrictions mécaniques et ressources séparées.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-016",
+      "Terrain trop complexe",
+      "Trop de propriétés et d’interactions rendent la carte illisible.",
+      "Critique",
+      "Limiter les propriétés actives et afficher des couches.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-017",
+      "Blocage frustrant",
+      "Les Nœuds de crise peuvent immobiliser un joueur.",
+      "Haute",
+      "Bloquer une branche seulement et rendre chaque essai informatif.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-018",
+      "NPC trop autonomes",
+      "Le joueur peut avoir l’impression que le jeu joue seul.",
+      "Haute",
+      "Évolution lente, lisible et influençable, sans concurrence directe.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-019",
+      "Commerce opportuniste",
+      "Des règles ouvertes peuvent être exploitées à la limite des ratios.",
+      "Haute",
+      "Réserves, ports, plafonds, historiques et temporisation des ruptures.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-020",
+      "Symbiose administrative",
+      "La propriété d’un organe commun crée des litiges et dépendances.",
+      "Critique",
+      "Simplifier ou supprimer tout actif permanent partagé.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-021",
+      "Confluences obligatoires",
+      "Les lieux collectifs peuvent devenir des passages forcés.",
+      "Haute",
+      "Alternatives NPC et progression solo complète.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-022",
+      "Carte hexagonale sur mobile",
+      "Des hexagones trop petits ou nombreux nuisent à la lisibilité tactile.",
+      "Haute",
+      "Zoom, regroupement régional et panneaux plutôt que micro-clics.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-023",
+      "Symbiose sans intérêt",
+      "Si le gain est trop faible, le système sera ignoré; trop fort, il deviendra obligatoire.",
+      "Haute",
+      "Tester trois finalités et plafonner l’avantage.",
+      "À examiner",
+      null
+    ],
+    [
+      "R-024",
+      "Accumulation de décisions",
+      "Le classeur peut devenir trop volumineux pour être relu.",
+      "Critique",
+      "Feuille d’arbitrages prioritaires, filtres et statut utilisateur.",
+      "À examiner",
+      null
+    ]
+  ],
+  "sources": [
     [
       "SRC-001",
       "Open-Meteo Weather Forecast API",
@@ -2215,538 +4250,6 @@
       "À utiliser seulement comme tendance abstraite, jamais comme événement sensationnaliste."
     ]
   ],
-  "risks": [
-    [
-      "R-001",
-      "Foisonnement fonctionnel",
-      "Trop de systèmes avant validation de la boucle centrale.",
-      "Critique",
-      "Prototype vertical limité; chaque idée est marquée Prototype/MVP/Après MVP."
-    ],
-    [
-      "R-002",
-      "Abstraction du corps-cité",
-      "Le concept peut être difficile à comprendre ou sembler organique/horrifique.",
-      "Haute",
-      "Direction biomorphique douce, métaphores végétales et minérales, prototype visuel très tôt."
-    ],
-    [
-      "R-003",
-      "Tycoon trop automatisé",
-      "Le joueur pourrait ne plus avoir de décisions intéressantes.",
-      "Haute",
-      "Automatiser la répétition mais créer variations, objectifs et arbitrages."
-    ],
-    [
-      "R-004",
-      "Tycoon trop manuel",
-      "La maintenance devient un emploi et pénalise les absences.",
-      "Critique",
-      "Seuils, règles, NPC, reprise et absence de dégradation punitive."
-    ],
-    [
-      "R-005",
-      "Monde vide au lancement",
-      "Deux joueurs ne couvrent pas les fonctions prévues pour une communauté.",
-      "Critique",
-      "NPC actifs, objectifs recalibrés et cellules préexistantes."
-    ],
-    [
-      "R-006",
-      "Monde saturé à grande échelle",
-      "Des centaines de joueurs rendent la carte illisible.",
-      "Haute",
-      "Carte cellulaire multi-échelle, bourgeonnement et agrégation régionale."
-    ],
-    [
-      "R-007",
-      "Données externes indisponibles",
-      "Panne, changement de licence ou modèle météo.",
-      "Haute",
-      "Cache, normalisation, sources multiples et générateur de repli déterministe."
-    ],
-    [
-      "R-008",
-      "Données réelles perçues comme aléatoires parfaites",
-      "La météo est imprévisible mais pas un générateur cryptographique.",
-      "Moyenne",
-      "Présenter le mécanisme comme un Souffle du monde reproductible, pas comme hasard pur."
-    ],
-    [
-      "R-009",
-      "Communication trop limitée",
-      "Les joueurs pourraient manquer de chaleur humaine sans texte libre.",
-      "Haute",
-      "Phrases empathiques, cadeaux, chroniques, réactions nuancées et liens privilégiés."
-    ],
-    [
-      "R-010",
-      "Communication détournée",
-      "Les combinaisons de noms ou propositions pourraient servir au harcèlement.",
-      "Moyenne",
-      "Lexiques contrôlés, droits de publication, blocage et audit."
-    ],
-    [
-      "R-011",
-      "Gouvernance lente",
-      "Trop de propositions et votes.",
-      "Haute",
-      "Périmètres privés, décisions automatiques, délais et contre-propositions limitées."
-    ],
-    [
-      "R-012",
-      "Nouveaux joueurs décoratifs",
-      "Le niveau finit malgré tout par dominer.",
-      "Critique",
-      "Rendement décroissant, bonus de diversité et aptitude de plasticité des jeunes cités."
-    ],
-    [
-      "R-013",
-      "Wiki illisible",
-      "L’accumulation automatique produit du bruit.",
-      "Moyenne",
-      "Entrées synthétiques, niveaux de lecture, tags et archivage par époque."
-    ],
-    [
-      "R-014",
-      "Charge de modération future",
-      "La publication créative ouverte exige une équipe.",
-      "Critique",
-      "Pas de contenu public libre au MVP; préparation des permissions et de la provenance."
-    ],
-    [
-      "R-015",
-      "Double incarnation exploitable",
-      "Le second personnage peut servir à voter, transférer ou contourner les limites.",
-      "Critique",
-      "Compte unique, restrictions mécaniques et ressources séparées."
-    ],
-    [
-      "R-016",
-      "Terrain trop complexe",
-      "Trop de propriétés et d’interactions rendent la carte illisible.",
-      "Critique",
-      "Limiter les propriétés actives et afficher des couches."
-    ],
-    [
-      "R-017",
-      "Blocage frustrant",
-      "Les Nœuds de crise peuvent immobiliser un joueur.",
-      "Haute",
-      "Bloquer une branche seulement et rendre chaque essai informatif."
-    ],
-    [
-      "R-018",
-      "NPC trop autonomes",
-      "Le joueur peut avoir l’impression que le jeu joue seul.",
-      "Haute",
-      "Évolution lente, lisible et influençable, sans concurrence directe."
-    ],
-    [
-      "R-019",
-      "Commerce opportuniste",
-      "Des règles ouvertes peuvent être exploitées à la limite des ratios.",
-      "Haute",
-      "Réserves, ports, plafonds, historiques et temporisation des ruptures."
-    ],
-    [
-      "R-020",
-      "Symbiose administrative",
-      "La propriété d’un organe commun crée des litiges et dépendances.",
-      "Critique",
-      "Simplifier ou supprimer tout actif permanent partagé."
-    ],
-    [
-      "R-021",
-      "Confluences obligatoires",
-      "Les lieux collectifs peuvent devenir des passages forcés.",
-      "Haute",
-      "Alternatives NPC et progression solo complète."
-    ],
-    [
-      "R-022",
-      "Carte hexagonale sur mobile",
-      "Des hexagones trop petits ou nombreux nuisent à la lisibilité tactile.",
-      "Haute",
-      "Zoom, regroupement régional et panneaux plutôt que micro-clics."
-    ],
-    [
-      "R-023",
-      "Symbiose sans intérêt",
-      "Si le gain est trop faible, le système sera ignoré; trop fort, il deviendra obligatoire.",
-      "Haute",
-      "Tester trois finalités et plafonner l’avantage."
-    ],
-    [
-      "R-024",
-      "Accumulation de décisions",
-      "Le classeur peut devenir trop volumineux pour être relu.",
-      "Critique",
-      "Feuille d’arbitrages prioritaires, filtres et statut utilisateur."
-    ]
-  ],
-  "questions": [
-    [
-      "Q-001",
-      "Concept",
-      "Le corps-cité devient-il le concept définitif ou seulement une faction/forme jouable ?",
-      "Critique",
-      "Prototype papier et maquette visuelle."
-    ],
-    [
-      "Q-002",
-      "Représentation",
-      "Le corps-cité se déplace-t-il physiquement sur la carte ou projette-t-il un avatar mobile ?",
-      "Critique",
-      "Comparer lisibilité RPG et tycoon."
-    ],
-    [
-      "Q-003",
-      "Échelle intérieure",
-      "Voit-on des habitants individuels, des populations abstraites ou des symbiotes nommés ?",
-      "Haute",
-      "Tester 3 à 5 figures nommées plus flux agrégés."
-    ],
-    [
-      "Q-004",
-      "Carte",
-      "Comment représenter lisiblement les hexagones et les écotones sur ordinateur et téléphone ?",
-      "Haute",
-      "Maquette de carte hexagonale."
-    ],
-    [
-      "Q-005",
-      "Économie",
-      "Quelles trois ressources suffisent au premier prototype ?",
-      "Critique",
-      "Matière, énergie, mémoire comme hypothèse."
-    ],
-    [
-      "Q-006",
-      "Événement",
-      "Quel premier Écho démontre combat, adaptation et transcendance ?",
-      "Critique",
-      "Concevoir un événement vertical complet."
-    ],
-    [
-      "Q-007",
-      "Commerce",
-      "Les échanges utilisent-ils troc automatique, crédits communs ou demandes ciblées ?",
-      "Haute",
-      "Tester troc par quotas sans monnaie."
-    ],
-    [
-      "Q-008",
-      "NPC",
-      "À quel point les cités NPC évoluent-elles sans joueur ?",
-      "Haute",
-      "Service minimal plus traits persistants."
-    ],
-    [
-      "Q-009",
-      "Social",
-      "Combien d’organisations simultanées restent lisibles : 2, 3 ou 4 ?",
-      "Moyenne",
-      "Test utilisateur ultérieur."
-    ],
-    [
-      "Q-010",
-      "Persistance",
-      "Quelle durée réelle correspond à une époque d’Avelune ?",
-      "Moyenne",
-      "4 à 8 semaines comme plage initiale."
-    ],
-    [
-      "Q-011",
-      "Données réelles",
-      "Quels points fixes marins et terrestres composent le Souffle du monde ?",
-      "Moyenne",
-      "Choisir 8 à 12 points répartis globalement."
-    ],
-    [
-      "Q-012",
-      "Wiki",
-      "Le wiki est-il diégétique dans le jeu, documentaire hors jeu, ou les deux ?",
-      "Haute",
-      "Prévoir une base commune avec deux présentations."
-    ],
-    [
-      "Q-013",
-      "Visuel",
-      "Quel degré de cute et de lisibilité évite le body horror ?",
-      "Critique",
-      "Moodboard et silhouettes abstraites."
-    ],
-    [
-      "Q-014",
-      "MVP",
-      "Quelles fonctions doivent être simulées avant tout développement graphique ?",
-      "Critique",
-      "Flux, événement, adaptation, commerce automatique."
-    ],
-    [
-      "Q-015",
-      "Comptes",
-      "À quel moment l’incarnation secondaire est-elle débloquée et quelles limites doivent être partagées ?",
-      "Haute",
-      "Définir les règles anti-abus."
-    ],
-    [
-      "Q-016",
-      "Carte",
-      "Décision prise : terrain hexagonal. Reste à fixer taille, zoom et regroupement.",
-      "Haute",
-      "Voir Q-027."
-    ],
-    [
-      "Q-017",
-      "Déplacement",
-      "Quelle vitesse réelle de migration rend la géographie importante sans enfermer le joueur ?",
-      "Haute",
-      "Simuler plusieurs durées."
-    ],
-    [
-      "Q-018",
-      "Crises",
-      "Quel premier Nœud de crise démontre observation, essais et dépassement ?",
-      "Critique",
-      "Concevoir un cas de test."
-    ],
-    [
-      "Q-019",
-      "Dormance",
-      "Après combien de temps un compte passe-t-il en dormance et quel débit minimal conserve-t-il ?",
-      "Critique",
-      "Simuler 3 profils d’absence."
-    ],
-    [
-      "Q-020",
-      "NPC",
-      "Quelles orientations lentes suffisent pour donner une vie propre aux cités NPC ?",
-      "Haute",
-      "Limiter à 4 tendances pour le prototype."
-    ],
-    [
-      "Q-021",
-      "Symbiose",
-      "Quel résultat justifie une symbiose sans créer de dépendance ou de propriété commune complexe ?",
-      "Critique",
-      "À simplifier."
-    ],
-    [
-      "Q-022",
-      "Époques",
-      "Quelles conditions clôturent un chapitre et quelle échelle doit être testée en premier ?",
-      "Haute",
-      "Prototype régional."
-    ],
-    [
-      "Q-023",
-      "Commerce",
-      "Quel nombre initial de ports, quelle portée et quel débit pour le hub racinaire ?",
-      "Critique",
-      "Simulation économique."
-    ],
-    [
-      "Q-024",
-      "Collectif",
-      "Le nom Confluence et ses types fonctionnels conviennent-ils ?",
-      "Moyenne",
-      "Validation vocabulaire."
-    ],
-    [
-      "Q-025",
-      "Événements",
-      "Le nom Voile convient-il aux zones d’ombre mobiles ?",
-      "Moyenne",
-      "Validation vocabulaire."
-    ],
-    [
-      "Q-026",
-      "Symbiose",
-      "Créer, améliorer ou instance commune : quelles récompenses sont assez utiles sans devenir obligatoires ?",
-      "Critique",
-      "Définir 3 scénarios comparables."
-    ],
-    [
-      "Q-027",
-      "Hexagones",
-      "Quelle échelle représente un hexagone et combien sont visibles à l’écran ?",
-      "Critique",
-      "Maquette papier."
-    ],
-    [
-      "Q-028",
-      "Arbres",
-      "Quelles familles doivent former les premiers arbres : intérieur, écotone, commerce, exploration ou adaptation ?",
-      "Critique",
-      "Après validation du classeur."
-    ],
-    [
-      "Q-029",
-      "Interactions",
-      "Quelles dépendances entre mécanismes sont indispensables et lesquelles doivent être supprimées ?",
-      "Critique",
-      "Construire une matrice d’interactions."
-    ]
-  ],
-  "vocabulary": [
-    [
-      "Jeu",
-      "Les Lisières d’Avelune",
-      "Titre définitif"
-    ],
-    [
-      "Monde",
-      "Avelune",
-      "Nom du monde"
-    ],
-    [
-      "Centre transformateur",
-      "La Fêlure",
-      "Nom provisoire"
-    ],
-    [
-      "Événement global",
-      "Marée de Possibles",
-      "Nom provisoire"
-    ],
-    [
-      "Événement local",
-      "Écho / Pli / Résurgence",
-      "À trancher"
-    ],
-    [
-      "Personnage-cité",
-      "Corps-cité / Corps-Monde / Cité vivante",
-      "À trancher"
-    ],
-    [
-      "Zone personnelle",
-      "Écotone / Rayon d’influence",
-      "Nom provisoire"
-    ],
-    [
-      "Action persistante",
-      "Trace",
-      "Nom provisoire"
-    ],
-    [
-      "Mini-instance",
-      "Éclat",
-      "Proposition forte"
-    ],
-    [
-      "Lien privilégié",
-      "Entrelacs",
-      "Proposition forte"
-    ],
-    [
-      "Organisation générique",
-      "Écosystème",
-      "Proposition forte"
-    ],
-    [
-      "Organisation autonome",
-      "Récif",
-      "Proposition"
-    ],
-    [
-      "Organisation contributive",
-      "Essaim",
-      "Proposition"
-    ],
-    [
-      "Organisation mobile",
-      "Banc",
-      "Proposition"
-    ],
-    [
-      "Organisation productive",
-      "Colonie",
-      "Proposition"
-    ],
-    [
-      "Organisation culturelle",
-      "Mycélium",
-      "Proposition"
-    ],
-    [
-      "Petit partenariat",
-      "Symbiose",
-      "Proposition"
-    ],
-    [
-      "Données planétaires",
-      "Souffle du monde",
-      "Proposition forte"
-    ],
-    [
-      "Spécialiste infiltration",
-      "Passe-brèche",
-      "Proposition forte"
-    ],
-    [
-      "Compte",
-      "Incarnation secondaire",
-      "Proposition forte"
-    ],
-    [
-      "Difficulté",
-      "Nœud de crise",
-      "Retenu"
-    ],
-    [
-      "Zone d’influence",
-      "Écotone",
-      "Retenu"
-    ],
-    [
-      "Commerce",
-      "Hub racinaire",
-      "Proposition forte"
-    ],
-    [
-      "Cité collaborative",
-      "Confluence",
-      "Proposition à valider"
-    ],
-    [
-      "Zone mobile",
-      "Voile",
-      "Proposition à valider"
-    ],
-    [
-      "Narration",
-      "Époque / chapitre",
-      "Retenu"
-    ],
-    [
-      "Terrain",
-      "Hexagone",
-      "Définitif"
-    ],
-    [
-      "Coopération temporaire",
-      "Symbiose",
-      "Retenu avec périmètre réduit"
-    ]
-  ],
-  "review_options": [
-    "À examiner",
-    "Validée",
-    "Invalidée",
-    "À modifier",
-    "Reportée"
-  ],
-  "work_options": [
-    "Non commencé",
-    "À préciser",
-    "À tester",
-    "En cours",
-    "Bloqué",
-    "Terminé"
-  ],
   "interactions": [
     [
       "INT-001",
@@ -2755,7 +4258,9 @@
       "Le corps-cité s’ancre dans une cellule et influence les voisines.",
       "Bidirectionnelle",
       "Critique",
-      "Prototype"
+      "Prototype",
+      "À examiner",
+      null
     ],
     [
       "INT-002",
@@ -2764,7 +4269,9 @@
       "Les choix intérieurs modifient portée et nature de l’écotone.",
       "Sortante",
       "Critique",
-      "Prototype"
+      "Prototype",
+      "À examiner",
+      null
     ],
     [
       "INT-003",
@@ -2773,7 +4280,9 @@
       "L’écotone modifie progressivement certaines propriétés de cellules.",
       "Sortante",
       "Critique",
-      "Prototype"
+      "Prototype",
+      "À examiner",
+      null
     ],
     [
       "INT-004",
@@ -2782,7 +4291,9 @@
       "Les propriétés de la cellule favorisent ou renchérissent certaines productions.",
       "Entrante",
       "Critique",
-      "Prototype"
+      "Prototype",
+      "À examiner",
+      null
     ],
     [
       "INT-005",
@@ -2791,7 +4302,9 @@
       "Un Voile modifie temporairement les propriétés et la visibilité.",
       "Sortante",
       "Haute",
-      "Prototype"
+      "Prototype",
+      "À examiner",
+      null
     ],
     [
       "INT-006",
@@ -2800,7 +4313,9 @@
       "Les affinités du corps-cité déterminent si l’effet est favorable ou difficile.",
       "Bidirectionnelle",
       "Haute",
-      "Prototype"
+      "Prototype",
+      "À examiner",
+      null
     ],
     [
       "INT-007",
@@ -2809,7 +4324,9 @@
       "La distance limite portée, coût et débit des liens.",
       "Entrante",
       "Critique",
-      "Prototype"
+      "Prototype",
+      "À examiner",
+      null
     ],
     [
       "INT-008",
@@ -2818,7 +4335,9 @@
       "Le passage en dormance réduit le débit des liens maintenus.",
       "Entrante",
       "Critique",
-      "Prototype"
+      "Prototype",
+      "À examiner",
+      null
     ],
     [
       "INT-009",
@@ -2827,7 +4346,9 @@
       "Les NPC garantissent des partenaires de base et évoluent lentement.",
       "Bidirectionnelle",
       "Haute",
-      "Prototype"
+      "Prototype",
+      "À examiner",
+      null
     ],
     [
       "INT-010",
@@ -2836,7 +4357,9 @@
       "Une crise peut bloquer une branche jusqu’à maîtrise.",
       "Sortante",
       "Critique",
-      "Prototype"
+      "Prototype",
+      "À examiner",
+      null
     ],
     [
       "INT-011",
@@ -2845,7 +4368,9 @@
       "Une fin de chapitre peut changer l’orientation de certains NPC.",
       "Sortante",
       "Haute",
-      "MVP"
+      "MVP",
+      "À examiner",
+      null
     ],
     [
       "INT-012",
@@ -2854,7 +4379,9 @@
       "Le chapitre peut modifier durablement des propriétés régionales.",
       "Sortante",
       "Haute",
-      "MVP"
+      "MVP",
+      "À examiner",
+      null
     ],
     [
       "INT-013",
@@ -2863,7 +4390,9 @@
       "Une cité collaborative peut proposer des activités et instances.",
       "Sortante",
       "Moyenne",
-      "MVP"
+      "MVP",
+      "À examiner",
+      null
     ],
     [
       "INT-014",
@@ -2872,7 +4401,9 @@
       "Le lien temporaire ouvre ou facilite une instance commune.",
       "Sortante",
       "Haute",
-      "MVP"
+      "MVP",
+      "À examiner",
+      null
     ],
     [
       "INT-015",
@@ -2881,7 +4412,9 @@
       "Les deux incarnations partagent une seule voix politique.",
       "Entrante",
       "Critique",
-      "MVP"
+      "MVP",
+      "À examiner",
+      null
     ]
   ],
   "tree_preparation": [
@@ -2892,7 +4425,9 @@
       "Production, stockage, automatismes, soins",
       "Ressources initiales et chaînes",
       "Prototype",
-      "À préparer"
+      "À préparer",
+      "Non commencé",
+      "À examiner"
     ],
     [
       "ARB-002",
@@ -2901,7 +4436,9 @@
       "Portée, adaptation, protection, transformation du sol",
       "Hexagones et terrain",
       "Prototype",
-      "À préparer"
+      "À préparer",
+      "Non commencé",
+      "À examiner"
     ],
     [
       "ARB-003",
@@ -2910,7 +4447,9 @@
       "Ports, débit, portée, règles, secours",
       "Économie et distance",
       "Prototype",
-      "À préparer"
+      "À préparer",
+      "Non commencé",
+      "À examiner"
     ],
     [
       "ARB-004",
@@ -2919,7 +4458,9 @@
       "Observation, infiltration, prévision, traversée",
       "Déplacement et Voiles",
       "MVP",
-      "À préparer"
+      "À préparer",
+      "Non commencé",
+      "À examiner"
     ],
     [
       "ARB-005",
@@ -2928,7 +4469,9 @@
       "Projets, services, décisions, quêtes",
       "Validation du collectif",
       "MVP",
-      "À préparer"
+      "À préparer",
+      "Non commencé",
+      "À examiner"
     ],
     [
       "ARB-006",
@@ -2937,7 +4480,9 @@
       "Hypothèses, essais, maîtrise, bifurcations",
       "Difficulté fertile",
       "Prototype",
-      "À préparer"
+      "À préparer",
+      "Non commencé",
+      "À examiner"
     ],
     [
       "ARB-007",
@@ -2946,12 +4491,30 @@
       "Sens, mobilité, adaptations sans verrouillage",
       "Identité et équilibrage",
       "MVP",
-      "À préparer"
+      "À préparer",
+      "Non commencé",
+      "À examiner"
     ]
   ],
-  "design_log_addenda": [
-    "## Addendum v0.5 - Terrain, mobilité, crises et double incarnation\n\n### Demande de conception\n- Autoriser un compte secondaire unique sans permettre les abus.\n- Prévoir éventuellement une section PvE/PvP sans en faire le coeur du jeu.\n- Donner aux cellules des propensions d'activité et faire interagir les écotones.\n- Étudier une présence fixe ou très lentement mobile dans le monde.\n- Introduire des zones favorables/difficiles et de vraies problématiques semi-bloquantes.\n- Utiliser une carte générale et une vue intérieure fixe pour faciliter le premier prototype.\n\n### Résultat consolidé\nLes décisions DEC-077 à DEC-089 et les mécanismes MEC-061 à MEC-068 ont été ajoutés. Le PvP est reporté; le terrain cellulaire, l'écotone, les crises de branche et la double vue sont intégrés au cadrage.\n",
-    "## Addendum v0.6 - Dormance, NPC, Époques, commerce et collectif\n\n### Demande de conception\n- Rendre les Traces anonymes et naturelles.\n- Réduire fortement la progression des comptes dormants tout en maintenant les échanges demandés.\n- Faire évoluer lentement les écosystèmes NPC.\n- Étudier les conséquences et la réversibilité des symbioses.\n- Structurer l'histoire par Époques ou chapitres.\n- Limiter les chaînes de production afin de conserver un tycoon lisible.\n- Remplacer le marché abstrait par un hub racinaire à règles publiées.\n- Créer des cités collaboratives spécialisées et des quêtes encadrées.\n- Transformer les zones d'ombre en phénomènes mobiles indépendants.\n\n### Résultat consolidé\nLes décisions DEC-090 à DEC-112 et les mécanismes MEC-069 à MEC-078 ont été ajoutés. Plusieurs éléments restent provisoires, notamment le vocabulaire Confluence/Voile et la forme exacte de la symbiose.\n",
-    "## Addendum v0.7 - Arbitrage, hexagones et simplification des symbioses\n\n### Demande de conception\n- Ne plus valider systématiquement toutes les idées : retenir, simplifier, reporter ou écarter.\n- Choisir les hexagones pour le terrain.\n- Écarter les résultats symbiotiques durables tout en gardant une coopération temporaire pour créer, améliorer ou jouer une instance commune.\n- Préparer ensuite les arbres technologiques, les arbres d'évolution et la carte des interactions.\n\n### Résultat consolidé\nLes décisions DEC-113 à DEC-121 ont été ajoutées. L'hypothèse d'un organe commun permanent (DEC-095) est classée comme écartée dans la v0.7; l'hypothèse de NPC issu d'une symbiose (DEC-096) reste reportée hors périmètre. La carte hexagonale est confirmée.\n"
-  ]
+  "prototype": {
+    "file": "prototype/Avelune_Mini_Prototype.xlsx",
+    "sheets": [
+      "00_Config",
+      "01_Monde",
+      "02_TF",
+      "03_RPG",
+      "04_TD",
+      "05_Cycle",
+      "06_Scenarios",
+      "07_Resultats"
+    ],
+    "excluded": [
+      "Coopération active",
+      "Commerce inter-joueurs",
+      "Déplacement du corps-cité",
+      "Dérive/scission",
+      "Instances complètes",
+      "Interface finale"
+    ]
+  }
 }

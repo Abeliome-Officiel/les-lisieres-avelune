@@ -1,4 +1,4 @@
-﻿ID;Risque;Description;Gravité;Réponse;Validation utilisateur;Commentaire
+﻿ID;Risque;Description;Gravité;Réponse proposée;Validation utilisateur;Commentaire
 R-001;Foisonnement fonctionnel;Trop de systèmes avant validation de la boucle centrale.;Critique;"Prototype vertical limité; chaque idée est marquée Prototype/MVP/Après MVP.";À examiner;
 R-002;Abstraction du corps-cité;Le concept peut être difficile à comprendre ou sembler organique/horrifique.;Haute;Direction biomorphique douce, métaphores végétales et minérales, prototype visuel très tôt.;À examiner;
 R-003;Tycoon trop automatisé;Le joueur pourrait ne plus avoir de décisions intéressantes.;Haute;Automatiser la répétition mais créer variations, objectifs et arbitrages.;À examiner;

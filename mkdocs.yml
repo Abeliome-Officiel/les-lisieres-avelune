@@ -1,7 +1,11 @@
-site_name: Les Lisières d’Avelune v0.7
-docs_dir: docs
+site_name: Les Lisières d’Avelune
 nav:
   - Accueil: index.md
   - Vision: 00_vision.md
-  - Décisions à valider: 11_decisions_a_valider.md
-  - Préparation des arbres: 12_preparation_arbres.md
+  - Monde: 02_monde_persistant.md
+  - Corps-cité: 01_concept_corps_cite.md
+  - Passage et Lisière: 15_lisiere_et_passage.md
+  - Tycoon-Factorio: 03_tycoon_et_reseaux.md
+  - Trame RPG: 14_trame_rpg.md
+  - Mini-prototype: 07_prototype_mvp.md
+  - Décisions ouvertes: 11_decisions_a_valider.md

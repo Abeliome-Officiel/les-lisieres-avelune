@@ -1,5 +1,20 @@
-# Documentation v0.7
+# Documentation v0.8
 
+## Socle
 - [Vision](00_vision.md)
-- [Décisions à valider](11_decisions_a_valider.md)
-- [Préparation des arbres](12_preparation_arbres.md)
+- [Corps-cité](01_concept_corps_cite.md)
+- [Monde persistant](02_monde_persistant.md)
+- [Tycoon–Factorio](03_tycoon_et_reseaux.md)
+- [Vagues, météo et Échos](04_evenements_et_donnees_reelles.md)
+- [Social et communication](05_social_et_communication.md)
+- [Accessibilité et éthique](06_accessibilite_ethique.md)
+- [Mini-prototype](07_prototype_mvp.md)
+- [Outils](08_outils_et_wiki.md)
+- [Sources](09_sources.md)
+- [Background](10_background_avelune.md)
+- [Décisions ouvertes](11_decisions_a_valider.md)
+- [Préparation des progressions](12_preparation_arbres.md)
+- [Socle mécanique v0.8](13_socle_mecanique_v0.8.md)
+- [Trame RPG](14_trame_rpg.md)
+- [Passage et Lisière](15_lisiere_et_passage.md)
+- [Prototype logiciel minimal](16_proto_minimal.md)

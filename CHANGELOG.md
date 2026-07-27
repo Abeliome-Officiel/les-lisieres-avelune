@@ -1,9 +1,22 @@
 # Changelog
 
-## v0.7 - 2026-07-26
+## v0.8 - 2026-07-27
 
-- terrain hexagonal confirmé ;
-- symbiose simplifiée et temporaire ;
-- organe commun permanent écarté ;
-- classeur orienté validation utilisateur ;
-- préparation explicite des arbres et interactions.
+- socle minimal des trois axes déclaré prêt pour mini-prototype ;
+- monde partagé R7, Fracture F1, deux anneaux de confort ;
+- plafond initial du corps-cité fixé à sept cases ;
+- vague simple et absence de dissipation générique ;
+- cycle Murmures, Veille, Scellement, Passage, Retombées ;
+- Lisière locale avec cinq états d’Entame ;
+- TF minimal et progression horizontale ;
+- Trame d’Avelune d100 hybride, trois modes de fiche et Dissonance ;
+- Échos territoriaux et internes ;
+- La Genèse, Les Prémices et L’Éveil intégrés au background ;
+- ajout du mini-prototype algorithmique intégré ;
+- décisions DEC-122 à DEC-144 et mécanismes MEC-083 à MEC-100.
+
+## v0.7
+
+- simplification des symbioses ;
+- grille hexagonale définitive ;
+- revue structurée des décisions et interactions.

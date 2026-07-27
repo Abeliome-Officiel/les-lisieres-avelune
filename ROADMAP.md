@@ -1,23 +1,19 @@
-# Feuille de route v0.7
+# Roadmap après v0.8
 
-## Étape actuelle - Revue de conception
+## v0.9 / Prototype P1
 
-- lire les arbitrages prioritaires ;
-- valider, invalider, modifier ou reporter les décisions ;
-- signaler les mécanismes trop complexes ou inutiles ;
-- confirmer le périmètre du prototype.
+- reproduire dans un moteur logiciel un cycle complet du classeur ;
+- journal détaillé de la vague ;
+- résolution case par case ;
+- trois allocations TF ;
+- trois modes de fiche RPG ;
+- sauvegarde d’un scénario et de sa graine.
 
-## Étape suivante - Architecture ludique lisible
+## Puis
 
-1. arbre technologique intérieur ;
-2. arbre d’évolution de l’écotone ;
-3. arbre commercial du Hub racinaire ;
-4. arbre d’adaptation aux crises ;
-5. arbre d’exploration ;
-6. matrice complète des interactions et dépendances.
-
-## Ensuite
-
-- simulation algorithmique dans le tableur ;
-- prototype navigateur sans graphismes complexes ;
-- tests de lisibilité, équilibre, solo et dormance.
+1. TF-1 : six à dix constructions, trois ressources et cinq recettes réellement liées au Passage ;
+2. RPG-1 : trois scènes comparables et fréquence de Dissonance ;
+3. Échos-1 : un Écho territorial et un Écho interne ;
+4. coopération active à deux personnes ;
+5. commerce et réseaux ;
+6. expansion du monde et croissance de la Fracture.

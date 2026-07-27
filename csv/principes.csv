@@ -1,13 +1,13 @@
-﻿ID;Principe;Description
-P-001;Aucune punition liée à l’absence;Une non-action ne produit pas de dette morale ou de destruction durable.
-P-002;Toute action aide;Même une résolution imparfaite crée une information, une adaptation ou une ressource.
-P-003;Sociabilité non forcée;Le joueur peut contribuer au collectif sans conversation libre ni présence synchrone.
-P-004;Nouveaux joueurs utiles;La diversité, la plasticité et les tâches fondamentales donnent une vraie valeur aux faibles niveaux.
-P-005;Pas de domination sociale;Aucun joueur ne détient un pouvoir permanent sur les autres ou leurs domaines.
-P-006;Complexité progressive;Les systèmes avancés existent mais peuvent être masqués, automatisés ou introduits par étapes.
-P-007;Engagement stimulant;Le jeu cherche la curiosité, la compréhension et la création plutôt que la micro-dopamine.
-P-008;Échec fertile;L’échec crée une bifurcation, pas une invalidation de l’investissement du joueur.
-P-009;Monde vivant;Le monde s’adapte, conserve les traces et ne se réduit pas à un décor consommable.
-P-010;Culture jouable;Poésie, écriture, nomenclature et mémoire ont une fonction mécanique.
-P-011;Accessibilité native;Les besoins TDAH, TSA, dys et les choix de langue/genre structurent le design initial.
-P-012;Consentement;Les liens, groupes, fusions, délégations et publications sont explicites et réversibles.
+﻿ID;Principe;Description;Validation utilisateur;Commentaire
+P-001;Aucune punition liée à l’absence;Une non-action ne produit pas de dette morale ou de destruction durable.;À examiner;
+P-002;Toute action aide;Même une résolution imparfaite crée une information, une adaptation ou une ressource.;À examiner;
+P-003;Sociabilité non forcée;Le joueur peut contribuer au collectif sans conversation libre ni présence synchrone.;À examiner;
+P-004;Nouveaux joueurs utiles;La diversité, la plasticité et les tâches fondamentales donnent une vraie valeur aux faibles niveaux.;À examiner;
+P-005;Pas de domination sociale;Aucun joueur ne détient un pouvoir permanent sur les autres ou leurs domaines.;À examiner;
+P-006;Complexité progressive;Les systèmes avancés existent mais peuvent être masqués, automatisés ou introduits par étapes.;À examiner;
+P-007;Engagement stimulant;Le jeu cherche la curiosité, la compréhension et la création plutôt que la micro-dopamine.;À examiner;
+P-008;Échec fertile;L’échec crée une bifurcation, pas une invalidation de l’investissement du joueur.;À examiner;
+P-009;Monde vivant;Le monde s’adapte, conserve les traces et ne se réduit pas à un décor consommable.;À examiner;
+P-010;Culture jouable;Poésie, écriture, nomenclature et mémoire ont une fonction mécanique.;À examiner;
+P-011;Accessibilité native;Les besoins TDAH, TSA, dys et les choix de langue/genre structurent le design initial.;À examiner;
+P-012;Consentement;Les liens, groupes, fusions, délégations et publications sont explicites et réversibles.;À examiner;
