@@ -1,19 +1,41 @@
-# Roadmap après v0.8
+# Roadmap après v0.8.3
 
-## v0.9 / Prototype P1
+La v0.8.3 constitue la baseline de conception précédant le prototype logiciel.
 
-- reproduire dans un moteur logiciel un cycle complet du classeur ;
-- journal détaillé de la vague ;
-- résolution case par case ;
-- trois allocations TF ;
-- trois modes de fiche RPG ;
-- sauvegarde d’un scénario et de sa graine.
+## v0.9 — Prototype logiciel
 
-## Puis
+Objectif : transformer les systèmes consolidés en une expérience réellement
+jouable et mesurable.
 
-1. TF-1 : six à dix constructions, trois ressources et cinq recettes réellement liées au Passage ;
-2. RPG-1 : trois scènes comparables et fréquence de Dissonance ;
-3. Échos-1 : un Écho territorial et un Écho interne ;
-4. coopération active à deux personnes ;
-5. commerce et réseaux ;
-6. expansion du monde et croissance de la Fracture.
+Le prototype doit permettre de vérifier au minimum :
+
+- la boucle commune du Corcite ;
+- l'interaction réelle TD / TF / RPG ;
+- les contraintes de temps, ressources, capacités et production ;
+- la préparation puis la résolution d'une vague ;
+- la production et les dépendances TF nécessaires au TD ;
+- les déblocages et modificateurs RPG utiles au test ;
+- la lisibilité de l'état du monde ;
+- l'accessibilité de l'interface ;
+- la journalisation des décisions et résultats ;
+- la reproductibilité d'un scénario de test.
+
+La règle historique « un ordre TD + un ordre TF + un ordre RPG » ne doit plus
+être utilisée comme contrainte structurelle.
+
+## Après validation du prototype
+
+Les phases suivantes seront déterminées à partir des observations réelles.
+
+Axes déjà identifiés :
+
+1. enrichissement du contenu TD ;
+2. approfondissement des chaînes TF ;
+3. progression RPG ;
+4. Érudition et connaissance ;
+5. interactions entre plusieurs Corcites ;
+6. échanges et réseaux ;
+7. événements et évolution du monde ;
+8. extensions de contenu.
+
+Les volumes définitifs ne sont pas fixés avant les tests.
