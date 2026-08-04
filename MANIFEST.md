@@ -1,10 +1,10 @@
 # Manifeste du dépôt
 
-Version courante : 0.8.1
+Version courante : 0.8.2
 
-Fichiers présents dans le dépôt : 44
+Fichiers présents dans le dépôt : 45
 
-Fichiers listés ci-dessous : 43
+Fichiers listés ci-dessous : 44
 
 Les archives complètes et le dossier destiné au wiki sont conservés séparément dans `releases/` et `archives/`.
 
@@ -12,7 +12,7 @@ Les archives complètes et le dossier destiné au wiki sont conservés séparém
 
 | Fichier | Taille | SHA-256 |
 |---|---:|---|
-| `CHANGELOG.md` | 1459 | `0d33a78c81854acb262426738c30e44c0bb0f9bbfb4c610d9637985251a95c61` |
+| `CHANGELOG.md` | 2023 | `e5e96d0dc49c41df44f1b620fd864a8afc7697306801ef927573d13829aa94a0` |
 | `csv/decisions.csv` | 33564 | `5ee594b4176f22bc46be03892215cb94ba6031e695399d3db1a4c9ebc833272c` |
 | `csv/interactions.csv` | 2135 | `1fc2af37dd333046805a9b51ef76191e75b0c5f7b2626064898e50f83b9762c8` |
 | `csv/mecanismes.csv` | 17834 | `f26bfb68d4ecf85ab8f8752a8fd2be6659901a12e6a8a8c07f48bb03e5fb7958` |
@@ -46,10 +46,11 @@ Les archives complètes et le dossier destiné au wiki sont conservés séparém
 | `docs/book/BOOK_Les_Lisieres_Avelune.pdf` | 230606 | `0434dceac393ff7545a0c08fde06f2ca99d4c713ce93b57cf3dcb5229d8d4e10` |
 | `docs/conception/00_index.md` | 1280 | `74738ce2c17d5c8eff46832f45533015107170ad6e0be4968087ebf7931661fb` |
 | `docs/conception/01_v0.8.1_consolidation_td_tf_rpg.md` | 7986 | `9a041ff0758f8b61bd4b48c07e8d782fab985c84296ff8d858cb4ccec3315ea8` |
+| `docs/conception/02_v0.8.2_progression_monde.md` | 5676 | `28b979f6d169d6b7efe207308334acc1dfb84aedc6ba161ccb8ab1759a4fe749` |
 | `docs/index.md` | 815 | `14d1d8080dd6bb5e32165e297458aa8b9dc9ba8be54371328a08e045f7bcc75b` |
 | `.gitignore` | 329 | `8b5e35e05cfc0cf05f9bc469604244e29345e035f86a5914e01c2cc15be6540b` |
 | `logs/JOURNAL_DECISIONS_COMPLET.md` | 31374 | `53bec11a20b264c918fa11e154a8d5a6d5d66c038920478b5ac310a256340ba1` |
-| `logs/JOURNAL_DELTA_v0.8x.md` | 961 | `e15fea01f99812fe3a70f4dd672c9d4b9fe8884b8b69c16c1b238f892a7f675f` |
+| `logs/JOURNAL_DELTA_v0.8x.md` | 1807 | `3707ebdafe8900a482bb501f876647a0c56f45d5d5d48d26fd213c7c5b1e709d` |
 | `logs/LOG_CONCEPTION.md` | 114714 | `425fea56fd07b4f5e7d5f803406bea5678e2874098447244345686ef1f0fe558` |
 | `mkdocs.yml` | 382 | `8f0ad8c6a7e3afdcb01c5c636adfbb99d814248f73601856e8bc4e0853da9688` |
 | `prototype/Avelune_Mini_Prototype.xlsx` | 64631 | `8509394dae3c7835234af46e3096ba6462f3c2ffb489f2fabf504be223be66be` |

@@ -20,3 +20,20 @@ Il ne remplace pas le journal historique des décisions antérieures.
 - modèle énergétique hybride ;
 - entretien global du Corcite ;
 - RPG défini comme couche narrative et évolutive, non comme file d'ordres.
+
+## v0.8.2 — Progression et monde
+
+- confirmation d'un monde partagé unique ;
+- autonomie volontaire possible sans mode solo séparé ;
+- races organisées en blocs de progression de contenu ;
+- classe repositionnée comme orientation modératrice ;
+- un métier initial, progression horizontale ;
+- métier secondaire et multi-métier remisés ;
+- première mue commune servant de système test ;
+- compétences issues de plusieurs couches d'identité et d'apprentissage ;
+- Érudition intégrée comme système transversal ;
+- connaissance mondiale accessible globalement sans attribution individuelle ;
+- création du Corcite structurée autour du nom, de la race, de la classe et du
+  métier ;
+- position comprise relativement plutôt que par numéros d'anneaux ;
+- dormance corrigée : suspension totale et rupture/suspension des liens.

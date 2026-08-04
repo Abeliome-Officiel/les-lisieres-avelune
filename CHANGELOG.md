@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.8.2 - 2026-08-04
+
+Consolidation rétrospective de l'identité, de la progression et du monde.
+
+- confirmation du monde partagé unique ;
+- structuration des races et des classes ;
+- réintégration du métier dans le RPG ;
+- définition de la première mue test ;
+- structuration des compétences et de l'Érudition ;
+- définition du flux de création du Corcite ;
+- connaissance mondiale globale et non attribuée ;
+- clarification de la lecture relative des anneaux ;
+- remplacement de l'ancienne dormance à débit minimal par une suspension réelle.
+
+
+
 ## v0.8.1 - 2026-08-04
 
 Consolidation rétrospective des décisions prises après v0.8.
