@@ -24,9 +24,11 @@ services:
     build:
       context: ../app
       dockerfile: Dockerfile
-    image: avelune-proto:0.9-dev
+    image: avelune-proto:0.9-dev.3
     container_name: avelune-proto-app
     restart: unless-stopped
+    ports:
+      - "${AVELUNE_BIND_IP:-192.168.0.5}:${AVELUNE_HOST_PORT:-8090}:3000"
     environment:
       NODE_ENV: production
       HOST: 0.0.0.0
