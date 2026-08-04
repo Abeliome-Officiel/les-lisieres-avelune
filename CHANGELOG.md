@@ -1,5 +1,19 @@
 # Changelog
 
+## v0.8.1 - 2026-08-04
+
+Consolidation rétrospective des décisions prises après v0.8.
+
+- restructuration du TD entre traitement global et parcours interne ;
+- clarification de la captation et de la résolution automatique/manuelle ;
+- consolidation du TF : stockage local, tampons, bifurcations, énergie et entretien ;
+- repositionnement du RPG comme couche narrative et évolutive ;
+- abandon de la règle générale « un ordre TD + un ordre TF + un ordre RPG » ;
+- formalisation des besoins de télémétrie et de rééquilibrage ;
+- ajout du dossier `docs/conception/` et du journal de delta v0.8.x.
+
+
+
 ## v0.8 - 2026-07-27
 
 - socle minimal des trois axes déclaré prêt pour mini-prototype ;
