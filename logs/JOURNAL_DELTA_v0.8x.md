@@ -37,3 +37,16 @@ Il ne remplace pas le journal historique des décisions antérieures.
   métier ;
 - position comprise relativement plutôt que par numéros d'anneaux ;
 - dormance corrigée : suspension totale et rupture/suspension des liens.
+
+## v0.8.3 — Baseline pré-prototype
+
+- consolidation générale de la ligne de conception ;
+- hiérarchisation fiction → mécanique ;
+- formalisation de l'articulation Corcite / monde / TD / TF / RPG ;
+- rappel du monde persistant partagé ;
+- clarification de la progression non fondée sur un niveau global unique ;
+- confirmation de l'accessibilité comme contrainte de conception ;
+- formalisation de la gouvernance par lots, statuts et deltas ;
+- définition explicite de la frontière entre conception et prototype ;
+- fermeture de la consolidation au 2 août 2026 inclus ;
+- le travail de prototype pur commencé le 3 août est laissé au cycle v0.9.

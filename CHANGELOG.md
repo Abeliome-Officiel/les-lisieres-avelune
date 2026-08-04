@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.8.3 - 2026-08-04
+
+Baseline consolidée pré-prototype couvrant les décisions jusqu'au 2 août 2026.
+
+- consolidation de la vision et des principes transversaux ;
+- articulation explicite du Corcite entre TD, TF et RPG ;
+- consolidation du monde partagé et persistant ;
+- gouvernance par lots, statuts et journal de delta ;
+- accessibilité intégrée comme contrainte de conception ;
+- séparation explicite entre décisions actées et paramètres encore ouverts ;
+- nouvelle roadmap du prototype v0.9 ;
+- avertissement explicite contre la réintroduction des simplifications obsolètes de v0.8.
+
+
+
 ## v0.8.2 - 2026-08-04
 
 Consolidation rétrospective de l'identité, de la progression et du monde.
