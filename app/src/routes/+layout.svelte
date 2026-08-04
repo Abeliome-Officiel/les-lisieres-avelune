@@ -5,13 +5,13 @@
 </script>
 
 <svelte:head>
-	<title>Les Lisières d’Avelune — Prototype v0.9</title>
+	<title>Les Lisières d’Avelune — PROTO-0</title>
 	<meta
 		name="description"
-		content="Prototype navigateur du cycle intégré des Lisières d’Avelune."
+		content="Prototype expérimental PROTO-0 des Lisières d’Avelune."
 	/>
-	<meta name="theme-color" content="#251d35" />
 	<meta name="robots" content="noindex, nofollow" />
+	<meta name="theme-color" content="#17131f" />
 </svelte:head>
 
 {@render children()}

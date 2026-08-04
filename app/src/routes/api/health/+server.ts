@@ -1,10 +1,7 @@
 import { json } from '@sveltejs/kit';
 
-export function GET() {
-	return json({
+export const GET = () =>
+	json({
 		status: 'ok',
-		service: 'avelune-proto',
-		version: '0.9.0-dev.1',
-		timestamp: new Date().toISOString()
+		prototype: 'PROTO-0'
 	});
-}

@@ -1,94 +1,80 @@
-<script lang="ts">
-	const phases = [
-		{
-			name: 'Murmures',
-			description: 'Observer la vague, réduire l’incertitude et lire les premiers signes.'
-		},
-		{
-			name: 'Veille',
-			description: 'Produire, stocker et préparer les défenses du corps-cité.'
-		},
-		{
-			name: 'Scellement',
-			description: 'Fixer le plan qui sera utilisé pendant le Passage.'
-		},
-		{
-			name: 'Passage',
-			description: 'Résoudre la progression de la vague anneau après anneau.'
-		},
-		{
-			name: 'Retombées',
-			description: 'Mesurer les dégâts, réparer la Lisière et traiter les Échos.'
-		}
-	];
-
-	const foundations = [
-		'Carte hexagonale R7 avec Fracture F1',
-		'Un joueur réel et quatre corps-cités simulés',
-		'Moteur déterministe et résultats explicables',
-		'Trois ressources : Matière, Flux et Mémoire',
-		'Trame RPG et piste de Dissonance',
-		'Sauvegarde persistante dans PostgreSQL'
-	];
-</script>
-
-<header class="site-header">
-	<div class="site-header__content">
-		<p class="eyebrow">Prototype navigateur · v0.9</p>
-		<h1>Les Lisières d’Avelune</h1>
-		<p class="lead">
-			Un premier cycle jouable reliant préparation du corps-cité, résolution de la vague et
-			conséquences RPG.
-		</p>
-	</div>
-</header>
-
 <main>
-	<section class="status-panel" aria-labelledby="status-title">
-		<div>
-			<p class="eyebrow">État du prototype</p>
-			<h2 id="status-title">Fondation technique en cours</h2>
-			<p>
-				L’application SvelteKit fonctionne. Le moteur, la carte et la persistance seront ajoutés
-				par lots vérifiables.
-			</p>
+	<section>
+		<p class="eyebrow">Les Lisières d’Avelune</p>
+		<h1>PROTO-0</h1>
+
+		<p class="lead">
+			Banc d’essai de la boucle intégrée TF → RPG → TD → vague → conséquences.
+		</p>
+
+		<p>
+			Le socle technique est actif. Le moteur PROTO-0 va maintenant être construit
+			à partir de la spécification expérimentale gelée.
+		</p>
+
+		<div class="status">
+			<span aria-hidden="true"></span>
+			Socle PROTO-0
 		</div>
-
-		<div class="status-badge">
-			<span class="status-dot" aria-hidden="true"></span>
-			Socle actif
-		</div>
-	</section>
-
-	<section aria-labelledby="cycle-title">
-		<p class="eyebrow">Boucle principale</p>
-		<h2 id="cycle-title">Un cycle complet à rendre jouable</h2>
-
-		<ol class="phase-grid">
-			{#each phases as phase, index}
-				<li class="phase-card">
-					<span class="phase-number">{String(index + 1).padStart(2, '0')}</span>
-					<h3>{phase.name}</h3>
-					<p>{phase.description}</p>
-				</li>
-			{/each}
-		</ol>
-	</section>
-
-	<section class="foundation" aria-labelledby="foundation-title">
-		<div>
-			<p class="eyebrow">Périmètre validé</p>
-			<h2 id="foundation-title">Le socle du prototype P1</h2>
-		</div>
-
-		<ul>
-			{#each foundations as foundation}
-				<li>{foundation}</li>
-			{/each}
-		</ul>
 	</section>
 </main>
 
-<footer>
-	<p>Les Lisières d’Avelune · La Genèse · Prototype privé</p>
-</footer>
+<style>
+	main {
+		min-height: 100vh;
+		display: grid;
+		place-items: center;
+		padding: 2rem;
+	}
+
+	section {
+		width: min(48rem, 100%);
+		padding: 3rem;
+		border: 1px solid rgb(255 255 255 / 12%);
+		border-radius: 1.25rem;
+		background: rgb(18 14 27 / 72%);
+		box-shadow: 0 2rem 6rem rgb(0 0 0 / 24%);
+	}
+
+	.eyebrow {
+		margin: 0 0 0.5rem;
+		font-size: 0.8rem;
+		font-weight: 700;
+		letter-spacing: 0.16em;
+		text-transform: uppercase;
+		opacity: 0.65;
+	}
+
+	h1 {
+		margin: 0;
+		font-size: clamp(3rem, 10vw, 6rem);
+		line-height: 0.95;
+	}
+
+	.lead {
+		margin-top: 2rem;
+		font-size: 1.25rem;
+		line-height: 1.6;
+	}
+
+	p {
+		line-height: 1.7;
+	}
+
+	.status {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.65rem;
+		margin-top: 1rem;
+		padding: 0.6rem 0.9rem;
+		border-radius: 999px;
+		background: rgb(255 255 255 / 7%);
+	}
+
+	.status span {
+		width: 0.65rem;
+		height: 0.65rem;
+		border-radius: 999px;
+		background: #9bd5ad;
+	}
+</style>
