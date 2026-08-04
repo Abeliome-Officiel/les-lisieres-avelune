@@ -1,41 +1,104 @@
-# Roadmap après v0.8.3
+# Roadmap — PROTO-0
 
-La v0.8.3 constitue la baseline de conception précédant le prototype logiciel.
+Baseline de conception : **v0.8.3**
 
-## v0.9 — Prototype logiciel
+Spécification expérimentale : **proto-0-spec.1**
 
-Objectif : transformer les systèmes consolidés en une expérience réellement
-jouable et mesurable.
+Branche : **develop/proto-0**
 
-Le prototype doit permettre de vérifier au minimum :
+## Objectif
 
-- la boucle commune du Corcite ;
-- l'interaction réelle TD / TF / RPG ;
-- les contraintes de temps, ressources, capacités et production ;
-- la préparation puis la résolution d'une vague ;
-- la production et les dépendances TF nécessaires au TD ;
-- les déblocages et modificateurs RPG utiles au test ;
-- la lisibilité de l'état du monde ;
-- l'accessibilité de l'interface ;
-- la journalisation des décisions et résultats ;
-- la reproductibilité d'un scénario de test.
+Valider :
 
-La règle historique « un ordre TD + un ordre TF + un ordre RPG » ne doit plus
-être utilisée comme contrainte structurelle.
+**TF → RPG minimal → préparation TD → vague → conséquences**
 
-## Après validation du prototype
+Le challenge final, l'équilibrage définitif et les systèmes sociaux ne font pas
+partie de PROTO-0.
 
-Les phases suivantes seront déterminées à partir des observations réelles.
+## Phases
 
-Axes déjà identifiés :
+### P0 — Fondation headless
+- configuration ;
+- graine ;
+- sessions indépendantes ;
+- snapshots ;
+- tests de reproductibilité.
 
-1. enrichissement du contenu TD ;
-2. approfondissement des chaînes TF ;
-3. progression RPG ;
-4. Érudition et connaissance ;
-5. interactions entre plusieurs Corcites ;
-6. échanges et réseaux ;
-7. événements et évolution du monde ;
-8. extensions de contenu.
+### P1 — État du Corcite
+- stocks ;
+- unités ;
+- capacités ;
+- réservations ;
+- sauvegarde.
 
-Les volumes définitifs ne sont pas fixés avant les tests.
+### P2 — Résolution de tour
+- pas de quota arbitraire par axe ;
+- fin de tour explicite ;
+- conflits ;
+- arbitrages ;
+- ordre de résolution déterministe.
+
+### P3 — TF minimal
+- extraction ;
+- transformation ;
+- fabrication ;
+- stockage individuel ;
+- buffers N → N+1 ;
+- bifurcations.
+
+### P4 — RPG minimal
+- modificateurs ;
+- recherche ;
+- déblocages ;
+- impact mécanique réel sur TF ou TD.
+
+### P5 — TD interne
+- 8 positions ;
+- ordre mécanique ;
+- Atténuation ;
+- Déstructuration ;
+- Captation ;
+- Stabilisation.
+
+### P6 — Vague
+- pression ;
+- structure ;
+- charge ;
+- matière capturable ;
+- variation seedée ;
+- prévision progressive.
+
+### P7 — Conséquences
+- résultat ;
+- état persistant ;
+- consommations ;
+- matière captée ;
+- connaissance.
+
+### P8 — Observabilité
+- logs ;
+- télémétrie ;
+- sauvegarde ;
+- rapport joueur distinct.
+
+### P9 — Simulations
+- nominal ;
+- aléatoire borné ;
+- stress ;
+- comparaison d'ordonnancements ;
+- régression.
+
+### P10 — Interface
+Seulement après validation suffisante du moteur headless.
+
+## Critère de sortie
+
+PROTO-0 doit démontrer de manière reproductible :
+
+- que le TF conditionne réellement le TD ;
+- que le RPG change au moins un choix utile ;
+- que l'ordre des tours TD change le résultat ;
+- que la vague est explicable ;
+- qu'une défense imparfaite produit des conséquences ;
+- que le joueur dispose d'un rapport lisible ;
+- que les calculs peuvent être reconstruits techniquement.

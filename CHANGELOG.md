@@ -1,5 +1,28 @@
 # Changelog
 
+## proto-0-spec.1 - 2026-08-04
+
+Premier jalon de spécification du nouveau PROTO-0.
+
+- boucle cible TF → RPG minimal → préparation TD → vague → conséquences ;
+- 10 tours, une vague, un Corcite joueur et quatre Corcites simulés ;
+- suppression de toute contrainte structurelle « un ordre par axe » ;
+- définition de la résolution de fin de tour et des conflits de ressources ;
+- stockage TF par unité et buffers directs N → N+1 ;
+- RPG réduit aux mécanismes nécessaires au test ;
+- TD interne à huit positions ordonnées ;
+- familles N1 : Atténuation, Déstructuration, Captation, Stabilisation ;
+- vague nominale : pression 50, structure 60, charge 20, matière capturable 16 ;
+- variation seedée ±2 % ;
+- prévisions T−3 ±10 %, T−2 ±6 %, T−1 ±3 % ;
+- rapport joueur de fin de vague séparé des logs techniques ;
+- moteur headless avant interface ;
+- ajout de la spécification, du référentiel JSON, du backlog et du rapport de
+  simulations ;
+- l'ancien prototype v0.9-dev.3 reste historique et n'est pas réutilisé comme
+  moteur de PROTO-0.
+
+
 ## v0.8.3 - 2026-08-04
 
 Baseline consolidée pré-prototype couvrant les décisions jusqu'au 2 août 2026.

@@ -1,116 +1,97 @@
-# Les Lisières d’Avelune — conception v0.8
+# Les Lisières d'Avelune
 
-Dépôt de conception du jeu navigateur persistant **Les Lisières d’Avelune**.
+Dépôt officiel de conception et de développement des **Lisières d'Avelune**.
 
-La v0.8 fixe un socle mécanique minimal pour les trois axes du projet :
+## État courant
 
-- Tower Defense centré sur le Passage des vagues ;
-- Tycoon–Factorio pour la production, les constructions et les réseaux ;
-- RPG avec la Trame d’Avelune, les Vocations et la Dissonance.
+La dernière baseline de conception publiée est **v0.8.3**.
 
-Un mini-prototype tableur relie désormais les trois axes dans un cycle complet.
+Le premier prototype expérimental réellement aligné sur cette baseline est
+développé sur :
 
-## État du projet
+`develop/proto-0`
 
-Le dépôt contient de la conception, des données structurées et un simulateur tableur.
-Il ne contient pas encore de prototype logiciel jouable dans un navigateur.
+Le jalon courant de spécification est :
 
-Le socle v0.8 permet maintenant de commencer ce prototype logiciel sans devoir définir tout le contenu final.
+`proto-0-spec.1`
 
-## Book de conception
+Le prototype historique `v0.9-dev.3`, fondé sur l'ancienne contrainte
+« 1 TD + 1 TF + 1 RPG », est conservé comme historique et n'est pas la base de
+PROTO-0.
 
-- [Lire le book complet en Markdown](docs/book/BOOK_Les_Lisieres_Avelune.md)
-- [Consulter le book complet en PDF](docs/book/BOOK_Les_Lisieres_Avelune.pdf)
-- [Télécharger le book au format DOCX](docs/book/BOOK_Les_Lisieres_Avelune.docx)
+## PROTO-0
 
-## Classeurs principaux
+PROTO-0 vise uniquement à valider la boucle :
 
-- [Design Book](design-data/Avelune_Design_Book.xlsx) : registre des 144 décisions et 100 mécanismes ;
-- [Règles et mécaniques](design-data/Avelune_Regles_Mecaniques.xlsx) : paramètres, recherches et simulations détaillées ;
-- [Mini-prototype intégré](prototype/Avelune_Mini_Prototype.xlsx) : cycle minimal Tower Defense, TF et RPG.
+**TF → RPG minimal → préparation TD → vague → conséquences**
 
-## Socle mécanique v0.8
+Références :
 
-La première région utilise :
+- [Spécification PROTO-0](docs/proto0/PROTO0_SPECIFICATION.md)
+- [Référence de données PROTO-0](docs/proto0/PROTO0_DATA_REFERENCE.json)
+- [Backlog PROTO-0](docs/proto0/PROTO0_IMPLEMENTATION_BACKLOG.md)
+- [Rapport de simulations](docs/proto0/PROTO0_SIMULATION_REPORT.md)
 
-- un monde hexagonal de rayon 7 ;
-- une Fracture centrale de rayon 1 ;
-- une Lisière extérieure non constructible ;
-- deux anneaux de confort ;
-- dix corps-cités potentiels ;
-- trois à six corps-cités actifs dans les premières simulations ;
-- une empreinte maximale de sept cases pendant La Genèse.
+Principes principaux :
 
-Le premier Passage utilise une vague simple :
+- 10 tours ;
+- 1 vague ;
+- 1 Corcite piloté + 4 Corcites simulés ;
+- aucune limite artificielle « un ordre par axe » ;
+- moteur déterministe à graine fixe ;
+- TD interne à 8 positions ordonnées ;
+- anneaux visuels sans effet mécanique dans PROTO-0 ;
+- moteur headless avant interface.
 
-- un seul secteur ;
-- aucune dérive ;
-- aucune scission ;
-- aucune dissipation générique ;
-- résolution successive par anneau et par corps-cité.
+## Baseline de conception
 
-Le cycle est organisé en :
+Documents de consolidation :
 
-1. Murmures ;
-2. Veille ;
-3. Scellement ;
-4. Passage ;
-5. Retombées.
+- [Index de consolidation](docs/conception/00_index.md)
+- [v0.8.1 — TD / TF / RPG](docs/conception/01_v0.8.1_consolidation_td_tf_rpg.md)
+- [v0.8.2 — progression et monde](docs/conception/02_v0.8.2_progression_monde.md)
+- [v0.8.3 — baseline pré-prototype](docs/conception/03_v0.8.3_baseline_preprototype.md)
 
-## Documentation principale
+## Book historique
 
-- [Index documentaire](docs/index.md)
-- [Vision](docs/00_vision.md)
-- [Corps-cité](docs/01_concept_corps_cite.md)
-- [Monde persistant](docs/02_monde_persistant.md)
-- [Tycoon–Factorio et réseaux](docs/03_tycoon_et_reseaux.md)
-- [Vagues, météo et Échos](docs/04_evenements_et_donnees_reelles.md)
-- [Social et communication](docs/05_social_et_communication.md)
-- [Accessibilité et éthique](docs/06_accessibilite_ethique.md)
-- [Prototype et MVP](docs/07_prototype_mvp.md)
-- [Background d’Avelune](docs/10_background_avelune.md)
-- [Socle mécanique v0.8](docs/13_socle_mecanique_v0.8.md)
-- [Trame RPG](docs/14_trame_rpg.md)
-- [Passage et Lisière](docs/15_lisiere_et_passage.md)
-- [Spécification du prototype logiciel](docs/16_proto_minimal.md)
+- [Book Markdown](docs/book/BOOK_Les_Lisieres_Avelune.md)
+- [Book PDF](docs/book/BOOK_Les_Lisieres_Avelune.pdf)
+- [Book DOCX](docs/book/BOOK_Les_Lisieres_Avelune.docx)
 
-## Données ouvertes
+## Données de conception
 
-- `csv/` : exports tabulaires ;
-- `data/design_data.json` : données structurées ;
-- `docs/` : documentation Markdown ;
-- `design-data/` : classeurs de conception ;
-- `logs/` : historique continu des décisions et de la conception.
+- `csv/` : données tabulaires historiques ;
+- `data/design_data.json` : données structurées de conception ;
+- `design-data/` : classeurs ;
+- `docs/` : documentation ;
+- `logs/` : historiques et décisions ;
+- `app/` : application SvelteKit ;
+- `infra/` : infrastructure Docker.
 
-## Historique fictionnel et développement
+## Historique des versions
 
-L’histoire réelle du projet est intégrée à la mémoire du monde :
+Principaux jalons :
 
-- **La Genèse** : création et stabilisation des premières lois ;
-- **Les Prémices** : phase de bêta et premières traces laissées par les testeurs ;
-- **L’Éveil** : ouverture publique.
-
-Ces traces ne procurent aucun avantage mécanique durable exclusif.
-
-## Périmètre reporté
-
-La v0.8 ne développe pas encore :
-
-- la coopération active ;
-- le commerce entre joueurs ;
-- le déplacement des corps-cités ;
-- la dérive ou la scission des vagues ;
-- les instances RPG complètes ;
-- l’interface finale.
+- `v0.4`
+- `v0.5`
+- `v0.6`
+- `v0.7`
+- `v0.8`
+- `v0.8.1`
+- `v0.8.2`
+- `v0.8.3`
+- `v0.9-dev.1`
+- `v0.9-dev.3` — historique/legacy
+- `proto-0-spec.1`
 
 ## Pilotage
 
 - [Roadmap](ROADMAP.md)
 - [Changelog](CHANGELOG.md)
+- [Index documentaire](docs/index.md)
 - [Journal complet des décisions](logs/JOURNAL_DECISIONS_COMPLET.md)
-- [Journal de conception](logs/LOG_CONCEPTION.md)
-- [Manifeste du dépôt](MANIFEST.md)
+- [Journal de delta v0.8.x](logs/JOURNAL_DELTA_v0.8x.md)
+- [Manifeste](MANIFEST.md)
 
-Les versions historiques sont identifiées par les tags Git `v0.4`, `v0.5`, `v0.6`, `v0.7` et `v0.8`.
-
-Aucune licence n’est encore attribuée au projet. Tous droits réservés par défaut.
+Aucune licence n'est actuellement attribuée au projet.
+Tous droits réservés par défaut.
