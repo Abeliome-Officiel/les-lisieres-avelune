@@ -635,11 +635,27 @@ test(
 			2
 		);
 
-		assert.equal(
-			result.cycle.current
-				?.scheduledTurn,
-			11
-		);
+		const nextWaveTurn =
+                        result.cycle.current
+                                ?.scheduledTurn;
+
+                assert.ok(
+                        nextWaveTurn !==
+                                undefined
+                );
+
+                /*
+                 * Le calendrier jouable possède désormais une petite
+                 * variabilité déterministe.
+                 *
+                 * L'espacement exact est contrôlé séparément par les
+                 * tests de contrat 5..7 tours.
+                 */
+                assert.ok(
+                        nextWaveTurn >
+                                result.historyEntry
+                                        .resolvedTurn
+                );
 
 		assert.equal(
 			result.cycle.current
@@ -706,16 +722,12 @@ test(
 					20260804
 			});
 
-		const expectedTurns = [
-			6,
-			11,
-			16
-		];
+		const resolvedTurns:
+                        number[] = [];
 
 		for (
 			let waveIndex = 0;
-			waveIndex <
-				expectedTurns.length;
+			waveIndex < 3;
 			waveIndex += 1
 		) {
 			cycle =
@@ -723,13 +735,19 @@ test(
 					cycle
 				);
 
-			assert.equal(
-				cycle.current
-					?.scheduledTurn,
-				expectedTurns[
-					waveIndex
-				]
-			);
+			if (!cycle.current) {
+                                throw new Error(
+                                        `La vague ${waveIndex + 1} devrait être planifiée.`
+                                );
+                        }
+
+                        const scheduledTurn =
+                                cycle.current
+                                        .scheduledTurn;
+
+                        resolvedTurns.push(
+                                scheduledTurn
+                        );
 
 			const result =
 				resolvePlayableWave(
@@ -739,9 +757,7 @@ test(
 						runId:
 							'PLAYABLE-THREE-WAVES',
 						turn:
-							expectedTurns[
-								waveIndex
-							]
+                                                        scheduledTurn
 					}
 				);
 
@@ -766,6 +782,27 @@ test(
 			cycle.history.length,
 			3
 		);
+
+                assert.equal(
+                        resolvedTurns.length,
+                        3
+                );
+
+                assert.equal(
+                        resolvedTurns[0],
+                        PLAYABLE_WAVE_CYCLE_REFERENCE
+                                .firstWaveTurn
+                );
+
+                assert.ok(
+                        resolvedTurns[1] >
+                                resolvedTurns[0]
+                );
+
+                assert.ok(
+                        resolvedTurns[2] >
+                                resolvedTurns[1]
+                );
 
 		assert.equal(
 			corcite

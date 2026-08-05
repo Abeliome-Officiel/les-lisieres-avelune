@@ -96,6 +96,54 @@ function round(
 	);
 }
 
+
+/**
+ * Produit le petit décalage d'arrivée des vagues après la première.
+ *
+ * Il ne s'agit pas d'avancer une vague :
+ * le plancher de développement reste toujours garanti.
+ *
+ * Le mélange entier ci-dessous est volontairement déterministe afin
+ * qu'une même graine reproduise exactement le même calendrier.
+ */
+function getPlayableWaveArrivalDelay(
+        seed: number,
+        waveNumber: number
+): number {
+        const maximum =
+                PLAYABLE_WAVE_CYCLE_REFERENCE
+                        .maximumAdditionalArrivalDelayTurns;
+
+        if (maximum <= 0) {
+                return 0;
+        }
+
+        let value =
+                (
+                        seed ^
+                        Math.imul(
+                                waveNumber + 1,
+                                0x9e3779b1
+                        )
+                ) >>> 0;
+
+        value ^=
+                value << 13;
+
+        value ^=
+                value >>> 17;
+
+        value ^=
+                value << 5;
+
+        return (
+                value >>> 0
+        ) % (
+                maximum + 1
+        );
+}
+
+
 function validateSeed(
 	seed: number
 ): void {
@@ -1154,10 +1202,31 @@ export function resolvePlayableWave(
 			occurrence.waveNumber +
 				1;
 
-		const nextScheduledTurn =
-			input.turn +
-			PLAYABLE_WAVE_CYCLE_REFERENCE
-				.turnsBetweenWaves;
+		const developmentWindow =
+                        Math.max(
+                                PLAYABLE_WAVE_CYCLE_REFERENCE
+                                        .turnsBetweenWaves,
+                                PLAYABLE_WAVE_CYCLE_REFERENCE
+                                        .minimumDevelopmentTurnsBetweenWaves
+                        );
+
+                const arrivalDelay =
+                        getPlayableWaveArrivalDelay(
+                                cycle.baseSeed,
+                                nextWaveNumber
+                        );
+
+                /*
+                 * La variabilité ne peut que RETARDER la vague.
+                 *
+                 * Le joueur dispose donc toujours de la fenêtre
+                 * minimale de développement, puis éventuellement
+                 * d'un ou deux tours supplémentaires.
+                 */
+                const nextScheduledTurn =
+                        input.turn +
+                        developmentWindow +
+                        arrivalDelay;
 
 		cycle.phase =
 			'preparation';

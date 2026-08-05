@@ -17,6 +17,7 @@ export * from './config/tf-reference.js';
 export * from './config/validate.js';
 
 export * from './browser-controller.js';
+export * from './playable-browser-controller.js';
 export * from './consequences.js';
 export * from './reporting.js';
 export * from './reporting-export.js';

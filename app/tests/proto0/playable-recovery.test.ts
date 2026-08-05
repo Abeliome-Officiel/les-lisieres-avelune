@@ -655,7 +655,7 @@ test(
                                         runId:
                                                 'PLAYABLE-RECOVERY-MULTI',
                                         turn:
-                                                11
+                                                cycle.current!.scheduledTurn
                                 }
                         );
 

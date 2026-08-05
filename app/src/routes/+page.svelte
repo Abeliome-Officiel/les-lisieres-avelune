@@ -1,1430 +1,2215 @@
 <script lang="ts">
-	import {
-		RPG_LAB_REFERENCE,
-		TD_LAB_REFERENCE,
-		TESTER_CODES,
-		createBrowserSession,
-		getBrowserVisibleForecast,
-		prepareBrowserTower,
-		resolveBrowserTurn,
-		resolveBrowserWave,
-		startBrowserResearch,
-		summarizeStoredResources,
-		type Proto0BrowserState,
-		type TdPathPosition,
-		type TdTowerDefinitionId,
-		type TesterCode
-	} from '$lib/proto0';
+        import {
+                PLAYABLE_CONSTRUCTION_CATALOG,
+                PLAYABLE_RESEARCH_PRESENTATIONS,
+                PLAYABLE_TD_FABRICATIONS,
+                constructPlayableBrowserStructure,
+                connectPlayableBrowserTfStructures,
+                createPlayableBrowserSession,
+                fabricatePlayableBrowserTower,
+                getPlayableBrowserForecast,
+                getPlayableBrowserPendingDiscovery,
+                getPlayableBrowserResearchChoices,
+                getTotalUnanalysedWaveMatter,
+                movePlayableBrowserTower,
+                placePlayableBrowserTower,
+                previewPlayableConstruction,
+                previewPlayableTdFabrication,
+                removePlayableBrowserTower,
+                resolvePlayableBrowserTurn,
+                resolvePlayableBrowserWave,
+                setPlayableBrowserStructureActive,
+                startPlayableBrowserResearch,
+                summarizeStoredResources,
+                validatePlayableBrowserDiscovery,
+                type PlayableConstructionDefinitionId,
+                type PlayableResearchDefinitionId,
+                type Proto0PlayableBrowserState,
+                type ResourceId,
+                type TdPathPosition,
+                type TdTowerDefinitionId
+        } from '$lib/proto0/index.js';
 
-	let testerCode: TesterCode =
-		'IRFI';
+        type ViewId =
+                | 'corcite'
+                | 'tf'
+                | 'research'
+                | 'defense'
+                | 'wave';
 
-	let seed =
-		20260804;
+        const views: {
+                id: ViewId;
+                label: string;
+        }[] = [
+                {
+                        id: 'corcite',
+                        label: 'Corcite'
+                },
+                {
+                        id: 'tf',
+                        label: 'TF'
+                },
+                {
+                        id: 'research',
+                        label: 'Recherche'
+                },
+                {
+                        id: 'defense',
+                        label: 'Défense'
+                },
+                {
+                        id: 'wave',
+                        label: 'Vague'
+                }
+        ];
 
-	let state:
-		Proto0BrowserState | null =
-			null;
+        const pathPositions =
+                Array.from(
+                        {
+                                length: 8
+                        },
+                        (_, index) =>
+                                (
+                                        index + 1
+                                ) as TdPathPosition
+                );
 
-	let activeView:
-		'pilotage' | 'journal' =
-			'pilotage';
+        let activeView:
+                ViewId = 'corcite';
 
-	let largeText =
-		false;
+        let session:
+                Proto0PlayableBrowserState =
+                createPlayableBrowserSession({
+                        testerCode: 'IRFI',
+                        seed: 20260806,
+                        runId:
+                                'PROTO0-PLAYABLE-UI-20260806'
+                });
 
-	let highContrast =
-		false;
+        let uiError = '';
 
-	let reducedMotion =
-		false;
+        let connectionFrom = '';
+        let connectionTo = '';
+        let connectionResource:
+                ResourceId = 'R1';
 
-	let compact =
-		false;
+        let placementTargets:
+                Record<string, TdPathPosition> =
+                {};
 
-	let errorMessage =
-		'';
+        let moveTargets:
+                Record<number, TdPathPosition> =
+                {};
 
-	let visibleForecast:
-		ReturnType<
-			typeof getBrowserVisibleForecast
-		> = null;
+        $: forecast =
+                getPlayableBrowserForecast(
+                        session
+                );
 
-	let stocks:
-		ReturnType<
-			typeof summarizeStoredResources
-		> | null = null;
+        $: researchChoices =
+                getPlayableBrowserResearchChoices(
+                        session
+                );
 
-	$: visibleForecast =
-		state
-			? getBrowserVisibleForecast(
-					state
-				)
-			: null;
+        $: pendingDiscovery =
+                getPlayableBrowserPendingDiscovery(
+                        session
+                );
 
-	$: stocks =
-		state
-			? summarizeStoredResources(
-					state.corcite
-				)
-			: null;
+        $: resources =
+                summarizeStoredResources(
+                        session.corcite
+                );
 
-	function apply(
-		action:
-			() =>
-				Proto0BrowserState
-	): void {
-		errorMessage = '';
+        $: unknownWaveMatter =
+                getTotalUnanalysedWaveMatter(
+                        session.corcite
+                );
 
-		try {
-			state =
-				action();
-		} catch (error) {
-			errorMessage =
-				error instanceof Error
-					? error.message
-					: String(error);
-		}
-	}
+        $: totalStorageCapacity =
+                session.corcite
+                        .storageUnits.reduce(
+                                (
+                                        total,
+                                        unit
+                                ) =>
+                                        total +
+                                        unit.capacity,
+                                0
+                        );
 
-	function newSession(): void {
-		apply(
-			() =>
-				createBrowserSession({
-					testerCode,
-					seed
-				})
-		);
+        $: totalStorageLoad =
+                session.corcite
+                        .storageUnits.reduce(
+                                (
+                                        total,
+                                        unit
+                                ) =>
+                                        total +
+                                        unit.contents.R1 +
+                                        unit.contents.R2 +
+                                        unit.contents.R3 +
+                                        unit.contents.R4 +
+                                        (
+                                                unit.unanalysedWaveMatter ??
+                                                0
+                                        ),
+                                0
+                        );
 
-		activeView =
-			'pilotage';
-	}
+        $: preparationOpen =
+                session.waveCycle.phase ===
+                'preparation';
 
-	function startResearch(): void {
-		if (!state) return;
+        $: activeResearch =
+                session.corcite.rpg
+                        .researches.find(
+                                (research) =>
+                                        research.status ===
+                                        'active'
+                        );
 
-		apply(
-			() =>
-				startBrowserResearch(
-					state as Proto0BrowserState
-				)
-		);
-	}
+        $: productiveStructures =
+                session.corcite
+                        .structures.filter(
+                                (structure) =>
+                                        ![
+                                                'corcite-core-n1',
+                                                'storage-n1'
+                                        ].includes(
+                                                structure.kind
+                                        )
+                        );
 
-	function endCurrentTurn(): void {
-		if (!state) return;
+        function errorMessage(
+                error: unknown
+        ): string {
+                return error instanceof Error
+                        ? error.message
+                        : String(error);
+        }
 
-		apply(
-			() =>
-				resolveBrowserTurn(
-					state as Proto0BrowserState
-				)
-		);
-	}
+        function apply(
+                operation:
+                        () =>
+                                Proto0PlayableBrowserState
+        ): void {
+                try {
+                        session =
+                                operation();
 
-	function prepareTower(
-		position:
-			TdPathPosition,
-		definitionId:
-			TdTowerDefinitionId
-	): void {
-		if (!state) return;
+                        uiError = '';
+                } catch (error) {
+                        uiError =
+                                errorMessage(
+                                        error
+                                );
+                }
+        }
 
-		apply(
-			() =>
-				prepareBrowserTower(
-					state as Proto0BrowserState,
-					position,
-					definitionId
-				)
-		);
-	}
+        function newSession(): void {
+                const seed =
+                        Math.floor(
+                                Math.random() *
+                                        4294967296
+                        ) >>> 0;
 
-	function launchWave(): void {
-		if (!state) return;
+                session =
+                        createPlayableBrowserSession({
+                                testerCode:
+                                        'IRFI',
+                                seed,
+                                runId:
+                                        `PROTO0-PLAYABLE-UI-${seed}`
+                        });
 
-		apply(
-			() =>
-				resolveBrowserWave(
-					state as Proto0BrowserState
-				)
-		);
-	}
+                activeView =
+                        'corcite';
+
+                connectionFrom = '';
+                connectionTo = '';
+                connectionResource =
+                        'R1';
+
+                placementTargets = {};
+                moveTargets = {};
+                uiError = '';
+        }
+
+        function construct(
+                definitionId:
+                        PlayableConstructionDefinitionId
+        ): void {
+                apply(
+                        () =>
+                                constructPlayableBrowserStructure(
+                                        session,
+                                        definitionId
+                                )
+                );
+        }
+
+        function toggleStructure(
+                structureId: string,
+                currentlyActive:
+                        boolean
+        ): void {
+                apply(
+                        () =>
+                                setPlayableBrowserStructureActive(
+                                        session,
+                                        structureId,
+                                        !currentlyActive
+                                )
+                );
+        }
+
+        function connectTf(): void {
+                if (
+                        !connectionFrom ||
+                        !connectionTo
+                ) {
+                        uiError =
+                                'Choisissez une structure source et une structure destination.';
+
+                        return;
+                }
+
+                apply(
+                        () =>
+                                connectPlayableBrowserTfStructures(
+                                        session,
+                                        {
+                                                fromStructureId:
+                                                        connectionFrom,
+                                                toStructureId:
+                                                        connectionTo,
+                                                resourceId:
+                                                        connectionResource
+                                        }
+                                )
+                );
+        }
+
+        function startResearch(
+                definitionId:
+                        PlayableResearchDefinitionId
+        ): void {
+                apply(
+                        () =>
+                                startPlayableBrowserResearch(
+                                        session,
+                                        definitionId
+                                )
+                );
+        }
+
+        function validateDiscovery(
+                definitionId:
+                        PlayableResearchDefinitionId
+        ): void {
+                apply(
+                        () =>
+                                validatePlayableBrowserDiscovery(
+                                        session,
+                                        definitionId
+                                )
+                );
+        }
+
+        function fabricateTower(
+                definitionId:
+                        TdTowerDefinitionId
+        ): void {
+                apply(
+                        () =>
+                                fabricatePlayableBrowserTower(
+                                        session,
+                                        definitionId
+                                )
+                );
+        }
+
+        function placeTower(
+                towerId: string
+        ): void {
+                const position =
+                        placementTargets[
+                                towerId
+                        ];
+
+                if (!position) {
+                        uiError =
+                                'Choisissez une position libre pour cette défense.';
+
+                        return;
+                }
+
+                apply(
+                        () =>
+                                placePlayableBrowserTower(
+                                        session,
+                                        towerId,
+                                        position
+                                )
+                );
+        }
+
+        function removeTower(
+                position:
+                        TdPathPosition
+        ): void {
+                apply(
+                        () =>
+                                removePlayableBrowserTower(
+                                        session,
+                                        position
+                                )
+                );
+        }
+
+        function moveTower(
+                from:
+                        TdPathPosition
+        ): void {
+                const target =
+                        moveTargets[
+                                from
+                        ];
+
+                if (!target) {
+                        uiError =
+                                'Choisissez une nouvelle position.';
+
+                        return;
+                }
+
+                apply(
+                        () =>
+                                movePlayableBrowserTower(
+                                        session,
+                                        from,
+                                        target
+                                )
+                );
+        }
+
+        function resolveTurn(): void {
+                apply(
+                        () =>
+                                resolvePlayableBrowserTurn(
+                                        session
+                                )
+                );
+        }
+
+        function resolveWave(): void {
+                apply(
+                        () =>
+                                resolvePlayableBrowserWave(
+                                        session
+                                )
+                );
+
+                activeView =
+                        'wave';
+        }
+
+        function researchPresentation(
+                id: string
+        ) {
+                return PLAYABLE_RESEARCH_PRESENTATIONS
+                        .find(
+                                (presentation) =>
+                                        presentation.id ===
+                                        id
+                        );
+        }
+
+        function getConnectionBuffer(
+                connectionId: string
+        ) {
+                return session.corcite
+                        .tfNetwork.buffers.find(
+                                (buffer) =>
+                                        buffer.connectionId ===
+                                        connectionId
+                        );
+        }
+
+        function formatNumber(
+                value: number
+        ): string {
+                return Number.isInteger(
+                        value
+                )
+                        ? String(value)
+                        : value.toFixed(2);
+        }
 </script>
 
 <svelte:head>
-	<title>
-		Les Lisières d’Avelune — PROTO-0
-	</title>
+        <title>Les Lisières d’Avelune — PROTO-0 jouable</title>
+        <meta
+                name="description"
+                content="Prototype jouable des Lisières d’Avelune."
+        />
 </svelte:head>
 
-<a
-	class="skip-link"
-	href="#main-content"
->
-	Aller au contenu
-</a>
+<div class="app-shell">
+        <header class="topbar">
+                <div class="brand">
+                        <p class="eyebrow">
+                                LES LISIÈRES D’AVELUNE
+                        </p>
 
-<div
-	class:large-text={largeText}
-	class:high-contrast={highContrast}
-	class:reduced-motion={reducedMotion}
-	class:compact={compact}
-	class="proto-shell"
->
-	<header class="topbar">
-		<div>
-			<p class="eyebrow">
-				Les Lisières d’Avelune
-			</p>
-			<h1>PROTO-0</h1>
-			<p class="subtitle">
-				TF → RPG → TD → vague →
-				conséquences
-			</p>
-		</div>
+                        <h1>
+                                PROTO-0 jouable
+                        </h1>
+                </div>
 
-		<div class="session-form">
-			<label>
-				Testeur
-				<select
-					bind:value={testerCode}
-				>
-					{#each TESTER_CODES as code}
-						<option value={code}>
-							{code}
-						</option>
-					{/each}
-				</select>
-			</label>
+                <button
+                        class="secondary compact-button"
+                        type="button"
+                        onclick={newSession}
+                >
+                        Nouvelle partie
+                </button>
+        </header>
 
-			<label>
-				Graine
-				<input
-					type="number"
-					min="0"
-					max="4294967295"
-					step="1"
-					bind:value={seed}
-				/>
-			</label>
+        <section
+                class="status-strip"
+                aria-label="État du Corcite"
+        >
+                <div>
+                        <span>Tour</span>
+                        <strong>
+                                {session.currentTurn}
+                        </strong>
+                </div>
 
-			<button
-				class="primary"
-				onclick={newSession}
-			>
-				Nouvelle session
-			</button>
-		</div>
-	</header>
+                <div>
+                        <span>Énergie</span>
+                        <strong>
+                                {session.corcite.capacities.energy.used}/{session.corcite.capacities.energy.normalCapacity}
+                        </strong>
+                        <small>
+                                réserve {formatNumber(session.corcite.capacities.energy.reserveCurrent)}/{session.corcite.capacities.energy.reserveMaximum}
+                        </small>
+                </div>
 
-	<nav
-		class="view-tabs"
-		aria-label="Vues du prototype"
-	>
-		<button
-			class:active={activeView ===
-				'pilotage'}
-			onclick={() =>
-				(activeView =
-					'pilotage')}
-		>
-			Pilotage
-		</button>
+                <div>
+                        <span>Stockage</span>
+                        <strong>
+                                {formatNumber(totalStorageLoad)}/{formatNumber(totalStorageCapacity)}
+                        </strong>
+                </div>
 
-		<button
-			class:active={activeView ===
-				'journal'}
-			onclick={() =>
-				(activeView =
-					'journal')}
-			disabled={!state}
-		>
-			Journal technique
-		</button>
-	</nav>
+                <div>
+                        <span>Vague</span>
 
-	{#if errorMessage}
-		<div
-			class="error"
-			role="alert"
-		>
-			{errorMessage}
-		</div>
-	{/if}
+                        {#if session.waveCycle.phase === 'ready'}
+                                <strong class="danger-text">
+                                        arrivée
+                                </strong>
+                        {:else if session.waveCycle.phase === 'complete'}
+                                <strong>
+                                        cycle terminé
+                                </strong>
+                        {:else if forecast}
+                                <strong>
+                                        {forecast.turnsUntilWave}
+                                        {forecast.turnsUntilWave === 1
+                                                ? ' tour'
+                                                : ' tours'}
+                                </strong>
+                        {:else}
+                                <strong>
+                                        hors lecture
+                                </strong>
+                        {/if}
+                </div>
+        </section>
 
-	<div
-		class="status-line"
-		aria-live="polite"
-	>
-		{state?.statusMessage ??
-			'Créez une session pour commencer.'}
-	</div>
+        {#if uiError}
+                <div
+                        class="message error-message"
+                        role="alert"
+                >
+                        {uiError}
+                </div>
+        {/if}
 
-	<main id="main-content">
-		{#if !state}
-			<section class="welcome panel">
-				<p class="eyebrow">
-					Banc d’essai intégré
-				</p>
-				<h2>
-					Créer une session
-				</h2>
-				<p>
-					Le prototype utilise directement
-					le moteur headless validé. La
-					graine permet de reproduire la
-					même vague et les mêmes
-					prévisions.
-				</p>
-			</section>
-		{:else if activeView === 'journal'}
-			<section class="panel technical">
-				<div class="section-heading">
-					<div>
-						<p class="eyebrow">
-							Diagnostic
-						</p>
-						<h2>
-							Journal technique
-						</h2>
-					</div>
-					<button
-						onclick={() =>
-							(activeView =
-								'pilotage')}
-					>
-						Retour au pilotage
-					</button>
-				</div>
+        <div
+                class="message status-message"
+                aria-live="polite"
+        >
+                {session.statusMessage}
+        </div>
 
-				{#if state.technicalLog}
-					<p>
-						Cette trace est séparée du
-						rapport joueur et sert à
-						reconstruire les calculs.
-					</p>
+        <main>
+                {#if activeView === 'corcite'}
+                        <section class="view">
+                                <div class="section-heading">
+                                        <div>
+                                                <p class="eyebrow">
+                                                        CORPS-CITÉ
+                                                </p>
 
-					<pre>{JSON.stringify(
-						state.technicalLog,
-						null,
-						2
-					)}</pre>
-				{:else}
-					<p>
-						Le journal complet de vague
-						sera disponible après sa
-						résolution. Les journaux RPG
-						et TF restent visibles dans
-						le pilotage pendant la
-						session.
-					</p>
-				{/if}
-			</section>
-		{:else}
-			<div class="workspace">
-				<aside class="sidebar">
-					<section class="panel">
-						<p class="eyebrow">
-							Session
-						</p>
-						<h2>
-							Tour {state.currentTurn}
-							/
-							{state.session
-								.configuration
-								.turns}
-						</h2>
+                                                <h2>
+                                                        État du Corcite
+                                                </h2>
+                                        </div>
 
-						<dl>
-							<div>
-								<dt>Testeur</dt>
-								<dd>
-									{state.session
-										.configuration
-										.testerCode}
-								</dd>
-							</div>
-							<div>
-								<dt>Graine</dt>
-								<dd>
-									{state.session
-										.configuration
-										.seed}
-								</dd>
-							</div>
-							<div>
-								<dt>Corcite</dt>
-								<dd>
-									{state.corcite.name}
-								</dd>
-							</div>
-						</dl>
-					</section>
+                                        <span
+                                                class:danger-badge={session.corcite.recovery.integrity.current < 50}
+                                                class="badge"
+                                        >
+                                                Intégrité
+                                                {formatNumber(session.corcite.recovery.integrity.current)}
+                                        </span>
+                                </div>
 
-					<section class="panel">
-						<p class="eyebrow">
-							Stocks
-						</p>
-						<div class="resource-grid">
-							{#if stocks}
-								{#each Object.entries(
-									stocks
-								) as [
-									resource,
-									amount
-								]}
-									<div>
-										<span>
-											{resource}
-										</span>
-										<strong>
-											{amount}
-										</strong>
-									</div>
-								{/each}
-							{/if}
-						</div>
-					</section>
+                                <div class="metric-grid">
+                                        <article class="metric">
+                                                <span>
+                                                        Population
+                                                </span>
+                                                <strong>
+                                                        {session.corcite.population.total}
+                                                </strong>
+                                        </article>
 
-					<section class="panel">
-						<p class="eyebrow">
-							Capacités
-						</p>
-						<dl>
-							<div>
-								<dt>Énergie</dt>
-								<dd>
-									{state.corcite
-										.capacities
-										.energy.used}
-									/
-									{state.corcite
-										.capacities
-										.energy
-										.normalCapacity}
-								</dd>
-							</div>
-							<div>
-								<dt>
-									Entretien
-								</dt>
-								<dd>
-									{state.corcite
-										.capacities
-										.maintenance
-										.used}
-									/
-									{state.corcite
-										.capacities
-										.maintenance
-										.capacity}
-								</dd>
-							</div>
-							<div>
-								<dt>Travail</dt>
-								<dd>
-									{state.corcite
-										.capacities
-										.work.used}
-									/
-									{state.corcite
-										.capacities
-										.work.capacity}
-								</dd>
-							</div>
-							<div>
-								<dt>Espace</dt>
-								<dd>
-									{state.corcite
-										.capacities
-										.space.used}
-									/
-									{state.corcite
-										.capacities
-										.space.capacity}
-								</dd>
-							</div>
-						</dl>
-					</section>
-				</aside>
+                                        <article class="metric">
+                                                <span>
+                                                        Travail
+                                                </span>
+                                                <strong>
+                                                        {session.corcite.capacities.work.used}/{session.corcite.capacities.work.capacity}
+                                                </strong>
+                                        </article>
 
-				<div class="content">
-					<section class="panel forecast">
-						<div class="section-heading">
-							<div>
-								<p class="eyebrow">
-									Vague
-								</p>
-								<h2>
-									Prévision
-								</h2>
-							</div>
+                                        <article class="metric">
+                                                <span>
+                                                        Entretien
+                                                </span>
+                                                <strong>
+                                                        {session.corcite.capacities.maintenance.used}/{session.corcite.capacities.maintenance.capacity}
+                                                </strong>
 
-							{#if visibleForecast}
-								<span class="badge">
-									{visibleForecast.label}
-									±
-									{visibleForecast
-										.forecast
-										.uncertaintyPercent}%
-								</span>
-							{/if}
-						</div>
+                                                <small>
+                                                        dette
+                                                        {formatNumber(session.corcite.sustainability?.maintenance.debt ?? 0)}
+                                                </small>
+                                        </article>
 
-						{#if visibleForecast}
-							<div class="wave-grid">
-								<div>
-									<span>
-										Pression
-									</span>
-									<strong>
-										{visibleForecast
-											.forecast
-											.estimatedWave
-											.pressure}
-									</strong>
-								</div>
-								<div>
-									<span>
-										Structure
-									</span>
-									<strong>
-										{visibleForecast
-											.forecast
-											.estimatedWave
-											.structure}
-									</strong>
-								</div>
-								<div>
-									<span>
-										Charge
-									</span>
-									<strong>
-										{visibleForecast
-											.forecast
-											.estimatedWave
-											.charge}
-									</strong>
-								</div>
-								<div>
-									<span>
-										Matière
-									</span>
-									<strong>
-										{visibleForecast
-											.forecast
-											.estimatedWave
-											.capturableMatter}
-									</strong>
-								</div>
-							</div>
-						{:else}
-							<p class="muted">
-								Aucune prévision fiable
-								n’est encore disponible.
-								Elle apparaîtra dans les
-								trois derniers tours.
-							</p>
-						{/if}
-					</section>
+                                        <article class="metric">
+                                                <span>
+                                                        Espace
+                                                </span>
+                                                <strong>
+                                                        {session.corcite.capacities.space.used}/{session.corcite.capacities.space.capacity}
+                                                </strong>
+                                        </article>
+                                </div>
 
-					<div class="two-columns">
-						<section class="panel">
-							<p class="eyebrow">
-								TF
-							</p>
-							<h2>
-								Production
-							</h2>
+                                <div class="panel">
+                                        <div class="panel-heading">
+                                                <div>
+                                                        <h3>
+                                                                Structures
+                                                        </h3>
+                                                        <p>
+                                                                Les fonctions productives actives utilisent énergie et travail. Les mettre en réserve permet de réorganiser le Corcite.
+                                                        </p>
+                                                </div>
+                                        </div>
 
-							<p>
-								La résolution du tour
-								exécute la chaîne
-								extraction →
-								transformation →
-								fabrication du moteur.
-							</p>
+                                        <div class="card-list">
+                                                {#each session.corcite.structures as structure}
+                                                        <article class="compact-card">
+                                                                <div>
+                                                                        <strong>
+                                                                                {structure.name}
+                                                                        </strong>
 
-							{#if state.lastTf}
-								<div class="event-list">
-									{#each state.lastTf
-										.extraction
-										.events as event}
-										<p>
-											<strong>
-												Extraction
-											</strong>
-											—
-											{event.message}
-										</p>
-									{/each}
+                                                                        <p>
+                                                                                {structure.status}
+                                                                                · E {structure.usage.energy}
+                                                                                · M {structure.usage.maintenance}
+                                                                                · T {structure.usage.work}
+                                                                                · S {structure.usage.space}
+                                                                        </p>
+                                                                </div>
 
-									{#each state.lastTf
-										.transformation
-										.events as event}
-										<p>
-											<strong>
-												Transformation
-											</strong>
-											—
-											{event.message}
-										</p>
-									{/each}
+                                                                {#if !['corcite-core-n1', 'storage-n1'].includes(structure.kind)}
+                                                                        <button
+                                                                                type="button"
+                                                                                class="secondary"
+                                                                                disabled={!preparationOpen}
+                                                                                onclick={() =>
+                                                                                        toggleStructure(
+                                                                                                structure.id,
+                                                                                                structure.status === 'active'
+                                                                                        )}
+                                                                        >
+                                                                                {structure.status === 'active'
+                                                                                        ? 'Mettre en réserve'
+                                                                                        : 'Activer'}
+                                                                        </button>
+                                                                {/if}
+                                                        </article>
+                                                {/each}
+                                        </div>
+                                </div>
 
-									{#each state.lastTf
-										.fabrication
-										.events as event}
-										<p>
-											<strong>
-												Fabrication
-											</strong>
-											—
-											{event.message}
-										</p>
-									{/each}
-								</div>
-							{:else}
-								<p class="muted">
-									Aucun tour TF résolu.
-								</p>
-							{/if}
-						</section>
+                                <div class="panel">
+                                        <div class="panel-heading">
+                                                <div>
+                                                        <h3>
+                                                                Développer le Corcite
+                                                        </h3>
+                                                        <p>
+                                                                Construire ne termine pas le tour. Les limites viennent des ressources, du travail, de l’énergie et de l’espace.
+                                                        </p>
+                                                </div>
+                                        </div>
 
-						<section class="panel">
-							<p class="eyebrow">
-								RPG
-							</p>
-							<h2>
-								Recherche
-							</h2>
+                                        <div class="catalog-grid">
+                                                {#each PLAYABLE_CONSTRUCTION_CATALOG as definition}
+                                                        <article class="catalog-card">
+                                                                <div>
+                                                                        <h4>
+                                                                                {definition.label}
+                                                                        </h4>
 
-							{#if state.corcite.rpg
-								.researches.length ===
-							0}
-								<p>
-									{RPG_LAB_REFERENCE.label}
-								</p>
-								<p class="muted">
-									Durée expérimentale :
-									{RPG_LAB_REFERENCE
-										.durationTurns}
-									tours.
-								</p>
-								<button
-									onclick={startResearch}
-									disabled={state.waveReady ||
-										state.waveResolved}
-								>
-									Démarrer la recherche
-								</button>
-							{:else}
-								{#each state.corcite.rpg
-									.researches as research}
-									<div class="research">
-										<strong>
-											{research.label}
-										</strong>
-										<span>
-											{research.status}
-										</span>
-										<progress
-											max={research
-												.durationTurns}
-											value={research
-												.progressTurns}
-										></progress>
-										<small>
-											{research.progressTurns}
-											/
-											{research.durationTurns}
-										</small>
-									</div>
-								{/each}
-							{/if}
+                                                                        <p>
+                                                                                {definition.description}
+                                                                        </p>
 
-							{#if state.corcite
-								.modifiers.length >
-							0}
-								<p class="success">
-									Modificateur RPG actif
-									sur la transformation.
-								</p>
-							{/if}
-						</section>
-					</div>
+                                                                        <p class="cost">
+                                                                                Coût :
+                                                                                {#each Object.entries(definition.resourceCosts) as [resourceId, amount]}
+                                                                                        <span>
+                                                                                                {resourceId} {amount}
+                                                                                        </span>
+                                                                                {/each}
+                                                                        </p>
+                                                                </div>
 
-					<section class="panel">
-						<div class="section-heading">
-							<div>
-								<p class="eyebrow">
-									TD
-								</p>
-								<h2>
-									Chemin interne —
-									8 positions
-								</h2>
-							</div>
+                                                                {#if previewPlayableConstruction(session.corcite, definition.id).canConstruct}
+                                                                        <button
+                                                                                type="button"
+                                                                                disabled={!preparationOpen}
+                                                                                onclick={() =>
+                                                                                        construct(
+                                                                                                definition.id
+                                                                                        )}
+                                                                        >
+                                                                                Construire
+                                                                        </button>
+                                                                {:else}
+                                                                        <div>
+                                                                                <button
+                                                                                        type="button"
+                                                                                        disabled
+                                                                                >
+                                                                                        Indisponible
+                                                                                </button>
 
-							<span class="badge">
-								Atténuation :
-								R3 2 + R4 1
-							</span>
-						</div>
+                                                                                <p class="blockers">
+                                                                                        {previewPlayableConstruction(session.corcite, definition.id).blockers.join(' · ')}
+                                                                                </p>
+                                                                        </div>
+                                                                {/if}
+                                                        </article>
+                                                {/each}
+                                        </div>
+                                </div>
+                        </section>
+                {:else if activeView === 'tf'}
+                        <section class="view">
+                                <div class="section-heading">
+                                        <div>
+                                                <p class="eyebrow">
+                                                        PRODUCTION
+                                                </p>
 
-						<p class="muted">
-							Seule Atténuation possède
-							un coût matériel instrumenté
-							dans PROTO-0. Les autres
-							familles testent leur effet
-							et leur ordonnancement.
-						</p>
+                                                <h2>
+                                                        Ressources et flux
+                                                </h2>
+                                        </div>
+                                </div>
 
-						<div class="td-path">
-							{#each state.corcite.td
-								.positions as slot}
-								<article
-									class:occupied={Boolean(
-										slot.tower
-									)}
-									class="td-slot"
-								>
-									<div class="position">
-										{slot.position}
-									</div>
+                                <div class="resource-grid">
+                                        <article>
+                                                <span>R1</span>
+                                                <strong>{formatNumber(resources.R1)}</strong>
+                                                <small>Matière organique brute</small>
+                                        </article>
 
-									{#if slot.tower}
-										<strong>
-											{slot.tower.label}
-										</strong>
-										<small>
-											{slot.tower.family}
-										</small>
-									{:else}
-										<span class="muted">
-											Vide
-										</span>
+                                        <article>
+                                                <span>R2</span>
+                                                <strong>{formatNumber(resources.R2)}</strong>
+                                                <small>Matière minérale brute</small>
+                                        </article>
 
-										<div class="tower-actions">
-											{#each TD_LAB_REFERENCE
-												.towers as tower}
-												<button
-													onclick={() =>
-														prepareTower(
-															slot.position,
-															tower.id
-														)}
-													disabled={state.waveResolved}
-												>
-													{tower.label}
-												</button>
-											{/each}
-										</div>
-									{/if}
-								</article>
-							{/each}
-						</div>
-					</section>
+                                        <article>
+                                                <span>R3</span>
+                                                <strong>{formatNumber(resources.R3)}</strong>
+                                                <small>Matériau transformé</small>
+                                        </article>
 
-					<section class="panel turn-control">
-						<div>
-							<p class="eyebrow">
-								Résolution
-							</p>
+                                        <article>
+                                                <span>R4</span>
+                                                <strong>{formatNumber(resources.R4)}</strong>
+                                                <small>Composant fabriqué</small>
+                                        </article>
 
-							{#if !state.waveReady}
-								<h2>
-									Terminer le tour
-									{state.currentTurn}
-								</h2>
-								<p>
-									Le moteur résout TF,
-									fait progresser la
-									recherche RPG active,
-									puis avance le temps.
-								</p>
-							{:else if !state.waveResolved}
-								<h2>
-									La vague est prête
-								</h2>
-								<p>
-									Le tour 10 est
-									terminé. La
-									configuration TD
-									actuelle sera appliquée
-									à la vague réelle.
-								</p>
-							{:else}
-								<h2>
-									Vague résolue
-								</h2>
-							{/if}
-						</div>
+                                        <article>
+                                                <span>Vague</span>
+                                                <strong>{formatNumber(unknownWaveMatter)}</strong>
+                                                <small>Matière non analysée</small>
+                                        </article>
+                                </div>
 
-						{#if !state.waveReady}
-							<button
-								class="primary large"
-								onclick={endCurrentTurn}
-							>
-								Résoudre le tour
-							</button>
-						{:else if !state.waveResolved}
-							<button
-								class="danger large"
-								onclick={launchWave}
-							>
-								Résoudre la vague
-							</button>
-						{/if}
-					</section>
+                                <div class="panel">
+                                        <h3>
+                                                Stockages physiques
+                                        </h3>
 
-					{#if state.playerReport}
-						<section class="panel report">
-							<div class="section-heading">
-								<div>
-									<p class="eyebrow">
-										Fin de vague
-									</p>
-									<h2>
-										{state.playerReport
-											.summary.title}
-									</h2>
-								</div>
+                                        <div class="card-list">
+                                                {#each session.corcite.storageUnits as storage}
+                                                        <article class="compact-card vertical-card">
+                                                                <strong>
+                                                                        {storage.name}
+                                                                </strong>
 
-								<button
-									onclick={() =>
-										(activeView =
-											'journal')}
-								>
-									Voir le journal
-									technique
-								</button>
-							</div>
+                                                                <p>
+                                                                        Capacité {formatNumber(storage.capacity)}
+                                                                </p>
 
-							<p class="lead">
-								{state.playerReport
-									.summary.message}
-							</p>
+                                                                <p>
+                                                                        R1 {formatNumber(storage.contents.R1)}
+                                                                        · R2 {formatNumber(storage.contents.R2)}
+                                                                        · R3 {formatNumber(storage.contents.R3)}
+                                                                        · R4 {formatNumber(storage.contents.R4)}
+                                                                        · Vague {formatNumber(storage.unanalysedWaveMatter ?? 0)}
+                                                                </p>
+                                                        </article>
+                                                {/each}
+                                        </div>
+                                </div>
 
-							<div class="wave-grid">
-								<div>
-									<span>Pression</span>
-									<strong>
-										{state.playerReport.details.variables.pressure.before}
-										→
-										{state.playerReport.details.variables.pressure.after}
-									</strong>
-								</div>
+                                <div class="panel">
+                                        <div class="panel-heading">
+                                                <div>
+                                                        <h3>
+                                                                Réseau direct
+                                                        </h3>
+                                                        <p>
+                                                                Une connexion crée automatiquement son tampon aval. Les sorties du tour N ne sont consommables qu’au tour N+1.
+                                                        </p>
+                                                </div>
+                                        </div>
 
-								<div>
-									<span>Structure</span>
-									<strong>
-										{state.playerReport.details.variables.structure.before}
-										→
-										{state.playerReport.details.variables.structure.after}
-									</strong>
-								</div>
+                                        <div class="form-grid">
+                                                <label>
+                                                        Source
+                                                        <select
+                                                                bind:value={connectionFrom}
+                                                                disabled={!preparationOpen}
+                                                        >
+                                                                <option value="">
+                                                                        Choisir
+                                                                </option>
 
-								<div>
-									<span>Charge</span>
-									<strong>
-										{state.playerReport.details.variables.charge.before}
-										→
-										{state.playerReport.details.variables.charge.after}
-									</strong>
-								</div>
+                                                                {#each productiveStructures as structure}
+                                                                        <option value={structure.id}>
+                                                                                {structure.name}
+                                                                        </option>
+                                                                {/each}
+                                                        </select>
+                                                </label>
 
-								<div>
-									<span>Matière capturable</span>
-									<strong>
-										{state.playerReport.details.variables.capturableMatter.before}
-										→
-										{state.playerReport.details.variables.capturableMatter.after}
-									</strong>
-								</div>
+                                                <label>
+                                                        Destination
+                                                        <select
+                                                                bind:value={connectionTo}
+                                                                disabled={!preparationOpen}
+                                                        >
+                                                                <option value="">
+                                                                        Choisir
+                                                                </option>
 
-							</div>
+                                                                {#each productiveStructures as structure}
+                                                                        <option value={structure.id}>
+                                                                                {structure.name}
+                                                                        </option>
+                                                                {/each}
+                                                        </select>
+                                                </label>
 
-							<p>
-								Matière captée :
-								<strong>
-									{state.playerReport
-										.details
-										.capturedMatter}
-								</strong>
-							</p>
+                                                <label>
+                                                        Ressource
+                                                        <select
+                                                                bind:value={connectionResource}
+                                                                disabled={!preparationOpen}
+                                                        >
+                                                                <option value="R1">R1</option>
+                                                                <option value="R2">R2</option>
+                                                                <option value="R3">R3</option>
+                                                                <option value="R4">R4</option>
+                                                        </select>
+                                                </label>
 
-							<details>
-								<summary>
-									Détails des effets
-									successifs
-								</summary>
+                                                <button
+                                                        type="button"
+                                                        disabled={!preparationOpen}
+                                                        onclick={connectTf}
+                                                >
+                                                        Connecter
+                                                </button>
+                                        </div>
 
-								<ol class="steps">
-									{#each state.playerReport
-										.details
-										.towerEffects as step}
-										<li>
-											<strong>
-												Position
-												{step.position}
-											</strong>
-											—
-											{step.tower?.label ??
-												'vide'}
-											<br />
-											<small>
-												Pression :
-												{step.before.pressure}
-												→
-												{step.after.pressure}
-												;
-												structure :
-												{step.before.structure}
-												→
-												{step.after.structure}
-												;
-												charge :
-												{step.before.charge}
-												→
-												{step.after.charge}
-											</small>
-										</li>
-									{/each}
-								</ol>
-							</details>
-						</section>
-					{/if}
-				</div>
-			</div>
-		{/if}
-	</main>
+                                        {#if session.corcite.tfNetwork.connections.length === 0}
+                                                <p class="muted">
+                                                        Aucune connexion directe.
+                                                </p>
+                                        {:else}
+                                                <div class="card-list">
+                                                        {#each session.corcite.tfNetwork.connections as connection}
+                                                                <article class="compact-card vertical-card">
+                                                                        <strong>
+                                                                                {connection.resourceId}
+                                                                        </strong>
+                                                                        <p>
+                                                                                {connection.fromStructureId}
+                                                                                → {connection.toStructureId}
+                                                                        </p>
 
-	<aside
-		class="accessibility"
-		aria-label="Réglages d’accessibilité"
-	>
-		<strong>Affichage</strong>
+                                                                        {#if getConnectionBuffer(connection.id)}
+                                                                                <small>
+                                                                                        Tampon
+                                                                                        {formatNumber(getConnectionBuffer(connection.id)?.amount ?? 0)}/{formatNumber(getConnectionBuffer(connection.id)?.capacity ?? 0)}
+                                                                                </small>
+                                                                        {/if}
+                                                                </article>
+                                                        {/each}
+                                                </div>
+                                        {/if}
+                                </div>
 
-		<label>
-			<input
-				type="checkbox"
-				bind:checked={largeText}
-			/>
-			Texte agrandi
-		</label>
+                                {#if session.lastTf}
+                                        <div class="panel">
+                                                <h3>
+                                                        Dernier tour productif
+                                                </h3>
 
-		<label>
-			<input
-				type="checkbox"
-				bind:checked={highContrast}
-			/>
-			Contraste renforcé
-		</label>
+                                                <div class="event-list">
+                                                        {#each session.lastTf.extraction.events as event}
+                                                                <p>
+                                                                        {event.message}
+                                                                </p>
+                                                        {/each}
 
-		<label>
-			<input
-				type="checkbox"
-				bind:checked={reducedMotion}
-			/>
-			Réduire les animations
-		</label>
+                                                        {#each session.lastTf.transformation.events as event}
+                                                                <p>
+                                                                        {event.message}
+                                                                </p>
+                                                        {/each}
 
-		<label>
-			<input
-				type="checkbox"
-				bind:checked={compact}
-			/>
-			Densité compacte
-		</label>
-	</aside>
+                                                        {#each session.lastTf.fabrication.events as event}
+                                                                <p>
+                                                                        {event.message}
+                                                                </p>
+                                                        {/each}
+                                                </div>
+                                        </div>
+                                {/if}
+                        </section>
+                {:else if activeView === 'research'}
+                        <section class="view">
+                                <div class="section-heading">
+                                        <div>
+                                                <p class="eyebrow">
+                                                        ÉVOLUTION
+                                                </p>
+
+                                                <h2>
+                                                        Recherche
+                                                </h2>
+                                        </div>
+                                </div>
+
+                                {#if pendingDiscovery}
+                                        <article class="discovery-card">
+                                                <p class="eyebrow">
+                                                        DÉCOUVERTE
+                                                </p>
+
+                                                <h3>
+                                                        {pendingDiscovery.definition.label}
+                                                </h3>
+
+                                                <p>
+                                                        {researchPresentation(pendingDiscovery.definition.id)?.summary}
+                                                </p>
+
+                                                <p>
+                                                        {researchPresentation(pendingDiscovery.definition.id)?.effectSummary}
+                                                </p>
+
+                                                <button
+                                                        type="button"
+                                                        disabled={!preparationOpen}
+                                                        onclick={() =>
+                                                                validateDiscovery(
+                                                                        pendingDiscovery.definition.id as PlayableResearchDefinitionId
+                                                                )}
+                                                >
+                                                        Examiner et valider
+                                                </button>
+                                        </article>
+                                {/if}
+
+                                {#if activeResearch}
+                                        <div class="panel">
+                                                <p class="eyebrow">
+                                                        RECHERCHE ACTIVE
+                                                </p>
+
+                                                <h3>
+                                                        {activeResearch.definitionId}
+                                                </h3>
+
+                                                <p class="progress-text">
+                                                        Progression :
+                                                        {activeResearch.progressTurns}/{activeResearch.durationTurns}
+                                                        tours
+                                                </p>
+
+                                                <progress
+                                                        value={activeResearch.progressTurns}
+                                                        max={activeResearch.durationTurns}
+                                                ></progress>
+                                        </div>
+                                {/if}
+
+                                <div class="catalog-grid">
+                                        {#each researchChoices.definitions as definition}
+                                                <article class="catalog-card">
+                                                        <div>
+                                                                <p class="eyebrow">
+                                                                        {researchPresentation(definition.id)?.category ?? 'recherche'}
+                                                                </p>
+
+                                                                <h3>
+                                                                        {definition.label}
+                                                                </h3>
+
+                                                                <p>
+                                                                        {researchPresentation(definition.id)?.summary}
+                                                                </p>
+
+                                                                <p>
+                                                                        {researchPresentation(definition.id)?.effectSummary}
+                                                                </p>
+
+                                                                <p>
+                                                                        Durée :
+                                                                        {definition.durationTurns}
+                                                                        tours
+                                                                </p>
+                                                        </div>
+
+                                                        <button
+                                                                type="button"
+                                                                disabled={!preparationOpen || !researchChoices.canStartResearch}
+                                                                onclick={() =>
+                                                                        startResearch(
+                                                                                definition.id as PlayableResearchDefinitionId
+                                                                        )}
+                                                        >
+                                                                Lancer
+                                                        </button>
+                                                </article>
+                                        {/each}
+                                </div>
+
+                                {#if researchChoices.blockers.length > 0}
+                                        <p class="blockers">
+                                                {researchChoices.blockers.join(' · ')}
+                                        </p>
+                                {/if}
+
+                                {#if session.corcite.rpg.researches.length > 0}
+                                        <div class="panel">
+                                                <h3>
+                                                        Historique
+                                                </h3>
+
+                                                <div class="card-list">
+                                                        {#each session.corcite.rpg.researches as research}
+                                                                <article class="compact-card">
+                                                                        <strong>
+                                                                                {research.definitionId}
+                                                                        </strong>
+
+                                                                        <span class="badge">
+                                                                                {research.status}
+                                                                        </span>
+                                                                </article>
+                                                        {/each}
+                                                </div>
+                                        </div>
+                                {/if}
+                        </section>
+                {:else if activeView === 'defense'}
+                        <section class="view">
+                                <div class="section-heading">
+                                        <div>
+                                                <p class="eyebrow">
+                                                        PRÉPARATION TD
+                                                </p>
+
+                                                <h2>
+                                                        Défense
+                                                </h2>
+                                        </div>
+                                </div>
+
+                                <div class="panel">
+                                        <h3>
+                                                Fabriquer
+                                        </h3>
+
+                                        <p class="muted">
+                                                Chaque défense est un objet physique fabriqué par l’atelier. Aucun placement gratuit.
+                                        </p>
+
+                                        <div class="catalog-grid">
+                                                {#each PLAYABLE_TD_FABRICATIONS as definition}
+                                                        <article class="catalog-card">
+                                                                <div>
+                                                                        <p class="eyebrow">
+                                                                                {definition.family}
+                                                                        </p>
+
+                                                                        <h4>
+                                                                                {definition.label}
+                                                                        </h4>
+
+                                                                        <p>
+                                                                                {definition.summary}
+                                                                        </p>
+
+                                                                        <p class="cost">
+                                                                                Coût :
+                                                                                {#each Object.entries(definition.resourceCosts) as [resourceId, amount]}
+                                                                                        <span>
+                                                                                                {resourceId} {amount}
+                                                                                        </span>
+                                                                                {/each}
+                                                                        </p>
+                                                                </div>
+
+                                                                <button
+                                                                        type="button"
+                                                                        disabled={!preparationOpen || !previewPlayableTdFabrication(session.corcite, definition.definitionId).canFabricate}
+                                                                        onclick={() =>
+                                                                                fabricateTower(
+                                                                                        definition.definitionId
+                                                                                )}
+                                                                >
+                                                                        Fabriquer
+                                                                </button>
+
+                                                                {#if !previewPlayableTdFabrication(session.corcite, definition.definitionId).canFabricate}
+                                                                        <p class="blockers">
+                                                                                {previewPlayableTdFabrication(session.corcite, definition.definitionId).blockers.join(' · ')}
+                                                                        </p>
+                                                                {/if}
+                                                        </article>
+                                                {/each}
+                                        </div>
+                                </div>
+
+                                <div class="panel">
+                                        <h3>
+                                                Inventaire
+                                        </h3>
+
+                                        {#if session.corcite.tdInventory.length === 0}
+                                                <p class="muted">
+                                                        Aucune défense en réserve.
+                                                </p>
+                                        {:else}
+                                                <div class="card-list">
+                                                        {#each session.corcite.tdInventory as tower}
+                                                                <article class="compact-card inventory-card">
+                                                                        <div>
+                                                                                <strong>
+                                                                                        {tower.definitionId}
+                                                                                </strong>
+                                                                        </div>
+
+                                                                        <div class="inline-actions">
+                                                                                <select
+                                                                                        bind:value={placementTargets[tower.id]}
+                                                                                        disabled={!preparationOpen}
+                                                                                >
+                                                                                        <option value={undefined}>
+                                                                                                Position
+                                                                                        </option>
+
+                                                                                        {#each pathPositions as position}
+                                                                                                <option
+                                                                                                        value={position}
+                                                                                                        disabled={Boolean(session.corcite.td.positions[position - 1].tower)}
+                                                                                                >
+                                                                                                        {position}
+                                                                                                </option>
+                                                                                        {/each}
+                                                                                </select>
+
+                                                                                <button
+                                                                                        type="button"
+                                                                                        disabled={!preparationOpen}
+                                                                                        onclick={() =>
+                                                                                                placeTower(
+                                                                                                        tower.id
+                                                                                                )}
+                                                                                >
+                                                                                        Placer
+                                                                                </button>
+                                                                        </div>
+                                                                </article>
+                                                        {/each}
+                                                </div>
+                                        {/if}
+                                </div>
+
+                                <div class="panel">
+                                        <h3>
+                                                Chemin de la vague
+                                        </h3>
+
+                                        <div class="td-path">
+                                                {#each session.corcite.td.positions as slot}
+                                                        <article
+                                                                class:occupied={Boolean(slot.tower)}
+                                                                class="td-slot"
+                                                        >
+                                                                <span class="position-number">
+                                                                        {slot.position}
+                                                                </span>
+
+                                                                {#if slot.tower}
+                                                                        <strong>
+                                                                                {slot.tower.definitionId}
+                                                                        </strong>
+
+                                                                        <div class="slot-actions">
+                                                                                <select
+                                                                                        bind:value={moveTargets[slot.position]}
+                                                                                        disabled={!preparationOpen}
+                                                                                >
+                                                                                        <option value={undefined}>
+                                                                                                Déplacer vers…
+                                                                                        </option>
+
+                                                                                        {#each pathPositions as target}
+                                                                                                {#if target !== slot.position}
+                                                                                                        <option
+                                                                                                                value={target}
+                                                                                                                disabled={Boolean(session.corcite.td.positions[target - 1].tower)}
+                                                                                                        >
+                                                                                                                {target}
+                                                                                                        </option>
+                                                                                                {/if}
+                                                                                        {/each}
+                                                                                </select>
+
+                                                                                <button
+                                                                                        type="button"
+                                                                                        class="secondary"
+                                                                                        disabled={!preparationOpen}
+                                                                                        onclick={() =>
+                                                                                                moveTower(
+                                                                                                        slot.position
+                                                                                                )}
+                                                                                >
+                                                                                        Déplacer
+                                                                                </button>
+
+                                                                                <button
+                                                                                        type="button"
+                                                                                        class="secondary"
+                                                                                        disabled={!preparationOpen}
+                                                                                        onclick={() =>
+                                                                                                removeTower(
+                                                                                                        slot.position
+                                                                                                )}
+                                                                                >
+                                                                                        Retirer
+                                                                                </button>
+                                                                        </div>
+                                                                {:else}
+                                                                        <span class="muted">
+                                                                                vide
+                                                                        </span>
+                                                                {/if}
+                                                        </article>
+                                                {/each}
+                                        </div>
+                                </div>
+                        </section>
+                {:else}
+                        <section class="view">
+                                <div class="section-heading">
+                                        <div>
+                                                <p class="eyebrow">
+                                                        CYCLE
+                                                </p>
+
+                                                <h2>
+                                                        Vague
+                                                </h2>
+                                        </div>
+
+                                        <span class="badge">
+                                                {session.waveCycle.history.length}/{session.waveCycle.plannedWaveCount}
+                                                résolues
+                                        </span>
+                                </div>
+
+                                {#if session.waveCycle.phase === 'complete'}
+                                        <article class="discovery-card">
+                                                <p class="eyebrow">
+                                                        CYCLE TERMINÉ
+                                                </p>
+
+                                                <h3>
+                                                        Trois vagues traversées
+                                                </h3>
+
+                                                <p>
+                                                        Le Corcite a conservé ses constructions, recherches, conséquences et matières récupérées pendant l’ensemble de la partie.
+                                                </p>
+                                        </article>
+                                {:else if session.waveCycle.phase === 'ready'}
+                                        <article class="wave-alert">
+                                                <p class="eyebrow">
+                                                        VAGUE ARRIVÉE
+                                                </p>
+
+                                                <h3>
+                                                        La préparation est verrouillée.
+                                                </h3>
+
+                                                <p>
+                                                        Le tour {session.currentTurn} a déjà été produit. Il n’est plus possible de construire ou réorganiser avant le passage de la vague.
+                                                </p>
+
+                                                <button
+                                                        type="button"
+                                                        class="danger-action"
+                                                        onclick={resolveWave}
+                                                >
+                                                        Résoudre la vague
+                                                </button>
+                                        </article>
+                                {:else if forecast}
+                                        <article class="forecast-card">
+                                                <div class="section-heading">
+                                                        <div>
+                                                                <p class="eyebrow">
+                                                                        {forecast.stageLabel}
+                                                                </p>
+
+                                                                <h3>
+                                                                        Vague {forecast.waveNumber}
+                                                                </h3>
+                                                        </div>
+
+                                                        <strong>
+                                                                {forecast.turnsUntilWave}
+                                                                {forecast.turnsUntilWave === 1
+                                                                        ? ' tour'
+                                                                        : ' tours'}
+                                                        </strong>
+                                                </div>
+
+                                                <p>
+                                                        Incertitude :
+                                                        ±{formatNumber(forecast.effectiveUncertaintyPercent)} %
+                                                </p>
+
+                                                <div class="wave-values">
+                                                        <div>
+                                                                <span>Pression</span>
+                                                                <strong>
+                                                                        {formatNumber(forecast.estimatedWave.pressure)}
+                                                                </strong>
+                                                        </div>
+
+                                                        <div>
+                                                                <span>Structure</span>
+                                                                <strong>
+                                                                        {formatNumber(forecast.estimatedWave.structure)}
+                                                                </strong>
+                                                        </div>
+
+                                                        <div>
+                                                                <span>Charge</span>
+                                                                <strong>
+                                                                        {formatNumber(forecast.estimatedWave.charge)}
+                                                                </strong>
+                                                        </div>
+
+                                                        <div>
+                                                                <span>Matière</span>
+                                                                <strong>
+                                                                        {formatNumber(forecast.estimatedWave.capturableMatter)}
+                                                                </strong>
+                                                        </div>
+                                                </div>
+                                        </article>
+                                {:else}
+                                        <div class="panel">
+                                                <h3>
+                                                        Aucun signal exploitable
+                                                </h3>
+
+                                                <p>
+                                                        Une vague existe dans le cycle, mais son arrivée se situe encore hors de l’horizon de lecture actuel.
+                                                </p>
+
+                                                <p class="muted">
+                                                        Après la première vague, le prototype garantit au moins cinq tours de développement ; une petite variation peut retarder le passage jusqu’à deux tours supplémentaires.
+                                                </p>
+                                        </div>
+                                {/if}
+
+                                {#if session.lastWave}
+                                        <div class="panel">
+                                                <h3>
+                                                        Dernière vague
+                                                </h3>
+
+                                                <div class="wave-values">
+                                                        <div>
+                                                                <span>Pression réelle</span>
+                                                                <strong>
+                                                                        {formatNumber(session.lastWave.historyEntry.actualWave.pressure)}
+                                                                </strong>
+                                                                <small>
+                                                                        après défense {formatNumber(session.lastWave.historyEntry.finalWave.pressure)}
+                                                                </small>
+                                                        </div>
+
+                                                        <div>
+                                                                <span>Structure réelle</span>
+                                                                <strong>
+                                                                        {formatNumber(session.lastWave.historyEntry.actualWave.structure)}
+                                                                </strong>
+                                                                <small>
+                                                                        après défense {formatNumber(session.lastWave.historyEntry.finalWave.structure)}
+                                                                </small>
+                                                        </div>
+
+                                                        <div>
+                                                                <span>Charge réelle</span>
+                                                                <strong>
+                                                                        {formatNumber(session.lastWave.historyEntry.actualWave.charge)}
+                                                                </strong>
+                                                                <small>
+                                                                        après défense {formatNumber(session.lastWave.historyEntry.finalWave.charge)}
+                                                                </small>
+                                                        </div>
+
+                                                        <div>
+                                                                <span>Captée</span>
+                                                                <strong>
+                                                                        {formatNumber(session.lastWave.historyEntry.capturedMatter)}
+                                                                </strong>
+                                                                <small>
+                                                                        matière retirée de la vague
+                                                                </small>
+                                                        </div>
+                                                </div>
+
+                                                <p>
+                                                        Intégrité actuelle :
+                                                        <strong>
+                                                                {formatNumber(session.corcite.recovery.integrity.current)}
+                                                        </strong>
+                                                </p>
+
+                                                <p>
+                                                        Matière de vague stockée :
+                                                        <strong>
+                                                                {formatNumber(unknownWaveMatter)}
+                                                        </strong>
+                                                </p>
+                                        </div>
+                                {/if}
+
+                                {#if session.waveCycle.history.length > 0}
+                                        <div class="panel">
+                                                <h3>
+                                                        Historique des vagues
+                                                </h3>
+
+                                                <div class="card-list">
+                                                        {#each session.waveCycle.history as entry}
+                                                                <article class="compact-card">
+                                                                        <div>
+                                                                                <strong>
+                                                                                        Vague {entry.waveNumber}
+                                                                                </strong>
+
+                                                                                <p>
+                                                                                        {entry.label}
+                                                                                        · tour {entry.resolvedTurn}
+                                                                                </p>
+                                                                        </div>
+
+                                                                        <span class="badge">
+                                                                                captée {formatNumber(entry.capturedMatter)}
+                                                                        </span>
+                                                                </article>
+                                                        {/each}
+                                                </div>
+                                        </div>
+                                {/if}
+                        </section>
+                {/if}
+        </main>
+
+        <section class="turn-control">
+                {#if session.waveCycle.phase === 'ready'}
+                        <div>
+                                <strong>
+                                        La vague est arrivée.
+                                </strong>
+                                <span>
+                                        Résolvez-la avant de poursuivre.
+                                </span>
+                        </div>
+
+                        <button
+                                type="button"
+                                class="danger-action"
+                                onclick={resolveWave}
+                        >
+                                Résoudre la vague
+                        </button>
+                {:else if session.waveCycle.phase === 'complete'}
+                        <div>
+                                <strong>
+                                        Cycle terminé
+                                </strong>
+                                <span>
+                                        Les trois vagues ont été résolues.
+                                </span>
+                        </div>
+
+                        <button
+                                type="button"
+                                onclick={newSession}
+                        >
+                                Nouvelle partie
+                        </button>
+                {:else}
+                        <div>
+                                <strong>
+                                        Tour {session.currentTurn}
+                                </strong>
+                                <span>
+                                        Les décisions ne consomment pas d’action. Terminer le tour fait avancer le temps.
+                                </span>
+                        </div>
+
+                        <button
+                                type="button"
+                                onclick={resolveTurn}
+                        >
+                                Terminer le tour
+                        </button>
+                {/if}
+        </section>
+
+        <nav
+                class="primary-nav"
+                aria-label="Sections du prototype"
+        >
+                {#each views as view}
+                        <button
+                                type="button"
+                                class:active={activeView === view.id}
+                                aria-current={activeView === view.id
+                                        ? 'page'
+                                        : undefined}
+                                onclick={() =>
+                                        activeView =
+                                                view.id}
+                        >
+                                {view.label}
+                        </button>
+                {/each}
+        </nav>
 </div>
 
 <style>
-	.proto-shell {
-		min-height: 100vh;
-		padding: 1.25rem;
-		color: var(--text);
-	}
-
-	.topbar {
-		max-width: 96rem;
-		margin: 0 auto 1rem;
-		display: flex;
-		justify-content: space-between;
-		gap: 2rem;
-		align-items: flex-end;
-	}
-
-	h1,
-	h2,
-	p {
-		margin-top: 0;
-	}
-
-	h1 {
-		margin-bottom: 0.2rem;
-		font-size: clamp(2.4rem, 6vw, 4.6rem);
-		line-height: 0.9;
-	}
-
-	h2 {
-		margin-bottom: 0.8rem;
-		font-size: 1.3rem;
-	}
-
-	.eyebrow {
-		margin-bottom: 0.35rem;
-		font-size: 0.72rem;
-		font-weight: 800;
-		letter-spacing: 0.16em;
-		text-transform: uppercase;
-		color: var(--muted);
-	}
-
-	.subtitle,
-	.muted {
-		color: var(--muted);
-	}
-
-	.session-form {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.7rem;
-		align-items: end;
-	}
-
-	label {
-		display: grid;
-		gap: 0.35rem;
-		font-size: 0.82rem;
-	}
-
-	select,
-	input[type="number"],
-	button {
-		border: 1px solid var(--border);
-		border-radius: 0.65rem;
-		background: var(--control);
-		color: var(--text);
-	}
-
-	select,
-	input[type="number"] {
-		min-height: 2.55rem;
-		padding: 0.45rem 0.65rem;
-	}
-
-	button {
-		padding: 0.65rem 0.85rem;
-		cursor: pointer;
-		transition:
-			transform 120ms ease,
-			background 120ms ease,
-			border-color 120ms ease;
-	}
-
-	button:hover:not(:disabled) {
-		transform: translateY(-1px);
-		border-color: var(--accent);
-	}
-
-	button:focus-visible,
-	input:focus-visible,
-	select:focus-visible,
-	summary:focus-visible {
-		outline: 3px solid var(--focus);
-		outline-offset: 3px;
-	}
-
-	button:disabled {
-		opacity: 0.4;
-		cursor: not-allowed;
-	}
-
-	.primary {
-		background: var(--accent-soft);
-		border-color: var(--accent);
-	}
-
-	.danger {
-		background: var(--danger-soft);
-		border-color: var(--danger);
-	}
-
-	.large {
-		padding: 0.9rem 1.2rem;
-		font-weight: 800;
-	}
-
-	.view-tabs {
-		max-width: 96rem;
-		margin: 0 auto 1rem;
-		display: flex;
-		gap: 0.5rem;
-		border-bottom: 1px solid var(--border);
-		padding-bottom: 0.75rem;
-	}
-
-	.view-tabs button.active {
-		border-color: var(--accent);
-		background: var(--accent-soft);
-	}
-
-	.status-line,
-	.error {
-		max-width: 96rem;
-		margin: 0 auto 1rem;
-		padding: 0.7rem 0.9rem;
-		border-radius: 0.65rem;
-	}
-
-	.status-line {
-		background: var(--panel-soft);
-		color: var(--muted);
-	}
-
-	.error {
-		border: 1px solid var(--danger);
-		background: var(--danger-soft);
-	}
-
-	main {
-		max-width: 96rem;
-		margin: 0 auto;
-	}
-
-	.workspace {
-		display: grid;
-		grid-template-columns: minmax(14rem, 18rem) 1fr;
-		gap: 1rem;
-		align-items: start;
-	}
-
-	.sidebar,
-	.content {
-		display: grid;
-		gap: 1rem;
-	}
-
-	.panel {
-		padding: 1.15rem;
-		border: 1px solid var(--border);
-		border-radius: 1rem;
-		background: var(--panel);
-		box-shadow: 0 1.2rem 3rem rgb(0 0 0 / 12%);
-	}
-
-	.welcome {
-		max-width: 42rem;
-		margin: 6rem auto;
-	}
-
-	.section-heading {
-		display: flex;
-		justify-content: space-between;
-		gap: 1rem;
-		align-items: start;
-	}
-
-	.badge {
-		display: inline-flex;
-		padding: 0.35rem 0.55rem;
-		border: 1px solid var(--border);
-		border-radius: 999px;
-		font-size: 0.78rem;
-		color: var(--muted);
-		white-space: nowrap;
-	}
-
-	dl {
-		margin: 0;
-		display: grid;
-		gap: 0.5rem;
-	}
-
-	dl div {
-		display: flex;
-		justify-content: space-between;
-		gap: 1rem;
-	}
-
-	dt {
-		color: var(--muted);
-	}
-
-	dd {
-		margin: 0;
-		font-weight: 700;
-	}
-
-	.resource-grid,
-	.wave-grid {
-		display: grid;
-		grid-template-columns: repeat(
-			4,
-			minmax(0, 1fr)
-		);
-		gap: 0.65rem;
-	}
-
-	.resource-grid div,
-	.wave-grid div {
-		padding: 0.7rem;
-		border-radius: 0.75rem;
-		background: var(--panel-soft);
-		display: grid;
-		gap: 0.25rem;
-	}
-
-	.resource-grid span,
-	.wave-grid span {
-		font-size: 0.76rem;
-		color: var(--muted);
-	}
-
-	.resource-grid strong,
-	.wave-grid strong {
-		font-size: 1.15rem;
-	}
-
-	.two-columns {
-		display: grid;
-		grid-template-columns: repeat(
-			2,
-			minmax(0, 1fr)
-		);
-		gap: 1rem;
-	}
-
-	.event-list {
-		display: grid;
-		gap: 0.45rem;
-		max-height: 15rem;
-		overflow: auto;
-	}
-
-	.event-list p {
-		margin: 0;
-		padding: 0.55rem;
-		border-radius: 0.55rem;
-		background: var(--panel-soft);
-		font-size: 0.84rem;
-	}
-
-	.research {
-		display: grid;
-		gap: 0.55rem;
-	}
-
-	progress {
-		width: 100%;
-	}
-
-	.success {
-		margin-top: 1rem;
-		color: var(--success);
-	}
-
-	.td-path {
-		display: grid;
-		grid-template-columns: repeat(
-			8,
-			minmax(7rem, 1fr)
-		);
-		gap: 0.6rem;
-		overflow-x: auto;
-		padding-bottom: 0.4rem;
-	}
-
-	.td-slot {
-		min-height: 12rem;
-		padding: 0.7rem;
-		border: 1px solid var(--border);
-		border-radius: 0.8rem;
-		background: var(--panel-soft);
-		display: grid;
-		align-content: start;
-		gap: 0.55rem;
-	}
-
-	.td-slot.occupied {
-		border-color: var(--accent);
-	}
-
-	.position {
-		width: 2rem;
-		height: 2rem;
-		display: grid;
-		place-items: center;
-		border-radius: 50%;
-		background: var(--control);
-		font-weight: 900;
-	}
-
-	.tower-actions {
-		display: grid;
-		gap: 0.35rem;
-	}
-
-	.tower-actions button {
-		padding: 0.4rem;
-		font-size: 0.72rem;
-		text-align: left;
-	}
-
-	.turn-control {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 1.5rem;
-	}
-
-	.report .lead {
-		font-size: 1.05rem;
-		line-height: 1.6;
-	}
-
-	details {
-		margin-top: 1rem;
-		padding-top: 1rem;
-		border-top: 1px solid var(--border);
-	}
-
-	summary {
-		cursor: pointer;
-		font-weight: 800;
-	}
-
-	.steps {
-		display: grid;
-		gap: 0.6rem;
-	}
-
-	.technical pre {
-		max-height: 70vh;
-		overflow: auto;
-		padding: 1rem;
-		border-radius: 0.8rem;
-		background: #0b0910;
-		font-size: 0.78rem;
-		white-space: pre-wrap;
-		word-break: break-word;
-	}
-
-	.accessibility {
-		position: fixed;
-		right: 1rem;
-		bottom: 1rem;
-		z-index: 10;
-		display: grid;
-		gap: 0.45rem;
-		padding: 0.75rem;
-		border: 1px solid var(--border);
-		border-radius: 0.8rem;
-		background: var(--panel-solid);
-		box-shadow: 0 1rem 3rem rgb(0 0 0 / 30%);
-		font-size: 0.78rem;
-	}
-
-	.accessibility label {
-		display: flex;
-		grid-template-columns: none;
-		align-items: center;
-		gap: 0.45rem;
-	}
-
-	.skip-link {
-		position: fixed;
-		left: 1rem;
-		top: -5rem;
-		z-index: 100;
-		padding: 0.7rem;
-		background: white;
-		color: black;
-	}
-
-	.skip-link:focus {
-		top: 1rem;
-	}
-
-	.large-text {
-		font-size: 118%;
-	}
-
-	.high-contrast {
-		--text: #ffffff;
-		--muted: #e6e1ef;
-		--border: rgb(255 255 255 / 42%);
-		--panel: #100d17;
-		--panel-soft: #201a2c;
-		--control: #09070d;
-	}
-
-	.compact .panel {
-		padding: 0.75rem;
-	}
-
-	.compact .content,
-	.compact .sidebar,
-	.compact .workspace,
-	.compact .two-columns {
-		gap: 0.65rem;
-	}
-
-	.reduced-motion *,
-	.reduced-motion *::before,
-	.reduced-motion *::after {
-		scroll-behavior: auto !important;
-		transition: none !important;
-		animation: none !important;
-	}
-
-	@media (max-width: 72rem) {
-		.workspace {
-			grid-template-columns: 1fr;
-		}
-
-		.sidebar {
-			grid-template-columns:
-				repeat(
-					3,
-					minmax(0, 1fr)
-				);
-		}
-	}
-
-	@media (max-width: 48rem) {
-		.proto-shell {
-			padding: 0.75rem;
-		}
-
-		.topbar,
-		.turn-control,
-		.section-heading {
-			align-items: stretch;
-			flex-direction: column;
-		}
-
-		.two-columns,
-		.sidebar,
-		.resource-grid,
-		.wave-grid {
-			grid-template-columns: 1fr 1fr;
-		}
-
-		.accessibility {
-			position: static;
-			margin-top: 1rem;
-		}
-	}
-
-	@media (max-width: 32rem) {
-		.two-columns,
-		.sidebar,
-		.resource-grid,
-		.wave-grid {
-			grid-template-columns: 1fr;
-		}
-	}
+        .app-shell {
+                --text: #ece9f2;
+                --muted: #aaa2b8;
+                --accent: #9f8dcc;
+                --danger: #d07d8e;
+                --border: #494153;
+                --focus: #cabbea;
+                --control: #302a39;
+                --panel-solid: #19161f;
+                --panel: #211d28;
+                --panel-soft: #292430;
+                --accent-soft: rgb(159 141 204 / 14%);
+                --danger-soft: rgb(208 125 142 / 14%);
+
+                width: min(100%, 1180px);
+                color: var(--text);
+                margin: 0 auto;
+                padding:
+                        0.8rem
+                        0.8rem
+                        8.5rem;
+        }
+
+        .topbar {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+                margin-bottom: 0.8rem;
+        }
+
+        .brand h1,
+        .section-heading h2,
+        .panel h3,
+        .catalog-card h3,
+        .catalog-card h4 {
+                margin: 0;
+        }
+
+        .brand h1 {
+                font-size:
+                        clamp(
+                                1.35rem,
+                                5vw,
+                                2rem
+                        );
+        }
+
+        .eyebrow {
+                margin:
+                        0
+                        0
+                        0.3rem;
+                color: var(--accent);
+                font-size: 0.72rem;
+                font-weight: 800;
+                letter-spacing: 0.13em;
+                text-transform: uppercase;
+        }
+
+        button,
+        select {
+                min-height: 44px;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 0.65rem;
+        }
+
+        button {
+                padding:
+                        0.68rem
+                        0.9rem;
+                color: #17131f;
+                background: var(--accent);
+                font-weight: 750;
+                cursor: pointer;
+        }
+
+        button:hover:not(:disabled) {
+                filter: brightness(1.08);
+        }
+
+        button:focus-visible,
+        select:focus-visible {
+                outline:
+                        3px solid
+                        var(--focus);
+                outline-offset: 2px;
+        }
+
+        button:disabled {
+                cursor: not-allowed;
+                opacity: 0.42;
+        }
+
+        button.secondary {
+                color: var(--text);
+                background: var(--control);
+        }
+
+        .compact-button {
+                min-width: max-content;
+        }
+
+        .danger-action {
+                color: #1f1115;
+                background: var(--danger);
+        }
+
+        .status-strip {
+                position: sticky;
+                z-index: 20;
+                top: 0;
+                display: grid;
+                grid-template-columns:
+                        repeat(
+                                4,
+                                minmax(0, 1fr)
+                        );
+                gap: 0.35rem;
+                padding: 0.45rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 0.85rem;
+                background: var(--panel-solid);
+                box-shadow:
+                        0 0.75rem 2rem
+                        rgb(0 0 0 / 24%);
+        }
+
+        .status-strip > div {
+                display: flex;
+                min-width: 0;
+                flex-direction: column;
+                padding: 0.42rem;
+                border-radius: 0.55rem;
+                background: var(--panel-soft);
+        }
+
+        .status-strip span,
+        .metric span,
+        .resource-grid span,
+        .wave-values span {
+                color: var(--muted);
+                font-size: 0.72rem;
+        }
+
+        .status-strip strong {
+                overflow: hidden;
+                font-size: 0.91rem;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+        }
+
+        small {
+                color: var(--muted);
+        }
+
+        .danger-text {
+                color: var(--danger);
+        }
+
+        .message {
+                margin-top: 0.6rem;
+                padding:
+                        0.65rem
+                        0.8rem;
+                border-radius: 0.65rem;
+                font-size: 0.9rem;
+        }
+
+        .status-message {
+                color: var(--muted);
+                background: var(--panel-soft);
+        }
+
+        .error-message {
+                color: #ffd9e0;
+                border:
+                        1px solid
+                        var(--danger);
+                background:
+                        var(--danger-soft);
+        }
+
+        main {
+                margin-top: 1rem;
+        }
+
+        .view {
+                display: grid;
+                gap: 1rem;
+        }
+
+        .section-heading,
+        .panel-heading {
+                display: flex;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 1rem;
+        }
+
+        .section-heading h2 {
+                font-size:
+                        clamp(
+                                1.5rem,
+                                7vw,
+                                2.4rem
+                        );
+        }
+
+        .metric-grid,
+        .resource-grid,
+        .wave-values {
+                display: grid;
+                grid-template-columns:
+                        repeat(
+                                2,
+                                minmax(0, 1fr)
+                        );
+                gap: 0.6rem;
+        }
+
+        .metric,
+        .resource-grid article,
+        .wave-values > div {
+                display: flex;
+                min-width: 0;
+                flex-direction: column;
+                gap: 0.2rem;
+                padding: 0.8rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 0.75rem;
+                background: var(--panel);
+        }
+
+        .metric strong,
+        .resource-grid strong,
+        .wave-values strong {
+                font-size: 1.25rem;
+        }
+
+        .panel,
+        .discovery-card,
+        .forecast-card,
+        .wave-alert {
+                padding: 1rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 0.9rem;
+                background: var(--panel);
+        }
+
+        .panel > h3:first-child {
+                margin-top: 0;
+        }
+
+        .panel-heading p,
+        .catalog-card p,
+        .compact-card p,
+        .discovery-card p,
+        .forecast-card p,
+        .wave-alert p {
+                margin:
+                        0.4rem
+                        0;
+                line-height: 1.45;
+        }
+
+        .catalog-grid,
+        .card-list,
+        .event-list {
+                display: grid;
+                gap: 0.65rem;
+                margin-top: 0.8rem;
+        }
+
+        .catalog-card,
+        .compact-card {
+                display: flex;
+                justify-content: space-between;
+                gap: 0.8rem;
+                padding: 0.8rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 0.75rem;
+                background: var(--panel-soft);
+        }
+
+        .catalog-card {
+                flex-direction: column;
+        }
+
+        .catalog-card button {
+                width: 100%;
+        }
+
+        .vertical-card {
+                flex-direction: column;
+        }
+
+        .cost {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.35rem;
+        }
+
+        .cost span,
+        .badge {
+                display: inline-flex;
+                align-items: center;
+                width: fit-content;
+                padding:
+                        0.25rem
+                        0.45rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 999px;
+                color: var(--muted);
+                background: var(--control);
+                font-size: 0.76rem;
+        }
+
+        .danger-badge {
+                color: #ffdbe2;
+                border-color: var(--danger);
+                background: var(--danger-soft);
+        }
+
+        .blockers {
+                color: #e2b0ba;
+                font-size: 0.78rem;
+        }
+
+        .muted {
+                color: var(--muted);
+        }
+
+        .form-grid {
+                display: grid;
+                gap: 0.65rem;
+                margin-top: 0.8rem;
+        }
+
+        label {
+                display: grid;
+                gap: 0.35rem;
+                color: var(--muted);
+                font-size: 0.82rem;
+        }
+
+        select {
+                width: 100%;
+                padding:
+                        0.55rem
+                        0.65rem;
+                color: var(--text);
+                background: var(--panel-solid);
+        }
+
+        .event-list p {
+                margin: 0;
+                padding: 0.6rem;
+                border-radius: 0.55rem;
+                background: var(--panel-soft);
+        }
+
+        progress {
+                width: 100%;
+                height: 0.8rem;
+                accent-color: var(--accent);
+        }
+
+        .progress-text {
+                color: var(--muted);
+        }
+
+        .discovery-card {
+                border-color: var(--accent);
+                background: var(--accent-soft);
+        }
+
+        .wave-alert {
+                border-color: var(--danger);
+                background: var(--danger-soft);
+        }
+
+        .forecast-card {
+                border-color: var(--accent);
+        }
+
+        .inline-actions,
+        .slot-actions {
+                display: grid;
+                gap: 0.45rem;
+        }
+
+        .inventory-card {
+                align-items: center;
+        }
+
+        .td-path {
+                display: grid;
+                grid-template-columns:
+                        repeat(
+                                2,
+                                minmax(0, 1fr)
+                        );
+                gap: 0.55rem;
+                margin-top: 0.8rem;
+        }
+
+        .td-slot {
+                display: flex;
+                min-height: 8rem;
+                flex-direction: column;
+                gap: 0.5rem;
+                padding: 0.7rem;
+                border:
+                        1px dashed
+                        var(--border);
+                border-radius: 0.75rem;
+                background: var(--panel-soft);
+        }
+
+        .td-slot.occupied {
+                border-style: solid;
+                border-color: var(--accent);
+        }
+
+        .position-number {
+                display: grid;
+                width: 1.75rem;
+                height: 1.75rem;
+                place-items: center;
+                border-radius: 999px;
+                color: #17131f;
+                background: var(--accent);
+                font-size: 0.8rem;
+                font-weight: 800;
+        }
+
+        .turn-control {
+                position: fixed;
+                z-index: 30;
+                right: 0.8rem;
+                bottom: 4.6rem;
+                left: 0.8rem;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.7rem;
+                max-width: 1160px;
+                margin: 0 auto;
+                padding: 0.65rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 0.8rem;
+                background: var(--panel-solid);
+                box-shadow:
+                        0 0.8rem 2.4rem
+                        rgb(0 0 0 / 38%);
+        }
+
+        .turn-control div {
+                display: flex;
+                min-width: 0;
+                flex-direction: column;
+        }
+
+        .turn-control span {
+                overflow: hidden;
+                max-width: 55vw;
+                color: var(--muted);
+                font-size: 0.72rem;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+        }
+
+        .turn-control button {
+                flex: 0 0 auto;
+        }
+
+        .primary-nav {
+                position: fixed;
+                z-index: 40;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                display: grid;
+                grid-template-columns:
+                        repeat(
+                                5,
+                                minmax(0, 1fr)
+                        );
+                gap: 1px;
+                padding:
+                        0.35rem
+                        max(
+                                0.35rem,
+                                env(
+                                        safe-area-inset-right
+                                )
+                        )
+                        max(
+                                0.35rem,
+                                env(
+                                        safe-area-inset-bottom
+                                )
+                        )
+                        max(
+                                0.35rem,
+                                env(
+                                        safe-area-inset-left
+                                )
+                        );
+                border-top:
+                        1px solid
+                        var(--border);
+                background: var(--panel-solid);
+        }
+
+        .primary-nav button {
+                min-width: 0;
+                padding:
+                        0.55rem
+                        0.2rem;
+                color: var(--muted);
+                border-color: transparent;
+                background: transparent;
+                font-size: 0.75rem;
+        }
+
+        .primary-nav button.active {
+                color: var(--text);
+                border-color: var(--border);
+                background: var(--accent-soft);
+        }
+
+        @media (min-width: 720px) {
+                .app-shell {
+                        padding:
+                                1.2rem
+                                1.2rem
+                                7rem;
+                }
+
+                .metric-grid {
+                        grid-template-columns:
+                                repeat(
+                                        4,
+                                        minmax(0, 1fr)
+                                );
+                }
+
+                .resource-grid {
+                        grid-template-columns:
+                                repeat(
+                                        5,
+                                        minmax(0, 1fr)
+                                );
+                }
+
+                .wave-values {
+                        grid-template-columns:
+                                repeat(
+                                        4,
+                                        minmax(0, 1fr)
+                                );
+                }
+
+                .catalog-grid {
+                        grid-template-columns:
+                                repeat(
+                                        2,
+                                        minmax(0, 1fr)
+                                );
+                }
+
+                .form-grid {
+                        grid-template-columns:
+                                1fr
+                                1fr
+                                0.7fr
+                                auto;
+                        align-items: end;
+                }
+
+                .td-path {
+                        grid-template-columns:
+                                repeat(
+                                        4,
+                                        minmax(0, 1fr)
+                                );
+                }
+
+                .primary-nav {
+                        position: sticky;
+                        top: 5.4rem;
+                        z-index: 19;
+                        margin:
+                                0.65rem
+                                0
+                                1rem;
+                        padding: 0.35rem;
+                        border:
+                                1px solid
+                                var(--border);
+                        border-radius: 0.8rem;
+                }
+
+                .primary-nav button {
+                        font-size: 0.88rem;
+                }
+
+                .turn-control {
+                        bottom: 1rem;
+                }
+        }
+
+        @media (min-width: 1020px) {
+                .catalog-grid {
+                        grid-template-columns:
+                                repeat(
+                                        3,
+                                        minmax(0, 1fr)
+                                );
+                }
+
+                .td-path {
+                        grid-template-columns:
+                                repeat(
+                                        8,
+                                        minmax(0, 1fr)
+                                );
+                }
+
+                .td-slot {
+                        min-height: 10rem;
+                }
+        }
 </style>

@@ -48,7 +48,36 @@ export const PLAYABLE_WAVE_CYCLE_REFERENCE = {
 
 	firstWaveTurn: 6,
 
-	turnsBetweenWaves: 5,
+        /**
+         * Fenêtre minimale de développement garantie après une vague
+         * avant l'arrivée de la suivante.
+         *
+         * Valeur PROVISOIRE d'équilibrage :
+         * elle doit être réévaluée à partir des playtests et simulations,
+         * mais le principe d'une période minimale de développement
+         * fait partie du contrat du prototype jouable.
+         */
+        minimumDevelopmentTurnsBetweenWaves: 5,
+
+        /**
+         * Espacement nominal actuellement demandé entre deux vagues.
+         *
+         * Le moteur applique toujours au moins
+         * minimumDevelopmentTurnsBetweenWaves.
+         */
+        turnsBetweenWaves: 5,
+
+        /**
+         * Petite variabilité d'arrivée après la fenêtre minimale.
+         *
+         * Une vague peut donc être retardée de 0 à 2 tours,
+         * mais jamais avancée avant la période de développement
+         * garantie au joueur.
+         *
+         * Le délai est déterministe à graine identique afin de
+         * conserver la reproductibilité des simulations.
+         */
+        maximumAdditionalArrivalDelayTurns: 2,
 
 	forecastHorizonTurns: 5,
 
