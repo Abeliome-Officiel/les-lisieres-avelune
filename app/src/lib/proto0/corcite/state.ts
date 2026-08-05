@@ -163,6 +163,10 @@ export function createReferenceCorciteState(
 		storageUnits: createInitialStorageUnits(),
 		structures,
 		productions: [],
+		tfNetwork: {
+			connections: [],
+			buffers: []
+		},
 		capacities: createInitialCapacities(structures),
 		modifiers: [],
 		reservations: []

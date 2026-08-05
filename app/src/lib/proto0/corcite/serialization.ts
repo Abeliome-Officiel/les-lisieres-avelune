@@ -1,4 +1,10 @@
 import type {
+	TfBufferState,
+	TfConnectionRouting,
+	TfConnectionState,
+	TfNetworkState
+} from '../domain/tf.js';
+import type {
 	CorciteController,
 	CorciteState,
 	ModifierOperation,
@@ -241,6 +247,77 @@ function isResourceReservation(
 	);
 }
 
+function isTfConnectionRouting(
+	value: unknown
+): value is TfConnectionRouting {
+	if (!isRecord(value)) return false;
+
+	if (value.mode === 'priority') {
+		return isFiniteNumber(
+			value.priority
+		);
+	}
+
+	if (value.mode === 'weighted') {
+		return isFiniteNumber(
+			value.weight
+		);
+	}
+
+	return false;
+}
+
+function isTfConnectionState(
+	value: unknown
+): value is TfConnectionState {
+	if (!isRecord(value)) return false;
+
+	return (
+		isString(value.id) &&
+		isString(value.fromStructureId) &&
+		isString(value.toStructureId) &&
+		isResourceId(value.resourceId) &&
+		isTfConnectionRouting(
+			value.routing
+		)
+	);
+}
+
+function isTfBufferState(
+	value: unknown
+): value is TfBufferState {
+	if (!isRecord(value)) return false;
+
+	return (
+		isString(value.id) &&
+		isString(value.connectionId) &&
+		isResourceId(value.resourceId) &&
+		isFiniteNumber(value.capacity) &&
+		isFiniteNumber(value.amount)
+	);
+}
+
+function isTfNetworkState(
+	value: unknown
+): value is TfNetworkState {
+	if (!isRecord(value)) return false;
+
+	return (
+		Array.isArray(
+			value.connections
+		) &&
+		value.connections.every(
+			isTfConnectionState
+		) &&
+		Array.isArray(
+			value.buffers
+		) &&
+		value.buffers.every(
+			isTfBufferState
+		)
+	);
+}
+
 function isController(
 	value: unknown
 ): value is CorciteController {
@@ -267,6 +344,7 @@ function isCorciteStateShape(
 		value.structures.every(isStructureState) &&
 		Array.isArray(value.productions) &&
 		value.productions.every(isProductionState) &&
+		isTfNetworkState(value.tfNetwork) &&
 		isCapacities(value.capacities) &&
 		Array.isArray(value.modifiers) &&
 		value.modifiers.every(isModifierState) &&

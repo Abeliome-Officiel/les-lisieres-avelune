@@ -1,3 +1,4 @@
+import { validateTfNetworkState } from '../tf/network-validate.js';
 import type { CorciteState } from '../domain/corcite.js';
 import { RESOURCE_IDS } from '../domain/resources.js';
 
@@ -26,6 +27,16 @@ export function validateCorciteState(
 	state: CorciteState
 ): CorciteValidationResult {
 	const errors: string[] = [];
+
+	const tfNetworkValidation =
+		validateTfNetworkState(
+			state.tfNetwork,
+			state.structures
+		);
+
+	errors.push(
+		...tfNetworkValidation.errors
+	);
 
 	const duplicateStorageIds = findDuplicates(
 		state.storageUnits.map((storage) => storage.id)

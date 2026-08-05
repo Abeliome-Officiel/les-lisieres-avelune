@@ -60,16 +60,16 @@ Le moteur ne dépend plus du modèle historique « 1 TD + 1 TF + 1 RPG ».
 
 ## P3 — TF minimal
 
-- [ ] extraction ;
-- [ ] transformation ;
-- [ ] fabrication ;
-- [ ] ressources de niveau supérieur ;
-- [ ] capacité de stockage par unité ;
-- [ ] blocage ou conséquence en cas de stockage saturé ;
-- [ ] tampon automatique N → N+1 ;
-- [ ] bifurcations ;
-- [ ] priorités ou répartitions ;
-- [ ] dépendance matérielle d'au moins une construction TD.
+- [x] extraction ;
+- [x] transformation ;
+- [x] fabrication ;
+- [x] ressources de niveau supérieur ;
+- [x] capacité de stockage par unité ;
+- [x] blocage ou conséquence en cas de stockage saturé ;
+- [x] tampon automatique N → N+1 ;
+- [x] bifurcations ;
+- [x] priorités ou répartitions ;
+- [x] dépendance matérielle d'au moins une construction TD.
 
 ### Critère de sortie
 
