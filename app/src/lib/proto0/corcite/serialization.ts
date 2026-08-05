@@ -228,6 +228,71 @@ function isPopulationState(value: unknown): boolean {
 	);
 }
 
+function isPlayableSustainabilityState(
+	value: unknown
+): boolean {
+	if (!isRecord(value)) return false;
+
+	const lastResolvedTurn =
+		value.lastResolvedTurn;
+
+	if (
+		!isFiniteNumber(lastResolvedTurn) ||
+		!Number.isInteger(lastResolvedTurn) ||
+		lastResolvedTurn < 0
+	) {
+		return false;
+	}
+
+	if (
+		!isRecord(value.energy) ||
+		!isFiniteNumber(value.energy.overload) ||
+		!isFiniteNumber(
+			value.energy.reserveSpentLastTurn
+		) ||
+		!isFiniteNumber(
+			value.energy.reserveRecoveredLastTurn
+		) ||
+		!isBoolean(
+			value.energy.mustReduceLoad
+		)
+	) {
+		return false;
+	}
+
+	if (
+		!isRecord(value.maintenance) ||
+		!isFiniteNumber(
+			value.maintenance.deficit
+		) ||
+		!isFiniteNumber(
+			value.maintenance.debt
+		) ||
+		!Number.isInteger(
+			value.maintenance
+				.consecutiveDeficitTurns
+		) ||
+		typeof value.maintenance.condition !==
+			'string' ||
+		![
+			'stable',
+			'strained',
+			'degraded',
+			'critical'
+		].includes(
+			value.maintenance.condition
+		)
+	) {
+		return false;
+	}
+
+	return (
+		isRecord(value.work) &&
+		isFiniteNumber(value.work.free) &&
+		isFiniteNumber(value.work.shortage)
+	);
+}
+
 function isEnergyState(value: unknown): boolean {
 	if (!isRecord(value)) return false;
 
@@ -671,6 +736,12 @@ function isCorciteStateShape(
 			(
 				value.population === undefined ||
 				isPopulationState(value.population)
+			) &&
+			(
+				value.sustainability === undefined ||
+				isPlayableSustainabilityState(
+					value.sustainability
+				)
 			) &&
 		Array.isArray(value.storageUnits) &&
 		value.storageUnits.every(isStorageUnitState) &&

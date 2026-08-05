@@ -10,6 +10,11 @@ import {
 	recalculatePlayableCapacities
 } from '../corcite/construction.js';
 import {
+	assertPlayableEnergyCanOperate,
+	resolvePlayableSustainabilityTurn,
+	type PlayableSustainabilityTurnResolution
+} from '../corcite/sustainability.js';
+import {
 	validateCorciteState
 } from '../corcite/validate.js';
 import {
@@ -21,6 +26,8 @@ export interface PlayableTfTurnResult {
 	extraction: TfExtractionResolution;
 	transformation: TfProcessingResolution;
 	fabrication: TfProcessingResolution;
+	sustainability:
+		PlayableSustainabilityTurnResolution;
 }
 
 function requirePlayableState(
@@ -38,19 +45,17 @@ function requirePlayableState(
 /**
  * Tour TF complet du prototype miniature.
  *
- * La fonction délègue volontairement au moteur TF canonique :
+ * 1. vérifie que la charge énergétique courante peut encore
+ *    être soutenue ;
+ * 2. exécute le moteur TF canonique ;
+ * 3. applique consommation/récupération énergétique ;
+ * 4. met à jour entretien et travail.
  *
- * extraction
- * -> transformation
- * -> fabrication
- *
- * avec verrouillage des sorties du tour N.
- *
- * Une ressource produite au cours de ce tour ne peut donc pas
- * alimenter une étape aval avant le tour suivant.
+ * La règle N -> N+1 du moteur TF canonique reste intacte.
  */
 export function resolvePlayableTfTurn(
-	inputState: CorciteState
+	inputState: CorciteState,
+	explicitTurn?: number
 ): PlayableTfTurnResult {
 	const state =
 		structuredClone(
@@ -70,17 +75,30 @@ export function resolvePlayableTfTurn(
 		);
 	}
 
-	const result =
+	assertPlayableEnergyCanOperate(
+		state
+	);
+
+	const tfResult =
 		resolveTfCoreTurn(state);
 
-	const playableResult =
+	const playableAfterTf =
 		requirePlayableState(
-			result.corcite
+			tfResult.corcite
 		);
 
 	recalculatePlayableCapacities(
-		playableResult
+		playableAfterTf
 	);
+
+	const sustainability =
+		resolvePlayableSustainabilityTurn(
+			playableAfterTf,
+			explicitTurn
+		);
+
+	const playableResult =
+		sustainability.corcite;
 
 	const validationAfter =
 		validateCorciteState(
@@ -96,10 +114,12 @@ export function resolvePlayableTfTurn(
 	return {
 		corcite: playableResult,
 		extraction:
-			result.extraction,
+			tfResult.extraction,
 		transformation:
-			result.transformation,
+			tfResult.transformation,
 		fabrication:
-			result.fabrication
+			tfResult.fabrication,
+		sustainability:
+			sustainability.resolution
 	};
 }

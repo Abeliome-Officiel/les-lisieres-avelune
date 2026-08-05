@@ -114,15 +114,6 @@ function capacityBlockers(
 	}
 
 	if (
-		state.capacities.maintenance.used >
-		state.capacities.maintenance.capacity
-	) {
-		blockers.push(
-			`Entretien insuffisant (${state.capacities.maintenance.used}/${state.capacities.maintenance.capacity}).`
-		);
-	}
-
-	if (
 		state.capacities.work.used >
 		state.capacities.work.capacity
 	) {
@@ -174,8 +165,32 @@ export function previewPlayableStructureActivation(
 
 	recalculatePlayableCapacities(state);
 
+	/*
+	 * Désactiver une fonction doit toujours rester possible :
+	 * c'est précisément l'outil permettant au joueur de sortir
+	 * d'un déficit énergétique ou de travail.
+	 */
 	const blockers =
-		capacityBlockers(state);
+		active
+			? capacityBlockers(state)
+			: [];
+
+	if (active) {
+		const currentEnergyMaximum =
+			inputState.capacities.energy
+				.normalCapacity +
+			inputState.capacities.energy
+				.reserveCurrent;
+
+		if (
+			inputState.capacities.energy.used >
+			currentEnergyMaximum
+		) {
+			blockers.unshift(
+				'Le Corcite est déjà en déficit énergétique : désactivez d’abord des fonctions avant toute nouvelle activation.'
+			);
+		}
+	}
 
 	return {
 		structureId,

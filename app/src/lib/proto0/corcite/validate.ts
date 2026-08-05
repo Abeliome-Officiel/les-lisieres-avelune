@@ -73,6 +73,135 @@ export function validateCorciteState(
 		}
 	}
 
+	if (state.sustainability !== undefined) {
+		const sustainability =
+			state.sustainability;
+
+		if (
+			!Number.isInteger(
+				sustainability.lastResolvedTurn
+			) ||
+			sustainability.lastResolvedTurn < 0
+		) {
+			errors.push(
+				'Tour de soutenabilité invalide'
+			);
+		}
+
+		const nonNegativeValues = [
+			sustainability.energy.overload,
+			sustainability.energy
+				.reserveSpentLastTurn,
+			sustainability.energy
+				.reserveRecoveredLastTurn,
+			sustainability.maintenance.deficit,
+			sustainability.maintenance.debt,
+			sustainability.work.free,
+			sustainability.work.shortage
+		];
+
+		if (
+			nonNegativeValues.some(
+				(value) =>
+					!isNonNegativeFinite(value)
+			)
+		) {
+			errors.push(
+				'Etat de soutenabilité négatif ou invalide'
+			);
+		}
+
+		if (
+			!Number.isInteger(
+				sustainability.maintenance
+					.consecutiveDeficitTurns
+			) ||
+			sustainability.maintenance
+				.consecutiveDeficitTurns < 0
+		) {
+			errors.push(
+				'Série de déficit d’entretien invalide'
+			);
+		}
+
+		const conditions = [
+			'stable',
+			'strained',
+			'degraded',
+			'critical'
+		];
+
+		if (
+			!conditions.includes(
+				sustainability.maintenance
+					.condition
+			)
+		) {
+			errors.push(
+				'Etat d’entretien inconnu'
+			);
+		}
+
+		const expectedOverload =
+			Math.max(
+				0,
+				state.capacities.energy.used -
+					state.capacities.energy
+						.normalCapacity
+			);
+
+		if (
+			sustainability.energy.overload !==
+			expectedOverload
+		) {
+			errors.push(
+				'Le dépassement énergétique mémorisé ne correspond pas aux capacités'
+			);
+		}
+
+		const expectedMaintenanceDeficit =
+			Math.max(
+				0,
+				state.capacities.maintenance.used -
+					state.capacities.maintenance
+						.capacity
+			);
+
+		if (
+			sustainability.maintenance.deficit !==
+			expectedMaintenanceDeficit
+		) {
+			errors.push(
+				'Le déficit d’entretien mémorisé ne correspond pas aux capacités'
+			);
+		}
+
+		const expectedFreeWork =
+			Math.max(
+				0,
+				state.capacities.work.capacity -
+					state.capacities.work.used
+			);
+
+		const expectedWorkShortage =
+			Math.max(
+				0,
+				state.capacities.work.used -
+					state.capacities.work.capacity
+			);
+
+		if (
+			sustainability.work.free !==
+				expectedFreeWork ||
+			sustainability.work.shortage !==
+				expectedWorkShortage
+		) {
+			errors.push(
+				'L’état de travail mémorisé ne correspond pas aux capacités'
+			);
+		}
+	}
+
 	const tdValidation =
 		validateTdState(
 			state.td

@@ -88,6 +88,56 @@ export interface PopulationState {
 	workPerPopulation: number;
 }
 
+export type MaintenanceCondition =
+	| 'stable'
+	| 'strained'
+	| 'degraded'
+	| 'critical';
+
+export interface PlayableSustainabilityState {
+	/**
+	 * Dernier tour pour lequel les coûts de soutenabilité
+	 * ont effectivement été appliqués.
+	 */
+	lastResolvedTurn: number;
+
+	energy: {
+		/**
+		 * Dépassement courant de la capacité normale.
+		 */
+		overload: number;
+
+		reserveSpentLastTurn: number;
+		reserveRecoveredLastTurn: number;
+
+		/**
+		 * Vrai lorsque la charge actuelle ne pourra pas
+		 * être soutenue au prochain tour avec la réserve restante.
+		 */
+		mustReduceLoad: boolean;
+	};
+
+	maintenance: {
+		/**
+		 * Déficit courant capacité / besoin.
+		 */
+		deficit: number;
+
+		/**
+		 * Dette accumulée par les tours sous-entretenus.
+		 */
+		debt: number;
+
+		consecutiveDeficitTurns: number;
+		condition: MaintenanceCondition;
+	};
+
+	work: {
+		free: number;
+		shortage: number;
+	};
+}
+
 export interface CapacityUsageState {
 	capacity: number;
 	used: number;
@@ -109,6 +159,13 @@ export interface CorciteCapacities {
 
 export interface CorciteState extends CorciteIdentity {
 	population?: PopulationState;
+
+	/**
+	 * Absent des anciens états P0-P10.
+	 * Présent après la première résolution de soutenabilité
+	 * du prototype jouable.
+	 */
+	sustainability?: PlayableSustainabilityState;
 	storageUnits: StorageUnitState[];
 	structures: StructureState[];
 	productions: ProductionState[];

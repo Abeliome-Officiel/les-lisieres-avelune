@@ -1,5 +1,6 @@
 export * from './config/bounds.js';
 export * from './config/playable-start-reference.js';
+export * from './config/playable-sustainability-reference.js';
 export * from './config/playable-construction-reference.js';
 export * from './config/playable-processing-reference.js';
 export * from './config/reference.js';
@@ -19,6 +20,7 @@ export * from './reporting-export.js';
 export * from './corcite/serialization.js';
 export * from './corcite/construction.js';
 export * from './corcite/structure-control.js';
+export * from './corcite/sustainability.js';
 export * from './corcite/state.js';
 export * from './corcite/validate.js';
 

@@ -236,6 +236,54 @@ export function recalculatePlayableCapacities(
 			used: usage.space
 		}
 	};
+
+	/*
+	 * Les compteurs cumulatifs de soutenabilité ne sont pas
+	 * résolus ici, mais leurs valeurs instantanées doivent rester
+	 * cohérentes après construction ou changement d'activité.
+	 */
+	if (state.sustainability !== undefined) {
+		const overload =
+			Math.max(
+				0,
+				state.capacities.energy.used -
+					state.capacities.energy
+						.normalCapacity
+			);
+
+		const maintenanceDeficit =
+			Math.max(
+				0,
+				state.capacities.maintenance.used -
+					state.capacities.maintenance
+						.capacity
+			);
+
+		state.sustainability.energy.overload =
+			overload;
+
+		state.sustainability.energy.mustReduceLoad =
+			overload >
+			state.capacities.energy
+				.reserveCurrent;
+
+		state.sustainability.maintenance.deficit =
+			maintenanceDeficit;
+
+		state.sustainability.work.free =
+			Math.max(
+				0,
+				state.capacities.work.capacity -
+					state.capacities.work.used
+			);
+
+		state.sustainability.work.shortage =
+			Math.max(
+				0,
+				state.capacities.work.used -
+					state.capacities.work.capacity
+			);
+	}
 }
 
 function snapshotCapacities(
@@ -367,6 +415,25 @@ export function previewPlayableConstruction(
 		}
 	}
 
+	const currentEnergyMaximum =
+		state.capacities.energy.normalCapacity +
+		state.capacities.energy.reserveCurrent;
+
+	/*
+	 * Une fois le Corcite déjà en déficit énergétique,
+	 * aucune nouvelle construction ne peut être utilisée
+	 * comme échappatoire immédiate, y compris une extension
+	 * énergétique. Il faut d'abord réduire la charge active.
+	 */
+	if (
+		state.capacities.energy.used >
+		currentEnergyMaximum
+	) {
+		blockers.push(
+			`Corcite déjà en déficit énergétique (${state.capacities.energy.used}/${currentEnergyMaximum}) : réduisez d'abord la charge active.`
+		);
+	}
+
 	const simulated =
 		simulateConstruction(
 			state,
@@ -407,14 +474,11 @@ export function previewPlayableConstruction(
 		);
 	}
 
-	if (
-		after.maintenanceUsed >
-		after.maintenanceCapacity
-	) {
-		blockers.push(
-			`Entretien insuffisant (${after.maintenanceUsed}/${after.maintenanceCapacity}).`
-		);
-	}
+	/*
+	 * L'entretien n'est plus une limite dure de construction.
+	 * Un dépassement crée désormais une dette progressive,
+	 * résolue lors des tours de soutenabilité.
+	 */
 
 	if (
 		after.energyUsed >
