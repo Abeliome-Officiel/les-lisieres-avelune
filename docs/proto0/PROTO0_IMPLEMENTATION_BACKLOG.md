@@ -194,16 +194,16 @@ par le moteur.
 
 À commencer uniquement après validation suffisante du moteur headless.
 
-- [ ] création / choix de session ;
-- [ ] état du Corcite ;
-- [ ] actions TF ;
-- [ ] éléments RPG pertinents ;
-- [ ] préparation TD sur 8 positions ;
-- [ ] prévision de vague ;
-- [ ] résolution ;
-- [ ] rapport de fin de vague ;
-- [ ] journal technique accessible séparément ;
-- [ ] réglages d'accessibilité.
+- [x] création / choix de session ;
+- [x] état du Corcite ;
+- [x] actions TF ;
+- [x] éléments RPG pertinents ;
+- [x] préparation TD sur 8 positions ;
+- [x] prévision de vague ;
+- [x] résolution ;
+- [x] rapport de fin de vague ;
+- [x] journal technique accessible séparément ;
+- [x] réglages d'accessibilité.
 
 ### Critère de sortie
 

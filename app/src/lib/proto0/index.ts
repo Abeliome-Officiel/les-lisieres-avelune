@@ -9,6 +9,7 @@ export * from './config/td-reference.js';
 export * from './config/tf-reference.js';
 export * from './config/validate.js';
 
+export * from './browser-controller.js';
 export * from './consequences.js';
 export * from './reporting.js';
 export * from './reporting-export.js';
@@ -42,6 +43,7 @@ export * from './simulation/stress.js';
 export * from './session.js';
 
 export * from './turn/arbitration.js';
+export * from './turn/commit.js';
 export * from './turn/end-turn.js';
 export * from './turn/plan.js';
 export * from './turn/reservations.js';
