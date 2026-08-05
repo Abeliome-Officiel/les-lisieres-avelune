@@ -33,6 +33,12 @@ export * from './random/seeded-rng.js';
 export * from './rpg/research.js';
 export * from './rpg/validate.js';
 
+export * from './simulation/audit.js';
+export * from './simulation/battery.js';
+export * from './simulation/reference-configurations.js';
+export * from './simulation/report.js';
+export * from './simulation/stress.js';
+
 export * from './session.js';
 
 export * from './turn/arbitration.js';

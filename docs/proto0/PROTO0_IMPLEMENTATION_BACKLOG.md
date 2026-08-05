@@ -172,16 +172,16 @@ technique.
 
 ## P9 — Batterie de simulations
 
-- [ ] scénario nominal ;
-- [ ] scénario aléatoire borné ;
-- [ ] répétition par graine ;
-- [ ] scénarios de stress ;
-- [ ] comparaison d'ordonnancements TD ;
-- [ ] réexécuter au minimum les 60 configurations de référence ;
-- [ ] mesurer les stratégies dominantes éventuelles ;
-- [ ] rechercher les boucles infinies et ressources gratuites ;
-- [ ] rechercher les conflits non résolus ;
-- [ ] rechercher les états impossibles.
+- [x] scénario nominal ;
+- [x] scénario aléatoire borné ;
+- [x] répétition par graine ;
+- [x] scénarios de stress ;
+- [x] comparaison d'ordonnancements TD ;
+- [x] réexécuter au minimum les 60 configurations de référence ;
+- [x] mesurer les stratégies dominantes éventuelles ;
+- [x] rechercher les boucles infinies et ressources gratuites ;
+- [x] rechercher les conflits non résolus ;
+- [x] rechercher les états impossibles.
 
 ### Critère de sortie
 
