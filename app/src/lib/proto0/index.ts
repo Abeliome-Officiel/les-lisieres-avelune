@@ -17,6 +17,7 @@ export * from './reporting.js';
 export * from './reporting-export.js';
 export * from './corcite/serialization.js';
 export * from './corcite/construction.js';
+export * from './corcite/structure-control.js';
 export * from './corcite/state.js';
 export * from './corcite/validate.js';
 
@@ -53,6 +54,7 @@ export * from './turn/reservations.js';
 export * from './turn/resolution-order.js';
 
 export * from './tf/extraction.js';
+export * from './tf/playable-extraction.js';
 export * from './tf/fabrication.js';
 export * from './tf/input-consumption.js';
 export * from './tf/modifiers.js';

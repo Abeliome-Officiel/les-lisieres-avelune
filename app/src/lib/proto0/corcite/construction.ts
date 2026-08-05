@@ -147,15 +147,41 @@ export function recalculatePlayableCapacities(
 
 	const usage = state.structures.reduce(
 		(total, structure) => {
-			if (structure.status !== 'active') {
+			/*
+			 * Une structure arrêtée existe toujours physiquement :
+			 * - son espace reste occupé ;
+			 * - son entretien de base reste nécessaire ;
+			 * - son énergie et son travail sont libérés.
+			 *
+			 * Une structure en construction occupe déjà son espace,
+			 * mais ne mobilise pas encore les autres capacités.
+			 */
+			if (structure.status === 'active') {
+				total.energy +=
+					structure.usage.energy;
+				total.maintenance +=
+					structure.usage.maintenance;
+				total.work +=
+					structure.usage.work;
+				total.space +=
+					structure.usage.space;
+
 				return total;
 			}
 
-			total.energy += structure.usage.energy;
-			total.maintenance +=
-				structure.usage.maintenance;
-			total.work += structure.usage.work;
-			total.space += structure.usage.space;
+			if (structure.status === 'inactive') {
+				total.maintenance +=
+					structure.usage.maintenance;
+				total.space +=
+					structure.usage.space;
+
+				return total;
+			}
+
+			if (structure.status === 'constructing') {
+				total.space +=
+					structure.usage.space;
+			}
 
 			return total;
 		},
