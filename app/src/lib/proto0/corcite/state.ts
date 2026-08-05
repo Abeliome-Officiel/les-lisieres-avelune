@@ -177,7 +177,8 @@ export function createReferenceCorciteState(
 			journal: []
 		},
 		modifiers: [],
-		reservations: []
+		reservations: [],
+		waveConsequences: []
 	};
 }
 

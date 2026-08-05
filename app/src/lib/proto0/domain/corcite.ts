@@ -1,3 +1,6 @@
+import type {
+	WaveConsequenceState
+} from './consequence.js';
 import type { CorciteId } from './ids.js';
 import type { RpgState } from './rpg.js';
 import type { TdState } from './td.js';
@@ -99,6 +102,7 @@ export interface CorciteState extends CorciteIdentity {
 	rpg: RpgState;
 	modifiers: ModifierState[];
 	reservations: ResourceReservation[];
+	waveConsequences: WaveConsequenceState[];
 }
 
 export interface StoredResourceSummary {

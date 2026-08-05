@@ -9,10 +9,12 @@ export * from './config/td-reference.js';
 export * from './config/tf-reference.js';
 export * from './config/validate.js';
 
+export * from './consequences.js';
 export * from './corcite/serialization.js';
 export * from './corcite/state.js';
 export * from './corcite/validate.js';
 
+export * from './domain/consequence.js';
 export * from './domain/corcite.js';
 export * from './domain/ids.js';
 export * from './domain/resources.js';

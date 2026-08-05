@@ -1,4 +1,10 @@
 import type {
+	WaveConsequenceState,
+	WaveDefenseResult,
+	WaveKnowledgeProduced,
+	WaveRelevantConsumption
+} from '../domain/consequence.js';
+import type {
 	RpgAccessState,
 	RpgJournalEntry,
 	RpgJournalEvent,
@@ -513,6 +519,125 @@ function isTfNetworkState(
 	);
 }
 
+function isConsequenceWaveState(
+	value: unknown
+): boolean {
+	if (!isRecord(value)) {
+		return false;
+	}
+
+	return (
+		isFiniteNumber(
+			value.pressure
+		) &&
+		isFiniteNumber(
+			value.structure
+		) &&
+		isFiniteNumber(
+			value.charge
+		) &&
+		isFiniteNumber(
+			value.capturableMatter
+		)
+	);
+}
+
+function isWaveRelevantConsumption(
+	value: unknown
+): value is WaveRelevantConsumption {
+	if (!isRecord(value)) {
+		return false;
+	}
+
+	return (
+		isResourceId(
+			value.resourceId
+		) &&
+		isFiniteNumber(
+			value.amount
+		) &&
+		isString(
+			value.source
+		)
+	);
+}
+
+function isWaveKnowledgeProduced(
+	value: unknown
+): value is WaveKnowledgeProduced {
+	if (!isRecord(value)) {
+		return false;
+	}
+
+	return (
+		isString(
+			value.id
+		) &&
+		isString(
+			value.key
+		) &&
+		isString(
+			value.source
+		) &&
+		isFiniteNumber(
+			value.value
+		)
+	);
+}
+
+function isWaveDefenseResult(
+	value: unknown
+): value is WaveDefenseResult {
+	return (
+		value === 'contained' ||
+		value === 'residual'
+	);
+}
+
+function isWaveConsequenceState(
+	value: unknown
+): value is WaveConsequenceState {
+	if (!isRecord(value)) {
+		return false;
+	}
+
+	return (
+		isString(
+			value.id
+		) &&
+		isString(
+			value.runId
+		) &&
+		isFiniteNumber(
+			value.turn
+		) &&
+		isWaveDefenseResult(
+			value.defenseResult
+		) &&
+		isConsequenceWaveState(
+			value.initialWave
+		) &&
+		isConsequenceWaveState(
+			value.finalWave
+		) &&
+		isFiniteNumber(
+			value.capturedMatter
+		) &&
+		Array.isArray(
+			value.consumptions
+		) &&
+		value.consumptions.every(
+			isWaveRelevantConsumption
+		) &&
+		Array.isArray(
+			value.knowledgeProduced
+		) &&
+		value.knowledgeProduced.every(
+			isWaveKnowledgeProduced
+		)
+	);
+}
+
 function isController(
 	value: unknown
 ): value is CorciteController {
@@ -546,7 +671,11 @@ function isCorciteStateShape(
 		Array.isArray(value.modifiers) &&
 		value.modifiers.every(isModifierState) &&
 		Array.isArray(value.reservations) &&
-		value.reservations.every(isResourceReservation)
+		value.reservations.every(isResourceReservation) &&
+		Array.isArray(value.waveConsequences) &&
+		value.waveConsequences.every(
+			isWaveConsequenceState
+		)
 	);
 }
 

@@ -133,12 +133,12 @@ variation bornée.
 
 ## P7 — Conséquences
 
-- [ ] appliquer le résultat de vague au Corcite ;
-- [ ] conserver les consommations ;
-- [ ] conserver la matière captée ;
-- [ ] produire les conséquences persistantes nécessaires au test ;
-- [ ] conserver les connaissances produites ;
-- [ ] snapshot après vague.
+- [x] appliquer le résultat de vague au Corcite ;
+- [x] conserver les consommations ;
+- [x] conserver la matière captée ;
+- [x] produire les conséquences persistantes nécessaires au test ;
+- [x] conserver les connaissances produites ;
+- [x] snapshot après vague.
 
 ### Critère de sortie
 

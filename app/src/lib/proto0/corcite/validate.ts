@@ -221,6 +221,122 @@ export function validateCorciteState(
 		}
 	}
 
+	const duplicateWaveConsequenceIds =
+		findDuplicates(
+			state.waveConsequences.map(
+				(consequence) =>
+					consequence.id
+			)
+		);
+
+	if (
+		duplicateWaveConsequenceIds.length >
+			0
+	) {
+		errors.push(
+			`Identifiants de conséquences de vague dupliqués : ${duplicateWaveConsequenceIds.join(', ')}`
+		);
+	}
+
+	for (
+		const consequence of
+		state.waveConsequences
+	) {
+		if (
+			!consequence.id.trim() ||
+			!consequence.runId.trim()
+		) {
+			errors.push(
+				'Une conséquence de vague possède un identifiant vide'
+			);
+		}
+
+		if (
+			!Number.isInteger(
+				consequence.turn
+			) ||
+			consequence.turn < 1
+		) {
+			errors.push(
+				`Conséquence ${consequence.id} : tour invalide`
+			);
+		}
+
+		for (
+			const [
+				name,
+				value
+			] of Object.entries(
+				consequence.finalWave
+			)
+		) {
+			if (
+				!isNonNegativeFinite(
+					value
+				)
+			) {
+				errors.push(
+					`Conséquence ${consequence.id} : ${name} final invalide`
+				);
+			}
+		}
+
+		if (
+			!isNonNegativeFinite(
+				consequence
+					.capturedMatter
+			)
+		) {
+			errors.push(
+				`Conséquence ${consequence.id} : matière captée invalide`
+			);
+		}
+
+		for (
+			const consumption of
+			consequence.consumptions
+		) {
+			if (
+				!Number.isFinite(
+					consumption.amount
+				) ||
+				consumption.amount <=
+					0 ||
+				!consumption.source.trim()
+			) {
+				errors.push(
+					`Conséquence ${consequence.id} : consommation invalide`
+				);
+			}
+		}
+
+		for (
+			const knowledge of
+			consequence.knowledgeProduced
+		) {
+			const persisted =
+				state.rpg.knowledge.find(
+					(entry) =>
+						entry.id ===
+							knowledge.id
+				);
+
+			if (
+				!persisted ||
+				persisted.source !==
+					knowledge.source ||
+				persisted.key !==
+					knowledge.key ||
+				persisted.value !==
+					knowledge.value
+			) {
+				errors.push(
+					`Conséquence ${consequence.id} : connaissance ${knowledge.id} non persistée dans le RPG`
+				);
+			}
+		}
+	}
+
 	for (const reservation of state.reservations) {
 		if (
 			!Number.isFinite(reservation.amount) ||
