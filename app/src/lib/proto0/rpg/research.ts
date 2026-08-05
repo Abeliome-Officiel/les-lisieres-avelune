@@ -79,7 +79,7 @@ function createResearchInstance(
 	};
 }
 
-function applyCompletion(
+export function applyRpgResearchCompletion(
 	state: CorciteState,
 	research: RpgResearchState,
 	definition:
@@ -372,7 +372,7 @@ export function advanceActiveRpgResearch(
 			`Recherche ${definition.label} achevée au tour ${turn}.`
 	});
 
-	applyCompletion(
+	applyRpgResearchCompletion(
 		state,
 		active,
 		definition

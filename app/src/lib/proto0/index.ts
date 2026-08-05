@@ -5,6 +5,7 @@ export * from './config/playable-construction-reference.js';
 export * from './config/playable-processing-reference.js';
 export * from './config/reference.js';
 export * from './config/rpg-reference.js';
+export * from './config/playable-research-reference.js';
 export * from './config/serialization.js';
 export * from './config/tf-extraction-reference.js';
 export * from './config/tf-processing-reference.js';
@@ -39,6 +40,7 @@ export * from './domain/wave.js';
 export * from './random/seeded-rng.js';
 
 export * from './rpg/research.js';
+export * from './rpg/playable-research.js';
 export * from './rpg/validate.js';
 
 export * from './simulation/audit.js';

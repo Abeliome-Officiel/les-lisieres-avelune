@@ -103,7 +103,7 @@ function validateResearch(
 	) {
 		if (
 			research.lastProgressTurn !==
-			null
+				null
 		) {
 			errors.push(
 				`Recherche ${research.id} sans progression mais avec un dernier tour de progression`
@@ -128,7 +128,7 @@ function validateResearch(
 	) {
 		if (
 			research.progressTurns >=
-			research.durationTurns
+				research.durationTurns
 		) {
 			errors.push(
 				`Recherche ${research.id} active mais déjà achevée`
@@ -137,10 +137,21 @@ function validateResearch(
 
 		if (
 			research.completedTurn !==
-			null
+				null
 		) {
 			errors.push(
 				`Recherche ${research.id} active avec un tour d'achèvement`
+			);
+		}
+
+		if (
+			research.validatedTurn !==
+				undefined &&
+			research.validatedTurn !==
+				null
+		) {
+			errors.push(
+				`Recherche ${research.id} active avec un tour de validation`
 			);
 		}
 
@@ -178,6 +189,44 @@ function validateResearch(
 	) {
 		errors.push(
 			`Recherche ${research.id} : le dernier tour de progression ne correspond pas à l'achèvement`
+		);
+	}
+
+	if (
+		research.status ===
+			'validated'
+	) {
+		if (
+			research.validatedTurn ===
+				undefined ||
+			research.validatedTurn ===
+				null ||
+			!Number.isInteger(
+				research.validatedTurn
+			) ||
+			(
+				research.completedTurn !==
+					null &&
+				research.validatedTurn <=
+					research.completedTurn
+			)
+		) {
+			errors.push(
+				`Recherche ${research.id} : validation de découverte invalide`
+			);
+		}
+
+		return;
+	}
+
+	if (
+		research.validatedTurn !==
+			undefined &&
+		research.validatedTurn !==
+			null
+	) {
+		errors.push(
+			`Recherche ${research.id} non validée avec un tour de validation`
 		);
 	}
 }
@@ -386,6 +435,30 @@ export function validateRpgState(
 	) {
 		errors.push(
 			'Plusieurs recherches RPG sont actives simultanément'
+		);
+	}
+
+	const pendingDiscoveries =
+		state.researches.filter(
+			(research) =>
+				research.status ===
+					'discovery-pending'
+		);
+
+	if (
+		pendingDiscoveries.length > 1
+	) {
+		errors.push(
+			'Plusieurs découvertes RPG attendent simultanément une validation'
+		);
+	}
+
+	if (
+		activeResearches.length > 0 &&
+		pendingDiscoveries.length > 0
+	) {
+		errors.push(
+			'Une recherche active ne peut pas coexister avec une découverte en attente'
 		);
 	}
 

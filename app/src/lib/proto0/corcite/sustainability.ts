@@ -62,6 +62,45 @@ function requirePlayableState(
 	return state as PlayableCorciteState;
 }
 
+function applyScalarModifiers(
+	state: CorciteState,
+	target: string,
+	baseValue: number
+): number {
+	let add = 0;
+	let multiply = 1;
+
+	const modifiers =
+		state.modifiers
+			.filter(
+				(modifier) =>
+					modifier.active &&
+					modifier.target ===
+						target
+			)
+			.sort(
+				(a, b) =>
+					a.id.localeCompare(
+						b.id
+					)
+			);
+
+	for (const modifier of modifiers) {
+		if (
+			modifier.operation === 'add'
+		) {
+			add += modifier.value;
+		} else {
+			multiply *=
+				modifier.value;
+		}
+	}
+
+	return (
+		baseValue + add
+	) * multiply;
+}
+
 function maintenanceCondition(
 	debt: number,
 	consecutiveDeficitTurns: number
@@ -322,11 +361,18 @@ export function resolvePlayableSustainabilityTurn(
 
 		consecutiveDeficitTurns += 1;
 	} else {
+		const effectiveDebtRecovery =
+			applyScalarModifiers(
+				state,
+				'corcite.maintenance.debt-recovery-per-stable-turn',
+				maintenanceSurplus
+			);
+
 		debtAfter =
 			Math.max(
 				0,
 				debtAfter -
-					maintenanceSurplus
+					effectiveDebtRecovery
 			);
 
 		consecutiveDeficitTurns = 0;
@@ -360,11 +406,18 @@ export function resolvePlayableSustainabilityTurn(
 		overload === 0 &&
 		maintenanceWasAlreadyStable
 	) {
-		reserveRecovered =
-			Math.min(
+		const recoveryPerStableTurn =
+			applyScalarModifiers(
+				state,
+				'corcite.energy.reserve-recovery-per-stable-turn',
 				PLAYABLE_SUSTAINABILITY_REFERENCE
 					.energy
-					.reserveRecoveryPerStableTurn,
+					.reserveRecoveryPerStableTurn
+			);
+
+		reserveRecovered =
+			Math.min(
+				recoveryPerStableTurn,
 				energy.reserveMaximum -
 					energy.reserveCurrent
 			);

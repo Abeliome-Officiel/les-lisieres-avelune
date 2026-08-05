@@ -83,13 +83,17 @@ const MODIFIER_OPERATIONS: readonly ModifierOperation[] = [
 
 const RPG_RESEARCH_STATUSES: readonly RpgResearchStatus[] = [
 	'active',
-	'completed'
+	'completed',
+	'discovery-pending',
+	'validated'
 ];
 
 const RPG_JOURNAL_EVENTS: readonly RpgJournalEvent[] = [
 	'research-started',
 	'research-progressed',
 	'research-completed',
+	'discovery-pending',
+	'discovery-validated',
 	'modifier-applied',
 	'access-unlocked',
 	'knowledge-updated'
@@ -366,6 +370,13 @@ function isRpgResearchState(
 			value.completedTurn === null ||
 			isFiniteNumber(
 				value.completedTurn
+			)
+		) &&
+		(
+			value.validatedTurn === undefined ||
+			value.validatedTurn === null ||
+			isFiniteNumber(
+				value.validatedTurn
 			)
 		)
 	);

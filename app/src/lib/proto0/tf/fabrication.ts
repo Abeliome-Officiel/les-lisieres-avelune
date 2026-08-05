@@ -24,6 +24,9 @@ import {
 	getEligibleIncomingBufferAmount
 } from './input-consumption.js';
 import {
+	evaluateTfRecipeOutputs
+} from './modifiers.js';
+import {
 	tryPlaceTfOutput
 } from './output-placement.js';
 import {
@@ -145,6 +148,12 @@ function executeRecipe(
 	inputBudget: TfBufferInputBudget;
 	event: TfProcessingEvent;
 } {
+	const effective =
+		evaluateTfRecipeOutputs(
+			state,
+			recipe
+		);
+
 	const working =
 		structuredClone(state);
 
@@ -197,7 +206,7 @@ function executeRecipe(
 	for (const resourceId of RESOURCE_IDS) {
 		const amount =
 			amountFor(
-				recipe.outputs,
+				effective.outputs,
 				resourceId
 			);
 
@@ -228,7 +237,15 @@ function executeRecipe(
 						),
 					outputs:
 						structuredClone(
+							effective.outputs
+						),
+					baseOutputs:
+						structuredClone(
 							recipe.outputs
+						),
+					appliedModifiers:
+						structuredClone(
+							effective.appliedModifiers
 						),
 					consumptions: [],
 					bufferConsumptions: [],
@@ -266,7 +283,15 @@ function executeRecipe(
 				),
 			outputs:
 				structuredClone(
+					effective.outputs
+				),
+			baseOutputs:
+				structuredClone(
 					recipe.outputs
+				),
+			appliedModifiers:
+				structuredClone(
+					effective.appliedModifiers
 				),
 			consumptions,
 			bufferConsumptions,
