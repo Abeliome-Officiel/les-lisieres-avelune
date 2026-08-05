@@ -141,6 +141,54 @@ export interface PlayableSustainabilityState {
 	};
 }
 
+export interface PlayableWaveImpactState {
+        consequenceId: string;
+        turn: number;
+
+        /**
+         * Dégât effectivement subi, après limitation par
+         * l'intégrité encore disponible.
+         */
+        integrityDamage: number;
+
+        /**
+         * Réserve énergétique effectivement retirée.
+         */
+        energyReserveDrain: number;
+
+        /**
+         * Dette d'entretien ajoutée par la vague.
+         */
+        maintenanceDebtAdded: number;
+}
+
+export interface PlayableRecoveryState {
+        /**
+         * Dernier tour ayant traité la récupération naturelle.
+         */
+        lastResolvedTurn: number;
+
+        integrity: {
+                current: number;
+                maximum: number;
+                damageTakenLastWave: number;
+                recoveredLastTurn: number;
+        };
+
+        /**
+         * Dernier impact directement produit par une vague.
+         */
+        lastWaveImpact:
+                | PlayableWaveImpactState
+                | null;
+
+        /**
+         * Garantit qu'une conséquence persistée ne puisse pas
+         * endommager deux fois le Corcite.
+         */
+        appliedWaveConsequenceIds: string[];
+}
+
 export interface CapacityUsageState {
 	capacity: number;
 	used: number;
@@ -169,6 +217,12 @@ export interface CorciteState extends CorciteIdentity {
 	 * du prototype jouable.
 	 */
 	sustainability?: PlayableSustainabilityState;
+
+        /**
+         * Conséquences persistantes et récupération du prototype jouable.
+         * Absent des états historiques P0-P10.
+         */
+        recovery?: PlayableRecoveryState;
 	storageUnits: StorageUnitState[];
 	structures: StructureState[];
 	productions: ProductionState[];
@@ -197,6 +251,7 @@ export interface CorciteState extends CorciteIdentity {
  */
 export interface PlayableCorciteState extends CorciteState {
 	population: PopulationState;
+        recovery: PlayableRecoveryState;
 	tdInventory: TdTowerState[];
 }
 

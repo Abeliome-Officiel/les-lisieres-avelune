@@ -205,6 +205,133 @@ export function validateCorciteState(
 		}
 	}
 
+        if (state.recovery !== undefined) {
+                const recovery =
+                        state.recovery;
+
+                if (
+                        !Number.isInteger(
+                                recovery.lastResolvedTurn
+                        ) ||
+                        recovery.lastResolvedTurn < 0
+                ) {
+                        errors.push(
+                                'Tour de récupération invalide'
+                        );
+                }
+
+                const integrityValues = [
+                        recovery.integrity.current,
+                        recovery.integrity.maximum,
+                        recovery.integrity
+                                .damageTakenLastWave,
+                        recovery.integrity
+                                .recoveredLastTurn
+                ];
+
+                if (
+                        integrityValues.some(
+                                (value) =>
+                                        !isNonNegativeFinite(
+                                                value
+                                        )
+                        ) ||
+                        recovery.integrity.maximum <=
+                                0 ||
+                        recovery.integrity.current >
+                                recovery.integrity.maximum
+                ) {
+                        errors.push(
+                                'Etat de récupération invalide'
+                        );
+                }
+
+                const duplicateAppliedConsequences =
+                        findDuplicates(
+                                recovery
+                                        .appliedWaveConsequenceIds
+                        );
+
+                if (
+                        duplicateAppliedConsequences.length >
+                        0
+                ) {
+                        errors.push(
+                                `Conséquences recovery dupliquées : ${duplicateAppliedConsequences.join(', ')}`
+                        );
+                }
+
+                for (
+                        const consequenceId of
+                        recovery
+                                .appliedWaveConsequenceIds
+                ) {
+                        if (
+                                !consequenceId.trim()
+                        ) {
+                                errors.push(
+                                        'Identifiant de conséquence recovery vide'
+                                );
+
+                                continue;
+                        }
+
+                        if (
+                                !state.waveConsequences.some(
+                                        (consequence) =>
+                                                consequence.id ===
+                                                consequenceId
+                                )
+                        ) {
+                                errors.push(
+                                        `Conséquence recovery non persistée : ${consequenceId}`
+                                );
+                        }
+                }
+
+                if (
+                        recovery.lastWaveImpact !==
+                        null
+                ) {
+                        const impact =
+                                recovery.lastWaveImpact;
+
+                        if (
+                                !impact.consequenceId.trim() ||
+                                !Number.isInteger(
+                                        impact.turn
+                                ) ||
+                                impact.turn < 1 ||
+                                !isNonNegativeFinite(
+                                        impact.integrityDamage
+                                ) ||
+                                !isNonNegativeFinite(
+                                        impact.energyReserveDrain
+                                ) ||
+                                !isNonNegativeFinite(
+                                        impact.maintenanceDebtAdded
+                                )
+                        ) {
+                                errors.push(
+                                        'Dernier impact de vague recovery invalide'
+                                );
+                        }
+
+                        if (
+                                !recovery
+                                        .appliedWaveConsequenceIds
+                                        .includes(
+                                                impact.consequenceId
+                                        )
+                        ) {
+                                errors.push(
+                                        'Dernier impact recovery non référencé comme appliqué'
+                                );
+                        }
+                }
+        }
+
+
 	const tdValidation =
 		validateTdState(
 			state.td

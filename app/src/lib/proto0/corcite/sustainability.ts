@@ -101,7 +101,7 @@ function applyScalarModifiers(
 	) * multiply;
 }
 
-function maintenanceCondition(
+export function getPlayableMaintenanceCondition(
 	debt: number,
 	consecutiveDeficitTurns: number
 ): MaintenanceCondition {
@@ -379,7 +379,7 @@ export function resolvePlayableSustainabilityTurn(
 	}
 
 	const condition =
-		maintenanceCondition(
+		getPlayableMaintenanceCondition(
 			debtAfter,
 			consecutiveDeficitTurns
 		);

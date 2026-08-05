@@ -2,6 +2,9 @@ import {
 	PLAYABLE_START_REFERENCE
 } from '../config/playable-start-reference.js';
 import {
+        PLAYABLE_RECOVERY_REFERENCE
+} from '../config/playable-recovery-reference.js';
+import {
 	TF_LAB_REFERENCE
 } from '../config/tf-reference.js';
 import {
@@ -313,6 +316,21 @@ export function createPlayableCorciteState(
 	return {
 		...identity,
 		population,
+                recovery: {
+                        lastResolvedTurn: 0,
+                        integrity: {
+                                current:
+                                        PLAYABLE_RECOVERY_REFERENCE
+                                                .integrity.maximum,
+                                maximum:
+                                        PLAYABLE_RECOVERY_REFERENCE
+                                                .integrity.maximum,
+                                damageTakenLastWave: 0,
+                                recoveredLastTurn: 0
+                        },
+                        lastWaveImpact: null,
+                        appliedWaveConsequenceIds: []
+                },
 		storageUnits:
 			createPlayableStorageUnits(),
 		structures,

@@ -15,6 +15,10 @@ import {
 	type PlayableSustainabilityTurnResolution
 } from '../corcite/sustainability.js';
 import {
+        resolvePlayableRecoveryTurn,
+        type PlayableRecoveryTurnResolution
+} from '../corcite/recovery.js';
+import {
 	validateCorciteState
 } from '../corcite/validate.js';
 import {
@@ -28,6 +32,8 @@ export interface PlayableTfTurnResult {
 	fabrication: TfProcessingResolution;
 	sustainability:
 		PlayableSustainabilityTurnResolution;
+	recovery:
+	        PlayableRecoveryTurnResolution;
 }
 
 function requirePlayableState(
@@ -97,8 +103,14 @@ export function resolvePlayableTfTurn(
 			explicitTurn
 		);
 
+	const recovery =
+	        resolvePlayableRecoveryTurn(
+	                sustainability.corcite,
+	                sustainability.resolution
+	        );
+
 	const playableResult =
-		sustainability.corcite;
+	        recovery.corcite;
 
 	const validationAfter =
 		validateCorciteState(
@@ -120,6 +132,8 @@ export function resolvePlayableTfTurn(
 		fabrication:
 			tfResult.fabrication,
 		sustainability:
-			sustainability.resolution
+		        sustainability.resolution,
+		recovery:
+		        recovery.resolution
 	};
 }

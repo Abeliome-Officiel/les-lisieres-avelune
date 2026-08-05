@@ -297,6 +297,96 @@ function isPlayableSustainabilityState(
 	);
 }
 
+function isPlayableRecoveryState(
+        value: unknown
+): boolean {
+        if (!isRecord(value)) {
+                return false;
+        }
+
+        if (
+                !isFiniteNumber(
+                        value.lastResolvedTurn
+                ) ||
+                !Number.isInteger(
+                        value.lastResolvedTurn
+                ) ||
+                value.lastResolvedTurn < 0
+        ) {
+                return false;
+        }
+
+        if (
+                !isRecord(
+                        value.integrity
+                ) ||
+                !isFiniteNumber(
+                        value.integrity.current
+                ) ||
+                !isFiniteNumber(
+                        value.integrity.maximum
+                ) ||
+                !isFiniteNumber(
+                        value.integrity
+                                .damageTakenLastWave
+                ) ||
+                !isFiniteNumber(
+                        value.integrity
+                                .recoveredLastTurn
+                )
+        ) {
+                return false;
+        }
+
+        if (
+                !Array.isArray(
+                        value.appliedWaveConsequenceIds
+                ) ||
+                !value.appliedWaveConsequenceIds.every(
+                        isString
+                )
+        ) {
+                return false;
+        }
+
+        if (
+                value.lastWaveImpact ===
+                null
+        ) {
+                return true;
+        }
+
+        if (
+                !isRecord(
+                        value.lastWaveImpact
+                )
+        ) {
+                return false;
+        }
+
+        return (
+                isString(
+                        value.lastWaveImpact
+                                .consequenceId
+                ) &&
+                isFiniteNumber(
+                        value.lastWaveImpact.turn
+                ) &&
+                isFiniteNumber(
+                        value.lastWaveImpact
+                                .integrityDamage
+                ) &&
+                isFiniteNumber(
+                        value.lastWaveImpact
+                                .energyReserveDrain
+                ) &&
+                isFiniteNumber(
+                        value.lastWaveImpact
+                                .maintenanceDebtAdded
+                )
+        );
+}
+
 function isEnergyState(value: unknown): boolean {
 	if (!isRecord(value)) return false;
 
@@ -754,6 +844,12 @@ function isCorciteStateShape(
 					value.sustainability
 				)
 			) &&
+		(
+		        value.recovery === undefined ||
+		        isPlayableRecoveryState(
+		                value.recovery
+		        )
+		) &&
 		Array.isArray(value.storageUnits) &&
 		value.storageUnits.every(isStorageUnitState) &&
 		Array.isArray(value.structures) &&

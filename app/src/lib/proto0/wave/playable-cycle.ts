@@ -5,7 +5,9 @@ import {
 } from '../config/playable-wave-cycle-reference.js';
 
 import type {
-	CorciteState
+        CorciteState,
+        PlayableCorciteState,
+        PlayableWaveImpactState
 } from '../domain/corcite.js';
 
 import type {
@@ -31,6 +33,10 @@ import type {
 import {
 	applyWaveConsequences
 } from '../consequences.js';
+
+import {
+        applyPlayableWaveImpact
+} from '../corcite/recovery.js';
 
 import {
 	SeededRng
@@ -60,10 +66,12 @@ export interface ResolvePlayableWaveInput {
 }
 
 export interface ResolvePlayableWaveResult {
-	corcite: CorciteState;
+	corcite: PlayableCorciteState;
 	cycle: PlayableWaveCycleState;
 	resolution: TdResolutionResult;
 	historyEntry: PlayableWaveHistoryEntry;
+	recoveryImpact:
+	        PlayableWaveImpactState;
 }
 
 function round(
@@ -1066,6 +1074,12 @@ export function resolvePlayableWave(
 			}
 		);
 
+	const recovery =
+	        applyPlayableWaveImpact(
+	                consequences.corcite,
+	                consequences.consequence.id
+	        );
+
 	const historyEntry:
 		PlayableWaveHistoryEntry = {
 		waveNumber:
@@ -1149,9 +1163,13 @@ export function resolvePlayableWave(
 
 	return {
 		corcite:
-			consequences.corcite,
+		        recovery.corcite,
 		cycle,
 		resolution,
+		recoveryImpact:
+		        structuredClone(
+		                recovery.impact
+		        ),
 		historyEntry:
 			structuredClone(
 				historyEntry
