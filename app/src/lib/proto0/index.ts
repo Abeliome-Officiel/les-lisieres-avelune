@@ -1,6 +1,7 @@
 export * from './config/bounds.js';
 export * from './config/playable-start-reference.js';
 export * from './config/playable-construction-reference.js';
+export * from './config/playable-processing-reference.js';
 export * from './config/reference.js';
 export * from './config/rpg-reference.js';
 export * from './config/serialization.js';
@@ -55,10 +56,12 @@ export * from './turn/resolution-order.js';
 
 export * from './tf/extraction.js';
 export * from './tf/playable-extraction.js';
+export * from './tf/playable-turn.js';
 export * from './tf/fabrication.js';
 export * from './tf/input-consumption.js';
 export * from './tf/modifiers.js';
 export * from './tf/network.js';
+export * from './tf/playable-network.js';
 export * from './tf/network-routing.js';
 export * from './tf/network-validate.js';
 export * from './tf/output-placement.js';
