@@ -79,12 +79,12 @@ Une chaîne TF doit réellement conditionner au moins une préparation TD.
 
 ## P4 — RPG minimal
 
-- [ ] représenter les choix RPG hors file d'ordres artificielle ;
-- [ ] au moins un modificateur ;
-- [ ] au moins un déblocage ou accès ;
-- [ ] au moins une recherche ou connaissance ;
-- [ ] interaction RPG → TF ou RPG → TD mesurable ;
-- [ ] journaliser l'origine du modificateur.
+- [x] représenter les choix RPG hors file d'ordres artificielle ;
+- [x] au moins un modificateur ;
+- [x] au moins un déblocage ou accès ;
+- [x] au moins une recherche ou connaissance ;
+- [x] interaction RPG → TF ou RPG → TD mesurable ;
+- [x] journaliser l'origine du modificateur.
 
 ### Critère de sortie
 

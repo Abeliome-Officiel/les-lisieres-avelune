@@ -1,4 +1,13 @@
 import type {
+	RpgAccessState,
+	RpgJournalEntry,
+	RpgJournalEvent,
+	RpgKnowledgeState,
+	RpgResearchState,
+	RpgResearchStatus,
+	RpgState
+} from '../domain/rpg.js';
+import type {
 	TfBufferState,
 	TfConnectionRouting,
 	TfConnectionState,
@@ -56,6 +65,20 @@ const PRODUCTION_STATUSES: readonly ProductionState['status'][] = [
 const MODIFIER_OPERATIONS: readonly ModifierOperation[] = [
 	'add',
 	'multiply'
+];
+
+const RPG_RESEARCH_STATUSES: readonly RpgResearchStatus[] = [
+	'active',
+	'completed'
+];
+
+const RPG_JOURNAL_EVENTS: readonly RpgJournalEvent[] = [
+	'research-started',
+	'research-progressed',
+	'research-completed',
+	'modifier-applied',
+	'access-unlocked',
+	'knowledge-updated'
 ];
 
 const RESERVATION_STATUSES: readonly ResourceReservation['status'][] = [
@@ -228,6 +251,114 @@ function isModifierState(value: unknown): boolean {
 	);
 }
 
+function isRpgResearchState(
+	value: unknown
+): value is RpgResearchState {
+	if (!isRecord(value)) return false;
+
+	return (
+		isString(value.id) &&
+		isString(value.definitionId) &&
+		isString(value.label) &&
+		typeof value.status === 'string' &&
+		RPG_RESEARCH_STATUSES.some(
+			(status) =>
+				status === value.status
+		) &&
+		isFiniteNumber(value.progressTurns) &&
+		isFiniteNumber(value.durationTurns) &&
+		isFiniteNumber(value.startedTurn) &&
+		(
+			value.lastProgressTurn === null ||
+			isFiniteNumber(
+				value.lastProgressTurn
+			)
+		) &&
+		(
+			value.completedTurn === null ||
+			isFiniteNumber(
+				value.completedTurn
+			)
+		)
+	);
+}
+
+function isRpgAccessState(
+	value: unknown
+): value is RpgAccessState {
+	if (!isRecord(value)) return false;
+
+	return (
+		isString(value.id) &&
+		isString(value.source) &&
+		isString(value.key) &&
+		isBoolean(value.active)
+	);
+}
+
+function isRpgKnowledgeState(
+	value: unknown
+): value is RpgKnowledgeState {
+	if (!isRecord(value)) return false;
+
+	return (
+		isString(value.id) &&
+		isString(value.source) &&
+		isString(value.key) &&
+		isFiniteNumber(value.value)
+	);
+}
+
+function isRpgJournalEntry(
+	value: unknown
+): value is RpgJournalEntry {
+	if (!isRecord(value)) return false;
+
+	return (
+		isFiniteNumber(value.sequence) &&
+		typeof value.event === 'string' &&
+		RPG_JOURNAL_EVENTS.some(
+			(event) =>
+				event === value.event
+		) &&
+		isString(value.source) &&
+		isString(value.message)
+	);
+}
+
+function isRpgState(
+	value: unknown
+): value is RpgState {
+	if (!isRecord(value)) return false;
+
+	return (
+		Array.isArray(
+			value.researches
+		) &&
+		value.researches.every(
+			isRpgResearchState
+		) &&
+		Array.isArray(
+			value.accesses
+		) &&
+		value.accesses.every(
+			isRpgAccessState
+		) &&
+		Array.isArray(
+			value.knowledge
+		) &&
+		value.knowledge.every(
+			isRpgKnowledgeState
+		) &&
+		Array.isArray(
+			value.journal
+		) &&
+		value.journal.every(
+			isRpgJournalEntry
+		)
+	);
+}
+
 function isResourceReservation(
 	value: unknown
 ): value is ResourceReservation {
@@ -346,6 +477,7 @@ function isCorciteStateShape(
 		value.productions.every(isProductionState) &&
 		isTfNetworkState(value.tfNetwork) &&
 		isCapacities(value.capacities) &&
+		isRpgState(value.rpg) &&
 		Array.isArray(value.modifiers) &&
 		value.modifiers.every(isModifierState) &&
 		Array.isArray(value.reservations) &&

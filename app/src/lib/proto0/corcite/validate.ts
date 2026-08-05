@@ -1,3 +1,4 @@
+import { validateRpgState } from '../rpg/validate.js';
 import { validateTfNetworkState } from '../tf/network-validate.js';
 import type { CorciteState } from '../domain/corcite.js';
 import { RESOURCE_IDS } from '../domain/resources.js';
@@ -36,6 +37,15 @@ export function validateCorciteState(
 
 	errors.push(
 		...tfNetworkValidation.errors
+	);
+
+	const rpgValidation =
+		validateRpgState(
+			state.rpg
+		);
+
+	errors.push(
+		...rpgValidation.errors
 	);
 
 	const duplicateStorageIds = findDuplicates(
@@ -150,6 +160,55 @@ export function validateCorciteState(
 		errors.push(
 			'La réserve énergétique courante dépasse son maximum'
 		);
+	}
+
+	const duplicateModifierIds =
+		findDuplicates(
+			state.modifiers.map(
+				(modifier) =>
+					modifier.id
+			)
+		);
+
+	if (
+		duplicateModifierIds.length > 0
+	) {
+		errors.push(
+			`Identifiants de modificateur dupliqués : ${duplicateModifierIds.join(', ')}`
+		);
+	}
+
+	for (
+		const modifier of
+		state.modifiers
+	) {
+		if (!modifier.id.trim()) {
+			errors.push(
+				'Un modificateur possède un identifiant vide'
+			);
+		}
+
+		if (!modifier.source.trim()) {
+			errors.push(
+				`Modificateur ${modifier.id} : origine vide`
+			);
+		}
+
+		if (!modifier.target.trim()) {
+			errors.push(
+				`Modificateur ${modifier.id} : cible vide`
+			);
+		}
+
+		if (
+			!Number.isFinite(
+				modifier.value
+			)
+		) {
+			errors.push(
+				`Modificateur ${modifier.id} : valeur invalide`
+			);
+		}
 	}
 
 	for (const reservation of state.reservations) {

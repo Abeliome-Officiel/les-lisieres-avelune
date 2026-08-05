@@ -60,6 +60,14 @@ export interface TfRecipeDefinition {
 	durationTurns: number;
 }
 
+export interface TfAppliedModifier {
+	id: string;
+	source: string;
+	target: string;
+	operation: 'add' | 'multiply';
+	value: number;
+}
+
 export interface TfResourceMovement {
 	storageUnitId: string;
 	resourceId: ResourceId;
@@ -79,6 +87,8 @@ export interface TfProcessingEvent {
 	status: TfProcessingStatus;
 	inputs: Partial<Record<ResourceId, number>>;
 	outputs: Partial<Record<ResourceId, number>>;
+	baseOutputs?: Partial<Record<ResourceId, number>>;
+	appliedModifiers?: TfAppliedModifier[];
 	consumptions: TfResourceMovement[];
 	bufferConsumptions?: TfBufferConsumptionMovement[];
 	placements: TfResourceMovement[];

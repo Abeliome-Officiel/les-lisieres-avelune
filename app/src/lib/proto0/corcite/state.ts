@@ -168,6 +168,12 @@ export function createReferenceCorciteState(
 			buffers: []
 		},
 		capacities: createInitialCapacities(structures),
+		rpg: {
+			researches: [],
+			accesses: [],
+			knowledge: [],
+			journal: []
+		},
 		modifiers: [],
 		reservations: []
 	};
