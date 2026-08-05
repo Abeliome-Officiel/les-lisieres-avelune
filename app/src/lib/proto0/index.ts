@@ -80,3 +80,6 @@ export * from './td/playable-inventory.js';
 export * from './td/resolution.js';
 export * from './td/state.js';
 export * from './td/validate.js';
+export * from './config/playable-wave-cycle-reference.js';
+export * from './domain/playable-wave.js';
+export * from './wave/playable-cycle.js';
