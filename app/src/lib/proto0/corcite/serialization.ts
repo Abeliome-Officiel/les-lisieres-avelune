@@ -761,6 +761,17 @@ function isCorciteStateShape(
 		Array.isArray(value.productions) &&
 		value.productions.every(isProductionState) &&
 		isTdState(value.td) &&
+            (
+                    value.tdInventory === undefined ||
+                    (
+                            Array.isArray(
+                                    value.tdInventory
+                            ) &&
+                            value.tdInventory.every(
+                                    isTdTowerState
+                            )
+                    )
+            ) &&
 		isTfNetworkState(value.tfNetwork) &&
 		isCapacities(value.capacities) &&
 		isRpgState(value.rpg) &&

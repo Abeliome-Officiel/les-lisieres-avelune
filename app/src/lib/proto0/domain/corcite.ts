@@ -3,7 +3,10 @@ import type {
 } from './consequence.js';
 import type { CorciteId } from './ids.js';
 import type { RpgState } from './rpg.js';
-import type { TdState } from './td.js';
+import type {
+        TdState,
+        TdTowerState
+} from './td.js';
 import type { TfNetworkState } from './tf.js';
 import type {
 	ResourceId,
@@ -170,6 +173,14 @@ export interface CorciteState extends CorciteIdentity {
 	structures: StructureState[];
 	productions: ProductionState[];
 	td: TdState;
+
+	/**
+	 * Défenses fabriquées mais non placées.
+	 *
+	 * Le champ reste optionnel sur CorciteState
+	 * pour conserver la compatibilité P0-P10.
+	 */
+	tdInventory?: TdTowerState[];
 	tfNetwork: TfNetworkState;
 	capacities: CorciteCapacities;
 	rpg: RpgState;
@@ -186,6 +197,7 @@ export interface CorciteState extends CorciteIdentity {
  */
 export interface PlayableCorciteState extends CorciteState {
 	population: PopulationState;
+	tdInventory: TdTowerState[];
 }
 
 export interface StoredResourceSummary {

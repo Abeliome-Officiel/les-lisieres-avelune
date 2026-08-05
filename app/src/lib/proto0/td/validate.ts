@@ -3,7 +3,8 @@ import {
 	TD_PATH_POSITIONS
 } from '../config/td-reference.js';
 import type {
-	TdState
+        TdState,
+        TdTowerState
 } from '../domain/td.js';
 
 export interface TdValidationResult {
@@ -141,4 +142,64 @@ export function validateTdState(
 			errors.length === 0,
 		errors
 	};
+}
+
+export function validateTdTowerState(
+        tower: TdTowerState
+): TdValidationResult {
+        const errors: string[] = [];
+
+        if (!tower.id.trim()) {
+                errors.push(
+                        'Une tour TD possède un identifiant vide'
+                );
+        }
+
+        const definition =
+                TD_LAB_REFERENCE.towers.find(
+                        (candidate) =>
+                                candidate.id ===
+                                tower.definitionId
+                );
+
+        if (!definition) {
+                errors.push(
+                        `Tour ${tower.id} : définition inconnue`
+                );
+
+                return {
+                        valid: false,
+                        errors
+                };
+        }
+
+        if (
+                tower.family !==
+                definition.family
+        ) {
+                errors.push(
+                        `Tour ${tower.id} : famille incompatible avec sa définition`
+                );
+        }
+
+        if (
+                tower.level !==
+                definition.level
+        ) {
+                errors.push(
+                        `Tour ${tower.id} : niveau incompatible avec sa définition`
+                );
+        }
+
+        if (!tower.label.trim()) {
+                errors.push(
+                        `Tour ${tower.id} : libellé vide`
+                );
+        }
+
+        return {
+                valid:
+                        errors.length === 0,
+                errors
+        };
 }

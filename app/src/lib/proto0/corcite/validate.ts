@@ -1,5 +1,8 @@
 import { validateRpgState } from '../rpg/validate.js';
-import { validateTdState } from '../td/validate.js';
+import {
+        validateTdState,
+        validateTdTowerState
+} from '../td/validate.js';
 import { validateTfNetworkState } from '../tf/network-validate.js';
 import type { CorciteState } from '../domain/corcite.js';
 import { RESOURCE_IDS } from '../domain/resources.js';
@@ -211,7 +214,78 @@ export function validateCorciteState(
 		...tdValidation.errors
 	);
 
-	const tfNetworkValidation =
+	if (state.tdInventory !== undefined) {
+                const inventoryTowerIds =
+                        state.tdInventory.map(
+                                (tower) =>
+                                        tower.id
+                        );
+
+                const duplicateInventoryTowerIds =
+                        findDuplicates(
+                                inventoryTowerIds
+                        );
+
+                if (
+                        duplicateInventoryTowerIds.length >
+                        0
+                ) {
+                        errors.push(
+                                `Identifiants de tours TD dupliqués dans l'inventaire : ${duplicateInventoryTowerIds.join(', ')}`
+                        );
+                }
+
+                for (
+                        const tower of
+                        state.tdInventory
+                ) {
+                        const towerValidation =
+                                validateTdTowerState(
+                                        tower
+                                );
+
+                        errors.push(
+                                ...towerValidation.errors.map(
+                                        (error) =>
+                                                `Inventaire TD : ${error}`
+                                )
+                        );
+                }
+
+                const placedTowerIds =
+                        state.td.positions.flatMap(
+                                (position) =>
+                                        position.tower
+                                                ? [
+                                                        position.tower.id
+                                                ]
+                                                : []
+                        );
+
+                const inventoryIds =
+                        new Set(
+                                inventoryTowerIds
+                        );
+
+                const duplicatedBetweenInventoryAndPath =
+                        placedTowerIds.filter(
+                                (id) =>
+                                        inventoryIds.has(
+                                                id
+                                        )
+                        );
+
+                if (
+                        duplicatedBetweenInventoryAndPath.length >
+                        0
+                ) {
+                        errors.push(
+                                `Une tour TD ne peut pas être simultanément placée et en inventaire : ${duplicatedBetweenInventoryAndPath.join(', ')}`
+                        );
+                }
+        }
+
+        const tfNetworkValidation =
 		validateTfNetworkState(
 			state.tfNetwork,
 			state.structures

@@ -318,6 +318,7 @@ export function createPlayableCorciteState(
 		structures,
 		productions: [],
 		td: createEmptyTdState(),
+                  tdInventory: [],
 		tfNetwork: {
 			connections: [],
 			buffers: []

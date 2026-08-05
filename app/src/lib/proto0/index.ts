@@ -11,6 +11,7 @@ export * from './config/tf-extraction-reference.js';
 export * from './config/tf-processing-reference.js';
 export * from './config/td-preparation-reference.js';
 export * from './config/td-reference.js';
+export * from './config/playable-td-reference.js';
 export * from './config/tf-reference.js';
 export * from './config/validate.js';
 
@@ -75,6 +76,7 @@ export * from './tf/turn.js';
 
 export * from './td/effects.js';
 export * from './td/preparation.js';
+export * from './td/playable-inventory.js';
 export * from './td/resolution.js';
 export * from './td/state.js';
 export * from './td/validate.js';
