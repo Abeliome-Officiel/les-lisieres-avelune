@@ -36,3 +36,12 @@
 
 En cas de contradiction pour PROTO-0, les documents `docs/proto0/` et la
 baseline v0.8.3 prévalent sur les documents historiques.
+
+<!-- PROTO0_PLAYABLE_FINAL_20260806 -->
+## PROTO-0 jouable
+
+- `PROTO0_PLAYABLE_SCOPE.md` — périmètre.
+- `PROTO0_TEST_NOTEBOOK.md` — carnet de test.
+- `PROTO0_PLAYABLE_BALANCE_REPORT.md` — simulations.
+- `PROTO0_PLAYABLE_REFERENCE_PLAYTHROUGH.md` — parcours technique.
+- `PROTO0_PLAYTEST_READY.md` — gate de playtest humain.

@@ -1,29 +1,37 @@
 <script lang="ts">
+        import { onMount } from 'svelte';
+
         import {
                 PLAYABLE_CONSTRUCTION_CATALOG,
                 PLAYABLE_RESEARCH_PRESENTATIONS,
                 PLAYABLE_TD_FABRICATIONS,
+                PLAYABLE_TEST_NOTE_CATEGORIES,
                 constructPlayableBrowserStructure,
                 connectPlayableBrowserTfStructures,
                 createPlayableBrowserSession,
+                createPlayableTestNote,
                 fabricatePlayableBrowserTower,
                 getPlayableBrowserForecast,
                 getPlayableBrowserPendingDiscovery,
                 getPlayableBrowserResearchChoices,
                 getTotalUnanalysedWaveMatter,
                 movePlayableBrowserTower,
+                parsePlayableTestNotes,
                 placePlayableBrowserTower,
                 previewPlayableConstruction,
                 previewPlayableTdFabrication,
                 removePlayableBrowserTower,
                 resolvePlayableBrowserTurn,
                 resolvePlayableBrowserWave,
+                serializePlayableTestNotes,
                 setPlayableBrowserStructureActive,
                 startPlayableBrowserResearch,
                 summarizeStoredResources,
                 validatePlayableBrowserDiscovery,
                 type PlayableConstructionDefinitionId,
                 type PlayableResearchDefinitionId,
+                type PlayableTestNote,
+                type PlayableTestNoteCategory,
                 type Proto0PlayableBrowserState,
                 type ResourceId,
                 type TdPathPosition,
@@ -35,7 +43,8 @@
                 | 'tf'
                 | 'research'
                 | 'defense'
-                | 'wave';
+                | 'wave'
+                | 'notebook';
 
         const views: {
                 id: ViewId;
@@ -60,6 +69,10 @@
                 {
                         id: 'wave',
                         label: 'Vague'
+                },
+                {
+                        id: 'notebook',
+                        label: 'Carnet'
                 }
         ];
 
@@ -88,6 +101,18 @@
 
         let uiError = '';
 
+        const NOTE_STORAGE_KEY =
+                'avelune:proto0:test-notes:v1';
+
+        let noteCategory:
+                PlayableTestNoteCategory =
+                'strategy';
+
+        let noteText = '';
+
+        let testNotes:
+                PlayableTestNote[] = [];
+
         let connectionFrom = '';
         let connectionTo = '';
         let connectionResource:
@@ -100,6 +125,17 @@
         let moveTargets:
                 Record<number, TdPathPosition> =
                 {};
+
+        onMount(
+                () => {
+                        testNotes =
+                                parsePlayableTestNotes(
+                                        localStorage.getItem(
+                                                NOTE_STORAGE_KEY
+                                        )
+                                );
+                }
+        );
 
         $: forecast =
                 getPlayableBrowserForecast(
@@ -180,6 +216,126 @@
                                                 structure.kind
                                         )
                         );
+
+        function persistTestNotes(): void {
+                localStorage.setItem(
+                        NOTE_STORAGE_KEY,
+                        serializePlayableTestNotes(
+                                testNotes
+                        )
+                );
+        }
+
+        function noteCategoryLabel(
+                category:
+                        PlayableTestNoteCategory
+        ): string {
+                return (
+                        PLAYABLE_TEST_NOTE_CATEGORIES
+                                .find(
+                                        (entry) =>
+                                                entry.id ===
+                                                category
+                                )
+                                ?.label ??
+                        category
+                );
+        }
+
+        function addTestNote(): void {
+                try {
+                        const waveNumber =
+                                session.waveCycle.current
+                                        ?.waveNumber ??
+                                session.waveCycle.history.at(
+                                        -1
+                                )?.waveNumber ??
+                                null;
+
+                        const note =
+                                createPlayableTestNote({
+                                        category:
+                                                noteCategory,
+                                        text:
+                                                noteText,
+                                        context: {
+                                                runId:
+                                                        session.runId,
+                                                turn:
+                                                        session.currentTurn,
+                                                view:
+                                                        activeView,
+                                                waveNumber,
+                                                wavePhase:
+                                                        session.waveCycle.phase,
+                                                statusMessage:
+                                                        session.statusMessage,
+                                                integrity:
+                                                        session.corcite.recovery
+                                                                .integrity.current,
+                                                energyReserve:
+                                                        session.corcite.capacities
+                                                                .energy.reserveCurrent,
+                                                maintenanceDebt:
+                                                        session.corcite.sustainability
+                                                                ?.maintenance.debt ??
+                                                        0
+                                        }
+                                });
+
+                        testNotes = [
+                                note,
+                                ...testNotes
+                        ];
+
+                        persistTestNotes();
+
+                        noteText = '';
+                        uiError = '';
+                } catch (error) {
+                        uiError =
+                                errorMessage(
+                                        error
+                                );
+                }
+        }
+
+        function exportTestNotes(): void {
+                const blob =
+                        new Blob(
+                                [
+                                        serializePlayableTestNotes(
+                                                testNotes
+                                        )
+                                ],
+                                {
+                                        type:
+                                                'application/json'
+                                }
+                        );
+
+                const url =
+                        URL.createObjectURL(
+                                blob
+                        );
+
+                const link =
+                        document.createElement(
+                                'a'
+                        );
+
+                link.href =
+                        url;
+
+                link.download =
+                        `avelune-carnet-${session.runId}.json`;
+
+                link.click();
+
+                URL.revokeObjectURL(
+                        url
+                );
+        }
 
         function errorMessage(
                 error: unknown
@@ -1265,7 +1421,7 @@
                                         </div>
                                 </div>
                         </section>
-                {:else}
+                {:else if activeView === 'wave'}
                         <section class="view">
                                 <div class="section-heading">
                                         <div>
@@ -1485,6 +1641,115 @@
                                         </div>
                                 {/if}
                         </section>
+                {:else}
+                        <section class="view">
+                                <div class="section-heading">
+                                        <div>
+                                                <p class="eyebrow">
+                                                        PLAYTEST
+                                                </p>
+
+                                                <h2>
+                                                        Carnet de test
+                                                </h2>
+                                        </div>
+
+                                        <span class="badge">
+                                                {testNotes.length}
+                                                note{testNotes.length > 1 ? 's' : ''}
+                                        </span>
+                                </div>
+
+                                <div class="panel notebook-form">
+                                        <p>
+                                                Note rapidement ce que tu cherchais à faire, ce qui t’a surpris ou ce qui t’a gêné. Le tour, la vague, l’intégrité, l’énergie et l’entretien sont enregistrés automatiquement avec la note.
+                                        </p>
+
+                                        <label>
+                                                Type de note
+
+                                                <select
+                                                        bind:value={noteCategory}
+                                                >
+                                                        {#each PLAYABLE_TEST_NOTE_CATEGORIES as category}
+                                                                <option value={category.id}>
+                                                                        {category.label}
+                                                                </option>
+                                                        {/each}
+                                                </select>
+                                        </label>
+
+                                        <label>
+                                                Observation
+
+                                                <textarea
+                                                        rows="5"
+                                                        bind:value={noteText}
+                                                        placeholder="Ex. : je voulais préparer une Captation, mais je n’ai pas compris quelle chaîne produire d’abord."
+                                                ></textarea>
+                                        </label>
+
+                                        <div class="notebook-actions">
+                                                <button
+                                                        type="button"
+                                                        disabled={!noteText.trim()}
+                                                        onclick={addTestNote}
+                                                >
+                                                        Ajouter la note
+                                                </button>
+
+                                                <button
+                                                        type="button"
+                                                        class="secondary"
+                                                        disabled={testNotes.length === 0}
+                                                        onclick={exportTestNotes}
+                                                >
+                                                        Exporter le carnet
+                                                </button>
+                                        </div>
+                                </div>
+
+                                {#if testNotes.length === 0}
+                                        <div class="panel">
+                                                <p class="muted">
+                                                        Aucune note pour le moment.
+                                                </p>
+                                        </div>
+                                {:else}
+                                        <div class="card-list">
+                                                {#each testNotes as note}
+                                                        <article class="compact-card vertical-card notebook-entry">
+                                                                <div class="section-heading">
+                                                                        <strong>
+                                                                                {noteCategoryLabel(note.category)}
+                                                                        </strong>
+
+                                                                        <span class="badge">
+                                                                                Tour {note.context.turn}
+                                                                        </span>
+                                                                </div>
+
+                                                                <p>
+                                                                        {note.text}
+                                                                </p>
+
+                                                                <small>
+                                                                        Vague {note.context.waveNumber ?? '—'}
+                                                                        · {note.context.wavePhase}
+                                                                        · intégrité {formatNumber(note.context.integrity)}
+                                                                        · réserve {formatNumber(note.context.energyReserve)}
+                                                                        · dette entretien {formatNumber(note.context.maintenanceDebt)}
+                                                                </small>
+
+                                                                <small>
+                                                                        {new Date(note.createdAtIso).toLocaleString('fr-FR')}
+                                                                </small>
+                                                        </article>
+                                                {/each}
+                                        </div>
+                                {/if}
+                        </section>
+
                 {/if}
         </main>
 
@@ -2012,6 +2277,48 @@
                 font-weight: 800;
         }
 
+        .notebook-form {
+                display: grid;
+                gap: 0.8rem;
+        }
+
+        .notebook-form textarea {
+                box-sizing: border-box;
+                width: 100%;
+                min-height: 7rem;
+                resize: vertical;
+                padding: 0.75rem;
+                color: var(--text);
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 0.65rem;
+                background: var(--panel-solid);
+                font: inherit;
+                line-height: 1.45;
+        }
+
+        .notebook-form textarea:focus-visible {
+                outline:
+                        3px solid
+                        var(--focus);
+                outline-offset: 2px;
+        }
+
+        .notebook-actions {
+                display: grid;
+                grid-template-columns:
+                        repeat(
+                                2,
+                                minmax(0, 1fr)
+                        );
+                gap: 0.55rem;
+        }
+
+        .notebook-entry p {
+                white-space: pre-wrap;
+        }
+
         .turn-control {
                 position: fixed;
                 z-index: 30;
@@ -2063,7 +2370,7 @@
                 display: grid;
                 grid-template-columns:
                         repeat(
-                                5,
+                                6,
                                 minmax(0, 1fr)
                         );
                 gap: 1px;

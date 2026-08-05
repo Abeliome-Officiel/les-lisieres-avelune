@@ -86,3 +86,11 @@ Les archives complètes et le dossier destiné au wiki sont conservés séparém
 | `prototype/Avelune_Mini_Prototype.xlsx` | 64631 | `8509394dae3c7835234af46e3096ba6462f3c2ffb489f2fabf504be223be66be` |
 | `README.md` | 2689 | `e248cf3293cd8129e10c5613ebf44e60aa65cdafa0eabfa32b43508d49ef29d7` |
 | `ROADMAP.md` | 2071 | `50128b1f7292c2742b32ba3e3a4032790b8ce4b007f091acfcf3daf3499fb5e4` |
+
+<!-- PROTO0_PLAYABLE_FINAL_20260806 -->
+## Livrables PROTO-0 jouable
+
+- `docs/proto0/PROTO0_TEST_NOTEBOOK.md`
+- `docs/proto0/PROTO0_PLAYABLE_BALANCE_REPORT.md`
+- `docs/proto0/PROTO0_PLAYABLE_REFERENCE_PLAYTHROUGH.md`
+- `docs/proto0/PROTO0_PLAYTEST_READY.md`

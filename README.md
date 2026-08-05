@@ -95,3 +95,10 @@ Principaux jalons :
 
 Aucune licence n'est actuellement attribuée au projet.
 Tous droits réservés par défaut.
+
+<!-- PROTO0_PLAYABLE_FINAL_20260806 -->
+## PROTO-0 jouable — août 2026
+
+La branche `develop/proto-0.1-playable` contient désormais la boucle miniature jouable : développement du Corcite, TF, recherche, préparation TD, cycle multi-vagues, conséquences, récupération, captation et carnet de test.
+
+La version est destinée au playtest humain. Les paramètres numériques restent provisoires.

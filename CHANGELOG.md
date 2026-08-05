@@ -88,3 +88,13 @@ Consolidation rétrospective des décisions prises après v0.8.
 - simplification des symbioses ;
 - grille hexagonale définitive ;
 - revue structurée des décisions et interactions.
+
+<!-- PROTO0_PLAYABLE_FINAL_20260806 -->
+## PROTO-0 jouable
+
+- Interface branchée sur les moteurs Lots 1–10.
+- Cycle multi-vagues avec minimum de développement et retard variable.
+- Carnet de test persistant et exportable.
+- Simulations multi-graines automatisées.
+- Parcours technique complet.
+- Version préparée pour playtest humain.

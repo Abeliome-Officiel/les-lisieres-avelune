@@ -89,3 +89,4 @@ export * from './wave/playable-cycle.js';
 export * from './config/playable-capture-reference.js';
 export * from './domain/playable-capture.js';
 export * from './td/playable-capture.js';
+export * from './playable-test-notes.js';

@@ -102,3 +102,14 @@ PROTO-0 doit démontrer de manière reproductible :
 - qu'une défense imparfaite produit des conséquences ;
 - que le joueur dispose d'un rapport lisible ;
 - que les calculs peuvent être reconstruits techniquement.
+
+<!-- PROTO0_PLAYABLE_FINAL_20260806 -->
+## PROTO-0 jouable — état actuel
+
+- [x] Lots 1 à 11 — boucle miniature et interface.
+- [x] Lot 12 — carnet de test contextualisé.
+- [x] Lot 13 — simulations multi-graines et rapport.
+- [x] Lot 14 technique — parcours intégral automatisé.
+- [ ] Lot 14 expérientiel — playtest humain et conclusions.
+
+Référence temporelle actuelle : première vague au tour 6 ; ensuite minimum cinq tours plus zéro à deux tours de retard déterministe.
