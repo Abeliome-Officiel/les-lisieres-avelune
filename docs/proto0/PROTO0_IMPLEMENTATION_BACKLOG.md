@@ -43,12 +43,12 @@ Un état de Corcite complet peut être sauvegardé puis rechargé sans perte.
 
 ## P2 — Résolution de tour
 
-- [ ] phase joueur sans quota arbitraire d'actions ;
-- [ ] action explicite « terminer le tour » ;
-- [ ] verrouillage des choix ;
-- [ ] détection des conflits de ressources ;
-- [ ] réservations ;
-- [ ] arbitrage lorsqu'un conflit ne peut pas être résolu automatiquement ;
+- [x] phase joueur sans quota arbitraire d'actions ;
+- [x] action explicite « terminer le tour » ;
+- [x] verrouillage des choix ;
+- [x] détection des conflits de ressources ;
+- [x] réservations ;
+- [x] arbitrage lorsqu'un conflit ne peut pas être résolu automatiquement ;
 - [ ] résolution déterministe dans l'ordre fixé par la spécification ;
 - [ ] journal de chaque opération.
 
