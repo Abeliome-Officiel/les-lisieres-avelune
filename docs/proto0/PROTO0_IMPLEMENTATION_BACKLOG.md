@@ -10,13 +10,13 @@ Principe directeur : **moteur headless avant interface**.
 
 ## P0 — Fondation du prototype
 
-- [ ] créer les types PROTO-0 indépendants du moteur legacy dev.3 ;
-- [ ] charger une configuration de session ;
-- [ ] sérialiser la configuration ;
-- [ ] gérer la graine ;
-- [ ] créer plusieurs sessions indépendantes ;
-- [ ] utiliser 1 Corcite joueur + 4 Corcites simulés ;
-- [ ] tests de reproductibilité minimale.
+- [x] créer les types PROTO-0 indépendants du moteur legacy dev.3 ;
+- [x] charger une configuration de session ;
+- [x] sérialiser la configuration ;
+- [x] gérer la graine ;
+- [x] créer plusieurs sessions indépendantes ;
+- [x] utiliser 1 Corcite joueur + 4 Corcites simulés ;
+- [x] tests de reproductibilité minimale.
 
 ### Critère de sortie
 
@@ -26,14 +26,14 @@ Même configuration + même graine = même état initial.
 
 ## P1 — État du Corcite
 
-- [ ] définir les stocks ;
-- [ ] définir les unités de stockage ;
-- [ ] définir les productions ;
-- [ ] définir les structures ;
-- [ ] définir les capacités ;
-- [ ] définir les modificateurs ;
-- [ ] définir les réservations de ressources ;
-- [ ] produire un snapshot sérialisable.
+- [x] définir les stocks ;
+- [x] définir les unités de stockage ;
+- [x] définir les productions ;
+- [x] définir les structures ;
+- [x] définir les capacités ;
+- [x] définir les modificateurs ;
+- [x] définir les réservations de ressources ;
+- [x] produire un snapshot sérialisable.
 
 ### Critère de sortie
 

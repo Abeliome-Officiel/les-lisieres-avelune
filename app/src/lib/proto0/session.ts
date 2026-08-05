@@ -1,14 +1,18 @@
 import type {
-	CorciteDescriptor,
+	CorciteIdentity,
+	CorciteState
+} from './domain/corcite.js';
+import type {
 	Proto0InitialState,
 	Proto0SessionConfiguration
 } from './domain/session.js';
 import type { RunId } from './domain/ids.js';
 import type { WaveState } from './domain/wave.js';
+import { createReferenceCorciteState } from './corcite/state.js';
 import { validateSessionConfiguration } from './config/validate.js';
 import { SeededRng } from './random/seeded-rng.js';
 
-const SIMULATED_CORCITES: readonly CorciteDescriptor[] = [
+const SIMULATED_CORCITES: readonly CorciteIdentity[] = [
 	{
 		id: 'corcite-brumelune',
 		name: 'Brumelune',
@@ -32,12 +36,6 @@ const SIMULATED_CORCITES: readonly CorciteDescriptor[] = [
 ];
 
 export interface CreateInitialStateOptions {
-	/**
-	 * Permet aux tests, imports et restaurations de fournir un identifiant
-	 * déterminé explicitement.
-	 *
-	 * En utilisation normale, un identifiant unique est généré.
-	 */
 	runId?: RunId;
 }
 
@@ -52,9 +50,14 @@ function varyWaveValue(
 	maximumPercent: number,
 	rng: SeededRng
 ): number {
-	const variationPercent = rng.between(minimumPercent, maximumPercent);
+	const variationPercent = rng.between(
+		minimumPercent,
+		maximumPercent
+	);
 
-	return round(value * (1 + variationPercent / 100));
+	return round(
+		value * (1 + variationPercent / 100)
+	);
 }
 
 function createActualWave(
@@ -91,8 +94,27 @@ function createActualWave(
 	};
 }
 
-export function createRunId(config: Proto0SessionConfiguration): RunId {
+export function createRunId(
+	config: Proto0SessionConfiguration
+): RunId {
 	return `${config.testerCode}-${config.seed}-${crypto.randomUUID()}`;
+}
+
+function createCorcites(
+	config: Proto0SessionConfiguration
+): CorciteState[] {
+	const human: CorciteIdentity = {
+		id: `corcite-${config.testerCode.toLowerCase()}`,
+		name: config.testerCode,
+		controller: 'human'
+	};
+
+	return [
+		createReferenceCorciteState(human),
+		...SIMULATED_CORCITES.map((identity) =>
+			createReferenceCorciteState(identity)
+		)
+	];
 }
 
 export function createInitialState(
@@ -109,24 +131,17 @@ export function createInitialState(
 
 	const rng = new SeededRng(config.seed);
 
-	const humanCorcite: CorciteDescriptor = {
-		id: `corcite-${config.testerCode.toLowerCase()}`,
-		name: config.testerCode,
-		controller: 'human'
-	};
-
 	return {
 		runId: options.runId ?? createRunId(config),
 		configuration: structuredClone(config),
 		currentTurn: 1,
-		corcites: [
-			humanCorcite,
-			...SIMULATED_CORCITES.map((corcite) => ({ ...corcite }))
-		],
+		corcites: createCorcites(config),
 		actualWave: createActualWave(config, rng)
 	};
 }
 
-export function serializeInitialState(state: Proto0InitialState): string {
+export function serializeInitialState(
+	state: Proto0InitialState
+): string {
 	return JSON.stringify(state, null, 2);
 }
