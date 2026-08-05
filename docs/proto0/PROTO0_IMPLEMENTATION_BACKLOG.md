@@ -148,20 +148,20 @@ Une défense imparfaite laisse un état mesurable après la vague.
 
 ## P8 — Rapport joueur et logs
 
-- [ ] journal technique exhaustif ;
-- [ ] rapport joueur distinct ;
-- [ ] vague prévue / vague réelle ;
-- [ ] effets successifs des tours ;
-- [ ] quatre variables avant/après ;
-- [ ] matière captée ;
-- [ ] consommations pertinentes ;
-- [ ] conséquences ;
-- [ ] résultat ;
-- [ ] connaissance produite ;
-- [ ] résumé par défaut ;
-- [ ] détails à la demande ;
-- [ ] export machine ;
-- [ ] export lisible.
+- [x] journal technique exhaustif ;
+- [x] rapport joueur distinct ;
+- [x] vague prévue / vague réelle ;
+- [x] effets successifs des tours ;
+- [x] quatre variables avant/après ;
+- [x] matière captée ;
+- [x] consommations pertinentes ;
+- [x] conséquences ;
+- [x] résultat ;
+- [x] connaissance produite ;
+- [x] résumé par défaut ;
+- [x] détails à la demande ;
+- [x] export machine ;
+- [x] export lisible.
 
 ### Critère de sortie
 
