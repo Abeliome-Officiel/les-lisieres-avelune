@@ -13,8 +13,8 @@ import type {
  */
 export const PLAYABLE_START_REFERENCE = {
 	resourceLabels: {
-		R1: 'Ressource brute — extraction principale',
-		R2: 'Ressource brute — extraction complémentaire',
+		R1: 'Matière organique brute',
+		R2: 'Matière minérale brute',
 		R3: 'Matériau transformé',
 		R4: 'Composant fabriqué'
 	},

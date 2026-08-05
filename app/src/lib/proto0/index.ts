@@ -1,5 +1,6 @@
 export * from './config/bounds.js';
 export * from './config/playable-start-reference.js';
+export * from './config/playable-construction-reference.js';
 export * from './config/reference.js';
 export * from './config/rpg-reference.js';
 export * from './config/serialization.js';
@@ -15,6 +16,7 @@ export * from './consequences.js';
 export * from './reporting.js';
 export * from './reporting-export.js';
 export * from './corcite/serialization.js';
+export * from './corcite/construction.js';
 export * from './corcite/state.js';
 export * from './corcite/validate.js';
 
