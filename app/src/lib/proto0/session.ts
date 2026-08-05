@@ -7,7 +7,10 @@ import type {
 	Proto0SessionConfiguration
 } from './domain/session.js';
 import type { RunId } from './domain/ids.js';
-import type { WaveState } from './domain/wave.js';
+import type {
+	WaveForecasts,
+	WaveState
+} from './domain/wave.js';
 import { createReferenceCorciteState } from './corcite/state.js';
 import { validateSessionConfiguration } from './config/validate.js';
 import { SeededRng } from './random/seeded-rng.js';
@@ -94,6 +97,120 @@ function createActualWave(
 	};
 }
 
+type WaveForecastFactors =
+	Record<keyof WaveState, number>;
+
+function createWaveForecastFactors(
+	rng: SeededRng
+): WaveForecastFactors {
+	return {
+		pressure:
+			rng.between(-1, 1),
+		structure:
+			rng.between(-1, 1),
+		charge:
+			rng.between(-1, 1),
+		capturableMatter:
+			rng.between(-1, 1)
+	};
+}
+
+function createForecastWave(
+	actualWave: WaveState,
+	uncertaintyPercent: number,
+	factors: WaveForecastFactors
+): WaveState {
+	return {
+		pressure:
+			round(
+				actualWave.pressure *
+					(
+						1 +
+						factors.pressure *
+							uncertaintyPercent /
+							100
+					)
+			),
+		structure:
+			round(
+				actualWave.structure *
+					(
+						1 +
+						factors.structure *
+							uncertaintyPercent /
+							100
+					)
+			),
+		charge:
+			round(
+				actualWave.charge *
+					(
+						1 +
+						factors.charge *
+							uncertaintyPercent /
+							100
+					)
+			),
+		capturableMatter:
+			round(
+				actualWave.capturableMatter *
+					(
+						1 +
+						factors.capturableMatter *
+							uncertaintyPercent /
+							100
+					)
+			)
+	};
+}
+
+function createWaveForecasts(
+	config: Proto0SessionConfiguration,
+	actualWave: WaveState,
+	rng: SeededRng
+): WaveForecasts {
+	const factors =
+		createWaveForecastFactors(
+			rng
+		);
+
+	const forecast =
+		config.wave.forecast;
+
+	return {
+		tMinus3: {
+			uncertaintyPercent:
+				forecast.tMinus3Percent,
+			estimatedWave:
+				createForecastWave(
+					actualWave,
+					forecast.tMinus3Percent,
+					factors
+				)
+		},
+		tMinus2: {
+			uncertaintyPercent:
+				forecast.tMinus2Percent,
+			estimatedWave:
+				createForecastWave(
+					actualWave,
+					forecast.tMinus2Percent,
+					factors
+				)
+		},
+		tMinus1: {
+			uncertaintyPercent:
+				forecast.tMinus1Percent,
+			estimatedWave:
+				createForecastWave(
+					actualWave,
+					forecast.tMinus1Percent,
+					factors
+				)
+		}
+	};
+}
+
 export function createRunId(
 	config: Proto0SessionConfiguration
 ): RunId {
@@ -129,14 +246,39 @@ export function createInitialState(
 		);
 	}
 
-	const rng = new SeededRng(config.seed);
+	const rng =
+		new SeededRng(
+			config.seed
+		);
+
+	const actualWave =
+		createActualWave(
+			config,
+			rng
+		);
+
+	const waveForecasts =
+		createWaveForecasts(
+			config,
+			actualWave,
+			rng
+		);
 
 	return {
-		runId: options.runId ?? createRunId(config),
-		configuration: structuredClone(config),
+		runId:
+			options.runId ??
+			createRunId(config),
+		configuration:
+			structuredClone(
+				config
+			),
 		currentTurn: 1,
-		corcites: createCorcites(config),
-		actualWave: createActualWave(config, rng)
+		corcites:
+			createCorcites(
+				config
+			),
+		waveForecasts,
+		actualWave
 	};
 }
 

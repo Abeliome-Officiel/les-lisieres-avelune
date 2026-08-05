@@ -113,16 +113,16 @@ résultats différents.
 
 ## P6 — Vague et prévisions
 
-- [ ] pression ;
-- [ ] structure ;
-- [ ] charge ;
-- [ ] matière capturable ;
-- [ ] configuration nominale 50 / 60 / 20 / 16 ;
-- [ ] perturbation seedée ±2 % ;
-- [ ] prévision T−3 ±10 % ;
-- [ ] prévision T−2 ±6 % ;
-- [ ] prévision T−1 ±3 % ;
-- [ ] conservation de la prévision et du réel.
+- [x] pression ;
+- [x] structure ;
+- [x] charge ;
+- [x] matière capturable ;
+- [x] configuration nominale 50 / 60 / 20 / 16 ;
+- [x] perturbation seedée ±2 % ;
+- [x] prévision T−3 ±10 % ;
+- [x] prévision T−2 ±6 % ;
+- [x] prévision T−1 ±3 % ;
+- [x] conservation de la prévision et du réel.
 
 ### Critère de sortie
 

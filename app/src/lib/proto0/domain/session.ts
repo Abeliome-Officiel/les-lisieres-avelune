@@ -1,6 +1,10 @@
 import type { CorciteState } from './corcite.js';
 import type { RunId, Seed, TesterCode } from './ids.js';
-import type { WaveConfiguration, WaveState } from './wave.js';
+import type {
+	WaveConfiguration,
+	WaveForecasts,
+	WaveState
+} from './wave.js';
 
 export interface Proto0SessionConfiguration {
 	schema: 'avelune.proto0.session';
@@ -20,5 +24,6 @@ export interface Proto0InitialState {
 	configuration: Proto0SessionConfiguration;
 	currentTurn: 1;
 	corcites: CorciteState[];
+	waveForecasts: WaveForecasts;
 	actualWave: WaveState;
 }

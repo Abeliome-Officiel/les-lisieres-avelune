@@ -21,3 +21,14 @@ export interface WaveConfiguration {
 	variation: WaveVariation;
 	forecast: WaveForecastUncertainty;
 }
+
+export interface WaveForecastState {
+	uncertaintyPercent: number;
+	estimatedWave: WaveState;
+}
+
+export interface WaveForecasts {
+	tMinus3: WaveForecastState;
+	tMinus2: WaveForecastState;
+	tMinus1: WaveForecastState;
+}
