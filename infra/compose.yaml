@@ -26,6 +26,8 @@ services:
       dockerfile: Dockerfile
     image: avelune-proto:0.9-dev
     container_name: avelune-proto-app
+    ports:
+      - "8090:3000"
     restart: unless-stopped
     environment:
       NODE_ENV: production
