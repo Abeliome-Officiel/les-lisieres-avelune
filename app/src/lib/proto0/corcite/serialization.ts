@@ -153,7 +153,14 @@ function isStorageUnitState(
 		isString(value.structureId) &&
 		isString(value.name) &&
 		isFiniteNumber(value.capacity) &&
-		isResourceAmounts(value.contents)
+		isResourceAmounts(value.contents) &&
+                (
+                        value.unanalysedWaveMatter ===
+                                undefined ||
+                        isFiniteNumber(
+                                value.unanalysedWaveMatter
+                        )
+                )
 	);
 }
 
@@ -384,6 +391,140 @@ function isPlayableRecoveryState(
                         value.lastWaveImpact
                                 .maintenanceDebtAdded
                 )
+        );
+}
+
+function isPlayableCaptureEconomyState(
+        value: unknown
+): boolean {
+        if (!isRecord(value)) {
+                return false;
+        }
+
+        if (
+                !Array.isArray(
+                        value.recoveries
+                )
+        ) {
+                return false;
+        }
+
+        return value.recoveries.every(
+                (recovery) => {
+                        if (
+                                !isRecord(
+                                        recovery
+                                )
+                        ) {
+                                return false;
+                        }
+
+                        if (
+                                !isString(
+                                        recovery.id
+                                ) ||
+                                !isString(
+                                        recovery
+                                                .consequenceId
+                                ) ||
+                                !isFiniteNumber(
+                                        recovery.turn
+                                ) ||
+                                !isFiniteNumber(
+                                        recovery
+                                                .interceptedMatter
+                                ) ||
+                                !isFiniteNumber(
+                                        recovery
+                                                .baseRecoveryRatio
+                                ) ||
+                                !isFiniteNumber(
+                                        recovery
+                                                .effectiveRecoveryRatio
+                                ) ||
+                                !isFiniteNumber(
+                                        recovery
+                                                .recoverableMatter
+                                ) ||
+                                !isFiniteNumber(
+                                        recovery
+                                                .recoveredMatter
+                                ) ||
+                                !isFiniteNumber(
+                                        recovery
+                                                .lostDuringRecovery
+                                ) ||
+                                !isFiniteNumber(
+                                        recovery
+                                                .lostForLackOfStorage
+                                ) ||
+                                !Array.isArray(
+                                        recovery
+                                                .storagePlacements
+                                ) ||
+                                !Array.isArray(
+                                        recovery
+                                                .appliedModifiers
+                                )
+                        ) {
+                                return false;
+                        }
+
+                        const placementsValid =
+                                recovery
+                                        .storagePlacements
+                                        .every(
+                                                (
+                                                        placement
+                                                ) =>
+                                                        isRecord(
+                                                                placement
+                                                        ) &&
+                                                        isString(
+                                                                placement
+                                                                        .storageUnitId
+                                                        ) &&
+                                                        isFiniteNumber(
+                                                                placement
+                                                                        .amount
+                                                        )
+                                        );
+
+                        const modifiersValid =
+                                recovery
+                                        .appliedModifiers
+                                        .every(
+                                                (
+                                                        modifier
+                                                ) =>
+                                                        isRecord(
+                                                                modifier
+                                                        ) &&
+                                                        isString(
+                                                                modifier.id
+                                                        ) &&
+                                                        isString(
+                                                                modifier.source
+                                                        ) &&
+                                                        isString(
+                                                                modifier.target
+                                                        ) &&
+                                                        (
+                                                                modifier.operation ===
+                                                                        'add' ||
+                                                                modifier.operation ===
+                                                                        'multiply'
+                                                        ) &&
+                                                        isFiniteNumber(
+                                                                modifier.value
+                                                        )
+                                        );
+
+                        return (
+                                placementsValid &&
+                                modifiersValid
+                        );
+                }
         );
 }
 
@@ -848,6 +989,12 @@ function isCorciteStateShape(
 		        value.recovery === undefined ||
 		        isPlayableRecoveryState(
 		                value.recovery
+		        )
+		) &&
+		(
+		        value.captureEconomy === undefined ||
+		        isPlayableCaptureEconomyState(
+		                value.captureEconomy
 		        )
 		) &&
 		Array.isArray(value.storageUnits) &&

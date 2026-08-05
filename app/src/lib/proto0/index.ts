@@ -85,3 +85,6 @@ export * from './td/validate.js';
 export * from './config/playable-wave-cycle-reference.js';
 export * from './domain/playable-wave.js';
 export * from './wave/playable-cycle.js';
+export * from './config/playable-capture-reference.js';
+export * from './domain/playable-capture.js';
+export * from './td/playable-capture.js';

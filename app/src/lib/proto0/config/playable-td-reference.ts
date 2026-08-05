@@ -58,7 +58,7 @@ export const PLAYABLE_TD_FABRICATIONS:
                 family: 'captation',
                 label: 'Captation N1',
                 summary:
-                        'Retire de la matière de la vague pour la capter, avec un contre-effet de charge.',
+                        'Intercepte une partie de la matière de la vague ; la part réellement récupérée dépend ensuite du Corcite, avec un contre-effet de charge.',
                 resourceCosts: {
                         R3: 2,
                         R4: 2

@@ -1,3 +1,9 @@
+import type {
+        PlayableCaptureRecoveryState
+} from '../domain/playable-capture.js';
+import {
+        applyPlayableCaptureEconomy
+} from '../td/playable-capture.js';
 import {
 	PLAYABLE_WAVE_CYCLE_REFERENCE,
 	type PlayableWaveForecastStageDefinition,
@@ -72,6 +78,8 @@ export interface ResolvePlayableWaveResult {
 	historyEntry: PlayableWaveHistoryEntry;
 	recoveryImpact:
 	        PlayableWaveImpactState;
+        captureEconomy:
+                PlayableCaptureRecoveryState;
 }
 
 function round(
@@ -1080,6 +1088,12 @@ export function resolvePlayableWave(
 	                consequences.consequence.id
 	        );
 
+	const captureEconomy =
+	        applyPlayableCaptureEconomy(
+	                recovery.corcite,
+	                consequences.consequence.id
+	        );
+
 	const historyEntry:
 		PlayableWaveHistoryEntry = {
 		waveNumber:
@@ -1163,12 +1177,16 @@ export function resolvePlayableWave(
 
 	return {
 		corcite:
-		        recovery.corcite,
+		        captureEconomy.corcite,
 		cycle,
 		resolution,
 		recoveryImpact:
 		        structuredClone(
 		                recovery.impact
+		        ),
+		captureEconomy:
+		        structuredClone(
+		                captureEconomy.recovery
 		        ),
 		historyEntry:
 			structuredClone(

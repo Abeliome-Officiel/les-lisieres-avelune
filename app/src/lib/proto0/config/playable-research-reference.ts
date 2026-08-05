@@ -28,9 +28,9 @@ export interface PlayableResearchPresentation {
  * Les valeurs numériques sont des paramètres de test et non
  * l'équilibrage définitif d'Avelune.
  *
- * Les recherches Vague et Captation créent dès maintenant leurs
- * accès, connaissances et modificateurs ; leurs cibles mécaniques
- * seront consommées par les lots correspondants.
+ * Les recherches Vague et Captation créent leurs accès,
+ * connaissances et modificateurs ; leurs cibles mécaniques
+ * sont consommées par les moteurs jouables correspondants.
  */
 export const PLAYABLE_RESEARCH_CATALOG:
 	readonly RpgResearchDefinition[] = [
@@ -225,7 +225,7 @@ export const PLAYABLE_RESEARCH_PRESENTATIONS:
 		summary:
 			'Étudier la matière capturable et les conditions de prélèvement.',
 		effectSummary:
-			'Ouvre une meilleure maîtrise de la captation ; son effet précis sera branché au lot TD/captation.'
+			'Améliore la part de matière interceptée que le Corcite peut effectivement récupérer, sans augmenter le retrait de matière de la vague.'
 	}
 ] as const;
 

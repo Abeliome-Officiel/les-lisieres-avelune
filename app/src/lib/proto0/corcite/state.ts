@@ -331,6 +331,9 @@ export function createPlayableCorciteState(
                         lastWaveImpact: null,
                         appliedWaveConsequenceIds: []
                 },
+		captureEconomy: {
+		        recoveries: []
+		},
 		storageUnits:
 			createPlayableStorageUnits(),
 		structures,

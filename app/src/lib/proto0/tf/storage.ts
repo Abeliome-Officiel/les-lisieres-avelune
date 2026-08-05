@@ -1,19 +1,32 @@
 import type { CorciteState } from '../domain/corcite.js';
 import type {
 	ResourceId,
-	StorageUnitState
+	StorageUnitState,
+        WaveMatterStoragePlacement
 } from '../domain/resources.js';
 import type {
 	TfExtractionPlacement
 } from '../domain/tf.js';
 
 export function getStorageLoad(
-	storage: StorageUnitState
+        storage: StorageUnitState
 ): number {
-	return Object.values(storage.contents).reduce(
-		(total, amount) => total + amount,
-		0
-	);
+        const knownResources =
+                Object.values(
+                        storage.contents
+                ).reduce(
+                        (total, amount) =>
+                                total + amount,
+                        0
+                );
+
+        return (
+                knownResources +
+                (
+                        storage.unanalysedWaveMatter ??
+                        0
+                )
+        );
 }
 
 export function getStorageFreeCapacity(
@@ -113,6 +126,144 @@ export function storeResourceDeterministically(
 	}
 
 	return placements;
+}
+
+/**
+ * Stocke physiquement de la matière de vague non analysée.
+ *
+ * Cette matière :
+ * - occupe la même capacité que R1-R4 ;
+ * - ne devient aucune ResourceId ;
+ * - reste donc inutilisable par les recettes TF tant qu'une
+ *   mécanique d'analyse explicite ne l'a pas traitée.
+ */
+export function storeUnanalysedWaveMatterDeterministically(
+        state: CorciteState,
+        amount: number
+): WaveMatterStoragePlacement[] {
+        if (
+                !Number.isFinite(amount) ||
+                amount < 0
+        ) {
+                throw new Error(
+                        `Quantité de matière de vague à stocker invalide : ${amount}.`
+                );
+        }
+
+        if (amount === 0) {
+                return [];
+        }
+
+        if (
+                getTotalFreeStorageCapacity(
+                        state
+                ) < amount
+        ) {
+                throw new Error(
+                        'Capacité de stockage insuffisante pour la matière de vague.'
+                );
+        }
+
+        let remaining =
+                amount;
+
+        const placements:
+                WaveMatterStoragePlacement[] = [];
+
+        const storages =
+                [...state.storageUnits].sort(
+                        (a, b) =>
+                                a.id.localeCompare(
+                                        b.id
+                                )
+                );
+
+        for (
+                const storage of
+                storages
+        ) {
+                if (
+                        remaining <=
+                        1e-9
+                ) {
+                        break;
+                }
+
+                const free =
+                        getStorageFreeCapacity(
+                                storage
+                        );
+
+                if (free <= 0) {
+                        continue;
+                }
+
+                const stored =
+                        Math.min(
+                                free,
+                                remaining
+                        );
+
+                const target =
+                        state.storageUnits.find(
+                                (candidate) =>
+                                        candidate.id ===
+                                        storage.id
+                        );
+
+                if (!target) {
+                        throw new Error(
+                                `Stockage ${storage.id} introuvable.`
+                        );
+                }
+
+                target.unanalysedWaveMatter =
+                        (
+                                target.unanalysedWaveMatter ??
+                                0
+                        ) +
+                        stored;
+
+                placements.push({
+                        storageUnitId:
+                                target.id,
+                        amount:
+                                stored
+                });
+
+                remaining -=
+                        stored;
+        }
+
+        if (
+                Math.abs(
+                        remaining
+                ) >
+                1e-9
+        ) {
+                throw new Error(
+                        'Invariant rompu : stockage de matière de vague incomplet.'
+                );
+        }
+
+        return placements;
+}
+
+export function getTotalUnanalysedWaveMatter(
+        state: CorciteState
+): number {
+        return state.storageUnits.reduce(
+                (
+                        total,
+                        storage
+                ) =>
+                        total +
+                        (
+                                storage.unanalysedWaveMatter ??
+                                0
+                        ),
+                0
+        );
 }
 
 export function getStorageReservedAmount(

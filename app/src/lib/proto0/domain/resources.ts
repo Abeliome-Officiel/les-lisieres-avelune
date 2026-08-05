@@ -10,6 +10,19 @@ export interface StorageUnitState {
 	name: string;
 	capacity: number;
 	contents: ResourceAmounts;
+
+	/**
+	 * Matière issue des vagues, conservée physiquement mais
+	 * pas encore identifiée comme une ressource TF exploitable.
+	 *
+	 * Optionnel pour préserver les états historiques P0-P10.
+	 */
+	unanalysedWaveMatter?: number;
+}
+
+export interface WaveMatterStoragePlacement {
+        storageUnitId: string;
+        amount: number;
 }
 
 export interface ResourceReservation {

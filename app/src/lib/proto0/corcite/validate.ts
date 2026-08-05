@@ -332,6 +332,220 @@ export function validateCorciteState(
         }
 
 
+	if (
+	        state.captureEconomy !==
+	        undefined
+	) {
+	        const recoveries =
+	                state.captureEconomy
+	                        .recoveries;
+
+	        const duplicateRecoveryIds =
+	                findDuplicates(
+	                        recoveries.map(
+	                                (recovery) =>
+	                                        recovery.id
+	                        )
+	                );
+
+	        if (
+	                duplicateRecoveryIds.length >
+	                0
+	        ) {
+	                errors.push(
+	                        `Identifiants de récupération de captation dupliqués : ${duplicateRecoveryIds.join(', ')}`
+	                );
+	        }
+
+	        const duplicateConsequenceIds =
+	                findDuplicates(
+	                        recoveries.map(
+	                                (recovery) =>
+	                                        recovery
+	                                                .consequenceId
+	                        )
+	                );
+
+	        if (
+	                duplicateConsequenceIds.length >
+	                0
+	        ) {
+	                errors.push(
+	                        `Une conséquence possède plusieurs récupérations de captation : ${duplicateConsequenceIds.join(', ')}`
+	                );
+	        }
+
+	        for (
+	                const recovery of
+	                recoveries
+	        ) {
+	                const numericValues = [
+	                        recovery.interceptedMatter,
+	                        recovery.baseRecoveryRatio,
+	                        recovery.effectiveRecoveryRatio,
+	                        recovery.recoverableMatter,
+	                        recovery.recoveredMatter,
+	                        recovery.lostDuringRecovery,
+	                        recovery.lostForLackOfStorage
+	                ];
+
+	                if (
+	                        !recovery.id.trim() ||
+	                        !recovery
+	                                .consequenceId
+	                                .trim() ||
+	                        !Number.isInteger(
+	                                recovery.turn
+	                        ) ||
+	                        recovery.turn < 1 ||
+	                        numericValues.some(
+	                                (value) =>
+	                                        !isNonNegativeFinite(
+	                                                value
+	                                        )
+	                        )
+	                ) {
+	                        errors.push(
+	                                `Etat de récupération de captation invalide : ${recovery.id || '(sans identifiant)'}`
+	                        );
+
+	                        continue;
+	                }
+
+	                if (
+	                        recovery.baseRecoveryRatio >
+	                                1 ||
+	                        recovery.effectiveRecoveryRatio >
+	                                1 ||
+	                        recovery.recoverableMatter >
+	                                recovery.interceptedMatter +
+	                                        1e-6 ||
+	                        recovery.recoveredMatter >
+	                                recovery.recoverableMatter +
+	                                        1e-6
+	                ) {
+	                        errors.push(
+	                                `Récupération de captation incohérente : ${recovery.id}`
+	                        );
+	                }
+
+	                const expectedRecoveryLoss =
+	                        recovery.interceptedMatter -
+	                        recovery.recoverableMatter;
+
+	                const expectedStorageLoss =
+	                        recovery.recoverableMatter -
+	                        recovery.recoveredMatter;
+
+	                if (
+	                        Math.abs(
+	                                recovery.lostDuringRecovery -
+	                                expectedRecoveryLoss
+	                        ) >
+	                                1e-6 ||
+	                        Math.abs(
+	                                recovery.lostForLackOfStorage -
+	                                expectedStorageLoss
+	                        ) >
+	                                1e-6
+	                ) {
+	                        errors.push(
+	                                `Pertes de captation incohérentes : ${recovery.id}`
+	                        );
+	                }
+
+	                const placementTotal =
+	                        recovery.storagePlacements.reduce(
+	                                (
+	                                        total,
+	                                        placement
+	                                ) =>
+	                                        total +
+	                                        placement.amount,
+	                                0
+	                        );
+
+	                if (
+	                        recovery.storagePlacements.some(
+	                                (placement) =>
+	                                        !placement
+	                                                .storageUnitId
+	                                                .trim() ||
+	                                        !Number.isFinite(
+	                                                placement.amount
+	                                        ) ||
+	                                        placement.amount <=
+	                                                0 ||
+	                                        !state.storageUnits.some(
+	                                                (storage) =>
+	                                                        storage.id ===
+	                                                        placement
+	                                                                .storageUnitId
+	                                        )
+	                        ) ||
+	                        Math.abs(
+	                                placementTotal -
+	                                recovery.recoveredMatter
+	                        ) >
+	                                1e-6
+	                ) {
+	                        errors.push(
+	                                `Placements de captation incohérents : ${recovery.id}`
+	                        );
+	                }
+
+	                for (
+	                        const modifier of
+	                        recovery.appliedModifiers
+	                ) {
+	                        if (
+	                                !modifier.id.trim() ||
+	                                !modifier.source.trim() ||
+	                                !modifier.target.trim() ||
+	                                (
+	                                        modifier.operation !==
+	                                                'add' &&
+	                                        modifier.operation !==
+	                                                'multiply'
+	                                ) ||
+	                                !Number.isFinite(
+	                                        modifier.value
+	                                )
+	                        ) {
+	                                errors.push(
+	                                        `Modificateur de captation invalide : ${recovery.id}`
+	                                );
+	                        }
+	                }
+
+	                const consequence =
+	                        state.waveConsequences.find(
+	                                (candidate) =>
+	                                        candidate.id ===
+	                                        recovery.consequenceId
+	                        );
+
+	                if (
+	                        !consequence ||
+	                        Math.abs(
+	                                (
+	                                        consequence
+	                                                ?.capturedMatter ??
+	                                        -1
+	                                ) -
+	                                recovery.interceptedMatter
+	                        ) >
+	                                1e-6 ||
+	                        consequence?.turn !==
+	                                recovery.turn
+	                ) {
+	                        errors.push(
+	                                `Récupération ${recovery.id} non reliée à sa conséquence de vague`
+	                        );
+	                }
+	        }
+	}
+
 	const tdValidation =
 		validateTdState(
 			state.td
@@ -471,6 +685,23 @@ export function validateCorciteState(
 			}
 
 			load += amount;
+		}
+
+		const unanalysedWaveMatter =
+		        storage.unanalysedWaveMatter ??
+		        0;
+
+		if (
+		        !isNonNegativeFinite(
+		                unanalysedWaveMatter
+		        )
+		) {
+		        errors.push(
+		                `Matière de vague non analysée invalide dans ${storage.id}`
+		        );
+		} else {
+		        load +=
+		                unanalysedWaveMatter;
 		}
 
 		if (load > storage.capacity) {

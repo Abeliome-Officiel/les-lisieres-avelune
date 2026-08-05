@@ -13,6 +13,9 @@ import type {
 	ResourceReservation,
 	StorageUnitState
 } from './resources.js';
+import type {
+        PlayableCaptureEconomyState
+} from './playable-capture.js';
 
 export type CorciteController =
 	| 'human'
@@ -223,6 +226,13 @@ export interface CorciteState extends CorciteIdentity {
          * Absent des états historiques P0-P10.
          */
         recovery?: PlayableRecoveryState;
+	/**
+	 * Economie de captation propre au prototype jouable.
+	 *
+	 * Le champ reste optionnel afin de conserver la lecture
+	 * des états historiques P0-P10.
+	 */
+	captureEconomy?: PlayableCaptureEconomyState;
 	storageUnits: StorageUnitState[];
 	structures: StructureState[];
 	productions: ProductionState[];
@@ -253,6 +263,7 @@ export interface PlayableCorciteState extends CorciteState {
 	population: PopulationState;
         recovery: PlayableRecoveryState;
 	tdInventory: TdTowerState[];
+	captureEconomy: PlayableCaptureEconomyState;
 }
 
 export interface StoredResourceSummary {
