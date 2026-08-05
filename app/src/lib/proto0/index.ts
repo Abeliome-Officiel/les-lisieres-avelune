@@ -1,4 +1,5 @@
 export * from './config/bounds.js';
+export * from './config/playable-start-reference.js';
 export * from './config/reference.js';
 export * from './config/rpg-reference.js';
 export * from './config/serialization.js';

@@ -54,6 +54,7 @@ const CORCITE_CONTROLLERS: readonly CorciteController[] = [
 ];
 
 const STRUCTURE_KINDS: readonly StructureKind[] = [
+	'corcite-core-n1',
 	'extractor-a-n1',
 	'extractor-b-n1',
 	'transformer-n1',
@@ -215,6 +216,15 @@ function isCapacityUsageState(value: unknown): boolean {
 	return (
 		isFiniteNumber(value.capacity) &&
 		isFiniteNumber(value.used)
+	);
+}
+
+function isPopulationState(value: unknown): boolean {
+	if (!isRecord(value)) return false;
+
+	return (
+		isFiniteNumber(value.total) &&
+		isFiniteNumber(value.workPerPopulation)
 	);
 }
 
@@ -658,6 +668,10 @@ function isCorciteStateShape(
 		isString(value.id) &&
 		isString(value.name) &&
 		isController(value.controller) &&
+			(
+				value.population === undefined ||
+				isPopulationState(value.population)
+			) &&
 		Array.isArray(value.storageUnits) &&
 		value.storageUnits.every(isStorageUnitState) &&
 		Array.isArray(value.structures) &&

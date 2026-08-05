@@ -30,6 +30,49 @@ export function validateCorciteState(
 ): CorciteValidationResult {
 	const errors: string[] = [];
 
+
+	if (state.population !== undefined) {
+		if (
+			!Number.isInteger(
+				state.population.total
+			) ||
+			state.population.total < 1
+		) {
+			errors.push(
+				'Population totale invalide'
+			);
+		}
+
+		if (
+			!isNonNegativeFinite(
+				state.population
+					.workPerPopulation
+			) ||
+			state.population
+				.workPerPopulation <= 0
+		) {
+			errors.push(
+				'Production de travail par habitant invalide'
+			);
+		}
+
+		const expectedWorkCapacity =
+			state.population.total *
+			state.population.workPerPopulation;
+
+		if (
+			Number.isFinite(
+				expectedWorkCapacity
+			) &&
+			state.capacities.work.capacity !==
+				expectedWorkCapacity
+		) {
+			errors.push(
+				'La capacité de travail ne correspond pas à la population'
+			);
+		}
+	}
+
 	const tdValidation =
 		validateTdState(
 			state.td

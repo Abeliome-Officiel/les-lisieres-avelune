@@ -25,6 +25,7 @@ export interface CorciteIdentity {
 }
 
 export type StructureKind =
+	| 'corcite-core-n1'
 	| 'extractor-a-n1'
 	| 'extractor-b-n1'
 	| 'transformer-n1'
@@ -73,6 +74,20 @@ export interface ModifierState {
 	active: boolean;
 }
 
+/**
+ * Population minimale du prototype jouable.
+ *
+ * La capacité de travail dérive de la population et non d'une
+ * constante indépendante.
+ *
+ * Le champ reste optionnel dans CorciteState pendant la migration
+ * afin que les états historiques P0-P10 restent lisibles.
+ */
+export interface PopulationState {
+	total: number;
+	workPerPopulation: number;
+}
+
 export interface CapacityUsageState {
 	capacity: number;
 	used: number;
@@ -93,6 +108,7 @@ export interface CorciteCapacities {
 }
 
 export interface CorciteState extends CorciteIdentity {
+	population?: PopulationState;
 	storageUnits: StorageUnitState[];
 	structures: StructureState[];
 	productions: ProductionState[];
@@ -103,6 +119,16 @@ export interface CorciteState extends CorciteIdentity {
 	modifiers: ModifierState[];
 	reservations: ResourceReservation[];
 	waveConsequences: WaveConsequenceState[];
+}
+
+/**
+ * Etat utilisé par le prototype miniature réellement jouable.
+ *
+ * Contrairement aux anciens états de laboratoire, la population
+ * est obligatoire.
+ */
+export interface PlayableCorciteState extends CorciteState {
+	population: PopulationState;
 }
 
 export interface StoredResourceSummary {
