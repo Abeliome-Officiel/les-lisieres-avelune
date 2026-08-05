@@ -5,6 +5,7 @@ export * from './config/serialization.js';
 export * from './config/tf-extraction-reference.js';
 export * from './config/tf-processing-reference.js';
 export * from './config/td-preparation-reference.js';
+export * from './config/td-reference.js';
 export * from './config/tf-reference.js';
 export * from './config/validate.js';
 
@@ -17,6 +18,7 @@ export * from './domain/ids.js';
 export * from './domain/resources.js';
 export * from './domain/rpg.js';
 export * from './domain/session.js';
+export * from './domain/td.js';
 export * from './domain/tf.js';
 export * from './domain/turn.js';
 export * from './domain/wave.js';
@@ -46,4 +48,8 @@ export * from './tf/storage.js';
 export * from './tf/transformation.js';
 export * from './tf/turn.js';
 
+export * from './td/effects.js';
 export * from './td/preparation.js';
+export * from './td/resolution.js';
+export * from './td/state.js';
+export * from './td/validate.js';

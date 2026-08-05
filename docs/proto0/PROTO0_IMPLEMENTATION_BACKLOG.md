@@ -94,15 +94,15 @@ Une décision RPG change au moins un choix mécanique utile.
 
 ## P5 — TD interne
 
-- [ ] chemin interne de 8 positions ;
-- [ ] placement ordonné des tours ;
-- [ ] famille Atténuation N1 ;
-- [ ] famille Déstructuration N1 ;
-- [ ] famille Captation N1 ;
-- [ ] famille Stabilisation N1 ;
-- [ ] transformation progressive des quatre variables de vague ;
-- [ ] journal avant/après chaque position ;
-- [ ] vérification automatisée que l'ordre peut changer le résultat.
+- [x] chemin interne de 8 positions ;
+- [x] placement ordonné des tours ;
+- [x] famille Atténuation N1 ;
+- [x] famille Déstructuration N1 ;
+- [x] famille Captation N1 ;
+- [x] famille Stabilisation N1 ;
+- [x] transformation progressive des quatre variables de vague ;
+- [x] journal avant/après chaque position ;
+- [x] vérification automatisée que l'ordre peut changer le résultat.
 
 ### Critère de sortie
 

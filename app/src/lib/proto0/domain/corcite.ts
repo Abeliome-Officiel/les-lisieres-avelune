@@ -1,5 +1,6 @@
 import type { CorciteId } from './ids.js';
 import type { RpgState } from './rpg.js';
+import type { TdState } from './td.js';
 import type { TfNetworkState } from './tf.js';
 import type {
 	ResourceId,
@@ -92,6 +93,7 @@ export interface CorciteState extends CorciteIdentity {
 	storageUnits: StorageUnitState[];
 	structures: StructureState[];
 	productions: ProductionState[];
+	td: TdState;
 	tfNetwork: TfNetworkState;
 	capacities: CorciteCapacities;
 	rpg: RpgState;

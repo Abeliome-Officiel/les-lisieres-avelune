@@ -1,4 +1,5 @@
 import { validateRpgState } from '../rpg/validate.js';
+import { validateTdState } from '../td/validate.js';
 import { validateTfNetworkState } from '../tf/network-validate.js';
 import type { CorciteState } from '../domain/corcite.js';
 import { RESOURCE_IDS } from '../domain/resources.js';
@@ -28,6 +29,15 @@ export function validateCorciteState(
 	state: CorciteState
 ): CorciteValidationResult {
 	const errors: string[] = [];
+
+	const tdValidation =
+		validateTdState(
+			state.td
+		);
+
+	errors.push(
+		...tdValidation.errors
+	);
 
 	const tfNetworkValidation =
 		validateTfNetworkState(

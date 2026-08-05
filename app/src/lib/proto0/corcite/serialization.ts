@@ -7,6 +7,13 @@ import type {
 	RpgResearchStatus,
 	RpgState
 } from '../domain/rpg.js';
+import {
+	TD_TOWER_DEFINITION_IDS,
+	TD_TOWER_FAMILIES,
+	type TdPathPositionState,
+	type TdState,
+	type TdTowerState
+} from '../domain/td.js';
 import type {
 	TfBufferState,
 	TfConnectionRouting,
@@ -378,6 +385,63 @@ function isResourceReservation(
 	);
 }
 
+function isTdTowerState(
+	value: unknown
+): value is TdTowerState {
+	if (!isRecord(value)) return false;
+
+	return (
+		isString(value.id) &&
+		typeof value.definitionId === 'string' &&
+		TD_TOWER_DEFINITION_IDS.some(
+			(id) =>
+				id ===
+					value.definitionId
+		) &&
+		typeof value.family === 'string' &&
+		TD_TOWER_FAMILIES.some(
+			(family) =>
+				family ===
+					value.family
+		) &&
+		value.level === 'n1' &&
+		isString(value.label)
+	);
+}
+
+function isTdPathPositionState(
+	value: unknown
+): value is TdPathPositionState {
+	if (!isRecord(value)) return false;
+
+	return (
+		isFiniteNumber(
+			value.position
+		) &&
+		(
+			value.tower === null ||
+			isTdTowerState(
+				value.tower
+			)
+		)
+	);
+}
+
+function isTdState(
+	value: unknown
+): value is TdState {
+	if (!isRecord(value)) return false;
+
+	return (
+		Array.isArray(
+			value.positions
+		) &&
+		value.positions.every(
+			isTdPathPositionState
+		)
+	);
+}
+
 function isTfConnectionRouting(
 	value: unknown
 ): value is TfConnectionRouting {
@@ -475,6 +539,7 @@ function isCorciteStateShape(
 		value.structures.every(isStructureState) &&
 		Array.isArray(value.productions) &&
 		value.productions.every(isProductionState) &&
+		isTdState(value.td) &&
 		isTfNetworkState(value.tfNetwork) &&
 		isCapacities(value.capacities) &&
 		isRpgState(value.rpg) &&

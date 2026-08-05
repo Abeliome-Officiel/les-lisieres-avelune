@@ -1,4 +1,5 @@
 import { TF_LAB_REFERENCE } from '../config/tf-reference.js';
+import { createEmptyTdState } from '../td/state.js';
 import type {
 	CorciteCapacities,
 	CorciteIdentity,
@@ -163,6 +164,7 @@ export function createReferenceCorciteState(
 		storageUnits: createInitialStorageUnits(),
 		structures,
 		productions: [],
+		td: createEmptyTdState(),
 		tfNetwork: {
 			connections: [],
 			buffers: []
