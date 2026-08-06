@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "task_id": "P02-001",
+  "status": "NOT_STARTED",
+  "command_sha": null,
+  "work_branch": "codex/proto02-bootstrap",
+  "work_commit": null,
+  "started_at": null,
+  "finished_at": null,
+  "validation": {
+    "typecheck": "NOT_RUN",
+    "tests": "NOT_RUN",
+    "build": "NOT_RUN",
+    "smoke": "NOT_RUN"
+  },
+  "decisions_needed": [],
+  "notes": "Initial status placeholder. Codex/watcher may replace this file after execution."
+}
