@@ -30,6 +30,7 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 - Sélecteur de connexions limité aux cibles compatibles avec ressource déduite.
 - Connexions actives ou suspendues explicitement distinguées selon ON/OFF et personnel.
 - Défenses sélectionnables puis plaçables/déplaçables directement sur le chemin par clic, tap ou clavier, sans listes de positions.
+- États de sélection exposés aux technologies d’assistance (`aria-pressed`, libellés des positions et fonctions).
 - Effets des recherches de transformation et fabrication décomposés en base, bonus additif et résultat.
 
 ## Briques réutilisables créées ou renforcées

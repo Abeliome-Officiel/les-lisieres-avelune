@@ -1963,6 +1963,7 @@
                                                                                 <button
                                                                                         type="button"
 														class:secondary={selectedInventoryTower !== tower.id}
+														aria-pressed={selectedInventoryTower === tower.id}
                                                                                         disabled={!preparationOpen}
 														onclick={() => { selectedInventoryTower = tower.id; selectedPathPosition = null; }}
                                                                                 >
@@ -1987,7 +1988,7 @@
 											class:selected={selectedPathPosition === slot.position}
                                                                 class="td-slot"
                                                         >
-										<button type="button" class="slot-target" disabled={!preparationOpen || (!slot.tower && !selectedInventoryTower && selectedPathPosition === null)} onclick={() => activateDefenseSlot(slot.position)}>
+										<button type="button" class="slot-target" aria-label={`Position ${slot.position} : ${slot.tower ? towerLabel(slot.tower.definitionId) : 'libre'}`} aria-pressed={selectedPathPosition === slot.position} disabled={!preparationOpen || (!slot.tower && !selectedInventoryTower && selectedPathPosition === null)} onclick={() => activateDefenseSlot(slot.position)}>
 											<span class="position-number">{slot.position}</span>
 											{slot.tower ? 'Sélectionner' : 'Placer ici'}
 										</button>

@@ -25,9 +25,9 @@
 		<p class="operation">{active && staffed ? 'Prête à fonctionner au prochain tour' : active ? 'Suspendue : personnel requis' : 'Arrêtée : liens conservés'}</p>
 	</div>
 	<div class="actions">
-		<button type="button" class="secondary" {disabled} onclick={onToggle}>{active ? 'Mettre OFF' : 'Mettre ON'}</button>
+		<button type="button" class="secondary" {disabled} aria-pressed={active} aria-label={`${name} : fonction ${active ? 'active' : 'inactive'}`} onclick={onToggle}>{active ? 'Mettre OFF' : 'Mettre ON'}</button>
 		{#if requiredWork > 0}
-			<button type="button" class="secondary" {disabled} onclick={onStaff}>{staffed ? 'Retirer la population' : 'Affecter la population'}</button>
+			<button type="button" class="secondary" {disabled} aria-pressed={staffed} aria-label={`${name} : personnel ${staffed ? 'affecté' : 'non affecté'}`} onclick={onStaff}>{staffed ? 'Retirer la population' : 'Affecter la population'}</button>
 		{/if}
 	</div>
 </article>
