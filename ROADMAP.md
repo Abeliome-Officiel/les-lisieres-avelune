@@ -3,21 +3,21 @@
 ## Repères de version
 
 - `v0.8` : ancien jalon/tag historique ;
-- `v0.8.3` : dernière baseline de conception formellement figée ;
+- `v0.8.3` : dernière baseline de conception formellement figée avant le PROTO-0.1 ;
 - **v0.8.3+** : conception consolidée avec les décisions postérieures ;
-- **PROTO-0 jouable** : état logiciel actuel, développé et playtesté sur `develop/proto-0.1-playable`.
+- **PROTO-0.1 jouable** : état logiciel intégré à `main`, déployé et validé comme baseline actuelle.
 
 Il n’existe pas encore de nouvelle version stable arbitrairement nommée `v0.9`.
 
 ## Phase actuelle
 
-Le projet n’est plus dans la phase « construire un premier prototype logiciel ». Ce prototype existe.
+Le projet n’est plus dans la phase « construire un premier prototype logiciel ». Ce prototype existe et son jalon PROTO-0.1 a été intégré à `main`.
 
 La phase actuelle est :
 
-**prototype intégré jouable → premiers playtests humains → ajustements → consolidation technique**.
+**PROTO-0.1 intégré et déployé → discussion / analyse des retours → arbitrage du prochain lot**.
 
-Les premiers retours de jeu sont actuellement utilisés pour faire évoluer le PROTO-0. Les paramètres détaillés peuvent donc bouger rapidement.
+Aucune nouvelle modification structurelle importante ne doit être engagée par inertie : le prochain lot doit repartir de la baseline `main` et d’un besoin de conception ou de playtest identifié.
 
 ## Ce que le PROTO-0 couvre déjà
 
@@ -59,10 +59,11 @@ Le jalon technique déployé le 6 août 2026 valide **346 tests automatisés**, 
 - [x] 346 tests PROTO-0 réussis ;
 - [x] 0 erreur / 0 warning ;
 - [x] build production réussi ;
-- [x] déploiement public validé.
+- [x] déploiement public validé ;
+- [x] consolidation avec les mises à jour éditoriales et identitaires de `main` ;
+- [x] intégration finale par la PR #1.
 
-**Étape suivante : nouveau playtest humain sur cette version avant
-toute nouvelle révision structurelle importante du moteur.**
+**Jalon clôturé : la suite est une phase de discussion et d’arbitrage avant ouverture du prochain lot.**
 
 ## Gate actuelle : intérêt et lisibilité
 
@@ -70,7 +71,7 @@ Question principale :
 
 > **Est-ce que les décisions produisent des situations qu’on veut comprendre, améliorer et expérimenter ?**
 
-Les playtests doivent notamment vérifier :
+Les prochains playtests ou discussions doivent notamment vérifier :
 
 - compréhension de la boucle globale ;
 - intérêt des arbitrages TF ;
