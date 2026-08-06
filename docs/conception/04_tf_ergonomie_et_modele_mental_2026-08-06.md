@@ -324,3 +324,41 @@ Le prochain prototype d'interface doit appliquer cette règle :
 > Une relation mécanique importante doit être montrée visuellement ou spatialement lorsqu'elle peut l'être, plutôt que répartie entre plusieurs tableaux et libellés.
 
 La lisibilité n'est pas un habillage final : elle fait désormais partie des critères de validation de la mécanique elle-même.
+
+---
+
+# 11. Piste future — matériaux issus des ondes et alimentation des nouvelles tours
+
+**À conserver — futur développement, hors périmètre du prochain mini-prototype sauf test volontaire ciblé.**
+
+Lors de l'introduction de nouveaux matériaux découverts ou récupérés dans les ondes, privilégier une extension du système défensif plutôt qu'une inflation générale de bâtiments.
+
+Orientation proposée :
+
+- certains matériaux nouveaux servent principalement à fabriquer de nouvelles familles ou variantes de tours ;
+- ils ne débloquent pas automatiquement de nouvelles catégories de bâtiments TF, sauf besoin mécanique spécifique ;
+- certains de ces matériaux peuvent également devenir des consommables ou intrants de fonctionnement de ces nouvelles tours ;
+- ces consommations créent alors un nouveau besoin logistique : produire, récupérer, stocker puis alimenter les défenses concernées ;
+- le TD réinjecte ainsi des contraintes et opportunités dans le Tycoon/Factorio sans multiplier artificiellement les chaînes de production générales.
+
+Boucle potentielle :
+
+```text
+Onde / captation
+       ↓
+Nouveau matériau
+       ↓
+Recherche / découverte
+       ↓
+Nouvelle tour
+       ↓
+Fabrication
+       ↓
+Consommable éventuel à fournir
+       ↓
+Nouvelle branche logistique TF
+       ↓
+Nouvelle manière de traiter les ondes suivantes
+```
+
+Point de vigilance : éviter une spirale punitive dans laquelle un matériau obtenu uniquement grâce à une bonne défense deviendrait strictement nécessaire pour survivre à l'onde suivante. Les nouveaux matériaux doivent d'abord ouvrir des options ou spécialisations ; leur caractère obligatoire éventuel ne peut apparaître qu'après validation d'un accès fiable à ces ressources.
