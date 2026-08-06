@@ -173,16 +173,10 @@ function createCurrentSnapshot(
 
 		energy: {
 			overload,
-			reserveSpentLastTurn:
-				previous?.energy
-					.reserveSpentLastTurn ?? 0,
-			reserveRecoveredLastTurn:
-				previous?.energy
-					.reserveRecoveredLastTurn ?? 0,
+			reserveSpentLastTurn: 0,
+			reserveRecoveredLastTurn: 0,
 			mustReduceLoad:
-				overload >
-				state.capacities.energy
-					.reserveCurrent
+				overload > 0
 		},
 
 		maintenance: {
@@ -248,16 +242,12 @@ export function assertPlayableEnergyCanOperate(
 					.normalCapacity
 		);
 
-	if (
-		overload >
-		state.capacities.energy.reserveCurrent
-	) {
+	if (overload > 0) {
 		throw new Error(
 			[
 				'Déficit énergétique :',
 				`charge ${state.capacities.energy.used},`,
-				`capacité normale ${state.capacities.energy.normalCapacity},`,
-				`réserve disponible ${state.capacities.energy.reserveCurrent}.`,
+				`capacité ${state.capacities.energy.normalCapacity}.`,
 				'Le joueur doit désactiver des fonctions avant de poursuivre.'
 			].join(' ')
 		);
@@ -312,18 +302,13 @@ export function resolvePlayableSustainabilityTurn(
 				energy.normalCapacity
 		);
 
-	const reserveBefore =
-		energy.reserveCurrent;
+	const reserveBefore = 0;
 
-	if (
-		overload >
-		reserveBefore
-	) {
+	if (overload > 0) {
 		throw new Error(
 			[
-				'Réserve énergétique insuffisante pour résoudre le tour :',
-				`${overload} requis,`,
-				`${reserveBefore} disponible.`,
+				'Capacité énergétique insuffisante pour résoudre le tour :',
+				`${energy.used} utilisée pour ${energy.normalCapacity} disponible.`,
 				'Désactivez des fonctions avant de poursuivre.'
 			].join(' ')
 		);
@@ -384,47 +369,10 @@ export function resolvePlayableSustainabilityTurn(
 			consecutiveDeficitTurns
 		);
 
-	const reserveSpent =
-		overload;
-
-	energy.reserveCurrent -=
-		reserveSpent;
-
-	let reserveRecovered = 0;
-
-	/*
-	 * La réserve ne récupère que pendant un tour réellement stable.
-	 *
-	 * Un tour consacré à résorber une dette d'entretien
-	 * ne recharge donc pas simultanément la réserve.
-	 */
-	const maintenanceWasAlreadyStable =
-		debtBefore === 0 &&
-		maintenanceDeficit === 0;
-
-	if (
-		overload === 0 &&
-		maintenanceWasAlreadyStable
-	) {
-		const recoveryPerStableTurn =
-			applyScalarModifiers(
-				state,
-				'corcite.energy.reserve-recovery-per-stable-turn',
-				PLAYABLE_SUSTAINABILITY_REFERENCE
-					.energy
-					.reserveRecoveryPerStableTurn
-			);
-
-		reserveRecovered =
-			Math.min(
-				recoveryPerStableTurn,
-				energy.reserveMaximum -
-					energy.reserveCurrent
-			);
-
-		energy.reserveCurrent +=
-			reserveRecovered;
-	}
+	const reserveSpent = 0;
+	const reserveRecovered = 0;
+	energy.reserveMaximum = 0;
+	energy.reserveCurrent = 0;
 
 	const workFree =
 		Math.max(
@@ -440,9 +388,7 @@ export function resolvePlayableSustainabilityTurn(
 				state.capacities.work.capacity
 		);
 
-	const mustReduceLoad =
-		overload >
-		energy.reserveCurrent;
+	const mustReduceLoad = overload > 0;
 
 	state.sustainability = {
 		lastResolvedTurn: turn,

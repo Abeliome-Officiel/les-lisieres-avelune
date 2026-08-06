@@ -160,12 +160,9 @@ function createPlayableCapacities(
 				PLAYABLE_START_REFERENCE
 					.capacities.energyNormal,
 			used: usage.energy,
-			reserveMaximum:
-				PLAYABLE_START_REFERENCE
-					.capacities.energyReserve,
-			reserveCurrent:
-				PLAYABLE_START_REFERENCE
-					.capacities.energyReserve
+			// Champs historiques neutralisés pour la sérialisation P0-P10.
+			reserveMaximum: 0,
+			reserveCurrent: 0
 		},
 		maintenance: {
 			capacity:

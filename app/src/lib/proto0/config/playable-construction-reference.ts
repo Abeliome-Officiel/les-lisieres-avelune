@@ -17,7 +17,6 @@ export type PlayableConstructionDefinitionId =
 
 export interface PlayableConstructionGrants {
 	energyNormal?: number;
-	energyReserve?: number;
 	maintenance?: number;
 	storageCapacity?: number;
 }
@@ -152,8 +151,7 @@ export const PLAYABLE_CONSTRUCTION_CATALOG:
 			space: 2
 		},
 		grants: {
-			energyNormal: 4,
-			energyReserve: 2
+			energyNormal: 4
 		}
 	},
 	{

@@ -35,7 +35,6 @@ export const PLAYABLE_START_REFERENCE = {
 
 	capacities: {
 		energyNormal: 4,
-		energyReserve: 3,
 		maintenance: 5,
 		space: 16
 	},

@@ -1,67 +1,79 @@
 # PROTO-0.2 — Rapport d’implémentation
 
-**Statut : NOT_STARTED**
-
-Ce fichier est rempli par Codex à la fin de chaque lot important.
+**Statut : PARTIAL**
 
 ## Lot
 
-- Identifiant :
-- Branche :
-- Commit :
-- Base :
-- Statut : REVIEW_READY / PARTIAL / DECISION_REQUIRED / BLOCKED_TECHNICAL
+- Identifiant : P02-001, checkpoint énergie / onde / persistance
+- Branche : `codex/proto02-bootstrap`
+- Commit : checkpoint courant (voir historique de la branche)
+- Base : `develop/proto-0.2-ux-rules` à `e259cac`
+- Statut : PARTIAL
 
 ## Résumé jouable
 
-Décrire uniquement ce qui fonctionne réellement dans le parcours utilisateur.
+Le parcours navigateur existant reste assemblé. Il utilise désormais une lecture énergétique unique `utilisée / capacité`, ne montre plus de réserve courte dans le bandeau ni les rapports, masque le calendrier et les valeurs exactes de l’onde avant son arrivée, et restaure automatiquement la partie locale après rechargement. Une nouvelle partie remplace la sauvegarde au changement d’état suivant.
 
 ## Principaux changements
 
-- 
+- Réserve courte neutralisée dans l’état PROTO-0.2 et retirée des validations d’activation, construction et résolution.
+- Dépassement de capacité énergétique refusé immédiatement.
+- Extension énergétique limitée à son gain de capacité normale existant, sans conversion arbitraire de l’ancien bonus de réserve.
+- Prévision joueur rendue qualitative, sans nombre de tours ni caractéristiques chiffrées gratuites.
+- Sauvegarde navigateur versionnée avec restauration sûre et rejet des données invalides.
+- Tests énergie adaptés et tests roundtrip/corruption de sauvegarde ajoutés.
 
 ## Briques réutilisables créées ou renforcées
 
-- 
+- `browser-persistence.ts` : sérialisation/version/validation minimale indépendante de `localStorage`.
+- `TurnReportPanel` : rapport joueur sans seconde jauge énergétique.
 
 ## Règles modifiées
 
-- 
-
-Toute différence entre la spécification et l’implémentation doit être explicitement signalée.
+- L’énergie jouable est uniquement `used / normalCapacity` ; les champs historiques de réserve restent à zéro pour compatibilité de schéma.
+- Une fonction ne peut pas être activée et un tour ne peut pas être résolu au-delà de la capacité.
+- La mécanique déterministe d’onde reste interne, mais son calendrier n’est plus exposé.
 
 ## Contrôles exécutés
 
 | Contrôle | Résultat | Détail |
 |---|---|---|
-| Typecheck / svelte-check | NOT_RUN | |
-| Tests PROTO-0 | NOT_RUN | |
-| Tests ciblés | NOT_RUN | |
-| Build | NOT_RUN | |
-| Smoke test | NOT_RUN | |
-| E2E | NOT_RUN | |
+| Typecheck / svelte-check | PASS | 0 erreur, 0 warning. |
+| Tests PROTO-0 | PASS | 38 fichiers de tests, 0 échec (`--test-concurrency=1`). |
+| Tests ciblés | PASS | Scénario énergie 4 habitants et persistance inclus. |
+| Build | PASS | Build SvelteKit/adapter-node terminé. |
+| Diff statique | PASS | `git diff --check`. |
+| E2E | NOT_RUN | Infrastructure non engagée avant stabilisation du cœur. |
 
 ## Écarts / dette volontaire
 
-- 
+- Les champs de réserve restent dans les types historiques et certains rapports techniques pour préserver P0-P10, mais sont neutralisés dans l’état jouable.
+- La recherche historique de récupération de réserve reste dans le moteur de compatibilité ; elle est filtrée du catalogue navigateur et son effet est neutre.
+- Affectation de population distincte, ports de connexion directs et découpage de la page monolithique restent le prochain bloc.
+- Le lancement Docker n’est pas requis pour ce checkpoint ; Node 24 est disponible directement.
 
 ## Décisions nécessaires
 
-- aucune / références `D-XXX`
+- Aucune pour ce checkpoint.
 
 ## Fichiers ou zones particulièrement sensibles à revoir
 
-- 
+- `app/src/lib/proto0/corcite/sustainability.ts`
+- `app/src/lib/proto0/corcite/construction.ts`
+- `app/src/routes/+page.svelte`
+- compatibilité des tests historiques liés à la réserve
 
 ## Instructions de test humain
 
-Décrire en quelques étapes le parcours permettant de tester le résultat sans connaître le code.
+1. Lancer l’application et créer une partie.
+2. Vérifier le bandeau énergie et l’absence de réserve courte.
+3. Construire/activer des fonctions jusqu’à la capacité et vérifier le refus compréhensible d’une surcharge.
+4. Vérifier que l’écran Onde ne donne ni compte à rebours ni caractéristiques exactes avant l’arrivée.
+5. Effectuer une action, recharger la page et vérifier la restauration ; utiliser « Nouvelle partie » pour repartir.
 
 ## Déploiement
 
-- environnement :
-- URL :
-- commande / procédure utilisée :
-- résultat du healthcheck :
-
-Ne jamais déclarer un déploiement réussi sans l’avoir réellement vérifié.
+- environnement : aucun
+- URL : aucune nouvelle URL
+- commande / procédure utilisée : aucune
+- résultat du healthcheck : non exécuté

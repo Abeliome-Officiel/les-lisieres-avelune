@@ -89,7 +89,7 @@ test(
 );
 
 test(
-	'un dépassement énergétique consomme réellement la réserve',
+	'un dépassement énergétique est refusé sans réserve courte',
 	() => {
 		const corcite =
 			createCorcite();
@@ -115,41 +115,15 @@ test(
 			6
 		);
 
-		const result =
-			resolvePlayableSustainabilityTurn(
-				corcite,
-				1
-			);
-
-		assert.equal(
-			result.resolution.energy.overload,
-			2
-		);
-
-		assert.equal(
-			result.resolution.energy.reserveBefore,
-			3
-		);
-
-		assert.equal(
-			result.resolution.energy.reserveSpent,
-			2
-		);
-
-		assert.equal(
-			result.resolution.energy.reserveAfter,
-			1
-		);
-
-		assert.equal(
-			result.resolution.energy.mustReduceLoad,
-			true
+		assert.throws(
+			() => resolvePlayableSustainabilityTurn(corcite, 1),
+			/Capacité énergétique insuffisante/
 		);
 	}
 );
 
 test(
-	'une charge devenue insoutenable bloque le tour TF suivant avant production',
+	'une charge supérieure à la capacité bloque immédiatement la production',
 	() => {
 		let corcite =
 			createCorcite();
@@ -170,23 +144,11 @@ test(
 			}
 		);
 
-		corcite =
-			resolvePlayableTfTurn(
-				corcite,
-				1
-			).corcite;
-
-		assert.equal(
-			corcite.capacities.energy
-				.reserveCurrent,
-			1
-		);
-
 		assert.throws(
 			() =>
 				resolvePlayableTfTurn(
 					corcite,
-					2
+					1
 				),
 			/Déficit énergétique/
 		);
@@ -288,59 +250,6 @@ test(
 						'déficit énergétique'
 					)
 			)
-		);
-	}
-);
-
-test(
-	'la réserve récupère progressivement lors d’un tour stable',
-	() => {
-		let corcite =
-			createCorcite();
-
-		addSyntheticLoad(
-			corcite,
-			{
-				id: 'temporary-load',
-				energy: 5
-			}
-		);
-
-		corcite =
-			resolvePlayableSustainabilityTurn(
-				corcite,
-				1
-			).corcite;
-
-		assert.equal(
-			corcite.capacities.energy
-				.reserveCurrent,
-			2
-		);
-
-		corcite =
-			setPlayableStructureActive(
-				corcite,
-				'temporary-load',
-				false
-			);
-
-		const recovery =
-			resolvePlayableSustainabilityTurn(
-				corcite,
-				2
-			);
-
-		assert.equal(
-			recovery.resolution.energy
-				.reserveRecovered,
-			1
-		);
-
-		assert.equal(
-			recovery.corcite.capacities.energy
-				.reserveCurrent,
-			3
 		);
 	}
 );
@@ -554,127 +463,6 @@ test(
 );
 
 test(
-	'la résorption d’une dette d’entretien retarde la recharge énergétique',
-	() => {
-		let corcite =
-			createCorcite();
-
-		/*
-		 * On consomme d'abord une unité de réserve.
-		 */
-		addSyntheticLoad(
-			corcite,
-			{
-				id: 'energy-load',
-				energy: 5
-			}
-		);
-
-		/*
-		 * Puis on crée simultanément un déficit
-		 * d'entretien de 1.
-		 */
-		for (
-			let index = 1;
-			index <= 4;
-			index += 1
-		) {
-			addSyntheticLoad(
-				corcite,
-				{
-					id:
-						`maintenance-load-${index}`,
-					maintenance: 1
-				}
-			);
-		}
-
-		corcite =
-			resolvePlayableSustainabilityTurn(
-				corcite,
-				1
-			).corcite;
-
-		assert.equal(
-			corcite.capacities.energy
-				.reserveCurrent,
-			2
-		);
-
-		assert.equal(
-			corcite.sustainability
-				?.maintenance.debt,
-			1
-		);
-
-		/*
-		 * On arrête la charge énergétique.
-		 */
-		corcite =
-			setPlayableStructureActive(
-				corcite,
-				'energy-load',
-				false
-			);
-
-		/*
-		 * On ajoute de la capacité d'entretien
-		 * afin de pouvoir rembourser la dette.
-		 */
-		corcite.structures.push({
-			id:
-				'maintenance-recovery-unit',
-			kind:
-				'maintenance-extension-n1',
-			name:
-				'Unité entretien test',
-			status:
-				'active',
-			usage: {
-				energy: 0,
-				maintenance: 0,
-				work: 0,
-				space: 0
-			}
-		});
-
-		recalculatePlayableCapacities(
-			corcite
-		);
-
-		const repairTurn =
-			resolvePlayableSustainabilityTurn(
-				corcite,
-				2
-			);
-
-		assert.equal(
-			repairTurn.resolution
-				.maintenance.debtAfter,
-			0
-		);
-
-		assert.equal(
-			repairTurn.resolution.energy
-				.reserveRecovered,
-			0
-		);
-
-		const stableTurn =
-			resolvePlayableSustainabilityTurn(
-				repairTurn.corcite,
-				3
-			);
-
-		assert.equal(
-			stableTurn.resolution.energy
-				.reserveRecovered,
-			1
-		);
-	}
-);
-
-test(
 	'le travail disponible reste directement dérivé de la population',
 	() => {
 		const corcite =
@@ -738,7 +526,7 @@ test(
 			corcite,
 			{
 				id: 'serialization-load',
-				energy: 5
+				energy: 4
 			}
 		);
 
@@ -763,7 +551,7 @@ test(
 		assert.equal(
 			restored.capacities.energy
 				.reserveCurrent,
-			2
+			0
 		);
 	}
 );
@@ -778,7 +566,7 @@ test(
 			corcite,
 			{
 				id: 'validation-load',
-				energy: 5,
+				energy: 4,
 				maintenance: 1,
 				work: 1
 			}

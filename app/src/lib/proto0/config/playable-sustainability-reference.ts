@@ -5,10 +5,6 @@
  * Ils ne constituent pas l'équilibrage définitif d'Avelune.
  */
 export const PLAYABLE_SUSTAINABILITY_REFERENCE = {
-	energy: {
-		reserveRecoveryPerStableTurn: 1
-	},
-
 	maintenance: {
 		degradedAfterConsecutiveDeficitTurns: 2,
 		criticalAfterConsecutiveDeficitTurns: 4,

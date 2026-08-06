@@ -593,36 +593,6 @@ export function createPlayablePlayerTurnReport(
 
         if (
                 input.sustainability
-                        .energy.reserveSpent >
-                0
-        ) {
-                events.push({
-                        kind:
-                                'energy',
-                        status:
-                                'warning',
-                        message:
-                                `La réserve énergétique a fourni ${input.sustainability.energy.reserveSpent}.`
-                });
-        }
-
-        if (
-                input.sustainability
-                        .energy.reserveRecovered >
-                0
-        ) {
-                events.push({
-                        kind:
-                                'energy',
-                        status:
-                                'positive',
-                        message:
-                                `La réserve énergétique a récupéré ${input.sustainability.energy.reserveRecovered}.`
-                });
-        }
-
-        if (
-                input.sustainability
                         .maintenance.deficit >
                 0
         ) {

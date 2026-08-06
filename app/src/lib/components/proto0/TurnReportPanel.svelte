@@ -80,13 +80,6 @@
                         </span>
 
                         <span>
-                                Réserve :
-                                {report.before.energy.reserveCurrent}
-                                →
-                                {report.after.energy.reserveCurrent}
-                        </span>
-
-                        <span>
                                 Population disponible :
                                 {report.before.population.available}
                                 →

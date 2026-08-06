@@ -21,7 +21,6 @@ export interface StructureActivationPreview {
 	energy: {
 		used: number;
 		normalCapacity: number;
-		reserveCurrent: number;
 	};
 
 	maintenance: {
@@ -100,16 +99,12 @@ function capacityBlockers(
 ): string[] {
 	const blockers: string[] = [];
 
-	const maximumEnergy =
-		state.capacities.energy.normalCapacity +
-		state.capacities.energy.reserveCurrent;
-
 	if (
 		state.capacities.energy.used >
-		maximumEnergy
+		state.capacities.energy.normalCapacity
 	) {
 		blockers.push(
-			`Énergie insuffisante (${state.capacities.energy.used}/${maximumEnergy}, réserve comprise).`
+			`Énergie insuffisante (${state.capacities.energy.used}/${state.capacities.energy.normalCapacity}).`
 		);
 	}
 
@@ -176,15 +171,9 @@ export function previewPlayableStructureActivation(
 			: [];
 
 	if (active) {
-		const currentEnergyMaximum =
-			inputState.capacities.energy
-				.normalCapacity +
-			inputState.capacities.energy
-				.reserveCurrent;
-
 		if (
 			inputState.capacities.energy.used >
-			currentEnergyMaximum
+			inputState.capacities.energy.normalCapacity
 		) {
 			blockers.unshift(
 				'Le Corcite est déjà en déficit énergétique : désactivez d’abord des fonctions avant toute nouvelle activation.'
@@ -211,9 +200,7 @@ export function previewPlayableStructureActivation(
 			used:
 				state.capacities.energy.used,
 			normalCapacity:
-				state.capacities.energy.normalCapacity,
-			reserveCurrent:
-				state.capacities.energy.reserveCurrent
+				state.capacities.energy.normalCapacity
 		},
 
 		maintenance: {

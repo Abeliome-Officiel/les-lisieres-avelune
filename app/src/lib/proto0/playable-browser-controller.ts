@@ -438,9 +438,14 @@ export function getPlayableBrowserResearchChoices(
         state:
                 Proto0PlayableBrowserState
 ) {
-        return getPlayableResearchChoices(
-                state.corcite
-        );
+	const choices = getPlayableResearchChoices(state.corcite);
+
+	return {
+		...choices,
+		definitions: choices.definitions.filter(
+			(definition) => definition.id !== 'reserve-recovery-n1'
+		)
+	};
 }
 
 export function getPlayableBrowserPendingDiscovery(

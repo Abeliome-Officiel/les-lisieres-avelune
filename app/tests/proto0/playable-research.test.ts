@@ -546,7 +546,7 @@ test(
 );
 
 test(
-	'la recherche énergétique accélère la recharge de réserve après validation',
+	'la recherche historique de réserve reste neutre dans le parcours jouable',
 	() => {
 		const pending =
 			advanceToPending(
@@ -573,13 +573,13 @@ test(
 		assert.equal(
 			result.resolution.energy
 				.reserveRecovered,
-			2
+			0
 		);
 
 		assert.equal(
 			result.corcite.capacities
 				.energy.reserveCurrent,
-			2
+			0
 		);
 	}
 );

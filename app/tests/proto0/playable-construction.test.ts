@@ -348,13 +348,13 @@ test(
 		assert.equal(
 			result.corcite.capacities
 				.energy.reserveMaximum,
-			5
+			0
 		);
 
 		assert.equal(
 			result.corcite.capacities
 				.energy.reserveCurrent,
-			5
+			0
 		);
 	}
 );

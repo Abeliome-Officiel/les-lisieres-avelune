@@ -131,8 +131,8 @@ test(
 				energy: {
 					normalCapacity: 4,
 					used: 0,
-					reserveMaximum: 3,
-					reserveCurrent: 3
+					reserveMaximum: 0,
+					reserveCurrent: 0
 				},
 				maintenance: {
 					capacity: 5,

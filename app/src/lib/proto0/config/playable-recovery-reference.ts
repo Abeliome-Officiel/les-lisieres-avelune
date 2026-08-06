@@ -25,15 +25,6 @@ export const PLAYABLE_RECOVERY_REFERENCE = {
                  */
                 recoveryPerStableTurn: 1
         },
-
-        energy: {
-                /**
-                 * Ponction de réserve énergétique par point de charge
-                 * restant après la résolution TD.
-                 */
-                chargeReserveDrainFactor: 0.05
-        },
-
         maintenance: {
                 /**
                  * Dette d'entretien créée par point de structure

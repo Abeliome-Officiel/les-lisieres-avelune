@@ -230,13 +230,13 @@ test(
                 assert.equal(
                         result.impact
                                 .energyReserveDrain,
-                        1
+                        0
                 );
 
                 assert.equal(
                         result.corcite.capacities
                                 .energy.reserveCurrent,
-                        2
+                        0
                 );
         }
 );
@@ -505,7 +505,7 @@ test(
                 assert.equal(
                         restored.capacities.energy
                                 .reserveCurrent,
-                        2
+                        0
                 );
 
                 assert.equal(
@@ -577,10 +577,10 @@ test(
                                 0
                 );
 
-                assert.ok(
+                assert.equal(
                         result.recoveryImpact
-                                .energyReserveDrain >
-                                0
+                                .energyReserveDrain,
+                        0
                 );
 
                 assert.ok(

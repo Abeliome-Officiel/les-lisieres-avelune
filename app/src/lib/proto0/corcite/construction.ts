@@ -35,7 +35,7 @@ import {
 
 export interface ConstructionCapacitySnapshot {
 	energyNormal: number;
-	energyMaximumWithReserve: number;
+	energyCapacity: number;
 	energyUsed: number;
 	maintenanceCapacity: number;
 	maintenanceUsed: number;
@@ -106,9 +106,6 @@ export function recalculatePlayableCapacities(
 	let energyNormal =
 		PLAYABLE_START_REFERENCE.capacities.energyNormal;
 
-	let energyReserveMaximum =
-		PLAYABLE_START_REFERENCE.capacities.energyReserve;
-
 	let maintenance =
 		PLAYABLE_START_REFERENCE.capacities.maintenance;
 
@@ -127,8 +124,6 @@ export function recalculatePlayableCapacities(
 			energyNormal +=
 				definition.grants.energyNormal ?? 0;
 
-			energyReserveMaximum +=
-				definition.grants.energyReserve ?? 0;
 		}
 
 		if (
@@ -193,31 +188,12 @@ export function recalculatePlayableCapacities(
 		}
 	);
 
-	const previousReserveMaximum =
-		state.capacities.energy.reserveMaximum;
-
-	const previousReserveCurrent =
-		state.capacities.energy.reserveCurrent;
-
-	const reserveIncrease =
-		Math.max(
-			0,
-			energyReserveMaximum -
-				previousReserveMaximum
-		);
-
 	state.capacities = {
 		energy: {
 			normalCapacity: energyNormal,
 			used: usage.energy,
-			reserveMaximum:
-				energyReserveMaximum,
-			reserveCurrent:
-				Math.min(
-					energyReserveMaximum,
-					previousReserveCurrent +
-						reserveIncrease
-				)
+			reserveMaximum: 0,
+			reserveCurrent: 0
 		},
 		maintenance: {
 			capacity: maintenance,
@@ -263,9 +239,7 @@ export function recalculatePlayableCapacities(
 			overload;
 
 		state.sustainability.energy.mustReduceLoad =
-			overload >
-			state.capacities.energy
-				.reserveCurrent;
+			overload > 0;
 
 		state.sustainability.maintenance.deficit =
 			maintenanceDeficit;
@@ -292,9 +266,8 @@ function snapshotCapacities(
 	return {
 		energyNormal:
 			state.capacities.energy.normalCapacity,
-		energyMaximumWithReserve:
-			state.capacities.energy.normalCapacity +
-			state.capacities.energy.reserveCurrent,
+		energyCapacity:
+			state.capacities.energy.normalCapacity,
 		energyUsed:
 			state.capacities.energy.used,
 		maintenanceCapacity:
@@ -416,8 +389,7 @@ export function previewPlayableConstruction(
 	}
 
 	const currentEnergyMaximum =
-		state.capacities.energy.normalCapacity +
-		state.capacities.energy.reserveCurrent;
+		state.capacities.energy.normalCapacity;
 
 	/*
 	 * Une fois le Corcite déjà en déficit énergétique,
@@ -482,10 +454,10 @@ export function previewPlayableConstruction(
 
 	if (
 		after.energyUsed >
-		after.energyMaximumWithReserve
+		after.energyCapacity
 	) {
 		blockers.push(
-			`Énergie insuffisante (${after.energyUsed}/${after.energyMaximumWithReserve}, réserve comprise).`
+			`Énergie insuffisante (${after.energyUsed}/${after.energyCapacity}). Désactivez une fonction ou augmentez la capacité.`
 		);
 	}
 

@@ -175,22 +175,9 @@ export function applyPlayableWaveImpact(
                         )
                 );
 
-        const requestedReserveDrain =
-                round(
-                        consequence.finalWave.charge *
-                                PLAYABLE_RECOVERY_REFERENCE
-                                        .energy
-                                        .chargeReserveDrainFactor
-                );
-
-        const energyReserveDrain =
-                round(
-                        Math.min(
-                                state.capacities.energy
-                                        .reserveCurrent,
-                                requestedReserveDrain
-                        )
-                );
+        // Champ historique conservé dans les rapports sérialisés P0-P10.
+        // PROTO-0.2 ne possède plus de réserve énergétique à ponctionner.
+        const energyReserveDrain = 0;
 
         const maintenanceDebtAdded =
                 round(
@@ -209,14 +196,6 @@ export function applyPlayableWaveImpact(
         state.recovery.integrity
                 .damageTakenLastWave =
                 integrityDamage;
-
-        state.capacities.energy
-                .reserveCurrent =
-                round(
-                        state.capacities.energy
-                                .reserveCurrent -
-                                energyReserveDrain
-                );
 
         state.sustainability.maintenance.debt =
                 round(
@@ -237,9 +216,7 @@ export function applyPlayableWaveImpact(
         state.sustainability.energy
                 .mustReduceLoad =
                 state.sustainability.energy
-                        .overload >
-                state.capacities.energy
-                        .reserveCurrent;
+                        .overload > 0;
 
         const impact:
                 PlayableWaveImpactState = {

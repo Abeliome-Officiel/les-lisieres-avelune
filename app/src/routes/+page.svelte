@@ -11,6 +11,7 @@
                 PLAYABLE_RESEARCH_CATALOG,
                 PLAYABLE_RESEARCH_PRESENTATIONS,
                 PLAYABLE_TD_FABRICATIONS,
+                PLAYABLE_BROWSER_SAVE_KEY,
                 PLAYABLE_TEST_NOTE_CATEGORIES,
                 TESTER_CODES,
                 RESOURCE_IDS,
@@ -26,6 +27,7 @@
                 getTotalUnanalysedWaveMatter,
                 movePlayableBrowserTower,
                 parsePlayableTestNotes,
+                parsePlayableBrowserSave,
                 placePlayableBrowserTower,
                 playerConstructionFlow,
                 playerResearchCategoryLabel,
@@ -40,6 +42,7 @@
                 resolvePlayableBrowserTurn,
                 resolvePlayableBrowserWave,
                 serializePlayableTestNotes,
+                serializePlayableBrowserSave,
                 setPlayableBrowserStructureActive,
                 startPlayableBrowserResearch,
                 summarizeStoredResources,
@@ -154,6 +157,8 @@
                 Record<number, TdPathPosition> =
                 {};
 
+        let browserReady = false;
+
         onMount(
                 () => {
                         testNotes =
@@ -162,8 +167,27 @@
                                                 NOTE_STORAGE_KEY
                                         )
                                 );
+
+                        const restored = parsePlayableBrowserSave(
+                                localStorage.getItem(PLAYABLE_BROWSER_SAVE_KEY)
+                        );
+
+                        if (restored) {
+                                session = restored;
+                                testerCode = restored.testerCode;
+                                session.statusMessage = 'Partie locale restaurée.';
+                        }
+
+                        browserReady = true;
                 }
         );
+
+        $: if (browserReady) {
+                localStorage.setItem(
+                        PLAYABLE_BROWSER_SAVE_KEY,
+                        serializePlayableBrowserSave(session)
+                );
+        }
 
         $: forecast =
                 getPlayableBrowserForecast(
@@ -391,8 +415,7 @@
                                                         session.corcite.recovery
                                                                 .integrity.current,
                                                 energyReserve:
-                                                        session.corcite.capacities
-                                                                .energy.reserveCurrent,
+                                                        0,
                                                 maintenanceDebt:
                                                         session.corcite.sustainability
                                                                 ?.maintenance.debt ??
@@ -878,7 +901,7 @@
                                 {session.corcite.capacities.energy.used}/{session.corcite.capacities.energy.normalCapacity}
                         </strong>
                         <small>
-                                réserve {formatNumber(session.corcite.capacities.energy.reserveCurrent)}/{session.corcite.capacities.energy.reserveMaximum}
+                                {Math.max(0, session.corcite.capacities.energy.normalCapacity - session.corcite.capacities.energy.used)} disponible
                         </small>
                 </div>
 
@@ -924,12 +947,7 @@
                                         cycle terminé
                                 </strong>
                         {:else if forecast}
-                                <strong>
-                                        {forecast.turnsUntilWave}
-                                        {forecast.turnsUntilWave === 1
-                                                ? ' tour'
-                                                : ' tours'}
-                                </strong>
+                                <strong>signes partiels</strong>
                         {:else}
                                 <strong>
                                         hors lecture
@@ -2237,48 +2255,13 @@
                                                                 </h3>
                                                         </div>
 
-                                                        <strong>
-                                                                {forecast.turnsUntilWave}
-                                                                {forecast.turnsUntilWave === 1
-                                                                        ? ' tour'
-                                                                        : ' tours'}
-                                                        </strong>
+                                                        <strong>signal incomplet</strong>
                                                 </div>
 
                                                 <p>
-                                                        Incertitude :
-                                                        ±{formatNumber(forecast.effectiveUncertaintyPercent)} %
+                                                        L’observation révèle une agitation de la Fracture, sans calendrier précis.
                                                 </p>
 
-                                                <div class="wave-values">
-                                                        <div>
-                                                                <span>Pression</span>
-                                                                <strong>
-                                                                        {formatNumber(forecast.estimatedWave.pressure)}
-                                                                </strong>
-                                                        </div>
-
-                                                        <div>
-                                                                <span>Structure</span>
-                                                                <strong>
-                                                                        {formatNumber(forecast.estimatedWave.structure)}
-                                                                </strong>
-                                                        </div>
-
-                                                        <div>
-                                                                <span>Charge</span>
-                                                                <strong>
-                                                                        {formatNumber(forecast.estimatedWave.charge)}
-                                                                </strong>
-                                                        </div>
-
-                                                        <div>
-                                                                <span>Matière</span>
-                                                                <strong>
-                                                                        {formatNumber(forecast.estimatedWave.capturableMatter)}
-                                                                </strong>
-                                                        </div>
-                                                </div>
                                         </article>
                                 {:else}
                                         <div class="panel">
@@ -2510,7 +2493,6 @@
                                                                         Vague {note.context.waveNumber ?? '—'}
                                                                         · {note.context.wavePhase}
                                                                         · intégrité {formatNumber(note.context.integrity)}
-                                                                        · réserve {formatNumber(note.context.energyReserve)}
                                                                         · dette entretien {formatNumber(note.context.maintenanceDebt)}
                                                                 </small>
 

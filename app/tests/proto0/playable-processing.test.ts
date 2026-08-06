@@ -670,17 +670,6 @@ test(
 				corcite
 			).corcite;
 
-		corcite = build(
-			corcite,
-			'maintenance-unit',
-			4
-		);
-
-		assert.equal(
-			corcite.capacities.work.used,
-			4
-		);
-
 		const organic =
 			findStructure(
 				corcite,
@@ -688,8 +677,9 @@ test(
 			);
 
 		/*
-		 * Le fabricateur nécessitera une unité de travail.
-		 * On arrête donc une extraction pour changer de phase
+		 * L'unité d'entretien nécessitera une unité de travail
+		 * et d'énergie. On arrête donc une extraction avant sa
+		 * construction pour changer de phase
 		 * économique au lieu d'augmenter artificiellement
 		 * la population.
 		 */
@@ -699,6 +689,12 @@ test(
 				organic.id,
 				false
 			);
+
+		corcite = build(
+			corcite,
+			'maintenance-unit',
+			4
+		);
 
 		assert.equal(
 			corcite.capacities.work.used,
