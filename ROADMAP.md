@@ -1,91 +1,131 @@
-# Roadmap - Les Lisières d'Avelune
+# Roadmap — Les Lisières d’Avelune
 
-## État courant - PROTO-0 jouable
+## Repères de version
 
-Branche active : `develop/proto-0.1-playable`
+- `v0.8` : ancien jalon/tag historique ;
+- `v0.8.3` : dernière baseline de conception formellement figée ;
+- **v0.8.3+** : conception consolidée avec les décisions postérieures ;
+- **PROTO-0 jouable** : état logiciel actuel, développé et playtesté sur `develop/proto-0.1-playable`.
 
-### Construction du prototype miniature
+Il n’existe pas encore de nouvelle version stable arbitrairement nommée `v0.9`.
 
-- [x] Lot 1 - départ minimal du Corcite
-- [x] Lot 2 - construction et ressources
-- [x] Lot 3 - extraction et stockage
-- [x] Lot 4 - transformation et fabrication
-- [x] Lot 5 - énergie, entretien, population/travail
-- [x] Lot 6 - recherches et découvertes
-- [x] Lot 7 - fabrication et organisation TD
-- [x] Lot 8 - cycle multi-vagues
-- [x] Lot 9 - conséquences et récupération
-- [x] Lot 10 - économie de captation
-- [x] Lot 11 - interface navigateur mobile/bureau
-- [x] Lot 12 - carnet de test
-- [x] Lot 13 - simulations d'équilibrage de référence
-- [x] Lot 14 technique - parcours intégral automatisé
-- [ ] Lot 14 expérientiel - playtest humain et verdict sur la boucle
+## Phase actuelle
 
-Référence temporelle actuelle : première vague au tour 6 ; puis minimum 5 tours de développement, avec 0 à 2 tours de délai déterministe supplémentaire. Ces valeurs restent des paramètres de playtest.
+Le projet n’est plus dans la phase « construire un premier prototype logiciel ». Ce prototype existe.
 
-## Gate actuelle
+La phase actuelle est :
 
-Question à valider :
+**prototype intégré jouable → premiers playtests humains → ajustements → consolidation technique**.
 
-> Est-ce que les décisions produisent des situations que le joueur veut comprendre, améliorer et expérimenter ?
+Les premiers retours de jeu sont actuellement utilisés pour faire évoluer le PROTO-0. Les paramètres détaillés peuvent donc bouger rapidement.
 
-### Si le playtest invalide la boucle
+## Ce que le PROTO-0 couvre déjà
 
-1. corriger les mécaniques et la lisibilité ;
-2. refaire une version miniature ;
-3. rejouer avant d'investir dans l'architecture de production.
+- départ minimal du Corcite ;
+- construction ;
+- extraction et stockage ;
+- transformation et fabrication ;
+- énergie ;
+- entretien ;
+- population et travail ;
+- recherches et découvertes ;
+- fabrication et organisation TD ;
+- cycle multi-vagues ;
+- conséquences persistantes ;
+- récupération ;
+- économie de captation ;
+- interface mobile/bureau ;
+- carnet de playtest ;
+- simulations reproductibles.
 
-### Si le playtest valide la boucle
+Le jalon technique déployé le 6 août 2026 valide **346 tests automatisés**, **0 erreur / 0 warning Svelte** et un **build production réussi**. Les simulations et tests automatisés constituent des contrôles techniques, pas un verdict sur l’intérêt du jeu.
 
-Phase de consolidation courte, avant ajout massif de contenu :
+## Jalon PROTO-0.1 — lisibilité et temporalité
 
-- [ ] découper l'interface Svelte monolithique ;
-- [ ] définir un registre de contenu/ruleset injecté dans les moteurs ;
-- [ ] externaliser balance et contenu hors TypeScript compilé ;
-- [ ] définir une source canonique de données ;
-- [ ] versionner les états persistants et migrations ;
-- [ ] formaliser la frontière serveur autoritaire ;
-- [ ] ajouter CI GitHub test/check/build ;
-- [ ] ajouter E2E navigateur de base ;
-- [ ] formaliser télémétrie métier et persistance PostgreSQL.
+- [x] vocabulaire joueur et identifiants techniques masqués dans l'usage normal ;
+- [x] navigation unifiée en cinq sections ;
+- [x] stocks visibles en permanence ;
+- [x] énergie, entretien et stockage observables ;
+- [x] population totale / affectée / disponible ;
+- [x] chaînes et prérequis d'action explicités ;
+- [x] recherches jouables sur un tour ;
+- [x] rapport obligatoire du tour précédent ;
+- [x] historique des rapports dans le Journal ;
+- [x] construction planifiée puis achevée à la résolution du tour ;
+- [x] fabrication défensive planifiée puis achevée à la résolution ;
+- [x] utilisation d'une nouvelle construction seulement à partir du tour suivant ;
+- [x] annulation des décisions planifiées avant résolution ;
+- [x] conflits matériels sans arbitrage automatique caché ;
+- [x] 346 tests PROTO-0 réussis ;
+- [x] 0 erreur / 0 warning ;
+- [x] build production réussi ;
+- [x] déploiement public validé.
+
+**Étape suivante : nouveau playtest humain sur cette version avant
+toute nouvelle révision structurelle importante du moteur.**
+
+## Gate actuelle : intérêt et lisibilité
+
+Question principale :
+
+> **Est-ce que les décisions produisent des situations qu’on veut comprendre, améliorer et expérimenter ?**
+
+Les playtests doivent notamment vérifier :
+
+- compréhension de la boucle globale ;
+- intérêt des arbitrages TF ;
+- utilité et lisibilité de la recherche ;
+- préparation réelle du TD ;
+- rythme des vagues ;
+- conséquences et récupération ;
+- clarté des informations ;
+- adaptation à plusieurs styles et disponibilités de jeu ;
+- accessibilité réelle et non seulement théorique.
+
+## Si la boucle est validée
+
+Faire une courte phase de consolidation avant d’augmenter fortement le contenu :
+
+1. découper l’interface monolithique ;
+2. faire évoluer contenu et équilibrage vers des datasets versionnés ;
+3. désigner une source canonique de données ;
+4. versionner états persistants et migrations ;
+5. formaliser la future autorité serveur ;
+6. ajouter CI test/check/build ;
+7. ajouter tests E2E navigateur ;
+8. structurer télémétrie métier et persistance PostgreSQL.
 
 Ensuite seulement :
 
-- [ ] vertical slice représentative ;
-- [ ] production de contenu ;
-- [ ] équilibrage à plus grande échelle ;
-- [ ] UX/accessibilité de production ;
-- [ ] monde persistant partagé et montée en charge.
+- vertical slice représentative ;
+- production de contenu plus large ;
+- équilibrage à plus grande échelle ;
+- approfondissement UX/accessibilité ;
+- monde persistant partagé et opérations serveur.
 
-## Historique P0-P10
+## Si la boucle n’est pas validée
 
-Les jalons P0-P10 ont validé les briques de moteur : fondations, état Corcite, réservations, TF, RPG, TD, vague, conséquences, reporting, simulations et premier contrôleur navigateur.
+Ne pas compenser en ajoutant du contenu ou en sur-architecturant.
 
-Le scénario `proto-0-spec.1` (10 tours, 1 vague) est désormais **historique**. Il reste conservé pour régression et traçabilité, mais n'est plus le périmètre courant.
+1. identifier ce qui n’est pas intéressant ou lisible ;
+2. corriger les mécaniques ;
+3. rejouer une miniature cohérente ;
+4. consolider l’architecture seulement une fois la direction de jeu suffisamment stable.
 
-## Références
+## Principes qui ne dépendent pas du prototype
 
-- [`docs/proto0/PROTO0_PLAYABLE_SCOPE.md`](docs/proto0/PROTO0_PLAYABLE_SCOPE.md)
-- [`docs/proto0/PROTO0_PLAYTEST_READY.md`](docs/proto0/PROTO0_PLAYTEST_READY.md)
-- [`docs/development/GAME_DEVELOPMENT_METHOD.md`](docs/development/GAME_DEVELOPMENT_METHOD.md)
-- [`docs/development/TECHNICAL_DEBT_AND_NEXT_STEPS.md`](docs/development/TECHNICAL_DEBT_AND_NEXT_STEPS.md)
+Même si les chiffres et mécaniques précises évoluent, les axes suivants restent structurants :
 
-<!-- PROTO0_PLAYABLE_ROADMAP_2026_08_06 -->
-## PROTO-0.1 — jalon lisibilité / temporalité
-
-- [x] vocabulaire joueur ;
-- [x] navigation fonctionnelle unifiée ;
-- [x] stocks et capacités observables ;
-- [x] population disponible/affectée visible ;
-- [x] chaînes et conditions d'action explicites ;
-- [x] recherches jouables sur un tour ;
-- [x] rapport joueur du tour précédent ;
-- [x] historique des rapports ;
-- [x] construction/fabrication planifiée puis résolue sur un tour ;
-- [x] annulation avant résolution ;
-- [x] conflits matériels sans priorité implicite ;
-- [x] validation automatique complète.
-
-Prochaine étape : nouveau playtest humain avant toute nouvelle
-révision structurelle du moteur.
+- monde partagé unique ;
+- protection collective de la Lisière ;
+- coopération directe entre Corcites facultative ;
+- progression principalement horizontale ;
+- challenge systémique sans punition artificielle ;
+- échec fertile ;
+- absence non punitive ;
+- pas de classement humiliant ;
+- pas de micro-dopamine/FOMO comme moteur de rétention ;
+- accessibilité pensée pour des profils et rythmes variés, notamment TSA/TDAH/dys ;
+- plusieurs styles de jeu légitimes ;
+- identité queer et non genrée ;
+- direction artistique onirique, féerique, organique et minérale, sans inventer de population/faune/flore non définie.
