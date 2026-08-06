@@ -38,6 +38,8 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 - Helpers `getStructureAssignedWork` / `isStructureOperational` et transition `setPlayableStructureStaffed`.
 - `ModifierBreakdown` : présentation réutilisable des effets quantitatifs RPG.
 - `ResourceStrip` et `CapacityStrip` : bandeaux persistants, responsives et découplés du moteur.
+- `ProductionNode` : fonction productive générique avec flux, état, personnel, charges et commandes.
+- `PopulationPool` : lecture réutilisable de la population libre et affectée.
 
 ## Règles modifiées
 

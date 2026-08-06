@@ -8,6 +8,8 @@
         import ModifierBreakdown from '$lib/components/proto0/ModifierBreakdown.svelte';
         import ResourceStrip from '$lib/components/proto0/ResourceStrip.svelte';
         import CapacityStrip from '$lib/components/proto0/CapacityStrip.svelte';
+        import ProductionNode from '$lib/components/proto0/ProductionNode.svelte';
+        import PopulationPool from '$lib/components/proto0/PopulationPool.svelte';
 
         import {
                 PLAYABLE_CONSTRUCTION_CATALOG,
@@ -1267,6 +1269,8 @@
                                                 </div>
                                         </div>
 
+					<PopulationPool total={session.corcite.population.total} assigned={assignedPopulation} />
+
                                         <div class="card-list">
                                                 {#each session.corcite.structures as structure}
                                                         <article class="compact-card">
@@ -1461,6 +1465,8 @@
                                                 </div>
                                         </div>
 
+					<PopulationPool total={session.corcite.population.total} assigned={assignedPopulation} />
+
                                         {#if productiveStructures.length === 0}
                                                 <p class="muted">
                                                         Aucune fonction productive n’est encore construite.
@@ -1468,57 +1474,19 @@
                                         {:else}
                                                 <div class="catalog-grid">
                                                         {#each productiveStructures as structure}
-                                                                <article class="catalog-card">
-                                                                        <div>
-                                                                                <h4>
-                                                                                        {structure.name}
-                                                                                </h4>
-
-                                                                                <p>
-                                                                                        {playerStructureDescription(structure.kind)}
-                                                                                </p>
-
-                                                                                <FlowDiagram
-                                                                                        nodes={playerStructureFlow(structure.kind)}
-                                                                                />
-
-                                                                                <p class="action-meta">
-                                                                                        Durée : 1 tour
-                                                                                        · énergie {structure.usage.energy}
-                                                                                        · population {structure.usage.work}
-                                                                                        · entretien {structure.usage.maintenance}
-                                                                                </p>
-
-                                                                                <span class="badge">
-                                                                                        {playerStructureStatusLabel(structure.status)}
-                                                                                </span>
-
-												<span class="badge">
-													Personnel {getStructureAssignedWork(structure)}/{structure.usage.work}
-												</span>
-                                                                        </div>
-
-										<div class="button-row">
-											<button
-												type="button"
-												class="secondary"
-												disabled={!preparationOpen}
-												onclick={() => toggleStructure(structure.id, structure.status === 'active')}
-											>
-												{structure.status === 'active' ? 'Mettre OFF' : 'Mettre ON'}
-											</button>
-											{#if structure.usage.work > 0}
-												<button
-													type="button"
-													class="secondary"
-													disabled={!preparationOpen}
-													onclick={() => toggleStaffing(structure.id, getStructureAssignedWork(structure) >= structure.usage.work)}
-												>
-													{getStructureAssignedWork(structure) >= structure.usage.work ? 'Retirer la population' : 'Affecter la population'}
-												</button>
-											{/if}
-										</div>
-                                                                </article>
+										<ProductionNode
+											name={structure.name}
+											description={playerStructureDescription(structure.kind)}
+											flow={playerStructureFlow(structure.kind)}
+											active={structure.status === 'active'}
+											assignedWork={getStructureAssignedWork(structure)}
+											requiredWork={structure.usage.work}
+											energy={structure.usage.energy}
+											maintenance={structure.usage.maintenance}
+											disabled={!preparationOpen}
+											onToggle={() => toggleStructure(structure.id, structure.status === 'active')}
+											onStaff={() => toggleStaffing(structure.id, getStructureAssignedWork(structure) >= structure.usage.work)}
+										/>
                                                         {/each}
                                                 </div>
                                         {/if}
