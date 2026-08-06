@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "task_id": "P02-001",
+  "status": "READY",
+  "base_branch": "develop/proto-0.2-ux-rules",
+  "work_branch": "codex/proto02-bootstrap",
+  "task_file": "docs/development/proto0.2/CURRENT_TASK.md",
+  "start_file": "docs/development/proto0.2/CODEX_START_HERE.md",
+  "report_file": "docs/development/proto0.2/IMPLEMENTATION_REPORT.md",
+  "decisions_file": "docs/development/proto0.2/DECISIONS_NEEDED.md",
+  "max_external_review_cycles": 3,
+  "allow_technical_autofix": true,
+  "require_human_design_decisions": true,
+  "allow_public_deploy": false,
+  "notes": "Premier gros lot PROTO-0.2. Priorité au mini-jeu jouable et à l'ergonomie fonctionnelle, pas à la finition esthétique."
+}
