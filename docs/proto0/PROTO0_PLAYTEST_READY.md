@@ -1,6 +1,12 @@
 # PROTO-0 — Gate de playtest
 
-Statut : **[acté] — prêt pour le playtest humain**
+Statut : **[acté] — jalon PROTO-0.1 intégré à `main`, support de playtest disponible**
+
+## Situation actuelle
+
+Le jalon PROTO-0.1 est clôturé techniquement et intégré à la baseline canonique `main`.
+
+Après cette intégration, le projet est reparti dans une phase de **discussion et d’analyse des retours**. Un nouveau playtest doit être déclenché lorsque les arbitrages de conception le justifient ; il ne constitue plus une étape automatique à lancer avant toute discussion.
 
 ## Périmètre techniquement disponible
 
@@ -37,7 +43,7 @@ Ces valeurs restent provisoires.
 
 > Est-ce que jouer à Avelune est intéressant ? Est-ce que les décisions produisent des situations qu’on veut comprendre, améliorer et expérimenter ?
 
-## À observer pendant la partie humaine
+## À observer lors d’un prochain playtest
 
 1. Comprend-on ce qui peut être construit et pourquoi ?
 2. Population, travail, énergie et entretien créent-ils de vrais arbitrages ?
@@ -52,20 +58,14 @@ Ces valeurs restent provisoires.
 
 ## Critère de sortie du Lot 14
 
-Le parcours **technique** est validé.
+Le parcours **technique** est validé et le jalon PROTO-0.1 est intégré à `main`.
 
-Le verdict **expérientiel** reste ouvert jusqu’au playtest humain. Il ne doit pas être remplacé par les tests automatisés.
+Le verdict **expérientiel** reste ouvert. Il doit être nourri par les discussions et les playtests humains, pas remplacé par les tests automatisés.
 
-<!-- PROTO0_PLAYTEST_READY_UX_2026_08_06 -->
-## Actualisation avant nouveau playtest — 6 août 2026
+## Actualisation issue du premier retour humain
 
-Le premier retour humain a été traité d'abord comme un problème
-d'observabilité : ressources, capacités, prérequis, chaînes,
-population et conséquences sont désormais exposés explicitement.
+Le premier retour humain a été traité d'abord comme un problème d'observabilité : ressources, capacités, prérequis, chaînes, population et conséquences sont désormais exposés explicitement.
 
-La temporalité des constructions et fabrications a également été
-alignée sur leur durée affichée d'un tour.
+La temporalité des constructions et fabrications a également été alignée sur leur durée affichée d'un tour.
 
-Le prochain playtest doit être réalisé sur cette version avant
-d'attribuer à la mécanique elle-même les blocages constatés dans
-l'ancienne interface.
+Toute conclusion sur un défaut structurel de la mécanique doit désormais s’appuyer sur un problème reproductible observé avec cette baseline ou sur un arbitrage explicite de conception.
