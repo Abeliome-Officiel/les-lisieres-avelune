@@ -16,22 +16,21 @@ Le `v0.8` visible historiquement sur le dépôt n’est plus l’état réel du 
 | Repère | Signification |
 |---|---|
 | `v0.8` | ancien jalon/tag historique |
-| `v0.8.3` | dernière baseline de conception formellement figée sur `main` |
+| `v0.8.3` | dernière baseline de conception formellement figée avant le PROTO-0.1 |
 | **v0.8.3+** | conception consolidée avec les décisions prises ensuite |
-| **PROTO-0 jouable** | prototype logiciel navigateur actuellement développé et playtesté |
+| **PROTO-0.1 jouable** | prototype navigateur intégré à `main`, déployé et validé comme baseline de travail |
 
-La branche de développement du prototype est **[`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)**.
+Depuis la fusion de la PR #1, **`main` est la source canonique du dépôt et du PROTO-0.1**. La branche `develop/proto-0.1-playable` est conservée pour la traçabilité du développement ayant conduit à ce jalon ; elle n’est plus présentée comme la branche courante de référence.
 
-Le projet se situe actuellement dans la transition :
-
-**prototype intégré jouable → premiers playtests humains → ajustements → consolidation technique**.
+Le projet se situe actuellement dans une phase de **discussion et d’analyse après le jalon PROTO-0.1**, avant d’engager un nouveau lot de modifications structurelles.
 
 Il n’existe pas encore de nouvelle version stable arbitrairement baptisée `v0.9`. Le numéro de version ne doit pas devancer les décisions réelles du projet.
 
 ### Accès rapide
 
 - **Prototype** : https://proto.avelune.duckdns.org
-- **Branche jouable** : [`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)
+- **Source canonique** : [`main`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/main)
+- **PR d’intégration du PROTO-0.1** : [`#1`](https://github.com/Avelune-Officiel/les-lisieres-avelune/pull/1)
 - **État technique du prototype** : [`docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md`](docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md)
 - **Vision** : [`docs/00_vision.md`](docs/00_vision.md)
 - **Accessibilité et éthique** : [`docs/06_accessibilite_ethique.md`](docs/06_accessibilite_ethique.md)
@@ -41,8 +40,7 @@ Il n’existe pas encore de nouvelle version stable arbitrairement baptisée `v0
 
 ## Jalon PROTO-0.1 actuellement déployé
 
-Au **6 août 2026**, la branche jouable a franchi un nouveau jalon de
-playtest humain.
+Au **6 août 2026**, le PROTO-0.1 a été consolidé avec `main`, validé puis intégré comme nouvelle baseline du dépôt.
 
 État validé :
 
@@ -381,7 +379,7 @@ Principe de développement :
 
 > **Réduire la quantité, pas la nature du jeu.**
 
-La branche jouable couvre déjà notamment :
+Le PROTO-0.1 intégré à `main` couvre déjà notamment :
 
 - départ minimal du Corcite ;
 - construction ;
@@ -398,16 +396,16 @@ La branche jouable couvre déjà notamment :
 - carnet de playtest ;
 - simulations reproductibles.
 
-Au dernier jalon technique documenté :
+Au jalon intégré dans `main` :
 
-- **338 tests** passaient ;
-- `svelte-check` ne remontait aucune erreur ou alerte ;
-- le build de production était valide ;
-- **384 parties** de référence avaient été simulées.
+- **346 tests PROTO-0** passent ;
+- `svelte-check` ne remonte **0 erreur et 0 warning** ;
+- le build de production est valide ;
+- la batterie de simulations reproductibles reste disponible pour les contrôles d’équilibrage.
 
-Ces chiffres démontrent une stabilité technique du jalon, **pas la qualité expérientielle du jeu**.
+Ces contrôles démontrent la stabilité technique du jalon, **pas la qualité expérientielle du jeu**.
 
-Le prototype est actuellement modifié à la suite des premiers retours de playtest ; les paramètres précis peuvent donc évoluer rapidement.
+Après l’intégration de ce jalon, le projet est reparti dans une phase de discussion et d’analyse des retours. Le prochain lot de développement doit être décidé à partir de cette baseline plutôt que d’être empilé sur une branche historique.
 
 ---
 
@@ -436,7 +434,7 @@ La principale consolidation prévue après validation du playtest porte sur :
 - CI et tests E2E ;
 - télémétrie et persistance.
 
-→ Documentation technique détaillée sur la branche de consolidation documentaire.
+→ [`Documentation d’architecture et de développement`](docs/development/README.md)
 
 ---
 
@@ -455,8 +453,10 @@ La principale consolidation prévue après validation du playtest porte sur :
 
 ### Comprendre l’évolution du prototype
 
-- [`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)
-- [`docs/proto0-consolidation-2026-08-06`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/docs/proto0-consolidation-2026-08-06)
+- [`main`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/main) — baseline canonique actuelle
+- [`PR #1`](https://github.com/Avelune-Officiel/les-lisieres-avelune/pull/1) — intégration du PROTO-0.1
+- [`Documentation PROTO-0`](docs/proto0/)
+- [`Architecture et méthode`](docs/development/)
 
 ### Direction artistique
 
