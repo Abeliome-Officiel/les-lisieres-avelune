@@ -105,3 +105,18 @@ Consolidation rétrospective des décisions prises après v0.8.
 - simplification des symbioses ;
 - grille hexagonale définitive ;
 - revue structurée des décisions et interactions.
+
+<!-- PROTO0_PLAYABLE_UX_2026_08_06 -->
+## PROTO-0.1 jouable — lisibilité et temporalité — 2026-08-06
+
+- navigation joueur restructurée ;
+- ressources et capacités rendues lisibles ;
+- choix de testeur restauré ;
+- rapports joueur de tour ajoutés ;
+- recherches jouables ramenées à un tour sans modifier la référence historique ;
+- construction et fabrication réellement résolues sur un tour ;
+- annulation des décisions matérielles avant résolution ;
+- conflits de ressources explicites sans priorité automatique ;
+- validation : 346 tests réussis, 0 erreur, 0 warning et build production réussi.
+
+Voir `docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md`.

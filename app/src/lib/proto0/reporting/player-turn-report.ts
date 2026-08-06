@@ -79,6 +79,8 @@ export type PlayerTurnEventKind =
         | 'maintenance'
         | 'population'
         | 'recovery'
+        | 'construction'
+        | 'defense'
         | 'system';
 
 export interface PlayerTurnEvent {

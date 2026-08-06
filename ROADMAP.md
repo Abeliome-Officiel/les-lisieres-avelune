@@ -70,3 +70,22 @@ Le scénario `proto-0-spec.1` (10 tours, 1 vague) est désormais **historique**.
 - [`docs/proto0/PROTO0_PLAYTEST_READY.md`](docs/proto0/PROTO0_PLAYTEST_READY.md)
 - [`docs/development/GAME_DEVELOPMENT_METHOD.md`](docs/development/GAME_DEVELOPMENT_METHOD.md)
 - [`docs/development/TECHNICAL_DEBT_AND_NEXT_STEPS.md`](docs/development/TECHNICAL_DEBT_AND_NEXT_STEPS.md)
+
+<!-- PROTO0_PLAYABLE_ROADMAP_2026_08_06 -->
+## PROTO-0.1 — jalon lisibilité / temporalité
+
+- [x] vocabulaire joueur ;
+- [x] navigation fonctionnelle unifiée ;
+- [x] stocks et capacités observables ;
+- [x] population disponible/affectée visible ;
+- [x] chaînes et conditions d'action explicites ;
+- [x] recherches jouables sur un tour ;
+- [x] rapport joueur du tour précédent ;
+- [x] historique des rapports ;
+- [x] construction/fabrication planifiée puis résolue sur un tour ;
+- [x] annulation avant résolution ;
+- [x] conflits matériels sans priorité implicite ;
+- [x] validation automatique complète.
+
+Prochaine étape : nouveau playtest humain avant toute nouvelle
+révision structurelle du moteur.

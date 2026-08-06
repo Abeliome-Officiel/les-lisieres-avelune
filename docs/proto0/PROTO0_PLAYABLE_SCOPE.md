@@ -360,3 +360,15 @@ Les lots portent désormais des noms fonctionnels.
 
 Chaque lot doit être construit en réutilisant les composants P0–P10 déjà
 validés lorsqu'ils correspondent toujours au fonctionnement du jeu.
+
+<!-- PROTO0_DURATION_RULE_2026_08_06 -->
+## Règle de durée retenue pour le prototype jouable
+
+Extraire, produire, construire/fabriquer et rechercher utilisent
+une durée de référence d'un tour dans le PROTO-0.1.
+
+Pour les décisions matérielles :
+
+`décision N → réservation à la résolution → achèvement fin N → utilisation N+1`
+
+Cette durée n'introduit aucun quota arbitraire d'actions par axe.

@@ -58,3 +58,8 @@ Les documents suivants sont conservés pour traçabilité et régression. Ils d�
 - [Trame RPG](14_trame_rpg.md)
 - [Lisière et passage](15_lisiere_et_passage.md)
 - [Proto minimal historique](16_proto_minimal.md)
+
+<!-- PROTO0_PLAYABLE_UX_INDEX_2026_08_06 -->
+### PROTO-0.1 — lisibilité et temporalité
+
+- [`PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md`](proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md) — état du jalon jouable après correction de l'observabilité et de la temporalité des actions.

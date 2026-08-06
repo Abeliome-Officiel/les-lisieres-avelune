@@ -55,3 +55,17 @@ Ces valeurs restent provisoires.
 Le parcours **technique** est validé.
 
 Le verdict **expérientiel** reste ouvert jusqu’au playtest humain. Il ne doit pas être remplacé par les tests automatisés.
+
+<!-- PROTO0_PLAYTEST_READY_UX_2026_08_06 -->
+## Actualisation avant nouveau playtest — 6 août 2026
+
+Le premier retour humain a été traité d'abord comme un problème
+d'observabilité : ressources, capacités, prérequis, chaînes,
+population et conséquences sont désormais exposés explicitement.
+
+La temporalité des constructions et fabrications a également été
+alignée sur leur durée affichée d'un tour.
+
+Le prochain playtest doit être réalisé sur cette version avant
+d'attribuer à la mécanique elle-même les blocages constatés dans
+l'ancienne interface.

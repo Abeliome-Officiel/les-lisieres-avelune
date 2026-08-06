@@ -19,7 +19,7 @@ function createSession() {
 }
 
 test(
-        'la résolution produit un rapport joueur du tour sans recalcul côté interface',
+        'le rapport distingue la construction du tour de sa production au tour suivant',
         () => {
                 let state =
                         constructPlayableBrowserStructure(
@@ -32,24 +32,9 @@ test(
                                 state
                         );
 
-                assert.ok(
-                        state.lastTurnReport
-                );
-
                 assert.equal(
                         state.lastTurnReport?.turn,
                         1
-                );
-
-                assert.equal(
-                        state.turnReports.length,
-                        1
-                );
-
-                assert.equal(
-                        state.lastTurnReport
-                                ?.resources.R1.delta,
-                        2
                 );
 
                 assert.equal(
@@ -57,9 +42,38 @@ test(
                                 ?.events.some(
                                         (event) =>
                                                 event.kind ===
-                                                        'extraction' &&
+                                                'construction' &&
                                                 event.status ===
-                                                        'positive'
+                                                'positive'
+                                ),
+                        true
+                );
+
+                assert.equal(
+                        state.lastTurnReport
+                                ?.events.some(
+                                        (event) =>
+                                                event.kind ===
+                                                'extraction' &&
+                                                event.status ===
+                                                'positive'
+                                ),
+                        false
+                );
+
+                state =
+                        resolvePlayableBrowserTurn(
+                                state
+                        );
+
+                assert.equal(
+                        state.lastTurnReport
+                                ?.events.some(
+                                        (event) =>
+                                                event.kind ===
+                                                'extraction' &&
+                                                event.status ===
+                                                'positive'
                                 ),
                         true
                 );
@@ -87,18 +101,13 @@ test(
 
                 assert.deepEqual(
                         state.turnReports.map(
-                                (report) =>
-                                        report.turn
+                                (entry) =>
+                                        entry.turn
                         ),
                         [
                                 1,
                                 2
                         ]
-                );
-
-                assert.equal(
-                        state.lastTurnReport?.turn,
-                        2
                 );
         }
 );

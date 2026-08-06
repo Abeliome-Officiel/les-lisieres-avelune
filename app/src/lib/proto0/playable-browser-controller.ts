@@ -20,6 +20,10 @@ import type {
 } from './domain/resources.js';
 
 import type {
+        TurnPlan
+} from './domain/turn.js';
+
+import type {
         TdPathPosition,
         TdTowerDefinitionId
 } from './domain/td.js';
@@ -74,7 +78,8 @@ import {
 } from './rpg/playable-research.js';
 
 import {
-        preparePlayableTdFabrication,
+        previewPlayableTdFabrication,
+        createPlayableTdFabricationOperation,
         commitPlayableTdFabrication,
         placePlayableTdInventoryTower,
         removePlayableTdTower,
@@ -95,6 +100,7 @@ import type {
 
 import {
         createPlayablePlayerTurnReport,
+        type PlayerTurnEvent,
         type PlayerTurnReport
 } from './reporting/player-turn-report.js';
 
@@ -115,6 +121,24 @@ export interface PlayableBrowserResearchSnapshot {
                 PlayableResearchAdvanceStatus;
         researchId?: string;
 }
+
+export type PlayableBrowserPlannedAction =
+        | {
+                operationId: string;
+                kind:
+                        'construction';
+                definitionId:
+                        PlayableConstructionDefinitionId;
+                label: string;
+          }
+        | {
+                operationId: string;
+                kind:
+                        'td-fabrication';
+                definitionId:
+                        TdTowerDefinitionId;
+                label: string;
+          };
 
 export type PlayableBrowserLastWave =
         Omit<
@@ -150,6 +174,21 @@ export interface Proto0PlayableBrowserState {
          * des identifiants d'actions uniques.
          */
         actionSequence: number;
+
+        /**
+         * Plan matériel du tour actuellement ouvert.
+         *
+         * Les ressources restent dans les stockages jusqu'à
+         * la résolution effective du tour.
+         */
+        turnPlan:
+                TurnPlan;
+
+        plannedActions:
+                PlayableBrowserPlannedAction[];
+
+        turnResolutionBlockers:
+                string[];
 
         lastTf:
                 PlayableBrowserTfSnapshot |
@@ -355,6 +394,12 @@ export function createPlayableBrowserSession(
                 corcite,
                 waveCycle,
                 actionSequence: 0,
+                turnPlan:
+                        createTurnPlan(
+                                1
+                        ),
+                plannedActions: [],
+                turnResolutionBlockers: [],
                 lastTf: null,
                 lastResearchAdvance:
                         null,
@@ -409,12 +454,11 @@ export function getPlayableBrowserPendingDiscovery(
 }
 
 /**
- * Construction immédiate pendant la fenêtre de décision.
+ * Planifie une construction pendant le tour ouvert.
  *
- * L'opération passe malgré tout par le moteur canonique
- * de réservation puis de consommation des ressources.
- *
- * Elle ne fait PAS avancer le temps.
+ * La décision n'engage aucune ressource immédiatement.
+ * Réservation, consommation et achèvement sont réalisés
+ * lors de la résolution du tour.
  */
 export function constructPlayableBrowserStructure(
         inputState:
@@ -449,66 +493,108 @@ export function constructPlayableBrowserStructure(
                         `construction:${definitionId}`
                 );
 
-        let plan =
-                createTurnPlan(
-                        state.currentTurn
-                );
-
-        plan =
+        state.turnPlan =
                 addPlayerOperation(
-                        plan,
+                        state.turnPlan,
                         createPlayableConstructionOperation(
                                 definitionId,
                                 operationId
                         )
                 );
 
-        const prepared =
-                endTurn(
-                        state.corcite,
-                        plan
-                );
+        state.plannedActions.push({
+                operationId,
+                kind:
+                        'construction',
+                definitionId,
+                label:
+                        preview.definition.label
+        });
 
-        const operation =
-                prepared.plan.operations.find(
-                        (candidate) =>
-                                candidate.id ===
-                                operationId
-                );
-
-        if (
-                operation?.status !==
-                'reserved'
-        ) {
-                throw new Error(
-                        `Construction non réservée : ${operationId}.`
-                );
-        }
-
-        const committed =
-                commitPlayableConstruction(
-                        prepared.corcite,
-                        prepared.plan,
-                        operationId,
-                        definitionId
-                );
-
-        state.corcite =
-                committed.corcite;
+        state.turnResolutionBlockers =
+                [];
 
         state.actionSequence +=
                 1;
 
         state.statusMessage =
-                `${committed.definition.label} construit au tour ${state.currentTurn}.`;
+                `${preview.definition.label} planifié pour ce tour.`;
 
         return state;
 }
 
-/**
- * Activation / désactivation immédiate d'une fonction construite.
- * Ne fait pas avancer le temps.
- */
+export function cancelPlayableBrowserPlannedAction(
+        inputState:
+                Proto0PlayableBrowserState,
+        operationId: string
+): Proto0PlayableBrowserState {
+        assertPreparationOpen(
+                inputState
+        );
+
+        const state =
+                structuredClone(
+                        inputState
+                );
+
+        const action =
+                state.plannedActions.find(
+                        (candidate) =>
+                                candidate.operationId ===
+                                operationId
+                );
+
+        if (!action) {
+                throw new Error(
+                        'Décision planifiée introuvable.'
+                );
+        }
+
+        const remaining =
+                state.turnPlan.operations.filter(
+                        (operation) =>
+                                operation.id !==
+                                operationId
+                );
+
+        let plan =
+                createTurnPlan(
+                        state.currentTurn
+                );
+
+        for (const operation of remaining) {
+                plan =
+                        addPlayerOperation(
+                                plan,
+                                {
+                                        ...structuredClone(
+                                                operation
+                                        ),
+                                        status:
+                                                'pending'
+                                }
+                        );
+        }
+
+        state.turnPlan =
+                plan;
+
+        state.plannedActions =
+                state.plannedActions.filter(
+                        (candidate) =>
+                                candidate.operationId !==
+                                operationId
+                );
+
+        state.turnResolutionBlockers =
+                [];
+
+        state.statusMessage =
+                `${action.label} annulé.`;
+
+        return state;
+}
+
 export function setPlayableBrowserStructureActive(
         inputState:
                 Proto0PlayableBrowserState,
@@ -689,51 +775,50 @@ export function fabricatePlayableBrowserTower(
                         inputState
                 );
 
+        const preview =
+                previewPlayableTdFabrication(
+                        state.corcite,
+                        definitionId
+                );
+
+        if (!preview.canFabricate) {
+                throw new Error(
+                        `Fabrication impossible : ${preview.blockers.join(' | ')}`
+                );
+        }
+
         const operationId =
                 nextActionId(
                         state,
                         `td-fabrication:${definitionId}`
                 );
 
-        const prepared =
-                preparePlayableTdFabrication(
-                        state.corcite,
-                        state.currentTurn,
-                        definitionId,
-                        operationId
+        state.turnPlan =
+                addPlayerOperation(
+                        state.turnPlan,
+                        createPlayableTdFabricationOperation(
+                                definitionId,
+                                operationId
+                        )
                 );
 
-        if (
-                prepared.status !==
-                'reserved'
-        ) {
-                throw new Error(
-                        `Fabrication TD impossible : ${prepared.blockers.join(' | ')}`
-                );
-        }
+        state.plannedActions.push({
+                operationId,
+                kind:
+                        'td-fabrication',
+                definitionId,
+                label:
+                        preview.definition.label
+        });
 
-        const committed =
-                commitPlayableTdFabrication(
-                        prepared.corcite,
-                        prepared.plan,
-                        operationId,
-                        definitionId
-                );
-
-        state.corcite =
-                committed.corcite;
-
-        appendWaveConsumptions(
-                state,
-                committed.consumptions,
-                `td-fabrication:${definitionId}`
-        );
+        state.turnResolutionBlockers =
+                [];
 
         state.actionSequence +=
                 1;
 
         state.statusMessage =
-                `${committed.definition.label} fabriquée et placée dans l’inventaire.`;
+                `${preview.definition.label} planifiée pour ce tour.`;
 
         return state;
 }
@@ -866,9 +951,80 @@ export function resolvePlayableBrowserTurn(
                         state.corcite
                 );
 
+        /*
+         * Toutes les décisions matérielles sont arbitrées
+         * ensemble. Le moteur existant conserve donc sa règle :
+         * aucun choix implicite en cas de conflit humain.
+         */
+        const prepared =
+                endTurn(
+                        state.corcite,
+                        state.turnPlan
+                );
+
+        if (
+                prepared.status ===
+                'awaiting-arbitration'
+        ) {
+                const conflicts =
+                        prepared.plan.conflicts.filter(
+                                (conflict) =>
+                                        conflict
+                                                .requiresHumanArbitration
+                        );
+
+                state.turnResolutionBlockers =
+                        conflicts.map(
+                                (conflict) => {
+                                        const labels =
+                                                conflict
+                                                        .operationIds
+                                                        .map(
+                                                                (
+                                                                        id
+                                                                ) =>
+                                                                        state
+                                                                                .plannedActions
+                                                                                .find(
+                                                                                        (
+                                                                                                action
+                                                                                        ) =>
+                                                                                                action.operationId ===
+                                                                                                id
+                                                                                )
+                                                                                ?.label ??
+                                                                        'Décision'
+                                                        );
+
+                                        return (
+                                                'Ressources insuffisantes pour réaliser simultanément : '
+                                                + labels.join(
+                                                        ' / '
+                                                )
+                                                + '.'
+                                        );
+                                }
+                        );
+
+                state.statusMessage =
+                        'Le tour reste ouvert : plusieurs décisions se disputent les mêmes ressources.';
+
+                return state;
+        }
+
+        /*
+         * Les ressources réservées ne sont plus disponibles
+         * pour les productions du tour, mais ne sont pas encore
+         * consommées.
+         *
+         * Une construction de ce tour ne peut donc pas produire
+         * avant le tour suivant.
+         */
         const tf =
                 resolvePlayableTfTurn(
-                        state.corcite,
+                        requirePlayableCorcite(
+                                prepared.corcite
+                        ),
                         resolvedTurn
                 );
 
@@ -878,10 +1034,134 @@ export function resolvePlayableBrowserTurn(
                         resolvedTurn
                 );
 
-        state.corcite =
+        let resolvedCorcite =
                 requirePlayableCorcite(
                         research.corcite
                 );
+
+        const actionEvents:
+                PlayerTurnEvent[] = [];
+
+        const pendingWaveConsumptions:
+                WaveRelevantConsumption[] =
+                [];
+
+        try {
+                for (
+                        const action of
+                        state.plannedActions
+                ) {
+                        const operation =
+                                prepared
+                                        .plan
+                                        .operations
+                                        .find(
+                                                (
+                                                        candidate
+                                                ) =>
+                                                        candidate.id ===
+                                                        action.operationId
+                                        );
+
+                        if (
+                                operation?.status !==
+                                'reserved'
+                        ) {
+                                actionEvents.push({
+                                        kind:
+                                                action.kind ===
+                                                        'construction'
+                                                        ? 'construction'
+                                                        : 'defense',
+                                        status:
+                                                'warning',
+                                        message:
+                                                `${action.label} n’a pas été réalisé pendant ce tour.`
+                                });
+
+                                continue;
+                        }
+
+                        if (
+                                action.kind ===
+                                'construction'
+                        ) {
+                                const committed =
+                                        commitPlayableConstruction(
+                                                resolvedCorcite,
+                                                prepared.plan,
+                                                action.operationId,
+                                                action.definitionId
+                                        );
+
+                                resolvedCorcite =
+                                        committed.corcite;
+
+                                actionEvents.push({
+                                        kind:
+                                                'construction',
+                                        status:
+                                                'positive',
+                                        message:
+                                                `${committed.definition.label} achevé en fin de tour.`
+                                });
+
+                                continue;
+                        }
+
+                        const committed =
+                                commitPlayableTdFabrication(
+                                        resolvedCorcite,
+                                        prepared.plan,
+                                        action.operationId,
+                                        action.definitionId
+                                );
+
+                        resolvedCorcite =
+                                committed.corcite;
+
+                        for (
+                                const consumption of
+                                committed.consumptions
+                        ) {
+                                pendingWaveConsumptions.push({
+                                        resourceId:
+                                                consumption.resourceId,
+                                        amount:
+                                                consumption.amount,
+                                        source:
+                                                `td-fabrication:${action.definitionId}`
+                                });
+                        }
+
+                        actionEvents.push({
+                                kind:
+                                        'defense',
+                                status:
+                                        'positive',
+                                message:
+                                        `${committed.definition.label} fabriquée et ajoutée à l’inventaire en fin de tour.`
+                        });
+                }
+        } catch (error) {
+                state.turnResolutionBlockers = [
+                        error instanceof Error
+                                ? error.message
+                                : 'Une décision du tour ne peut pas être réalisée.'
+                ];
+
+                state.statusMessage =
+                        'Le tour reste ouvert : corrigez les décisions signalées avant de réessayer.';
+
+                return state;
+        }
+
+        state.corcite =
+                resolvedCorcite;
+
+        state.waveConsumptions.push(
+                ...pendingWaveConsumptions
+        );
 
         state.lastTf = {
                 extraction:
@@ -941,6 +1221,10 @@ export function resolvePlayableBrowserTurn(
                                 research.status
                 });
 
+        turnReport.events.unshift(
+                ...actionEvents
+        );
+
         state.lastTurnReport =
                 turnReport;
 
@@ -948,11 +1232,21 @@ export function resolvePlayableBrowserTurn(
                 turnReport
         );
 
+        state.plannedActions =
+                [];
+
+        state.turnResolutionBlockers =
+                [];
 
         state.waveCycle =
                 advancePlayableWaveCycleAfterTurn(
                         state.waveCycle,
                         resolvedTurn
+                );
+
+        state.turnPlan =
+                createTurnPlan(
+                        resolvedTurn + 1
                 );
 
         if (
@@ -966,11 +1260,6 @@ export function resolvePlayableBrowserTurn(
                 state.statusMessage =
                         `Tour ${resolvedTurn} résolu. La vague ${waveNumber ?? ''} est arrivée et doit maintenant être résolue.`.trim();
 
-                /*
-                 * Important :
-                 * aucune fenêtre gratuite de préparation n'est ouverte
-                 * après l'arrivée de la vague.
-                 */
                 state.currentTurn =
                         resolvedTurn;
 
@@ -986,10 +1275,6 @@ export function resolvePlayableBrowserTurn(
         return state;
 }
 
-/**
- * Résout la vague actuellement arrivée puis ouvre, s'il en existe,
- * le premier tour de préparation de la vague suivante.
- */
 export function resolvePlayableBrowserWave(
         inputState:
                 Proto0PlayableBrowserState
@@ -1070,6 +1355,17 @@ export function resolvePlayableBrowserWave(
                 state.waveCycle
                         .lastAdvancedTurn +
                 1;
+
+        state.turnPlan =
+                createTurnPlan(
+                        state.currentTurn
+                );
+
+        state.plannedActions =
+                [];
+
+        state.turnResolutionBlockers =
+                [];
 
         state.statusMessage =
                 `Vague ${result.historyEntry.waveNumber} résolue. Tour ${state.currentTurn} ouvert pour l’adaptation.`;

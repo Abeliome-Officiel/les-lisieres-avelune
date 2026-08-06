@@ -76,3 +76,14 @@ npm run build
 ## Index
 
 L'index documentaire principal est [`docs/index.md`](docs/index.md).
+
+<!-- PROTO0_PLAYABLE_CURRENT_2026_08_06 -->
+## État courant du PROTO-0.1 jouable
+
+Le jalon de lisibilité et de temporalité du prototype est validé.
+Les décisions de construction et de fabrication sont désormais
+planifiées pendant le tour, achevées lors de sa résolution et
+utilisables au tour suivant.
+
+Le détail du jalon est documenté dans
+[`docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md`](docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md).

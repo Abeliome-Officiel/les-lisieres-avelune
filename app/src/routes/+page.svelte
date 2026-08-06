@@ -15,6 +15,7 @@
                 TESTER_CODES,
                 RESOURCE_IDS,
                 constructPlayableBrowserStructure,
+                cancelPlayableBrowserPlannedAction,
                 connectPlayableBrowserTfStructures,
                 createPlayableBrowserSession,
                 createPlayableTestNote,
@@ -247,6 +248,60 @@
                         ...session.turnReports
                 ].reverse();
 
+        $: plannedResourceCosts = {
+                R1:
+                        session.turnPlan.operations.reduce(
+                                (total, operation) =>
+                                        total +
+                                        (
+                                                operation
+                                                        .resourceCosts
+                                                        .R1 ??
+                                                0
+                                        ),
+                                0
+                        ),
+
+                R2:
+                        session.turnPlan.operations.reduce(
+                                (total, operation) =>
+                                        total +
+                                        (
+                                                operation
+                                                        .resourceCosts
+                                                        .R2 ??
+                                                0
+                                        ),
+                                0
+                        ),
+
+                R3:
+                        session.turnPlan.operations.reduce(
+                                (total, operation) =>
+                                        total +
+                                        (
+                                                operation
+                                                        .resourceCosts
+                                                        .R3 ??
+                                                0
+                                        ),
+                                0
+                        ),
+
+                R4:
+                        session.turnPlan.operations.reduce(
+                                (total, operation) =>
+                                        total +
+                                        (
+                                                operation
+                                                        .resourceCosts
+                                                        .R4 ??
+                                                0
+                                        ),
+                                0
+                        )
+        };
+
         $: availableWork =
                 Math.max(
                         0,
@@ -443,6 +498,18 @@
                 moveTargets = {};
                 acknowledgedTurnReport = 0;
                 uiError = '';
+        }
+
+        function cancelPlannedAction(
+                operationId: string
+        ): void {
+                apply(
+                        () =>
+                                cancelPlayableBrowserPlannedAction(
+                                        session,
+                                        operationId
+                                )
+                );
         }
 
         function construct(
@@ -898,6 +965,87 @@
                         </div>
                 {/each}
         </section>
+
+        {#if session.plannedActions.length > 0}
+                <section
+                        class="planned-actions-panel"
+                        aria-label="Décisions planifiées pour ce tour"
+                >
+                        <div>
+                                <p class="eyebrow">
+                                        CE TOUR
+                                </p>
+
+                                <h2>
+                                        Décisions planifiées
+                                </h2>
+
+                                <p>
+                                        Elles s’achèvent uniquement lorsque le tour est résolu.
+                                </p>
+                        </div>
+
+                        <div class="planned-costs">
+                                {#each RESOURCE_IDS as resourceId}
+                                        {#if plannedResourceCosts[resourceId] > 0}
+                                                <span>
+                                                        {playerResourceLabel(resourceId)}
+                                                        :
+                                                        {plannedResourceCosts[resourceId]}
+                                                </span>
+                                        {/if}
+                                {/each}
+                        </div>
+
+                        <div class="planned-actions-list">
+                                {#each session.plannedActions as action}
+                                        <article>
+                                                <div>
+                                                        <strong>
+                                                                {action.label}
+                                                        </strong>
+
+                                                        <small>
+                                                                Durée : 1 tour · en attente
+                                                        </small>
+                                                </div>
+
+                                                <button
+                                                        type="button"
+                                                        class="secondary compact-button"
+                                                        onclick={() =>
+                                                                cancelPlannedAction(
+                                                                        action.operationId
+                                                                )}
+                                                >
+                                                        Annuler
+                                                </button>
+                                        </article>
+                                {/each}
+                        </div>
+
+                        {#if session.turnResolutionBlockers.length > 0}
+                                <div
+                                        class="planning-conflicts"
+                                        role="alert"
+                                >
+                                        <strong>
+                                                Le tour ne peut pas encore être résolu
+                                        </strong>
+
+                                        {#each session.turnResolutionBlockers as blocker}
+                                                <p>
+                                                        {blocker}
+                                                </p>
+                                        {/each}
+
+                                        <p>
+                                                Aucune décision n’est choisie automatiquement : annulez ou modifiez votre plan.
+                                        </p>
+                                </div>
+                        {/if}
+                </section>
+        {/if}
 
         {#if pendingTurnReport}
                 <div
@@ -1441,7 +1589,7 @@
                                                                                                 definition.id
                                                                                         )}
                                                                         >
-                                                                                Construire
+                                                                                Planifier
                                                                         </button>
                                                                 {:else}
                                                                         <div>
@@ -1631,7 +1779,7 @@
 
                                 <div class="panel">
                                         <h3>
-                                                Fabriquer
+                                                Planifier
                                         </h3>
 
                                         <p class="muted">
@@ -3081,6 +3229,88 @@
                 display: grid;
                 gap: 0.7rem;
                 margin-top: 0.8rem;
+        }
+
+        .planned-actions-panel {
+                display: grid;
+                gap: 0.75rem;
+                margin-top: 0.65rem;
+                padding: 0.8rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 0.8rem;
+                background:
+                        var(--panel-solid);
+        }
+
+        .planned-actions-panel h2,
+        .planned-actions-panel p {
+                margin-top: 0;
+        }
+
+        .planned-costs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.4rem;
+        }
+
+        .planned-costs span {
+                padding:
+                        0.25rem
+                        0.45rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius:
+                        999px;
+        }
+
+        .planned-actions-list {
+                display: grid;
+                gap: 0.4rem;
+        }
+
+        .planned-actions-list article {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.75rem;
+                padding: 0.55rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 0.6rem;
+        }
+
+        .planned-actions-list article > div {
+                display: grid;
+                gap: 0.15rem;
+        }
+
+        .planned-actions-list small {
+                color: var(--muted);
+        }
+
+        .planning-conflicts {
+                display: grid;
+                gap: 0.35rem;
+                padding: 0.65rem;
+                border:
+                        1px dashed
+                        currentColor;
+                border-radius: 0.6rem;
+        }
+
+        .planning-conflicts p {
+                margin: 0;
+        }
+
+        @media (max-width: 680px) {
+                .planned-actions-list article {
+                        align-items: stretch;
+                        flex-direction: column;
+                }
         }
 
 </style>

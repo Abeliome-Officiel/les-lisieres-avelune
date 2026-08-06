@@ -119,8 +119,27 @@ test(
                 );
 
                 assert.equal(
-                        state.waveCycle.lastAdvancedTurn,
-                        0
+                        state.plannedActions.length,
+                        2
+                );
+
+                assert.equal(
+                        state.corcite.structures.some(
+                                (structure) =>
+                                        structure.kind ===
+                                        'extractor-a-n1'
+                        ),
+                        false
+                );
+
+                state =
+                        resolvePlayableBrowserTurn(
+                                state
+                        );
+
+                assert.equal(
+                        state.currentTurn,
+                        2
                 );
 
                 assert.equal(
@@ -140,16 +159,26 @@ test(
                         ),
                         true
                 );
+
+                assert.equal(
+                        state.plannedActions.length,
+                        0
+                );
         }
 );
 
 test(
-        'une fonction construite peut être arrêtée avant la résolution du tour',
+        'une fonction achevée peut être arrêtée avant le tour suivant',
         () => {
                 let state =
                         constructPlayableBrowserStructure(
                                 createSession(),
                                 'organic-extractor'
+                        );
+
+                state =
+                        resolvePlayableBrowserTurn(
+                                state
                         );
 
                 const extractor =
@@ -159,9 +188,7 @@ test(
                                         'extractor-a-n1'
                         );
 
-                assert.ok(
-                        extractor
-                );
+                assert.ok(extractor);
 
                 state =
                         setPlayableBrowserStructureActive(
@@ -187,7 +214,7 @@ test(
 );
 
 test(
-        'le contrôleur peut construire puis connecter une vraie chaîne TF sans faire avancer le temps',
+        'une chaîne devient connectable après achèvement des structures',
         () => {
                 let state =
                         createSession();
@@ -204,6 +231,11 @@ test(
                                 'primary-transformer'
                         );
 
+                state =
+                        resolvePlayableBrowserTurn(
+                                state
+                        );
+
                 const extractor =
                         state.corcite.structures.find(
                                 (structure) =>
@@ -218,13 +250,8 @@ test(
                                         'transformer-n1'
                         );
 
-                assert.ok(
-                        extractor
-                );
-
-                assert.ok(
-                        transformer
-                );
+                assert.ok(extractor);
+                assert.ok(transformer);
 
                 state =
                         connectPlayableBrowserTfStructures(
@@ -241,25 +268,20 @@ test(
 
                 assert.equal(
                         state.currentTurn,
-                        1
+                        2
                 );
 
                 assert.equal(
-                        state.corcite.tfNetwork
+                        state.corcite
+                                .tfNetwork
                                 .connections.length,
-                        1
-                );
-
-                assert.equal(
-                        state.corcite.tfNetwork
-                                .buffers.length,
                         1
                 );
         }
 );
 
 test(
-        'terminer le tour exécute le vrai moteur TF puis avance réellement le temps',
+        'une construction achevée en fin de tour ne produit qu’au tour suivant',
         () => {
                 let state =
                         constructPlayableBrowserStructure(
@@ -278,12 +300,32 @@ test(
                 );
 
                 assert.equal(
-                        state.waveCycle.lastAdvancedTurn,
-                        1
+                        state.lastTf?.extraction
+                                .events.some(
+                                        (event) =>
+                                                event.status ===
+                                                'produced'
+                                ),
+                        false
                 );
 
-                assert.ok(
-                        state.lastTf
+                assert.equal(
+                        state.corcite.structures.some(
+                                (structure) =>
+                                        structure.kind ===
+                                        'extractor-a-n1'
+                        ),
+                        true
+                );
+
+                state =
+                        resolvePlayableBrowserTurn(
+                                state
+                        );
+
+                assert.equal(
+                        state.currentTurn,
+                        3
                 );
 
                 assert.equal(
@@ -294,12 +336,6 @@ test(
                                                 'produced'
                                 ),
                         true
-                );
-
-                assert.equal(
-                        state.corcite.sustainability
-                                ?.lastResolvedTurn,
-                        1
                 );
         }
 );
@@ -515,7 +551,7 @@ test(
 );
 
 test(
-        'la fabrication TD passe par le vrai atelier puis par un inventaire physique',
+        'la fabrication TD est planifiée puis achevée à la résolution du tour',
         () => {
                 let state =
                         constructPlayableBrowserStructure(
@@ -523,12 +559,11 @@ test(
                                 'component-workshop'
                         );
 
-                /*
-                 * Etat de test volontairement préparé pour isoler
-                 * l'orchestration de fabrication TD.
-                 *
-                 * La capacité du stockage reste respectée.
-                 */
+                state =
+                        resolvePlayableBrowserTurn(
+                                state
+                        );
+
                 state.corcite.storageUnits[0]
                         .contents = {
                                 R1: 0,
@@ -546,13 +581,18 @@ test(
                 assert.equal(
                         state.corcite
                                 .tdInventory.length,
-                        1
+                        0
                 );
 
+                state =
+                        resolvePlayableBrowserTurn(
+                                state
+                        );
+
                 assert.equal(
-                        state.waveConsumptions.length >
-                                0,
-                        true
+                        state.corcite
+                                .tdInventory.length,
+                        1
                 );
 
                 const towerId =
@@ -568,13 +608,7 @@ test(
 
                 assert.equal(
                         state.corcite
-                                .tdInventory.length,
-                        0
-                );
-
-                assert.equal(
-                        state.corcite.td
-                                .positions[3]
+                                .td.positions[3]
                                 .tower?.id,
                         towerId
                 );
@@ -582,12 +616,17 @@ test(
 );
 
 test(
-        'les consommations de fabrication TD sont rattachées à la vague puis remises à zéro',
+        'les consommations de fabrication TD différée restent rattachées à la vague',
         () => {
                 let state =
                         constructPlayableBrowserStructure(
                                 createSession(),
                                 'component-workshop'
+                        );
+
+                state =
+                        resolvePlayableBrowserTurn(
+                                state
                         );
 
                 state.corcite.storageUnits[0]
@@ -602,6 +641,11 @@ test(
                         fabricatePlayableBrowserTower(
                                 state,
                                 'attenuation-n1'
+                        );
+
+                state =
+                        resolvePlayableBrowserTurn(
+                                state
                         );
 
                 const towerId =
@@ -634,9 +678,7 @@ test(
                         state.corcite
                                 .waveConsequences[0];
 
-                assert.ok(
-                        consequence
-                );
+                assert.ok(consequence);
 
                 assert.equal(
                         consequence.consumptions
