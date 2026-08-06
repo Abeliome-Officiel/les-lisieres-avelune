@@ -57,6 +57,7 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 | Tests ciblés | PASS | Énergie 4 habitants, persistance valide/corrompue/incompatible, et contrôle population. |
 | Build | PASS | Build SvelteKit/adapter-node terminé. |
 | Diff statique | PASS | `git diff --check`. |
+| Smoke HTTP local | BLOCKED | Le sandbox refuse l’ouverture d’un port local (`listen EPERM` sur `127.0.0.1:4174`). |
 | E2E | NOT_RUN | Infrastructure non engagée avant stabilisation du cœur. |
 
 ## Écarts / dette volontaire
@@ -66,6 +67,7 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 - Le geste drag/pointer n’est pas encore ajouté ; les alternatives clic/tap fonctionnelles sont présentes.
 - Le découpage de la page monolithique et une représentation SVG des liens restent à renforcer.
 - Le smoke test visuel interactif reste à effectuer par le concepteur ; les parcours moteur, typecheck et build sont verts.
+- Les primitives PROTO-0.2 sont documentées dans `app/src/lib/components/proto0/README.md`.
 - Le lancement Docker n’est pas requis pour ce checkpoint ; Node 24 est disponible directement.
 
 ## Décisions nécessaires
