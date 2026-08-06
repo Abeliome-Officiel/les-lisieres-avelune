@@ -1,0 +1,171 @@
+{
+  "schema": "avelune.proto0.reference",
+  "schemaVersion": 1,
+  "milestone": "proto-0-spec.1",
+  "status": "frozen-for-implementation",
+  "date": "2026-08-04",
+  "principles": {
+    "turnBased": true,
+    "realTime": false,
+    "directCombat": false,
+    "pvp": false,
+    "commerce": false,
+    "deterministicAtFixedSeed": true,
+    "spreadsheetReproducible": true,
+    "valuesAreLaboratoryHypotheses": true
+  },
+  "session": {
+    "turns": 10,
+    "waves": 1,
+    "humanControlledCorcites": 1,
+    "simulatedCorcites": 4,
+    "independentSessionsSupported": true,
+    "testerCodes": [
+      "IRFI",
+      "AUBE",
+      "BRUM",
+      "ORBE",
+      "SILE"
+    ]
+  },
+  "turnModel": {
+    "artificialActionQuota": false,
+    "fixedOneOrderPerAxis": false,
+    "playerEndsTurnExplicitly": true,
+    "endTurnTriggersResolution": true,
+    "resourceConflictsDetectedByEngine": true,
+    "humanArbitrationWhenAmbiguous": true
+  },
+  "resolutionOrder": [
+    "lock-player-decisions",
+    "prepare-simulated-corcites",
+    "compute-effective-characteristics",
+    "validate-capacities-and-constraints",
+    "compute-needs",
+    "extract",
+    "produce-transform-fabricate",
+    "resolve-direct-buffers-and-flows",
+    "construct",
+    "resolve-minimal-rpg-research",
+    "commit",
+    "resolve-deficits-and-internal-consequences",
+    "update-knowledge",
+    "update-world",
+    "prepare-or-resolve-wave",
+    "resolve-consequences",
+    "log",
+    "save"
+  ],
+  "tf": {
+    "individualStorageUnits": true,
+    "globalAbstractStorageCapacity": false,
+    "directConnectionBuffers": true,
+    "bufferModel": "N-to-N+1",
+    "branchPriorityOrDistribution": true,
+    "supportsHigherLevelResources": true
+  },
+  "rpg": {
+    "isSymmetricTurnOrderAxis": false,
+    "purpose": [
+      "modifiers",
+      "access",
+      "unlocks",
+      "research",
+      "information",
+      "capacity-changes"
+    ],
+    "acceptanceRequirement": "At least one RPG choice must materially change a TF or TD decision."
+  },
+  "td": {
+    "internalPathPositions": 8,
+    "positionOrderIsMechanical": true,
+    "ringsMechanicalEffect": false,
+    "ringsVisualRepresentationAllowed": true,
+    "towerFamiliesN1": [
+      "attenuation",
+      "destructuration",
+      "captation",
+      "stabilisation"
+    ],
+    "towerCoefficients": {
+      "status": "laboratory-configurable",
+      "finalBalance": false
+    }
+  },
+  "wave": {
+    "variables": {
+      "pressure": 50,
+      "structure": 60,
+      "charge": 20,
+      "capturableMatter": 16
+    },
+    "seededVariationPercent": {
+      "minimum": -2,
+      "maximum": 2
+    },
+    "forecast": {
+      "T-3": {
+        "uncertaintyPercent": 10
+      },
+      "T-2": {
+        "uncertaintyPercent": 6
+      },
+      "T-1": {
+        "uncertaintyPercent": 3
+      }
+    }
+  },
+  "simulation": {
+    "passes": [
+      "nominal",
+      "seeded-bounded-random"
+    ],
+    "towerOrderConfigurationsAlreadyCompared": 60,
+    "conclusions": [
+      "tower-order-changes-results",
+      "multiple-strategies-viable",
+      "no-single-order-dominates-all-criteria"
+    ]
+  },
+  "reporting": {
+    "playerWaveReportSeparateFromTechnicalLog": true,
+    "playerWaveReportFields": [
+      "forecast-wave",
+      "actual-wave",
+      "initial-wave-state",
+      "successive-tower-effects",
+      "pressure-before-after",
+      "structure-before-after",
+      "charge-before-after",
+      "capturable-matter-before-after",
+      "captured-matter",
+      "relevant-consumptions",
+      "corcite-consequences",
+      "defense-result",
+      "knowledge-produced"
+    ],
+    "technicalLogReconstructsCalculations": true
+  },
+  "implementation": {
+    "headlessEngineFirst": true,
+    "interfaceAfterHeadlessValidation": true
+  },
+  "nonGoals": [
+    "final-challenge",
+    "final-balancing",
+    "advanced-social-systems",
+    "commerce",
+    "pvp",
+    "direct-combat",
+    "final-interface",
+    "final-content-volume"
+  ],
+  "openParameters": [
+    "final-tower-family-coefficients",
+    "final-tf-recipe-balance",
+    "final-energy-values",
+    "final-maintenance-values",
+    "exact-tower-activation-outside-wave",
+    "final-content-volumes"
+  ]
+}

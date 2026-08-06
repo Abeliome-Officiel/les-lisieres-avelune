@@ -38,7 +38,31 @@ Les premiers retours de jeu sont actuellement utilisés pour faire évoluer le P
 - carnet de playtest ;
 - simulations reproductibles.
 
-Le dernier jalon technique entièrement documenté avait validé 338 tests et 384 simulations de référence. Ces chiffres constituent un contrôle technique, pas un verdict sur l’intérêt du jeu.
+Le jalon technique déployé le 6 août 2026 valide **346 tests automatisés**, **0 erreur / 0 warning Svelte** et un **build production réussi**. Les simulations et tests automatisés constituent des contrôles techniques, pas un verdict sur l’intérêt du jeu.
+
+## Jalon PROTO-0.1 — lisibilité et temporalité
+
+- [x] vocabulaire joueur et identifiants techniques masqués dans l'usage normal ;
+- [x] navigation unifiée en cinq sections ;
+- [x] stocks visibles en permanence ;
+- [x] énergie, entretien et stockage observables ;
+- [x] population totale / affectée / disponible ;
+- [x] chaînes et prérequis d'action explicités ;
+- [x] recherches jouables sur un tour ;
+- [x] rapport obligatoire du tour précédent ;
+- [x] historique des rapports dans le Journal ;
+- [x] construction planifiée puis achevée à la résolution du tour ;
+- [x] fabrication défensive planifiée puis achevée à la résolution ;
+- [x] utilisation d'une nouvelle construction seulement à partir du tour suivant ;
+- [x] annulation des décisions planifiées avant résolution ;
+- [x] conflits matériels sans arbitrage automatique caché ;
+- [x] 346 tests PROTO-0 réussis ;
+- [x] 0 erreur / 0 warning ;
+- [x] build production réussi ;
+- [x] déploiement public validé.
+
+**Étape suivante : nouveau playtest humain sur cette version avant
+toute nouvelle révision structurelle importante du moteur.**
 
 ## Gate actuelle : intérêt et lisibilité
 

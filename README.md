@@ -1,6 +1,6 @@
 # ✦ Les Lisières d’Avelune
 
-> **Un monde partagé à habiter, comprendre et transformer.**  
+> **Un monde partagé à habiter, comprendre et transformer.**
 > Développez un **Corcite**, corps-cité organique vivant, faites circuler matière, énergie et connaissance, préparez-vous aux vagues issues de la Fracture et contribuez à protéger la Lisière — de manière autonome, en parallèle des autres ou en coopération directe selon vos envies et vos possibilités.
 
 **Les Lisières d’Avelune** est un jeu navigateur persistant mêlant **gestion systémique**, **production et réseaux**, **défense contre des vagues**, **progression RPG horizontale**, **narration textuelle** et **monde partagé évolutif**.
@@ -32,10 +32,46 @@ Il n’existe pas encore de nouvelle version stable arbitrairement baptisée `v0
 
 - **Prototype** : https://proto.avelune.duckdns.org
 - **Branche jouable** : [`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)
-- **Documentation consolidée en cours** : [`docs/proto0-consolidation-2026-08-06`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/docs/proto0-consolidation-2026-08-06)
+- **État technique du prototype** : [`docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md`](docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md)
 - **Vision** : [`docs/00_vision.md`](docs/00_vision.md)
 - **Accessibilité et éthique** : [`docs/06_accessibilite_ethique.md`](docs/06_accessibilite_ethique.md)
 - **Charte graphique de travail** : [`docs/art/CHARTE_GRAPHIQUE.md`](docs/art/CHARTE_GRAPHIQUE.md)
+
+---
+
+## Jalon PROTO-0.1 actuellement déployé
+
+Au **6 août 2026**, la branche jouable a franchi un nouveau jalon de
+playtest humain.
+
+État validé :
+
+- navigation joueur : **Corcite · Ressources · Développement · Vague · Journal** ;
+- stocks et capacités rendus directement observables ;
+- population totale, affectée et disponible exposée ;
+- chaînes de production et conditions d'action explicitées ;
+- choix de l'identité de testeur restauré ;
+- rapport du tour précédent et historique joueur ;
+- recherches du catalogue jouable sur **1 tour** ;
+- construction et fabrication réellement résolues sur **1 tour** ;
+- décision au tour N → planification → réservation à la résolution →
+  achèvement en fin de N → utilisation à partir de N+1 ;
+- décisions matérielles annulables avant résolution ;
+- conflits de ressources laissés au joueur, sans priorité cachée ;
+- **346 / 346 tests PROTO-0 réussis** ;
+- **0 erreur / 0 warning** Svelte ;
+- build production validé ;
+- prototype déployé et accessible pour playtest.
+
+La référence RPG historique à trois tours reste conservée pour les
+tests historiques ; elle n'est pas la durée du catalogue de recherche
+jouable actuel.
+
+Références :
+
+- [`Jalon lisibilité et temporalité`](docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md)
+- [`Périmètre du prototype jouable`](docs/proto0/PROTO0_PLAYABLE_SCOPE.md)
+- [`Gate de playtest`](docs/proto0/PROTO0_PLAYTEST_READY.md)
 
 ---
 

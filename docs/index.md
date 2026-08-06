@@ -32,9 +32,31 @@ Le prototype logiciel réel est développé sur :
 
 - [`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)
 
-La documentation technique consolidée en cours est disponible sur :
+La documentation technique courante du prototype comprend :
 
-- [`docs/proto0-consolidation-2026-08-06`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/docs/proto0-consolidation-2026-08-06)
+- [Périmètre du prototype jouable](proto0/PROTO0_PLAYABLE_SCOPE.md)
+- [Gate de playtest](proto0/PROTO0_PLAYTEST_READY.md)
+- [Jalon lisibilité et temporalité](proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md)
+- [Carnet de test](proto0/PROTO0_TEST_NOTEBOOK.md)
+- [Rapport d'équilibrage automatisé](proto0/PROTO0_PLAYABLE_BALANCE_REPORT.md)
+- [Parcours technique de référence](proto0/PROTO0_PLAYABLE_REFERENCE_PLAYTHROUGH.md)
+
+### Architecture et méthode du prototype
+
+- [Index développement](development/README.md)
+- [Audit développement et architecture — 2026-08-06](development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)
+- [Architecture actuelle et cible](development/ARCHITECTURE_CURRENT_AND_TARGET.md)
+- [Politique données/configuration](development/DATA_CONFIGURATION_POLICY.md)
+- [Méthode de développement jeu vidéo](development/GAME_DEVELOPMENT_METHOD.md)
+- [Dette technique et prochaines étapes](development/TECHNICAL_DEBT_AND_NEXT_STEPS.md)
+- [Tests, sécurité et persistance](development/TEST_SECURITY_PERSISTENCE_STRATEGY.md)
+- [ADR-0001 — cœur métier indépendant de l'UI](development/adr/ADR-0001-FUNCTIONAL-CORE.md)
+- [ADR-0002 — contenu data-driven](development/adr/ADR-0002-DATA-DRIVEN-CONTENT.md)
+
+Les documents P0–P10 et `proto-0-spec.1` restent des références
+historiques de validation des moteurs. Lorsqu'ils divergent du
+périmètre jouable courant, les documents ci-dessus font foi pour le
+PROTO-0.1.
 
 Documents historiques liés au passage vers le prototype :
 
