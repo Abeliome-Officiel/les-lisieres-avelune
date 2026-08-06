@@ -11,6 +11,7 @@ import type {
 	PlayableCorciteState,
 	StructureState
 } from '../domain/corcite.js';
+import { getStructureAssignedWork } from '../domain/corcite.js';
 import {
 	emptyResourceAmounts,
 	RESOURCE_IDS,
@@ -156,8 +157,7 @@ export function recalculatePlayableCapacities(
 					structure.usage.energy;
 				total.maintenance +=
 					structure.usage.maintenance;
-				total.work +=
-					structure.usage.work;
+				total.work += getStructureAssignedWork(structure);
 				total.space +=
 					structure.usage.space;
 
@@ -165,6 +165,7 @@ export function recalculatePlayableCapacities(
 			}
 
 			if (structure.status === 'inactive') {
+				total.work += getStructureAssignedWork(structure);
 				total.maintenance +=
 					structure.usage.maintenance;
 				total.space +=
@@ -320,6 +321,7 @@ function createPreviewStructure(
 		kind: definition.structureKind,
 		name: definition.label,
 		status: 'active',
+		assignedWork: definition.usage.work,
 		usage: structuredClone(
 			definition.usage
 		)

@@ -208,7 +208,7 @@ test(
 
                 assert.equal(
                         state.corcite.capacities.work.used,
-                        0
+                        1
                 );
         }
 );

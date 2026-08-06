@@ -179,7 +179,7 @@ test(
 
 		assert.equal(
 			corcite.capacities.work.used,
-			0
+			1
 		);
 
 		assert.equal(

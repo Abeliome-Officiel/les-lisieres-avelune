@@ -6,6 +6,7 @@ import type {
 	CorciteState,
 	StructureState
 } from '../domain/corcite.js';
+import { isStructureOperational } from '../domain/corcite.js';
 import type {
 	TfExtractionEvent,
 	TfExtractionResolution,
@@ -116,10 +117,7 @@ export function resolveExtractionTurn(
 				rule
 			);
 
-		if (
-			structure.status !==
-				'active'
-		) {
+		if (!isStructureOperational(structure)) {
 			events.push(
 				createInactiveEvent(
 					structure,

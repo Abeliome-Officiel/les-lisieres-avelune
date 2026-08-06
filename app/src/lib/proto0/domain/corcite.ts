@@ -58,6 +58,17 @@ export interface StructureState {
 	name: string;
 	status: StructureStatus;
 	usage: StructureUsage;
+	/** Travail explicitement affecté. Absent des états historiques. */
+	assignedWork?: number;
+}
+
+export function getStructureAssignedWork(structure: StructureState): number {
+	return structure.assignedWork ?? structure.usage.work;
+}
+
+export function isStructureOperational(structure: StructureState): boolean {
+	return structure.status === 'active' &&
+		getStructureAssignedWork(structure) >= structure.usage.work;
 }
 
 export interface ProductionState {

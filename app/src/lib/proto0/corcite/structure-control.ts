@@ -10,6 +10,7 @@ import {
 import {
 	validateCorciteState
 } from './validate.js';
+import { getStructureAssignedWork } from '../domain/corcite.js';
 
 export interface StructureActivationPreview {
 	structureId: string;
@@ -269,6 +270,40 @@ export function setPlayableStructureActive(
 		throw new Error(
 			`Etat Corcite invalide après changement d'activité : ${validation.errors.join(' | ')}`
 		);
+	}
+
+	return state;
+}
+
+export function setPlayableStructureStaffed(
+	inputState: CorciteState,
+	structureId: string,
+	staffed: boolean
+): PlayableCorciteState {
+	const state = structuredClone(requirePlayableState(inputState));
+	const structure = getStructure(state, structureId);
+	assertControllable(structure);
+
+	if (structure.status === 'constructing') {
+		throw new Error(`La fonction ${structure.name} est encore en construction.`);
+	}
+
+	const current = getStructureAssignedWork(structure);
+	const target = staffed ? structure.usage.work : 0;
+	const free = state.capacities.work.capacity - state.capacities.work.used;
+
+	if (target > current && target - current > free) {
+		throw new Error(
+			`Population insuffisante : ${target - current} requise, ${Math.max(0, free)} disponible.`
+		);
+	}
+
+	structure.assignedWork = target;
+	recalculatePlayableCapacities(state);
+
+	const validation = validateCorciteState(state);
+	if (!validation.valid) {
+		throw new Error(`Etat Corcite invalide après affectation : ${validation.errors.join(' | ')}`);
 	}
 
 	return state;

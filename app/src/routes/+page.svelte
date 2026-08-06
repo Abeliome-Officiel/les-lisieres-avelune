@@ -25,6 +25,7 @@
                 getPlayableBrowserPendingDiscovery,
                 getPlayableBrowserResearchChoices,
                 getTotalUnanalysedWaveMatter,
+                getStructureAssignedWork,
                 movePlayableBrowserTower,
                 parsePlayableTestNotes,
                 parsePlayableBrowserSave,
@@ -36,6 +37,7 @@
                 playerStructureDescription,
                 playerStructureFlow,
                 playerStructureStatusLabel,
+                previewPlayableTfConnection,
                 previewPlayableConstruction,
                 previewPlayableTdFabrication,
                 removePlayableBrowserTower,
@@ -44,6 +46,7 @@
                 serializePlayableTestNotes,
                 serializePlayableBrowserSave,
                 setPlayableBrowserStructureActive,
+                setPlayableBrowserStructureStaffed,
                 startPlayableBrowserResearch,
                 summarizeStoredResources,
                 validatePlayableBrowserDiscovery,
@@ -145,10 +148,6 @@
                 0;
 
         let connectionFrom = '';
-        let connectionTo = '';
-        let connectionResource:
-                ResourceId = 'R1';
-
         let placementTargets:
                 Record<string, TdPathPosition> =
                 {};
@@ -269,6 +268,19 @@
                                         )
                         );
 
+        $: compatibleConnectionTargets = connectionFrom
+                ? productiveStructures.flatMap((target) =>
+                        RESOURCE_IDS.map((resourceId) =>
+                                previewPlayableTfConnection(
+                                        session.corcite,
+                                        connectionFrom,
+                                        target.id,
+                                        resourceId
+                                )
+                        ).filter((preview) => preview.canConnect)
+                )
+                : [];
+
         $: pendingTurnReport =
                 session.lastTurnReport !== null &&
                 acknowledgedTurnReport <
@@ -365,6 +377,19 @@
                                 testNotes
                         )
                 );
+        }
+
+        function toggleStaffing(structureId: string, currentlyStaffed: boolean): void {
+                try {
+                        session = setPlayableBrowserStructureStaffed(
+                                session,
+                                structureId,
+                                !currentlyStaffed
+                        );
+                        uiError = '';
+                } catch (error) {
+                        uiError = errorMessage(error);
+                }
         }
 
         function noteCategoryLabel(
@@ -522,9 +547,6 @@
                         'guide';
 
                 connectionFrom = '';
-                connectionTo = '';
-                connectionResource =
-                        'R1';
 
                 placementTargets = {};
                 moveTargets = {};
@@ -572,13 +594,10 @@
                 );
         }
 
-        function connectTf(): void {
-                if (
-                        !connectionFrom ||
-                        !connectionTo
-                ) {
+        function connectTf(toStructureId: string, resourceId: ResourceId): void {
+                if (!connectionFrom) {
                         uiError =
-                                'Choisissez une structure source et une structure destination.';
+                                'Choisissez d’abord un port de sortie.';
 
                         return;
                 }
@@ -591,9 +610,9 @@
                                                 fromStructureId:
                                                         connectionFrom,
                                                 toStructureId:
-                                                        connectionTo,
+                                                        toStructureId,
                                                 resourceId:
-                                                        connectionResource
+                                                        resourceId
                                         }
                                 )
                 );
@@ -1567,22 +1586,32 @@
                                                                                 <span class="badge">
                                                                                         {playerStructureStatusLabel(structure.status)}
                                                                                 </span>
+
+												<span class="badge">
+													Personnel {getStructureAssignedWork(structure)}/{structure.usage.work}
+												</span>
                                                                         </div>
 
-                                                                        <button
-                                                                                type="button"
-                                                                                class="secondary"
-                                                                                disabled={!preparationOpen}
-                                                                                onclick={() =>
-                                                                                        toggleStructure(
-                                                                                                structure.id,
-                                                                                                structure.status === 'active'
-                                                                                        )}
-                                                                        >
-                                                                                {structure.status === 'active'
-                                                                                        ? 'Mettre en réserve'
-                                                                                        : 'Activer'}
-                                                                        </button>
+										<div class="button-row">
+											<button
+												type="button"
+												class="secondary"
+												disabled={!preparationOpen}
+												onclick={() => toggleStructure(structure.id, structure.status === 'active')}
+											>
+												{structure.status === 'active' ? 'Mettre OFF' : 'Mettre ON'}
+											</button>
+											{#if structure.usage.work > 0}
+												<button
+													type="button"
+													class="secondary"
+													disabled={!preparationOpen}
+													onclick={() => toggleStaffing(structure.id, getStructureAssignedWork(structure) >= structure.usage.work)}
+												>
+													{getStructureAssignedWork(structure) >= structure.usage.work ? 'Retirer la population' : 'Affecter la population'}
+												</button>
+											{/if}
+										</div>
                                                                 </article>
                                                         {/each}
                                                 </div>
@@ -1601,15 +1630,15 @@
                                                 </div>
                                         </div>
 
-                                        <div class="form-grid">
+                                        <div class="connection-picker">
                                                 <label>
-                                                        Source
+                                                        Port de sortie
                                                         <select
                                                                 bind:value={connectionFrom}
                                                                 disabled={!preparationOpen}
                                                         >
                                                                 <option value="">
-                                                                        Choisir
+                                                                        Choisir une fonction
                                                                 </option>
 
                                                                 {#each productiveStructures as structure}
@@ -1620,44 +1649,22 @@
                                                         </select>
                                                 </label>
 
-                                                <label>
-                                                        Destination
-                                                        <select
-                                                                bind:value={connectionTo}
-                                                                disabled={!preparationOpen}
-                                                        >
-                                                                <option value="">
-                                                                        Choisir
-                                                                </option>
-
-                                                                {#each productiveStructures as structure}
-                                                                        <option value={structure.id}>
-                                                                                {structure.name}
-                                                                        </option>
-                                                                {/each}
-                                                        </select>
-                                                </label>
-
-                                                <label>
-                                                        Ressource
-                                                        <select
-                                                                bind:value={connectionResource}
-                                                                disabled={!preparationOpen}
-                                                        >
-                                                                <option value="R1">{playerResourceLabel('R1')}</option>
-                                                                <option value="R2">{playerResourceLabel('R2')}</option>
-                                                                <option value="R3">{playerResourceLabel('R3')}</option>
-                                                                <option value="R4">{playerResourceLabel('R4')}</option>
-                                                        </select>
-                                                </label>
-
-                                                <button
-                                                        type="button"
-                                                        disabled={!preparationOpen}
-                                                        onclick={connectTf}
-                                                >
-                                                        Connecter
-                                                </button>
+						<div aria-live="polite">
+							<strong>Entrées compatibles</strong>
+							{#if !connectionFrom}
+								<p class="muted">Sélectionnez une sortie pour révéler ses destinations.</p>
+							{:else if compatibleConnectionTargets.length === 0}
+								<p class="muted">Aucune entrée compatible disponible.</p>
+							{:else}
+								<div class="button-row">
+									{#each compatibleConnectionTargets as target}
+										<button type="button" class="secondary" disabled={!preparationOpen} onclick={() => connectTf(target.toStructureId, target.resourceId)}>
+											{playerResourceLabel(target.resourceId)} → {target.toStructureName}
+										</button>
+									{/each}
+								</div>
+							{/if}
+						</div>
                                         </div>
 
                                         {#if session.corcite.tfNetwork.connections.length === 0}
@@ -2939,7 +2946,7 @@
                 color: var(--muted);
         }
 
-        .form-grid {
+        .connection-picker {
                 display: grid;
                 gap: 0.65rem;
                 margin-top: 0.8rem;
@@ -3223,7 +3230,7 @@
                                 );
                 }
 
-                .form-grid {
+                .connection-picker {
                         grid-template-columns:
                                 1fr
                                 1fr

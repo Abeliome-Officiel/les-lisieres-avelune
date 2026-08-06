@@ -13,6 +13,7 @@ import {
 	previewPlayableTfConnection,
 	resolvePlayableTfTurn,
 	setPlayableStructureActive,
+	setPlayableStructureStaffed,
 	summarizeStoredResources,
 	validateCorciteState,
 	type PlayableConstructionDefinitionId,
@@ -236,7 +237,7 @@ test(
 );
 
 test(
-	'un atelier arrêté ne transforme rien et libère énergie et travail',
+	'un atelier arrêté ne transforme rien, libère l’énergie et conserve son personnel',
 	() => {
 		let corcite =
 			createCorcite();
@@ -267,7 +268,7 @@ test(
 
 		assert.equal(
 			corcite.capacities.work.used,
-			0
+			1
 		);
 
 		const before =
@@ -689,6 +690,12 @@ test(
 				organic.id,
 				false
 			);
+
+		corcite = setPlayableStructureStaffed(
+			corcite,
+			organic.id,
+			false
+		);
 
 		corcite = build(
 			corcite,

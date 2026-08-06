@@ -47,7 +47,8 @@ import {
 } from './corcite/construction.js';
 
 import {
-        setPlayableStructureActive
+	setPlayableStructureActive,
+	setPlayableStructureStaffed
 } from './corcite/structure-control.js';
 
 import {
@@ -639,6 +640,24 @@ export function setPlayableBrowserStructureActive(
                         : 'Etat de structure modifié.';
 
         return state;
+}
+
+export function setPlayableBrowserStructureStaffed(
+	inputState: Proto0PlayableBrowserState,
+	structureId: string,
+	staffed: boolean
+): Proto0PlayableBrowserState {
+	assertPreparationOpen(inputState);
+	const state = structuredClone(inputState);
+	state.corcite = setPlayableStructureStaffed(state.corcite, structureId, staffed);
+	state.actionSequence += 1;
+
+	const structure = state.corcite.structures.find((candidate) => candidate.id === structureId);
+	state.statusMessage = structure
+		? `${structure.name} : population ${staffed ? 'affectée' : 'retirée'}.`
+		: 'Affectation de population modifiée.';
+
+	return state;
 }
 
 export function connectPlayableBrowserTfStructures(

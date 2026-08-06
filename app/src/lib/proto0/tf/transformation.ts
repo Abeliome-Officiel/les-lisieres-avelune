@@ -6,6 +6,7 @@ import type {
 	CorciteState,
 	StructureState
 } from '../domain/corcite.js';
+import { isStructureOperational } from '../domain/corcite.js';
 import {
 	RESOURCE_IDS,
 	type ResourceId
@@ -346,15 +347,12 @@ export function resolveTransformationTurn(
 
 		const active =
 			structures.filter(
-				(structure) =>
-					structure.status ===
-						'active'
+				(structure) => isStructureOperational(structure)
 			);
 
 		for (const structure of structures) {
 			if (
-				structure.status ===
-					'active'
+				isStructureOperational(structure)
 			) {
 				continue;
 			}
