@@ -1,41 +1,107 @@
-# Roadmap après v0.8.3
+# Roadmap — Les Lisières d’Avelune
 
-La v0.8.3 constitue la baseline de conception précédant le prototype logiciel.
+## Repères de version
 
-## v0.9 — Prototype logiciel
+- `v0.8` : ancien jalon/tag historique ;
+- `v0.8.3` : dernière baseline de conception formellement figée ;
+- **v0.8.3+** : conception consolidée avec les décisions postérieures ;
+- **PROTO-0 jouable** : état logiciel actuel, développé et playtesté sur `develop/proto-0.1-playable`.
 
-Objectif : transformer les systèmes consolidés en une expérience réellement
-jouable et mesurable.
+Il n’existe pas encore de nouvelle version stable arbitrairement nommée `v0.9`.
 
-Le prototype doit permettre de vérifier au minimum :
+## Phase actuelle
 
-- la boucle commune du Corcite ;
-- l'interaction réelle TD / TF / RPG ;
-- les contraintes de temps, ressources, capacités et production ;
-- la préparation puis la résolution d'une vague ;
-- la production et les dépendances TF nécessaires au TD ;
-- les déblocages et modificateurs RPG utiles au test ;
-- la lisibilité de l'état du monde ;
-- l'accessibilité de l'interface ;
-- la journalisation des décisions et résultats ;
-- la reproductibilité d'un scénario de test.
+Le projet n’est plus dans la phase « construire un premier prototype logiciel ». Ce prototype existe.
 
-La règle historique « un ordre TD + un ordre TF + un ordre RPG » ne doit plus
-être utilisée comme contrainte structurelle.
+La phase actuelle est :
 
-## Après validation du prototype
+**prototype intégré jouable → premiers playtests humains → ajustements → consolidation technique**.
 
-Les phases suivantes seront déterminées à partir des observations réelles.
+Les premiers retours de jeu sont actuellement utilisés pour faire évoluer le PROTO-0. Les paramètres détaillés peuvent donc bouger rapidement.
 
-Axes déjà identifiés :
+## Ce que le PROTO-0 couvre déjà
 
-1. enrichissement du contenu TD ;
-2. approfondissement des chaînes TF ;
-3. progression RPG ;
-4. Érudition et connaissance ;
-5. interactions entre plusieurs Corcites ;
-6. échanges et réseaux ;
-7. événements et évolution du monde ;
-8. extensions de contenu.
+- départ minimal du Corcite ;
+- construction ;
+- extraction et stockage ;
+- transformation et fabrication ;
+- énergie ;
+- entretien ;
+- population et travail ;
+- recherches et découvertes ;
+- fabrication et organisation TD ;
+- cycle multi-vagues ;
+- conséquences persistantes ;
+- récupération ;
+- économie de captation ;
+- interface mobile/bureau ;
+- carnet de playtest ;
+- simulations reproductibles.
 
-Les volumes définitifs ne sont pas fixés avant les tests.
+Le dernier jalon technique entièrement documenté avait validé 338 tests et 384 simulations de référence. Ces chiffres constituent un contrôle technique, pas un verdict sur l’intérêt du jeu.
+
+## Gate actuelle : intérêt et lisibilité
+
+Question principale :
+
+> **Est-ce que les décisions produisent des situations qu’on veut comprendre, améliorer et expérimenter ?**
+
+Les playtests doivent notamment vérifier :
+
+- compréhension de la boucle globale ;
+- intérêt des arbitrages TF ;
+- utilité et lisibilité de la recherche ;
+- préparation réelle du TD ;
+- rythme des vagues ;
+- conséquences et récupération ;
+- clarté des informations ;
+- adaptation à plusieurs styles et disponibilités de jeu ;
+- accessibilité réelle et non seulement théorique.
+
+## Si la boucle est validée
+
+Faire une courte phase de consolidation avant d’augmenter fortement le contenu :
+
+1. découper l’interface monolithique ;
+2. faire évoluer contenu et équilibrage vers des datasets versionnés ;
+3. désigner une source canonique de données ;
+4. versionner états persistants et migrations ;
+5. formaliser la future autorité serveur ;
+6. ajouter CI test/check/build ;
+7. ajouter tests E2E navigateur ;
+8. structurer télémétrie métier et persistance PostgreSQL.
+
+Ensuite seulement :
+
+- vertical slice représentative ;
+- production de contenu plus large ;
+- équilibrage à plus grande échelle ;
+- approfondissement UX/accessibilité ;
+- monde persistant partagé et opérations serveur.
+
+## Si la boucle n’est pas validée
+
+Ne pas compenser en ajoutant du contenu ou en sur-architecturant.
+
+1. identifier ce qui n’est pas intéressant ou lisible ;
+2. corriger les mécaniques ;
+3. rejouer une miniature cohérente ;
+4. consolider l’architecture seulement une fois la direction de jeu suffisamment stable.
+
+## Principes qui ne dépendent pas du prototype
+
+Même si les chiffres et mécaniques précises évoluent, les axes suivants restent structurants :
+
+- monde partagé unique ;
+- protection collective de la Lisière ;
+- coopération directe entre Corcites facultative ;
+- progression principalement horizontale ;
+- challenge systémique sans punition artificielle ;
+- échec fertile ;
+- absence non punitive ;
+- pas de classement humiliant ;
+- pas de micro-dopamine/FOMO comme moteur de rétention ;
+- accessibilité pensée pour des profils et rythmes variés, notamment TSA/TDAH/dys ;
+- plusieurs styles de jeu légitimes ;
+- identité queer et non genrée ;
+- direction artistique onirique, féerique, organique et minérale, sans inventer de population/faune/flore non définie.
