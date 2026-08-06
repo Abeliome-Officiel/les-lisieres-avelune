@@ -23,6 +23,7 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 - Extension énergétique limitée à son gain de capacité normale existant, sans conversion arbitraire de l’ancien bonus de réserve.
 - Prévision joueur rendue qualitative, sans nombre de tours ni caractéristiques chiffrées gratuites.
 - Sauvegarde navigateur versionnée avec restauration sûre et rejet des données invalides.
+- Restauration renforcée par validation métier du Corcite, du cycle d’onde et des collections d’orchestration.
 - Tests énergie adaptés et tests roundtrip/corruption de sauvegarde ajoutés.
 - Affectation de population explicite dans l’état des structures, le contrôleur et l’interface.
 - Production suspendue pour une fonction ON non staffée.
@@ -53,7 +54,7 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 |---|---|---|
 | Typecheck / svelte-check | PASS | 0 erreur, 0 warning. |
 | Tests PROTO-0 | PASS | 39 fichiers de tests, 0 échec (`--test-concurrency=1`). |
-| Tests ciblés | PASS | Énergie 4 habitants, persistance et contrôle population. |
+| Tests ciblés | PASS | Énergie 4 habitants, persistance valide/corrompue/incompatible, et contrôle population. |
 | Build | PASS | Build SvelteKit/adapter-node terminé. |
 | Diff statique | PASS | `git diff --check`. |
 | E2E | NOT_RUN | Infrastructure non engagée avant stabilisation du cœur. |

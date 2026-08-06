@@ -25,3 +25,14 @@ test('une sauvegarde corrompue ou incompatible est rejetée proprement', () => {
 	assert.equal(parsePlayableBrowserSave('{"version":999,"state":{}}'), null);
 	assert.equal(parsePlayableBrowserSave('{"version":1,"state":{}}'), null);
 });
+
+test('une sauvegarde dont le Corcite ou le cycle est invalide est rejetée', () => {
+	const state = createPlayableBrowserSession({ testerCode: 'IRFI', seed: 7 });
+	const invalidCorcite = JSON.parse(serializePlayableBrowserSave(state));
+	invalidCorcite.state.corcite.population.total = 0;
+	assert.equal(parsePlayableBrowserSave(JSON.stringify(invalidCorcite)), null);
+
+	const invalidWave = JSON.parse(serializePlayableBrowserSave(state));
+	invalidWave.state.waveCycle.schemaVersion = 999;
+	assert.equal(parsePlayableBrowserSave(JSON.stringify(invalidWave)), null);
+});

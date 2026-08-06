@@ -1,4 +1,6 @@
 import type { Proto0PlayableBrowserState } from './playable-browser-controller.js';
+import { validateCorciteState } from './corcite/validate.js';
+import { validatePlayableWaveCycle } from './wave/playable-cycle.js';
 
 export const PLAYABLE_BROWSER_SAVE_KEY = 'avelune:proto0.2:run:v1';
 export const PLAYABLE_BROWSER_SAVE_VERSION = 1;
@@ -48,12 +50,24 @@ export function parsePlayableBrowserSave(
 			typeof state.currentTurn !== 'number' ||
 			!isRecord(state.corcite) ||
 			!isRecord(state.waveCycle) ||
-			!Array.isArray(state.turnReports)
+			!Array.isArray(state.turnReports) ||
+			!Array.isArray(state.plannedActions) ||
+			!Array.isArray(state.waveConsumptions) ||
+			!isRecord(state.turnPlan) ||
+			!Array.isArray(state.turnPlan.operations)
 		) {
 			return null;
 		}
 
-		return structuredClone(state) as unknown as Proto0PlayableBrowserState;
+		const candidate = structuredClone(state) as unknown as Proto0PlayableBrowserState;
+		if (
+			!validateCorciteState(candidate.corcite).valid ||
+			!validatePlayableWaveCycle(candidate.waveCycle).valid
+		) {
+			return null;
+		}
+
+		return candidate;
 	} catch {
 		return null;
 	}
