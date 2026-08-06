@@ -1,5 +1,18 @@
 # Changelog
 
+## post-PROTO-0.1 — nettoyage documentaire — 2026-08-06
+
+Après fusion du PROTO-0.1 dans `main`, nettoyage des références devenues transitoires :
+
+- `main` est désormais explicitement la source canonique du dépôt et du prototype intégré ;
+- `develop/proto-0.1-playable` et les branches documentaires sont reclassées comme branches historiques de traçabilité ;
+- la roadmap clôt le jalon PROTO-0.1 et place le projet en phase de discussion/analyse avant le prochain lot ;
+- l’index documentaire ne présente plus de source parallèle à `main` ;
+- la gate de playtest et le document UX/temporalité reflètent l’intégration finale ;
+- la prochaine intervention de mise en page devra réduire la taille générale des polices d’un cran, de manière centralisée autant que possible.
+
+Aucune mécanique ni mise en page du prototype n’est modifiée par ce nettoyage documentaire.
+
 ## proto-0-playable-audit - 2026-08-06
 
 Audit du prototype jouable et remise à niveau de la documentation courante.
