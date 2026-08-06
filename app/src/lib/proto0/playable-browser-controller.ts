@@ -93,6 +93,11 @@ import type {
         PlayableWaveCycleState
 } from './domain/playable-wave.js';
 
+import {
+        createPlayablePlayerTurnReport,
+        type PlayerTurnReport
+} from './reporting/player-turn-report.js';
+
 export interface CreatePlayableBrowserSessionInput {
         testerCode: TesterCode;
         seed: number;
@@ -153,6 +158,13 @@ export interface Proto0PlayableBrowserState {
         lastResearchAdvance:
                 PlayableBrowserResearchSnapshot |
                 null;
+
+        lastTurnReport:
+                PlayerTurnReport |
+                null;
+
+        turnReports:
+                PlayerTurnReport[];
 
         lastWave:
                 PlayableBrowserLastWave |
@@ -346,6 +358,9 @@ export function createPlayableBrowserSession(
                 lastTf: null,
                 lastResearchAdvance:
                         null,
+                lastTurnReport:
+                        null,
+                turnReports: [],
                 lastWave: null,
                 waveConsumptions: [],
                 statusMessage:
@@ -585,7 +600,7 @@ export function connectPlayableBrowserTfStructures(
                 1;
 
         state.statusMessage =
-                `Connexion ${input.resourceId} créée.`;
+                'Connexion créée.';
 
         return state;
 }
@@ -618,7 +633,10 @@ export function startPlayableBrowserResearch(
                 1;
 
         state.statusMessage =
-                `Recherche ${definitionId} lancée.`;
+                state.corcite.rpg.researches.at(-1)
+                        ?.label
+                        ? `Recherche « ${state.corcite.rpg.researches.at(-1)?.label} » lancée.`
+                        : 'Recherche lancée.';
 
         return state;
 }
@@ -651,7 +669,7 @@ export function validatePlayableBrowserDiscovery(
                 1;
 
         state.statusMessage =
-                `Découverte ${definitionId} validée.`;
+                'Découverte validée et effets appliqués.';
 
         return state;
 }
@@ -843,6 +861,11 @@ export function resolvePlayableBrowserTurn(
         const resolvedTurn =
                 state.currentTurn;
 
+        const beforeTurn =
+                structuredClone(
+                        state.corcite
+                );
+
         const tf =
                 resolvePlayableTfTurn(
                         state.corcite,
@@ -893,6 +916,38 @@ export function resolvePlayableBrowserTurn(
                           }
                         : {})
         };
+
+        const turnReport =
+                createPlayablePlayerTurnReport({
+                        runId:
+                                state.runId,
+                        turn:
+                                resolvedTurn,
+                        before:
+                                beforeTurn,
+                        after:
+                                state.corcite,
+                        extraction:
+                                tf.extraction,
+                        transformation:
+                                tf.transformation,
+                        fabrication:
+                                tf.fabrication,
+                        sustainability:
+                                tf.sustainability,
+                        recovery:
+                                tf.recovery,
+                        researchStatus:
+                                research.status
+                });
+
+        state.lastTurnReport =
+                turnReport;
+
+        state.turnReports.push(
+                turnReport
+        );
+
 
         state.waveCycle =
                 advancePlayableWaveCycleAfterTurn(

@@ -34,11 +34,14 @@ export interface PlayableResearchPresentation {
  */
 export const PLAYABLE_RESEARCH_CATALOG:
 	readonly RpgResearchDefinition[] = [
-	RPG_LAB_REFERENCE,
+	{
+	        ...RPG_LAB_REFERENCE,
+	        durationTurns: 1
+	},
 	{
 		id: 'fabrication-efficiency-n1',
 		label: 'Gestes de fabrication N1',
-		durationTurns: 3,
+		durationTurns: 1,
 		completion: {
 			modifier: {
 				id:
@@ -66,7 +69,7 @@ export const PLAYABLE_RESEARCH_CATALOG:
 	{
 		id: 'reserve-recovery-n1',
 		label: 'Cycles de réserve N1',
-		durationTurns: 2,
+		durationTurns: 1,
 		completion: {
 			modifier: {
 				id:
@@ -94,7 +97,7 @@ export const PLAYABLE_RESEARCH_CATALOG:
 	{
 		id: 'maintenance-recovery-n1',
 		label: "Routines d'entretien N1",
-		durationTurns: 2,
+		durationTurns: 1,
 		completion: {
 			modifier: {
 				id:
@@ -122,7 +125,7 @@ export const PLAYABLE_RESEARCH_CATALOG:
 	{
 		id: 'wave-observation-n1',
 		label: 'Observation des vagues N1',
-		durationTurns: 2,
+		durationTurns: 1,
 		completion: {
 			modifier: {
 				id:
@@ -150,7 +153,7 @@ export const PLAYABLE_RESEARCH_CATALOG:
 	{
 		id: 'capture-analysis-n1',
 		label: 'Étude de la captation N1',
-		durationTurns: 3,
+		durationTurns: 1,
 		completion: {
 			modifier: {
 				id:
@@ -185,7 +188,7 @@ export const PLAYABLE_RESEARCH_PRESENTATIONS:
 		summary:
 			'Mieux comprendre les transformations primaires.',
 		effectSummary:
-			'Améliore le rendement de la transformation R1 + R2 vers R3.'
+			'Améliore le rendement de la transformation des matières organique et minérale en matériau transformé.'
 	},
 	{
 		id: 'fabrication-efficiency-n1',
@@ -193,7 +196,7 @@ export const PLAYABLE_RESEARCH_PRESENTATIONS:
 		summary:
 			'Affiner les gestes et séquences de fabrication.',
 		effectSummary:
-			'Améliore le rendement de fabrication des composants R4.'
+			'Améliore le rendement de fabrication des composants.'
 	},
 	{
 		id: 'reserve-recovery-n1',

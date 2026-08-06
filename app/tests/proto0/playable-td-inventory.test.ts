@@ -12,6 +12,7 @@ import {
         getStoredAmount,
         movePlayableTdTower,
         placePlayableTdInventoryTower,
+        playerResourceLabel,
         preparePlayableTdFabrication,
         previewPlayableTdFabrication,
         removePlayableTdTower,
@@ -268,7 +269,9 @@ test("les ressources manquantes bloquent explicitement la fabrication TD", () =>
                 preview.blockers.some(
                         (blocker) =>
                                 blocker.includes(
-                                        'R4'
+                                        playerResourceLabel(
+                                                'R4'
+                                        )
                                 )
                 )
         );

@@ -90,3 +90,6 @@ export * from './config/playable-capture-reference.js';
 export * from './domain/playable-capture.js';
 export * from './td/playable-capture.js';
 export * from './playable-test-notes.js';
+export * from './presentation/player-facing.js';
+
+export * from './reporting/player-turn-report.js';

@@ -1,11 +1,19 @@
 <script lang="ts">
         import { onMount } from 'svelte';
 
+        import FlowDiagram from '$lib/components/proto0/FlowDiagram.svelte';
+        import ResourceCostPreview from '$lib/components/proto0/ResourceCostPreview.svelte';
+        import CapacityDelta from '$lib/components/proto0/CapacityDelta.svelte';
+        import TurnReportPanel from '$lib/components/proto0/TurnReportPanel.svelte';
+
         import {
                 PLAYABLE_CONSTRUCTION_CATALOG,
+                PLAYABLE_RESEARCH_CATALOG,
                 PLAYABLE_RESEARCH_PRESENTATIONS,
                 PLAYABLE_TD_FABRICATIONS,
                 PLAYABLE_TEST_NOTE_CATEGORIES,
+                TESTER_CODES,
+                RESOURCE_IDS,
                 constructPlayableBrowserStructure,
                 connectPlayableBrowserTfStructures,
                 createPlayableBrowserSession,
@@ -18,6 +26,13 @@
                 movePlayableBrowserTower,
                 parsePlayableTestNotes,
                 placePlayableBrowserTower,
+                playerConstructionFlow,
+                playerResearchCategoryLabel,
+                playerResearchStatusLabel,
+                playerResourceLabel,
+                playerStructureDescription,
+                playerStructureFlow,
+                playerStructureStatusLabel,
                 previewPlayableConstruction,
                 previewPlayableTdFabrication,
                 removePlayableBrowserTower,
@@ -33,6 +48,7 @@
                 type PlayableTestNote,
                 type PlayableTestNoteCategory,
                 type Proto0PlayableBrowserState,
+                type TesterCode,
                 type ResourceId,
                 type TdPathPosition,
                 type TdTowerDefinitionId
@@ -56,15 +72,11 @@
                 },
                 {
                         id: 'tf',
-                        label: 'TF'
+                        label: 'Ressources'
                 },
                 {
                         id: 'research',
-                        label: 'Recherche'
-                },
-                {
-                        id: 'defense',
-                        label: 'Défense'
+                        label: 'Développement'
                 },
                 {
                         id: 'wave',
@@ -72,7 +84,7 @@
                 },
                 {
                         id: 'notebook',
-                        label: 'Carnet'
+                        label: 'Journal'
                 }
         ];
 
@@ -90,13 +102,16 @@
         let activeView:
                 ViewId = 'corcite';
 
+        let testerCode:
+                TesterCode = 'IRFI';
+
         let session:
                 Proto0PlayableBrowserState =
                 createPlayableBrowserSession({
-                        testerCode: 'IRFI',
+                        testerCode,
                         seed: 20260806,
                         runId:
-                                'PROTO0-PLAYABLE-UI-20260806'
+                                'PROTO0-PLAYABLE-UI-IRFI-20260806'
                 });
 
         let uiError = '';
@@ -112,6 +127,9 @@
 
         let testNotes:
                 PlayableTestNote[] = [];
+
+        let acknowledgedTurnReport =
+                0;
 
         let connectionFrom = '';
         let connectionTo = '';
@@ -216,6 +234,41 @@
                                                 structure.kind
                                         )
                         );
+
+        $: pendingTurnReport =
+                session.lastTurnReport !== null &&
+                acknowledgedTurnReport <
+                        session.lastTurnReport.turn
+                        ? session.lastTurnReport
+                        : null;
+
+        $: turnReportsNewest =
+                [
+                        ...session.turnReports
+                ].reverse();
+
+        $: availableWork =
+                Math.max(
+                        0,
+                        session.corcite.capacities
+                                .work.capacity -
+                        session.corcite.capacities
+                                .work.used
+                );
+
+        $: availablePopulation =
+                Math.min(
+                        session.corcite.population.total,
+                        Math.floor(
+                                availableWork /
+                                session.corcite.population
+                                        .workPerPopulation
+                        )
+                );
+
+        $: assignedPopulation =
+                session.corcite.population.total -
+                availablePopulation;
 
         function persistTestNotes(): void {
                 localStorage.setItem(
@@ -372,11 +425,10 @@
 
                 session =
                         createPlayableBrowserSession({
-                                testerCode:
-                                        'IRFI',
+                                testerCode,
                                 seed,
                                 runId:
-                                        `PROTO0-PLAYABLE-UI-${seed}`
+                                        `PROTO0-PLAYABLE-UI-${testerCode}-${seed}`
                         });
 
                 activeView =
@@ -389,6 +441,7 @@
 
                 placementTargets = {};
                 moveTargets = {};
+                acknowledgedTurnReport = 0;
                 uiError = '';
         }
 
@@ -582,6 +635,59 @@
                         );
         }
 
+        function resourceLabel(
+                id: string
+        ): string {
+                return playerResourceLabel(
+                        id as ResourceId
+                );
+        }
+
+        function researchCategoryLabel(
+                id: string
+        ): string {
+                const category =
+                        researchPresentation(
+                                id
+                        )?.category;
+
+                return category
+                        ? playerResearchCategoryLabel(
+                                category
+                          )
+                        : 'Recherche';
+        }
+
+        function researchLabel(
+                id: string
+        ): string {
+                return (
+                        PLAYABLE_RESEARCH_CATALOG
+                                .find(
+                                        (definition) =>
+                                                definition.id ===
+                                                id
+                                )
+                                ?.label ??
+                        'Recherche'
+                );
+        }
+
+        function towerLabel(
+                id: string
+        ): string {
+                return (
+                        PLAYABLE_TD_FABRICATIONS
+                                .find(
+                                        (definition) =>
+                                                definition.definitionId ===
+                                                id
+                                )
+                                ?.label ??
+                        id
+                );
+        }
+
         function getConnectionBuffer(
                 connectionId: string
         ) {
@@ -591,6 +697,28 @@
                                         buffer.connectionId ===
                                         connectionId
                         );
+        }
+
+        function acknowledgeTurnReport(): void {
+                if (!session.lastTurnReport) {
+                        return;
+                }
+
+                acknowledgedTurnReport =
+                        session.lastTurnReport.turn;
+        }
+
+        function structureLabel(
+                id: string
+        ): string {
+                return (
+                        session.corcite.structures.find(
+                                (structure) =>
+                                        structure.id ===
+                                        id
+                        )?.name ??
+                        'Structure'
+                );
         }
 
         function formatNumber(
@@ -624,13 +752,37 @@
                         </h1>
                 </div>
 
-                <button
-                        class="secondary compact-button"
-                        type="button"
-                        onclick={newSession}
-                >
-                        Nouvelle partie
-                </button>
+                <div class="session-controls">
+                        <label class="tester-control">
+                                <span>
+                                        Testeur
+                                </span>
+
+                                <select
+                                        bind:value={testerCode}
+                                        aria-label="Testeur de la prochaine partie"
+                                >
+                                        {#each TESTER_CODES as code}
+                                                <option value={code}>
+                                                        {code}
+                                                </option>
+                                        {/each}
+                                </select>
+
+                                <small>
+                                        Partie actuelle :
+                                        {session.testerCode}
+                                </small>
+                        </label>
+
+                        <button
+                                class="secondary compact-button"
+                                type="button"
+                                onclick={newSession}
+                        >
+                                Nouvelle partie
+                        </button>
+                </div>
         </header>
 
         <section
@@ -651,6 +803,29 @@
                         </strong>
                         <small>
                                 réserve {formatNumber(session.corcite.capacities.energy.reserveCurrent)}/{session.corcite.capacities.energy.reserveMaximum}
+                        </small>
+                </div>
+
+                <div>
+                        <span>Population</span>
+                        <strong>
+                                {availablePopulation}/{session.corcite.population.total}
+                                disponible{availablePopulation > 1 ? 's' : ''}
+                        </strong>
+                        <small>
+                                {assignedPopulation}
+                                affectée{assignedPopulation > 1 ? 's' : ''}
+                        </small>
+                </div>
+
+                <div>
+                        <span>Entretien</span>
+                        <strong>
+                                {session.corcite.capacities.maintenance.used}/{session.corcite.capacities.maintenance.capacity}
+                        </strong>
+                        <small>
+                                dette
+                                {formatNumber(session.corcite.sustainability?.maintenance.debt ?? 0)}
                         </small>
                 </div>
 
@@ -703,6 +878,43 @@
                 {session.statusMessage}
         </div>
 
+        <section
+                class="persistent-stocks"
+                aria-label="Réserves actuelles"
+        >
+                {#each RESOURCE_IDS as resourceId}
+                        <div>
+                                <span>
+                                        {playerResourceLabel(resourceId)}
+                                </span>
+
+                                <strong>
+                                        {formatNumber(
+                                                resources[
+                                                        resourceId
+                                                ]
+                                        )}
+                                </strong>
+                        </div>
+                {/each}
+        </section>
+
+        {#if pendingTurnReport}
+                <div
+                        class="turn-report-gate"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-label="Compte rendu du tour"
+                >
+                        <div class="turn-report-dialog">
+                                <TurnReportPanel
+                                        report={pendingTurnReport}
+                                        onAcknowledge={acknowledgeTurnReport}
+                                />
+                        </div>
+                </div>
+        {/if}
+
         <main>
                 {#if activeView === 'corcite'}
                         <section class="view">
@@ -732,8 +944,13 @@
                                                         Population
                                                 </span>
                                                 <strong>
-                                                        {session.corcite.population.total}
+                                                        {availablePopulation}/{session.corcite.population.total}
+                                                        disponibles
                                                 </strong>
+                                                <small>
+                                                        {assignedPopulation}
+                                                        affectée{assignedPopulation > 1 ? 's' : ''}
+                                                </small>
                                         </article>
 
                                         <article class="metric">
@@ -790,11 +1007,11 @@
                                                                         </strong>
 
                                                                         <p>
-                                                                                {structure.status}
-                                                                                · E {structure.usage.energy}
-                                                                                · M {structure.usage.maintenance}
-                                                                                · T {structure.usage.work}
-                                                                                · S {structure.usage.space}
+                                                                                {playerStructureStatusLabel(structure.status)}
+                                                                                · énergie {structure.usage.energy}
+                                                                                · entretien {structure.usage.maintenance}
+                                                                                · population {structure.usage.work}
+                                                                                · espace {structure.usage.space}
                                                                         </p>
                                                                 </div>
 
@@ -819,69 +1036,6 @@
                                         </div>
                                 </div>
 
-                                <div class="panel">
-                                        <div class="panel-heading">
-                                                <div>
-                                                        <h3>
-                                                                Développer le Corcite
-                                                        </h3>
-                                                        <p>
-                                                                Construire ne termine pas le tour. Les limites viennent des ressources, du travail, de l’énergie et de l’espace.
-                                                        </p>
-                                                </div>
-                                        </div>
-
-                                        <div class="catalog-grid">
-                                                {#each PLAYABLE_CONSTRUCTION_CATALOG as definition}
-                                                        <article class="catalog-card">
-                                                                <div>
-                                                                        <h4>
-                                                                                {definition.label}
-                                                                        </h4>
-
-                                                                        <p>
-                                                                                {definition.description}
-                                                                        </p>
-
-                                                                        <p class="cost">
-                                                                                Coût :
-                                                                                {#each Object.entries(definition.resourceCosts) as [resourceId, amount]}
-                                                                                        <span>
-                                                                                                {resourceId} {amount}
-                                                                                        </span>
-                                                                                {/each}
-                                                                        </p>
-                                                                </div>
-
-                                                                {#if previewPlayableConstruction(session.corcite, definition.id).canConstruct}
-                                                                        <button
-                                                                                type="button"
-                                                                                disabled={!preparationOpen}
-                                                                                onclick={() =>
-                                                                                        construct(
-                                                                                                definition.id
-                                                                                        )}
-                                                                        >
-                                                                                Construire
-                                                                        </button>
-                                                                {:else}
-                                                                        <div>
-                                                                                <button
-                                                                                        type="button"
-                                                                                        disabled
-                                                                                >
-                                                                                        Indisponible
-                                                                                </button>
-
-                                                                                <p class="blockers">
-                                                                                        {previewPlayableConstruction(session.corcite, definition.id).blockers.join(' · ')}
-                                                                                </p>
-                                                                        </div>
-                                                                {/if}
-                                                        </article>
-                                                {/each}
-                                        </div>
-                                </div>
                         </section>
                 {:else if activeView === 'tf'}
                         <section class="view">
@@ -892,34 +1046,102 @@
                                                 </p>
 
                                                 <h2>
-                                                        Ressources et flux
+                                                        Ressources et chaînes
                                                 </h2>
                                         </div>
                                 </div>
 
+                                <div class="panel">
+                                        <div class="panel-heading">
+                                                <div>
+                                                        <h3>
+                                                                Comprendre la chaîne
+                                                        </h3>
+
+                                                        <p>
+                                                                Les matières sont extraites, transformées puis fabriquées par les structures actives.
+                                                        </p>
+                                                </div>
+                                        </div>
+
+                                        <FlowDiagram
+                                                nodes={[
+                                                        'Gisement organique',
+                                                        'Extracteur organique',
+                                                        playerResourceLabel('R1'),
+                                                        'Atelier de transformation'
+                                                ]}
+                                        />
+
+                                        <FlowDiagram
+                                                nodes={[
+                                                        'Gisement minéral',
+                                                        'Extracteur minéral',
+                                                        playerResourceLabel('R2'),
+                                                        'Atelier de transformation'
+                                                ]}
+                                        />
+
+                                        <FlowDiagram
+                                                nodes={[
+                                                        playerResourceLabel('R3'),
+                                                        'Atelier de fabrication',
+                                                        playerResourceLabel('R4')
+                                                ]}
+                                        />
+
+                                        <p class="muted">
+                                                Une sortie produite au tour N devient consommable par la fonction suivante au tour N+1.
+                                        </p>
+                                </div>
+
                                 <div class="resource-grid">
                                         <article>
-                                                <span>R1</span>
-                                                <strong>{formatNumber(resources.R1)}</strong>
-                                                <small>Matière organique brute</small>
+                                                <span>
+                                                        {playerResourceLabel('R1')}
+                                                </span>
+                                                <strong>
+                                                        {formatNumber(resources.R1)}
+                                                </strong>
+                                                <small>
+                                                        Ressource brute extraite
+                                                </small>
                                         </article>
 
                                         <article>
-                                                <span>R2</span>
-                                                <strong>{formatNumber(resources.R2)}</strong>
-                                                <small>Matière minérale brute</small>
+                                                <span>
+                                                        {playerResourceLabel('R2')}
+                                                </span>
+                                                <strong>
+                                                        {formatNumber(resources.R2)}
+                                                </strong>
+                                                <small>
+                                                        Ressource brute extraite
+                                                </small>
                                         </article>
 
                                         <article>
-                                                <span>R3</span>
-                                                <strong>{formatNumber(resources.R3)}</strong>
-                                                <small>Matériau transformé</small>
+                                                <span>
+                                                        {playerResourceLabel('R3')}
+                                                </span>
+                                                <strong>
+                                                        {formatNumber(resources.R3)}
+                                                </strong>
+                                                <small>
+                                                        Produit de transformation
+                                                </small>
                                         </article>
 
                                         <article>
-                                                <span>R4</span>
-                                                <strong>{formatNumber(resources.R4)}</strong>
-                                                <small>Composant fabriqué</small>
+                                                <span>
+                                                        {playerResourceLabel('R4')}
+                                                </span>
+                                                <strong>
+                                                        {formatNumber(resources.R4)}
+                                                </strong>
+                                                <small>
+                                                        Produit de fabrication
+                                                </small>
                                         </article>
 
                                         <article>
@@ -946,15 +1168,81 @@
                                                                 </p>
 
                                                                 <p>
-                                                                        R1 {formatNumber(storage.contents.R1)}
-                                                                        · R2 {formatNumber(storage.contents.R2)}
-                                                                        · R3 {formatNumber(storage.contents.R3)}
-                                                                        · R4 {formatNumber(storage.contents.R4)}
-                                                                        · Vague {formatNumber(storage.unanalysedWaveMatter ?? 0)}
+                                                                        {playerResourceLabel('R1')} {formatNumber(storage.contents.R1)}
+                                                                        · {playerResourceLabel('R2')} {formatNumber(storage.contents.R2)}
+                                                                        · {playerResourceLabel('R3')} {formatNumber(storage.contents.R3)}
+                                                                        · {playerResourceLabel('R4')} {formatNumber(storage.contents.R4)}
+                                                                        · Matière de vague {formatNumber(storage.unanalysedWaveMatter ?? 0)}
                                                                 </p>
                                                         </article>
                                                 {/each}
                                         </div>
+                                </div>
+
+                                <div class="panel">
+                                        <div class="panel-heading">
+                                                <div>
+                                                        <h3>
+                                                                Fonctions du prochain tour
+                                                        </h3>
+
+                                                        <p>
+                                                                Une fonction active travaille automatiquement lors de la résolution du tour si ses conditions sont remplies.
+                                                        </p>
+                                                </div>
+                                        </div>
+
+                                        {#if productiveStructures.length === 0}
+                                                <p class="muted">
+                                                        Aucune fonction productive n’est encore construite.
+                                                </p>
+                                        {:else}
+                                                <div class="catalog-grid">
+                                                        {#each productiveStructures as structure}
+                                                                <article class="catalog-card">
+                                                                        <div>
+                                                                                <h4>
+                                                                                        {structure.name}
+                                                                                </h4>
+
+                                                                                <p>
+                                                                                        {playerStructureDescription(structure.kind)}
+                                                                                </p>
+
+                                                                                <FlowDiagram
+                                                                                        nodes={playerStructureFlow(structure.kind)}
+                                                                                />
+
+                                                                                <p class="action-meta">
+                                                                                        Durée : 1 tour
+                                                                                        · énergie {structure.usage.energy}
+                                                                                        · population {structure.usage.work}
+                                                                                        · entretien {structure.usage.maintenance}
+                                                                                </p>
+
+                                                                                <span class="badge">
+                                                                                        {playerStructureStatusLabel(structure.status)}
+                                                                                </span>
+                                                                        </div>
+
+                                                                        <button
+                                                                                type="button"
+                                                                                class="secondary"
+                                                                                disabled={!preparationOpen}
+                                                                                onclick={() =>
+                                                                                        toggleStructure(
+                                                                                                structure.id,
+                                                                                                structure.status === 'active'
+                                                                                        )}
+                                                                        >
+                                                                                {structure.status === 'active'
+                                                                                        ? 'Mettre en réserve'
+                                                                                        : 'Activer'}
+                                                                        </button>
+                                                                </article>
+                                                        {/each}
+                                                </div>
+                                        {/if}
                                 </div>
 
                                 <div class="panel">
@@ -1012,10 +1300,10 @@
                                                                 bind:value={connectionResource}
                                                                 disabled={!preparationOpen}
                                                         >
-                                                                <option value="R1">R1</option>
-                                                                <option value="R2">R2</option>
-                                                                <option value="R3">R3</option>
-                                                                <option value="R4">R4</option>
+                                                                <option value="R1">{playerResourceLabel('R1')}</option>
+                                                                <option value="R2">{playerResourceLabel('R2')}</option>
+                                                                <option value="R3">{playerResourceLabel('R3')}</option>
+                                                                <option value="R4">{playerResourceLabel('R4')}</option>
                                                         </select>
                                                 </label>
 
@@ -1037,11 +1325,11 @@
                                                         {#each session.corcite.tfNetwork.connections as connection}
                                                                 <article class="compact-card vertical-card">
                                                                         <strong>
-                                                                                {connection.resourceId}
+                                                                                {playerResourceLabel(connection.resourceId)}
                                                                         </strong>
                                                                         <p>
-                                                                                {connection.fromStructureId}
-                                                                                → {connection.toStructureId}
+                                                                                {structureLabel(connection.fromStructureId)}
+                                                                                → {structureLabel(connection.toStructureId)}
                                                                         </p>
 
                                                                         {#if getConnectionBuffer(connection.id)}
@@ -1056,29 +1344,23 @@
                                         {/if}
                                 </div>
 
-                                {#if session.lastTf}
+                                {#if session.lastTurnReport}
                                         <div class="panel">
                                                 <h3>
                                                         Dernier tour productif
                                                 </h3>
 
                                                 <div class="event-list">
-                                                        {#each session.lastTf.extraction.events as event}
-                                                                <p>
-                                                                        {event.message}
-                                                                </p>
-                                                        {/each}
-
-                                                        {#each session.lastTf.transformation.events as event}
-                                                                <p>
-                                                                        {event.message}
-                                                                </p>
-                                                        {/each}
-
-                                                        {#each session.lastTf.fabrication.events as event}
-                                                                <p>
-                                                                        {event.message}
-                                                                </p>
+                                                        {#each session.lastTurnReport.events as event}
+                                                                {#if
+                                                                        event.kind === 'extraction' ||
+                                                                        event.kind === 'transformation' ||
+                                                                        event.kind === 'fabrication'
+                                                                }
+                                                                        <p>
+                                                                                {event.message}
+                                                                        </p>
+                                                                {/if}
                                                         {/each}
                                                 </div>
                                         </div>
@@ -1093,10 +1375,93 @@
                                                 </p>
 
                                                 <h2>
-                                                        Recherche
+                                                        Développement
                                                 </h2>
                                         </div>
                                 </div>
+
+                                <div class="panel">
+                                        <div class="panel-heading">
+                                                <div>
+                                                        <h3>
+                                                                Fabriquer et construire
+                                                        </h3>
+                                                        <p>
+                                                                Choisissez une construction selon les ressources et capacités disponibles.
+                                                        </p>
+                                                </div>
+                                        </div>
+
+                                        <div class="catalog-grid">
+                                                {#each PLAYABLE_CONSTRUCTION_CATALOG as definition}
+                                                        {@const constructionPreview =
+                                                                previewPlayableConstruction(
+                                                                        session.corcite,
+                                                                        definition.id
+                                                                )}
+
+                                                        <article class="catalog-card">
+                                                                <div>
+                                                                        <h4>
+                                                                                {definition.label}
+                                                                        </h4>
+
+                                                                        <p>
+                                                                                {definition.description}
+                                                                        </p>
+
+                                                                        <FlowDiagram
+                                                                                nodes={playerConstructionFlow(definition.id)}
+                                                                        />
+
+                                                                        <p class="action-meta">
+                                                                                Durée : 1 tour
+                                                                                · énergie {definition.usage.energy}
+                                                                                · population {definition.usage.work}
+                                                                                · entretien {definition.usage.maintenance}
+                                                                        </p>
+
+                                                                        <ResourceCostPreview
+                                                                                available={constructionPreview.availableResources}
+                                                                                costs={definition.resourceCosts}
+                                                                        />
+
+                                                                        <CapacityDelta
+                                                                                before={constructionPreview.before}
+                                                                                after={constructionPreview.after}
+                                                                        />
+                                                                </div>
+
+                                                                {#if previewPlayableConstruction(session.corcite, definition.id).canConstruct}
+                                                                        <button
+                                                                                type="button"
+                                                                                disabled={!preparationOpen}
+                                                                                onclick={() =>
+                                                                                        construct(
+                                                                                                definition.id
+                                                                                        )}
+                                                                        >
+                                                                                Construire
+                                                                        </button>
+                                                                {:else}
+                                                                        <div>
+                                                                                <button
+                                                                                        type="button"
+                                                                                        disabled
+                                                                                >
+                                                                                        Indisponible
+                                                                                </button>
+
+                                                                                <p class="blockers">
+                                                                                        {constructionPreview.blockers.join(' · ')}
+                                                                                </p>
+                                                                        </div>
+                                                                {/if}
+                                                        </article>
+                                                {/each}
+                                        </div>
+                                </div>
+
 
                                 {#if pendingDiscovery}
                                         <article class="discovery-card">
@@ -1136,13 +1501,15 @@
                                                 </p>
 
                                                 <h3>
-                                                        {activeResearch.definitionId}
+                                                        {researchLabel(activeResearch.definitionId)}
                                                 </h3>
 
                                                 <p class="progress-text">
                                                         Progression :
                                                         {activeResearch.progressTurns}/{activeResearch.durationTurns}
-                                                        tours
+                                                        {activeResearch.durationTurns === 1
+                                                                ? 'tour'
+                                                                : 'tours'}
                                                 </p>
 
                                                 <progress
@@ -1157,7 +1524,7 @@
                                                 <article class="catalog-card">
                                                         <div>
                                                                 <p class="eyebrow">
-                                                                        {researchPresentation(definition.id)?.category ?? 'recherche'}
+                                                                        {researchCategoryLabel(definition.id)}
                                                                 </p>
 
                                                                 <h3>
@@ -1172,10 +1539,26 @@
                                                                         {researchPresentation(definition.id)?.effectSummary}
                                                                 </p>
 
+                                                                <FlowDiagram
+                                                                        nodes={[
+                                                                                'Recherche',
+                                                                                definition.label,
+                                                                                'Découverte',
+                                                                                'Validation',
+                                                                                'Effet'
+                                                                        ]}
+                                                                />
+
+                                                                <p>
+                                                                        Coût matériel : aucun dans PROTO-0.
+                                                                </p>
+
                                                                 <p>
                                                                         Durée :
                                                                         {definition.durationTurns}
-                                                                        tours
+                                                                        {definition.durationTurns === 1
+                                                                                ? 'tour'
+                                                                                : 'tours'}
                                                                 </p>
                                                         </div>
 
@@ -1209,11 +1592,11 @@
                                                         {#each session.corcite.rpg.researches as research}
                                                                 <article class="compact-card">
                                                                         <strong>
-                                                                                {research.definitionId}
+                                                                                {researchLabel(research.definitionId)}
                                                                         </strong>
 
                                                                         <span class="badge">
-                                                                                {research.status}
+                                                                                {playerResearchStatusLabel(research.status)}
                                                                         </span>
                                                                 </article>
                                                         {/each}
@@ -1226,13 +1609,24 @@
                                 <div class="section-heading">
                                         <div>
                                                 <p class="eyebrow">
-                                                        PRÉPARATION TD
+                                                        PRÉPARATION DE LA VAGUE
                                                 </p>
 
                                                 <h2>
                                                         Défense
                                                 </h2>
                                         </div>
+                                </div>
+
+                                <div class="subnav-actions">
+                                        <button
+                                                type="button"
+                                                class="secondary"
+                                                onclick={() =>
+                                                        activeView = 'wave'}
+                                        >
+                                                Retour à la vague
+                                        </button>
                                 </div>
 
                                 <div class="panel">
@@ -1246,6 +1640,12 @@
 
                                         <div class="catalog-grid">
                                                 {#each PLAYABLE_TD_FABRICATIONS as definition}
+                                                        {@const tdPreview =
+                                                                previewPlayableTdFabrication(
+                                                                        session.corcite,
+                                                                        definition.definitionId
+                                                                )}
+
                                                         <article class="catalog-card">
                                                                 <div>
                                                                         <p class="eyebrow">
@@ -1260,14 +1660,23 @@
                                                                                 {definition.summary}
                                                                         </p>
 
-                                                                        <p class="cost">
-                                                                                Coût :
-                                                                                {#each Object.entries(definition.resourceCosts) as [resourceId, amount]}
-                                                                                        <span>
-                                                                                                {resourceId} {amount}
-                                                                                        </span>
-                                                                                {/each}
+                                                                        <FlowDiagram
+                                                                                nodes={[
+                                                                                        'Ressources',
+                                                                                        'Atelier de fabrication',
+                                                                                        definition.label,
+                                                                                        'Inventaire'
+                                                                                ]}
+                                                                        />
+
+                                                                        <p class="action-meta">
+                                                                                Durée : 1 tour.
                                                                         </p>
+
+                                                                        <ResourceCostPreview
+                                                                                available={tdPreview.availableResources}
+                                                                                costs={definition.resourceCosts}
+                                                                        />
                                                                 </div>
 
                                                                 <button
@@ -1281,9 +1690,9 @@
                                                                         Fabriquer
                                                                 </button>
 
-                                                                {#if !previewPlayableTdFabrication(session.corcite, definition.definitionId).canFabricate}
+                                                                {#if !tdPreview.canFabricate}
                                                                         <p class="blockers">
-                                                                                {previewPlayableTdFabrication(session.corcite, definition.definitionId).blockers.join(' · ')}
+                                                                                {tdPreview.blockers.join(' · ')}
                                                                         </p>
                                                                 {/if}
                                                         </article>
@@ -1306,7 +1715,7 @@
                                                                 <article class="compact-card inventory-card">
                                                                         <div>
                                                                                 <strong>
-                                                                                        {tower.definitionId}
+                                                                                        {towerLabel(tower.definitionId)}
                                                                                 </strong>
                                                                         </div>
 
@@ -1363,7 +1772,7 @@
 
                                                                 {#if slot.tower}
                                                                         <strong>
-                                                                                {slot.tower.definitionId}
+                                                                                {towerLabel(slot.tower.definitionId)}
                                                                         </strong>
 
                                                                         <div class="slot-actions">
@@ -1438,6 +1847,18 @@
                                                 {session.waveCycle.history.length}/{session.waveCycle.plannedWaveCount}
                                                 résolues
                                         </span>
+                                </div>
+
+                                <div class="subnav-actions">
+                                        <button
+                                                type="button"
+                                                class="secondary"
+                                                disabled={!preparationOpen}
+                                                onclick={() =>
+                                                        activeView = 'defense'}
+                                        >
+                                                Préparer les défenses
+                                        </button>
                                 </div>
 
                                 {#if session.waveCycle.phase === 'complete'}
@@ -1660,6 +2081,31 @@
                                         </span>
                                 </div>
 
+                                {#if turnReportsNewest.length > 0}
+                                        <div class="panel">
+                                                <div class="panel-heading">
+                                                        <div>
+                                                                <h3>
+                                                                        Comptes rendus des tours
+                                                                </h3>
+
+                                                                <p>
+                                                                        Chaque rapport reprend les changements réellement produits lors de la résolution.
+                                                                </p>
+                                                        </div>
+                                                </div>
+
+                                                <div class="turn-report-history">
+                                                        {#each turnReportsNewest as report}
+                                                                <TurnReportPanel
+                                                                        {report}
+                                                                        compact={true}
+                                                                />
+                                                        {/each}
+                                                </div>
+                                        </div>
+                                {/if}
+
                                 <div class="panel notebook-form">
                                         <p>
                                                 Note rapidement ce que tu cherchais à faire, ce qui t’a surpris ou ce qui t’a gêné. Le tour, la vague, l’intégrité, l’énergie et l’entretien sont enregistrés automatiquement avec la note.
@@ -1793,7 +2239,7 @@
                                         Tour {session.currentTurn}
                                 </strong>
                                 <span>
-                                        Les décisions ne consomment pas d’action. Terminer le tour fait avancer le temps.
+                                        Préparez vos décisions, puis terminez le tour pour faire avancer le temps.
                                 </span>
                         </div>
 
@@ -1855,8 +2301,20 @@
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
+                flex-wrap: wrap;
                 gap: 1rem;
                 margin-bottom: 0.8rem;
+        }
+
+        .session-controls {
+                display: flex;
+                align-items: end;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+        }
+
+        .tester-control {
+                min-width: 8.5rem;
         }
 
         .brand h1,
@@ -1945,8 +2403,11 @@
                 display: grid;
                 grid-template-columns:
                         repeat(
-                                4,
-                                minmax(0, 1fr)
+                                auto-fit,
+                                minmax(
+                                        8.5rem,
+                                        1fr
+                                )
                         );
                 gap: 0.35rem;
                 padding: 0.45rem;
@@ -2135,13 +2596,9 @@
                 flex-direction: column;
         }
 
-        .cost {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.35rem;
-        }
 
-        .cost span,
+
+
         .badge {
                 display: inline-flex;
                 align-items: center;
@@ -2519,4 +2976,111 @@
                         min-height: 10rem;
                 }
         }
+        /*
+         * Les options natives peuvent être rendues avec un fond
+         * clair par le navigateur. On fixe donc simultanément
+         * le fond et le texte pour conserver le contraste.
+         */
+        .app-shell select option {
+                color: #17131f;
+                background-color: #f4f1f8;
+        }
+
+        .persistent-stocks {
+                display: grid;
+                grid-template-columns:
+                        repeat(
+                                auto-fit,
+                                minmax(
+                                        9rem,
+                                        1fr
+                                )
+                        );
+                gap: 0.35rem;
+                margin-top: 0.6rem;
+        }
+
+        .persistent-stocks > div {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.5rem;
+                padding:
+                        0.45rem
+                        0.55rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 0.6rem;
+                background:
+                        var(--panel-solid);
+        }
+
+        .persistent-stocks span {
+                color: var(--muted);
+                font-size: 0.72rem;
+        }
+
+        .turn-report-gate {
+                position: fixed;
+                z-index: 100;
+                inset: 0;
+                overflow-y: auto;
+                padding:
+                        max(
+                                1rem,
+                                env(safe-area-inset-top)
+                        )
+                        1rem
+                        max(
+                                1rem,
+                                env(safe-area-inset-bottom)
+                        );
+                background:
+                        rgb(
+                                10 8 13 /
+                                88%
+                        );
+        }
+
+        .turn-report-dialog {
+                width:
+                        min(
+                                100%,
+                                58rem
+                        );
+                margin:
+                        4vh auto;
+                padding: 1rem;
+                border:
+                        1px solid
+                        var(--border);
+                border-radius: 1rem;
+                background:
+                        var(--panel-solid);
+                box-shadow:
+                        0 1rem 3rem
+                        rgb(
+                                0 0 0 /
+                                45%
+                        );
+        }
+
+        .subnav-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+        }
+
+        .action-meta {
+                color: var(--muted);
+                font-size: 0.78rem;
+        }
+
+        .turn-report-history {
+                display: grid;
+                gap: 0.7rem;
+                margin-top: 0.8rem;
+        }
+
 </style>

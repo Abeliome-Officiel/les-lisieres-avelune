@@ -186,9 +186,9 @@ test(
 		);
 
 		assert.equal(
-			research.completedTurn,
-			3
-		);
+                        research.completedTurn,
+                        result.completedTurn
+                );
 
 		assert.equal(
 			research.validatedTurn,
@@ -222,30 +222,25 @@ test(
 			);
 
 		assert.equal(
-			result.completedTurn,
-			2
-		);
-
-		assert.equal(
 			getPlayablePendingDiscovery(
-				result.corcite,
-				2
-			),
+                                result.corcite,
+                                result.completedTurn
+                        ),
 			null
 		);
 
 		const discovery =
 			getPlayablePendingDiscovery(
-				result.corcite,
-				3
-			);
+                                result.corcite,
+                                result.completedTurn + 1
+                        );
 
 		assert.ok(discovery);
 
 		assert.equal(
-			discovery.availableTurn,
-			3
-		);
+                        discovery.availableTurn,
+                        result.completedTurn + 1
+                );
 
 		assert.equal(
 			discovery.definition.id,
@@ -266,11 +261,13 @@ test(
 		assert.throws(
 			() =>
 				validatePlayableResearchDiscovery(
-					result.corcite,
-					2,
-					'reserve-recovery-n1'
-				),
-			/à partir du tour 3/
+                                        result.corcite,
+                                        result.completedTurn,
+                                        'reserve-recovery-n1'
+                                ),
+			new RegExp(
+                                `à partir du tour ${result.completedTurn + 1}`
+                        )
 		);
 	}
 );

@@ -1,4 +1,8 @@
 import {
+        PLAYABLE_START_REFERENCE
+} from '../config/playable-start-reference.js';
+
+import {
         getPlayableTdFabricationDefinition,
         type PlayableTdFabricationDefinition
 } from '../config/playable-td-reference.js';
@@ -244,7 +248,7 @@ export function previewPlayableTdFabrication(
                         resources[resourceId]
                 ) {
                         blockers.push(
-                                `Ressource insuffisante : ${resourceId} (${resources[resourceId]}/${cost}).`
+                                `Ressource insuffisante : ${PLAYABLE_START_REFERENCE.resourceLabels[resourceId]} (${resources[resourceId]}/${cost}).`
                         );
                 }
         }
