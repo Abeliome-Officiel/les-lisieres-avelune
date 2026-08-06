@@ -37,6 +37,7 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 - `TurnReportPanel` : rapport joueur sans seconde jauge énergétique.
 - Helpers `getStructureAssignedWork` / `isStructureOperational` et transition `setPlayableStructureStaffed`.
 - `ModifierBreakdown` : présentation réutilisable des effets quantitatifs RPG.
+- `ResourceStrip` et `CapacityStrip` : bandeaux persistants, responsives et découplés du moteur.
 
 ## Règles modifiées
 

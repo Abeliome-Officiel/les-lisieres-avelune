@@ -6,6 +6,8 @@
         import CapacityDelta from '$lib/components/proto0/CapacityDelta.svelte';
         import TurnReportPanel from '$lib/components/proto0/TurnReportPanel.svelte';
         import ModifierBreakdown from '$lib/components/proto0/ModifierBreakdown.svelte';
+        import ResourceStrip from '$lib/components/proto0/ResourceStrip.svelte';
+        import CapacityStrip from '$lib/components/proto0/CapacityStrip.svelte';
 
         import {
                 PLAYABLE_CONSTRUCTION_CATALOG,
@@ -355,6 +357,27 @@
         $: assignedPopulation =
                 session.corcite.population.total -
                 availablePopulation;
+
+	$: waveStatus = session.waveCycle.phase === 'ready'
+		? 'arrivée'
+		: session.waveCycle.phase === 'complete'
+			? 'cycle terminé'
+			: forecast ? 'signes partiels' : 'hors lecture';
+
+	$: capacityStripItems = [
+		{ id: 'turn', label: 'Tour', value: session.currentTurn },
+		{ id: 'energy', label: 'Énergie', value: `${session.corcite.capacities.energy.used}/${session.corcite.capacities.energy.normalCapacity}`, detail: `${Math.max(0, session.corcite.capacities.energy.normalCapacity - session.corcite.capacities.energy.used)} disponible` },
+		{ id: 'population', label: 'Population', value: `${availablePopulation}/${session.corcite.population.total} disponible`, detail: `${assignedPopulation} affectée` },
+		{ id: 'maintenance', label: 'Entretien', value: `${session.corcite.capacities.maintenance.used}/${session.corcite.capacities.maintenance.capacity}`, detail: `dette ${formatNumber(session.corcite.sustainability?.maintenance.debt ?? 0)}` },
+		{ id: 'storage', label: 'Stockage', value: `${formatNumber(totalStorageLoad)}/${formatNumber(totalStorageCapacity)}` },
+		{ id: 'wave', label: 'Onde', value: waveStatus, danger: session.waveCycle.phase === 'ready' }
+	];
+
+	$: resourceStripItems = RESOURCE_IDS.map((resourceId) => ({
+		id: resourceId,
+		label: playerResourceLabel(resourceId),
+		value: formatNumber(resources[resourceId])
+	}));
 
         function persistTestNotes(): void {
                 localStorage.setItem(
@@ -875,77 +898,7 @@
                 </div>
         </header>
 
-        <section
-                class="status-strip"
-                aria-label="État du Corcite"
-        >
-                <div>
-                        <span>Tour</span>
-                        <strong>
-                                {session.currentTurn}
-                        </strong>
-                </div>
-
-                <div>
-                        <span>Énergie</span>
-                        <strong>
-                                {session.corcite.capacities.energy.used}/{session.corcite.capacities.energy.normalCapacity}
-                        </strong>
-                        <small>
-                                {Math.max(0, session.corcite.capacities.energy.normalCapacity - session.corcite.capacities.energy.used)} disponible
-                        </small>
-                </div>
-
-                <div>
-                        <span>Population</span>
-                        <strong>
-                                {availablePopulation}/{session.corcite.population.total}
-                                disponible{availablePopulation > 1 ? 's' : ''}
-                        </strong>
-                        <small>
-                                {assignedPopulation}
-                                affectée{assignedPopulation > 1 ? 's' : ''}
-                        </small>
-                </div>
-
-                <div>
-                        <span>Entretien</span>
-                        <strong>
-                                {session.corcite.capacities.maintenance.used}/{session.corcite.capacities.maintenance.capacity}
-                        </strong>
-                        <small>
-                                dette
-                                {formatNumber(session.corcite.sustainability?.maintenance.debt ?? 0)}
-                        </small>
-                </div>
-
-                <div>
-                        <span>Stockage</span>
-                        <strong>
-                                {formatNumber(totalStorageLoad)}/{formatNumber(totalStorageCapacity)}
-                        </strong>
-                </div>
-
-                <div>
-                        <span>Vague</span>
-
-                        {#if session.waveCycle.phase === 'ready'}
-                                <strong class="danger-text">
-                                        arrivée
-                                </strong>
-                        {:else if session.waveCycle.phase === 'complete'}
-                                <strong>
-                                        cycle terminé
-                                </strong>
-                        {:else if forecast}
-                                <strong>signes partiels</strong>
-                        {:else}
-                                <strong>
-                                        hors lecture
-                                </strong>
-                        {/if}
-                </div>
-        </section>
+        <CapacityStrip items={capacityStripItems} />
 
         {#if uiError}
                 <div
@@ -963,26 +916,7 @@
                 {session.statusMessage}
         </div>
 
-        <section
-                class="persistent-stocks"
-                aria-label="Réserves actuelles"
-        >
-                {#each RESOURCE_IDS as resourceId}
-                        <div>
-                                <span>
-                                        {playerResourceLabel(resourceId)}
-                                </span>
-
-                                <strong>
-                                        {formatNumber(
-                                                resources[
-                                                        resourceId
-                                                ]
-                                        )}
-                                </strong>
-                        </div>
-                {/each}
-        </section>
+        <ResourceStrip items={resourceStripItems} />
 
         {#if session.plannedActions.length > 0}
                 <section
@@ -2649,41 +2583,6 @@
                 background: var(--danger);
         }
 
-        .status-strip {
-                position: sticky;
-                z-index: 20;
-                top: 0;
-                display: grid;
-                grid-template-columns:
-                        repeat(
-                                auto-fit,
-                                minmax(
-                                        8.5rem,
-                                        1fr
-                                )
-                        );
-                gap: 0.35rem;
-                padding: 0.45rem;
-                border:
-                        1px solid
-                        var(--border);
-                border-radius: 0.85rem;
-                background: var(--panel-solid);
-                box-shadow:
-                        0 0.75rem 2rem
-                        rgb(0 0 0 / 24%);
-        }
-
-        .status-strip > div {
-                display: flex;
-                min-width: 0;
-                flex-direction: column;
-                padding: 0.42rem;
-                border-radius: 0.55rem;
-                background: var(--panel-soft);
-        }
-
-        .status-strip span,
         .metric span,
         .resource-grid span,
         .wave-values span {
@@ -2691,19 +2590,8 @@
                 font-size: 0.72rem;
         }
 
-        .status-strip strong {
-                overflow: hidden;
-                font-size: 0.91rem;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-        }
-
         small {
                 color: var(--muted);
-        }
-
-        .danger-text {
-                color: var(--danger);
         }
 
         .message {
@@ -3254,41 +3142,6 @@
         .app-shell select option {
                 color: #17131f;
                 background-color: #f4f1f8;
-        }
-
-        .persistent-stocks {
-                display: grid;
-                grid-template-columns:
-                        repeat(
-                                auto-fit,
-                                minmax(
-                                        9rem,
-                                        1fr
-                                )
-                        );
-                gap: 0.35rem;
-                margin-top: 0.6rem;
-        }
-
-        .persistent-stocks > div {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 0.5rem;
-                padding:
-                        0.45rem
-                        0.55rem;
-                border:
-                        1px solid
-                        var(--border);
-                border-radius: 0.6rem;
-                background:
-                        var(--panel-solid);
-        }
-
-        .persistent-stocks span {
-                color: var(--muted);
-                font-size: 0.72rem;
         }
 
         .turn-report-gate {
