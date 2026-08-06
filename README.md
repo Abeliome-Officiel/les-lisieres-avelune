@@ -32,6 +32,131 @@ C’est le cœur du projet.
 
 ---
 
+# Les intentions fondatrices
+
+Ces principes ne sont pas des options d’interface ajoutées à la fin du développement. Ils font partie du **game design lui-même** et doivent guider les choix mécaniques, narratifs et techniques.
+
+## Un jeu pensé aussi pour les personnes TSA, TDAH et dys
+
+Avelune est conçu avec une attention explicite aux personnes pouvant être concernées notamment par :
+
+- le **TSA** ;
+- le **TDAH** ;
+- les troubles **dys** ;
+- la surcharge cognitive ;
+- la difficulté à hiérarchiser une grande quantité d’informations ;
+- le besoin de routines ou, au contraire, de variété ;
+- des rythmes d’apprentissage et de disponibilité très différents.
+
+Cela ne signifie pas rendre le jeu pauvre ou trivial.
+
+Le principe est au contraire :
+
+> **conserver la profondeur, mais offrir plusieurs chemins pour l’appréhender.**
+
+Le même système peut donc proposer plusieurs profondeurs de lecture, des explications progressives, des récapitulatifs, de l’automatisation et des outils d’aide — **sans créer un “mode facile” qui donnerait moins de droits de jeu**.
+
+→ [`Accessibilité et éthique`](docs/06_accessibilite_ethique.md)
+
+---
+
+## Pas de “micro-dopamine” comme moteur de rétention
+
+Avelune ne doit pas être construit autour d’une succession de petites récompenses artificielles destinées principalement à maintenir le clic ou la connexion.
+
+Le projet veut éviter comme leviers principaux :
+
+- les récompenses distribuées toutes les quelques secondes sans réelle signification ;
+- les notifications conçues pour provoquer une reconnexion compulsive ;
+- les coffres, roulettes ou récompenses aléatoires utilisés comme boucle centrale de rétention ;
+- les séries quotidiennes punitives ;
+- les quêtes journalières obligatoires pour ne pas “prendre de retard” ;
+- les jauges et badges ajoutés uniquement pour créer une impression constante de progression ;
+- les mécanismes de peur de manquer quelque chose (**FOMO**) ;
+- les boucles de connexion pensées d’abord pour le temps d’écran plutôt que pour l’expérience de jeu.
+
+Cela n’interdit pas les retours visuels agréables, les découvertes ou la satisfaction de progresser. La différence recherchée est simple :
+
+> **la récompense doit venir de la compréhension, de la décision, de la découverte et de l’évolution du monde — pas d’une captation artificielle de l’attention.**
+
+---
+
+## Un jeu qui challenge réellement
+
+Avelune n’a pas vocation à devenir un jeu où tout réussit automatiquement.
+
+Le joueur doit pouvoir rencontrer :
+
+- des ressources insuffisantes ;
+- des choix incompatibles ;
+- des contraintes d’énergie, d’entretien, de population ou d’espace ;
+- des vagues imparfaitement anticipées ;
+- des décisions dont les effets ne sont pas entièrement immédiats ;
+- des situations qui obligent à revoir une organisation ;
+- des conséquences persistantes qui demandent une adaptation.
+
+Le challenge recherché est surtout **systémique, intellectuel et stratégique**.
+
+Le jeu doit pouvoir être exigeant sans devenir punitif ou humiliant.
+
+> **Challenge ne signifie pas punition.**
+
+Une mauvaise décision doit idéalement produire une nouvelle situation à comprendre plutôt qu’un simple écran d’échec.
+
+---
+
+## S’adapter aux styles de jeu, aux envies et aux possibilités de toustes
+
+Il n’existe pas une seule “bonne” manière de jouer à Avelune.
+
+Le jeu doit pouvoir accueillir, autant que possible :
+
+- une personne très méthodique ou très expérimentale ;
+- une personne qui adore optimiser ou une personne qui préfère explorer ;
+- une personne très sociale ou une personne qui joue presque seule ;
+- une personne disponible longtemps ou par courtes sessions ;
+- une personne qui veut lire beaucoup de détails ou seulement l’essentiel ;
+- une personne qui aime intervenir manuellement ou qui préfère automatiser certaines tâches ;
+- un style polyvalent, orienté ou très spécialisé ;
+- des capacités d’attention, de mémoire de travail et de traitement de l’information différentes.
+
+Le but n’est pas de rendre toutes les stratégies équivalentes dans toutes les situations. Le but est que **plusieurs manières légitimes de jouer puissent exister** et que le jeu ne force pas artificiellement tout le monde dans le même comportement.
+
+Les préférences et contraintes du joueur doivent autant que possible modifier **la manière d’accéder au jeu**, pas son droit à jouer pleinement.
+
+---
+
+## Non genré et inclusif par conception
+
+Avelune ne doit pas enfermer personnages et joueurs dans des rôles genrés.
+
+Principes :
+
+- aucun métier, classe, rôle, capacité ou style de jeu ne doit être réservé à un genre ;
+- les pronoms doivent pouvoir être choisis ;
+- la langue et la grammaire doivent pouvoir évoluer vers des formes configurables ;
+- l’écriture et les interfaces doivent éviter de supposer inutilement le genre de la personne qui joue ;
+- la diversité des identités doit être considérée comme normale dans le monde, pas comme une exception à justifier mécaniquement.
+
+L’objectif est qu’une personne puisse habiter Avelune **sans devoir entrer dans une case de genre prédéfinie par le système**.
+
+---
+
+## Même profondeur de jeu, plusieurs profondeurs d’interface
+
+Les vues Simple, Intermédiaire et Profond doivent être des **lectures différentes du même état de jeu**.
+
+Changer de profondeur ne doit pas :
+
+- changer les règles ;
+- retirer des choix essentiels ;
+- modifier les chances de réussite ;
+- donner une récompense exclusive aux personnes capables de gérer l’interface la plus complexe.
+
+La complexité doit être **progressivement révélable**, pas imposée en bloc.
+
+---
+
 # Les concepts forts
 
 ## Le Corcite — personnage, organisme et cité
@@ -236,35 +361,6 @@ Le monde est commun ; **le degré d’implication sociale reste modulable**.
 
 ---
 
-# Accessibilité : plusieurs profondeurs, les mêmes règles
-
-Avelune doit pouvoir accueillir des personnes attirées par des systèmes complexes sans imposer à tout le monde la même densité d’interface.
-
-Le projet porte une attention particulière aux besoins pouvant concerner notamment :
-
-- TSA ;
-- TDAH ;
-- dys ;
-- surcharge cognitive ;
-- besoin de progressivité ;
-- besoin de personnalisation de la présentation.
-
-Principes retenus :
-
-- complexité progressive ;
-- informations essentielles lisibles ;
-- automatisation possible ;
-- conséquences expliquées ;
-- pronoms, langue et grammaire configurables ;
-- plusieurs profondeurs d’affichage ;
-- **aucun avantage mécanique exclusif réservé au mode “expert”**.
-
-Les vues Simple, Intermédiaire et Profond doivent présenter **le même personnage et les mêmes règles**, avec des niveaux de détail différents.
-
-→ [`Accessibilité et éthique`](docs/06_accessibilite_ethique.md)
-
----
-
 # Une progression surtout horizontale
 
 Avelune cherche à limiter le modèle classique :
@@ -279,149 +375,136 @@ Races, classes, métiers, compétences, recherches et futures mues doivent surto
 - des interactions différentes avec le monde ;
 - de nouvelles possibilités.
 
-Le jeu doit pouvoir accueillir des profils polyvalents, orientés ou spécialisés sans qu’un chemin unique devienne universellement optimal.
+Le jeu doit pouvoir accueillir des profils polyvalents, orientés ou spécialisés sans qu’un seul chemin devienne la progression obligatoire.
 
 ---
 
-# La boucle actuellement testée
+# La boucle d’Avelune
 
-Le PROTO-0 cherche à conserver la **nature réelle du jeu en miniature** :
+La boucle de jeu visée peut se résumer ainsi :
 
 ```text
-monde / ressources
+ressources du monde
         ↓
-extraction
+extraction / stockage / transformation
         ↓
-stockage et réseaux
+fabrication / construction / organisation du Corcite
         ↓
-transformation
-        ↓
-fabrication / construction
-        ↓
-organisation du Corcite
-        ↓
-recherche / progression
+recherche / progression / découvertes
         ↓
 préparation des défenses
         ↓
 vague
         ↓
-conséquences
+conséquences / captation / connaissance
         ↓
-récupération / captation / adaptation
-        ↺
+récupération / adaptation
+        ↓
+nouvelle préparation
 ```
 
-> **On réduit la quantité, pas la nature du jeu.**
-
-Le prototype doit permettre de répondre à une question avant toute production massive :
-
-> **Est-ce que jouer à Avelune est intéressant ? Est-ce que les décisions produisent des situations qu’on veut comprendre, améliorer et expérimenter ?**
+Le Tower Defense, la gestion TF et le RPG ne sont donc pas trois mini-jeux indépendants. Ils doivent produire **une seule situation de jeu cohérente**.
 
 ---
 
 # Où en est le projet ?
 
-## Stade actuel
+La branche de développement jouable est :
 
-**Prototype intégré jouable → playtests humains → ajustements.**
+`develop/proto-0.1-playable`
 
-Le premier cycle de retours joueurs est en cours et certaines valeurs ou présentations du prototype sont activement retravaillées.
+Le PROTO-0 dispose désormais d’une boucle intégrée avec notamment :
 
-Les grands principes décrits dans ce README sont considérés comme **stables**. En revanche, les paramètres suivants restent volontairement modifiables :
+- départ minimal du Corcite ;
+- construction ;
+- extraction et stockage ;
+- transformation et fabrication ;
+- énergie, entretien, population et travail ;
+- recherches et découvertes ;
+- fabrication et organisation des défenses ;
+- cycle multi-vagues ;
+- conséquences persistantes et récupération ;
+- captation et matière de vague ;
+- interface navigateur mobile/bureau ;
+- carnet de playtest ;
+- simulations reproductibles.
 
-- nombre de vagues d’un scénario de test ;
-- calendrier des vagues ;
-- coûts ;
-- rendements ;
-- quantités initiales ;
-- coefficients ;
-- durée des recherches ;
-- puissance des défenses ;
-- rythme de récupération.
+Au dernier jalon complet documenté :
 
-Au dernier jalon technique consolidé :
+- **338 tests** passaient ;
+- `svelte-check` ne remontait aucun diagnostic ;
+- le build de production était valide ;
+- une batterie de **384 parties complètes** avait été exécutée.
 
-| Élément | État |
-|---|---|
-| Boucle miniature de jeu | ✅ jouable |
-| Construction / extraction / transformation / fabrication | ✅ |
-| Énergie / entretien / population / travail | ✅ |
-| Recherche et découvertes | ✅ |
-| Fabrication et inventaire TD | ✅ |
-| Cycle multi-vagues | ✅ |
-| Conséquences persistantes / récupération | ✅ |
-| Captation | ✅ |
-| Interface prototype mobile / bureau | ✅ |
-| Carnet de playtest | ✅ |
-| Tests automatisés | **338** lors du dernier passage complet documenté |
-| Simulations de référence | **384 parties** |
-| Verdict expérientiel | 🧪 en playtest |
+Ces chiffres indiquent la stabilité technique du prototype, **pas sa qualité ludique**.
 
-Les tests et simulations servent à prouver que les règles tiennent ensemble. **Ils ne prouvent pas que le jeu est amusant, lisible ou bien rythmé.**
+Le projet est actuellement dans la phase :
 
-→ [`Gate de playtest`](docs/proto0/PROTO0_PLAYTEST_READY.md)  
-→ [`Rapport de simulations`](docs/proto0/PROTO0_PLAYABLE_BALANCE_REPORT.md)
+> **prototype intégré → playtest humain → validation ou correction de la boucle.**
+
+Les paramètres numériques du prototype — coûts, rendements, coefficients, nombre et calendrier des vagues, durée des recherches, récupération — restent **provisoires** et peuvent évoluer pendant cette phase.
+
+→ [`Gate de playtest`](docs/proto0/PROTO0_PLAYTEST_READY.md)
 
 ---
 
-# Une architecture pensée pour évoluer
+# Une méthode de développement volontairement critique
 
-Le prototype n’est pas uniquement codé dans l’interface.
+Le prototype est développé avec un principe :
 
-Le cœur est organisé autour de briques réutilisables :
+> **Réduire la quantité, pas la nature du jeu.**
 
-```text
-domaine / règles
-        ↓
-moteurs TF / RPG / TD / vague
-        ↓
-orchestration des cas d’usage
-        ↓
-interface
-```
+On cherche donc à tester une vraie version miniature d’Avelune plutôt qu’un banc de test artificiel.
 
-Les mêmes moteurs sont utilisés par :
+La démarche actuelle :
 
-- les tests ;
-- les simulations ;
-- le contrôleur navigateur.
-
-Cette architecture prépare une évolution vers un futur serveur autoritaire et des contenus davantage pilotés par des datasets plutôt que par des valeurs recompilées dans le code.
-
-Le projet reste toutefois un prototype : l’interface actuelle doit encore être découpée et une partie du contenu/équilibrage doit devenir réellement **data-driven** avant une production importante de contenu.
-
-→ [`Architecture actuelle et cible`](docs/development/ARCHITECTURE_CURRENT_AND_TARGET.md)  
-→ [`Politique données/configuration`](docs/development/DATA_CONFIGURATION_POLICY.md)  
-→ [`Dette technique et prochaines étapes`](docs/development/TECHNICAL_DEBT_AND_NEXT_STEPS.md)
-
----
-
-# Méthode de développement
-
-Le projet évite autant que possible la logique « ajouter des fonctionnalités jusqu’à obtenir un jeu ».
-
-La progression visée est :
-
-1. **vision et piliers** ;
-2. **boucles de jeu** ;
-3. **prototypes des systèmes** ;
-4. **prototype intégré jouable** ;
-5. **playtests et validation de l’intérêt** ← **nous sommes ici** ;
-6. consolidation architecture et pipeline de contenu ;
+1. vision et piliers ;
+2. boucles principales ;
+3. moteurs de systèmes ;
+4. prototype intégré ;
+5. playtest humain ;
+6. consolidation technique ;
 7. vertical slice ;
 8. production de contenu ;
-9. équilibrage, UX et accessibilité à plus grande échelle ;
-10. persistance et monde partagé de production ;
-11. alpha / bêta / exploitation.
+9. équilibrage, UX et accessibilité à grande échelle ;
+10. monde persistant partagé et montée en charge.
 
 → [`Méthode de développement jeu vidéo`](docs/development/GAME_DEVELOPMENT_METHOD.md)
 
 ---
 
-# Documentation — par où commencer ?
+# Une architecture prévue pour évoluer
 
-## Je veux comprendre le jeu
+Le cœur du prototype suit déjà la direction :
+
+```text
+UI / API
+   ↓
+application / orchestration
+   ↓
+domaine / règles
+```
+
+Les moteurs TF, RPG, TD et vague sont exécutables indépendamment de l’interface et utilisés par les tests et simulations.
+
+La prochaine consolidation technique devra notamment :
+
+- découper l’interface Svelte monolithique ;
+- externaliser davantage les paramètres d’équilibrage ;
+- passer progressivement à des datasets de contenu versionnés ;
+- versionner les états persistants et leurs migrations ;
+- rendre le serveur autoritaire pour le futur monde partagé ;
+- ajouter CI et tests E2E.
+
+→ [`Audit développement et architecture`](docs/development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)  
+→ [`Architecture actuelle et cible`](docs/development/ARCHITECTURE_CURRENT_AND_TARGET.md)  
+→ [`Politique données/configuration`](docs/development/DATA_CONFIGURATION_POLICY.md)
+
+---
+
+# Explorer la documentation
+
+## Comprendre le jeu
 
 - [`Vision`](docs/00_vision.md)
 - [`Corps-cité`](docs/01_concept_corps_cite.md)
@@ -432,36 +515,34 @@ La progression visée est :
 - [`Trame RPG`](docs/14_trame_rpg.md)
 - [`Lisière et Passage`](docs/15_lisiere_et_passage.md)
 
-## Je veux comprendre le prototype actuel
+## Comprendre le prototype
 
 - [`Périmètre jouable`](docs/proto0/PROTO0_PLAYABLE_SCOPE.md)
 - [`Gate de playtest`](docs/proto0/PROTO0_PLAYTEST_READY.md)
 - [`Carnet de test`](docs/proto0/PROTO0_TEST_NOTEBOOK.md)
-- [`Simulations`](docs/proto0/PROTO0_PLAYABLE_BALANCE_REPORT.md)
-- [`Parcours technique`](docs/proto0/PROTO0_PLAYABLE_REFERENCE_PLAYTHROUGH.md)
+- [`Rapport de simulations`](docs/proto0/PROTO0_PLAYABLE_BALANCE_REPORT.md)
+- [`Parcours technique de référence`](docs/proto0/PROTO0_PLAYABLE_REFERENCE_PLAYTHROUGH.md)
 
-## Je veux comprendre le développement technique
+## Comprendre le développement
 
-- [`Audit développement / architecture`](docs/development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)
+- [`Index développement`](docs/development/README.md)
+- [`Audit architecture/développement`](docs/development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)
 - [`Architecture actuelle et cible`](docs/development/ARCHITECTURE_CURRENT_AND_TARGET.md)
-- [`Données et équilibrage`](docs/development/DATA_CONFIGURATION_POLICY.md)
-- [`Méthode de développement`](docs/development/GAME_DEVELOPMENT_METHOD.md)
+- [`Données et configuration`](docs/development/DATA_CONFIGURATION_POLICY.md)
 - [`Dette technique`](docs/development/TECHNICAL_DEBT_AND_NEXT_STEPS.md)
 - [`Tests, sécurité et persistance`](docs/development/TEST_SECURITY_PERSISTENCE_STRATEGY.md)
 
-### Index complet
-
-→ **[`docs/index.md`](docs/index.md)**
+L’index complet est disponible dans [`docs/index.md`](docs/index.md).
 
 ---
 
-# Historique du projet
+# Documentation historique
 
-Les anciens jalons P0–P10 et `proto-0-spec.1` sont conservés dans le dépôt parce qu’ils documentent la construction et la validation progressive des moteurs.
+Les jalons P0–P10 et `proto-0-spec.1` sont conservés comme historique de validation des moteurs.
 
-Ils peuvent contenir des règles de laboratoire désormais dépassées — notamment les anciens scénarios fixes — et ne doivent pas être confondus avec la définition courante du prototype jouable.
+Ils décrivent notamment un ancien scénario fixe de laboratoire et ne constituent plus la définition normative du prototype jouable lorsqu’ils entrent en contradiction avec la documentation actuelle.
 
-Cette conservation est volontaire : **l’histoire de la conception fait partie de la traçabilité du projet.**
+La branche historique `develop/proto-0` est conservée pour traçabilité.
 
 ---
 
@@ -470,7 +551,7 @@ Cette conservation est volontaire : **l’histoire de la conception fait partie 
 Application : `app/`  
 Infrastructure : `infra/compose.yaml`
 
-Validation de référence :
+Commandes de validation de référence :
 
 ```bash
 npm run test:proto0
@@ -478,16 +559,8 @@ npm run check
 npm run build
 ```
 
-Branche de jeu active :
-
-```text
-develop/proto-0.1-playable
-```
-
-Une branche documentaire séparée peut être utilisée pendant les modifications du prototype afin d’éviter les conflits entre travail de conception/documentation et changements de code.
-
 ---
 
-## Les Lisières d’Avelune
+## En une phrase
 
-**Construire sans conquérir. Progresser sans écraser. Échouer sans tout perdre. Comprendre pour mieux recommencer.**
+> **Construire sans conquérir. Progresser sans écraser. Challenger sans punir. Échouer sans tout perdre. Respecter les rythmes et les identités. Comprendre pour mieux recommencer.**
