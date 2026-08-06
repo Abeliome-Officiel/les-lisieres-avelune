@@ -27,6 +27,7 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 - Affectation de population explicite dans l’état des structures, le contrôleur et l’interface.
 - Production suspendue pour une fonction ON non staffée.
 - Sélecteur de connexions limité aux cibles compatibles avec ressource déduite.
+- Connexions actives ou suspendues explicitement distinguées selon ON/OFF et personnel.
 
 ## Briques réutilisables créées ou renforcées
 

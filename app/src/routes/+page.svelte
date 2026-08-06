@@ -26,6 +26,7 @@
                 getPlayableBrowserResearchChoices,
                 getTotalUnanalysedWaveMatter,
                 getStructureAssignedWork,
+                isStructureOperational,
                 movePlayableBrowserTower,
                 parsePlayableTestNotes,
                 parsePlayableBrowserSave,
@@ -837,6 +838,12 @@
                         )?.name ??
                         'Structure'
                 );
+        }
+
+        function connectionSuspended(fromStructureId: string, toStructureId: string): boolean {
+                const from = session.corcite.structures.find((structure) => structure.id === fromStructureId);
+                const to = session.corcite.structures.find((structure) => structure.id === toStructureId);
+                return !from || !to || !isStructureOperational(from) || !isStructureOperational(to);
         }
 
         function formatNumber(
@@ -1674,7 +1681,7 @@
                                         {:else}
                                                 <div class="card-list">
                                                         {#each session.corcite.tfNetwork.connections as connection}
-                                                                <article class="compact-card vertical-card">
+                                                                <article class="compact-card vertical-card" class:suspended={connectionSuspended(connection.fromStructureId, connection.toStructureId)}>
                                                                         <strong>
                                                                                 {playerResourceLabel(connection.resourceId)}
                                                                         </strong>
@@ -1682,6 +1689,11 @@
                                                                                 {structureLabel(connection.fromStructureId)}
                                                                                 → {structureLabel(connection.toStructureId)}
                                                                         </p>
+												{#if connectionSuspended(connection.fromStructureId, connection.toStructureId)}
+													<small>Connexion suspendue — fonction OFF ou sans personnel</small>
+												{:else}
+													<small>Connexion active</small>
+												{/if}
 
                                                                         {#if getConnectionBuffer(connection.id)}
                                                                                 <small>
@@ -2899,6 +2911,11 @@
                 border-radius: 0.75rem;
                 background: var(--panel-soft);
         }
+
+	.suspended {
+		opacity: 0.6;
+		border-style: dashed;
+	}
 
         .catalog-card {
                 flex-direction: column;
