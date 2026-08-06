@@ -1,43 +1,40 @@
-<p align="center">
-  <img src="docs/assets/avelune-readme-hero.webp" alt="Les Lisières d’Avelune — monde partagé, Corcites et protection de la Lisière" width="100%" />
-</p>
-
-# Les Lisières d’Avelune
+# ✦ Les Lisières d’Avelune
 
 > **Un monde partagé à habiter, comprendre et transformer.**  
-> Développez un **Corcite**, corps-cité organique vivant, faites circuler matière, énergie et connaissance, préparez-vous aux vagues issues de la Fracture et contribuez à protéger la Lisière — seul·e, en parallèle des autres ou en coopération directe selon vos envies et vos possibilités.
+> Développez un **Corcite**, corps-cité organique vivant, faites circuler matière, énergie et connaissance, préparez-vous aux vagues issues de la Fracture et contribuez à protéger la Lisière — de manière autonome, en parallèle des autres ou en coopération directe selon vos envies et vos possibilités.
 
 **Les Lisières d’Avelune** est un jeu navigateur persistant mêlant **gestion systémique**, **production et réseaux**, **défense contre des vagues**, **progression RPG horizontale**, **narration textuelle** et **monde partagé évolutif**.
 
-> **Poétique · Féerique · Organique · Systémique**
+**Poétique · Onirique · Féerique · Organique · Minéral · Floral · Queer**
 
 ---
 
-## État du projet — pas “v0.8”
+## État du projet
 
-Le `v0.8` longtemps visible en haut du dépôt correspondait à un **jalon historique de conception**. Il n’est plus l’état réel du projet.
+Le `v0.8` visible historiquement sur le dépôt n’est plus l’état réel du projet.
 
-| Repère | Signification actuelle |
+| Repère | Signification |
 |---|---|
-| `v0.8` | tag/jalon historique |
-| `v0.8.3` | dernière baseline de conception figée sur `main` |
-| **v0.8.3+** | conception consolidée avec les décisions postérieures |
+| `v0.8` | ancien jalon/tag historique |
+| `v0.8.3` | dernière baseline de conception formellement figée sur `main` |
+| **v0.8.3+** | conception consolidée avec les décisions prises ensuite |
 | **PROTO-0 jouable** | prototype logiciel navigateur actuellement développé et playtesté |
 
-La branche logicielle active est : **[`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)**.
+La branche de développement du prototype est **[`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)**.
 
-Le projet est actuellement dans la transition :
+Le projet se situe actuellement dans la transition :
 
-**prototype intégré jouable → playtests humains → ajustements → consolidation technique**.
+**prototype intégré jouable → premiers playtests humains → ajustements → consolidation technique**.
 
-Il n’existe pas encore de nouvelle version stable nommée arbitrairement “v0.9” : le numéro de version ne doit pas devancer les décisions réelles du projet.
+Il n’existe pas encore de nouvelle version stable arbitrairement baptisée `v0.9`. Le numéro de version ne doit pas devancer les décisions réelles du projet.
 
 ### Accès rapide
 
-- **Prototype jouable** : https://proto.avelune.duckdns.org
-- **Branche du prototype** : [`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)
-- **Documentation actuelle consolidée** : [`docs/proto0-consolidation-2026-08-06`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/docs/proto0-consolidation-2026-08-06)
-- **Vision historique/consolidée** : [`docs/00_vision.md`](docs/00_vision.md)
+- **Prototype** : https://proto.avelune.duckdns.org
+- **Branche jouable** : [`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)
+- **Documentation consolidée en cours** : [`docs/proto0-consolidation-2026-08-06`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/docs/proto0-consolidation-2026-08-06)
+- **Vision** : [`docs/00_vision.md`](docs/00_vision.md)
+- **Accessibilité et éthique** : [`docs/06_accessibilite_ethique.md`](docs/06_accessibilite_ethique.md)
 - **Charte graphique de travail** : [`docs/art/CHARTE_GRAPHIQUE.md`](docs/art/CHARTE_GRAPHIQUE.md)
 
 ---
@@ -60,7 +57,7 @@ Un Corcite peut progressivement organiser :
 - ses défenses ;
 - sa mémoire des événements traversés.
 
-Sa progression doit produire **des stratégies, spécialisations et formes différentes**, pas seulement des statistiques plus hautes.
+Sa progression doit produire **des formes de jeu, stratégies et spécialisations différentes**, pas seulement des statistiques plus hautes.
 
 → [`Corps-cité, empreinte et influence`](docs/01_concept_corps_cite.md)
 
@@ -70,7 +67,7 @@ Sa progression doit produire **des stratégies, spécialisations et formes diff�
 
 Au centre du monde se trouve la **Fracture**. Elle émet des vagues qui traversent progressivement Avelune jusqu’à la **Lisière**, frontière vitale du monde.
 
-Une vague n’est pas conçue comme une simple barre de points de vie. Elle porte plusieurs caractéristiques qui peuvent être :
+Une vague n’est pas une simple barre de points de vie. Elle porte plusieurs caractéristiques qui peuvent être :
 
 - atténuées ;
 - déstructurées ;
@@ -78,9 +75,7 @@ Une vague n’est pas conçue comme une simple barre de points de vie. Elle port
 - captées ;
 - transformées par l’ordre des défenses rencontrées.
 
-La préparation du Corcite avant l’arrivée de la vague fait donc partie du système défensif.
-
-Après la vague, le résultat devient une nouvelle situation de jeu : intégrité, dette d’entretien, réserve énergétique, matière captée, connaissance, récupération et adaptation.
+La préparation du Corcite avant l’arrivée de la vague fait donc partie du système défensif. Après la vague, le résultat devient une nouvelle situation de jeu : intégrité, dette, réserve énergétique, matière captée, connaissance, récupération et adaptation.
 
 → [`Passage et Lisière`](docs/15_lisiere_et_passage.md)
 
@@ -92,13 +87,13 @@ C’est un principe central du monde partagé :
 
 > **l’ensemble des Corcites contribue à la protection de la Lisière, mais chaque Corcite n’est pas obligé de coopérer directement avec les autres.**
 
-La protection du monde est donc **collective par ses conséquences**, sans exiger une sociabilité permanente.
+La protection du monde est **collective par ses conséquences**, sans exiger une sociabilité permanente.
 
 Un Corcite doit pouvoir :
 
-- se développer très largement de manière autonome ;
+- se développer largement de manière autonome ;
 - agir en parallèle d’autres Corcites ;
-- participer au résultat global simplement par la façon dont il traite les vagues ;
+- contribuer au résultat global par la manière dont il traite les vagues ;
 - coopérer ponctuellement lorsqu’il le souhaite ;
 - échanger, partager ou contribuer à des projets futurs ;
 - se spécialiser de manière complémentaire ;
@@ -106,7 +101,7 @@ Un Corcite doit pouvoir :
 
 Les futures mécaniques de coopération doivent favoriser l’entraide **sans transformer la coopération en obligation sociale permanente**.
 
-→ [`Monde partagé et coopération`](docs/05_social_et_communication.md)
+→ [`Social et communication`](docs/05_social_et_communication.md)
 
 ---
 
@@ -149,18 +144,7 @@ Le joueur ne doit pas pouvoir tout faire simultanément. Le challenge vient nota
 
 Le RPG n’est pas une troisième file d’actions artificiellement symétrique au TF et au TD.
 
-Il constitue une couche **textuelle, évolutive et transversale** qui peut produire :
-
-- recherches et découvertes ;
-- compétences ;
-- métiers et classes ;
-- spécialisations ;
-- capacités et accès ;
-- modificateurs ;
-- connaissances ;
-- choix narratifs ;
-- relations ;
-- mémoire du Corcite.
+Il constitue une couche **textuelle, évolutive et transversale** qui peut produire recherches, découvertes, compétences, métiers, classes, spécialisations, capacités, accès, modificateurs, connaissances, choix narratifs, relations et mémoire du Corcite.
 
 La progression vise principalement à **ouvrir des possibilités et différencier les manières de jouer**, plutôt qu’à créer une course verticale à la puissance.
 
@@ -170,18 +154,11 @@ La progression vise principalement à **ouvrir des possibilités et différencie
 
 # Un monde partagé qui se souvient
 
-Avelune n’a pas vocation à séparer artificiellement un “mode solo” et un “mode multijoueur”.
+Avelune n’a pas vocation à séparer artificiellement un « mode solo » et un « mode multijoueur ».
 
 Le monde est **unique et partagé**, même lorsqu’une personne choisit un style très autonome.
 
-Les actions et événements pourront laisser dans le monde :
-
-- des **Traces** ;
-- des **Échos** ;
-- des ruines ;
-- des transformations de terrain ;
-- des connaissances ;
-- une histoire collective.
+Les actions et événements pourront laisser des **Traces**, des **Échos**, des transformations, des connaissances et une histoire collective.
 
 La carte pourra s’étendre, mais un principe est acté : **Avelune ne rétrécit pas**.
 
@@ -193,7 +170,7 @@ La mémoire des premières périodes du jeu peut nourrir la fiction sans créer 
 
 # Les intentions fondatrices
 
-Ces principes font partie du **game design**, pas d’une couche marketing ajoutée après coup.
+Ces principes font partie du **game design**, pas d’une couche de communication ajoutée après coup.
 
 ## Profond, mais accessible de plusieurs manières
 
@@ -210,167 +187,165 @@ L’objectif n’est pas de réduire la profondeur du jeu.
 
 > **Conserver la profondeur, mais offrir plusieurs chemins pour l’appréhender.**
 
-Cela implique notamment :
-
-- complexité progressive ;
-- informations hiérarchisées ;
-- conséquences expliquées ;
-- récapitulatifs ;
-- automatisation possible ;
-- plusieurs profondeurs d’affichage ;
-- mêmes règles et mêmes droits de jeu quelle que soit la profondeur d’interface choisie.
-
-→ [`Accessibilité et éthique`](docs/06_accessibilite_ethique.md)
+Cela implique notamment complexité progressive, informations hiérarchisées, récapitulatifs, automatisation lorsque pertinente et plusieurs profondeurs d’interface utilisant **les mêmes règles**.
 
 ---
 
-## Pas de micro-dopamine comme modèle économique de l’attention
+## Pas de micro-dopamine comme moteur de rétention
 
-Avelune ne doit pas être construit autour d’une succession de petites récompenses artificielles destinées avant tout à maintenir le clic ou la connexion.
+Avelune ne doit pas être conçu autour d’une succession de petites récompenses artificielles destinées principalement à maintenir le clic ou la connexion.
 
 Le projet veut éviter comme moteurs principaux :
 
-- séries quotidiennes punitives ;
-- FOMO ;
-- quêtes journalières obligatoires ;
-- notifications compulsives ;
-- coffres/roulettes comme boucle de rétention ;
-- badges et jauges sans sens ludique réel ;
-- punition liée au simple fait de ne pas s’être connecté.
+- les séries quotidiennes punitives ;
+- le FOMO ;
+- les notifications compulsives ;
+- les coffres, roulettes ou récompenses aléatoires de rétention ;
+- les jauges ajoutées uniquement pour provoquer une impression permanente de progression ;
+- les obligations de connexion pour ne pas « prendre de retard ».
 
 > **La récompense doit venir de la compréhension, de la décision, de la découverte et de l’évolution du monde — pas d’une captation artificielle de l’attention.**
 
 ---
 
-## Un jeu qui challenge
+## Un jeu qui challenge réellement
 
-Avelune ne doit pas devenir un jeu où tout réussit automatiquement.
+Avelune n’a pas vocation à devenir un jeu où tout réussit automatiquement.
 
-Le joueur doit rencontrer de vraies contraintes :
+Le joueur doit pouvoir rencontrer ressources insuffisantes, arbitrages incompatibles, contraintes d’énergie, entretien, population ou espace, vagues imparfaitement comprises et conséquences persistantes.
 
-- ressources insuffisantes ;
-- choix incompatibles ;
-- limites d’énergie, entretien, population, stockage ou espace ;
-- anticipation imparfaite ;
-- conséquences persistantes ;
-- nécessité de réorganiser son Corcite.
-
-Le challenge recherché est principalement **systémique, intellectuel et stratégique**.
+Le challenge recherché est surtout **systémique, intellectuel et stratégique**.
 
 > **Challenge ne signifie pas punition.**
 
-L’échec doit produire une situation nouvelle à comprendre plutôt qu’un simple effacement de progression.
+Une mauvaise décision doit idéalement créer une nouvelle situation à comprendre plutôt qu’un simple effacement de progression.
 
 ---
 
-## Échec fertile
+## Plusieurs styles de jeu légitimes
 
-Une erreur ou une défaite doit autant que possible produire :
+Avelune doit pouvoir accueillir, autant que possible :
 
-- une information ;
-- une cicatrice ;
-- une Trace ;
-- un Écho ;
-- une transformation ;
-- une contrainte nouvelle ;
-- une raison d’essayer autrement.
+- optimisation ou expérimentation ;
+- exploration ou planification ;
+- jeu très autonome ou plus social ;
+- sessions courtes ou longues ;
+- lecture synthétique ou très détaillée ;
+- intervention manuelle ou automatisation de certaines tâches ;
+- styles polyvalents, orientés ou spécialisés.
 
-**Comprendre et s’adapter doit être plus important que punir.**
-
----
-
-## S’adapter aux styles de jeu, aux envies et aux possibilités de toustes
-
-Il n’existe pas une seule bonne manière de jouer à Avelune.
-
-Le jeu doit pouvoir accueillir, autant que possible :
-
-- optimisation ou exploration ;
-- jeu méthodique ou expérimental ;
-- forte sociabilité ou grande autonomie ;
-- sessions longues ou courtes ;
-- beaucoup de détails ou seulement l’essentiel ;
-- interventions manuelles ou automatisation ;
-- profils polyvalents, orientés ou spécialisés.
-
-Le but n’est pas que toutes les stratégies soient identiques. Le but est que **plusieurs manières légitimes de jouer existent**.
+Le but n’est pas que toutes les stratégies soient égales partout, mais que le jeu **n’impose pas artificiellement une seule manière correcte de jouer**.
 
 ---
 
-## Non genré et inclusif par conception
+## Queer et non genré par conception
+
+La sensibilité **queer** fait partie de l’identité d’Avelune.
+
+Elle ne doit pas être réduite à quelques personnages symboliques ou à un drapeau plaqué sur l’univers. Elle doit pouvoir se traduire plus profondément par :
+
+- la pluralité des identités ;
+- l’absence de rôle mécanique assigné par le genre ;
+- la possibilité de pronoms, langue et grammaire configurables ;
+- une écriture qui ne suppose pas inutilement le genre ;
+- des formes de relation et d’existence non enfermées dans un modèle unique ;
+- une esthétique ouverte à la fluidité, à l’ambiguïté, à la transformation et aux formes non normatives.
 
 Aucun métier, classe, rôle, capacité ou style de jeu ne doit être réservé à un genre.
 
-Le projet vise notamment :
-
-- pronoms choisis ;
-- langue et grammaire configurables ;
-- écriture qui ne suppose pas inutilement le genre de la personne ;
-- diversité des identités considérée comme normale dans le monde ;
-- absence de rôles mécaniques genrés.
-
-Une personne doit pouvoir habiter Avelune **sans devoir entrer dans une case de genre prédéfinie par le système**.
+L’univers doit pouvoir être clairement accueillant pour les personnes LGBTQIA+ sans réduire sa direction artistique à une signalétique littérale.
 
 ---
 
-## Pas de classement humiliant ni de domination des anciens
+# Une éthique intégrée au jeu
 
-Le monde partagé n’a pas vocation à devenir une pyramide sociale permanente.
+## Échec fertile
 
-Le projet exclut comme direction centrale :
+L’échec doit produire quelque chose : information, cicatrice, Trace, Écho, transformation, problème nouveau ou raison d’essayer autrement.
 
-- classement global humiliant ;
-- concurrence imposée ;
-- pouvoir permanent réservé aux premiers joueurs ;
-- dépendance sociale obligatoire.
+**Comprendre et s’adapter doit être plus important que punir.**
 
-Les systèmes collectifs futurs privilégieront besoins, offres, contributions, projets et consentement.
+## Absence non punitive
+
+Avelune ne doit pas exiger une présence quotidienne. La dormance doit permettre une vraie suspension plutôt qu’une lente dégradation punitive.
+
+## Pas de classement humiliant
+
+Le monde partagé n’est pas destiné à devenir une pyramide sociale permanente. Pas de classement global humiliant, de domination mécanique permanente des plus anciens ou de concurrence imposée comme norme.
+
+→ [`Accessibilité et éthique`](docs/06_accessibilite_ethique.md)
 
 ---
 
-# Thématique et direction artistique
+# Direction thématique et visuelle
 
-Avelune cherche une identité **poétique, féerique, onirique et organique**, avec une lecture systémique discrète sous la surface.
+La direction visuelle validée à ce stade est :
 
-La direction actuelle associe :
+**onirique · féerique · organique · minérale · florale-abstraite · queer**
 
-- paysages de crépuscule ;
-- végétation et architectures vivantes ;
-- bioluminescence ;
-- réseaux et hexagones intégrés subtilement au monde ;
-- anneaux, arcs et horizons concentriques ;
-- une Fracture lumineuse et inquiétante sans esthétique horrifique ;
-- la Lisière comme frontière vitale à protéger ;
-- des Corcites distincts, reliés ou autonomes ;
-- une sensation de calme, de mystère, de résilience et d’intelligence collective.
+Elle doit rester :
 
-### Charte UI actuelle
+- mystérieuse sans devenir grimdark ;
+- douce sans devenir infantilisante ;
+- systémique sans esthétique technologique froide ;
+- riche en matière, lumière, croissance, strates, réseaux et transformations.
 
-Le prototype utilise actuellement :
+### Couleur
 
-- fond principal `#17131f` ;
-- panneaux `#15111d` / violets très sombres ;
+La palette du prototype reste sombre et lisible, mais la direction artistique doit désormais tirer **davantage vers le violet, la prune, la lavande et l’iridescence** que vers le bleu froid.
+
+Base UI actuelle :
+
+- fond `#17131f` ;
+- panneaux `#15111d` ;
 - texte `#ece9f2` ;
-- accent lavande `#9f8dcc` ;
+- accent `#9f8dcc` ;
 - focus `#d8c9ff` ;
-- succès vert doux `#9bd5ad` ;
+- succès doux `#9bd5ad` ;
 - police d’interface **Inter**.
 
-Les visuels illustratifs enrichissent cette base avec bleu nuit, indigo, teal bioluminescent, violet crépusculaire et touches d’or doux.
+Les indigos, verts organiques/minéraux, teals bioluminescents et ors doux restent des couleurs secondaires possibles.
+
+### Canon visuel provisoire
+
+La nature de la population vivant dans les Corcites **n’est pas encore définie**. L’existence et la nature d’une faune ou d’une flore extérieures ne sont pas non plus suffisamment fixées pour devenir un canon visuel.
+
+En conséquence, les visuels de projet ne doivent pour l’instant **pas représenter** :
+
+- d’humains ou humanoïdes ;
+- de peuples ou habitants inventés ;
+- d’animaux ou créatures supposées canoniques ;
+- de faune inventée ;
+- de flore naturaliste présentée comme espèce définie d’Avelune.
+
+La dimension florale peut être exprimée par **formes, ramifications, textures, corolles abstraites, motifs de croissance et structures organiques**, sans décider prématurément de la biologie du monde.
+
+À privilégier pour l’instant :
+
+- Fracture ;
+- Lisière ;
+- anneaux ;
+- paysages non peuplés ;
+- Corcites et architectures organiques non anthropomorphes ;
+- minéraux ;
+- matières ;
+- réseaux lumineux ;
+- motifs hexagonaux discrets ;
+- phénomènes et transformations du monde.
 
 → [`Charte graphique de travail`](docs/art/CHARTE_GRAPHIQUE.md)
 
 ---
 
-# Où en est le prototype ?
+# Le PROTO-0 jouable
 
-Le PROTO-0 a pour rôle de tester **la nature du jeu en miniature**, pas de simuler un produit final.
+Le prototype actuel ne cherche pas à reproduire tout le jeu. Il réduit **la quantité de contenu**, pas **la nature de la boucle**.
 
 Principe de développement :
 
 > **Réduire la quantité, pas la nature du jeu.**
 
-La branche jouable comprend actuellement notamment :
+La branche jouable couvre déjà notamment :
 
 - départ minimal du Corcite ;
 - construction ;
@@ -390,55 +365,42 @@ La branche jouable comprend actuellement notamment :
 Au dernier jalon technique documenté :
 
 - **338 tests** passaient ;
-- `svelte-check` ne remontait aucun diagnostic ;
+- `svelte-check` ne remontait aucune erreur ou alerte ;
 - le build de production était valide ;
-- une batterie de **384 parties complètes** avait été exécutée.
+- **384 parties** de référence avaient été simulées.
 
-Ces chiffres mesurent la stabilité technique, **pas l’intérêt ludique**.
+Ces chiffres démontrent une stabilité technique du jalon, **pas la qualité expérientielle du jeu**.
 
-La question de playtest reste :
-
-> **Est-ce que les décisions produisent des situations qu’on veut comprendre, améliorer et expérimenter ?**
-
-### Documentation actuelle du prototype
-
-- [`Périmètre jouable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.1-playable/docs/proto0/PROTO0_PLAYABLE_SCOPE.md)
-- [`Gate de playtest`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.1-playable/docs/proto0/PROTO0_PLAYTEST_READY.md)
-- [`Rapport de simulations`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.1-playable/docs/proto0/PROTO0_PLAYABLE_BALANCE_REPORT.md)
+Le prototype est actuellement modifié à la suite des premiers retours de playtest ; les paramètres précis peuvent donc évoluer rapidement.
 
 ---
 
-# Une architecture pensée pour évoluer
+# Une architecture conçue pour évoluer
 
-Le prototype n’est pas uniquement codé dans l’interface.
+Le cœur du prototype n’est pas écrit comme une logique unique enfermée dans l’interface.
 
-Le cœur suit déjà une séparation proche de :
+La direction actuelle sépare :
 
-```text
-domaine / règles
-        ↓
-moteurs TF / RPG / TD / vague
-        ↓
-orchestration
-        ↓
-interface
-```
+- domaine et états ;
+- règles TF/RPG/TD/vague ;
+- orchestration ;
+- configuration/catalogues ;
+- simulations ;
+- sérialisation et validation ;
+- interface.
 
-Les mêmes moteurs sont utilisés par tests, simulations et navigateur.
+Les mêmes moteurs peuvent être appelés par les tests, les simulations et le contrôleur navigateur.
 
-La consolidation prévue si les playtests valident la boucle porte notamment sur :
+La principale consolidation prévue après validation du playtest porte sur :
 
-- découpage de l’interface monolithique ;
+- découpage de l’UI ;
 - contenu et équilibrage davantage **data-driven** ;
 - versionnement des états et migrations ;
-- future autorité serveur ;
+- autorité serveur pour le futur monde persistant ;
 - CI et tests E2E ;
-- télémétrie métier ;
-- persistance PostgreSQL.
+- télémétrie et persistance.
 
-→ [`Audit développement/architecture`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/docs/proto0-consolidation-2026-08-06/docs/development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)  
-→ [`Architecture actuelle et cible`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/docs/proto0-consolidation-2026-08-06/docs/development/ARCHITECTURE_CURRENT_AND_TARGET.md)  
-→ [`Politique données/configuration`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/docs/proto0-consolidation-2026-08-06/docs/development/DATA_CONFIGURATION_POLICY.md)
+→ Documentation technique détaillée sur la branche de consolidation documentaire.
 
 ---
 
@@ -449,46 +411,22 @@ La consolidation prévue si les playtests valident la boucle porte notamment sur
 - [`Vision`](docs/00_vision.md)
 - [`Corps-cité`](docs/01_concept_corps_cite.md)
 - [`Monde persistant`](docs/02_monde_persistant.md)
-- [`Tycoon–Factorio et réseaux`](docs/03_tycoon_et_reseaux.md)
+- [`Tycoon et réseaux`](docs/03_tycoon_et_reseaux.md)
 - [`Social et communication`](docs/05_social_et_communication.md)
 - [`Accessibilité et éthique`](docs/06_accessibilite_ethique.md)
-- [`Background d’Avelune`](docs/10_background_avelune.md)
 - [`Trame RPG`](docs/14_trame_rpg.md)
-- [`Passage et Lisière`](docs/15_lisiere_et_passage.md)
+- [`Lisière et passage`](docs/15_lisiere_et_passage.md)
 
-### Comprendre le développement actuel
+### Comprendre l’évolution du prototype
 
-- [`Documentation consolidée`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/docs/proto0-consolidation-2026-08-06/docs)
-- [`Roadmap actuelle`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/docs/proto0-consolidation-2026-08-06/ROADMAP.md)
-- [`Changelog`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/docs/proto0-consolidation-2026-08-06/CHANGELOG.md)
+- [`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)
+- [`docs/proto0-consolidation-2026-08-06`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/docs/proto0-consolidation-2026-08-06)
 
----
+### Direction artistique
 
-# Technique
-
-Prototype actuel :
-
-- **SvelteKit** ;
-- **TypeScript** ;
-- **Node.js** ;
-- **PostgreSQL** ;
-- **Docker Compose** ;
-- moteurs headless testables indépendamment de l’UI.
-
-Validation de référence :
-
-```bash
-npm run test:proto0
-npm run check
-npm run build
-```
+- [`Charte graphique de travail`](docs/art/CHARTE_GRAPHIQUE.md)
+- les sources et variantes sont organisées dans le Drive `Avelune/05_Direction_artistique_et_visuels/`.
 
 ---
 
-# En une phrase
-
-> **Construire sans conquérir. Progresser sans écraser. Challenger sans punir. Coopérer sans l’imposer. Échouer sans tout perdre. Respecter les rythmes et les identités. Comprendre pour mieux recommencer.**
-
----
-
-*Les Lisières d’Avelune est en développement actif. Les principes ci-dessus représentent la direction du projet ; les valeurs numériques et contenus du prototype restent volontairement ajustables pendant les playtests.*
+> **Construire sans conquérir. Progresser sans écraser. Challenger sans punir. Échouer sans tout perdre. Respecter les rythmes et les identités. Comprendre pour mieux recommencer.**
