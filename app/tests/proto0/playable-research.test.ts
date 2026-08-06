@@ -482,7 +482,7 @@ test(
 
 		assert.equal(
 			afterEvent.outputs.R3,
-			2.4
+			3
 		);
 	}
 );
@@ -533,14 +533,14 @@ test(
 
 		assert.equal(
 			event.outputs.R4,
-			1.25
+			2
 		);
 
 		assert.equal(
 			summarizeStoredResources(
 				result.corcite
 			).R4,
-			2.25
+			3
 		);
 	}
 );

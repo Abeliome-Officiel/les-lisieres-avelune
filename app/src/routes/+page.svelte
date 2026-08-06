@@ -56,6 +56,7 @@
         } from '$lib/proto0/index.js';
 
         type ViewId =
+                | 'guide'
                 | 'corcite'
                 | 'tf'
                 | 'research'
@@ -68,6 +69,10 @@
                 label: string;
         }[] = [
                 {
+                        id: 'guide',
+                        label: 'Guide'
+                },
+                {
                         id: 'corcite',
                         label: 'Corcite'
                 },
@@ -78,6 +83,10 @@
                 {
                         id: 'research',
                         label: 'Développement'
+                },
+                {
+                        id: 'defense',
+                        label: 'Défenses'
                 },
                 {
                         id: 'wave',
@@ -101,7 +110,7 @@
                 );
 
         let activeView:
-                ViewId = 'corcite';
+                ViewId = 'guide';
 
         let testerCode:
                 TesterCode = 'IRFI';
@@ -487,7 +496,7 @@
                         });
 
                 activeView =
-                        'corcite';
+                        'guide';
 
                 connectionFrom = '';
                 connectionTo = '';
@@ -1064,7 +1073,176 @@
         {/if}
 
         <main>
-                {#if activeView === 'corcite'}
+                {#if activeView === 'guide'}
+                        <section class="view">
+                                <div class="section-heading">
+                                        <div>
+                                                <p class="eyebrow">
+                                                        PREMIERS PAS
+                                                </p>
+
+                                                <h2>
+                                                        Guide de démarrage
+                                                </h2>
+                                        </div>
+                                </div>
+
+                                <article class="panel">
+                                        <h3>
+                                                Ce que teste ce prototype
+                                        </h3>
+
+                                        <p>
+                                                Vous développez un Corcite, produisez ce dont il a besoin,
+                                                faites évoluer ses capacités et préparez un chemin de défenses
+                                                avant le passage des vagues.
+                                        </p>
+
+                                        <FlowDiagram
+                                                nodes={[
+                                                        'Développer',
+                                                        'Produire',
+                                                        'Rechercher',
+                                                        'Préparer les défenses',
+                                                        'Résoudre la vague',
+                                                        'Adapter'
+                                                ]}
+                                        />
+                                </article>
+
+                                <div class="catalog-grid">
+                                        <article class="panel">
+                                                <p class="eyebrow">
+                                                        1 · CORCITE
+                                                </p>
+
+                                                <h3>
+                                                        Surveillez vos capacités
+                                                </h3>
+
+                                                <p>
+                                                        Population, énergie, entretien et stockage déterminent
+                                                        quelles fonctions peuvent réellement travailler.
+                                                </p>
+                                        </article>
+
+                                        <article class="panel">
+                                                <p class="eyebrow">
+                                                        2 · RESSOURCES
+                                                </p>
+
+                                                <h3>
+                                                        Construisez une chaîne
+                                                </h3>
+
+                                                <p>
+                                                        Construisez les extracteurs adaptés, transformez les
+                                                        matières puis fabriquez les composants nécessaires.
+                                                        Une production terminée pendant un tour alimente la
+                                                        suite à partir du tour suivant.
+                                                </p>
+                                        </article>
+
+                                        <article class="panel">
+                                                <p class="eyebrow">
+                                                        3 · DÉVELOPPEMENT
+                                                </p>
+
+                                                <h3>
+                                                        Recherchez et validez
+                                                </h3>
+
+                                                <p>
+                                                        Une recherche prend un tour dans ce prototype.
+                                                        Une découverte doit ensuite être examinée et validée
+                                                        avant que son effet soit appliqué.
+                                                </p>
+                                        </article>
+
+                                        <article class="panel">
+                                                <p class="eyebrow">
+                                                        4 · DÉFENSES
+                                                </p>
+
+                                                <h3>
+                                                        Fabriquez puis placez
+                                                </h3>
+
+                                                <p>
+                                                        Les défenses ne sont pas automatiques : elles doivent
+                                                        être fabriquées, placées sur les huit positions du chemin,
+                                                        puis éventuellement déplacées. Leur ordre modifie le
+                                                        résultat de la vague.
+                                                </p>
+                                        </article>
+
+                                        <article class="panel">
+                                                <p class="eyebrow">
+                                                        5 · VAGUE
+                                                </p>
+
+                                                <h3>
+                                                        Observez avant de résoudre
+                                                </h3>
+
+                                                <p>
+                                                        Les informations deviennent plus précises à mesure que
+                                                        la vague approche. Quand elle arrive, la préparation est
+                                                        verrouillée, mais votre dispositif reste consultable.
+                                                </p>
+                                        </article>
+
+                                        <article class="panel">
+                                                <p class="eyebrow">
+                                                        6 · JOURNAL
+                                                </p>
+
+                                                <h3>
+                                                        Lisez ce qui s’est réellement passé
+                                                </h3>
+
+                                                <p>
+                                                        Après chaque tour, un rapport joueur explique les
+                                                        productions, constructions, recherches, variations de
+                                                        capacités et avertissements utiles.
+                                                </p>
+                                        </article>
+                                </div>
+
+                                <article class="panel">
+                                        <h3>
+                                                Trois points à retenir
+                                        </h3>
+
+                                        <p>
+                                                <strong>Une action à 1 tour</strong> ne signifie pas une seule
+                                                action autorisée par tour : plusieurs décisions peuvent être
+                                                planifiées si les ressources le permettent.
+                                        </p>
+
+                                        <p>
+                                                <strong>Les unités de production sont entières</strong> :
+                                                une recette produit désormais des quantités discrètes, y compris
+                                                après amélioration.
+                                        </p>
+
+                                        <p>
+                                                <strong>Une mauvaise préparation n’arrête pas la partie</strong> :
+                                                ses conséquences deviennent la situation à gérer ensuite.
+                                        </p>
+                                </article>
+
+                                <div class="subnav-actions">
+                                        <button
+                                                type="button"
+                                                onclick={() =>
+                                                        activeView = 'corcite'}
+                                        >
+                                                Commencer
+                                        </button>
+                                </div>
+                        </section>
+                {:else if activeView === 'corcite'}
                         <section class="view">
                                 <div class="section-heading">
                                         <div>
@@ -2001,11 +2179,12 @@
                                         <button
                                                 type="button"
                                                 class="secondary"
-                                                disabled={!preparationOpen}
                                                 onclick={() =>
                                                         activeView = 'defense'}
                                         >
-                                                Préparer les défenses
+                                                {preparationOpen
+                                                        ? 'Préparer les défenses'
+                                                        : 'Voir les défenses'}
                                         </button>
                                 </div>
 

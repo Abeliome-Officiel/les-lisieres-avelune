@@ -108,3 +108,27 @@ La phase suivante est une **discussion et une analyse des retours** avant décis
 Lors de la prochaine modification de mise en page du prototype, la taille générale des polices doit être **réduite d’un cran**, de préférence par une règle centrale de style afin de conserver les proportions entre titres, sous-titres, texte courant, aides et boutons.
 
 Cette réduction n’est pas appliquée rétroactivement par ce jalon documentaire : elle doit accompagner la prochaine intervention UI afin d’être vérifiée visuellement et sur les différents formats d’écran.
+
+<!-- PROTO0_POLISH_GUIDE_DEFENSE_2026_08_06 -->
+## Finition avant nouveau playtest
+
+La navigation du prototype expose maintenant directement :
+
+**Guide · Corcite · Ressources · Développement · Défenses · Vague · Journal**
+
+Le Guide est la première vue d’une nouvelle session et explique la boucle
+de préparation, la temporalité des actions et le rôle des défenses.
+
+La zone Défenses reste consultable après l’arrivée de la vague ; seules
+les opérations qui modifieraient la préparation sont verrouillées.
+
+Les ressources produites par transformation et fabrication utilisent des
+quantités entières. Les deux recherches de rendement du catalogue jouable
+ajoutent une unité entière à leur production au lieu d’appliquer un
+multiplicateur produisant des fractions.
+
+Les grandeurs continues de simulation de vague ne sont pas concernées par
+cette règle d’unités discrètes.
+
+La taille du texte courant du prototype est abaissée d’un cran de manière
+conservatrice (`15px`) sans refonte générale de l’échelle de mise en page.

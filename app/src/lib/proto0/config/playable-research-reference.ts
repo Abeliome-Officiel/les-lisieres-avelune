@@ -35,8 +35,16 @@ export interface PlayableResearchPresentation {
 export const PLAYABLE_RESEARCH_CATALOG:
 	readonly RpgResearchDefinition[] = [
 	{
-	        ...RPG_LAB_REFERENCE,
-	        durationTurns: 1
+		...RPG_LAB_REFERENCE,
+		durationTurns: 1,
+		completion: {
+			...RPG_LAB_REFERENCE.completion,
+			modifier: {
+				...RPG_LAB_REFERENCE.completion.modifier,
+				operation: 'add',
+				value: 1
+			}
+		}
 	},
 	{
 		id: 'fabrication-efficiency-n1',
@@ -48,8 +56,8 @@ export const PLAYABLE_RESEARCH_CATALOG:
 					'modifier-research-fabrication-efficiency-n1',
 				target:
 					'tf.recipe.fabricate-r4-n1.output.R4',
-				operation: 'multiply',
-				value: 1.25
+				operation: 'add',
+				value: 1
 			},
 			access: {
 				id:
@@ -188,7 +196,7 @@ export const PLAYABLE_RESEARCH_PRESENTATIONS:
 		summary:
 			'Mieux comprendre les transformations primaires.',
 		effectSummary:
-			'Améliore le rendement de la transformation des matières organique et minérale en matériau transformé.'
+			'Ajoute 1 unité de matériau transformé à chaque transformation réussie.'
 	},
 	{
 		id: 'fabrication-efficiency-n1',
@@ -196,7 +204,7 @@ export const PLAYABLE_RESEARCH_PRESENTATIONS:
 		summary:
 			'Affiner les gestes et séquences de fabrication.',
 		effectSummary:
-			'Améliore le rendement de fabrication des composants.'
+			'Ajoute 1 composant à chaque fabrication réussie.'
 	},
 	{
 		id: 'reserve-recovery-n1',

@@ -133,3 +133,13 @@ Consolidation rétrospective des décisions prises après v0.8.
 - validation : 346 tests réussis, 0 erreur, 0 warning et build production réussi.
 
 Voir `docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md`.
+
+<!-- PROTO0_POLISH_2026_08_06 -->
+## PROTO-0.1 — finition avant nouveau playtest — 2026-08-06
+
+- ajout d’un guide de démarrage affiché en premier ;
+- rétablissement de **Défenses** comme zone directement visible de la navigation ;
+- consultation des défenses possible même lorsque la préparation de vague est verrouillée ;
+- productions de ressources rendues discrètes : les recherches de rendement ajoutent désormais une unité entière au lieu de produire des fractions ;
+- réduction conservatrice de la taille de texte courante de 16 px à 15 px ;
+- aucun changement des variables continues de vague ni du moteur de résolution TD.
