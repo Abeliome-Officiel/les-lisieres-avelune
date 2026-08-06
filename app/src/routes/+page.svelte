@@ -105,17 +105,6 @@
                 }
         ];
 
-        const pathPositions =
-                Array.from(
-                        {
-                                length: 8
-                        },
-                        (_, index) =>
-                                (
-                                        index + 1
-                                ) as TdPathPosition
-                );
-
         let activeView:
                 ViewId = 'guide';
 
@@ -149,13 +138,8 @@
                 0;
 
         let connectionFrom = '';
-        let placementTargets:
-                Record<string, TdPathPosition> =
-                {};
-
-        let moveTargets:
-                Record<number, TdPathPosition> =
-                {};
+        let selectedInventoryTower = '';
+        let selectedPathPosition: TdPathPosition | null = null;
 
         let browserReady = false;
 
@@ -549,8 +533,6 @@
 
                 connectionFrom = '';
 
-                placementTargets = {};
-                moveTargets = {};
                 acknowledgedTurnReport = 0;
                 uiError = '';
         }
@@ -658,31 +640,6 @@
                 );
         }
 
-        function placeTower(
-                towerId: string
-        ): void {
-                const position =
-                        placementTargets[
-                                towerId
-                        ];
-
-                if (!position) {
-                        uiError =
-                                'Choisissez une position libre pour cette défense.';
-
-                        return;
-                }
-
-                apply(
-                        () =>
-                                placePlayableBrowserTower(
-                                        session,
-                                        towerId,
-                                        position
-                                )
-                );
-        }
-
         function removeTower(
                 position:
                         TdPathPosition
@@ -696,30 +653,25 @@
                 );
         }
 
-        function moveTower(
-                from:
-                        TdPathPosition
-        ): void {
-                const target =
-                        moveTargets[
-                                from
-                        ];
+        function activateDefenseSlot(position: TdPathPosition): void {
+                const slot = session.corcite.td.positions[position - 1];
 
-                if (!target) {
-                        uiError =
-                                'Choisissez une nouvelle position.';
+		if (selectedInventoryTower && !slot.tower) {
+			apply(() => placePlayableBrowserTower(session, selectedInventoryTower, position));
+			selectedInventoryTower = '';
+			return;
+		}
 
-                        return;
-                }
+		if (selectedPathPosition !== null && !slot.tower) {
+			apply(() => movePlayableBrowserTower(session, selectedPathPosition!, position));
+			selectedPathPosition = null;
+			return;
+		}
 
-                apply(
-                        () =>
-                                movePlayableBrowserTower(
-                                        session,
-                                        from,
-                                        target
-                                )
-                );
+		if (slot.tower) {
+			selectedPathPosition = position;
+			selectedInventoryTower = '';
+		}
         }
 
         function resolveTurn(): void {
@@ -2083,33 +2035,13 @@
                                                                         </div>
 
                                                                         <div class="inline-actions">
-                                                                                <select
-                                                                                        bind:value={placementTargets[tower.id]}
-                                                                                        disabled={!preparationOpen}
-                                                                                >
-                                                                                        <option value={undefined}>
-                                                                                                Position
-                                                                                        </option>
-
-                                                                                        {#each pathPositions as position}
-                                                                                                <option
-                                                                                                        value={position}
-                                                                                                        disabled={Boolean(session.corcite.td.positions[position - 1].tower)}
-                                                                                                >
-                                                                                                        {position}
-                                                                                                </option>
-                                                                                        {/each}
-                                                                                </select>
-
                                                                                 <button
                                                                                         type="button"
+														class:secondary={selectedInventoryTower !== tower.id}
                                                                                         disabled={!preparationOpen}
-                                                                                        onclick={() =>
-                                                                                                placeTower(
-                                                                                                        tower.id
-                                                                                                )}
+														onclick={() => { selectedInventoryTower = tower.id; selectedPathPosition = null; }}
                                                                                 >
-                                                                                        Placer
+														{selectedInventoryTower === tower.id ? 'Sélectionnée — choisissez une position' : 'Choisir pour placer'}
                                                                                 </button>
                                                                         </div>
                                                                 </article>
@@ -2127,11 +2059,13 @@
                                                 {#each session.corcite.td.positions as slot}
                                                         <article
                                                                 class:occupied={Boolean(slot.tower)}
+											class:selected={selectedPathPosition === slot.position}
                                                                 class="td-slot"
                                                         >
-                                                                <span class="position-number">
-                                                                        {slot.position}
-                                                                </span>
+										<button type="button" class="slot-target" disabled={!preparationOpen || (!slot.tower && !selectedInventoryTower && selectedPathPosition === null)} onclick={() => activateDefenseSlot(slot.position)}>
+											<span class="position-number">{slot.position}</span>
+											{slot.tower ? 'Sélectionner' : 'Placer ici'}
+										</button>
 
                                                                 {#if slot.tower}
                                                                         <strong>
@@ -2139,38 +2073,6 @@
                                                                         </strong>
 
                                                                         <div class="slot-actions">
-                                                                                <select
-                                                                                        bind:value={moveTargets[slot.position]}
-                                                                                        disabled={!preparationOpen}
-                                                                                >
-                                                                                        <option value={undefined}>
-                                                                                                Déplacer vers…
-                                                                                        </option>
-
-                                                                                        {#each pathPositions as target}
-                                                                                                {#if target !== slot.position}
-                                                                                                        <option
-                                                                                                                value={target}
-                                                                                                                disabled={Boolean(session.corcite.td.positions[target - 1].tower)}
-                                                                                                        >
-                                                                                                                {target}
-                                                                                                        </option>
-                                                                                                {/if}
-                                                                                        {/each}
-                                                                                </select>
-
-                                                                                <button
-                                                                                        type="button"
-                                                                                        class="secondary"
-                                                                                        disabled={!preparationOpen}
-                                                                                        onclick={() =>
-                                                                                                moveTower(
-                                                                                                        slot.position
-                                                                                                )}
-                                                                                >
-                                                                                        Déplacer
-                                                                                </button>
-
                                                                                 <button
                                                                                         type="button"
                                                                                         class="secondary"
@@ -3054,6 +2956,18 @@
                 border-style: solid;
                 border-color: var(--accent);
         }
+
+	.td-slot.selected {
+		outline: 3px solid var(--accent);
+	}
+
+	.slot-target {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 0.5rem;
+		width: 100%;
+	}
 
         .position-number {
                 display: grid;

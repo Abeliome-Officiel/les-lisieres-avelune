@@ -28,6 +28,7 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 - Production suspendue pour une fonction ON non staffée.
 - Sélecteur de connexions limité aux cibles compatibles avec ressource déduite.
 - Connexions actives ou suspendues explicitement distinguées selon ON/OFF et personnel.
+- Défenses sélectionnables puis plaçables/déplaçables directement sur le chemin par clic, tap ou clavier, sans listes de positions.
 
 ## Briques réutilisables créées ou renforcées
 
