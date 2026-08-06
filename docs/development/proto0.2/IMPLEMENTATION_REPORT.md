@@ -1,6 +1,6 @@
 # PROTO-0.2 — Rapport d’implémentation
 
-**Statut : PARTIAL**
+**Statut : REVIEW_READY**
 
 ## Lot
 
@@ -8,7 +8,7 @@
 - Branche : `codex/proto02-bootstrap`
 - Commit : checkpoint courant (voir historique de la branche)
 - Base : `develop/proto-0.2-ux-rules` à `e259cac`
-- Statut : PARTIAL
+- Statut : REVIEW_READY
 
 ## Résumé jouable
 
@@ -29,12 +29,14 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 - Sélecteur de connexions limité aux cibles compatibles avec ressource déduite.
 - Connexions actives ou suspendues explicitement distinguées selon ON/OFF et personnel.
 - Défenses sélectionnables puis plaçables/déplaçables directement sur le chemin par clic, tap ou clavier, sans listes de positions.
+- Effets des recherches de transformation et fabrication décomposés en base, bonus additif et résultat.
 
 ## Briques réutilisables créées ou renforcées
 
 - `browser-persistence.ts` : sérialisation/version/validation minimale indépendante de `localStorage`.
 - `TurnReportPanel` : rapport joueur sans seconde jauge énergétique.
 - Helpers `getStructureAssignedWork` / `isStructureOperational` et transition `setPlayableStructureStaffed`.
+- `ModifierBreakdown` : présentation réutilisable des effets quantitatifs RPG.
 
 ## Règles modifiées
 
@@ -59,6 +61,7 @@ Les fonctions distinguent aussi désormais ON/OFF et affectation de population :
 - La recherche historique de récupération de réserve reste dans le moteur de compatibilité ; elle est filtrée du catalogue navigateur et son effet est neutre.
 - Le geste drag/pointer n’est pas encore ajouté ; les alternatives clic/tap fonctionnelles sont présentes.
 - Le découpage de la page monolithique et une représentation SVG des liens restent à renforcer.
+- Le smoke test visuel interactif reste à effectuer par le concepteur ; les parcours moteur, typecheck et build sont verts.
 - Le lancement Docker n’est pas requis pour ce checkpoint ; Node 24 est disponible directement.
 
 ## Décisions nécessaires

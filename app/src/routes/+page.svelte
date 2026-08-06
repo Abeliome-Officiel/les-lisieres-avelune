@@ -5,6 +5,7 @@
         import ResourceCostPreview from '$lib/components/proto0/ResourceCostPreview.svelte';
         import CapacityDelta from '$lib/components/proto0/CapacityDelta.svelte';
         import TurnReportPanel from '$lib/components/proto0/TurnReportPanel.svelte';
+        import ModifierBreakdown from '$lib/components/proto0/ModifierBreakdown.svelte';
 
         import {
                 PLAYABLE_CONSTRUCTION_CATALOG,
@@ -742,6 +743,18 @@
                                 ?.label ??
                         'Recherche'
                 );
+        }
+
+        function researchOutputBreakdown(id: string) {
+                if (id === 'transformation-efficiency-n1') {
+                        return { base: 2, delta: 1, unit: playerResourceLabel('R3') };
+                }
+
+                if (id === 'fabrication-efficiency-n1') {
+                        return { base: 1, delta: 1, unit: playerResourceLabel('R4') };
+                }
+
+                return null;
         }
 
         function towerLabel(
@@ -1779,6 +1792,7 @@
 
 
                                 {#if pendingDiscovery}
+					{@const discoveryBreakdown = researchOutputBreakdown(pendingDiscovery.definition.id)}
                                         <article class="discovery-card">
                                                 <p class="eyebrow">
                                                         DÉCOUVERTE
@@ -1795,6 +1809,10 @@
                                                 <p>
                                                         {researchPresentation(pendingDiscovery.definition.id)?.effectSummary}
                                                 </p>
+
+						{#if discoveryBreakdown}
+							<ModifierBreakdown {...discoveryBreakdown} source={pendingDiscovery.definition.label} />
+						{/if}
 
                                                 <button
                                                         type="button"
@@ -1905,6 +1923,7 @@
 
                                                 <div class="card-list">
                                                         {#each session.corcite.rpg.researches as research}
+												{@const completedBreakdown = research.status === 'completed' || research.status === 'validated' ? researchOutputBreakdown(research.definitionId) : null}
                                                                 <article class="compact-card">
                                                                         <strong>
                                                                                 {researchLabel(research.definitionId)}
@@ -1913,6 +1932,10 @@
                                                                         <span class="badge">
                                                                                 {playerResearchStatusLabel(research.status)}
                                                                         </span>
+
+													{#if completedBreakdown}
+														<ModifierBreakdown {...completedBreakdown} source={researchLabel(research.definitionId)} />
+													{/if}
                                                                 </article>
                                                         {/each}
                                                 </div>
