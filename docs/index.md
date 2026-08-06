@@ -1,8 +1,8 @@
 # Documentation — Les Lisières d’Avelune
 
-Cet index distingue désormais les **principes et documents de conception**, les **jalons historiques** et le **PROTO-0 jouable actuel**.
+Cet index distingue les **principes et documents de conception**, les **jalons historiques** et le **PROTO-0.1 jouable intégré à `main`**.
 
-Le `v0.8` reste un repère historique. La dernière baseline de conception figée est `v0.8.3`, tandis que la conception courante est **v0.8.3+** et évolue avec les playtests.
+Le `v0.8` reste un repère historique. La dernière baseline de conception figée avant le PROTO-0.1 est `v0.8.3`, tandis que la conception courante est **v0.8.3+** et continue d’évoluer avec les discussions et playtests.
 
 ## 1. Comprendre le jeu
 
@@ -26,11 +26,11 @@ Direction actuelle : **poétique · onirique · féerique · organique · minér
 
 Le canon visuel provisoire interdit d’inventer humains/humanoïdes, habitants, faune ou espèces naturelles non définies.
 
-## 3. PROTO-0 jouable
+## 3. PROTO-0.1 jouable
 
-Le prototype logiciel réel est développé sur :
+Le prototype logiciel réel est désormais **intégré à `main`**, qui constitue la source canonique du dépôt après la fusion de la PR #1.
 
-- [`develop/proto-0.1-playable`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.1-playable)
+La branche `develop/proto-0.1-playable` reste utile pour la traçabilité historique du développement du jalon, mais n’est plus la branche de référence courante.
 
 La documentation technique courante du prototype comprend :
 
@@ -53,10 +53,7 @@ La documentation technique courante du prototype comprend :
 - [ADR-0001 — cœur métier indépendant de l'UI](development/adr/ADR-0001-FUNCTIONAL-CORE.md)
 - [ADR-0002 — contenu data-driven](development/adr/ADR-0002-DATA-DRIVEN-CONTENT.md)
 
-Les documents P0–P10 et `proto-0-spec.1` restent des références
-historiques de validation des moteurs. Lorsqu'ils divergent du
-périmètre jouable courant, les documents ci-dessus font foi pour le
-PROTO-0.1.
+Les documents P0–P10 et `proto-0-spec.1` restent des références historiques de validation des moteurs. Lorsqu'ils divergent du périmètre jouable courant, les documents ci-dessus et l’état intégré à `main` font foi pour le PROTO-0.1.
 
 Documents historiques liés au passage vers le prototype :
 
@@ -64,7 +61,7 @@ Documents historiques liés au passage vers le prototype :
 - [Prototype logiciel minimal historique](16_proto_minimal.md)
 - [Socle mécanique v0.8](13_socle_mecanique_v0.8.md)
 
-Ces documents restent utiles pour la traçabilité mais ne doivent pas être considérés comme une photographie exacte du PROTO-0 jouable actuel lorsqu’ils entrent en contradiction avec la branche jouable.
+Ces documents restent utiles pour la traçabilité mais ne doivent pas être considérés comme une photographie exacte du PROTO-0.1 actuel lorsqu’ils entrent en contradiction avec `main` ou avec la documentation technique courante.
 
 ## 4. Méthode, décisions et outils
 
@@ -73,7 +70,9 @@ Ces documents restent utiles pour la traçabilité mais ne doivent pas être con
 - [Décisions ouvertes](11_decisions_a_valider.md)
 - [Préparation des progressions](12_preparation_arbres.md)
 
-La documentation d’architecture, de méthode de développement, de dette technique et de politique data-driven est maintenue sur la branche documentaire dédiée afin de ne pas interférer avec les modifications du prototype en cours.
+La documentation d’architecture, de méthode de développement, de dette technique et de politique data-driven est désormais **intégrée à `main`**. Les branches documentaires dédiées restent historiques et ne constituent plus une source parallèle à maintenir.
+
+Après clôture du jalon PROTO-0.1, le projet est reparti dans une phase de discussion et d’analyse avant décision du prochain lot de développement.
 
 ## 5. Principes à garder visibles
 
