@@ -1,15 +1,43 @@
-# Les Lisières d’Avelune — PROTO-0
+# Les Lisières d'Avelune - application PROTO-0
 
-Application SvelteKit du prototype expérimental PROTO-0.
+Application SvelteKit du prototype jouable.
 
-Ce répertoire ne reprend aucun moteur ni aucune mécanique de l’ancien
-pseudo-prototype navigateur. PROTO-0 est reconstruit à partir de la
-spécification présente dans `docs/proto0/`.
+## État actuel
 
-## Objectif
+La branche `develop/proto-0.1-playable` expose la boucle miniature réelle :
 
-Valider la boucle minimale :
+`construction/extraction -> TF -> recherche/progression -> préparation TD -> vague -> conséquences -> adaptation`
 
-TF → RPG minimal → préparation TD → vague → conséquences.
+Le prototype comprend plusieurs vagues dans une même session et un carnet de playtest.
 
-Le prototype est privé et ne doit pas être indexé publiquement.
+Les anciens moteurs/tests P0-P10 restent conservés comme régression historique. Le scénario fixe de dix tours/une vague n'est plus la définition du prototype jouable.
+
+## Organisation
+
+Le code métier réside principalement dans `src/lib/proto0/` :
+
+- `domain/`
+- `config/`
+- `corcite/`
+- `turn/`
+- `tf/`
+- `rpg/`
+- `td/`
+- `wave/`
+- `simulation/`
+
+`playable-browser-controller.ts` orchestre les cas d'usage du navigateur sans remplacer les moteurs métier.
+
+`src/routes/+page.svelte` est encore une interface de prototype monolithique et doit être découpée après validation du playtest si cette boucle est conservée.
+
+## Validation
+
+```bash
+npm run test:proto0
+npm run check
+npm run build
+```
+
+## Architecture
+
+Voir `../docs/development/` pour l'audit, la politique de données, la cible d'architecture et la stratégie de consolidation.

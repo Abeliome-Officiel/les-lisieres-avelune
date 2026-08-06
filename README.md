@@ -1,104 +1,78 @@
 # Les Lisières d'Avelune
 
-Dépôt officiel de conception et de développement des **Lisières d'Avelune**.
+Dépôt de conception et de développement du jeu navigateur **Les Lisières d'Avelune**.
 
 ## État courant
 
-La dernière baseline de conception publiée est **v0.8.3**.
+La branche de travail active du prototype jouable est :
 
-Le premier prototype expérimental réellement aligné sur cette baseline est
-développé sur :
+`develop/proto-0.1-playable`
 
-`develop/proto-0`
+État au 6 août 2026 :
 
-Le jalon courant de spécification est :
+- boucle miniature jouable TF -> progression/recherche -> préparation TD -> vague -> conséquences -> adaptation ;
+- départ du Corcite sans chaîne productive préinstallée ;
+- population/travail, énergie, entretien, stockage et construction réellement contraignants ;
+- fabrication et inventaire physique des défenses ;
+- cycle de **trois vagues** ;
+- première vague au tour 6 ;
+- entre vagues : minimum 5 tours de développement + délai déterministe de 0 à 2 tours ;
+- conséquences persistantes, récupération et économie de captation ;
+- carnet de playtest ;
+- 338 tests au dernier passage complet ;
+- 384 parties de simulation du prototype jouable ;
+- application déployée pour playtest humain.
 
-`proto-0-spec.1`
+Le verdict expérientiel du Lot 14 reste ouvert : les tests techniques ne remplacent pas la question « est-ce intéressant à jouer ? ».
 
-Le prototype historique `v0.9-dev.3`, fondé sur l'ancienne contrainte
-« 1 TD + 1 TF + 1 RPG », est conservé comme historique et n'est pas la base de
-PROTO-0.
+## Phase de développement
 
-## PROTO-0
+Avelune est actuellement à la transition :
 
-PROTO-0 vise uniquement à valider la boucle :
+**prototype intégré jouable -> validation qualitative par playtest humain**.
 
-**TF → RPG minimal → préparation TD → vague → conséquences**
+Il ne faut pas encore considérer le projet comme entré en production massive de contenu.
 
-Références :
+Voir :
 
-- [Spécification PROTO-0](docs/proto0/PROTO0_SPECIFICATION.md)
-- [Référence de données PROTO-0](docs/proto0/PROTO0_DATA_REFERENCE.json)
-- [Backlog PROTO-0](docs/proto0/PROTO0_IMPLEMENTATION_BACKLOG.md)
-- [Rapport de simulations](docs/proto0/PROTO0_SIMULATION_REPORT.md)
+- [`docs/proto0/PROTO0_PLAYABLE_SCOPE.md`](docs/proto0/PROTO0_PLAYABLE_SCOPE.md)
+- [`docs/proto0/PROTO0_PLAYTEST_READY.md`](docs/proto0/PROTO0_PLAYTEST_READY.md)
+- [`docs/development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md`](docs/development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)
+- [`docs/development/GAME_DEVELOPMENT_METHOD.md`](docs/development/GAME_DEVELOPMENT_METHOD.md)
 
-Principes principaux :
+## Architecture du prototype
 
-- 10 tours ;
-- 1 vague ;
-- 1 Corcite piloté + 4 Corcites simulés ;
-- aucune limite artificielle « un ordre par axe » ;
-- moteur déterministe à graine fixe ;
-- TD interne à 8 positions ordonnées ;
-- anneaux visuels sans effet mécanique dans PROTO-0 ;
-- moteur headless avant interface.
+Le coeur suit une séparation :
 
-## Baseline de conception
+`domain/rules -> orchestration -> UI`
 
-Documents de consolidation :
+Les moteurs TF, RPG, TD et vague sont utilisés hors interface par les tests et simulations. L'interface Svelte actuelle est volontairement une interface de prototype et constitue la principale dette de découpage.
 
-- [Index de consolidation](docs/conception/00_index.md)
-- [v0.8.1 — TD / TF / RPG](docs/conception/01_v0.8.1_consolidation_td_tf_rpg.md)
-- [v0.8.2 — progression et monde](docs/conception/02_v0.8.2_progression_monde.md)
-- [v0.8.3 — baseline pré-prototype](docs/conception/03_v0.8.3_baseline_preprototype.md)
+Voir :
 
-## Book historique
+- [`docs/development/ARCHITECTURE_CURRENT_AND_TARGET.md`](docs/development/ARCHITECTURE_CURRENT_AND_TARGET.md)
+- [`docs/development/DATA_CONFIGURATION_POLICY.md`](docs/development/DATA_CONFIGURATION_POLICY.md)
+- [`docs/development/TEST_SECURITY_PERSISTENCE_STRATEGY.md`](docs/development/TEST_SECURITY_PERSISTENCE_STRATEGY.md)
 
-- [Book Markdown](docs/book/BOOK_Les_Lisieres_Avelune.md)
-- [Book PDF](docs/book/BOOK_Les_Lisieres_Avelune.pdf)
-- [Book DOCX](docs/book/BOOK_Les_Lisieres_Avelune.docx)
+## Documentation historique
 
-## Données de conception
+Les jalons P0-P10 et `proto-0-spec.1` sont conservés comme **historique de validation des moteurs**. Ils décrivent notamment l'ancien scénario fixe de dix tours et une vague ; ils ne constituent plus la définition normative du prototype jouable actuel.
 
-- `csv/` : données tabulaires historiques ;
-- `data/design_data.json` : données structurées de conception ;
-- `design-data/` : classeurs ;
-- `docs/` : documentation ;
-- `logs/` : historiques et décisions ;
-- `app/` : application SvelteKit ;
-- `infra/` : infrastructure Docker.
+La branche historique `develop/proto-0` reste conservée pour traçabilité.
 
-## Historique des versions
+## Développement local
 
-Principaux jalons :
+Application : `app/`  
+Infrastructure : `infra/compose.yaml`
 
-- `v0.4`
-- `v0.5`
-- `v0.6`
-- `v0.7`
-- `v0.8`
-- `v0.8.1`
-- `v0.8.2`
-- `v0.8.3`
-- `v0.9-dev.1`
-- `v0.9-dev.3` — historique/legacy
-- `proto-0-spec.1`
+Commandes de validation de référence :
 
-## Pilotage
+```bash
+npm run test:proto0
+npm run check
+npm run build
+```
 
-- [Roadmap](ROADMAP.md)
-- [Changelog](CHANGELOG.md)
-- [Index documentaire](docs/index.md)
-- [Journal complet des décisions](logs/JOURNAL_DECISIONS_COMPLET.md)
-- [Journal de delta v0.8.x](logs/JOURNAL_DELTA_v0.8x.md)
-- [Manifeste](MANIFEST.md)
+## Index
 
-Aucune licence n'est actuellement attribuée au projet.
-Tous droits réservés par défaut.
-
-<!-- PROTO0_PLAYABLE_FINAL_20260806 -->
-## PROTO-0 jouable — août 2026
-
-La branche `develop/proto-0.1-playable` contient désormais la boucle miniature jouable : développement du Corcite, TF, recherche, préparation TD, cycle multi-vagues, conséquences, récupération, captation et carnet de test.
-
-La version est destinée au playtest humain. Les paramètres numériques restent provisoires.
+L'index documentaire principal est [`docs/index.md`](docs/index.md).

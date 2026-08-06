@@ -1,115 +1,72 @@
-# Roadmap — PROTO-0
+# Roadmap - Les Lisières d'Avelune
 
-Baseline de conception : **v0.8.3**
+## État courant - PROTO-0 jouable
 
-Spécification expérimentale : **proto-0-spec.1**
+Branche active : `develop/proto-0.1-playable`
 
-Branche : **develop/proto-0**
+### Construction du prototype miniature
 
-## Objectif
+- [x] Lot 1 - départ minimal du Corcite
+- [x] Lot 2 - construction et ressources
+- [x] Lot 3 - extraction et stockage
+- [x] Lot 4 - transformation et fabrication
+- [x] Lot 5 - énergie, entretien, population/travail
+- [x] Lot 6 - recherches et découvertes
+- [x] Lot 7 - fabrication et organisation TD
+- [x] Lot 8 - cycle multi-vagues
+- [x] Lot 9 - conséquences et récupération
+- [x] Lot 10 - économie de captation
+- [x] Lot 11 - interface navigateur mobile/bureau
+- [x] Lot 12 - carnet de test
+- [x] Lot 13 - simulations d'équilibrage de référence
+- [x] Lot 14 technique - parcours intégral automatisé
+- [ ] Lot 14 expérientiel - playtest humain et verdict sur la boucle
 
-Valider :
+Référence temporelle actuelle : première vague au tour 6 ; puis minimum 5 tours de développement, avec 0 à 2 tours de délai déterministe supplémentaire. Ces valeurs restent des paramètres de playtest.
 
-**TF → RPG minimal → préparation TD → vague → conséquences**
+## Gate actuelle
 
-Le challenge final, l'équilibrage définitif et les systèmes sociaux ne font pas
-partie de PROTO-0.
+Question à valider :
 
-## Phases
+> Est-ce que les décisions produisent des situations que le joueur veut comprendre, améliorer et expérimenter ?
 
-### P0 — Fondation headless
-- configuration ;
-- graine ;
-- sessions indépendantes ;
-- snapshots ;
-- tests de reproductibilité.
+### Si le playtest invalide la boucle
 
-### P1 — État du Corcite
-- stocks ;
-- unités ;
-- capacités ;
-- réservations ;
-- sauvegarde.
+1. corriger les mécaniques et la lisibilité ;
+2. refaire une version miniature ;
+3. rejouer avant d'investir dans l'architecture de production.
 
-### P2 — Résolution de tour
-- pas de quota arbitraire par axe ;
-- fin de tour explicite ;
-- conflits ;
-- arbitrages ;
-- ordre de résolution déterministe.
+### Si le playtest valide la boucle
 
-### P3 — TF minimal
-- extraction ;
-- transformation ;
-- fabrication ;
-- stockage individuel ;
-- buffers N → N+1 ;
-- bifurcations.
+Phase de consolidation courte, avant ajout massif de contenu :
 
-### P4 — RPG minimal
-- modificateurs ;
-- recherche ;
-- déblocages ;
-- impact mécanique réel sur TF ou TD.
+- [ ] découper l'interface Svelte monolithique ;
+- [ ] définir un registre de contenu/ruleset injecté dans les moteurs ;
+- [ ] externaliser balance et contenu hors TypeScript compilé ;
+- [ ] définir une source canonique de données ;
+- [ ] versionner les états persistants et migrations ;
+- [ ] formaliser la frontière serveur autoritaire ;
+- [ ] ajouter CI GitHub test/check/build ;
+- [ ] ajouter E2E navigateur de base ;
+- [ ] formaliser télémétrie métier et persistance PostgreSQL.
 
-### P5 — TD interne
-- 8 positions ;
-- ordre mécanique ;
-- Atténuation ;
-- Déstructuration ;
-- Captation ;
-- Stabilisation.
+Ensuite seulement :
 
-### P6 — Vague
-- pression ;
-- structure ;
-- charge ;
-- matière capturable ;
-- variation seedée ;
-- prévision progressive.
+- [ ] vertical slice représentative ;
+- [ ] production de contenu ;
+- [ ] équilibrage à plus grande échelle ;
+- [ ] UX/accessibilité de production ;
+- [ ] monde persistant partagé et montée en charge.
 
-### P7 — Conséquences
-- résultat ;
-- état persistant ;
-- consommations ;
-- matière captée ;
-- connaissance.
+## Historique P0-P10
 
-### P8 — Observabilité
-- logs ;
-- télémétrie ;
-- sauvegarde ;
-- rapport joueur distinct.
+Les jalons P0-P10 ont validé les briques de moteur : fondations, état Corcite, réservations, TF, RPG, TD, vague, conséquences, reporting, simulations et premier contrôleur navigateur.
 
-### P9 — Simulations
-- nominal ;
-- aléatoire borné ;
-- stress ;
-- comparaison d'ordonnancements ;
-- régression.
+Le scénario `proto-0-spec.1` (10 tours, 1 vague) est désormais **historique**. Il reste conservé pour régression et traçabilité, mais n'est plus le périmètre courant.
 
-### P10 — Interface
-Seulement après validation suffisante du moteur headless.
+## Références
 
-## Critère de sortie
-
-PROTO-0 doit démontrer de manière reproductible :
-
-- que le TF conditionne réellement le TD ;
-- que le RPG change au moins un choix utile ;
-- que l'ordre des tours TD change le résultat ;
-- que la vague est explicable ;
-- qu'une défense imparfaite produit des conséquences ;
-- que le joueur dispose d'un rapport lisible ;
-- que les calculs peuvent être reconstruits techniquement.
-
-<!-- PROTO0_PLAYABLE_FINAL_20260806 -->
-## PROTO-0 jouable — état actuel
-
-- [x] Lots 1 à 11 — boucle miniature et interface.
-- [x] Lot 12 — carnet de test contextualisé.
-- [x] Lot 13 — simulations multi-graines et rapport.
-- [x] Lot 14 technique — parcours intégral automatisé.
-- [ ] Lot 14 expérientiel — playtest humain et conclusions.
-
-Référence temporelle actuelle : première vague au tour 6 ; ensuite minimum cinq tours plus zéro à deux tours de retard déterministe.
+- [`docs/proto0/PROTO0_PLAYABLE_SCOPE.md`](docs/proto0/PROTO0_PLAYABLE_SCOPE.md)
+- [`docs/proto0/PROTO0_PLAYTEST_READY.md`](docs/proto0/PROTO0_PLAYTEST_READY.md)
+- [`docs/development/GAME_DEVELOPMENT_METHOD.md`](docs/development/GAME_DEVELOPMENT_METHOD.md)
+- [`docs/development/TECHNICAL_DEBT_AND_NEXT_STEPS.md`](docs/development/TECHNICAL_DEBT_AND_NEXT_STEPS.md)
