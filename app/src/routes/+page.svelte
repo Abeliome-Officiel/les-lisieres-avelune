@@ -30,6 +30,7 @@
 	$: availableResources = Object.fromEntries(resourceIds.map((id) => [id, state.resources[id] - state.reserved[id]])) as Record<ResourceId, number>;
 	$: towerInventory = state.inventory.find((entry) => entry.id === 'weakening-tower')?.quantity ?? 0;
 	$: totalWeakening = state.defenses.filter((slot) => slot.tower).length * LAB.towerWeakening;
+	$: storagePending = state.deploymentKit.includes('storage');
 	$: if (saveRestored) localStorage.setItem(SAVE_KEY, serializeGame(state));
 
 	function commit(error: string | null, success = '') {
@@ -123,7 +124,7 @@
 
 			{#if view === 'corcite'}
 				<header class="stage-title"><div><p class="eyebrow">PLATEAU ÉCONOMIQUE</p><h2>Membranes du Corcite</h2></div><p>Une fonction par case. Seuls les extracteurs dépendent du sol.</p></header>
-				{#if state.deployment}<div class="callout"><b>Déploiement initial</b><span>Choisissez la membrane de stockage dans le kit, puis une case libre.</span></div>{/if}
+				{#if state.deployment}<div class="callout"><b>Déploiement initial</b><span>{storagePending ? 'Implantez d’abord la Membrane de stockage.' : 'Le stockage est actif : implantez librement les six fonctions restantes.'}</span></div>{/if}
 				<div class="board" aria-label="Plateau hexagonal">
 					{#each state.board as cell}
 						<button class:occupied={cell.building} class:selected={selectedCellId === cell.id} class:organic={cell.ground === 'organic'} class:mineral={cell.ground === 'mineral'} class:preview={placing && !cell.building} style={`--q:${cell.q};--r:${cell.r}`} onclick={() => chooseCell(cell)} aria-label={`${groundLabel(cell.ground)}${cell.building ? `, ${BUILDINGS[cell.building.definitionId].label}` : ', libre'}`}>
@@ -135,6 +136,7 @@
 				<div class="legend"><span><i class="dot organic-dot"></i>Organique</span><span><i class="dot mineral-dot"></i>Minéral</span><span><i class="dot neutral-dot"></i>Neutre</span></div>
 			{:else if view === 'research'}
 				<header class="stage-title"><div><p class="eyebrow">ÉVOLUTION TRANSVERSALE</p><h2>Résonances du Corcite</h2></div><p>{state.research.repeatableLevels}/{LAB.repeatableLimit} niveaux répétés acquis</p></header>
+				{#if state.deployment}<div class="callout"><b>Déploiement en cours</b><span>Les recherches seront disponibles lorsque les sept fonctions initiales seront implantées.</span></div>{/if}
 				{#if state.research.active}<div class="callout"><b>{RESEARCH[state.research.active.id].label}</b><span>{state.research.active.turnsLeft} cycle(s) restant(s)</span></div>{/if}
 				<div class="research-grid">
 					{#each Object.entries(RESEARCH) as [rawId, node]}
@@ -143,16 +145,17 @@
 							<div><span class="research-gem">◇</span><small>{node.repeatable ? `Niveau ${level}` : level ? 'Acquise' : 'Découverte'}</small></div>
 							<h3>{node.label}</h3><p>{node.description}</p>
 							<div class="costs">{#each resourceIds as resource}{#if node.cost[resource]}<span>{node.cost[resource]} {RESOURCE_LABELS[resource]}</span>{/if}{/each}<span>{node.turns} cycle(s)</span></div>
-							<button disabled={Boolean(locked || state.research.active || (!node.repeatable && level) || (node.repeatable && state.research.repeatableLevels >= LAB.repeatableLimit))} onclick={() => commit(startResearch(state, id), 'Recherche lancée.')}>{locked ? 'Prérequis manquant' : 'Rechercher'}</button>
+							<button disabled={Boolean(state.deployment || locked || state.research.active || (!node.repeatable && level) || (node.repeatable && state.research.repeatableLevels >= LAB.repeatableLimit))} onclick={() => commit(startResearch(state, id), 'Recherche lancée.')}>{state.deployment ? 'Après le déploiement' : locked ? 'Prérequis manquant' : 'Rechercher'}</button>
 						</article>
 					{/each}
 				</div>
 			{:else}
 				<header class="stage-title"><div><p class="eyebrow">LISIÈRE TACTIQUE</p><h2>Chemin d’Affaiblissement</h2></div><p>{totalWeakening} Puissance réduite · {towerInventory} tour(s) disponible(s)</p></header>
+				{#if state.deployment}<div class="callout"><b>Déploiement en cours</b><span>La préparation défensive sera disponible lorsque le kit initial sera entièrement implanté.</span></div>{/if}
 				<div class="defense-summary"><span>Fracture</span><i></i><strong>Puissance →</strong><i></i><span>Corcite</span></div>
 				<div class="defense-path">
 					{#each state.defenses as slot}
-						<button class:tower={slot.tower} onclick={() => commit(slot.tower ? removeTower(state, slot.position) : placeTower(state, slot.position), slot.tower ? 'Tour retirée.' : 'Tour placée.')}>
+						<button class:tower={slot.tower} disabled={state.deployment} onclick={() => commit(slot.tower ? removeTower(state, slot.position) : placeTower(state, slot.position), slot.tower ? 'Tour retirée.' : 'Tour placée.')}>
 							<small>POSITION {slot.position}</small><b>{slot.tower ? '◇' : '+'}</b><span>{slot.tower ? `−${LAB.towerWeakening} Puissance` : 'Placer une tour'}</span>
 						</button>
 					{/each}
@@ -175,15 +178,15 @@
 					<p>{def.description}</p>
 					<div class="facts"><span>Énergie <b>{Math.max(0, def.energy)}</b></span><span>Population <b>{def.population}</b></span><span>Entretien <b>{Math.max(0, def.maintenance)}</b></span></div>
 					{#if selectedBuilding.definitionId.includes('extractor')}<div class="formula"><span>Production</span><b>{placementPreview(state, selectedCell.id, selectedBuilding.definitionId)}</b></div>{/if}
-					<label class="switch"><input type="checkbox" checked={selectedBuilding.active} onchange={(event) => commit(toggleBuilding(state, selectedCell.id, event.currentTarget.checked), 'État modifié.')} /><span></span>Fonction {selectedBuilding.active ? 'active' : 'en veille'}</label>
-					{#if def.population}<label class="switch"><input type="checkbox" checked={selectedBuilding.staffed} onchange={(event) => commit(toggleStaff(state, selectedCell.id, event.currentTarget.checked), 'Population réaffectée.')} /><span></span>{selectedBuilding.staffed ? 'Population affectée' : 'Sans population'}</label>{/if}
+					<label class="switch"><input type="checkbox" disabled={state.deployment} checked={selectedBuilding.active} onchange={(event) => commit(toggleBuilding(state, selectedCell.id, event.currentTarget.checked), 'État modifié.')} /><span></span>Fonction {selectedBuilding.active ? 'active' : 'en veille'}</label>
+					{#if def.population}<label class="switch"><input type="checkbox" disabled={state.deployment} checked={selectedBuilding.staffed} onchange={(event) => commit(toggleStaff(state, selectedCell.id, event.currentTarget.checked), 'Population réaffectée.')} /><span></span>{selectedBuilding.staffed ? 'Population affectée' : 'Sans population'}</label>{/if}
 					{#if selectedBuilding.definitionId === 'workshop' || selectedBuilding.definitionId === 'defense-factory'}
 						<h3>Fabrication</h3>
 						{#if selectedBuilding.blockedOutput}<div class="blocked"><b>Sortie bloquée</b><span>{selectedBuilding.blockedOutput.quantity} {selectedBuilding.blockedOutput.id}</span><button onclick={() => commit(collectBlockedOutput(state, selectedCell.id), 'Sortie récupérée.')}>Récupérer</button></div>
 						{:else if selectedBuilding.order}<div class="order"><b>{RECIPES[selectedBuilding.order.recipeId].label}</b><span>{selectedBuilding.order.started ? `${selectedBuilding.order.turnsLeft} cycle(s)` : 'Matières réservées'}</span>{#if !selectedBuilding.order.started}<button onclick={() => commit(cancelProduction(state, selectedCell.id), 'Ordre annulé, matières libérées.')}>Annuler</button>{/if}</div>
-						{:else}<div class="recipe-list">{#each Object.entries(RECIPES).filter(([, recipe]) => recipe.producer === selectedBuilding.definitionId) as [recipeId, recipe]}<button onclick={() => commit(queueProduction(state, selectedCell.id, recipeId), 'Fabrication réservée.')}><b>{recipe.label}</b><small>{resourceIds.filter((id) => recipe.cost[id]).map((id) => `${recipe.cost[id]} ${RESOURCE_LABELS[id]}`).join(' · ')} · {recipe.turns} cycles</small></button>{/each}</div>{/if}
+						{:else}<div class="recipe-list">{#each Object.entries(RECIPES).filter(([, recipe]) => recipe.producer === selectedBuilding.definitionId) as [recipeId, recipe]}<button disabled={state.deployment} onclick={() => commit(queueProduction(state, selectedCell.id, recipeId), 'Fabrication réservée.')}><b>{recipe.label}</b><small>{state.deployment ? 'Disponible après le déploiement initial' : `${resourceIds.filter((id) => recipe.cost[id]).map((id) => `${recipe.cost[id]} ${RESOURCE_LABELS[id]}`).join(' · ')} · ${recipe.turns} cycles`}</small></button>{/each}</div>{/if}
 					{/if}
-					<button class="danger" onclick={() => commit(dismantle(state, selectedCell.id), 'Bâtiment démonté et rangé.')}>Démonter</button>
+					<button class="danger" disabled={state.deployment} onclick={() => commit(dismantle(state, selectedCell.id), 'Bâtiment démonté et rangé.')}>Démonter</button>
 				{:else}
 					<p>Case libre. {selectedCell.ground ? 'Un extracteur compatible y produira normalement.' : 'Un extracteur peut y être posé, mais produira 0.'}</p>
 					{#if placing}<div class="preview"><b>Prévisualisation</b><span>{placementPreview(state, selectedCell.id, placing)}</span><button class="primary" onclick={confirmPlacement}>Confirmer la pose</button></div>{/if}
@@ -196,17 +199,24 @@
 	</div>
 
 	<section class="inventory panel">
-		<header><div><p class="eyebrow">INVENTAIRE GLOBAL</p><h2>Objets du Corcite</h2></div><span>{caps.load} / {caps.storage} unités</span></header>
+		<header><div><p class="eyebrow">{state.deployment ? 'DÉPLOIEMENT INITIAL' : 'INVENTAIRE GLOBAL'}</p><h2>{state.deployment ? 'Kit du Corcite' : 'Objets du Corcite'}</h2></div><span>{state.deployment ? `${state.deploymentKit.length} fonction(s) à implanter · hors stockage` : `${caps.load} / ${caps.storage} unités`}</span></header>
 		<div class="inventory-scroll">
-			{#each state.inventory.filter((entry) => entry.quantity > 0) as entry}
+			{#if state.deployment}
+				{#each state.deploymentKit as id}
+					<article class:selected={placing === id} class:locked={storagePending && id !== 'storage'}>
+						<span class="item-glyph">◇</span><div><b>{itemLabel(id)}</b><small>{storagePending && id !== 'storage' ? 'Posez d’abord la Membrane de stockage' : 'Élément du kit · hors stockage'}</small></div><strong>×1</strong>
+						<button disabled={storagePending && id !== 'storage'} onclick={() => { placing = id as BuildingId; view = 'corcite'; notice = id === 'storage' ? 'Choisissez la première membrane, puis confirmez sa pose.' : 'Choisissez une case libre puis confirmez.'; }}>Implanter</button>
+					</article>
+				{/each}
+			{:else}{#each state.inventory.filter((entry) => entry.quantity > 0) as entry}
 				<article class:selected={placing === entry.id}>
 					<span class="item-glyph">{entry.id === 'weakening-tower' ? '△' : '◇'}</span><div><b>{itemLabel(entry.id)}</b><small>{entry.dismantled ? `${entry.dismantled} démonté(s) · remontage au prochain cycle` : entry.id === 'weakening-tower' ? 'Défense physique' : 'Bâtiment non posé'}</small></div><strong>×{entry.quantity}</strong>
 					{#if entry.id === 'weakening-tower'}<button onclick={() => view = 'defense'}>Ouvrir Défenses</button>{:else}<button onclick={() => { placing = entry.id as BuildingId; view = 'corcite'; notice = 'Choisissez une case libre puis confirmez.'; }}>Implanter</button>{/if}
 					{#if state.board.some((cell) => cell.building?.definitionId === 'recycler')}<button class="quiet" onclick={() => commit(recycleItem(state, entry.id), 'Objet recyclé.')}>Recycler</button>{/if}
 				</article>
-			{:else}<p class="muted">Aucun objet en attente d’implantation.</p>{/each}
+			{:else}<p class="muted">Aucun objet dans l’inventaire global.</p>{/each}{/if}
 		</div>
-		<div class="turn-actions"><div class:alert={notice}><span>{notice || 'Organisez vos fonctions, puis laissez le Corcite traverser un cycle.'}</span><small>La prochaine onde reste impromptue.</small></div><button class="primary pulse" disabled={state.status !== 'playing'} onclick={nextTurn}>Terminer le cycle {state.turn}</button><button class="quiet" onclick={newRun}>Nouvelle partie</button></div>
+		<div class="turn-actions"><div class:alert={notice || state.deployment}><span>{notice || (state.deployment ? 'Implantez tout le kit initial pour commencer le premier cycle.' : 'Organisez vos fonctions, puis laissez le Corcite traverser un cycle.')}</span><small>{state.deployment ? 'Le kit et ses ressources d’amorçage ne consomment aucun stockage.' : 'La prochaine onde reste impromptue.'}</small></div><button class="primary pulse" disabled={state.status !== 'playing' || state.deployment} title={state.deployment ? 'Terminez le déploiement initial.' : ''} onclick={nextTurn}>Terminer le cycle {state.turn}</button><button class="quiet" onclick={newRun}>Nouvelle partie</button></div>
 	</section>
 </main>
 
@@ -219,6 +229,7 @@
 	.context h2{font:1.35rem Georgia,serif;margin:.3rem 0}.context>p{font-size:.8rem;line-height:1.5;color:#bfaec9}.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:.3rem;margin:.8rem 0}.facts span{padding:.45rem .2rem;background:#ffffff08;text-align:center;font-size:.62rem;border-radius:6px}.facts b{display:block;color:#fff;font-size:.9rem}.formula,.preview,.blocked,.order{display:grid;gap:.4rem;padding:.7rem;margin:.7rem 0;border:1px solid #a675bc55;border-radius:8px;background:#ffffff08;font-size:.74rem}.switch{display:flex;align-items:center;gap:.5rem;font-size:.75rem;margin:.55rem 0;cursor:pointer}.switch input{position:absolute;opacity:0}.switch span{width:34px;height:18px;border-radius:12px;background:#493253;position:relative}.switch span:after{content:"";position:absolute;width:12px;height:12px;border-radius:50%;background:#bca8c7;left:3px;top:3px;transition:.2s}.switch input:checked+span{background:#995ab5}.switch input:checked+span:after{left:19px;background:white}.recipe-list{display:grid;gap:.35rem;max-height:195px;overflow:auto}.recipe-list button{display:grid;text-align:left;gap:.15rem}.recipe-list small{color:#bca7c5}.context button,.research-grid button,.inventory button{border:1px solid #9d68b5;background:#4b2b59;color:#f5eaff;padding:.45rem .6rem;border-radius:7px;cursor:pointer}.context button:hover,.research-grid button:hover,.inventory button:hover{background:#673677}.context button:disabled,.research-grid button:disabled{opacity:.35;cursor:not-allowed}.danger{width:100%;margin-top:.8rem;border-color:#9c526c!important;background:#492435!important}.journal{border-top:1px solid #ffffff13;margin-top:1rem}.journal p{font-size:.67rem!important;margin:.45rem 0!important;color:#a998b3!important}.journal b{color:#daa4eb;margin-right:.25rem}
 	.research-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;margin-top:1rem}.research-grid article{border:1px solid #86589e66;border-radius:12px;padding:1rem;background:linear-gradient(145deg,#42234f99,#21142ccc);position:relative}.research-grid article.locked{filter:saturate(.3);opacity:.62}.research-grid article.complete{border-color:#ddaaf0}.research-grid article>div:first-child{display:flex;justify-content:space-between}.research-gem{font-size:1.5rem;color:#e4aefa}.research-grid h3{font:1.05rem Georgia,serif;margin:.5rem 0}.research-grid p{font-size:.75rem;color:#bfaec8;min-height:34px}.costs{display:flex;gap:.3rem;flex-wrap:wrap;margin:.6rem 0}.costs span{font-size:.6rem;background:#ffffff0b;padding:.25rem .35rem;border-radius:4px}.research-grid button{width:100%}.defense-summary{height:80px;display:flex;align-items:center;justify-content:center;gap:.8rem;color:#d3a6e4}.defense-summary i{height:1px;background:linear-gradient(90deg,#ce7de7,transparent);width:80px}.defense-path{display:grid;grid-template-columns:repeat(4,1fr);gap:.7rem}.defense-path button{min-height:126px;border:1px dashed #86559e;background:#25152f;color:#bba5c6;border-radius:50% 50% 45% 55% / 45% 55%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;cursor:pointer}.defense-path button.tower{border-style:solid;background:radial-gradient(circle,#a35ab877,#281633 65%);box-shadow:inset 0 0 20px #c974e64d}.defense-path b{font-size:2rem;color:#e9b9fb}.defense-path small{font-size:.57rem}.defense-path span{font-size:.68rem}.wave-report{margin-top:1.2rem;padding:1rem;border:1px solid #bc79d277;border-radius:12px;background:#120c1cd9}.wave-report h3{font:1.2rem Georgia,serif;margin:.4rem 0}.wave-steps{display:flex;flex-wrap:wrap;gap:.4rem}.wave-steps span{font-size:.68rem;background:#ffffff0a;padding:.4rem}.end-screen{position:absolute;inset:0;z-index:10;display:grid;place-content:center;text-align:center;padding:2rem;background:#1b0d27f2;backdrop-filter:blur(8px)}.end-screen h2{font:2.4rem Georgia,serif;margin:.4rem;color:#f0c9ff}.primary{border:1px solid #e3aaf6!important;background:linear-gradient(135deg,#9754b5,#63316f)!important;color:white!important;font-weight:700}.end-screen .primary{justify-self:center;padding:.8rem 1.2rem;margin-top:1rem}
 	.inventory{margin:0 .75rem;max-width:1776px;margin-inline:auto;padding:.8rem 1rem}.inventory header{display:flex;justify-content:space-between;align-items:center}.inventory h2{font:1.15rem Georgia,serif;margin:0}.inventory header>span{font-size:.7rem;color:#c4adcf}.inventory-scroll{display:flex;gap:.55rem;overflow:auto;padding:.65rem 0}.inventory article{display:grid;grid-template-columns:auto 1fr auto;gap:.45rem;align-items:center;min-width:240px;padding:.6rem;border:1px solid #80529466;border-radius:9px;background:#ffffff07}.inventory article.selected{border-color:#e7b0f8;box-shadow:0 0 12px #b85ddd55}.item-glyph{font-size:1.5rem;color:#deaaf1}.inventory article div{display:grid}.inventory article b{font-size:.72rem}.inventory article small{font-size:.58rem;color:#a894b3}.inventory article strong{font-size:.85rem}.inventory article button{font-size:.66rem;padding:.3rem}.quiet{background:transparent!important;border-color:#6d4d7b!important}.turn-actions{display:grid;grid-template-columns:1fr auto auto;gap:.6rem;align-items:center;border-top:1px solid #ffffff11;padding-top:.7rem}.turn-actions>div{display:grid;font-size:.78rem}.turn-actions small{color:#9c89a7}.turn-actions .alert span{color:#f0c4dd}.turn-actions button{padding:.65rem .9rem}.pulse{box-shadow:0 0 20px #b95cd344}.ended .pulse{opacity:.4}
+	.inventory button:disabled,.defense-path button:disabled{opacity:.35;cursor:not-allowed}.inventory article.locked{opacity:.55}
 	@keyframes breathe{50%{filter:drop-shadow(0 0 9px #d895ef) brightness(1.25)}}
 	@media(max-width:1150px){.hud{flex-wrap:wrap}.brand{min-width:180px}.capacities{flex:1}.resources{order:3;flex-basis:100%}.shell{grid-template-columns:190px minmax(450px,1fr)}.context{grid-column:1/-1}.board{transform:scale(.88);margin:-15px auto}.inventory{margin-inline:.75rem}}
 	@media(max-width:760px){main{overflow:visible}.hud{position:relative;padding:.6rem}.brand{width:100%}.capacities{grid-template-columns:repeat(2,1fr)}.resources{grid-template-columns:repeat(2,1fr)}.resource{min-width:0}.shell{display:flex;flex-direction:column;padding:.5rem}.corcite-card{order:1}.stage{order:2;min-height:540px;padding:.7rem}.context{order:3}.corcite-orb{display:none}.corcite-card nav{grid-template-columns:repeat(3,1fr)}.corcite-card nav button{text-align:center;padding:.6rem .2rem}.effects{display:none}.stage-title{align-items:start}.stage-title>p{display:none}.board{height:420px;width:520px;left:50%;transform:translateX(-50%) scale(.7);transform-origin:center}.research-grid{grid-template-columns:1fr}.defense-path{grid-template-columns:repeat(2,1fr)}.inventory{margin:.5rem;padding:.7rem}.inventory-scroll{scroll-snap-type:x mandatory}.inventory article{scroll-snap-align:start}.turn-actions{grid-template-columns:1fr}.turn-actions button{width:100%}.callout{flex-direction:column}.context{min-height:auto}}

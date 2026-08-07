@@ -8,7 +8,8 @@
 - Branche : `develop/proto-0.2-ux-rules`
 - Base : `3cea8b9`
 - Commit applicatif : `72442edca0b7997b442aff2870adb11fb5a63f60`
-- Commit final : `HEAD` (commit contenant ce rapport)
+- Correctif bootstrap playtest : `HEAD` (commit contenant ce rapport)
+- Commit final : `HEAD`
 - Statut : `REVIEW_READY`
 
 ## Diagnostic initial
@@ -18,6 +19,8 @@ Le parcours navigateur historique était concentré dans une page Svelte de 3 49
 ## Résumé jouable
 
 Le testeur peut démarrer sur un plateau de 19 hexagones vide, poser obligatoirement le premier stockage puis organiser les sept bâtiments du kit. Il peut extraire les deux sols, rechercher Transformation, fabriquer et poser un transformateur, façonner composants, bâtiments et tours, agrandir ses capacités, démonter/remonter ou recycler des objets, affecter population et activité, placer les tours sur huit positions, traverser des ondes impromptues puis gagner en annulant une Puissance ou perdre à zéro Intégrité.
+
+Correctif après playtest : le kit initial et les `4` organiques + `4` minéraux sont désormais une réserve de déploiement distincte. L’état absolu affiche `0/0`, la première membrane transfère uniquement les matières vers le stockage mécanique (`8/16`), les six fonctions restantes restent hors capacité, puis l’inventaire et les actions normales sont rétablis à la dernière implantation.
 
 Le HUD affiche ressources disponibles et engagées, stockage, énergie, population, entretien et Intégrité. Les sorties pleines restent sur leur producteur. La recherche globale expose ses coûts, durées, effets et sa limite cumulée. Le rapport d’onde est distinct du journal de cycles. Une sauvegarde locale versionnée est restaurée automatiquement et une nouvelle partie est explicite.
 
@@ -100,6 +103,17 @@ Runtime utilisé : Node `v24.19.0`, dépendances installées par `npm ci --ignor
 | Relecture desktop/mobile | PASS STATIQUE | grilles desktop, rupture tablette et layout mono-colonne/tap à 760 px |
 | Smoke HTTP | NON EXÉCUTABLE | le sandbox refuse `listen(127.0.0.1)` avec `EPERM` |
 | E2E navigateur | NOT_RUN | aucun navigateur/Playwright installé ; pas d’infrastructure ajoutée |
+
+Contrôles du correctif bootstrap dans le présent environnement :
+
+| Contrôle | Résultat | Détail |
+|---|---|---|
+| Analyse syntaxique TypeScript ciblée via esbuild | PASS | moteur P02, tests P02 et simulation compilés en bundles temporaires |
+| `git diff --check` | PASS | aucune erreur d’espace ou de patch |
+| `npm run check` | NON EXÉCUTABLE | aucun Node/npm hôte ; accès au daemon Docker refusé par le sandbox |
+| `npm run test:proto0` | NON EXÉCUTABLE | même contrainte d’environnement |
+| `npm run simulate:proto02` | NON EXÉCUTABLE | même contrainte d’environnement |
+| `npm run build` | NON EXÉCUTABLE | même contrainte d’environnement |
 
 ## Passe finale de simplification
 

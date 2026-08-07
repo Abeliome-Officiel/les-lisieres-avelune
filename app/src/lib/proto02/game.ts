@@ -30,11 +30,13 @@ export interface WaveReport { number: number; initialPower: number; steps: { pos
 export type RunStatus = 'playing' | 'tester-victory' | 'game-victory';
 export interface GameLog { turn: number; message: string }
 export interface GameState {
-	version: 2;
+	version: 3;
 	seed: number;
 	turn: number;
 	status: RunStatus;
 	deployment: boolean;
+	deploymentKit: ItemId[];
+	deploymentResources: Resources;
 	resources: Resources;
 	reserved: Resources;
 	board: HexCell[];
@@ -115,9 +117,9 @@ function makeBoard(): HexCell[] {
 
 export function createGame(seed = 20260807): GameState {
 	return {
-		version: 2, seed, turn: 1, status: 'playing', deployment: true,
-		resources: { organic: 4, mineral: 4, refined: 0, component: 0 }, reserved: ZERO(), board: makeBoard(),
-		inventory: KIT.map((id) => ({ id, quantity: 1, dismantled: 0 })),
+		version: 3, seed, turn: 1, status: 'playing', deployment: true,
+		deploymentKit: [...KIT], deploymentResources: { organic: 4, mineral: 4, refined: 0, component: 0 },
+		resources: ZERO(), reserved: ZERO(), board: makeBoard(), inventory: [],
 		defenses: Array.from({ length: 8 }, (_, i) => ({ position: i + 1, tower: false })),
 		research: { completed: {}, active: null, repeatableLevels: 0 }, integrity: LAB.baseIntegrity,
 		nextWaveTurn: LAB.firstWaveTurn, waveNumber: 0, lastWave: null,
@@ -156,25 +158,38 @@ export function placementPreview(state: GameState, cellId: string, definitionId:
 export function placeBuilding(state: GameState, cellId: string, definitionId: BuildingId): string | null {
 	if (state.status !== 'playing') return 'Le run est terminé.';
 	const cell = state.board.find((candidate) => candidate.id === cellId);
-	const stack = item(state, definitionId);
 	if (!cell || cell.building) return 'Choisissez une case libre.';
-	if (!stack || stack.quantity < 1) return 'Ce bâtiment n’est pas dans l’inventaire.';
-	if (state.deployment && definitionId !== 'storage' && !state.board.some((c) => c.building?.definitionId === 'storage')) return 'La première implantation doit être une membrane de stockage.';
-	if ((stack.remountReadyTurn ?? 0) > state.turn) return `Le remontage sera disponible au cycle ${stack.remountReadyTurn}.`;
+	const deploymentIndex = state.deployment ? state.deploymentKit.indexOf(definitionId) : -1;
+	const stack = item(state, definitionId);
+	if (deploymentIndex < 0 && (!stack || stack.quantity < 1)) return 'Ce bâtiment n’est pas disponible.';
+	if (state.deployment && definitionId !== 'storage' && state.deploymentKit.includes('storage')) return 'La première implantation doit être une membrane de stockage.';
+	if (deploymentIndex < 0 && (stack?.remountReadyTurn ?? 0) > state.turn) return `Le remontage sera disponible au cycle ${stack!.remountReadyTurn}.`;
 	const def = BUILDINGS[definitionId];
 	const caps = capacities(state);
 	if (!state.deployment && def.energy > 0 && caps.energyUsed + def.energy > caps.energy) return 'Capacité énergétique insuffisante. Implantez une gemme ou désactivez une fonction.';
 	if (!state.deployment && def.maintenance > 0 && caps.maintenanceUsed + def.maintenance > caps.maintenance) return 'Capacité d’entretien insuffisante.';
 	state.sequence += 1;
 	cell.building = { uid: `building-${state.sequence}`, definitionId, active: true, staffed: def.population > 0, order: null, blockedOutput: null };
-	stack.quantity -= 1;
-	if (state.deployment) state.deployment = KIT.some((kitId) => (item(state, kitId)?.quantity ?? 0) > 0);
-	log(state, `${BUILDINGS[definitionId].label} implanté${stack.dismantled > 0 ? ' après remontage' : ''}.`);
-	if (stack.dismantled > 0) stack.dismantled -= 1;
+	if (deploymentIndex >= 0) {
+		state.deploymentKit.splice(deploymentIndex, 1);
+		if (definitionId === 'storage') {
+			state.resources = { ...state.deploymentResources };
+			state.deploymentResources = ZERO();
+		}
+		state.deployment = state.deploymentKit.length > 0;
+	} else {
+		const wasDismantled = stack!.dismantled > 0;
+		stack!.quantity -= 1;
+		if (wasDismantled) stack!.dismantled -= 1;
+		log(state, `${BUILDINGS[definitionId].label} implanté${wasDismantled ? ' après remontage' : ''}.`);
+		return null;
+	}
+	log(state, `${BUILDINGS[definitionId].label} implanté.`);
 	return null;
 }
 
 export function toggleBuilding(state: GameState, cellId: string, active: boolean): string | null {
+	if (state.deployment) return 'Terminez le déploiement initial avant de configurer les fonctions.';
 	const building = state.board.find((cell) => cell.id === cellId)?.building;
 	if (!building) return 'Aucun bâtiment sélectionné.';
 	if (active) {
@@ -187,6 +202,7 @@ export function toggleBuilding(state: GameState, cellId: string, active: boolean
 }
 
 export function toggleStaff(state: GameState, cellId: string, staffed: boolean): string | null {
+	if (state.deployment) return 'Terminez le déploiement initial avant d’affecter la population.';
 	const building = state.board.find((cell) => cell.id === cellId)?.building;
 	if (!building) return 'Aucun bâtiment sélectionné.';
 	const need = BUILDINGS[building.definitionId].population;
@@ -196,6 +212,7 @@ export function toggleStaff(state: GameState, cellId: string, staffed: boolean):
 }
 
 export function dismantle(state: GameState, cellId: string): string | null {
+	if (state.deployment) return 'Terminez le déploiement initial avant de démonter une fonction.';
 	const cell = state.board.find((candidate) => candidate.id === cellId);
 	if (!cell?.building) return 'Aucun bâtiment à démonter.';
 	if (cell.building.order || cell.building.blockedOutput) return 'Cette fonction doit terminer ou libérer sa production avant démontage.';
@@ -214,6 +231,7 @@ export function dismantle(state: GameState, cellId: string): string | null {
 }
 
 export function queueProduction(state: GameState, cellId: string, recipeId: string): string | null {
+	if (state.deployment) return 'Terminez le déploiement initial avant de fabriquer.';
 	const building = state.board.find((cell) => cell.id === cellId)?.building;
 	const recipe = RECIPES[recipeId];
 	if (!building || !recipe || building.definitionId !== recipe.producer) return 'Cette recette ne peut pas être lancée ici.';
@@ -236,6 +254,7 @@ export function cancelProduction(state: GameState, cellId: string): string | nul
 }
 
 export function startResearch(state: GameState, id: ResearchId): string | null {
+	if (state.deployment) return 'Terminez le déploiement initial avant de rechercher.';
 	const node = RESEARCH[id], level = state.research.completed[id] ?? 0;
 	if (state.research.active) return 'Une recherche est déjà en cours.';
 	if (node.prerequisite && !completed(state, node.prerequisite)) return 'Le prérequis de cette recherche manque.';
@@ -270,6 +289,7 @@ export function collectBlockedOutput(state: GameState, cellId: string): string |
 }
 
 export function recycleItem(state: GameState, id: ItemId): string | null {
+	if (state.deployment) return 'Terminez le déploiement initial avant de recycler.';
 	const recycler = state.board.find((cell) => cell.building?.definitionId === 'recycler')?.building;
 	const stack = item(state, id);
 	if (!recycler?.active || !recycler.staffed) return 'Une Recyclerie active et peuplée est nécessaire.';
@@ -285,6 +305,7 @@ export function recycleItem(state: GameState, id: ItemId): string | null {
 }
 
 export function placeTower(state: GameState, position: number): string | null {
+	if (state.deployment) return 'Terminez le déploiement initial avant de préparer les défenses.';
 	const slot = state.defenses.find((entry) => entry.position === position), stack = item(state, 'weakening-tower');
 	if (!slot || slot.tower) return 'Choisissez une position défensive libre.';
 	if (!stack || stack.quantity < 1) return 'Aucune tour d’Affaiblissement disponible.';
@@ -293,6 +314,7 @@ export function placeTower(state: GameState, position: number): string | null {
 }
 
 export function removeTower(state: GameState, position: number): string | null {
+	if (state.deployment) return 'Terminez le déploiement initial avant de modifier les défenses.';
 	const slot = state.defenses.find((entry) => entry.position === position);
 	if (!slot?.tower) return 'Aucune tour à retirer.';
 	let stack = item(state, 'weakening-tower');
@@ -374,7 +396,7 @@ export function restoreGame(raw: string | null): GameState | null {
 	if (!raw) return null;
 	try {
 		const value = JSON.parse(raw) as Partial<GameState>;
-		if (value.version !== 2 || !Array.isArray(value.board) || !Array.isArray(value.inventory) || !Array.isArray(value.defenses) || typeof value.turn !== 'number') return null;
+		if (value.version !== 3 || !Array.isArray(value.board) || !Array.isArray(value.inventory) || !Array.isArray(value.deploymentKit) || !value.deploymentResources || !Array.isArray(value.defenses) || typeof value.turn !== 'number') return null;
 		return value as GameState;
 	} catch { return null; }
 }
