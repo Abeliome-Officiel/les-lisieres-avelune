@@ -1,10 +1,17 @@
 # Documentation — Les Lisières d’Avelune
 
-Cet index distingue les **principes et documents de conception**, les **jalons historiques** et le **PROTO-0.1 jouable intégré à `main`**.
+Cet index distingue les **principes de conception**, les **jalons jouables stables**, les **documents historiques** et le **développement actif PROTO-0.2**.
 
-Le `v0.8` reste un repère historique. La dernière baseline de conception figée avant le PROTO-0.1 est `v0.8.3`, tandis que la conception courante est **v0.8.3+** et continue d’évoluer avec les discussions et playtests.
+## 1. Repères de version
 
-## 1. Comprendre le jeu
+- `v0.8` : ancien jalon historique.
+- `v0.8.3` : dernière baseline de conception figée avant PROTO-0.1.
+- **PROTO-0.1** : jalon jouable intégré à `main` et actuellement déployé.
+- **PROTO-0.2** : développement actif sur `develop/proto-0.2-ux-rules`, non encore stable ni déployé comme référence.
+
+Le projet ne doit pas être présenté comme ayant déjà atteint une nouvelle version stable arbitraire telle que `v0.9`.
+
+## 2. Comprendre le jeu
 
 - [Vision actuelle](00_vision.md)
 - [Corps-cité](01_concept_corps_cite.md)
@@ -17,22 +24,23 @@ Le `v0.8` reste un repère historique. La dernière baseline de conception figé
 - [Trame RPG](14_trame_rpg.md)
 - [Passage et Lisière](15_lisiere_et_passage.md)
 
-## 2. Identité et direction artistique
+Ces documents portent la vision large du jeu. Lorsqu’un document de conception historique entre en contradiction avec le cahier actif PROTO-0.2, il ne doit pas être utilisé pour modifier le périmètre du prototype courant.
+
+## 3. Identité et direction artistique
 
 - [Charte graphique de travail](art/CHARTE_GRAPHIQUE.md)
 - [Assets GitHub](assets/README.md)
+- [Brief visuel PROTO-0.2 / Gen3 corrigé](development/proto0.2/06_VISUAL_BRIEF_GEN3.md)
 
 Direction actuelle : **poétique · onirique · féerique · organique · minérale · florale-abstraite · queer**.
 
-Le canon visuel provisoire interdit d’inventer humains/humanoïdes, habitants, faune ou espèces naturelles non définies.
+Pour PROTO-0.2, la composition Gen3 sert uniquement de référence ergonomique. Le Corcite doit rester non anthropomorphe ; éviter humains/humanoïdes, fantasy médiévale générique et esthétique industrielle sci-fi générique.
 
-## 3. PROTO-0.1 jouable
+## 4. PROTO-0.1 — baseline stable
 
-Le prototype logiciel réel est désormais **intégré à `main`**, qui constitue la source canonique du dépôt après la fusion de la PR #1.
+PROTO-0.1 reste la baseline logicielle actuellement intégrée à `main` et le prototype déployé de référence.
 
-La branche `develop/proto-0.1-playable` reste utile pour la traçabilité historique du développement du jalon, mais n’est plus la branche de référence courante.
-
-La documentation technique courante du prototype comprend :
+Documentation de ce jalon :
 
 - [Périmètre du prototype jouable](proto0/PROTO0_PLAYABLE_SCOPE.md)
 - [Gate de playtest](proto0/PROTO0_PLAYTEST_READY.md)
@@ -41,7 +49,54 @@ La documentation technique courante du prototype comprend :
 - [Rapport d'équilibrage automatisé](proto0/PROTO0_PLAYABLE_BALANCE_REPORT.md)
 - [Parcours technique de référence](proto0/PROTO0_PLAYABLE_REFERENCE_PLAYTHROUGH.md)
 
-### Architecture et méthode du prototype
+Les documents historiques P0–P10 et `proto-0-spec.1` restent utiles pour la traçabilité, mais ne doivent pas être pris comme photographie exacte de l’état stable actuel lorsqu’ils divergent de `main`.
+
+## 5. PROTO-0.2 — développement actif
+
+Branche : [`develop/proto-0.2-ux-rules`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2-ux-rules)
+
+Dossier de travail : [`docs/development/proto0.2`](development/proto0.2/README.md)
+
+Ordre de priorité documentaire du prototype :
+
+1. [Mission active](development/proto0.2/CURRENT_TASK.md)
+2. [Règles et périmètre](development/proto0.2/01_RULES_AND_SCOPE.md)
+3. [Spécification UX](development/proto0.2/02_UX_SPEC.md)
+4. [Brief visuel Gen3 corrigé](development/proto0.2/06_VISUAL_BRIEF_GEN3.md)
+5. [Garde-fous techniques](development/proto0.2/03_TECHNICAL_GUARDRAILS.md)
+6. [Critères d’acceptation](development/proto0.2/04_ACCEPTANCE.md)
+
+### Boucle active PROTO-0.2
+
+```text
+implanter
+→ extraire
+→ transformer / fabriquer
+→ rechercher / évoluer
+→ préparer les défenses
+→ subir une vague
+→ lire les conséquences
+→ adapter
+→ gagner ou perdre le run
+```
+
+### Simplifications volontaires du jalon
+
+- plateau hexagonal concret ;
+- `1 bâtiment = 1 case` ;
+- pas de réseau direct/ports/câbles/Factorio actif ;
+- stockage fourni par les bâtiments de stockage ;
+- recherche courte et utile ;
+- une seule famille de défense : **Affaiblissement** ;
+- une seule caractéristique active de vague : **Puissance** ;
+- première vague réduite à `0` → victoire du testeur ;
+- Intégrité du Corcite à `0` → victoire du jeu ;
+- pas de nombre fixe de vagues ;
+- pas de matière issue des vagues ni de captation dans ce proto.
+
+Les anciennes notions `pression / structure / charge / matière capturable` ne constituent pas le canon futur de la vague : la nature détaillée de la vague doit être redéfinie après ce jalon.
+
+## 6. Architecture et méthode
 
 - [Index développement](development/README.md)
 - [Audit développement et architecture — 2026-08-06](development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)
@@ -53,28 +108,15 @@ La documentation technique courante du prototype comprend :
 - [ADR-0001 — cœur métier indépendant de l'UI](development/adr/ADR-0001-FUNCTIONAL-CORE.md)
 - [ADR-0002 — contenu data-driven](development/adr/ADR-0002-DATA-DRIVEN-CONTENT.md)
 
-Les documents P0–P10 et `proto-0-spec.1` restent des références historiques de validation des moteurs. Lorsqu'ils divergent du périmètre jouable courant, les documents ci-dessus et l’état intégré à `main` font foi pour le PROTO-0.1.
-
-Documents historiques liés au passage vers le prototype :
+## 7. Documents historiques
 
 - [Mini-prototype historique](07_prototype_mvp.md)
 - [Prototype logiciel minimal historique](16_proto_minimal.md)
 - [Socle mécanique v0.8](13_socle_mecanique_v0.8.md)
 
-Ces documents restent utiles pour la traçabilité mais ne doivent pas être considérés comme une photographie exacte du PROTO-0.1 actuel lorsqu’ils entrent en contradiction avec `main` ou avec la documentation technique courante.
+Ces fichiers sont conservés pour la traçabilité. Ils ne doivent pas reprendre autorité sur un jalon actif lorsqu’une source plus récente les contredit.
 
-## 4. Méthode, décisions et outils
-
-- [Outils](08_outils_et_wiki.md)
-- [Sources](09_sources.md)
-- [Décisions ouvertes](11_decisions_a_valider.md)
-- [Préparation des progressions](12_preparation_arbres.md)
-
-La documentation d’architecture, de méthode de développement, de dette technique et de politique data-driven est désormais **intégrée à `main`**. Les branches documentaires dédiées restent historiques et ne constituent plus une source parallèle à maintenir.
-
-Après clôture du jalon PROTO-0.1, le projet est reparti dans une phase de discussion et d’analyse avant décision du prochain lot de développement.
-
-## 5. Principes à garder visibles
+## 8. Principes à garder visibles
 
 - monde partagé unique ;
 - protection collective de la Lisière ;
@@ -88,4 +130,4 @@ Après clôture du jalon PROTO-0.1, le projet est reparti dans une phase de disc
 - plusieurs styles et profondeurs de jeu légitimes ;
 - attention explicite aux profils TSA, TDAH et dys ;
 - identité queer et non genrée ;
-- direction visuelle onirique, féerique, organique et minérale sans inventer les populations ou espèces non définies.
+- direction visuelle onirique, féerique, organique et minérale.
