@@ -2,37 +2,37 @@
 
 Tu travailles sur **Les Lisières d’Avelune — PROTO-0.2**.
 
-## Instruction de départ
+## Mode de travail attendu
 
-1. Vérifie que tu es sur une branche de travail dérivée de `develop/proto-0.2-ux-rules`.
-2. Lis `/AGENTS.md` puis l’ensemble du dossier `docs/development/proto0.2/`.
-3. Inspecte l’état réel du dépôt avant toute modification.
-4. Exécute `CURRENT_TASK.md` de manière autonome jusqu’à `REVIEW_READY`, `PARTIAL`, `DECISION_REQUIRED` ou `BLOCKED_TECHNICAL`.
-5. Pour les problèmes purement techniques : diagnostique, corrige et poursuis sans demander d’autorisation.
-6. Pour une vraie décision de jeu ou d’UX intentionnelle : consigne-la dans `DECISIONS_NEEDED.md`, poursuis tout ce qui est indépendant, puis indique clairement le blocage.
-7. Mets à jour `IMPLEMENTATION_REPORT.md` avant de terminer.
-8. Ne merge pas `main`, ne force-push pas, ne supprime pas de branche et ne modifie pas un environnement public sans instruction explicite.
+Cette session est volontairement longue et autonome. Ne t’arrête pas après une première implémentation ou une première suite de tests verte si `CURRENT_TASK.md` reste incomplet.
 
-## Priorité de ce premier run
+1. Vérifie que le travail part de `develop/proto-0.2-ux-rules`.
+2. Lis `/AGENTS.md`.
+3. Lis tout le dossier `docs/development/proto0.2/`, en priorité `CURRENT_TASK.md`, `01_RULES_AND_SCOPE.md`, `02_UX_SPEC.md`, `06_VISUAL_BRIEF_GEN3.md`, `03_TECHNICAL_GUARDRAILS.md`, `04_ACCEPTANCE.md`.
+4. Inspecte le code réel avant de modifier.
+5. Exécute entièrement `CURRENT_TASK.md`.
+6. Travaille par lots cohérents : moteur/état → UI → tests/simulation → correction → passe visuelle → smoke test.
+7. Pour les problèmes techniques, décide et corrige sans demander.
+8. Pour une véritable décision de game design non couverte, écris-la dans `DECISIONS_NEEDED.md`, continue tout le reste, puis ne t’arrête que lorsque plus aucun travail indépendant utile n’est possible.
+9. Mets à jour `IMPLEMENTATION_REPORT.md` avant la fin.
+10. Ne merge pas `main`, ne force-push pas et ne déploie pas publiquement.
 
-Le premier run doit privilégier **l’ergonomie fonctionnelle et le mini-jeu jouable**, pas la finition esthétique.
+## Priorités
 
-Si le temps est limité, prioriser dans cet ordre :
+1. migration vers le plateau hexagonal simple ;
+2. suppression du réseau direct du parcours actif ;
+3. déploiement initial + stockage uniquement par bâtiments ;
+4. économie/fabrication/réservations/sorties bloquées ;
+5. recherche et améliorations dont Stockage amélioré ;
+6. défense unique Affaiblissement ;
+7. onde Puissance croissante + Intégrité + conditions de victoire ;
+8. simulations et équilibrage de laboratoire ;
+9. persistance ;
+10. composition UX Gen3 corrigée + vraie passe visuelle Avelune + responsive ;
+11. tests/build/smoke et corrections jusqu’au vert.
 
-1. règles énergie/population cohérentes ;
-2. bandeau ressources/capacités ;
-3. vue productive lisible ;
-4. connexions plus naturelles ;
-5. RPG/évolution visible et impactant ;
-6. défenses manipulables ;
-7. onde sans compte à rebours gratuit ;
-8. persistance locale ;
-9. fin de run / polish / E2E complémentaires.
+La partie visuelle est **dans le lot**, pas une option de fin de session. Gen3 sert de composition ; le brief visuel donne les corrections de thème.
 
-Ne jamais sacrifier complètement le RPG ou les défenses pour finir uniquement l’écran de production.
+## Phrase de mission
 
-## Phrase de lancement recommandée pour une session interactive
-
-> Lis `AGENTS.md` et `docs/development/proto0.2/CODEX_START_HERE.md`, puis exécute entièrement `docs/development/proto0.2/CURRENT_TASK.md`. Travaille de manière autonome sur les problèmes techniques, teste et corrige jusqu’au vert, et ne m’interromps que pour une véritable décision de game design/UX ou un blocage externe. Mets à jour le rapport avant de t’arrêter.
-
-Cette phrase doit suffire : les détails de conception sont dans le dépôt.
+> Exécute entièrement `docs/development/proto0.2/CURRENT_TASK.md` en respectant `AGENTS.md`. Travaille de manière autonome jusqu’à obtenir la meilleure alpha PROTO-0.2 possible : implémentation, refactorisation, tests, simulations, équilibrage de laboratoire, responsive et passe visuelle Avelune. Ne t’arrête pas à la première passe verte. Ne remonte que les vraies décisions de game design non couvertes par les documents ; consigne-les sans bloquer le travail indépendant. Termine par `IMPLEMENTATION_REPORT.md`. Ne merge pas main et ne déploie pas.
