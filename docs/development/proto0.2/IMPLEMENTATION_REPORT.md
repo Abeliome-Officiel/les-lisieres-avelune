@@ -177,3 +177,13 @@ npm run build
 ```
 
 Aucun push, merge, déploiement ou healthcheck public n’a été effectué.
+
+## Correctif playtest — profils testeurs locaux
+
+- restauration du sélecteur compact « Testeur » dans la fiche Corcite gauche pour les profils IRFI, AUBE, BRUM, ORBE et SILE ;
+- séparation stricte des sauvegardes locales avec une clé P02 v3 par profil (`avelune:proto02:save:v3:<ID>`) et mémorisation facultative du dernier profil actif ;
+- sauvegarde du profil courant avant bascule, chargement isolé du profil cible, baseline déterministe commune en l’absence de sauvegarde ;
+- « Nouvelle partie » réinitialise et remplace uniquement la sauvegarde du testeur actif ;
+- une sauvegarde invalide est ignorée pour son seul profil sans empêcher le chargement des autres.
+
+Validations exécutées dans le présent environnement : `git diff --check` (PASS) et contrôles statiques ciblés des identifiants, clés v3 et références de persistance (PASS). `npm run check`, `npm run test:proto0` et `npm run build` n’ont pas été exécutés : `npm` est absent de l’hôte et le contrôle Docker complet est réservé à l’exécution hors sandbox.
