@@ -1,192 +1,249 @@
-# PROTO-0.2 — Règles et périmètre
+# PROTO-0.2 — Règles et périmètre consolidés
 
-## 1. Énergie
+Date : 2026-08-07
+Statut : **source mécanique active pour implémentation**.
 
-La réserve énergétique courte est supprimée.
+## 1. Objectif du prototype
 
-Modèle joueur :
+PROTO-0.2 est un mini-jeu de test, pas le jeu final. Il doit valider la boucle :
 
-```text
-⚡ Énergie : utilisée / capacité
-```
+`implanter → extraire → transformer/fabriquer → rechercher → préparer les défenses → subir l’onde → adapter`
 
-Exemple : `⚡ 2 / 4` signifie 2 mobilisées sur 4 disponibles.
+Le challenge central du run est volontairement simple :
+- une onde possède dans ce prototype une seule caractéristique mécanique active : sa **Puissance** ;
+- les défenses d’**Affaiblissement** réduisent cette puissance ;
+- si la puissance résiduelle atteint `0`, **le testeur gagne immédiatement le run** ;
+- sinon le résidu inflige des dégâts à l’**Intégrité du Corcite** ;
+- si l’Intégrité atteint `0`, **le jeu gagne / le testeur perd** ;
+- si aucun des deux n’arrive, le développement continue jusqu’à l’onde suivante.
 
-Règles :
-- une fonction effectivement active mobilise sa charge énergétique ;
-- une activation qui dépasserait la capacité est refusée ;
-- l’arrêt d’une fonction libère sa charge énergétique ;
-- aucune seconde jauge de réserve ne doit subsister dans le parcours joueur.
+La puissance des ondes doit **augmenter strictement d’une onde à l’autre**. Le run ne doit pas pouvoir durer indéfiniment : si le joueur ne parvient pas à annuler une onde, la croissance finit par rendre la survie impossible. L’équilibrage doit néanmoins laisser au moins une trajectoire raisonnable de victoire ; challengeant, mais pas impossible.
 
-Si le code historique conserve des structures de données de réserve pour compatibilité, elles ne doivent pas continuer à influencer le modèle PROTO-0.2. Préférer une suppression propre si elle est sûre et couverte par tests.
+Pour le proto, éviter d’ajouter d’autres axes de difficulté. Le calibrage principal porte sur : puissance initiale, croissance entre ondes, puissance d’Affaiblissement, rythme économique et Intégrité du Corcite.
 
-## 2. Population et état des fonctions
+## 2. Nature future de l’onde — explicitement remise à plus tard
 
-La population doit être visible comme :
+Le jeu final devra redéfinir prochainement ce qu’est réellement une onde, de quoi elle est constituée et ses **4 à 6 caractéristiques** pertinentes. Les anciennes notions `pression / structure / charge / matière capturable` restent des références historiques, pas un canon futur.
 
-- totale ;
-- affectée ;
-- disponible.
+Dans PROTO-0.2 :
+- ne pas les utiliser pour déterminer victoire/défaite ;
+- ne pas exposer une fausse complexité au joueur ;
+- ne pas ajouter de captation ni de matière issue des ondes.
 
-Une fonction qui demande du travail ne produit pas si le besoin de population n’est pas satisfait.
+## 3. Temporalité des ondes
 
-PROTO-0.2 doit distinguer deux décisions du joueur :
+Conserver la décision antérieure : l’onde est une propagation **brutale/impromptue issue de la Fracture**, pas un raid annoncé par un compteur gratuit permanent.
 
-### ON / OFF
-- OFF arrête la fonction ;
-- OFF libère l’énergie mobilisée par la fonction ;
-- OFF **ne désaffecte pas la population** ;
-- ON tente de remettre la fonction en service si ses prérequis sont satisfaits.
+Pour obtenir un prototype déterministe et testable, réutiliser comme point de départ les paramètres historiques déjà présents :
+- première onde autour du tour 6 ;
+- au moins 5 tours de développement entre deux ondes ;
+- éventuel retard déterministe borné de 0 à 2 tours ;
+- pas de compte à rebours exact gratuit dans l’UI ;
+- les capacités d’observation/recherche peuvent donner des indices sans dévoiler artificiellement un timer exact.
 
-### Affectation / retrait de population
-- retirer la population libère immédiatement cette capacité de travail ;
-- la fonction ne travaille plus si son besoin n’est plus rempli ;
-- le retrait est une décision plus structurelle qu’un simple OFF, proche d’une mise en réserve fonctionnelle.
+Ces nombres sont des paramètres de laboratoire. Codex peut les ajuster par simulation si nécessaire pour atteindre les critères de challenge, sans changer le principe de temporalité.
 
-### Topologie des liens pendant OFF
-Pour PROTO-0.2, l’implémentation recommandée est de **conserver la topologie des connexions mais de les suspendre visuellement et mécaniquement** pendant l’arrêt, plutôt que de forcer le joueur à reconstruire son réseau à chaque redémarrage.
+Il n’y a plus de nombre fixe de trois ondes : le run s’arrête à la première onde annulée ou à la mort du Corcite.
 
-Si le modèle existant rend cette distinction coûteuse ou ambiguë, documenter le point dans `DECISIONS_NEEDED.md` avant d’introduire une autre règle.
+## 4. Plateau économique
 
-### Entretien en état OFF / sans personnel
-La règle exacte de consommation d’entretien dans ces états n’est pas considérée comme suffisamment arbitrée pour être inventée. Conserver le comportement existant si compatible ; sinon signaler la décision.
+- Un seul plateau principal en hexagones.
+- Taille de prototype, architecture extensible.
+- `1 bâtiment = 1 case`.
+- En dehors de l’extraction, la position n’a **aucun effet mécanique** dans PROTO-0.2.
+- Pas d’adjacence, distance, orientation, routes, transport spatial, AoE, multi-case ou logistique spatiale.
+- L’ancien `space` abstrait ne doit pas rester comme seconde contrainte concurrente.
 
-## 3. Stocks et réseau productif
+Certaines cases portent une ressource primaire de sol. Tout bâtiment peut être posé sur toute case libre. Un extracteur placé sur une ressource compatible produit ; ailleurs il peut être posé mais produit `0` pour cette ressource. La prévisualisation de placement affiche le résultat attendu sans avertissement punitif.
 
-Le modèle mental retenu est un **petit réseau productif avec les stocks du Corcite comme hub/router par défaut**, pas une étoile strictement obligatoire.
+## 5. Démarrage du run
 
-Par défaut :
+Aucun bâtiment n’est déjà implanté sur le plateau.
 
-```text
-bâtiment → stocks → bâtiment
-```
+Le joueur reçoit un **kit de déploiement initial non posé**, lui permettant d’organiser lui-même son Corcite dès le premier écran :
+- 1 stockage ;
+- 1 source/extension énergétique ;
+- 1 unité d’entretien ;
+- 1 Atelier de construction ;
+- 1 extracteur organique ;
+- 1 extracteur minéral ;
+- 1 Fabrique défensive.
 
-Une connexion directe peut exister :
+La Recyclerie est disponible à la fabrication dès le départ mais n’a pas besoin d’être offerte gratuitement.
 
-```text
-bâtiment → bâtiment compatible
-```
+Il n’existe **aucune capacité de stockage native du Corcite**. Toute capacité mécanique vient de bâtiments de stockage posés. Le bootstrap initial doit donc être traité comme une phase de déploiement : le premier stockage du kit est posé avant que le stock économique normal soit utilisé. Ne pas créer de stockage invisible permanent pour résoudre ce cas.
 
-Règles :
-- les bâtiments possèdent de vraies entrées/sorties logiques ;
-- la ressource d’un lien direct est déduite automatiquement des ports compatibles ;
-- le joueur ne choisit jamais `source + destination + ressource` dans trois champs ;
-- une sortie non directement routée retourne aux stocks ;
-- une entrée non directement alimentée peut utiliser les stocks selon les règles existantes ;
-- le stock affiché au joueur peut être agrégé même si les bâtiments de stockage gardent chacun leur capacité mécanique réelle.
+Stock économique initial de laboratoire :
+- matière organique brute : `4` ;
+- matière minérale brute : `4` ;
+- matériau transformé : `0` ;
+- composant fabriqué : `0`.
 
-Les connexions directes doivent avoir une conséquence réelle ou préparer explicitement une conséquence déjà présente dans le moteur (par exemple tampon dédié / alimentation réservée). Ne pas ajouter arbitrairement des débits, convoyeurs ou coûts logistiques avancés juste pour « faire Factorio ».
+Le joueur doit découvrir/utiliser la chaîne de transformation lui-même. Ces valeurs restent ajustables après simulation, mais **aucune matière transformée ne doit être donnée au départ**.
 
-## 4. Direction Tycoon × Factorio
+## 6. Bâtiments de base et fabrication
 
-PROTO-0.2 doit conserver les deux dimensions :
-
-### Tycoon
-- énergie ;
-- population ;
-- entretien ;
-- espace ;
+Disponibles sans recherche :
+- extracteur organique ;
+- extracteur minéral ;
 - stockage ;
-- construction ;
-- développement des capacités.
+- extension énergétique ;
+- unité d’entretien ;
+- Atelier de construction ;
+- Recyclerie ;
+- Fabrique défensive.
 
-### Factorio simplifié
-- recettes ;
-- entrées/sorties ;
-- chaînes ;
-- connexions directes ;
-- visualisation des dépendances ;
-- préparation future à des tampons, bifurcations, priorités et goulots.
+Le transformateur est débloqué par recherche.
 
-Ne pas réduire la production à une série de boutons « extraire / transformer / fabriquer » sans représentation du réseau.
+Responsabilités :
+- **Atelier de construction** : fabrique les bâtiments économiques ;
+- **Fabrique défensive** : fabrique les tours/défenses ;
+- les bâtiments et tours suivent tous la chaîne `fabriqué → inventaire → posé/utilisé`.
 
-## 5. RPG / Évolution
+Les coûts chiffrés historiques peuvent servir de première base, mais Codex doit centraliser les nouveaux coûts et les ajuster par simulation pour rendre le bootstrap viable sans supprimer les choix.
 
-Le RPG **ne passe pas au second plan** et n’est pas un troisième mode isolé.
+## 7. Retrait / remontage d’un bâtiment
 
-Il reste une couche textuelle et évolutive qui produit :
-- recherches ;
-- choix de développement ;
-- modificateurs ;
-- accès ;
-- déblocages ;
-- effets sur production, défense, observation ou autres fonctions du Corcite.
+Un bâtiment posé peut être démonté. Il devient un objet démonté en inventaire.
 
-PROTO-0.2 doit rendre son effet visible dans la partie et comporter plusieurs décisions ou intégrations significatives au cours d’un run.
+Il peut :
+- être recyclé ;
+- être **remonté** plus tard ;
+- le remontage coûte du temps (référence PROTO : 1 tour) ;
+- pas de coût matériel supplémentaire pour le remontage dans ce proto.
 
-Une recherche ne doit pas seulement afficher « bonus appliqué ». Lorsqu’un effet quantitatif modifie une production ou un effet, afficher autant que possible :
+Ainsi, un déplacement indirect existe mais n’est ni instantané ni gratuit.
 
-```text
-Base                 2
-Modificateur        +50 %
-Effet                 +1
-------------------------
-Résultat              3
-```
+Interdire le retrait d’un stockage si la capacité restante ne peut pas contenir le stock. Aucun contenu n’est détruit automatiquement.
 
-La présentation doit être fidèle au moteur : si le bonus est additif, afficher `+1`, pas un faux pourcentage ; s’il est proportionnel, afficher le pourcentage et le delta calculé.
+## 8. Stockage / inventaire global
 
-## 6. Défenses
+- Les bâtiments de stockage augmentent une capacité globale du Corcite.
+- Cliquer n’importe quel stockage ouvre le même inventaire global.
+- Présentation type inventaire RPG avec piles visuelles.
+- Catégories possibles : Tout / Ressources / Matériaux-Composants / Bâtiments / Défenses.
+- Chaque unité mécanique occupe `1` unité de capacité dans le proto ; une pile visuelle ne compresse pas la capacité.
+- Pas de volumes différenciés ni stockage spécialisé.
 
-Les défenses restent un pilier du prototype.
+### Réservation d’une fabrication
 
-Objectifs :
-- fabrication lisible ;
-- inventaire lisible ;
-- placement et déplacement visuels sur le chemin ;
-- ordre des tours visible ;
-- effets réellement appliqués par le moteur existant ;
-- préparation de fond, pas simple réaction à un compte à rebours gratuit.
+À la commande :
+- coût matière réservé immédiatement ;
+- matière réservée non dépensable par un autre ordre ;
+- elle reste physiquement dans le stock et occupe sa capacité ;
+- aucune réservation anticipée de capacité de sortie.
 
-Le drag-and-drop est pertinent pour placer/déplacer une défense, avec alternative clic/tap/clavier.
+Au démarrage réel :
+- matière réservée consommée ;
+- la capacité correspondante se libère.
 
-## 7. Onde
+Annulation :
+- avant démarrage réel : restitution 100 % ;
+- après démarrage : pas d’annulation gratuite.
 
-La « vague » doit être pensée comme une **onde de choc brutale et impromptue issue de la Fracture**, pas comme une échéance périodique connue gratuitement.
+### Sortie bloquée
 
-Donc :
-- pas de compteur permanent « vague dans N tours » par défaut ;
-- le moteur peut conserver une fenêtre cachée / seed déterministe pour les tests ;
-- des capacités d’observation ou recherches peuvent donner des signes partiels ;
-- les défenses doivent être utiles comme préparation permanente.
+À la fin d’une production/fabrication :
+- si le stock accepte le résultat, il y entre ;
+- sinon le résultat reste dans **la sortie locale du producteur, limitée au résultat de ce cycle** ;
+- le producteur est bloqué jusqu’à libération ;
+- rien n’est détruit ;
+- pas de buffer configurable, convoyeur ou réseau logistique caché ;
+- on ne place pas directement un objet depuis la sortie pour contourner l’inventaire.
 
-Pour le mini-jeu PROTO-0.2, une séquence courte de quelques ondes, avec fin explicite du run, est souhaitée afin de pouvoir tester apprentissage et adaptation. **Trois ondes est la cible de test actuelle**, sans valeur canonique pour le jeu final.
+## 9. Réseau / Factorio
 
-## 8. Durées
+Le réseau direct est **entièrement hors du parcours joueur PROTO-0.2**.
 
-Pour PROTO-0, les actions déjà arbitrées comme actions de prototype restent à **1 tour** : extraction, production/fabrication/construction/recherche concernées par ce socle de test, sauf règle historique explicitement conservée hors du parcours jouable.
+Ne pas implémenter/réintroduire :
+- ports ;
+- câbles ;
+- source/destination ;
+- ressource de lien ;
+- graphes de production ;
+- routage ;
+- priorités ;
+- connexions directes bâtiment→bâtiment ;
+- buffers de réseau ;
+- convoyeurs/débits.
 
-Ne pas réintroduire un quota global d’actions par tour.
+Le code historique peut rester isolé s’il ne structure plus l’UX ni l’état actif. La piste Factorio/LabVIEW demeure future, après validation du plateau simple.
 
-## 9. Sauvegarde
+## 10. Énergie, population, entretien
 
-Le prototype doit pouvoir être repris après actualisation/fermeture raisonnable du navigateur.
+Énergie : modèle unique `utilisée / capacité`. Aucune réserve courte.
+- activation au-delà de la capacité : refusée ;
+- OFF arrête la production et libère l’énergie ;
+- OFF conserve la population affectée ;
+- retirer la population la rend disponible immédiatement ;
+- une fonction insuffisamment staffée ne travaille pas.
 
-Cible minimale :
-- sauvegarde locale versionnée ;
-- autosave après changements significatifs ;
-- restauration sûre ;
-- fallback propre si données invalides ;
-- nouvelle partie remplace explicitement la sauvegarde.
+Population affichée : totale / affectée / disponible, sans microgestion d’individus.
 
-Ne pas introduire une architecture serveur de persistance multijoueur prématurée pour ce besoin.
+Entretien reste une capacité globale du Corcite. Ne pas inventer d’usure individuelle détaillée.
 
-## 10. Hors périmètre explicite
+## 11. Recherche / évolution
 
-Ne pas ajouter dans PROTO-0.2 :
-- nouveaux matériaux ;
-- système futur de matériaux découverts dans les ondes ;
-- consommables de nouvelles tours liés à ces futurs matériaux ;
-- races/classes complètes ;
-- social/multijoueur simultané ;
-- commerce ;
-- météo ;
-- événements secondaires riches ;
-- plusieurs anneaux mécaniques ;
-- carte monde active supplémentaire ;
-- canvas industriel libre complexe ;
-- temps réel ;
-- lore conséquent ;
-- dizaines de nouveaux bâtiments ou tours.
+Une seule vue globale de recherche, source de vérité unique ; des raccourcis contextuels peuvent pointer vers les mêmes nœuds.
 
-L’idée future à conserver est : de nouveaux matériaux issus des ondes pourront servir à fabriquer certaines nouvelles tours et éventuellement être consommés par elles, ce qui créera plus tard des besoins d’alimentation du réseau productif. **Cette idée ne doit avoir aucun effet mécanique maintenant.**
+Premier petit arbre testé :
+- déblocage Transformation ;
+- améliorations répétables de productivité utiles ;
+- amélioration Recyclerie ;
+- **Stockage amélioré** ;
+- améliorations liées à fabrication/extraction/transformation selon cohérence avec le moteur.
+
+Les améliorations répétables ne sont pas universelles. Dans PROTO-0.2, limiter la progression répétable à **4 niveaux totaux cumulés** afin de garder le run borné et simulable. Gains modestes et configurables ; pas d’améliorations de type cheat.
+
+Le RPG reste transversal : recherche, choix, modificateurs, accès, déblocages. Pas de quota RPG par tour.
+
+## 12. Défense
+
+PROTO-0.2 simplifie volontairement les anciennes quatre familles de tours en **une seule famille : Affaiblissement**.
+
+- Une défense est un objet physique fabriqué par la Fabrique défensive.
+- Elle entre dans l’inventaire global.
+- Elle est ensuite placée dans une vue tactique séparée sur le chemin de défense.
+- Le chemin historique de 8 positions peut être conservé comme base de prototype.
+- L’ordre des tours doit rester visible et mécanique.
+- Chaque tour réduit la **Puissance** résiduelle selon son paramètre d’Affaiblissement.
+- Pas de Captation, Déstructuration, Stabilisation ni matière de vague dans le parcours actif.
+
+Le joueur ne peut pas fabriquer/ajouter une nouvelle tour pendant la résolution de l’onde.
+
+## 13. Conséquence de l’onde
+
+Après passage des défenses :
+- `résidu = max(0, puissanceOnde - affaiblissementEffectif)` selon la résolution séquentielle retenue par le moteur ;
+- si `résidu == 0` : victoire immédiate du testeur ;
+- sinon : perte d’Intégrité du Corcite déterminée par une fonction simple et centralisée du résidu ;
+- si Intégrité `<= 0` : fin du run, victoire du jeu ;
+- sinon retour au développement.
+
+Pas de dommage de réserve énergétique, dette de structure, matière capturée ou autre seconde conséquence de vague dans ce proto.
+
+## 14. Rapports
+
+Rapport de vague joueur distinct des logs techniques. Il doit montrer au minimum :
+- numéro de l’onde ;
+- puissance initiale ;
+- effets successifs des tours dans l’ordre ;
+- puissance résiduelle ;
+- Intégrité avant/après ;
+- victoire/défaite/continuité ;
+- informations/effets de recherche pertinents.
+
+## 15. Accessibilité / interactions
+
+- Desktop : drag optionnel lorsque naturel.
+- Mobile : tap/clic sélection → cible → prévisualisation → confirmation.
+- Clavier lorsque raisonnable.
+- Jamais de hover-only ou drag-only.
+- Cibles suffisamment grandes.
+- Une icône seule ne porte pas une information essentielle.
+
+## 16. Hors périmètre
+
+Ne pas ajouter : temps réel, social/multijoueur, commerce, météo, événements riches, anneaux mécaniques multiples, carte monde active supplémentaire, races/classes complètes, lore conséquent, nouveaux matériaux, matière d’onde, réseau Factorio/LabVIEW, direction artistique finale.
+
+PROTO-0.2 doit toutefois recevoir un habillage visuel cohérent et suffisamment abouti pour tester l’expérience, selon `02_UX_SPEC.md` et `06_VISUAL_BRIEF_GEN3.md`.
