@@ -22,6 +22,8 @@ Le testeur peut démarrer sur un plateau de 19 hexagones vide, poser obligatoire
 
 Correctif après playtest : le kit initial et les `4` organiques + `4` minéraux sont désormais une réserve de déploiement distincte. L’état absolu affiche `0/0`, la première membrane transfère uniquement les matières vers le stockage mécanique (`8/16`), les six fonctions restantes restent hors capacité, puis l’inventaire et les actions normales sont rétablis à la dernière implantation.
 
+Mini-lot UX gisements : chaque case productive porte désormais une petite pastille persistante, `✦` rose pour l’organique et `◆` lavande pour le minéral. Les cases sans gisement restent sans marqueur. Le panneau de contexte nomme explicitement le gisement, y compris lorsqu’un bâtiment occupe la case, tandis que la prévisualisation existante conserve le rendement attendu. Les aplats de terrain ont été retirés pour ne pas confondre ressource et biome.
+
 Le HUD affiche ressources disponibles et engagées, stockage, énergie, population, entretien et Intégrité. Les sorties pleines restent sur leur producteur. La recherche globale expose ses coûts, durées, effets et sa limite cumulée. Le rapport d’onde est distinct du journal de cycles. Une sauvegarde locale versionnée est restaurée automatiquement et une nouvelle partie est explicite.
 
 ## Principaux changements
@@ -114,6 +116,13 @@ Contrôles du correctif bootstrap dans le présent environnement :
 | `npm run test:proto0` | NON EXÉCUTABLE | même contrainte d’environnement |
 | `npm run simulate:proto02` | NON EXÉCUTABLE | même contrainte d’environnement |
 | `npm run build` | NON EXÉCUTABLE | même contrainte d’environnement |
+
+Contrôles du mini-lot UX gisements dans le présent environnement :
+
+| Contrôle | Résultat | Détail |
+|---|---|---|
+| `git diff --check` | PASS | aucune erreur d’espace ou de patch |
+| `npm run check` | NON EXÉCUTABLE | Node/npm absents de l’hôte ; accès au daemon Docker refusé par le sandbox |
 
 ## Passe finale de simplification
 
