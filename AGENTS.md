@@ -21,19 +21,57 @@ Codex est l’agent d’implémentation, refactorisation, validation, intégrati
 
 L’utilisateur a explicitement autorisé un lot de plusieurs heures. Ne s’arrêter ni après une première compilation verte, ni après une première page fonctionnelle si les critères du lot restent incomplets.
 
+## Principe anti-embonpoint — obligatoire
+
+**Un long run ne signifie pas un grand système. Il signifie finir proprement un petit système.**
+
+Le PROTO-0.2 doit rester sobre, limité, lisible et testable. Le temps supplémentaire doit servir en priorité à :
+- assembler le parcours complet ;
+- supprimer les anciennes mécaniques contradictoires du parcours actif ;
+- corriger les bugs ;
+- améliorer la lisibilité et le responsive ;
+- tester davantage ;
+- simuler davantage ;
+- simplifier le code déjà nécessaire ;
+- supprimer les doublons et le code devenu inutile ;
+- affiner les paramètres de laboratoire ;
+- produire une alpha jouable.
+
+Le temps supplémentaire **ne doit pas** servir à :
+- préparer des fonctionnalités futures non utilisées par PROTO-0.2 ;
+- créer un framework générique « au cas où » ;
+- multiplier les couches d’abstraction ;
+- introduire une architecture de plugin, ECS, event-bus généraliste, DSL, méta-modèle ou système de configuration universel sans besoin immédiat démontré ;
+- créer plusieurs variantes d’un même composant avant qu’elles soient nécessaires ;
+- ajouter des dépendances pour un problème résoluble simplement avec l’existant ;
+- refaire un moteur compatible uniquement pour obtenir une architecture plus élégante ;
+- développer du contenu supplémentaire pour occuper le temps disponible.
+
+Règle pratique : **chaque nouveau fichier, abstraction, dépendance ou primitive doit justifier une exigence actuelle de `CURRENT_TASK.md` ou supprimer une complexité réelle existante.** Sinon, ne pas le créer.
+
+Préférer :
+- adaptation locale > nouveau sous-système ;
+- composition simple > framework ;
+- données explicites > méta-programmation ;
+- quelques composants solides > bibliothèque prématurée ;
+- suppression > couche de compatibilité permanente ;
+- code lisible > extensibilité spéculative.
+
+Si deux solutions satisfont le cahier, choisir la plus petite qui reste propre et réutilisable raisonnablement.
+
 ## Toujours
 
 - Inspecter l’état réel du dépôt, de la branche et des tests avant de modifier.
 - Préserver/réutiliser les moteurs historiques compatibles, mais supprimer du parcours PROTO-0.2 les concepts explicitement abandonnés.
 - Séparer autant que possible **données / moteur / état / présentation / interactions**.
-- Privilégier des primitives réutilisables plutôt que du code spécifique à une page.
+- Privilégier des primitives réutilisables seulement lorsqu’elles répondent à plusieurs usages réels du lot ou évitent une duplication immédiate.
 - Ajouter/adaptater les tests à toute règle modifiée.
 - Exécuter les contrôles pertinents après chaque lot cohérent et corriger jusqu’au vert.
 - Faire des simulations déterministes pour calibrer la seule difficulté centrale du proto : croissance des ondes versus progression défensive/intégrité.
 - Conserver des interactions clic/tap/clavier ; un drag éventuel ne doit jamais être obligatoire.
 - Afficher les erreurs/blocages en langage joueur ; ne pas exposer inutilement les identifiants internes.
 - Conserver le rapport de vague distinct des rapports de tour et des logs techniques.
-- Garder les paramètres d’équilibrage centralisés/configurables.
+- Garder les paramètres d’équilibrage centralisés/configurables sans créer un système de configuration généraliste.
 - Mettre à jour `IMPLEMENTATION_REPORT.md` avant de s’arrêter.
 
 ## Ne jamais
