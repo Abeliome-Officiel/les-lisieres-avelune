@@ -2,173 +2,159 @@
 
 ## Intention
 
-PROTO-0.2 n’est **pas** une maquette de direction artistique ni une préparation de sortie officielle. La priorité est l’**ergonomie d’usage** : comprendre, manipuler et lire l’état du jeu rapidement.
+PROTO-0.2 doit être un mini-jeu lisible, manipulable et suffisamment incarné visuellement pour permettre un vrai playtest. La direction artistique n’est pas finale, mais l’interface ne doit plus ressembler à un outil technique ni à une succession de formulaires.
 
-Le visuel peut porter un minimum d’ambiance Avelune, mais il ne doit jamais retarder ni compliquer la validation fonctionnelle.
+Référence de composition : `06_VISUAL_BRIEF_GEN3.md`.
 
-Principe directeur :
+## 1. Composition principale
 
-> Le joueur ne doit pas reconstruire le modèle du jeu à partir de tableaux. Les relations importantes doivent être visibles ou directement manipulables.
+Desktop, de préférence en une vue principale proche de Gen3 :
+- bandeau supérieur RTS : ressources/capacités essentielles ;
+- panneau gauche : fiche du Corcite / évolution ;
+- centre : plateau hexagonal économique ;
+- panneau droit : contexte du bâtiment/case sélectionné ;
+- bas : inventaire global + ordres/productions en cours ;
+- accès visible à la vue Défenses.
 
-## 1. Écran principal
+Mobile : mêmes fonctions, réorganisées en panneaux/tiroirs verticaux ; aucune fonction essentielle ne dépend d’un grand écran.
 
-La cible est une vue fonctionnelle du Corcite, avec quatre couches lisibles :
+## 2. Bandeau supérieur
 
-1. barre persistante des ressources et capacités ;
-2. réseau productif visible ;
-3. accès clair au développement / évolution ;
-4. accès clair aux défenses et à la progression du run.
+Afficher sans duplication :
+- matières primaires et intermédiaires réellement disponibles ;
+- stockage utilisé/capacité ;
+- énergie utilisée/capacité ;
+- population utile à la décision ;
+- entretien ;
+- Intégrité du Corcite ;
+- état général du run.
 
-La navigation peut rester en vues spécialisées si nécessaire, mais le joueur doit conserver les informations économiques importantes sans changer de page.
+Même vocabulaire et mêmes icônes dans HUD, inventaire, recettes, recherches et rapports. Les identifiants `R1/R2/...` restent internes.
 
-## 2. Barre ressources / capacités
+La matière réservée doit pouvoir être comprise : disponible/déjà engagée/total physique au besoin via détail.
 
-Toujours visible ou quasi permanente.
+## 3. Plateau économique
 
-Exemple de lecture :
+Le centre de l’expérience est un **plateau en hexagones**, pas un réseau de nœuds.
 
-```text
-◉ 12    ◆ 9    ⬢ 4    ⬡ 2      ⚡ 2/4   👤 3/5   🔧 4/6   ▣ 18/24
-```
+Le joueur doit pouvoir :
+- lire les ressources de sol ;
+- sélectionner un bâtiment disponible ;
+- choisir une case ;
+- voir une prévisualisation avant pose ;
+- confirmer ;
+- sélectionner ensuite la case/bâtiment pour agir.
 
-Objectifs :
-- quantité lisible immédiatement ;
-- mêmes icônes partout ;
-- pas d’identifiants internes R1/R2/R3/R4 exposés comme libellés principaux ;
-- détail disponible au clic/tap sans alourdir la vue.
+`1 bâtiment = 1 case`. Pas de liens, ports, câbles, routes, adjacence ou orientation mécanique.
 
-## 3. Réseau productif
+Pour un extracteur, la prévisualisation montre explicitement la production attendue sur la case (`+2 organique/tour`, `0`, etc.) sans message moralisateur.
 
-Représentation cible : hybride **hub de stocks + branches fonctionnelles**, visuellement organisée mais sans canvas industriel libre.
+## 4. Panneau de contexte
 
-Le joueur doit voir :
-- les fonctions construites ;
-- leur état ON/OFF ;
-- leur personnel ;
-- leur consommation de capacité ;
-- ce qu’elles consomment et produisent ;
-- les liens directs existants ;
-- les liens suspendus si une fonction est OFF.
+Pour la sélection courante :
+- nom et fonction ;
+- ON/OFF si pertinent ;
+- population affectée/besoin ;
+- énergie/entretien mobilisés ;
+- recette/production ;
+- base + modificateurs + résultat ;
+- état bloqué et raison ;
+- sorties en attente ;
+- actions pertinentes : produire, configurer, démonter, remonter, ouvrir recherche associée, etc.
 
-### Nœud de production
+Ne jamais afficher un bouton « déplacer » instantané pour un bâtiment posé : déplacement = démontage puis remontage avec coût en temps.
 
-Un composant générique doit pouvoir afficher au minimum :
+## 5. Inventaire / stockage
 
-```text
-Transformation              ● ON
+Inventaire global de type RPG :
+- Tout ;
+- Ressources ;
+- Matériaux/Composants ;
+- Bâtiments ;
+- Défenses.
 
-Entrées        2 ◉ + 2 ◆
-Base           2 ⬢
-Recherche    +50 %  (+1)
---------------------------
-Résultat        3 ⬢ / tour
+Chaque élément doit avoir : quantité, état éventuel (réservé, démonté, sortie bloquée), info de coût/utilisation au clic/tap.
 
-⚡ 2   👤 1   🔧 1
-```
+Un stockage posé ouvre ce même inventaire ; il n’existe pas d’inventaire par bâtiment.
 
-Les informations avancées peuvent être repliées pour éviter la surcharge.
+## 6. Démarrage
 
-## 4. Connexions
+Écran de déploiement initial : plateau vide, kit initial disponible. Le joueur choisit où poser le premier stockage puis organise librement le reste.
 
-L’interaction normale ne doit jamais être un formulaire `source + destination + ressource`.
+Cette phase ne doit pas donner l’impression qu’un stockage invisible existe déjà. Une fois le déploiement amorcé, toutes les contraintes normales s’appliquent.
 
-Cible :
-- sélectionner/tirer un port de sortie ;
-- mettre en évidence uniquement les entrées compatibles ;
-- déposer/cliquer sur la cible ;
-- déduire automatiquement la ressource ;
-- alternative clic/tap obligatoire.
+## 7. Recherche / fiche Corcite
 
-Le drag-and-drop / pointer gesture est une interaction préférée, pas exclusive.
+La fiche du Corcite ne duplique pas le HUD. Elle montre surtout :
+- identité du Corcite ;
+- Intégrité ;
+- effets actifs ;
+- progression/recherche ;
+- compétences/déblocages utiles au proto.
 
-### États graphiques minimum
-- lien actif : lisible ;
-- lien suspendu : visible mais atténué / discontinu ;
-- cible incompatible : non proposée ;
-- cible compatible : mise en évidence pendant l’interaction.
+La recherche utilise une vue globale unique. Les raccourcis depuis les bâtiments ouvrent le même nœud/source de vérité.
 
-## 5. Population
-
-La population doit être manipulable comme une capacité visible.
-
-Cible :
-- pool `disponible / totale` ;
-- affectation à une fonction par drag-and-drop ou clic/tap ;
-- retrait vers le pool ou commande équivalente ;
-- le joueur doit voir immédiatement où la population est affectée.
-
-Ne pas créer d’individus, métiers individuels, trajets ou microgestion sociale dans PROTO-0.2.
-
-## 6. ON/OFF
-
-ON/OFF est un contrôle simple et distinct de l’affectation de population.
-
-OFF :
-- cesse de produire ;
-- libère l’énergie ;
-- conserve l’affectation de population ;
-- conserve la topologie des liens en mode suspendu.
-
-Le contrôle doit être évident et ne pas ressembler à une suppression/démolition.
-
-## 7. RPG / évolution
-
-Le RPG doit être **présent et visible dans le parcours**, sans être réduit à un onglet secondaire oublié.
-
-Cible minimale :
-- recherche en cours clairement visible ;
-- découvertes/choix signalés ;
-- effets affichés sur les fonctions concernées ;
-- choix de développement présentés sous forme de cartes ou options comparables ;
-- impacts quantitatifs décomposés `base + modificateur = résultat` lorsque pertinent.
-
-Ne pas utiliser le drag-and-drop pour les choix conceptuels de recherche/évolution sauf raison fonctionnelle explicite.
+Afficher : prérequis, coût, durée, effet, niveau, limite répétable totale. Ajouter `Stockage amélioré` aux branches testées.
 
 ## 8. Défenses
 
-Vue spécialisée autorisée et recommandée.
+Vue tactique séparée :
+- chemin de 8 positions ;
+- inventaire de tours disponibles ;
+- une seule famille PROTO-0.2 : **Affaiblissement** ;
+- placement/déplacement visuel ;
+- ordre de résolution clair ;
+- puissance totale d’Affaiblissement lisible ;
+- pas de termes historiques Atténuation/Déstructuration/Captation/Stabilisation dans le parcours joueur.
 
-Le joueur doit voir :
-- inventaire des défenses ;
-- chemin d’entrée à sortie ;
-- positions ;
-- ordre ;
-- placement/déplacement ;
-- résultat principal de chaque tour.
+Drag possible sur desktop, mais clic/tap obligatoire.
 
-Drag-and-drop pertinent pour placer/déplacer ; alternative clic/tap/clavier obligatoire.
+## 9. Onde et run
 
-## 9. Onde
+L’onde est brutale et impromptue : pas de compteur exact permanent.
 
-Pas de compte à rebours gratuit permanent.
+Afficher avant l’onde seulement les informations réellement obtenues par l’observation/recherche.
 
-Le joueur poursuit son développement jusqu’à un déclenchement soudain. Le moteur peut rester déterministe / seedé pour les tests.
+Pendant/après résolution :
+- Puissance initiale ;
+- réduction séquentielle par chaque tour ;
+- Puissance résiduelle ;
+- dégâts d’Intégrité ;
+- état final.
 
-Si une recherche ou capacité donne de l’information préalable, afficher un **indice qualitatif**, pas nécessairement un nombre de tours exact.
+Fin immédiate :
+- résidu `0` → **Victoire du testeur** ;
+- Intégrité `0` → **Victoire du jeu** ;
+- sinon retour au développement et prochaine onde plus puissante.
 
-## 10. Ergonomie mobile et desktop
+L’écran de fin montre durée, nombre d’ondes, évolution économique/défensive et bouton recommencer.
 
-PROTO-0.2 doit rester utilisable sur téléphone, même si le desktop peut offrir davantage d’espace.
+## 10. Accessibilité
 
-Contraintes :
-- pas de petites cibles obligatoires ;
-- pas de geste hover-only ;
-- pas de drag indispensable ;
-- composants capables de se réorganiser verticalement ;
-- les informations essentielles ne doivent pas dépendre d’un grand canvas fixe.
+- pas de drag obligatoire ;
+- pas de hover-only ;
+- targets tactiles larges ;
+- contraste suffisant ;
+- texte lisible ;
+- icône jamais seule pour une information critique ;
+- état sélectionné/bloqué/actif distinct visuellement et textuellement ;
+- responsive sans horizontal scroll structurel sur mobile.
 
-## 11. Ambiance visuelle minimale
+## 11. Ambiance visuelle
 
-Autorisé :
-- palette cohérente avec Avelune ;
-- formes organiques/minérales discrètes ;
-- accent violet/prune/lavande ;
-- micro-ambiance visuelle non anthropomorphe.
+L’interface doit déjà se rapprocher d’Avelune :
+- queer, onirique, féerique sans fantasy médiévale ;
+- organique, minérale, biomorphique, légèrement florale/abstraite ;
+- violet, prune, lavande, opalin, iridescent ;
+- lumière douce, surfaces semi-translucides si lisibles ;
+- Corcite non anthropomorphe.
 
-Interdit pour ce lot :
-- consacrer du temps à une direction artistique finale ;
-- créer des illustrations complexes ;
-- créer habitants, humains/humanoïdes, faune ou flore naturaliste non définie ;
-- choisir des effets décoratifs qui réduisent la lisibilité.
+Éviter :
+- humanoïde/avatar de héros ;
+- forêt fantasy générique ;
+- architecture médiévale ;
+- métal industriel sci-fi générique ;
+- bleu/vert RTS générique dominant ;
+- décoration qui masque la hiérarchie fonctionnelle.
 
-La réussite du prototype est **fonctionnelle**, pas esthétique.
+La priorité reste l’usage, mais Codex doit effectuer un **vrai travail visuel** et pas uniquement brancher des composants bruts.
