@@ -1,277 +1,253 @@
-# CURRENT TASK — P02-001 — Construire le premier mini-jeu PROTO-0.2
+# CURRENT TASK — P02-001 — Construire l’alpha jouable PROTO-0.2
 
-**Status : READY**
+**Status : READY_FOR_LONG_CODEX_RUN**
 
-**Base attendue : `develop/proto-0.2-ux-rules`**
+**Base obligatoire : `develop/proto-0.2-ux-rules`**
 
 ## Mission
 
-Transformer l’état actuel du prototype en une **première version jouable PROTO-0.2** centrée sur la nouvelle ergonomie et l’affinage des règles, sans consacrer la session à la direction artistique.
+Transformer l’état actuel du dépôt en une **alpha PROTO-0.2 complète et réellement jouable**, suffisamment solide pour qu’au retour de l’utilisateur il reste principalement à relire, pousser si nécessaire et mettre en ligne.
 
-Cette tâche est volontairement large : l’objectif de la session est de profiter de Codex pour effectuer en autonomie les modifications multi-fichiers, contrôles, tests et corrections qui seraient lentes via Wetty.
+Ce lot est volontairement large et prévu pour plusieurs heures d’autonomie. Ne pas s’arrêter après une première compilation verte ou un premier écran fonctionnel. Continuer jusqu’à ce que les gates de `04_ACCEPTANCE.md` soient satisfaites ou qu’une véritable décision humaine bloque tout travail indépendant.
 
-Lire obligatoirement avant de coder :
-
+Lire obligatoirement :
 1. `/AGENTS.md`
 2. `docs/development/proto0.2/00_CHARTER.md`
 3. `docs/development/proto0.2/01_RULES_AND_SCOPE.md`
 4. `docs/development/proto0.2/02_UX_SPEC.md`
-5. `docs/development/proto0.2/03_TECHNICAL_GUARDRAILS.md`
-6. `docs/development/proto0.2/04_ACCEPTANCE.md`
-7. `docs/conception/04_tf_ergonomie_et_modele_mental_2026-08-06.md`
+5. `docs/development/proto0.2/06_VISUAL_BRIEF_GEN3.md`
+6. `docs/development/proto0.2/03_TECHNICAL_GUARDRAILS.md`
+7. `docs/development/proto0.2/04_ACCEPTANCE.md`
+8. `docs/development/proto0.2/LEGACY_REFERENCES.md`
+9. les documents `docs/conception/` utiles, uniquement s’ils ne contredisent pas les règles ci-dessus.
 
-Puis inspecter le code réel avant de décider où intervenir.
+Puis inspecter le code réel avant de modifier.
 
 ---
 
 # 1. Priorité absolue
 
-Livrer un **mini-jeu assemblé et jouable**, même encore brut visuellement.
+Livrer un mini-jeu assemblé : **plateau + économie + recherche + défenses + vagues croissantes + victoire/défaite + persistance + habillage visuel Avelune provisoire**.
 
-Ne pas passer une grande partie du temps à polir la couleur, les ombres, les animations ou une direction artistique définitive.
-
-Utiliser un style simple, cohérent, lisible, avec éventuellement une ambiance Avelune légère. Les composants qui ont vocation à survivre doivent être propres ; les habillages expérimentaux peuvent rester simples.
+Le moteur existant doit être réutilisé lorsqu’il reste compatible. Les mécaniques historiques explicitement abandonnées pour PROTO-0.2 doivent être retirées du parcours actif au lieu d’être conservées comme seconde vérité.
 
 ---
 
-# 2. Première étape obligatoire : diagnostic rapide
+# 2. Diagnostic initial obligatoire
 
-Avant toute modification importante :
+Avant grosse modification :
+- vérifier branche, Git status, historique récent ;
+- inventorier `app/src/lib/proto0`, composants, routes et tests ;
+- cartographier les anciennes dépendances : réserve énergie, espace abstrait, stockage natif, réseau direct, anciens champs de vague, captation ;
+- identifier ce qui peut être migré proprement ;
+- lire la stratégie Docker/validation avant d’exécuter les commandes ;
+- ne pas écraser de modifications utilisateur non comprises.
 
-- vérifier branche, état Git et historique récent ;
-- inventorier l’architecture réelle de `app/src/lib/proto0`, `app/src/lib/components`, `app/src/routes` et `app/tests/proto0` ;
-- identifier précisément le modèle énergie/réserve existant ;
-- identifier le modèle population / structures actives ;
-- identifier le système de connexions réseau ;
-- identifier le parcours recherche/évolution jouable ;
-- identifier le TD / placement / résolution ;
-- identifier le mécanisme actuel de vague, préparation et compte à rebours ;
-- identifier toute persistance navigateur existante ;
-- lire les README Docker/validation avant d’exécuter npm sur l’hôte.
-
-Si le worktree comporte des modifications utilisateur non comprises, **ne pas les écraser**. Documenter et travailler dans une branche/worktree sûr si nécessaire.
+Documenter brièvement le diagnostic dans `IMPLEMENTATION_REPORT.md`, puis travailler.
 
 ---
 
-# 3. Implémentation cible — ordre conseillé
+# 3. Lot mécanique
 
-L’ordre est indicatif. Réorganiser techniquement si nécessaire sans changer les règles.
+## A. Plateau hexagonal économique
 
-## A. Énergie simple
+Créer/adapter un plateau principal :
+- cases hex ;
+- ressources de sol ;
+- 1 bâtiment par case ;
+- placement libre ;
+- prévisualisation ;
+- extracteur compatible → production ; incompatible → 0 ;
+- pas d’adjacence/logistique/réseau.
 
-- retirer du parcours PROTO-0.2 la réserve énergétique courte ;
-- `utilisée / capacité` devient la seule lecture normale ;
-- adapter moteur jouable, présentation et tests ;
-- préserver l’historique hors parcours si nécessaire, sans maintenir deux vérités concurrentes dans PROTO-0.2.
+Supprimer du parcours joueur la vue réseau/ports/connexions directes.
 
-## B. États fonction + population
+## B. Déploiement initial
 
-Introduire proprement la distinction :
+Plateau vide. Kit initial non posé : stockage, énergie, entretien, Atelier de construction, deux extracteurs, Fabrique défensive.
 
-- fonction ON ;
-- fonction OFF mais population encore affectée ;
-- population retirée / fonction non staffée.
+Pas de stockage natif permanent. Implémenter une phase de déploiement permettant de poser le premier stockage, puis faire entrer l’économie dans les règles normales.
 
-Règles actées :
-- OFF arrête la production ;
-- OFF libère l’énergie ;
-- OFF ne libère pas la population ;
-- retrait de population libère immédiatement le travail ;
-- une fonction nécessitant du personnel ne travaille pas si non staffée ;
-- liens conservés mais suspendus pendant OFF plutôt que détruits.
+Stock initial de référence : `4` organique, `4` minéral, `0` transformé, `0` composant. Ajustable par simulation uniquement si indispensable au bootstrap, mais ne jamais donner de transformé/composant au départ.
 
-Ne pas inventer une nouvelle règle d’entretien si l’existant ne permet pas de la déduire proprement : conserver le comportement compatible ou remonter la décision.
+## C. Fabrication de bâtiments / défenses
 
-## C. Socle UI réutilisable
+- Atelier de construction → bâtiments économiques ;
+- Fabrique défensive → tours ;
+- fabriqué → inventaire → posé/utilisé ;
+- commandes avec réservation correcte ;
+- sortie producteur bloquée si inventaire plein ;
+- rien perdu.
 
-Créer/réutiliser proprement les briques nécessaires :
+Ajouter Recyclerie fabricable dès le départ.
 
-- bandeau ressources ;
-- bandeau capacités ;
-- nœud de production générique ;
-- breakdown de modificateurs ;
-- primitive de ports/connexions ;
-- pool population ;
-- primitive défense/path si nécessaire ;
-- panneau évolution/recherche réutilisable.
+## D. Démontage/remontage
 
-Ne pas créer de doublons si des composants actuels peuvent être adaptés proprement.
+- bâtiment posé démontable ;
+- objet démonté en inventaire ;
+- recyclable ;
+- remontable en 1 tour, sans nouveau coût matière ;
+- aucun déplacement instantané ;
+- stockage non retirable si capacité insuffisante ensuite.
 
-## D. Vue productive principale
+## E. Énergie/population/entretien/stockage
 
-Remplacer la compréhension par tableaux/formulaires par une représentation visuelle fonctionnelle :
+- aucune réserve énergétique courte ;
+- énergie used/capacity ;
+- ON/OFF libère énergie mais garde population ;
+- population retirable séparément ;
+- stockage uniquement par bâtiments ;
+- ancien espace abstrait désactivé pour le parcours P02.
 
-- stocks comme hub/router mental par défaut ;
-- bâtiments productifs visibles ;
-- entrées/sorties lisibles ;
-- liens directs affichés ;
-- état ON/OFF visible ;
-- personnel visible ;
-- résultat de production visible ;
-- ressources/capacités toujours accessibles.
+## F. Recherche
 
-Le layout peut être automatique/simple. Ne pas construire un canvas libre complet.
+Construire une petite progression réellement utile :
+- unlock Transformation ;
+- Extraction améliorée ;
+- Transformation améliorée ;
+- Fabrication améliorée ;
+- Recyclerie améliorée ;
+- **Stockage amélioré** ;
+- autres petits nœuds seulement s’ils sont déjà justifiés par les sources et utiles au run.
 
-## E. Connexions
+Progression répétable : max 4 niveaux **au total cumulé** dans le proto, gains modestes/configurables.
 
-Supprimer du parcours normal la saisie `source + destination + ressource`.
+## G. Défense simplifiée
 
-Cible :
-- interaction port de sortie → port d’entrée compatible ;
-- ressource déduite ;
-- destinations incompatibles non proposées ;
-- drag/pointer souhaité si raisonnablement implémentable ce soir ;
-- alternative clic/tap obligatoire ;
-- lien suspendu quand fonction OFF.
+Remplacer le parcours à quatre familles par une seule famille joueur : **Affaiblissement**.
 
-Si le drag complet menace le délai, livrer d’abord une interaction clic-port → clic-port très visuelle et structurée dans une primitive extensible, puis ajouter le pointer drag si le temps le permet.
+- fabrication physique ;
+- inventaire ;
+- vue tactique séparée ;
+- chemin de 8 positions comme base ;
+- ordre mécanique visible ;
+- réduction séquentielle de la Puissance.
 
-## F. Population manipulable
+Aucune captation, matière de vague, Déstructuration ou Stabilisation active.
 
-Cible :
-- population disponible visible ;
-- affecter une unité de travail à une fonction ;
-- retirer vers le pool ;
-- drag/pointer souhaité ;
-- alternative clic/tap obligatoire ;
-- pas d’individus ni microgestion.
+## H. Onde / challenge
 
-## G. RPG / évolution transversal
+Remplacer la résolution active complexe par la règle P02 :
+- une `Puissance` ;
+- chaque onde suivante strictement plus puissante ;
+- rythme impromptu/déterministe conforme aux règles ;
+- résidu 0 → victoire immédiate testeur ;
+- résidu >0 → dégâts d’Intégrité ;
+- Intégrité 0 → victoire du jeu ;
+- sinon continuer.
 
-Ne pas sacrifier cette partie pour finir l’UI productive.
+Le run n’a pas un nombre fixe de vagues.
 
-- garder/adapter le parcours de recherche actuel ;
-- rendre la recherche en cours et les choix/découvertes visibles ;
-- montrer les impacts sur les fonctions concernées ;
-- utiliser `ModifierBreakdown` ou équivalent : base, pourcentage si réel, delta, résultat ;
-- conserver la temporalité jouable existante validée (recherche PROTO jouable à 1 tour ; historique distinct si présent) ;
-- si possible, fournir au moins une vraie bifurcation de choix utilisant les mécanismes existants, sans créer un arbre RPG complet.
+Centraliser tous les paramètres. Faire des simulations nombreuses pour calibrer un challenge continu, non trivial mais gagnable. Une mauvaise trajectoire doit finir par mourir ; une bonne trajectoire doit pouvoir atteindre une onde à résidu zéro avant cela.
 
-## H. Défenses
-
-Refondre suffisamment l’ergonomie pour obtenir :
-- inventaire lisible ;
-- chemin lisible ;
-- positions claires ;
-- placement/déplacement direct ;
-- drag souhaité avec fallback clic/tap ;
-- ordre de résolution visible ;
-- effets du moteur existant préservés.
-
-## I. Onde
-
-- retirer de l’interface joueur le compte à rebours gratuit permanent ;
-- conserver une logique déterministe/seedée cachée si utile aux tests ;
-- préserver le rapport de fin d’onde distinct des rapports de tour ;
-- si la mécanique actuelle est trop couplée à une phase de préparation annoncée, faire la modification minimale sûre pour obtenir un déclenchement joueur non précisément connu et documenter les limites restantes.
-
-## J. Sauvegarde locale
-
-Créer une primitive versionnée de sauvegarde/restauration du run jouable :
-- autosave ;
-- restauration ;
-- données invalides gérées sans crash ;
-- nouvelle partie explicite ;
-- tests roundtrip ciblés.
-
-## K. Mini-jeu borné
-
-Si possible dans le temps disponible :
-- compter les ondes traversées ;
-- cible de run : 3 ondes ;
-- afficher une fin de prototype simple avec quelques statistiques déjà disponibles ;
-- permettre de recommencer.
-
-Si cette partie menace la stabilité du cœur UX, elle passe après les gates production/RPG/défense/onde.
+Ne pas chercher l’équilibrage du jeu final.
 
 ---
 
-# 4. Ce qui doit rester hors du lot
+# 4. Lot UX / visuel — obligatoire
 
-Ne pas ajouter :
-- nouveaux matériaux ;
-- matériaux récupérés dans les ondes comme nouvelles ressources de production ;
-- consommables de futures tours ;
-- races/classes complètes ;
-- nouveau lore ;
-- social/multijoueur ;
-- commerce ;
-- météo ;
-- temps réel ;
-- éditeur de graphe industriel généraliste ;
-- direction artistique finale.
+Ne pas remettre à plus tard toute la présentation.
 
----
+Utiliser `06_VISUAL_BRIEF_GEN3.md` : Gen3 donne la composition, pas la DA.
 
-# 5. Autonomie accordée
+Cible desktop :
+- HUD haut ;
+- fiche Corcite gauche ;
+- plateau central dominant ;
+- contexte droit ;
+- inventaire/ordres bas ;
+- accès Défenses clair.
 
-Tu peux décider sans demander :
-- découpage de composants ;
-- noms internes cohérents ;
-- refactors locaux nécessaires ;
-- choix CSS/layout purement ergonomiques ;
-- stratégie de tests ;
-- organisation des helpers ;
-- corrections de types/imports/fixtures ;
-- choix entre SVG/HTML/CSS pour les connexions si l’API reste extensible ;
-- petits ajustements de responsive/accessibilité nécessaires.
+Faire une vraie passe visuelle :
+- palette Avelune violet/prune/lavande/opaline ;
+- biomorphisme organique/minéral ;
+- Corcite non anthropomorphe ;
+- composants cohérents ;
+- états interactifs clairs ;
+- responsive mobile ;
+- pas de fantasy médiévale, humain/humanoïde ou sci-fi industrielle générique.
 
-Tu dois demander/documenter si une décision change :
-- une règle de jeu non explicitement définie ;
-- l’économie/équilibrage de façon substantielle ;
-- le rôle du RPG ;
-- le sens mécanique des connexions ;
-- les effets de OFF / population / entretien au-delà de ce qui est acté ;
-- la logique fondamentale de l’onde ;
-- le périmètre du prototype.
-
-Ne bloque pas tout le lot pour une question localisée : consigner dans `DECISIONS_NEEDED.md` et poursuivre les travaux indépendants.
+Le résultat peut être provisoire mais doit ressembler à un jeu Avelune testable, pas à un back-office.
 
 ---
 
-# 6. Boucle de travail attendue
+# 5. Rapports et sauvegarde
 
-Ne t’arrête pas à la première erreur.
-
-```text
-inspecter
-→ implémenter
-→ formatter/typecheck/tester/build
-→ diagnostiquer
-→ corriger
-→ retester
-→ répéter jusqu’au vert ou décision humaine réelle
-```
-
-Ne pas supprimer/désactiver un test uniquement pour faire passer la suite.
+- rapport de vague séparé ;
+- puissance initiale ;
+- réductions successives ;
+- résidu ;
+- Intégrité avant/après ;
+- résultat du run ;
+- sauvegarde locale versionnée ;
+- anciennes sauvegardes incompatibles rejetées/migrées proprement ;
+- nouvelle partie explicite.
 
 ---
 
-# 7. Rapport attendu
+# 6. Tests et simulations
 
-À la fin, créer ou mettre à jour :
+Boucle attendue :
 
-`docs/development/proto0.2/IMPLEMENTATION_REPORT.md`
+`inspecter → implémenter → formatter/typecheck → tester → build → simuler → smoke tester → corriger → recommencer`
 
-Il doit contenir :
-- statut `REVIEW_READY`, `PARTIAL` ou `DECISION_REQUIRED` ;
-- branche/commit ;
-- résumé de ce qui est réellement jouable ;
-- fichiers/blocs principaux modifiés ;
-- briques réutilisables créées ;
-- contrôles exécutés avec résultats ;
-- éventuels tests non exécutables et pourquoi ;
-- écarts par rapport à la spécification ;
-- dette volontaire restante ;
-- décisions requises ;
-- instructions exactes pour lancer/déployer/tester le résultat.
+Ne pas s’arrêter à la première passe verte.
 
-Si l’environnement de staging existe et peut être utilisé sans risque, préparer/déployer uniquement selon les règles d’infrastructure existantes. Ne pas inventer de déploiement ni toucher à la production publique sans autorisation.
+Avant `REVIEW_READY`, viser :
+- `npm run check` vert ;
+- `npm run test:proto0` vert ;
+- `npm run build` vert ;
+- tests unitaires ciblés ;
+- simulations de plusieurs stratégies ;
+- smoke desktop ;
+- vérification responsive/mobile raisonnable ;
+- aucune régression historique silencieuse hors périmètre.
+
+Si Playwright est déjà disponible ou rapide à exploiter, ajouter les parcours E2E prioritaires sans transformer le lot en chantier d’infrastructure.
 
 ---
 
-# 8. Définition de « terminé ce soir »
+# 7. Autonomie accordée
 
-Un résultat acceptable est une **alpha PROTO-0.2 réellement jouable** où le joueur peut observer et manipuler le Corcite de façon nettement plus directe qu’en PROTO-0.1, avec production, évolution/RPG, défenses et onde encore connectées dans la même boucle.
+Décider seul : architecture locale, refactors nécessaires, composants, CSS, mise en page, responsive, accessibilité, stratégie de tests, fixtures, paramètres numériques de laboratoire, nombre de simulations, petits ajustements de coûts nécessaires à un bootstrap/challenge sain.
 
-Le polish graphique, les animations et la finition exhaustive peuvent attendre.
+Ne pas demander confirmation pour un problème purement technique.
+
+Consigner dans `DECISIONS_NEEDED.md` uniquement une vraie bifurcation de game design non couverte par les sources. Continuer tout ce qui est indépendant avant de s’arrêter.
+
+---
+
+# 8. Interdictions
+
+Ne pas :
+- réintroduire réseau direct/ports/Factorio ;
+- réintroduire réserve énergie ;
+- utiliser ancien espace abstrait en parallèle ;
+- créer stockage natif ;
+- ajouter matière de vague/captation ;
+- réinventer 4 familles de tours ;
+- ajouter une caractéristique de vague autre que Puissance au challenge P02 ;
+- inventer lore/races/classes/social ;
+- force-push ;
+- merger `main` ;
+- déployer publiquement ;
+- supprimer des tests pour obtenir du vert.
+
+---
+
+# 9. Rapport final obligatoire
+
+Mettre à jour `IMPLEMENTATION_REPORT.md` avec :
+- statut `REVIEW_READY`, `PARTIAL`, `DECISION_REQUIRED` ou `BLOCKED_TECHNICAL` ;
+- branche + SHA final ;
+- résumé jouable ;
+- architecture/primitives créées ;
+- migrations des anciennes mécaniques ;
+- résultats tests/build ;
+- résultats simulations et paramètres retenus ;
+- état visuel/desktop/mobile ;
+- dette restante ;
+- décisions réellement requises ;
+- commandes exactes pour revue et déploiement.
+
+**Ne pas pousser vers `main` et ne pas déployer.** Le résultat doit rester prêt à être revu/poussé/mis en ligne par l’utilisateur à son retour.
