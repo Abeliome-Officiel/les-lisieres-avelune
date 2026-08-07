@@ -1,468 +1,236 @@
 # ✦ Les Lisières d’Avelune
 
 > **Un monde partagé à habiter, comprendre et transformer.**
-> Développez un **Corcite**, corps-cité organique vivant, faites circuler matière, énergie et connaissance, préparez-vous aux vagues issues de la Fracture et contribuez à protéger la Lisière — de manière autonome, en parallèle des autres ou en coopération directe selon vos envies et vos possibilités.
 
-**Les Lisières d’Avelune** est un jeu navigateur persistant mêlant **gestion systémique**, **production et réseaux**, **défense contre des vagues**, **progression RPG horizontale**, **narration textuelle** et **monde partagé évolutif**.
+**Les Lisières d’Avelune** est un projet de jeu navigateur persistant centré sur le développement d’un **Corcite**, corps-cité organique vivant. Le projet mêle gestion systémique, production, recherche, défense contre les vagues issues de la Fracture, progression RPG transversale, narration textuelle et monde partagé évolutif.
 
-**Poétique · Onirique · Féerique · Organique · Minéral · Floral · Queer**
+**Poétique · Onirique · Féerique · Organique · Minéral · Floral-abstrait · Queer**
 
 ---
 
-## État du projet
+## État du projet — août 2026
 
-Le `v0.8` visible historiquement sur le dépôt n’est plus l’état réel du projet.
+Deux repères doivent être distingués :
 
-| Repère | Signification |
+| Repère | Statut |
 |---|---|
-| `v0.8` | ancien jalon/tag historique |
-| `v0.8.3` | dernière baseline de conception formellement figée avant le PROTO-0.1 |
-| **v0.8.3+** | conception consolidée avec les décisions prises ensuite |
-| **PROTO-0.1 jouable** | prototype navigateur intégré à `main`, déployé et validé comme baseline de travail |
+| **PROTO-0.1** | baseline jouable intégrée à `main`, déployée et conservée comme jalon stable actuel |
+| **PROTO-0.2** | développement actif destiné à tester un modèle de Corcite plus concret, une boucle de jeu complète et une UX nettement plus proche du cahier des charges |
 
-Depuis la fusion de la PR #1, **`main` est la source canonique du dépôt et du PROTO-0.1**. La branche `develop/proto-0.1-playable` est conservée pour la traçabilité du développement ayant conduit à ce jalon ; elle n’est plus présentée comme la branche courante de référence.
+`main` reste donc la **baseline stable du dépôt** tant que PROTO-0.2 n’a pas été revu et intégré.
 
-Le projet se situe actuellement dans une phase de **discussion et d’analyse après le jalon PROTO-0.1**, avant d’engager un nouveau lot de modifications structurelles.
+Le développement courant se fait sur :
 
-Il n’existe pas encore de nouvelle version stable arbitrairement baptisée `v0.9`. Le numéro de version ne doit pas devancer les décisions réelles du projet.
+**[`develop/proto-0.2-ux-rules`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2-ux-rules)**
+
+PROTO-0.2 n’est pas encore présenté comme une version stable ni comme la version déployée de référence.
 
 ### Accès rapide
 
-- **Prototype** : https://proto.avelune.duckdns.org
-- **Source canonique** : [`main`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/main)
-- **PR d’intégration du PROTO-0.1** : [`#1`](https://github.com/Avelune-Officiel/les-lisieres-avelune/pull/1)
-- **État technique du prototype** : [`docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md`](docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md)
-- **Vision** : [`docs/00_vision.md`](docs/00_vision.md)
+- **Prototype actuellement déployé — PROTO-0.1** : https://proto.avelune.duckdns.org
+- **Baseline stable** : [`main`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/main)
+- **Développement PROTO-0.2** : [`develop/proto-0.2-ux-rules`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2-ux-rules)
+- **Cahier PROTO-0.2** : [`docs/development/proto0.2`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2-ux-rules/docs/development/proto0.2)
+- **Règles actives PROTO-0.2** : [`01_RULES_AND_SCOPE.md`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.2-ux-rules/docs/development/proto0.2/01_RULES_AND_SCOPE.md)
+- **Spécification UX** : [`02_UX_SPEC.md`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.2-ux-rules/docs/development/proto0.2/02_UX_SPEC.md)
+- **Brief visuel Gen3 corrigé** : [`06_VISUAL_BRIEF_GEN3.md`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.2-ux-rules/docs/development/proto0.2/06_VISUAL_BRIEF_GEN3.md)
+- **Vision générale** : [`docs/00_vision.md`](docs/00_vision.md)
 - **Accessibilité et éthique** : [`docs/06_accessibilite_ethique.md`](docs/06_accessibilite_ethique.md)
-- **Charte graphique de travail** : [`docs/art/CHARTE_GRAPHIQUE.md`](docs/art/CHARTE_GRAPHIQUE.md)
 
 ---
 
-## Jalon PROTO-0.1 actuellement déployé
+# PROTO-0.2 — objectif du jalon actif
 
-Au **6 août 2026**, le PROTO-0.1 a été consolidé avec `main`, validé puis intégré comme nouvelle baseline du dépôt.
-
-État validé :
-
-- navigation joueur : **Corcite · Ressources · Développement · Vague · Journal** ;
-- stocks et capacités rendus directement observables ;
-- population totale, affectée et disponible exposée ;
-- chaînes de production et conditions d'action explicitées ;
-- choix de l'identité de testeur restauré ;
-- rapport du tour précédent et historique joueur ;
-- recherches du catalogue jouable sur **1 tour** ;
-- construction et fabrication réellement résolues sur **1 tour** ;
-- décision au tour N → planification → réservation à la résolution →
-  achèvement en fin de N → utilisation à partir de N+1 ;
-- décisions matérielles annulables avant résolution ;
-- conflits de ressources laissés au joueur, sans priorité cachée ;
-- **346 / 346 tests PROTO-0 réussis** ;
-- **0 erreur / 0 warning** Svelte ;
-- build production validé ;
-- prototype déployé et accessible pour playtest.
-
-La référence RPG historique à trois tours reste conservée pour les
-tests historiques ; elle n'est pas la durée du catalogue de recherche
-jouable actuel.
-
-Références :
-
-- [`Jalon lisibilité et temporalité`](docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md)
-- [`Périmètre du prototype jouable`](docs/proto0/PROTO0_PLAYABLE_SCOPE.md)
-- [`Gate de playtest`](docs/proto0/PROTO0_PLAYTEST_READY.md)
-
----
-
-# Le cœur d’Avelune
-
-## Le Corcite — personnage, organisme et cité
-
-Le joueur ne contrôle pas seulement un avatar. Il développe un **Corcite**, corps-cité vivant, ancré dans Avelune et destiné à évoluer selon des orientations différentes.
-
-Un Corcite peut progressivement organiser :
-
-- son empreinte dans le monde ;
-- ses structures et fonctions organiques ;
-- ses chaînes d’extraction, transformation et fabrication ;
-- ses stockages et réseaux ;
-- son énergie et son entretien ;
-- sa population et sa capacité de travail ;
-- ses connaissances, recherches et compétences ;
-- ses défenses ;
-- sa mémoire des événements traversés.
-
-Sa progression doit produire **des formes de jeu, stratégies et spécialisations différentes**, pas seulement des statistiques plus hautes.
-
-→ [`Corps-cité, empreinte et influence`](docs/01_concept_corps_cite.md)
-
----
-
-## La Fracture, les vagues et la Lisière
-
-Au centre du monde se trouve la **Fracture**. Elle émet des vagues qui traversent progressivement Avelune jusqu’à la **Lisière**, frontière vitale du monde.
-
-Une vague n’est pas une simple barre de points de vie. Elle porte plusieurs caractéristiques qui peuvent être :
-
-- atténuées ;
-- déstructurées ;
-- stabilisées ;
-- captées ;
-- transformées par l’ordre des défenses rencontrées.
-
-La préparation du Corcite avant l’arrivée de la vague fait donc partie du système défensif. Après la vague, le résultat devient une nouvelle situation de jeu : intégrité, dette, réserve énergétique, matière captée, connaissance, récupération et adaptation.
-
-→ [`Passage et Lisière`](docs/15_lisiere_et_passage.md)
-
----
-
-## Une protection collective, sans coopération directe obligatoire
-
-C’est un principe central du monde partagé :
-
-> **l’ensemble des Corcites contribue à la protection de la Lisière, mais chaque Corcite n’est pas obligé de coopérer directement avec les autres.**
-
-La protection du monde est **collective par ses conséquences**, sans exiger une sociabilité permanente.
-
-Un Corcite doit pouvoir :
-
-- se développer largement de manière autonome ;
-- agir en parallèle d’autres Corcites ;
-- contribuer au résultat global par la manière dont il traite les vagues ;
-- coopérer ponctuellement lorsqu’il le souhaite ;
-- échanger, partager ou contribuer à des projets futurs ;
-- se spécialiser de manière complémentaire ;
-- rester peu social sans être exclu du jeu.
-
-Les futures mécaniques de coopération doivent favoriser l’entraide **sans transformer la coopération en obligation sociale permanente**.
-
-→ [`Social et communication`](docs/05_social_et_communication.md)
-
----
-
-## Produire, connecter, arbitrer
-
-La dimension gestion relie les systèmes :
+PROTO-0.2 est un **mini-jeu de validation**, pas le jeu final. Il doit tester une boucle complète et compréhensible :
 
 ```text
-ressources du monde
-        ↓
-extraction / stockage / réseaux
-        ↓
-transformation
-        ↓
-fabrication / construction
-        ↓
-énergie + entretien + population / travail
-        ↓
-développement du Corcite
-        ↓
-recherche / progression
-        ↓
-préparation défensive
-        ↓
-vague
-        ↓
-conséquences / captation / connaissance
-        ↓
-récupération / adaptation
-        ↺
+implanter
+→ extraire
+→ transformer / fabriquer
+→ rechercher / évoluer
+→ préparer les défenses
+→ subir une vague
+→ lire les conséquences
+→ adapter le Corcite
+→ gagner ou perdre le run
 ```
 
-Le joueur ne doit pas pouvoir tout faire simultanément. Le challenge vient notamment des arbitrages entre plusieurs besoins légitimes.
+L’objectif est de pouvoir juger réellement :
 
-→ [`Tycoon–Factorio et réseaux`](docs/03_tycoon_et_reseaux.md)
+- le modèle mental du Corcite ;
+- le plaisir de manipulation ;
+- les arbitrages économiques ;
+- la progression ;
+- la préparation défensive ;
+- le challenge ;
+- la lisibilité de l’interface ;
+- la cohérence visuelle d’Avelune.
 
----
-
-## Une couche RPG transversale
-
-Le RPG n’est pas une troisième file d’actions artificiellement symétrique au TF et au TD.
-
-Il constitue une couche **textuelle, évolutive et transversale** qui peut produire recherches, découvertes, compétences, métiers, classes, spécialisations, capacités, accès, modificateurs, connaissances, choix narratifs, relations et mémoire du Corcite.
-
-La progression vise principalement à **ouvrir des possibilités et différencier les manières de jouer**, plutôt qu’à créer une course verticale à la puissance.
-
-→ [`Trame RPG`](docs/14_trame_rpg.md)
+Le prototype reste volontairement limité pour éviter de confondre **validation d’une boucle** et développement prématuré du jeu complet.
 
 ---
 
-# Un monde partagé qui se souvient
+## Le Corcite devient un espace concret
 
-Avelune n’a pas vocation à séparer artificiellement un « mode solo » et un « mode multijoueur ».
+Le cœur économique de PROTO-0.2 est un **plateau hexagonal** représentant l’organisation du Corcite.
 
-Le monde est **unique et partagé**, même lorsqu’une personne choisit un style très autonome.
+Principes actifs du prototype :
 
-Les actions et événements pourront laisser des **Traces**, des **Échos**, des transformations, des connaissances et une histoire collective.
+- `1 bâtiment = 1 case` ;
+- certaines cases possèdent des ressources de sol ;
+- les extracteurs produisent lorsqu’ils sont placés sur un gisement compatible ;
+- hors extraction, la position n’a pas encore d’effet mécanique ;
+- pas d’adjacence, routes, orientation, bâtiments multi-cases ou logistique spatiale ;
+- pas de réseau direct, ports, câbles ou routage Factorio dans le parcours actif PROTO-0.2.
 
-La carte pourra s’étendre, mais un principe est acté : **Avelune ne rétrécit pas**.
-
-La mémoire des premières périodes du jeu peut nourrir la fiction sans créer d’avantage mécanique essentiel réservé aux premiers joueurs.
-
-→ [`Monde persistant, carte et chronologie`](docs/02_monde_persistant.md)
-
----
-
-# Les intentions fondatrices
-
-Ces principes font partie du **game design**, pas d’une couche de communication ajoutée après coup.
-
-## Profond, mais accessible de plusieurs manières
-
-Avelune est pensé avec une attention explicite aux personnes pouvant être concernées notamment par :
-
-- le **TSA** ;
-- le **TDAH** ;
-- les troubles **dys** ;
-- la surcharge cognitive ;
-- des capacités d’attention ou de mémoire de travail différentes ;
-- des rythmes d’apprentissage et de disponibilité très variables.
-
-L’objectif n’est pas de réduire la profondeur du jeu.
-
-> **Conserver la profondeur, mais offrir plusieurs chemins pour l’appréhender.**
-
-Cela implique notamment complexité progressive, informations hiérarchisées, récapitulatifs, automatisation lorsque pertinente et plusieurs profondeurs d’interface utilisant **les mêmes règles**.
+La piste de réseaux productifs reste une possibilité de conception future, mais elle n’est pas nécessaire pour valider ce jalon.
 
 ---
 
-## Pas de micro-dopamine comme moteur de rétention
+## Une économie physique mais simplifiée
 
-Avelune ne doit pas être conçu autour d’une succession de petites récompenses artificielles destinées principalement à maintenir le clic ou la connexion.
+PROTO-0.2 teste notamment :
 
-Le projet veut éviter comme moteurs principaux :
+- extraction de matières primaires ;
+- transformation ;
+- fabrication de composants et bâtiments nécessaires au run ;
+- Atelier de construction ;
+- Fabrique défensive ;
+- Recyclerie ;
+- énergie sous forme `utilisée / capacité` ;
+- population affectée ou disponible ;
+- entretien global ;
+- inventaire mécanique global ;
+- stockage fourni **uniquement par les bâtiments de stockage**.
 
-- les séries quotidiennes punitives ;
-- le FOMO ;
-- les notifications compulsives ;
-- les coffres, roulettes ou récompenses aléatoires de rétention ;
-- les jauges ajoutées uniquement pour provoquer une impression permanente de progression ;
-- les obligations de connexion pour ne pas « prendre de retard ».
+Un bâtiment est fabriqué, entre dans l’inventaire puis est posé. Un bâtiment posé peut être démonté et remonté avec un coût en temps.
 
-> **La récompense doit venir de la compréhension, de la décision, de la découverte et de l’évolution du monde — pas d’une captation artificielle de l’attention.**
-
----
-
-## Un jeu qui challenge réellement
-
-Avelune n’a pas vocation à devenir un jeu où tout réussit automatiquement.
-
-Le joueur doit pouvoir rencontrer ressources insuffisantes, arbitrages incompatibles, contraintes d’énergie, entretien, population ou espace, vagues imparfaitement comprises et conséquences persistantes.
-
-Le challenge recherché est surtout **systémique, intellectuel et stratégique**.
-
-> **Challenge ne signifie pas punition.**
-
-Une mauvaise décision doit idéalement créer une nouvelle situation à comprendre plutôt qu’un simple effacement de progression.
+Les ordres réservent leurs matières. Une production terminée ne détruit pas son résultat si le stockage est plein : elle bloque proprement la sortie du producteur jusqu’à ce que de la place soit libérée.
 
 ---
 
-## Plusieurs styles de jeu légitimes
+## Recherche et évolution
 
-Avelune doit pouvoir accueillir, autant que possible :
+Le RPG n’est pas une troisième boucle artificiellement symétrique à la production et à la défense. Il reste **transversal**.
 
-- optimisation ou expérimentation ;
-- exploration ou planification ;
-- jeu très autonome ou plus social ;
-- sessions courtes ou longues ;
-- lecture synthétique ou très détaillée ;
-- intervention manuelle ou automatisation de certaines tâches ;
-- styles polyvalents, orientés ou spécialisés.
+PROTO-0.2 teste une petite progression utile, notamment :
 
-Le but n’est pas que toutes les stratégies soient égales partout, mais que le jeu **n’impose pas artificiellement une seule manière correcte de jouer**.
+- déblocage de la Transformation ;
+- améliorations d’Extraction ;
+- améliorations de Transformation ;
+- améliorations de Fabrication ;
+- amélioration de la Recyclerie ;
+- **Stockage amélioré**.
 
----
-
-## Queer et non genré par conception
-
-La sensibilité **queer** fait partie de l’identité d’Avelune.
-
-Elle ne doit pas être réduite à quelques personnages symboliques ou à un drapeau plaqué sur l’univers. Elle doit pouvoir se traduire plus profondément par :
-
-- la pluralité des identités ;
-- l’absence de rôle mécanique assigné par le genre ;
-- la possibilité de pronoms, langue et grammaire configurables ;
-- une écriture qui ne suppose pas inutilement le genre ;
-- des formes de relation et d’existence non enfermées dans un modèle unique ;
-- une esthétique ouverte à la fluidité, à l’ambiguïté, à la transformation et aux formes non normatives.
-
-Aucun métier, classe, rôle, capacité ou style de jeu ne doit être réservé à un genre.
-
-L’univers doit pouvoir être clairement accueillant pour les personnes LGBTQIA+ sans réduire sa direction artistique à une signalétique littérale.
+Les améliorations répétables sont volontairement bornées afin que le run reste lisible et simulable.
 
 ---
 
-# Une éthique intégrée au jeu
+## Défense et vagues — simplification de laboratoire
 
-## Échec fertile
+La vague du jeu final devra être redéfinie plus finement après ce jalon. Les anciennes caractéristiques `pression / structure / charge / matière capturable` ne sont donc pas considérées comme le canon futur.
 
-L’échec doit produire quelque chose : information, cicatrice, Trace, Écho, transformation, problème nouveau ou raison d’essayer autrement.
+Pour PROTO-0.2, le challenge défensif utilise volontairement **une seule caractéristique active : la Puissance**.
 
-**Comprendre et s’adapter doit être plus important que punir.**
+Une seule famille de défense est testée : **Affaiblissement**.
 
-## Absence non punitive
+```text
+Puissance de la vague
+→ réductions successives des défenses
+→ Puissance résiduelle
+```
 
-Avelune ne doit pas exiger une présence quotidienne. La dormance doit permettre une vraie suspension plutôt qu’une lente dégradation punitive.
+- si la Puissance résiduelle atteint `0` : **victoire immédiate du testeur** ;
+- sinon elle endommage l’**Intégrité du Corcite** ;
+- si l’Intégrité atteint `0` : **victoire du jeu / défaite du testeur** ;
+- sinon le développement reprend avant une nouvelle vague plus puissante.
 
-## Pas de classement humiliant
+Il n’y a plus de victoire arbitraire après un nombre fixe de vagues. Le run doit être **borné par ses conditions de victoire/défaite** : les vagues deviennent progressivement assez puissantes pour finir par tuer un Corcite qui ne parvient jamais à les annuler, tout en laissant une trajectoire raisonnable de victoire.
 
-Le monde partagé n’est pas destiné à devenir une pyramide sociale permanente. Pas de classement global humiliant, de domination mécanique permanente des plus anciens ou de concurrence imposée comme norme.
-
-→ [`Accessibilité et éthique`](docs/06_accessibilite_ethique.md)
-
----
-
-# Direction thématique et visuelle
-
-La direction visuelle validée à ce stade est :
-
-**onirique · féerique · organique · minérale · florale-abstraite · queer**
-
-Elle doit rester :
-
-- mystérieuse sans devenir grimdark ;
-- douce sans devenir infantilisante ;
-- systémique sans esthétique technologique froide ;
-- riche en matière, lumière, croissance, strates, réseaux et transformations.
-
-### Couleur
-
-La palette du prototype reste sombre et lisible, mais la direction artistique doit désormais tirer **davantage vers le violet, la prune, la lavande et l’iridescence** que vers le bleu froid.
-
-Base UI actuelle :
-
-- fond `#17131f` ;
-- panneaux `#15111d` ;
-- texte `#ece9f2` ;
-- accent `#9f8dcc` ;
-- focus `#d8c9ff` ;
-- succès doux `#9bd5ad` ;
-- police d’interface **Inter**.
-
-Les indigos, verts organiques/minéraux, teals bioluminescents et ors doux restent des couleurs secondaires possibles.
-
-### Canon visuel provisoire
-
-La nature de la population vivant dans les Corcites **n’est pas encore définie**. L’existence et la nature d’une faune ou d’une flore extérieures ne sont pas non plus suffisamment fixées pour devenir un canon visuel.
-
-En conséquence, les visuels de projet ne doivent pour l’instant **pas représenter** :
-
-- d’humains ou humanoïdes ;
-- de peuples ou habitants inventés ;
-- d’animaux ou créatures supposées canoniques ;
-- de faune inventée ;
-- de flore naturaliste présentée comme espèce définie d’Avelune.
-
-La dimension florale peut être exprimée par **formes, ramifications, textures, corolles abstraites, motifs de croissance et structures organiques**, sans décider prématurément de la biologie du monde.
-
-À privilégier pour l’instant :
-
-- Fracture ;
-- Lisière ;
-- anneaux ;
-- paysages non peuplés ;
-- Corcites et architectures organiques non anthropomorphes ;
-- minéraux ;
-- matières ;
-- réseaux lumineux ;
-- motifs hexagonaux discrets ;
-- phénomènes et transformations du monde.
-
-→ [`Charte graphique de travail`](docs/art/CHARTE_GRAPHIQUE.md)
+Aucune matière issue des vagues et aucune captation n’entrent dans l’économie de PROTO-0.2.
 
 ---
 
-# Le PROTO-0 jouable
+# UX et direction visuelle du prototype
 
-Le prototype actuel ne cherche pas à reproduire tout le jeu. Il réduit **la quantité de contenu**, pas **la nature de la boucle**.
+La troisième proposition visuelle dite **Gen3** sert de référence de **composition ergonomique**, pas de direction artistique à recopier.
 
-Principe de développement :
+Composition recherchée sur desktop :
 
-> **Réduire la quantité, pas la nature du jeu.**
+- HUD ressources/capacités en haut ;
+- fiche du Corcite à gauche ;
+- grand plateau hexagonal central ;
+- panneau contextuel de sélection à droite ;
+- inventaire et ordres en bas ;
+- vue Défenses séparée mais facilement accessible.
 
-Le PROTO-0.1 intégré à `main` couvre déjà notamment :
+Le prototype doit déjà se rapprocher de l’identité d’Avelune :
 
-- départ minimal du Corcite ;
-- construction ;
-- extraction et stockage ;
-- transformation et fabrication ;
-- énergie, entretien, population et travail ;
-- recherches et découvertes ;
-- fabrication et organisation TD ;
-- cycle multi-vagues ;
-- conséquences persistantes ;
-- récupération ;
-- économie de captation ;
-- interface mobile/bureau ;
-- carnet de playtest ;
-- simulations reproductibles.
+- onirique ;
+- féerique abstraite ;
+- queer sans caricature ;
+- organique et minérale ;
+- biomorphique ;
+- violet, prune, lavande, opalin et iridescent ;
+- Corcite non anthropomorphe.
 
-Au jalon intégré dans `main` :
+À éviter : personnage humain/humanoïde, fantasy médiévale générique, forêt fantasy naturaliste ou usine sci-fi industrielle générique.
 
-- **346 tests PROTO-0** passent ;
-- `svelte-check` ne remonte **0 erreur et 0 warning** ;
-- le build de production est valide ;
-- la batterie de simulations reproductibles reste disponible pour les contrôles d’équilibrage.
-
-Ces contrôles démontrent la stabilité technique du jalon, **pas la qualité expérientielle du jeu**.
-
-Après l’intégration de ce jalon, le projet est reparti dans une phase de discussion et d’analyse des retours. Le prochain lot de développement doit être décidé à partir de cette baseline plutôt que d’être empilé sur une branche historique.
+Le visuel de PROTO-0.2 n’est pas la direction artistique finale, mais il doit déjà permettre de tester **une expérience de jeu**, pas un back-office technique.
 
 ---
 
-# Une architecture conçue pour évoluer
+# Le cœur d’Avelune à long terme
 
-Le cœur du prototype n’est pas écrit comme une logique unique enfermée dans l’interface.
+Les Lisières d’Avelune vise un monde partagé unique dans lequel les Corcites contribuent collectivement à la préservation de la Lisière sans imposer une coopération sociale permanente.
 
-La direction actuelle sépare :
+Principes structurants :
 
-- domaine et états ;
-- règles TF/RPG/TD/vague ;
-- orchestration ;
-- configuration/catalogues ;
-- simulations ;
-- sérialisation et validation ;
-- interface.
+- monde partagé unique ;
+- Corcite comme personnage, organisme et cité ;
+- progression principalement horizontale ;
+- recherche et connaissance du monde ;
+- plusieurs styles de jeu légitimes ;
+- coopération possible mais non obligatoire en permanence ;
+- échec fertile ;
+- absence non punitive ;
+- pas de classement humiliant ;
+- pas de FOMO ou de micro-dopamine comme moteur de rétention ;
+- challenge systémique plutôt que punition artificielle ;
+- attention explicite aux profils TSA, TDAH et dys ;
+- identité queer et non genrée intégrée à la conception.
 
-Les mêmes moteurs peuvent être appelés par les tests, les simulations et le contrôleur navigateur.
-
-La principale consolidation prévue après validation du playtest porte sur :
-
-- découpage de l’UI ;
-- contenu et équilibrage davantage **data-driven** ;
-- versionnement des états et migrations ;
-- autorité serveur pour le futur monde persistant ;
-- CI et tests E2E ;
-- télémétrie et persistance.
-
-→ [`Documentation d’architecture et de développement`](docs/development/README.md)
+Le jeu final pourra être beaucoup plus riche que PROTO-0.2. Les systèmes futurs ne doivent cependant être construits qu’après validation de leur besoin et de leur intérêt joueur.
 
 ---
 
-# Explorer le projet
+# Architecture et développement
 
-### Comprendre le jeu
+Application : **SvelteKit + TypeScript**.
 
-- [`Vision`](docs/00_vision.md)
-- [`Corps-cité`](docs/01_concept_corps_cite.md)
-- [`Monde persistant`](docs/02_monde_persistant.md)
-- [`Tycoon et réseaux`](docs/03_tycoon_et_reseaux.md)
-- [`Social et communication`](docs/05_social_et_communication.md)
-- [`Accessibilité et éthique`](docs/06_accessibilite_ethique.md)
-- [`Trame RPG`](docs/14_trame_rpg.md)
-- [`Lisière et passage`](docs/15_lisiere_et_passage.md)
+Principes de développement :
 
-### Comprendre l’évolution du prototype
+- séparer données, logique métier, état et présentation ;
+- favoriser des composants réutilisables lorsqu’un besoin réel le justifie ;
+- conserver un cœur testable indépendamment de l’UI ;
+- éviter les abstractions et infrastructures spéculatives ;
+- centraliser les paramètres de laboratoire utiles à l’équilibrage ;
+- tester et simuler les règles actives ;
+- limiter la charge réseau côté utilisateur et la charge CPU côté serveur lorsque l’architecture évolue vers la production.
 
-- [`main`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/main) — baseline canonique actuelle
-- [`PR #1`](https://github.com/Avelune-Officiel/les-lisieres-avelune/pull/1) — intégration du PROTO-0.1
-- [`Documentation PROTO-0`](docs/proto0/)
-- [`Architecture et méthode`](docs/development/)
+Documentation :
 
-### Direction artistique
-
-- [`Charte graphique de travail`](docs/art/CHARTE_GRAPHIQUE.md)
-- les sources et variantes sont organisées dans le Drive `Avelune/05_Direction_artistique_et_visuels/`.
+- [`docs/index.md`](docs/index.md)
+- [`docs/development/README.md`](docs/development/README.md)
+- [`docs/development/proto0.2`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2-ux-rules/docs/development/proto0.2)
 
 ---
 
-> **Construire sans conquérir. Progresser sans écraser. Challenger sans punir. Échouer sans tout perdre. Respecter les rythmes et les identités. Comprendre pour mieux recommencer.**
+## Statut de publication
+
+Au **8 août 2026** :
+
+- PROTO-0.1 reste le prototype déployé de référence ;
+- PROTO-0.2 est le jalon de développement actif ;
+- sa documentation de travail est disponible sur `develop/proto-0.2-ux-rules` ;
+- il ne doit être considéré stable qu’après revue, tests, playtest et intégration explicite.
