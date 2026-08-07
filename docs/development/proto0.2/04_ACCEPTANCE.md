@@ -7,8 +7,12 @@ PROTO-0.2 est accepté comme **alpha de playtest** lorsqu’un testeur peut joue
 - kit initial non posé ;
 - premier stockage posé par le joueur ;
 - aucun stockage natif/invisible permanent ;
-- ressources de sol lisibles ;
+- état initial mécanique `stock 0/0` ;
+- après la première membrane, les ressources d’amorçage entrent dans le vrai stockage (`8/16` avec les constantes de laboratoire actuelles) ;
+- ressources de sol lisibles **sans devoir sélectionner chaque case** ;
+- chaque gisement porte un marqueur distinct par type de ressource, lisible par forme + couleur et explicité au focus/sélection ;
 - placement d’un bâtiment avec prévisualisation ;
+- placement d’un extracteur : type de gisement + rendement attendu explicitement visibles ;
 - `1 bâtiment = 1 case` ;
 - aucune mécanique d’adjacence/réseau cachée.
 
@@ -26,8 +30,10 @@ Le joueur peut :
 Aucun matériau transformé/composant n’est offert au départ.
 
 ## Gate C — inventaire / bâtiments
-- inventaire global lisible ;
-- bâtiments non posés et défenses y apparaissent ;
+- kit de déploiement initial distinct de l’inventaire mécanique ;
+- bâtiments du kit hors capacité jusqu’à leur implantation ;
+- inventaire global lisible après déploiement ;
+- bâtiments non posés et défenses fabriqués y apparaissent ;
 - démontage d’un bâtiment possible ;
 - remontage coûte du temps ;
 - recyclage fonctionne selon sa règle ;
@@ -35,6 +41,7 @@ Aucun matériau transformé/composant n’est offert au départ.
 
 ## Gate D — recherche / RPG
 - recherche visible comme couche du Corcite ;
+- recherche verrouillée pendant le déploiement initial ;
 - Transformation réellement débloquée par recherche ;
 - au moins plusieurs améliorations utiles sont testables, dont **Stockage amélioré** ;
 - effets affichés `base + modificateur = résultat` ;
@@ -42,6 +49,7 @@ Aucun matériau transformé/composant n’est offert au départ.
 - une seule source de vérité de recherche.
 
 ## Gate E — défense
+- défense verrouillée pendant le déploiement initial ;
 - une seule famille joueur dans ce proto : **Affaiblissement** ;
 - fabrication → inventaire → vue tactique → placement ;
 - chemin/ordre de résolution lisible ;
@@ -49,6 +57,7 @@ Aucun matériau transformé/composant n’est offert au départ.
 - aucun ancien système Captation/Déstructuration/Stabilisation nécessaire au run.
 
 ## Gate F — onde / victoire
+- fin de cycle impossible avant la fin du déploiement initial ;
 - onde sans compte à rebours exact gratuit permanent ;
 - Puissance strictement croissante d’une onde à l’autre ;
 - résolution séquentielle des défenses visible ;
@@ -75,6 +84,8 @@ Il ne s’agit pas d’un équilibrage final.
 - composition proche du brief Gen3 corrigé ;
 - HUD permanent clair ;
 - plateau central dominant ;
+- gisements identifiables d’un coup d’œil par un marqueur dédié ;
+- aucun type de gisement différencié uniquement par la couleur ;
 - fiche Corcite, contexte de sélection et inventaire lisibles ;
 - identité Avelune perceptible : violet/prune/lavande/opaline, organique/minérale/biomorphique ;
 - aucun humain/humanoïde, fantasy médiévale ou sci-fi industrielle générique ;
@@ -105,6 +116,7 @@ Avant `REVIEW_READY` :
 
 ```text
 déployer le kit
+→ identifier les gisements
 → poser stockage/extracteurs/fonctions
 → extraire
 → rechercher la transformation
