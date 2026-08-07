@@ -1,131 +1,172 @@
 # PROTO-0.2 — Garde-fous techniques et briques réutilisables
 
-## Objectif technique
+## Objectif
 
-PROTO-0.2 peut être rapide, incomplet dans sa finition et volontairement expérimental. En revanche, les **briques transversales destinées à survivre** doivent être propres, testables et réutilisables afin d’éviter de les réécrire dans les versions suivantes.
+PROTO-0.2 peut rester un prototype visuellement provisoire, mais les primitives destinées à survivre doivent être propres, testables et réutilisables. Ne pas repartir de zéro si le moteur historique peut être adapté sans conserver des concepts désormais hors périmètre.
 
-Le critère n’est donc pas « tout doit être parfait », mais :
+## Primitives à privilégier
 
-> Ce qui est jetable peut rester simple. Ce qui devient une primitive du jeu doit être construit proprement.
+Noms indicatifs, à adapter à l’existant :
+- `HexBoard` ;
+- `HexCell` ;
+- représentation de ressource de sol ;
+- `PlacementPreview` ;
+- `BuildingDefinition` / `BuildingInstance` ;
+- fabrication de bâtiment ;
+- inventaire global / piles / catégories / capacité ;
+- primitive générique de réservation de coût ;
+- sortie locale bloquée d’un producteur ;
+- `Recycler` ;
+- arbre/nœud de recherche source de vérité ;
+- `ResourceHUD` / `CapacityHUD` ;
+- fiche Corcite ;
+- `DefensePath` ;
+- placement de défense ;
+- rapport de vague ;
+- persistance locale versionnée ;
+- interactions clic/tap/clavier réutilisables.
 
-## Briques à privilégier comme composants réutilisables
-
-Noms indicatifs ; Codex doit inspecter l’existant avant de créer des doublons.
-
-- `ResourceStrip` : ressources principales, icônes, quantités, détails.
-- `CapacityStrip` : énergie, population, entretien, stockage, espace si retenu à l’écran.
-- `ProductionNode` : fonction productive générique avec état, coûts, recette, résultat.
-- `ModifierBreakdown` : base + modificateurs + delta + résultat final.
-- `ConnectionLayer` / primitive équivalente : liens entre ports, états actif/suspendu/compatible.
-- `PopulationPool` : population totale, affectée, libre et interactions d’affectation.
-- `DefensePath` : positions, inventaire, placement/déplacement.
-- `EvolutionPanel` / primitive équivalente : recherche en cours, découverte, choix RPG.
-- primitives d’interaction pointer/clic/tap réutilisables.
-
-Ne pas imposer ces noms si des composants existants couvrent déjà correctement la responsabilité.
+Ne pas créer de doublon si un composant/moteur existant couvre déjà correctement la responsabilité.
 
 ## Séparation des responsabilités
 
+### Données/configuration
+- définitions de bâtiments ;
+- coûts ;
+- recettes ;
+- caractéristiques de recherche ;
+- paramètres de vague ;
+- coefficients d’équilibrage.
+
 ### Moteur
 - règles ;
-- validation ;
-- calculs ;
+- réservations ;
 - transitions d’état ;
-- résolution de tour ;
-- effets de recherche ;
-- effets TD.
+- fabrication ;
+- extraction ;
+- placement ;
+- recherche ;
+- résolution défensive ;
+- dégâts d’Intégrité ;
+- victoire/défaite.
 
 ### Présentation
-- formatage joueur ;
+- agrégation joueur ;
 - icônes ;
-- breakdowns ;
-- agrégation lisible ;
+- détails de coûts/modificateurs ;
+- rapports ;
 - états visuels.
 
 ### Interaction
-- drag/pointer ;
-- clic/tap alternatif ;
-- sélection de port ;
-- feedback de compatibilité.
+- sélection ;
+- tap/clic ;
+- drag optionnel ;
+- confirmation ;
+- clavier lorsque pertinent.
 
-Aucun calcul critique de règle ne doit exister uniquement dans un composant Svelte.
+Aucune règle critique ne doit vivre uniquement dans un composant Svelte.
 
-## Drag-and-drop / pointer interactions
+## Suppression du réseau actif
 
-Pour les nouveaux gestes, préférer une abstraction fondée sur Pointer Events ou une solution équivalente compatible souris/tactile, plutôt qu’un usage fragile du HTML Drag and Drop desktop-only.
+Les primitives historiques `ProductionNode`, ports, `ConnectionLayer`, routage, buffers, graphes et connexions directes ne doivent **pas structurer le parcours PROTO-0.2**.
 
-Exigences :
-- annulation propre ;
-- cible compatible déterminée par le modèle, pas par le CSS ;
-- alternative sans drag ;
-- pas de mutation partielle si le drop échoue ;
-- tests de la logique indépendamment du geste graphique lorsque possible.
+Le code peut rester temporairement présent s’il est proprement isolé et inutilisé. Si le retirer simplifie sans risque, Codex peut le supprimer/refactorer avec tests.
 
-## Graphe / connexions
+Ne pas créer d’API publique autour du réseau sous prétexte d’extensibilité future.
 
-Ne pas construire maintenant : pan/zoom libre, sélection multiple, routage automatique sophistiqué, groupes, minimap, éditeur généraliste.
+## Plateau
 
-Construire une primitive simple mais extensible :
-- nœuds positionnés par layout applicatif ;
-- ports identifiés ;
-- SVG ou technique équivalente pour les lignes ;
-- états actif / suspendu ;
-- compatibilité source/destination explicite dans les données ;
-- possibilité future d’ajouter buffers, branches et priorités sans casser l’API publique du composant.
+Le plateau économique doit avoir un état explicite :
+- coordonnées hex ;
+- ressource de sol éventuelle ;
+- bâtiment éventuel ;
+- états de sélection/preview calculés séparément.
 
-## Modèle d’état
+Pas de règle d’adjacence ou logistique cachée. `1 bâtiment = 1 case` dans ce proto.
 
-Avant tout changement de structure d’état :
-- inventorier les types existants ;
-- distinguer état historique et parcours jouable ;
-- éviter les champs doublons représentant la même vérité ;
-- prévoir une version de schéma pour la sauvegarde locale.
+La pose doit être testable indépendamment de l’UI : case libre, bâtiment valide, production attendue d’un extracteur, confirmation/annulation.
 
-## Persistance locale
+## Fabrication / réservations / sortie bloquée
 
-Cible : primitive propre et réutilisable.
+Créer une primitive générique d’ordre :
+- coût réservé à la commande ;
+- matière réservée encore physiquement stockée ;
+- consommation au démarrage réel ;
+- annulation pré-démarrage remboursée ;
+- résultat vers inventaire si capacité ;
+- sinon résultat dans une sortie locale unique et producteur bloqué.
 
-Exigences :
-- clé versionnée ;
+La règle doit fonctionner pour bâtiments et défenses, et être extensible à d’autres objets sans dupliquer la logique.
+
+## Stockage
+
+Une seule vérité de capacité globale dérivée des bâtiments de stockage posés. Supprimer/neutraliser toute `baseStorageCapacity` native dans le parcours PROTO-0.2.
+
+Le bootstrap du kit initial est une phase de déploiement, pas un stockage gratuit permanent.
+
+## Énergie / espace historique
+
+- retirer la réserve énergétique courte du moteur actif ;
+- `energy used/capacity` uniquement ;
+- retirer/neutraliser l’ancien espace abstrait si le plateau hexagonal est désormais la contrainte spatiale active.
+
+Éviter deux vérités concurrentes dans l’état sérialisé.
+
+## Recherche
+
+Une seule source de vérité de recherche. Les raccourcis contextuels référencent un identifiant de nœud existant, ils ne créent pas de systèmes parallèles.
+
+Prévoir : unlocks, niveaux répétables, limite globale de progression répétable, effets configurables et testables.
+
+## Défense / onde
+
+Pour PROTO-0.2, le moteur actif doit pouvoir fonctionner sur une structure minimale :
+- `wave.power` ;
+- liste ordonnée des tours d’Affaiblissement ;
+- puissance avant/après chaque tour ;
+- puissance résiduelle ;
+- Intégrité avant/après ;
+- résultat `tester-victory | game-victory | continue`.
+
+Les anciens champs pression/structure/charge/matière peuvent être migrés/isolés mais ne doivent plus dicter la résolution active.
+
+La croissance de puissance entre ondes doit être centralisée et strictement croissante. Codex peut ajuster les paramètres numériques par simulation, sans changer les règles.
+
+## Simulations d’équilibrage
+
+Avant `REVIEW_READY`, écrire/exécuter une simulation déterministe permettant au minimum de comparer :
+- trajectoire raisonnable de développement/défense ;
+- trajectoire faible ou mal optimisée ;
+- impact de plusieurs allocations de recherche ;
+- nombre d’ondes avant victoire ou mort ;
+- absence de run infini si le joueur n’atteint jamais zéro résidu.
+
+Cible de laboratoire : au moins une stratégie raisonnable gagne après plusieurs cycles, tandis qu’une stratégie déficiente finit par perdre. Ne pas chercher un équilibrage final.
+
+## Persistance
+
+Primitive versionnée :
 - sérialisation explicite ;
-- validation minimale à la restauration ;
-- gestion des versions incompatibles ;
-- pas de crash si JSON corrompu ;
-- API suffisamment isolée pour être remplacée plus tard par une persistance serveur.
+- validation à la restauration ;
+- migration/rejet propre des anciennes sauvegardes incompatibles ;
+- aucun crash sur JSON corrompu ;
+- nouvelle partie explicite.
 
-## Contrôles
+## Contrôles attendus
 
-Codex doit utiliser la stratégie de validation réellement supportée par le dépôt et l’infrastructure. Cible minimale avant `REVIEW_READY` :
-
+Avant `REVIEW_READY` :
 - typecheck / `svelte-check` ;
-- suite `test:proto0` ;
+- `test:proto0` ;
 - build ;
-- tests ciblés des règles modifiées ;
-- smoke test du parcours si l’environnement le permet.
+- tests ciblés des nouvelles règles ;
+- simulations d’équilibrage ;
+- smoke test du parcours ;
+- responsive desktop/mobile vérifié raisonnablement.
 
-Ajouter Playwright/E2E uniquement si cela peut être fait rapidement et proprement sans détourner la soirée vers l’infrastructure de tests. Les scénarios E2E prioritaires sont : démarrer, affecter, activer, produire, rechercher, placer une défense, terminer un tour, restaurer une sauvegarde.
+Ajouter E2E si faisable proprement, avec scénarios prioritaires : déploiement initial, pose, extraction, transformation/fabrication, recherche, production d’une défense, placement, onde, victoire/défaite, sauvegarde/restauration.
 
-## Dette acceptable ce soir
+## Dette acceptable
 
-Acceptable si documentée :
-- layout encore simple ;
-- styling incomplet ;
-- transitions sans animation ;
-- quelques vues encore textuelles ;
-- instrumentation légère ;
-- fin de run minimale.
+Acceptable si documentée : assets temporaires, palette encore ajustable, animations limitées, certains panneaux secondaires simples.
 
-Non acceptable :
-- logique dupliquée dans l’UI ;
-- deuxième modèle de population ;
-- deuxième moteur de recherche ;
-- régression silencieuse des règles historiques hors périmètre ;
-- hack non testé pour l’énergie ;
-- dépendance forte entre graphisme et règles ;
-- suppression de tests pour obtenir du vert.
-
-## Politique de modification
-
-Refactoriser librement lorsqu’il s’agit d’un changement local clairement nécessaire à la qualité/réutilisabilité et couvert par tests.
-
-Si un refactor devient transversal, massif ou modifie plusieurs domaines sans nécessité directe pour la tâche : arrêter ce refactor et documenter la proposition au lieu d’élargir silencieusement le périmètre.
+Non acceptable : logique dupliquée dans l’UI, réseau direct réintroduit, stockage natif caché, seconde réserve énergie, ancien espace abstrait actif, victoire basée sur anciens champs de vague, tests supprimés pour passer, page principale non jouable, mobile inutilisable.
