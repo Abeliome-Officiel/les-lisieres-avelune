@@ -38,7 +38,7 @@ La matière réservée doit pouvoir être comprise : disponible/déjà engagée/
 Le centre de l’expérience est un **plateau en hexagones**, pas un réseau de nœuds.
 
 Le joueur doit pouvoir :
-- lire les ressources de sol ;
+- lire immédiatement les ressources de sol ;
 - sélectionner un bâtiment disponible ;
 - choisir une case ;
 - voir une prévisualisation avant pose ;
@@ -47,12 +47,28 @@ Le joueur doit pouvoir :
 
 `1 bâtiment = 1 case`. Pas de liens, ports, câbles, routes, adjacence ou orientation mécanique.
 
-Pour un extracteur, la prévisualisation montre explicitement la production attendue sur la case (`+2 organique/tour`, `0`, etc.) sans message moralisateur.
+### Marqueurs de gisement
+
+Les cellules possédant un gisement doivent porter un **marqueur visuel persistant et immédiatement identifiable** indiquant le type de ressource.
+
+Exigences :
+- un symbole/glyphe distinct par type de gisement ;
+- couleur cohérente avec les icônes de ressource du HUD, mais **jamais couleur seule** ;
+- marqueur discret mais visible sans sélectionner la case ;
+- suffisamment contrasté sur desktop et mobile ;
+- ne pas transformer toute la cellule en gros aplat de couleur ni créer une nouvelle esthétique de biome ;
+- lorsque la case est sélectionnée, le panneau de contexte indique explicitement le gisement présent ;
+- lors du placement d’un extracteur, la preview combine **type de gisement + rendement attendu**.
+
+Pour un extracteur, la prévisualisation montre explicitement la production attendue sur la case (`+2 organique/tour`, `0`, etc.) sans message moralisateur. Une case avec gisement doit pouvoir être ciblée rapidement sans devoir tester chaque hexagone.
+
+Si une fonction non extractive recouvre un gisement, le marqueur peut rester visible de façon secondaire/atténuée afin de conserver l’information sans concurrencer le bâtiment.
 
 ## 4. Panneau de contexte
 
 Pour la sélection courante :
 - nom et fonction ;
+- gisement de la case sélectionnée, s’il existe ;
 - ON/OFF si pertinent ;
 - population affectée/besoin ;
 - énergie/entretien mobilisés ;
@@ -81,7 +97,7 @@ Un stockage posé ouvre ce même inventaire ; il n’existe pas d’inventaire p
 
 Écran de déploiement initial : plateau vide, kit initial disponible. Le joueur choisit où poser le premier stockage puis organise librement le reste.
 
-Cette phase ne doit pas donner l’impression qu’un stockage invisible existe déjà. Une fois le déploiement amorcé, toutes les contraintes normales s’appliquent.
+Cette phase ne doit pas donner l’impression qu’un stockage invisible existe déjà. Le kit de déploiement est distinct de l’inventaire mécanique. Les ressources d’amorçage ne deviennent du stock mécanique qu’après la pose de la première membrane. Une fois le déploiement terminé, toutes les contraintes normales s’appliquent.
 
 ## 7. Recherche / fiche Corcite
 
@@ -137,6 +153,7 @@ L’écran de fin montre durée, nombre d’ondes, évolution économique/défen
 - contraste suffisant ;
 - texte lisible ;
 - icône jamais seule pour une information critique ;
+- type de gisement différencié par **forme + couleur + texte au focus/sélection** ;
 - état sélectionné/bloqué/actif distinct visuellement et textuellement ;
 - responsive sans horizontal scroll structurel sur mobile.
 
@@ -158,3 +175,10 @@ L’interface doit déjà se rapprocher d’Avelune :
 - décoration qui masque la hiérarchie fonctionnelle.
 
 La priorité reste l’usage, mais Codex doit effectuer un **vrai travail visuel** et pas uniquement brancher des composants bruts.
+
+## 12. Retours de playtest du 7 août 2026
+
+Deux défauts de lisibilité/initialisation ont été identifiés sur la première preview navigateur :
+
+1. **bootstrap stockage** : `15/0` révélait que le kit et les ressources de départ étaient comptés dans le stockage mécanique avant la première membrane ; correction locale réalisée, à revalider ;
+2. **gisements insuffisamment visibles** : la présence/type de ressource au sol n’est pas identifiable assez rapidement sur le plateau ; le marqueur de gisement décrit en section 3 devient un correctif UX requis avant validation de l’alpha.
