@@ -29,22 +29,48 @@ RUN_DIR="$REPO/.codex-runs"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 LOG="$RUN_DIR/p02-$STAMP.log"
 LAST="$RUN_DIR/p02-$STAMP-final.txt"
+PROMPT="$RUN_DIR/p02-$STAMP-prompt.txt"
 
-mkdir -p "$RUN_DIR"
-cd "$REPO" || { echo "ERREUR: dépôt introuvable: $REPO"; false; }
-
-git fetch origin && \
-git switch develop/proto-0.2-ux-rules && \
-git pull --ff-only origin develop/proto-0.2-ux-rules
-
-if tmux has-session -t "$SESSION" 2>/dev/null; then
+if [ ! -d "$REPO/.git" ]; then
+  echo "ERREUR: dépôt Git introuvable: $REPO"
+elif ! command -v tmux >/dev/null 2>&1; then
+  echo "ERREUR: tmux n'est pas disponible. Codex n'a pas été lancé."
+elif ! command -v codex >/dev/null 2>&1; then
+  echo "ERREUR: codex n'est pas disponible dans le PATH. Codex n'a pas été lancé."
+elif tmux has-session -t "$SESSION" 2>/dev/null; then
   echo "Une session tmux $SESSION existe déjà. Ne pas lancer un second Codex en parallèle."
 else
-  tmux new-session -d -s "$SESSION" \
-    "cd '$REPO' && codex exec --sandbox workspace-write -C '$REPO' -o '$LAST' 'Lis AGENTS.md et docs/development/proto0.2/CODEX_START_HERE.md, puis exécute entièrement docs/development/proto0.2/CURRENT_TASK.md. Travaille de manière autonome sur tous les problèmes techniques, mécaniques déjà arbitrés, tests, simulations, responsive et visuel. Ne demande pas de confirmation pour les choix techniques. N invente aucune règle de game design. Si une vraie décision de game design manque, consigne-la dans DECISIONS_NEEDED.md, continue tout le travail indépendant, puis arrête seulement quand plus rien de sûr ne reste. Continue après une première passe verte jusqu aux gates de 04_ACCEPTANCE.md. Fais une passe finale de simplification et mets à jour IMPLEMENTATION_REPORT.md. Ne push pas, ne merge pas main et ne déploie pas.' 2>&1 | tee '$LOG'"
-  echo "Codex lancé dans tmux: $SESSION"
-  echo "Journal: $LOG"
-  echo "Message final: $LAST"
+  mkdir -p "$RUN_DIR"
+
+  if cd "$REPO" \
+    && git fetch origin \
+    && git switch develop/proto-0.2-ux-rules \
+    && git pull --ff-only origin develop/proto-0.2-ux-rules; then
+
+    cat > "$PROMPT" <<'CODEX_PROMPT'
+Lis AGENTS.md et docs/development/proto0.2/CODEX_START_HERE.md, puis exécute entièrement docs/development/proto0.2/CURRENT_TASK.md.
+
+Travaille de manière autonome sur tous les problèmes techniques, les mécaniques déjà arbitrées, l'architecture locale strictement nécessaire, les tests, les simulations, l'équilibrage de laboratoire, le responsive et le visuel.
+
+Ne demande pas de confirmation pour les choix purement techniques. N'invente aucune règle de game design. Si une vraie décision de game design non couverte manque, consigne-la dans docs/development/proto0.2/DECISIONS_NEEDED.md, continue tout le travail indépendant, puis arrête seulement quand plus rien de sûr et utile ne reste.
+
+Ne t'arrête pas après une première implémentation ni une première passe verte : poursuis jusqu'aux gates de docs/development/proto0.2/04_ACCEPTANCE.md. La partie visuelle fait partie du lot : utilise Gen3 comme référence de composition via 06_VISUAL_BRIEF_GEN3.md, reste dans l'identité Avelune et livre quelque chose de cohérent même si la direction artistique n'est pas finale.
+
+Fais une passe finale de simplification, supprime le code mort et les contradictions historiques du parcours actif, puis mets à jour docs/development/proto0.2/IMPLEMENTATION_REPORT.md.
+
+Ne push pas, ne merge pas main et ne déploie pas.
+CODEX_PROMPT
+
+    tmux new-session -d -s "$SESSION" \
+      "cd '$REPO' && codex exec --sandbox workspace-write -C '$REPO' -o '$LAST' - < '$PROMPT' 2>&1 | tee '$LOG'"
+
+    echo "Codex lancé dans tmux: $SESSION"
+    echo "Journal: $LOG"
+    echo "Message final: $LAST"
+    echo "Prompt: $PROMPT"
+  else
+    echo "ERREUR: synchronisation Git impossible. Codex n'a pas été lancé."
+  fi
 fi
 
 tmux list-sessions 2>/dev/null || true
@@ -56,10 +82,10 @@ tmux list-sessions 2>/dev/null || true
 tmux capture-pane -pt avelune-p02-codex -S -80
 ```
 
-ou :
+ou, pour le dernier journal créé :
 
 ```bash
-tail -n 120 /SSD-Sata/Projets/Avelune-Officiel/repository-proto0/.codex-runs/p02-*.log
+ls -1t /SSD-Sata/Projets/Avelune-Officiel/repository-proto0/.codex-runs/p02-*.log 2>/dev/null | head -n 1 | xargs -r tail -n 120
 ```
 
 Le `tmux` continue après fermeture du navigateur/Wetty et déconnexion SSH tant que le serveur ne redémarre pas.
