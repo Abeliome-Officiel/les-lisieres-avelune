@@ -11,7 +11,8 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "start": "node build",
-    "test:proto0": "node --import=tsx --test tests/proto0/*.test.ts"
+	"test:proto0": "node --import=tsx --test tests/proto0/*.test.ts",
+	"simulate:proto02": "node --import=tsx src/lib/proto02/simulation.ts"
   },
   "devDependencies": {
     "@sveltejs/adapter-node": "^5.5.7",
