@@ -140,4 +140,19 @@ docker run --rm -p 3000:3000 avelune-proto02
 curl --fail http://127.0.0.1:3000/api/health
 ```
 
-Cette procédure est fournie pour la revue ; aucun push, merge ou déploiement n’a été exécuté.
+### Validation hors sandbox — 8 août 2026
+
+La revue humaine hors sandbox a confirmé :
+
+- `npm run check` : PASS — 0 erreur, 0 avertissement ;
+- `npm run test:proto0` : PASS — 366 tests, 0 échec ;
+- `npm run simulate:proto02` : PASS ;
+- `npm run build` : PASS ;
+- construction de l’image Docker : PASS ;
+- démarrage du serveur Node dans un conteneur temporaire : PASS ;
+- `/api/health` : PASS, réponse `{"status":"ok","prototype":"PROTO-0"}` avant correction finale du libellé ;
+- le libellé du healthcheck a ensuite été corrigé en `PROTO-0.2` et les contrôles check/tests/build ont été rejoués avec succès.
+
+Le contrôle visuel humain desktop/mobile reste le dernier contrôle avant publication.
+
+Cette procédure est fournie pour la revue ; aucun push, merge ou déploiement public n’a été exécuté.
