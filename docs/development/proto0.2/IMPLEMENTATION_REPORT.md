@@ -2,188 +2,142 @@
 
 **Statut : REVIEW_READY**
 
-## Lot
+## Lot et état Git
 
-- Identifiant : `P02-001`
+- Lot : `P02-001`
 - Branche : `develop/proto-0.2-ux-rules`
-- Base : `3cea8b9`
-- Commit applicatif : `72442edca0b7997b442aff2870adb11fb5a63f60`
-- Correctif bootstrap playtest : `HEAD` (commit contenant ce rapport)
-- Commit final : `HEAD`
-- Statut : `REVIEW_READY`
+- HEAD de base du présent correctif : `3331b1e`
+- Livraison P02 initiale : `72442edca0b7997b442aff2870adb11fb5a63f60`
+- Correctifs de consolidation : présents dans le worktree, non commités
+- Push / merge / déploiement : aucun
+
+Le commit local final n’a pas pu être créé dans le sandbox : l’index réel du worktree est sous `/SSD-Sata/Projets/Avelune-Officiel/repository/.git/worktrees/repository-proto02/`, hors racine inscriptible, et Git échoue sur `index.lock` avec `Read-only file system`. Le dossier utilisateur non suivi `.codex-runs/` a été préservé et n’appartient pas au lot.
 
 ## Diagnostic initial
 
-Le parcours navigateur historique était concentré dans une page Svelte de 3 495 lignes et dépendait encore du réseau direct, de la matière de vague, de l’espace abstrait et des quatre familles défensives P01. Ces moteurs restent isolés dans `src/lib/proto0/` pour la régression historique, mais ils ne structurent plus la route joueur. Le worktree était propre et la branche conforme au démarrage.
+La route active avait déjà été migrée vers un moteur P02 local et une page Svelte compacte. Les moteurs P01 (réseau, quatre familles défensives, captation et anciens champs d’onde) restent uniquement comme historique testé dans `src/lib/proto0/` ; ils ne sont ni importés ni exposés par la route P02.
 
-## Résumé jouable
+La passe de consolidation a identifié puis corrigé : consommation possible de matières réservées par le transformateur automatique, désactivation/démontage dangereux des fournisseurs de capacité, blocage d’un objet neuf par un exemplaire démonté, validation trop permissive des sauvegardes, amélioration de fabrication répétable sans effet supplémentaire, sorties bloquées invisibles hors fabriques et rapport de fin incomplet.
 
-Le testeur peut démarrer sur un plateau de 19 hexagones vide, poser obligatoirement le premier stockage puis organiser les sept bâtiments du kit. Il peut extraire les deux sols, rechercher Transformation, fabriquer et poser un transformateur, façonner composants, bâtiments et tours, agrandir ses capacités, démonter/remonter ou recycler des objets, affecter population et activité, placer les tours sur huit positions, traverser des ondes impromptues puis gagner en annulant une Puissance ou perdre à zéro Intégrité.
+## Parcours réellement jouable
 
-Correctif après playtest : le kit initial et les `4` organiques + `4` minéraux sont désormais une réserve de déploiement distincte. L’état absolu affiche `0/0`, la première membrane transfère uniquement les matières vers le stockage mécanique (`8/16`), les six fonctions restantes restent hors capacité, puis l’inventaire et les actions normales sont rétablis à la dernière implantation.
+Le testeur démarre avec un plateau de 19 hexagones vide. Le kit initial reste hors stockage ; la première membrane posée transfère les `4` organiques et `4` minéraux dans une capacité mécanique de `16`, sans stockage natif. Les six autres fonctions sont ensuite implantées librement.
 
-Mini-lot UX gisements : chaque case productive porte désormais une petite pastille persistante, `✦` rose pour l’organique et `◆` lavande pour le minéral. Les cases sans gisement restent sans marqueur. Le panneau de contexte nomme explicitement le gisement, y compris lorsqu’un bâtiment occupe la case, tandis que la prévisualisation existante conserve le rendement attendu. Les aplats de terrain ont été retirés pour ne pas confondre ressource et biome.
+Le parcours couvre extraction des deux sols, recherche Transformation, transformation automatique, fabrication de composants et bâtiments par l’Atelier, fabrication de tours par la Fabrique défensive, Recyclerie, inventaire global, réservations, annulation avant démarrage, sorties locales bloquées sans perte, démontage/remontage en un cycle, énergie utilisée/capacité, population, entretien, améliorations dont Stockage amélioré, puis placement de tours d’Affaiblissement sur huit positions.
 
-Le HUD affiche ressources disponibles et engagées, stockage, énergie, population, entretien et Intégrité. Les sorties pleines restent sur leur producteur. La recherche globale expose ses coûts, durées, effets et sa limite cumulée. Le rapport d’onde est distinct du journal de cycles. Une sauvegarde locale versionnée est restaurée automatiquement et une nouvelle partie est explicite.
+Les ondes utilisent uniquement la Puissance. Elle croît strictement (`18, 26, 35, 45…`), les tours réduisent séquentiellement le résidu, un résidu nul donne immédiatement la victoire au testeur, et l’Intégrité nulle donne la victoire au jeu. Le rapport d’onde est séparé du journal et la fin de run résume cycles, ondes, tours et évolutions.
 
-## Principaux changements
+La sauvegarde locale P02 v3 est isolée pour chacun des cinq profils testeurs. Les formes incompatibles ou corrompues (ressources négatives, plateau/défenses invalides, identifiant de bâtiment inconnu, progression hors limite) sont rejetées proprement.
 
-- nouvel état P02 minimal et explicite dans `src/lib/proto02/game.ts` ;
-- plateau hexagonal avec sol, prévisualisation et une fonction par case ;
-- kit initial physique, sans stockage natif ni espace abstrait ;
-- inventaire global, réservations, productions multi-cycles et sorties bloquées ;
-- énergie `utilisée/capacité`, population, entretien et stockage dérivés des bâtiments ;
-- recherche Transformation et cinq améliorations utiles, dont Stockage amélioré, avec quatre niveaux répétés cumulés maximum ;
-- défense physique Affaiblissement sur huit positions ;
-- onde à Puissance unique, croissance stricte, résolution séquentielle et fins de run ;
-- persistance locale `v2` avec rejet propre du JSON ancien ou corrompu ;
-- reconstruction de la page principale selon la composition Gen3 corrigée ;
-- palette prune/violet/lavande/opaline, silhouettes biomorphiques en CSS, Corcite non anthropomorphe et responsive sous 760 px ;
-- ajout de tests P02 et d’une commande de simulation déterministe.
+## Architecture retenue
 
-## Briques réutilisables créées ou renforcées
+- `app/src/lib/proto02/game.ts` : catalogues explicites, état sérialisable et transitions métier ;
+- `app/src/lib/proto02/simulation.ts` : profils et balayage déterministes ;
+- `app/src/lib/proto02/testers.ts` : sauvegardes locales versionnées par profil ;
+- `app/src/routes/+page.svelte` : composition joueur et interactions ;
+- `app/tests/proto0/p02-game.test.ts` : 17 scénarios mécaniques P02 ;
+- `app/tests/proto0/p02-testers.test.ts` : isolation des profils.
 
-- `GameState` sérialisable et transitions métier indépendantes de Svelte ;
-- catalogues explicites de bâtiments, recettes, recherches et paramètres de laboratoire ;
-- réservation/consommation/libération de coût ;
-- sortie locale `{ id, quantity }` commune aux producteurs ;
-- rapport de vague séquentiel ;
-- profils de simulation déterministes.
+Cette architecture reste volontairement locale : aucun ECS, bus d’événements, graphe, arbre technologique générique, couche de persistance universelle ou dépendance supplémentaire.
 
-Ces briques sont volontairement locales à P02 : aucun framework, bus d’événements, moteur de graphe, arbre technologique générique ou nouvelle dépendance n’a été ajouté.
+## Anciennes mécaniques retirées du parcours actif
 
-## Migrations et règles actives
-
-- réseau, ports, connexions et ancien espace abstrait absents du parcours actif ;
+- aucun réseau, port, câble, routage ou espace abstrait concurrent ;
 - aucune réserve énergétique courte ;
-- aucune capacité de stockage native ;
-- aucun transformé ni composant au départ (`4` organique, `4` minéral) ;
-- Recyclerie fabricable dès le départ ;
-- déplacement uniquement par démontage puis remontage au cycle suivant ;
-- stockage non démontable si la charge restante dépasse la capacité ;
-- une seule famille défensive visible : Affaiblissement ;
-- aucune matière/captation de vague ;
-- pas de compte à rebours exact : seulement trois indices textuels de proximité ;
-- aucune limite fixe du nombre d’ondes.
+- aucun stockage natif du Corcite ;
+- aucune matière de vague ni captation ;
+- aucune famille Captation, Déstructuration ou Stabilisation ;
+- aucune caractéristique d’onde autre que Puissance ;
+- aucun quota symétrique d’ordres ni nombre fixe de vagues.
 
-## Paramètres d’équilibrage retenus
+## Équilibrage de laboratoire
 
-| Paramètre | Valeur |
-|---|---:|
-| Intégrité initiale | 60 |
-| Première onde | cycle 6 |
-| Intervalle minimum | 5 cycles |
-| Retard déterministe | 0 à 2 cycles |
-| Puissance initiale | 18 |
-| Croissance de base | +8 |
-| Accélération | +1 par écart successif |
-| Affaiblissement par tour | 9 |
-| Extraction de base | 2 |
-| Stockage de base | 16 par membrane |
-| Stockage amélioré | +6 par niveau et membrane |
+Paramètres centralisés retenus : Intégrité `60`, première onde au cycle `6`, écart minimal `5` cycles, retard déterministe `0–2`, Puissance initiale `18`, croissance `+8` avec accélération `+1`, Affaiblissement `9` par tour, extraction `2`, stockage `16`, amélioration de stockage `+6` par niveau, quatre niveaux répétés cumulés au maximum.
 
-Résultats des quatre profils déterministes :
+Résultats reproductibles :
 
-- développement raisonnable : victoire testeur à l’onde 3, Intégrité 34 ;
-- recherche puis défense : victoire testeur à l’onde 4, Intégrité 17 ;
-- défense tardive : défaite à l’onde 3 ;
-- économie sans défense : défaite à l’onde 3.
+| Trajectoire | Résultat | Onde | Intégrité finale |
+|---|---|---:|---:|
+| développement raisonnable | victoire testeur | 3 | 34 |
+| recherche puis défense | victoire testeur | 4 | 17 |
+| extraction améliorée puis défense | victoire testeur | 4 | 17 |
+| défense tardive | victoire jeu | 3 | 0 |
+| économie sans défense | victoire jeu | 3 | 0 |
+| surinvestissement économique | victoire jeu | 3 | 0 |
 
-Puissances observées : `18, 26, 35, 45`; elles sont strictement croissantes. Les profils sans annulation terminent donc sans run neutre infini.
+Balayage déterministe de `1 000` trajectoires proches du seuil : `491` victoires testeur, `509` victoires jeu, onde terminale moyenne `3,226`. Le même seed reproduit exactement le résultat. Ces simulations portent sur le rythme d’acquisition défensive face à la courbe d’onde ; elles ne prétendent pas remplacer un playtest humain de toute l’économie.
 
-## Contrôles exécutés
+## UX, visuel, responsive et accessibilité
 
-Runtime utilisé : Node `v24.19.0`, dépendances installées par `npm ci --ignore-scripts` depuis le lockfile.
+La composition suit le brief Gen3 corrigé : HUD haut, fiche Corcite gauche, plateau central, contexte droit, inventaire/ordres bas et vue tactique distincte. La palette prune/violet/lavande/opaline, les membranes, gemmes et formes biomorphiques donnent une identité Avelune sans humanoïde, médiéval générique ni usine sci-fi.
 
-| Contrôle | Résultat | Détail |
-|---|---|---|
-| `npm run check` | PASS | 0 erreur, 0 avertissement |
-| `npm run test:proto0` | PASS | 38 fichiers de tests passants, historiques inclus |
-| Tests ciblés P02 | PASS | 9 scénarios regroupés dans `p02-game.test.ts` |
-| `npm run simulate:proto02` | PASS | 4 profils, deux victoires et deux défaites attendues |
-| `npm run build` | PASS | build SSR et client Vite/SvelteKit |
-| Relecture desktop/mobile | PASS STATIQUE | grilles desktop, rupture tablette et layout mono-colonne/tap à 760 px |
-| Smoke HTTP | NON EXÉCUTABLE | le sandbox refuse `listen(127.0.0.1)` avec `EPERM` |
-| E2E navigateur | NOT_RUN | aucun navigateur/Playwright installé ; pas d’infrastructure ajoutée |
+Les gisements restent visibles sous les bâtiments, les prévisualisations indiquent le rendement, et les formules extraction/transformation/stockage affichent base + évolution = résultat. Le HUD expose ressources engagées, stockage, énergie, population affectée/totale/disponible, entretien et Intégrité. Les sorties pleines ont un libellé joueur et une action de transfert. Les notices utilisent une région `aria-live`, les interrupteurs ont un focus visible et les boutons mobiles atteignent au moins `44px`. Le drag n’est jamais requis.
 
-Contrôles du correctif bootstrap dans le présent environnement :
+Desktop, tablette et mobile disposent de ruptures dédiées (`1150px`, `760px`). La vérification du responsive est statique dans ce sandbox ; un smoke visuel navigateur à `390px` reste recommandé avant mise en ligne.
 
-| Contrôle | Résultat | Détail |
-|---|---|---|
-| Analyse syntaxique TypeScript ciblée via esbuild | PASS | moteur P02, tests P02 et simulation compilés en bundles temporaires |
-| `git diff --check` | PASS | aucune erreur d’espace ou de patch |
-| `npm run check` | NON EXÉCUTABLE | aucun Node/npm hôte ; accès au daemon Docker refusé par le sandbox |
-| `npm run test:proto0` | NON EXÉCUTABLE | même contrainte d’environnement |
-| `npm run simulate:proto02` | NON EXÉCUTABLE | même contrainte d’environnement |
-| `npm run build` | NON EXÉCUTABLE | même contrainte d’environnement |
+## Contrôles finaux exécutés
 
-Contrôles du mini-lot UX gisements dans le présent environnement :
+Runtime : Node `v24.19.0` fourni par l’environnement Codex.
 
-| Contrôle | Résultat | Détail |
-|---|---|---|
-| `git diff --check` | PASS | aucune erreur d’espace ou de patch |
-| `npm run check` | NON EXÉCUTABLE | Node/npm absents de l’hôte ; accès au daemon Docker refusé par le sandbox |
+| Contrôle | Résultat |
+|---|---|
+| `npm run check` | PASS — 0 erreur, 0 avertissement |
+| `npm run test:proto0` | PASS — 39 fichiers, 39 passants |
+| scénarios ciblés P02 | PASS — 17/17 moteur + 3/3 profils |
+| `npm run simulate:proto02` | PASS — 6 profils + 1 000 runs |
+| `npm run build` | PASS — client et SSR adapter-node |
+| `git diff --check` | PASS |
+| smoke HTTP local | NON EXÉCUTABLE — `listen EPERM 127.0.0.1:4173` |
+| smoke navigateur | NON EXÉCUTÉ — aucun navigateur/Playwright disponible |
 
-## Passe finale de simplification
+## Relecture des gates A à J
 
-- remplacement de la page P01 de 3 495 lignes par une page P02 ciblée ;
-- suppression de quatre composants Svelte devenus sans appel (`CapacityDelta`, `FlowDiagram`, `ResourceCostPreview`, `TurnReportPanel`), soit 473 lignes ;
-- aucune couche de compatibilité entre états P01 et P02 dans le parcours actif ;
-- aucune abstraction à usage spéculatif ni nouvelle dépendance ;
-- catalogues et paramètres rassemblés dans le seul module métier nécessaire ;
-- recherche textuelle finale sans terme/mécanique P01 dans la route active ou `lib/proto02`.
+- A démarrage/plateau : satisfaite.
+- B économie : satisfaite ; réservations et sorties bloquées couvertes par tests.
+- C inventaire/bâtiments : satisfaite ; stockage, démontage, délai et recyclage couverts.
+- D recherche/RPG : satisfaite ; Transformation, cinq améliorations, niveau utile maximal et limite cumulée.
+- E défense : satisfaite ; seule Affaiblissement est visible et active.
+- F onde/victoire : satisfaite ; croissance stricte et deux fins de run testées/simulées.
+- G équilibrage : satisfaite au niveau laboratoire ; playtest humain encore nécessaire pour affiner.
+- H UX/visuel : satisfaite statiquement ; contrôle navigateur réel recommandé.
+- I rapports/persistance : satisfaite.
+- J stabilité : satisfaite pour check, tests, simulation et build ; smoke réseau bloqué par le sandbox.
 
-## Écarts / dette volontaire
+## Simplifications et dette restante
 
-- les formes de bâtiments sont des glyphes/CSS temporaires, pas des assets finaux ;
-- le smoke visuel dans un vrai navigateur reste à faire hors sandbox ;
-- la Recyclerie rend une formule volontairement simple (`1 organique + 1 minéral`, bonus organique par niveau) ;
-- les moteurs P01 et leurs tests restent dans le dépôt comme historique isolé, mais ne sont plus accessibles depuis la route principale.
+Le parcours actif reste limité à trois modules P02 et une page, sans couche de compatibilité avec P01. Aucun nouveau fichier, sous-système ou paquet n’a été ajouté pendant la consolidation. Les paramètres restent peu nombreux et lisibles.
 
-## Décisions nécessaires
+Dette restante : glyphes/CSS temporaires au lieu d’assets finaux ; smoke visuel desktop/mobile à effectuer hors sandbox ; simulation économique complète non modélisée statistiquement ; moteurs P01 conservés comme historique isolé. Aucune décision de game design P02 n’est requise.
 
-Aucune décision humaine nécessaire pour P02. Les questions futures listées dans `DECISIONS_NEEDED.md` restent hors périmètre.
+## Commandes exactes de revue et de mise en ligne
 
-## Fichiers ou zones particulièrement sensibles à revoir
-
-- `app/src/lib/proto02/game.ts` : économie et paramètres de laboratoire ;
-- `app/src/routes/+page.svelte` : parcours complet et responsive ;
-- `app/tests/proto0/p02-game.test.ts` : critères mécaniques P02 ;
-- `app/src/lib/proto02/simulation.ts` : profils de calibration.
-
-## Instructions de test humain
-
-1. Depuis `app/`, lancer `npm run dev` avec Node 24.
-2. Choisir la membrane de stockage, une case libre, puis confirmer ; poser ensuite tout le kit.
-3. Lancer Transformation dans Évolution et terminer un cycle.
-4. Dans l’Atelier, fabriquer un Transformateur, le poser, puis façonner un composant.
-5. Fabriquer une membrane supplémentaire si le stock approche de sa limite.
-6. Dans la Fabrique défensive, fabriquer des tours et les placer dans Défenses.
-7. Traverser les cycles, lire le rapport de chaque onde, puis adapter jusqu’à victoire ou défaite.
-8. Recharger la page pour vérifier la restauration, puis utiliser Nouvelle partie.
-9. Refaire le parcours vers 390 px de large pour contrôler les interactions tap et l’absence de scroll horizontal structurel.
-
-## Revue et déploiement
-
-Commandes de revue :
+Depuis la racine :
 
 ```bash
 cd app
-npm ci
-npm run check
-npm run test:proto0
-npm run simulate:proto02
-npm run build
+PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run check
+PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run test:proto0
+PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run simulate:proto02
+PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run build
+cd ..
+git diff --check
+git status --short
+git diff -- app/src/lib/proto02 app/src/routes/+page.svelte app/tests/proto0/p02-game.test.ts docs/development/proto0.2/IMPLEMENTATION_REPORT.md
 ```
 
-Aucun push, merge, déploiement ou healthcheck public n’a été effectué.
+Commit local à effectuer hors sandbox après revue :
 
-## Correctif playtest — profils testeurs locaux
+```bash
+git add app/src/lib/proto02/game.ts app/src/lib/proto02/simulation.ts app/src/routes/+page.svelte app/tests/proto0/p02-game.test.ts docs/development/proto0.2/IMPLEMENTATION_REPORT.md
+git commit -m "fix: consolider l alpha jouable PROTO-0.2"
+```
 
-- restauration du sélecteur compact « Testeur » dans la fiche Corcite gauche pour les profils IRFI, AUBE, BRUM, ORBE et SILE ;
-- séparation stricte des sauvegardes locales avec une clé P02 v3 par profil (`avelune:proto02:save:v3:<ID>`) et mémorisation facultative du dernier profil actif ;
-- sauvegarde du profil courant avant bascule, chargement isolé du profil cible, baseline déterministe commune en l’absence de sauvegarde ;
-- « Nouvelle partie » réinitialise et remplace uniquement la sauvegarde du testeur actif ;
-- une sauvegarde invalide est ignorée pour son seul profil sans empêcher le chargement des autres.
+Procédure de mise en ligne existante à exécuter uniquement après commit/revue humaine :
 
-Validations exécutées dans le présent environnement : `git diff --check` (PASS) et contrôles statiques ciblés des identifiants, clés v3 et références de persistance (PASS). `npm run check`, `npm run test:proto0` et `npm run build` n’ont pas été exécutés : `npm` est absent de l’hôte et le contrôle Docker complet est réservé à l’exécution hors sandbox.
+```bash
+docker build -t avelune-proto02 ./app
+docker run --rm -p 3000:3000 avelune-proto02
+curl --fail http://127.0.0.1:3000/api/health
+```
+
+Cette procédure est fournie pour la revue ; aucun push, merge ou déploiement n’a été exécuté.

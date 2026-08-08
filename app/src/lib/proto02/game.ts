@@ -97,11 +97,11 @@ export const RECIPES: Record<string, { producer: 'workshop' | 'defense-factory';
 	'weakening-tower': { producer: 'defense-factory', label: 'Tour d’Affaiblissement', cost: { organic: 0, mineral: 0, refined: 2, component: 1 }, turns: 2, result: 'weakening-tower', quantity: 1 }
 };
 
-export const RESEARCH: Record<ResearchId, { label: string; description: string; cost: Resources; turns: number; repeatable: boolean; prerequisite?: ResearchId }> = {
+export const RESEARCH: Record<ResearchId, { label: string; description: string; cost: Resources; turns: number; repeatable: boolean; prerequisite?: ResearchId; maxLevel?: number }> = {
 	transformation: { label: 'Transformation', description: 'Débloque le Transformateur et les composants.', cost: { organic: 2, mineral: 2, refined: 0, component: 0 }, turns: 1, repeatable: false },
 	'better-extraction': { label: 'Extraction améliorée', description: '+1 matière produite par extracteur.', cost: { organic: 1, mineral: 1, refined: 2, component: 0 }, turns: 2, repeatable: true, prerequisite: 'transformation' },
 	'better-transformation': { label: 'Transformation améliorée', description: '+1 matériau transformé par cycle.', cost: { organic: 1, mineral: 1, refined: 2, component: 0 }, turns: 2, repeatable: true, prerequisite: 'transformation' },
-	'better-fabrication': { label: 'Fabrication améliorée', description: 'Réduit d’un tour les nouvelles fabrications.', cost: { organic: 0, mineral: 1, refined: 2, component: 1 }, turns: 2, repeatable: true, prerequisite: 'transformation' },
+	'better-fabrication': { label: 'Fabrication améliorée', description: 'Réduit d’un tour les nouvelles fabrications.', cost: { organic: 0, mineral: 1, refined: 2, component: 1 }, turns: 2, repeatable: true, prerequisite: 'transformation', maxLevel: 1 },
 	'better-recycling': { label: 'Recyclerie améliorée', description: 'Améliore le rendement du recyclage.', cost: { organic: 1, mineral: 0, refined: 2, component: 1 }, turns: 2, repeatable: true, prerequisite: 'transformation' },
 	'better-storage': { label: 'Stockage amélioré', description: '+6 capacité par membrane posée.', cost: { organic: 1, mineral: 1, refined: 2, component: 0 }, turns: 2, repeatable: true, prerequisite: 'transformation' }
 };
@@ -132,8 +132,8 @@ export function capacities(state: GameState) {
 	for (const cell of state.board) if (cell.building) {
 		const def = BUILDINGS[cell.building.definitionId];
 		if (cell.building.definitionId === 'storage') storage += def.storage + (state.research.completed['better-storage'] ?? 0) * LAB.storageUpgrade;
-		if (def.energy < 0) energy += -def.energy;
-		if (def.maintenance < 0) maintenance += -def.maintenance;
+		if (cell.building.active && def.energy < 0) energy += -def.energy;
+		if (cell.building.active && def.maintenance < 0) maintenance += -def.maintenance;
 		if (cell.building.active) { energyUsed += Math.max(0, def.energy); maintenanceUsed += Math.max(0, def.maintenance); }
 		if (cell.building.staffed) populationUsed += def.population;
 	}
@@ -163,7 +163,8 @@ export function placeBuilding(state: GameState, cellId: string, definitionId: Bu
 	const stack = item(state, definitionId);
 	if (deploymentIndex < 0 && (!stack || stack.quantity < 1)) return 'Ce bâtiment n’est pas disponible.';
 	if (state.deployment && definitionId !== 'storage' && state.deploymentKit.includes('storage')) return 'La première implantation doit être une membrane de stockage.';
-	if (deploymentIndex < 0 && (stack?.remountReadyTurn ?? 0) > state.turn) return `Le remontage sera disponible au cycle ${stack!.remountReadyTurn}.`;
+	const readyRegularItem = (stack?.quantity ?? 0) > (stack?.dismantled ?? 0);
+	if (deploymentIndex < 0 && !readyRegularItem && (stack?.remountReadyTurn ?? 0) > state.turn) return `Le remontage sera disponible au cycle ${stack!.remountReadyTurn}.`;
 	const def = BUILDINGS[definitionId];
 	const caps = capacities(state);
 	if (!state.deployment && def.energy > 0 && caps.energyUsed + def.energy > caps.energy) return 'Capacité énergétique insuffisante. Implantez une gemme ou désactivez une fonction.';
@@ -178,7 +179,7 @@ export function placeBuilding(state: GameState, cellId: string, definitionId: Bu
 		}
 		state.deployment = state.deploymentKit.length > 0;
 	} else {
-		const wasDismantled = stack!.dismantled > 0;
+		const wasDismantled = !readyRegularItem && stack!.dismantled > 0;
 		stack!.quantity -= 1;
 		if (wasDismantled) stack!.dismantled -= 1;
 		log(state, `${BUILDINGS[definitionId].label} implanté${wasDismantled ? ' après remontage' : ''}.`);
@@ -196,6 +197,10 @@ export function toggleBuilding(state: GameState, cellId: string, active: boolean
 		const def = BUILDINGS[building.definitionId], caps = capacities(state);
 		if (caps.energyUsed + Math.max(0, def.energy) > caps.energy) return 'Énergie insuffisante pour activer cette fonction.';
 		if (caps.maintenanceUsed + Math.max(0, def.maintenance) > caps.maintenance) return 'Entretien insuffisant pour activer cette fonction.';
+	} else {
+		const def = BUILDINGS[building.definitionId], caps = capacities(state);
+		if (def.energy < 0 && caps.energyUsed > caps.energy + def.energy) return 'Désactivez d’abord les fonctions qui utilisent cette capacité énergétique.';
+		if (def.maintenance < 0 && caps.maintenanceUsed > caps.maintenance + def.maintenance) return 'Désactivez d’abord les fonctions qui utilisent cette capacité d’entretien.';
 	}
 	building.active = active;
 	return null;
@@ -220,6 +225,14 @@ export function dismantle(state: GameState, cellId: string): string | null {
 		const def = BUILDINGS.storage.storage + (state.research.completed['better-storage'] ?? 0) * LAB.storageUpgrade;
 		const caps = capacities(state);
 		if (caps.load > caps.storage - def) return 'Impossible : le stock ne tiendrait plus dans les membranes restantes.';
+	}
+	if (cell.building.definitionId === 'energy') {
+		const caps = capacities(state);
+		if (caps.energyUsed > caps.energy + BUILDINGS.energy.energy) return 'Impossible : les fonctions actives dépasseraient la capacité énergétique restante.';
+	}
+	if (cell.building.definitionId === 'maintenance') {
+		const caps = capacities(state);
+		if (caps.maintenanceUsed > caps.maintenance + BUILDINGS.maintenance.maintenance) return 'Impossible : les fonctions actives dépasseraient la capacité d’entretien restante.';
 	}
 	let stack = item(state, cell.building.definitionId);
 	if (!stack) { stack = { id: cell.building.definitionId, quantity: 0, dismantled: 0 }; state.inventory.push(stack); }
@@ -259,6 +272,7 @@ export function startResearch(state: GameState, id: ResearchId): string | null {
 	if (state.research.active) return 'Une recherche est déjà en cours.';
 	if (node.prerequisite && !completed(state, node.prerequisite)) return 'Le prérequis de cette recherche manque.';
 	if (!node.repeatable && level > 0) return 'Cette recherche est déjà acquise.';
+	if (node.maxLevel !== undefined && level >= node.maxLevel) return 'Cette amélioration a atteint son niveau utile maximal.';
 	if (node.repeatable && state.research.repeatableLevels >= LAB.repeatableLimit) return 'La limite de 4 niveaux d’amélioration cumulés est atteinte.';
 	if (!available(state, node.cost)) return 'Matières disponibles insuffisantes pour cette recherche.';
 	(Object.keys(node.cost) as ResourceId[]).forEach((key) => state.resources[key] -= node.cost[key]);
@@ -357,7 +371,7 @@ export function endTurn(state: GameState): string | null {
 			const quantity = LAB.extractionBase + (state.research.completed['better-extraction'] ?? 0);
 			if (!addOutput(state, 'mineral', quantity)) building.blockedOutput = { id: 'mineral', quantity };
 		}
-		if (building.definitionId === 'transformer' && state.resources.organic >= 1 && state.resources.mineral >= 1) {
+		if (building.definitionId === 'transformer' && available(state, { organic: 1, mineral: 1, refined: 0, component: 0 })) {
 			const quantity = 2 + (state.research.completed['better-transformation'] ?? 0);
 			state.resources.organic -= 1;
 			state.resources.mineral -= 1;
@@ -396,9 +410,38 @@ export function restoreGame(raw: string | null): GameState | null {
 	if (!raw) return null;
 	try {
 		const value = JSON.parse(raw) as Partial<GameState>;
-		if (value.version !== 3 || !Array.isArray(value.board) || !Array.isArray(value.inventory) || !Array.isArray(value.deploymentKit) || !value.deploymentResources || !Array.isArray(value.defenses) || typeof value.turn !== 'number') return null;
+		if (
+			value.version !== 3 || !Number.isInteger(value.turn) || value.turn! < 1 ||
+			!Number.isInteger(value.sequence) || !Number.isInteger(value.waveNumber) ||
+			!Array.isArray(value.board) || value.board.length !== 19 ||
+			!value.board.every((cell) => typeof cell?.id === 'string' && Number.isInteger(cell.q) && Number.isInteger(cell.r) && (cell.ground === null || cell.ground === 'organic' || cell.ground === 'mineral') && validBuilding(cell.building)) ||
+			!Array.isArray(value.inventory) || !value.inventory.every((entry) => validItemId(entry?.id) && Number.isInteger(entry.quantity) && entry.quantity >= 0 && Number.isInteger(entry.dismantled) && entry.dismantled >= 0 && entry.dismantled <= entry.quantity) ||
+			!Array.isArray(value.deploymentKit) || !value.deploymentKit.every(validItemId) ||
+			!Array.isArray(value.defenses) || value.defenses.length !== 8 ||
+			!value.defenses.every((slot, index) => slot?.position === index + 1 && typeof slot.tower === 'boolean') ||
+			!validResources(value.resources) || !validResources(value.reserved) || !validResources(value.deploymentResources) ||
+			!value.research || !Number.isInteger(value.research.repeatableLevels) || value.research.repeatableLevels! < 0 || value.research.repeatableLevels! > LAB.repeatableLimit ||
+			!Number.isFinite(value.integrity) || value.integrity! < 0 || value.integrity! > LAB.baseIntegrity ||
+			(value.status !== 'playing' && value.status !== 'tester-victory' && value.status !== 'game-victory')
+		) return null;
 		return value as GameState;
 	} catch { return null; }
+}
+
+function validResources(value: unknown): value is Resources {
+	if (!value || typeof value !== 'object') return false;
+	return (Object.keys(RESOURCE_LABELS) as ResourceId[]).every((id) => Number.isInteger((value as Resources)[id]) && (value as Resources)[id] >= 0);
+}
+
+function validItemId(value: unknown): value is ItemId {
+	return value === 'weakening-tower' || (typeof value === 'string' && value in BUILDINGS);
+}
+
+function validBuilding(value: unknown): value is BuildingInstance | null {
+	if (value === null) return true;
+	if (!value || typeof value !== 'object') return false;
+	const building = value as BuildingInstance;
+	return typeof building.uid === 'string' && typeof building.active === 'boolean' && typeof building.staffed === 'boolean' && building.definitionId in BUILDINGS;
 }
 
 export function threatHint(state: GameState): string {
