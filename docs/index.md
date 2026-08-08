@@ -1,13 +1,13 @@
 # Documentation — Les Lisières d’Avelune
 
-Cet index distingue les **principes de conception**, les **jalons jouables stables**, les **documents historiques** et le **développement actif PROTO-0.2**.
+Cet index distingue les **principes de conception**, les **jalons jouables stables**, les **documents historiques** et le **candidat distribué PROTO-0.2.2**.
 
 ## 1. Repères de version
 
 - `v0.8` : ancien jalon historique.
 - `v0.8.3` : dernière baseline de conception figée avant PROTO-0.1.
-- **PROTO-0.1** : jalon jouable intégré à `main` et actuellement déployé.
-- **PROTO-0.2** : développement actif sur `develop/proto-0.2-ux-rules`, non encore stable ni déployé comme référence.
+- **PROTO-0.1** : jalon jouable intégré à `main`.
+- **PROTO-0.2.2** : candidat de playtest distribué finalisé, validé et poussé sur `develop/proto-0.2.2-playtest`.
 
 Le projet ne doit pas être présenté comme ayant déjà atteint une nouvelle version stable arbitraire telle que `v0.9`.
 
@@ -24,7 +24,7 @@ Le projet ne doit pas être présenté comme ayant déjà atteint une nouvelle v
 - [Trame RPG](14_trame_rpg.md)
 - [Passage et Lisière](15_lisiere_et_passage.md)
 
-Ces documents portent la vision large du jeu. Lorsqu’un document de conception historique entre en contradiction avec le cahier actif PROTO-0.2, il ne doit pas être utilisé pour modifier le périmètre du prototype courant.
+Ces documents portent la vision large du jeu. Lorsqu’un document historique entre en contradiction avec le cahier actif PROTO-0.2.2, il ne doit pas être utilisé pour modifier le périmètre du prototype courant.
 
 ## 3. Identité et direction artistique
 
@@ -34,11 +34,13 @@ Ces documents portent la vision large du jeu. Lorsqu’un document de conception
 
 Direction actuelle : **poétique · onirique · féerique · organique · minérale · florale-abstraite · queer**.
 
-Pour PROTO-0.2, la composition Gen3 sert uniquement de référence ergonomique. Le Corcite doit rester non anthropomorphe ; éviter humains/humanoïdes, fantasy médiévale générique et esthétique industrielle sci-fi générique.
+Pour PROTO-0.2.2, la composition Gen3 sert uniquement de référence ergonomique. Le Corcite doit rester non anthropomorphe ; éviter humains/humanoïdes, fantasy médiévale générique et esthétique industrielle sci-fi générique.
+
+La représentation graphique du Corcite reste volontairement ouverte et fait l’objet d’une exploration visuelle dédiée après le gel fonctionnel du playtest.
 
 ## 4. PROTO-0.1 — baseline stable
 
-PROTO-0.1 reste la baseline logicielle actuellement intégrée à `main` et le prototype déployé de référence.
+PROTO-0.1 reste la baseline logicielle intégrée à `main`.
 
 Documentation de ce jalon :
 
@@ -49,24 +51,41 @@ Documentation de ce jalon :
 - [Rapport d'équilibrage automatisé](proto0/PROTO0_PLAYABLE_BALANCE_REPORT.md)
 - [Parcours technique de référence](proto0/PROTO0_PLAYABLE_REFERENCE_PLAYTHROUGH.md)
 
-Les documents historiques P0–P10 et `proto-0-spec.1` restent utiles pour la traçabilité, mais ne doivent pas être pris comme photographie exacte de l’état stable actuel lorsqu’ils divergent de `main`.
+Les documents historiques P0–P10 et `proto-0-spec.1` restent utiles pour la traçabilité.
 
-## 5. PROTO-0.2 — développement actif
+## 5. PROTO-0.2.2 — candidat de playtest distribué
 
-Branche : [`develop/proto-0.2-ux-rules`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2-ux-rules)
+Branche : [`develop/proto-0.2.2-playtest`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest)
+
+Commit fonctionnel de référence : `d3b080c`.
 
 Dossier de travail : [`docs/development/proto0.2`](development/proto0.2/README.md)
 
-Ordre de priorité documentaire du prototype :
+Ordre de priorité documentaire du lot final :
 
-1. [Mission active](development/proto0.2/CURRENT_TASK.md)
-2. [Règles et périmètre](development/proto0.2/01_RULES_AND_SCOPE.md)
-3. [Spécification UX](development/proto0.2/02_UX_SPEC.md)
-4. [Brief visuel Gen3 corrigé](development/proto0.2/06_VISUAL_BRIEF_GEN3.md)
-5. [Garde-fous techniques](development/proto0.2/03_TECHNICAL_GUARDRAILS.md)
-6. [Critères d’acceptation](development/proto0.2/04_ACCEPTANCE.md)
+1. [Arbitrages finaux P02.2](development/proto0.2/11_P02_2_FINAL_PLAYTEST_ARBITRATIONS.md)
+2. [Spécification playtest distribué](development/proto0.2/10_P02_2_DISTRIBUTED_PLAYTEST_SPEC.md)
+3. [Mission / état du lot](development/proto0.2/CURRENT_TASK.md)
+4. [Règles et périmètre](development/proto0.2/01_RULES_AND_SCOPE.md)
+5. [Spécification UX](development/proto0.2/02_UX_SPEC.md)
+6. [Brief visuel Gen3 corrigé](development/proto0.2/06_VISUAL_BRIEF_GEN3.md)
+7. [Garde-fous techniques](development/proto0.2/03_TECHNICAL_GUARDRAILS.md)
+8. [Rapport d’implémentation](development/proto0.2/IMPLEMENTATION_REPORT.md)
 
-### Boucle active PROTO-0.2
+### État de validation
+
+- 380/380 tests ;
+- `svelte-check` : 0 erreur, 0 warning ;
+- build production/Docker vert ;
+- PostgreSQL 17 réel et migration validés ;
+- sessions create/resume/save et conflits LWW validés ;
+- smoke HTTP et garde-fous API validés ;
+- feedback PostgreSQL → SMTP réel validé de bout en bout ;
+- revue humaine desktop et mobile acceptée.
+
+Le lot est prêt à être distribué. Fusion `main`, tag de release et déploiement public restent des actions séparées.
+
+### Boucle active
 
 ```text
 implanter
@@ -89,12 +108,12 @@ implanter
 - recherche courte et utile ;
 - une seule famille de défense : **Affaiblissement** ;
 - une seule caractéristique active de vague : **Puissance** ;
-- première vague réduite à `0` → victoire du testeur ;
+- Puissance résiduelle `0` → victoire du testeur ;
 - Intégrité du Corcite à `0` → victoire du jeu ;
 - pas de nombre fixe de vagues ;
 - pas de matière issue des vagues ni de captation dans ce proto.
 
-Les anciennes notions `pression / structure / charge / matière capturable` ne constituent pas le canon futur de la vague : la nature détaillée de la vague doit être redéfinie après ce jalon.
+Les anciennes notions `pression / structure / charge / matière capturable` ne constituent pas le canon futur de la vague.
 
 ## 6. Architecture et méthode
 
