@@ -1,4 +1,4 @@
-import { LAB, wavePower } from './game.js';
+import { LAB, createGame, placeBuilding, queueProduction, resolveCycle, wavePower, type BuildingId } from './game.js';
 
 export interface SimulationProfile {
 	name: string;
@@ -67,7 +67,21 @@ export function simulateBatch(seed = 20260807, runs = 1000): SimulationBatch {
 	return { runs, testerVictories, gameVictories, averageTerminalWave: terminalWaves / runs };
 }
 
+export function simulatePrimaryDefenseOpening() {
+	const state = createGame(20260808);
+	const kit: [string, BuildingId][] = [['0:0','storage'],['0:1','energy'],['1:0','maintenance'],['-1:0','workshop'],['-2:2','extractor-organic'],['-2:0','extractor-mineral'],['0:-1','defense-factory']];
+	for (const [cell, building] of kit) { const error = placeBuilding(state, cell, building); if (error) throw new Error(error); }
+	const queued = queueProduction(state, '0:-1', 'weakening-tower');
+	if (queued) throw new Error(`Tour primaire inaccessible : ${queued}`);
+	const first = resolveCycle(state, 1), second = resolveCycle(state, 0);
+	if (typeof first === 'string' || typeof second === 'string') throw new Error('Résolution économique impossible.');
+	const tower = state.inventory.find((entry) => entry.id === 'weakening-tower')?.quantity ?? 0;
+	if (tower !== 1 || (state.research.completed.transformation ?? 0) !== 0) throw new Error('La défense primaire dépend encore de Transformation.');
+	return { profile: 'ouverture primaire P02.2', towerReadyAtCycle: state.turn, transformation: false, organic: state.resources.organic, mineral: state.resources.mineral, forcedWaits: [first, second].filter((result) => result.idleClassification === 'forced_wait').length };
+}
+
 if (process.argv[1]?.endsWith('simulation.ts')) {
 	for (const profile of SIMULATION_PROFILES) console.log(JSON.stringify(simulateProfile(profile)));
+	console.log(JSON.stringify(simulatePrimaryDefenseOpening()));
 	console.log(JSON.stringify({ profile: 'balayage reproductible', ...simulateBatch() }));
 }

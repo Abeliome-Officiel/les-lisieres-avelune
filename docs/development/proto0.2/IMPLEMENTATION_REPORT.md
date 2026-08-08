@@ -1,111 +1,154 @@
-# PROTO-0.2 — Rapport d’implémentation
+# PROTO-0.2.2 — Rapport d’implémentation P02-003
 
-**Statut : P02-002 IMPLÉMENTÉ — REVIEW_READY TECHNIQUE, REVUE HUMAINE VISUELLE REQUISE AVANT TAG**
+**Statut : implémentation des Gates A–D terminée dans le worktree ; validation
+Node/Docker à exécuter hors sandbox avant REVIEW_READY.**
 
-## Lot et état Git
+## Git et périmètre
 
-- Lot : `P02-002` / `PROTO-0.2.1 structure UX et lisibilité`.
-- Branche : `develop/proto-0.2-ux-rules`.
-- HEAD local inspecté : `750f66ef3d59ace2c7f9420f1427f12c1021a200`; référence distante inspectée : `6f4e41282b4bf8e008ac560c3a88f06d5fb06cff`.
-- Le contenu correctif des quatre commits distants a été comparé puis intégré au travail local plus avancé sans perdre la vue Production. Le fast-forward, le commit et le push restent bloqués parce que le sandbox interdit l’écriture dans les métadonnées Git du worktree : `git add` échoue sur `.git/worktrees/repository-proto02/index.lock` avec `Read-only file system`.
-- Merge, tag et déploiement : aucun.
-- Mécaniques : aucune famille, ressource, condition de victoire ou règle de vague ajoutée.
+- branche inspectée : `develop/proto-0.2.2-playtest` ;
+- HEAD initial : `2faf0642cfed1e8e3001cc1e21827234582708d6` ;
+- aucun commit, push, merge, tag ni déploiement effectué ;
+- aucune nouvelle ressource, famille défensive, règle RPG ou action destinée à
+  remplir un cycle vide.
 
-## Changements UX
+## Run correctif après validation Node 24
 
-L’interface active emploie désormais le vocabulaire **Structure / Structure du Corcite**. Les matières organiques et minérales d’amorçage (`4 + 4`) sont affichées dès l’ouverture avec la mention `amorçage · hors capacité`; la pose du stockage change leur statut de stockage sans suggérer leur création. Les quatre ressources tiennent dans une ligne compacte avec pictogramme, nom, disponible et réservé/total lorsque pertinent.
+- garde-fous HTTP ajoutés avant accès repository : les cycles d’événement sont
+  des entiers `>= 0` et les versions de sauvegarde des entiers `>= 1` ; les
+  contrats partagés couvrent explicitement `turn=-1`, `turn=0`,
+  `stateVersion=0`, les versions négatives/décimales/non numériques et
+  `stateVersion=1`, sans modifier le last-write-wins des versions positives ;
+- une validation réelle sous PostgreSQL 17 a découvert que le conflict target
+  `ON CONFLICT (code)` ne permettait pas d’inférer l’index unique partiel des
+  sessions accessibles ; `create()` émet désormais `ON CONFLICT (code) WHERE
+  status <> 'archived' DO NOTHING`, sans modifier l’index ni la réutilisation
+  des codes archivés ; un nouveau passage sur PostgreSQL 17 réel reste requis
+  après ce correctif ;
+- modèle de feedback séparé entre statut initial et statut stocké, sans
+  élargissement de propriété hérité ni recours à `any` ;
+- plafonds de recherche traités comme états terminaux : aucun déficit de
+  ressource temporaire n’est affiché lorsqu’un achat est définitivement
+  impossible ; tests rendus explicites sur la liste exacte des raisons ;
+- CSS mort de l’ancien sélecteur public de testeurs supprimé ;
+- dépendances runtime déclarées et imports serveur directs de `pg` et
+  `nodemailer`, sans `new Function(...)` ;
+- revue ciblée des frontières serveur/API : aucun import serveur depuis le
+  client et aucun secret exposé ; contexte feedback désormais borné à 16 000
+  caractères sérialisés.
 
-L’identité du Corcite regroupe maintenant Intégrité, énergie utilisée/capacité, population affectée/totale, entretien, stockage et cycle sous la forme icône + libellé + valeur. La représentation sphérique a été remplacée par une forme CSS asymétrique, biomorphique, opaline et cristalline, sans visage ni silhouette humanoïde.
+## Gate A — UX et économie
 
-Un jeu de pictogrammes SVG local distingue ressources, stockage, énergie, entretien, population, construction, extractions organique/minérale, défense, recyclage, recherche et production. Les pictogrammes restent toujours accompagnés d’un texte lorsqu’ils portent une information utile.
+- recettes alignées sur l’arbitrage 11, dont Tour primaire `1 Organique + 3
+  Minéral`, sans Transformé, Composant ni recherche Transformation ;
+- durées de 1/2 cycles et plancher de Fabrication améliorée centralisés ;
+- disponibilité de Production calculée par le moteur avec toutes les causes
+  exactes, coût, stock, posé, durée et cycle estimé ;
+- résultat de cycle structuré : productions/consommations, démarrage,
+  progression, fin, blocage, recherche, onde et fin de run ;
+- `not_idle`, `voluntary_wait`, `forced_wait`, nombre d’actions et causes ;
+- vue Stock globale catégorisée, inventaire permanent retiré, accès navigation
+  et clic sur Membrane, implantation limitée aux objets réellement disponibles ;
+- pictogrammes stables des quatre ressources réutilisés ;
+- tessellation mobile issue de la même formule axiale que desktop : largeur 76,
+  hauteur 65,818, pas horizontal 57 et demi-pas vertical 32,909 ;
+- simulation d’ouverture primaire ajoutée, sans nouvelle mécanique.
 
-La vue Évolution utilise des cartes courtes. Chaque nœud montre icône, nom, effet, coût, durée, niveau/état et, seulement quand elle existe dans `RESEARCH`, la relation réelle vers `Transformation`. Aucune dépendance n’a été inventée.
+## Gate B — sessions
 
-La nouvelle vue **Production** agrège les fonctions réellement implantées : Atelier, Transformateur, Fabrique défensive et Recyclerie, ainsi que recettes, ordres, annulation avant démarrage et sorties bloquées. L’inspecteur conserve les actions locales mais n’est plus l’unique écran de fabrication.
+- migration additive `app/migrations/001_playtest_distributed.sql` ;
+- tables sessions, événements et feedback ; identifiant UUID interne et code
+  public numérique unique parmi les sessions accessibles ;
+- collision gérée par nouvelle tentative, sans quota de sessions ;
+- repositories PostgreSQL et mémoire, service création/reprise/sauvegarde ;
+- version d’état incrémentée, last-write-wins explicite et conflit journalisé ;
+- endpoints création, reprise et sauvegarde avec validation/taille bornée ;
+- écran public à code 4 chiffres ; profils IRFI/AUBE/BRUM/ORBE/SILE absents du
+  parcours public.
 
-Le vocabulaire joueur emploie `Fabriquer 1 composant`. La description de l’Atelier indique explicitement qu’il fabrique les bâtiments économiques, notamment de nouveaux extracteurs. La vue Défenses relie graphiquement les huit positions dans l’ordre `Fracture → 1 → … → 8 → Corcite`, tout en conservant les interactions clic/tap existantes.
+## Gate C — télémétrie et feedback
 
-Le kit initial complet n’est rendu que dans Structure. Les autres vues affichent un rappel compact renvoyant à Structure, puis le kit disparaît après déploiement. La fin de cycle produit une surcouche dédiée et fermable avec numéro de cycle, variations de ressources et d’objets, recherches terminées et synthèse d’onde; le rapport d’onde détaillé reste distinct des Échos. La transition dure 220 ms, ne bloque aucune mécanique et respecte `prefers-reduced-motion`.
+- événements serveur structurés et métriques de cycle vide ;
+- bouton permanent `Signaler / proposer`, huit catégories et contexte mécanique,
+  version, cycle, vague, vue et viewport ; aucune identité requise ;
+- écriture PostgreSQL effectuée avant SMTP ;
+- SMTP facultatif, état `not_requested` sans configuration, échec marqué
+  `failed` sans détruire le retour ni imposer de ressaisie ;
+- secrets lus uniquement depuis les variables d’environnement.
 
-L’autosauvegarde par profil est conservée. Son état est explicitement visible et une action secondaire `Sauvegarder maintenant` est disponible.
+## Gate D — intégration
 
-## Architecture des six blocs
+- introduction avant création/reprise et demande explicite de retours critiques ;
+- notice complète accessible pendant la partie ;
+- bloc Session (code, copie, sauvegarde, version) distinct du Contexte de case ;
+- version fonctionnelle et commit de build visibles ;
+- composition commune desktop/mobile, cibles tactiles et priorités 390×844 /
+  360×800.
 
-- A — identité/état : `.corcite-card` et `.corcite-stats` ;
-- B — ressources : `.block-resources` ;
-- C — navigation : `.block-navigation` ;
-- D — espace de travail : `.stage`, avec Structure, Évolution, Production ou Défenses ;
-- E — contexte : `.context`, sélection et actions locales ;
-- F — activité : `.block-activity`, inventaire, résumé de cycle, notice et commandes.
+## Tests ajoutés
 
-Desktop et mobile rendent exactement ces mêmes blocs et utilisent le même état. Seuls CSS Grid/Flex, ordre, densité et dimensions des hexagones changent aux breakpoints. Aucun moteur de layout ni seconde interface mobile n’a été créé. La seule primitive ajoutée est `AveluneIcon.svelte`, utilisée dans plusieurs blocs réels.
+- `p02-distributed-economy.test.ts` : coûts, Tour primaire, durées,
+  disponibilités, rapport et idle ;
+- `p02-playtest-sessions.test.ts` : create/resume/save, collision, conflit,
+  validation et repositories fakes ;
+- `p02-feedback.test.ts` : insertion avant SMTP, SMTP réussi, absent et échoué.
 
-## Structure et géométrie
-
-Les 19 cases gardent une position absolue dérivée uniquement de leurs coordonnées `q/r`. La largeur, la hauteur et les pas axial/diagonal utilisent les proportions d’une tessellation à sommet plat : deux voisines partagent une arête complète, sans gouttière ni triangle vide. Pose, gisement, bâtiment, preview et sélection sont des couches internes; survol et sélection ne changent plus le `transform`, la taille ou les coordonnées d’une case. La version mobile recalcule les mêmes proportions dans une largeur `100%`, sans translation latérale.
-
-Les bâtiments restent au centre et au premier plan des cases occupées. Le gisement demeure dans un marqueur secondaire plus petit, moins opaque et sans halo dominant.
-
-L’hypothèse de laboratoire autorisée `2 organiques + 2 minéraux` est appliquée pour réduire le bruit visuel. Les coordonnées utilisées par le scénario économique existant restent compatibles. Un test en verrouille l’état de laboratoire sans déclarer cette densité canonique; D-004 reste ouverte pour P02.2.
-
-## Desktop et mobile
-
-Desktop a été densifié : HUD 66 px, gouttières/paddings réduits, colonnes `220 / fluide / 255`, scène compacte et structure continue de 520 px occupant réellement le centre. L’inventaire est plus court. La composition est exploitable à zoom 100 % sur une largeur desktop courante selon revue CSS et build; la validation perceptive finale reste humaine.
-
-Sous 1150 px, le contexte passe sous l’espace principal. Sous 760 px, les mêmes blocs sont empilés, les ressources passent en deux colonnes, l’état en trois colonnes, les hexagones descendent à 76 px de large en conservant leur contiguïté, recettes/recherches/inventaire passent sur une colonne et le contexte devient un bloc vertical. `overflow-x` est neutralisé au niveau de la page et de la scène. Toutes les actions restent tap/clic, sans drag obligatoire; les commandes interactives mobiles ont une hauteur minimale de 44 px.
-
-## Accessibilité
-
-- informations critiques toujours texte + icône ;
-- labels explicites sur Structure, Corcite et bouton de fermeture ;
-- régions `aria-live` pour sauvegarde, notices et résumé de cycle ;
-- focus clavier conservé, sélection distincte sans déplacement ;
-- `prefers-reduced-motion` neutralise animations et transitions ;
-- aucun hover-only ni drag-only ;
-- cibles mobiles de 44 px minimum.
-
-## Contrôles exécutés
-
-Runtime : Node `v24.19.0`.
+## Contrôles réellement exécutés dans ce sandbox
 
 | Contrôle | Résultat |
 |---|---|
-| `npm run check` | PASS — 0 erreur, 0 avertissement |
-| `npm run test:proto0` | PASS — 39 entrées de suite, 0 échec, test de densité inclus |
-| `npm run simulate:proto02` | PASS — 6 profils, 1 000 runs; 491 victoires testeur / 509 jeu |
-| `npm run build` | PASS — client, SSR et adapter-node |
-| `git diff --check` | PASS après rapport final |
-| smoke Docker | BLOQUÉ PAR SANDBOX — accès refusé à `/var/run/docker.sock` |
-| smoke serveur local | BLOQUÉ PAR SANDBOX — `listen EPERM 127.0.0.1:4173` |
-| navigateur desktop/mobile | NON EXÉCUTABLE ICI — aucun Chromium/Playwright installé; revue humaine obligatoire |
+| lecture exhaustive des sources imposées | PASS |
+| branche/worktree initial | PASS — branche attendue, modifications du premier run préservées |
+| `git diff --check` intermédiaire | PASS |
+| `npm run check` | TENTÉ, ÉCHEC ENVIRONNEMENT — `npm: command not found` |
+| `npm run test:proto0` | TENTÉ, ÉCHEC ENVIRONNEMENT — npm/Node absents |
+| `npm run simulate:proto02` | TENTÉ, ÉCHEC ENVIRONNEMENT — npm/Node absents |
+| `npm run build` | TENTÉ, ÉCHEC ENVIRONNEMENT — npm/Node absents |
+| PostgreSQL réel / migration | NON EXÉCUTÉ — accès Docker refusé |
+| smoke HTTP/Docker | NON EXÉCUTÉ — accès Docker refusé |
+| revue navigateur 390×844 / 360×800 | NON EXÉCUTÉ — navigateur absent |
 
-## Dette restante et décisions ouvertes
+La tentative Docker retourne `permission denied while trying to connect to the
+docker API`. Aucun succès n’est revendiqué pour ces contrôles.
 
-La dette visuelle se limite aux SVG/CSS procéduraux temporaires et à la revue humaine réelle desktop/mobile. Aucun asset final n’était requis. Les smokes sont empêchés par les permissions Docker/réseau local du sandbox; le build serveur est vert.
+## Déploiement
 
-Les décisions D-001 à D-008 de `DECISIONS_NEEDED.md` restent ouvertes selon leur jalon. P02-002 ne ferme notamment ni le kit initial définitif, ni la cadence/forme des premières vagues, ni la densité canonique des gisements, ni la forme de l’amélioration défensive. L’architecture continue d’autoriser quantité de tours, amélioration technologique ou stratégie mixte.
+Appliquer `app/migrations/001_playtest_distributed.sql`, puis fournir :
+`DATABASE_URL`, `AVELUNE_BUILD_COMMIT` et, facultativement,
+`AVELUNE_SMTP_HOST`, `AVELUNE_SMTP_PORT`, `AVELUNE_SMTP_SECURE`,
+`AVELUNE_SMTP_USER`, `AVELUNE_SMTP_PASSWORD`, `AVELUNE_FEEDBACK_FROM`,
+`AVELUNE_FEEDBACK_TO`. `pg@8.22.0` et `nodemailer@9.0.3` sont désormais des
+dépendances runtime déclarées ; le Dockerfile utilise uniquement
+`npm ci --omit=dev` pour l’étage runtime.
 
-## Commandes exactes de revue
+Le sandbox ne fournit ni Node ni npm et refuse l’accès au daemon Docker. Le
+`package-lock.json` n’a donc pas pu être régénéré après cette normalisation et
+reste provisoirement incohérent avec `package.json`. Exécuter dans `app/`
+`npm install --package-lock-only --ignore-scripts`, contrôler le diff du lock,
+puis lancer les validations npm avant toute construction d’image.
 
-Depuis la racine du dépôt :
+## Risques et contrôles hors sandbox
 
-```bash
-cd app
-npm run check
-npm run test:proto0
-npm run simulate:proto02
-npm run build
-cd ..
-git diff --check
-git status --short
-git diff -- app/src/lib/proto02 app/src/routes/+page.svelte app/tests/proto0/p02-game.test.ts docs/development/proto0.2/IMPLEMENTATION_REPORT.md
-```
+1. régénérer `package-lock.json`, puis exécuter check/tests/simulation/build et
+   corriger toute erreur TypeScript ou Svelte avant revue ;
+2. appliquer la migration sur une copie/instance de validation puis tester une
+   création, reprise depuis un second navigateur et conflit de sauvegarde ;
+3. tester SMTP configuré, absent et volontairement cassé sur PostgreSQL réel ;
+4. contrôler visuellement les 19 hexagones à 390×844 et 360×800, avant/après
+   implantation, ainsi que modales, Stock et absence de scroll horizontal ;
+5. effectuer un smoke HTTP sur une image candidate isolée avant bascule.
 
-Revue humaine hors sandbox :
+## Micro-passe UI finale P02.2
 
-```bash
-cd app
-npm run dev -- --host 127.0.0.1
-```
-
-Contrôler à zoom navigateur 100 % au minimum à `1440×900`, `1024×768`, `390×844` et `360×800` : déploiement initial, stabilité des 19 cases avant/après pose, amorçage avant/après stockage, quatre vues, Production avec ordre/sortie bloquée, résumé de cycle, sauvegarde et absence de scroll horizontal structurel.
+- HUD ramené à une ligne d’environ 40 px sur desktop large : branding dupliqué
+  retiré, quatre ressources conservées en `icône + nom + quantité`, sauvegarde
+  compactée et accès aux règles déplacé dans Session ;
+- navigation gauche contrainte par `min-width: 0`, enfants flex rétractables et
+  libellés remplacés visuellement par les icônes sous 420 px, avec noms
+  accessibles ;
+- commit de build lu côté serveur depuis la seule variable
+  `AVELUNE_BUILD_COMMIT`, transmis explicitement à la page et affiché dans
+  l’accueil/notice ; repli visible `build local` ;
+- plateau stabilisé contre les variations de largeur dues à la scrollbar de la
+  zone centrale, sans modification de la géométrie hexagonale ;
+- `git diff --check` : PASS. `npm run check`, tests et build restent non
+  exécutables dans ce sandbox (Node/npm absents et daemon Docker inaccessible).

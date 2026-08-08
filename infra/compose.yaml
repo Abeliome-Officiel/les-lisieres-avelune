@@ -35,6 +35,14 @@ services:
       PORT: 3000
       ORIGIN: ${AVELUNE_PUBLIC_URL:-https://proto.avelune.duckdns.org}
       DATABASE_URL: postgresql://avelune:${AVELUNE_DB_PASSWORD}@database:5432/avelune
+      AVELUNE_BUILD_COMMIT: ${AVELUNE_BUILD_COMMIT:-local}
+      AVELUNE_SMTP_HOST: ${AVELUNE_SMTP_HOST:-smtp.free.fr}
+      AVELUNE_SMTP_PORT: ${AVELUNE_SMTP_PORT:-587}
+      AVELUNE_SMTP_SECURE: ${AVELUNE_SMTP_SECURE:-false}
+      AVELUNE_SMTP_USER: ${AVELUNE_SMTP_USER:-}
+      AVELUNE_SMTP_PASSWORD: ${AVELUNE_SMTP_PASSWORD:-}
+      AVELUNE_FEEDBACK_FROM: ${AVELUNE_FEEDBACK_FROM:-}
+      AVELUNE_FEEDBACK_TO: ${AVELUNE_FEEDBACK_TO:-tnd.thfo@gmail.com}
     depends_on:
       database:
         condition: service_healthy

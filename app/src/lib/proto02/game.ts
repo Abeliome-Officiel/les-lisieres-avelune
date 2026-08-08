@@ -24,6 +24,21 @@ export interface HexCell { id: string; q: number; r: number; ground: GroundResou
 export interface BuildingInstance { uid: string; definitionId: BuildingId; active: boolean; staffed: boolean; order: ProductionOrder | null; blockedOutput: { id: ItemId | ResourceId; quantity: number } | null }
 export interface InventoryItem { id: ItemId; quantity: number; dismantled: number; remountReadyTurn?: number }
 export interface ProductionOrder { id: string; recipeId: string; turnsLeft: number; reserved: Resources; started: boolean }
+export type IdleClassification = 'not_idle' | 'voluntary_wait' | 'forced_wait';
+export type ForcedWaitCause = 'insufficient_resources' | 'production_busy' | 'research_busy' | 'deployment_or_capacity_constraint' | 'no_useful_unlocked_action';
+export type CycleEventType = 'resource_produced' | 'resource_consumed' | 'production_started' | 'production_progressed' | 'production_completed' | 'production_blocked' | 'research_progressed' | 'research_completed' | 'wave_resolved' | 'run_finished';
+export interface CycleEvent { type: CycleEventType; label: string; resource?: ResourceId; quantity?: number; recipeId?: string; plannedDuration?: number; observedDuration?: number; turnsLeft?: number }
+export interface CycleResolution {
+	cycle: number;
+	nextCycle: number;
+	events: CycleEvent[];
+	resourceDeltas: Resources;
+	wave: WaveReport | null;
+	playerActionCount: number;
+	meaningfulActionAvailable: boolean;
+	idleClassification: IdleClassification;
+	forcedWaitCauses: ForcedWaitCause[];
+}
 export interface ResearchState { completed: Partial<Record<ResearchId, number>>; active: { id: ResearchId; turnsLeft: number } | null; repeatableLevels: number }
 export interface DefenseSlot { position: number; tower: boolean }
 export interface WaveReport { number: number; initialPower: number; steps: { position: number; before: number; reduction: number; after: number }[]; residualPower: number; integrityBefore: number; integrityAfter: number; result: RunStatus }
@@ -86,15 +101,15 @@ const ZERO = (): Resources => ({ organic: 0, mineral: 0, refined: 0, component: 
 const KIT: ItemId[] = ['storage', 'energy', 'maintenance', 'workshop', 'extractor-organic', 'extractor-mineral', 'defense-factory'];
 
 export const RECIPES: Record<string, { producer: 'workshop' | 'defense-factory'; label: string; cost: Resources; turns: number; result: ItemId | ResourceId; quantity: number; requires?: ResearchId }> = {
-	component: { producer: 'workshop', label: 'Fabriquer 1 composant', cost: { organic: 0, mineral: 0, refined: 2, component: 0 }, turns: 1, result: 'component', quantity: 1, requires: 'transformation' },
-	storage: { producer: 'workshop', label: 'Membrane de stockage', cost: { organic: 2, mineral: 1, refined: 1, component: 0 }, turns: 2, result: 'storage', quantity: 1 },
-	energy: { producer: 'workshop', label: 'Gemme énergétique', cost: { organic: 1, mineral: 2, refined: 1, component: 0 }, turns: 2, result: 'energy', quantity: 1 },
-	maintenance: { producer: 'workshop', label: 'Nodule d’entretien', cost: { organic: 2, mineral: 1, refined: 1, component: 0 }, turns: 2, result: 'maintenance', quantity: 1 },
+	component: { producer: 'workshop', label: 'Fabriquer 1 composant', cost: { organic: 0, mineral: 1, refined: 1, component: 0 }, turns: 1, result: 'component', quantity: 1, requires: 'transformation' },
+	storage: { producer: 'workshop', label: 'Membrane de stockage', cost: { organic: 3, mineral: 0, refined: 1, component: 0 }, turns: 2, result: 'storage', quantity: 1 },
+	energy: { producer: 'workshop', label: 'Gemme énergétique', cost: { organic: 0, mineral: 3, refined: 1, component: 0 }, turns: 2, result: 'energy', quantity: 1 },
+	maintenance: { producer: 'workshop', label: 'Nodule d’entretien', cost: { organic: 3, mineral: 0, refined: 1, component: 0 }, turns: 2, result: 'maintenance', quantity: 1 },
 	transformer: { producer: 'workshop', label: 'Transformateur opalin', cost: { organic: 2, mineral: 2, refined: 0, component: 0 }, turns: 2, result: 'transformer', quantity: 1, requires: 'transformation' },
-	recycler: { producer: 'workshop', label: 'Recyclerie', cost: { organic: 2, mineral: 2, refined: 0, component: 0 }, turns: 2, result: 'recycler', quantity: 1 },
-	'extractor-organic': { producer: 'workshop', label: 'Extracteur organique', cost: { organic: 1, mineral: 2, refined: 1, component: 0 }, turns: 2, result: 'extractor-organic', quantity: 1 },
+	recycler: { producer: 'workshop', label: 'Recyclerie', cost: { organic: 3, mineral: 1, refined: 0, component: 0 }, turns: 2, result: 'recycler', quantity: 1 },
+	'extractor-organic': { producer: 'workshop', label: 'Extracteur organique', cost: { organic: 2, mineral: 1, refined: 1, component: 0 }, turns: 2, result: 'extractor-organic', quantity: 1 },
 	'extractor-mineral': { producer: 'workshop', label: 'Extracteur minéral', cost: { organic: 1, mineral: 2, refined: 1, component: 0 }, turns: 2, result: 'extractor-mineral', quantity: 1 },
-	'weakening-tower': { producer: 'defense-factory', label: 'Tour d’Affaiblissement', cost: { organic: 0, mineral: 0, refined: 2, component: 1 }, turns: 2, result: 'weakening-tower', quantity: 1 }
+	'weakening-tower': { producer: 'defense-factory', label: 'Tour d’Affaiblissement', cost: { organic: 1, mineral: 3, refined: 0, component: 0 }, turns: 2, result: 'weakening-tower', quantity: 1 }
 };
 
 export const RESEARCH: Record<ResearchId, { label: string; description: string; cost: Resources; turns: number; repeatable: boolean; prerequisite?: ResearchId; maxLevel?: number }> = {
@@ -146,6 +161,48 @@ const item = (state: GameState, id: ItemId) => state.inventory.find((entry) => e
 const log = (state: GameState, message: string) => state.logs = [...state.logs.slice(-15), { turn: state.turn, message }];
 const completed = (state: GameState, id: ResearchId) => (state.research.completed[id] ?? 0) > 0;
 const available = (state: GameState, cost: Resources) => (Object.keys(cost) as ResourceId[]).every((id) => state.resources[id] - state.reserved[id] >= cost[id]);
+
+export interface ActionAvailability { available: boolean; reasons: string[] }
+
+export function productionDuration(state: GameState, recipeId: string): number {
+	const recipe = RECIPES[recipeId];
+	return recipe ? Math.max(1, recipe.turns - (state.research.completed['better-fabrication'] ?? 0)) : 0;
+}
+
+export function productionAvailability(state: GameState, cellId: string, recipeId: string): ActionAvailability {
+	const reasons: string[] = [];
+	const building = state.board.find((cell) => cell.id === cellId)?.building;
+	const recipe = RECIPES[recipeId];
+	if (state.deployment) reasons.push('Terminez le déploiement initial.');
+	if (!building || !recipe || building.definitionId !== recipe.producer) reasons.push('Cette recette ne peut pas être lancée ici.');
+	if (building?.order) reasons.push('Producteur occupé par un ordre en cours.');
+	if (building?.blockedOutput) reasons.push('Sortie bloquée : stockage insuffisant.');
+	if (building && !building.active) reasons.push('Fonction inactive.');
+	if (building && BUILDINGS[building.definitionId].population > 0 && !building.staffed) reasons.push('Fonction non peuplée.');
+	if (recipe?.requires && !completed(state, recipe.requires)) reasons.push(`${RESEARCH[recipe.requires].label} non recherchée.`);
+	if (recipe) for (const id of Object.keys(recipe.cost) as ResourceId[]) {
+		const missing = recipe.cost[id] - (state.resources[id] - state.reserved[id]);
+		if (missing > 0) reasons.push(`Manque ${missing} ${RESOURCE_LABELS[id]}.`);
+	}
+	return { available: reasons.length === 0, reasons };
+}
+
+export function researchAvailability(state: GameState, id: ResearchId): ActionAvailability {
+	const reasons: string[] = [], node = RESEARCH[id], level = state.research.completed[id] ?? 0;
+	// Un plafond atteint rend l'action définitivement impossible : les ressources
+	// disponibles et les blocages temporaires ne sont alors plus des causes utiles.
+	if (!node.repeatable && level > 0) return { available: false, reasons: ['Recherche déjà acquise.'] };
+	if (node.maxLevel !== undefined && level >= node.maxLevel) return { available: false, reasons: ['Niveau utile maximal atteint.'] };
+	if (node.repeatable && state.research.repeatableLevels >= LAB.repeatableLimit) return { available: false, reasons: [`Limite de ${LAB.repeatableLimit} niveaux cumulés atteinte.`] };
+	if (state.deployment) reasons.push('Terminez le déploiement initial.');
+	if (state.research.active) reasons.push('Une recherche est déjà en cours.');
+	if (node.prerequisite && !completed(state, node.prerequisite)) reasons.push(`Prérequis manquant : ${RESEARCH[node.prerequisite].label}.`);
+	for (const key of Object.keys(node.cost) as ResourceId[]) {
+		const missing = node.cost[key] - (state.resources[key] - state.reserved[key]);
+		if (missing > 0) reasons.push(`Manque ${missing} ${RESOURCE_LABELS[key]}.`);
+	}
+	return { available: reasons.length === 0, reasons };
+}
 
 export function placementPreview(state: GameState, cellId: string, definitionId: BuildingId): string {
 	const cell = state.board.find((candidate) => candidate.id === cellId);
@@ -245,16 +302,14 @@ export function dismantle(state: GameState, cellId: string): string | null {
 }
 
 export function queueProduction(state: GameState, cellId: string, recipeId: string): string | null {
-	if (state.deployment) return 'Terminez le déploiement initial avant de fabriquer.';
 	const building = state.board.find((cell) => cell.id === cellId)?.building;
 	const recipe = RECIPES[recipeId];
-	if (!building || !recipe || building.definitionId !== recipe.producer) return 'Cette recette ne peut pas être lancée ici.';
-	if (building.order || building.blockedOutput) return 'Cette fonction a déjà une production en cours ou en sortie.';
-	if (recipe.requires && !completed(state, recipe.requires)) return 'Cette fabrication doit d’abord être débloquée par la recherche.';
-	if (!available(state, recipe.cost)) return 'Matières disponibles insuffisantes (certaines sont peut-être réservées).';
+	const availability = productionAvailability(state, cellId, recipeId);
+	if (!availability.available) return availability.reasons.join(' ');
+	if (!building || !recipe) return 'Cette recette ne peut pas être lancée ici.';
 	(Object.keys(recipe.cost) as ResourceId[]).forEach((id) => state.reserved[id] += recipe.cost[id]);
 	state.sequence += 1;
-	building.order = { id: `order-${state.sequence}`, recipeId, turnsLeft: Math.max(1, recipe.turns - (state.research.completed['better-fabrication'] ?? 0)), reserved: { ...recipe.cost }, started: false };
+	building.order = { id: `order-${state.sequence}`, recipeId, turnsLeft: productionDuration(state, recipeId), reserved: { ...recipe.cost }, started: false };
 	log(state, `${recipe.label} réservé. Les matières restent dans le stock jusqu’au prochain tour.`);
 	return null;
 }
@@ -268,14 +323,8 @@ export function cancelProduction(state: GameState, cellId: string): string | nul
 }
 
 export function startResearch(state: GameState, id: ResearchId): string | null {
-	if (state.deployment) return 'Terminez le déploiement initial avant de rechercher.';
-	const node = RESEARCH[id], level = state.research.completed[id] ?? 0;
-	if (state.research.active) return 'Une recherche est déjà en cours.';
-	if (node.prerequisite && !completed(state, node.prerequisite)) return 'Le prérequis de cette recherche manque.';
-	if (!node.repeatable && level > 0) return 'Cette recherche est déjà acquise.';
-	if (node.maxLevel !== undefined && level >= node.maxLevel) return 'Cette amélioration a atteint son niveau utile maximal.';
-	if (node.repeatable && state.research.repeatableLevels >= LAB.repeatableLimit) return 'La limite de 4 niveaux d’amélioration cumulés est atteinte.';
-	if (!available(state, node.cost)) return 'Matières disponibles insuffisantes pour cette recherche.';
+	const node = RESEARCH[id], availability = researchAvailability(state, id);
+	if (!availability.available) return availability.reasons.join(' ');
 	(Object.keys(node.cost) as ResourceId[]).forEach((key) => state.resources[key] -= node.cost[key]);
 	state.research.active = { id, turnsLeft: node.turns };
 	log(state, `Recherche ${node.label} lancée.`);
@@ -356,9 +405,30 @@ function resolveWave(state: GameState) {
 	state.nextWaveTurn = state.turn + LAB.minimumWaveGap + nextDelay(state.seed, state.waveNumber);
 }
 
-export function endTurn(state: GameState): string | null {
+export function meaningfulActions(state: GameState): { available: boolean; forcedWaitCauses: ForcedWaitCause[] } {
+	if (state.deployment) return { available: true, forcedWaitCauses: [] };
+	const hasPlaceable = state.board.some((cell) => !cell.building) && state.inventory.some((entry) => entry.quantity > entry.dismantled || ((entry.remountReadyTurn ?? 0) <= state.turn && entry.dismantled > 0));
+	const production = state.board.flatMap((cell) => Object.entries(RECIPES).filter(([, recipe]) => recipe.producer === cell.building?.definitionId).map(([id]) => productionAvailability(state, cell.id, id).available)).some(Boolean);
+	const research = (Object.keys(RESEARCH) as ResearchId[]).some((id) => researchAvailability(state, id).available);
+	const tower = item(state, 'weakening-tower');
+	const defense = (tower?.quantity ?? 0) > 0 && state.defenses.some((slot) => !slot.tower);
+	if (hasPlaceable || production || research || defense) return { available: true, forcedWaitCauses: [] };
+	const causes = new Set<ForcedWaitCause>();
+	if (state.board.some((cell) => cell.building?.order || cell.building?.blockedOutput)) causes.add('production_busy');
+	if (state.research.active) causes.add('research_busy');
+	if (state.board.every((cell) => cell.building) || capacities(state).load >= capacities(state).storage) causes.add('deployment_or_capacity_constraint');
+	const unlockedCosts = [...Object.values(RECIPES).filter((recipe) => !recipe.requires || completed(state, recipe.requires)).map((recipe) => recipe.cost), ...Object.values(RESEARCH).filter((node) => !node.prerequisite || completed(state, node.prerequisite)).map((node) => node.cost)];
+	if (unlockedCosts.some((cost) => !available(state, cost))) causes.add('insufficient_resources');
+	if (!causes.size) causes.add('no_useful_unlocked_action');
+	return { available: false, forcedWaitCauses: [...causes] };
+}
+
+export function resolveCycle(state: GameState, playerActionCount = 0): CycleResolution | string {
 	if (state.status !== 'playing') return 'Le run est terminé.';
 	if (state.deployment) return 'Terminez le déploiement du kit initial avant le premier cycle.';
+	const cycle = state.turn, beforeResources = { ...state.resources }, beforeWave = state.waveNumber;
+	const opportunity = meaningfulActions(state);
+	const events: CycleEvent[] = [];
 	const caps = capacities(state);
 	for (const cell of state.board) {
 		const building = cell.building;
@@ -366,44 +436,63 @@ export function endTurn(state: GameState): string | null {
 		if (caps.energyUsed > caps.energy || caps.maintenanceUsed > caps.maintenance) continue;
 		if (building.definitionId === 'extractor-organic' && cell.ground === 'organic') {
 			const quantity = LAB.extractionBase + (state.research.completed['better-extraction'] ?? 0);
-			if (!addOutput(state, 'organic', quantity)) building.blockedOutput = { id: 'organic', quantity };
+			if (!addOutput(state, 'organic', quantity)) { building.blockedOutput = { id: 'organic', quantity }; events.push({ type: 'production_blocked', label: `${BUILDINGS[building.definitionId].label} : sortie bloquée (${quantity} Organique)`, resource: 'organic', quantity }); }
+			else events.push({ type: 'resource_produced', label: `${BUILDINGS[building.definitionId].label} produit ${quantity} Organique`, resource: 'organic', quantity });
 		}
 		if (building.definitionId === 'extractor-mineral' && cell.ground === 'mineral') {
 			const quantity = LAB.extractionBase + (state.research.completed['better-extraction'] ?? 0);
-			if (!addOutput(state, 'mineral', quantity)) building.blockedOutput = { id: 'mineral', quantity };
+			if (!addOutput(state, 'mineral', quantity)) { building.blockedOutput = { id: 'mineral', quantity }; events.push({ type: 'production_blocked', label: `${BUILDINGS[building.definitionId].label} : sortie bloquée (${quantity} Minéral)`, resource: 'mineral', quantity }); }
+			else events.push({ type: 'resource_produced', label: `${BUILDINGS[building.definitionId].label} produit ${quantity} Minéral`, resource: 'mineral', quantity });
 		}
 		if (building.definitionId === 'transformer' && available(state, { organic: 1, mineral: 1, refined: 0, component: 0 })) {
 			const quantity = 2 + (state.research.completed['better-transformation'] ?? 0);
 			state.resources.organic -= 1;
 			state.resources.mineral -= 1;
-			if (!addOutput(state, 'refined', quantity)) building.blockedOutput = { id: 'refined', quantity };
+			events.push({ type: 'resource_consumed', label: 'Transformation consomme 1 Organique et 1 Minéral' });
+			if (!addOutput(state, 'refined', quantity)) { building.blockedOutput = { id: 'refined', quantity }; events.push({ type: 'production_blocked', label: `Transformateur : sortie bloquée (${quantity} Transformé)`, resource: 'refined', quantity }); }
+			else events.push({ type: 'resource_produced', label: `Transformateur produit ${quantity} Transformé`, resource: 'refined', quantity });
 		}
 		if (building.order) {
+			const recipeId = building.order.recipeId, plannedDuration = productionDuration(state, recipeId);
 			if (!building.order.started) {
 				(Object.keys(building.order.reserved) as ResourceId[]).forEach((id) => { state.resources[id] -= building.order!.reserved[id]; state.reserved[id] -= building.order!.reserved[id]; });
 				building.order.started = true;
+				events.push({ type: 'production_started', label: `${RECIPES[recipeId].label} démarre`, recipeId, plannedDuration, observedDuration: 1 });
 			}
 			building.order.turnsLeft -= 1;
 			if (building.order.turnsLeft <= 0) {
 				const recipe = RECIPES[building.order.recipeId];
-				if (!addOutput(state, recipe.result, recipe.quantity)) building.blockedOutput = { id: recipe.result, quantity: recipe.quantity };
+				if (!addOutput(state, recipe.result, recipe.quantity)) { building.blockedOutput = { id: recipe.result, quantity: recipe.quantity }; events.push({ type: 'production_blocked', label: `${recipe.label} achevée mais sortie bloquée`, recipeId, plannedDuration, observedDuration: plannedDuration }); }
+				else events.push({ type: 'production_completed', label: `${recipe.label} achevée`, recipeId, quantity: recipe.quantity, plannedDuration, observedDuration: plannedDuration });
 				building.order = null;
-			}
+			} else events.push({ type: 'production_progressed', label: `${RECIPES[recipeId].label} : ${building.order.turnsLeft} cycle restant`, recipeId, turnsLeft: building.order.turnsLeft, plannedDuration });
 		}
 	}
 	if (state.research.active) {
-		state.research.active.turnsLeft -= 1;
-		if (state.research.active.turnsLeft <= 0) {
-			const id = state.research.active.id;
+		const activeResearch = state.research.active, researchId = activeResearch.id;
+		activeResearch.turnsLeft -= 1;
+		if (activeResearch.turnsLeft <= 0) {
+			const id = activeResearch.id;
 			state.research.completed[id] = (state.research.completed[id] ?? 0) + 1;
 			if (RESEARCH[id].repeatable) state.research.repeatableLevels += 1;
 			log(state, `Recherche ${RESEARCH[id].label} achevée.`);
+			events.push({ type: 'research_completed', label: `Recherche ${RESEARCH[id].label} achevée`, plannedDuration: RESEARCH[id].turns, observedDuration: RESEARCH[id].turns });
 			state.research.active = null;
-		}
+		} else events.push({ type: 'research_progressed', label: `Recherche ${RESEARCH[researchId].label} : ${activeResearch.turnsLeft} cycle restant`, turnsLeft: activeResearch.turnsLeft, plannedDuration: RESEARCH[researchId].turns });
 	}
 	state.turn += 1;
 	if (state.turn >= state.nextWaveTurn) resolveWave(state);
-	return null;
+	const wave = state.waveNumber > beforeWave ? state.lastWave : null;
+	if (wave) events.push({ type: 'wave_resolved', label: `Onde ${wave.number} : Puissance ${wave.initialPower} → ${wave.residualPower}` });
+	if (state.status !== 'playing') events.push({ type: 'run_finished', label: state.status === 'tester-victory' ? 'Victoire du testeur' : 'Victoire du jeu' });
+	const resourceDeltas = Object.fromEntries((Object.keys(RESOURCE_LABELS) as ResourceId[]).map((id) => [id, state.resources[id] - beforeResources[id]])) as Resources;
+	const idleClassification: IdleClassification = playerActionCount > 0 ? 'not_idle' : opportunity.available ? 'voluntary_wait' : 'forced_wait';
+	return { cycle, nextCycle: state.turn, events, resourceDeltas, wave, playerActionCount, meaningfulActionAvailable: opportunity.available, idleClassification, forcedWaitCauses: idleClassification === 'forced_wait' ? opportunity.forcedWaitCauses : [] };
+}
+
+export function endTurn(state: GameState): string | null {
+	const result = resolveCycle(state);
+	return typeof result === 'string' ? result : null;
 }
 
 export function serializeGame(state: GameState): string { return JSON.stringify(state); }

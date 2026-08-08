@@ -10,7 +10,11 @@ FROM dependencies AS build
 
 COPY . .
 RUN npm run build
-RUN npm prune --omit=dev
+
+FROM node:24-alpine AS runtime-dependencies
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
 
 FROM node:24-alpine AS runtime
@@ -25,7 +29,7 @@ RUN addgroup --system --gid 10001 avelune \
 	&& adduser --system --uid 10001 --ingroup avelune avelune
 
 COPY --from=build --chown=avelune:avelune /app/build ./build
-COPY --from=build --chown=avelune:avelune /app/node_modules ./node_modules
+COPY --from=runtime-dependencies --chown=avelune:avelune /app/node_modules ./node_modules
 COPY --from=build --chown=avelune:avelune /app/package.json ./package.json
 
 USER avelune

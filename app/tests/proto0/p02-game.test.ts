@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
 	LAB, cancelProduction, capacities, collectBlockedOutput, createGame, dismantle, endTurn, placeBuilding, placeTower,
-	placementPreview, queueProduction, recycleItem, restoreGame, serializeGame, startResearch, wavePower
+	placementPreview, queueProduction, recycleItem, researchAvailability, restoreGame, serializeGame, startResearch, wavePower
 } from '../../src/lib/proto02/game.js';
 import { SIMULATION_PROFILES, simulateBatch, simulateProfile } from '../../src/lib/proto02/simulation.js';
 
@@ -108,11 +108,11 @@ test('les coûts sont réservés physiquement puis consommés au démarrage', ()
 	const before = { ...state.resources };
 	assert.equal(queueProduction(state, '-1:0', 'recycler'), null);
 	assert.deepEqual(state.resources, before);
-	assert.equal(state.reserved.organic, 2);
-	assert.equal(state.reserved.mineral, 2);
+	assert.equal(state.reserved.organic, 3);
+	assert.equal(state.reserved.mineral, 1);
 	assert.equal(endTurn(state), null);
 	assert.equal(state.reserved.organic, 0);
-	assert.equal(state.resources.organic, before.organic);
+	assert.equal(state.resources.organic, before.organic - 1);
 });
 
 test('une transformation automatique ne consomme jamais les matières réservées', () => {
@@ -120,7 +120,7 @@ test('une transformation automatique ne consomme jamais les matières réservée
 	state.research.completed.transformation = 1;
 	state.inventory.push({ id: 'transformer', quantity: 1, dismantled: 0 });
 	assert.equal(placeBuilding(state, '1:-1', 'transformer'), null);
-	state.resources = { organic: 2, mineral: 2, refined: 0, component: 0 };
+	state.resources = { organic: 3, mineral: 1, refined: 0, component: 0 };
 	assert.equal(queueProduction(state, '-1:0', 'recycler'), null);
 	assert.equal(endTurn(state), null);
 	assert.deepEqual(state.resources, { organic: 1, mineral: 1, refined: 2, component: 0 });
@@ -141,9 +141,10 @@ test('chaque niveau de recherche acheté garde un effet utile et la limite cumul
 	state.research.completed.transformation = 1;
 	state.research.completed['better-fabrication'] = 1;
 	state.research.repeatableLevels = 1;
-	assert.match(startResearch(state, 'better-fabrication') ?? '', /niveau utile maximal/);
+	assert.deepEqual(researchAvailability(state, 'better-fabrication'), { available: false, reasons: ['Niveau utile maximal atteint.'] });
+	assert.equal(startResearch(state, 'better-fabrication'), 'Niveau utile maximal atteint.');
 	state.research.repeatableLevels = LAB.repeatableLimit;
-	assert.match(startResearch(state, 'better-storage') ?? '', /limite de 4 niveaux/);
+	assert.deepEqual(researchAvailability(state, 'better-storage'), { available: false, reasons: ['Limite de 4 niveaux cumulés atteinte.'] });
 });
 
 test('les objets produits ou démontés après le déploiement occupent le stockage normal', () => {
