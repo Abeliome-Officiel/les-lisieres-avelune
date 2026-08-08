@@ -1,158 +1,159 @@
-# PROTO-0.2 — Rapport d’implémentation
+# PROTO-0.2 — Rapport d’implémentation courant
 
-**Statut : REVIEW_READY**
+**Statut : REVIEW_REQUIRED**
 
-## Lot et état Git
+Dernière mise à jour : 2026-08-08, après revue visuelle humaine et correction du lot P02-002.
 
-- Lot : `P02-001`
+## État Git
+
 - Branche : `develop/proto-0.2-ux-rules`
-- HEAD de base du présent correctif : `3331b1e`
-- Livraison P02 initiale : `72442edca0b7997b442aff2870adb11fb5a63f60`
-- Correctifs de consolidation : présents dans le worktree, non commités
-- Push / merge / déploiement : aucun
+- Baseline technique précédemment validée : `proto-0.2.0-tech`
+- Ouverture du lot UX P02-002 : `4cfd602708ffff63ab4a7d24824f167acaec52dd`
+- Correctif principal interface : `2a09eabccf8f085945f9648af9d2a085202e8632`
+- Précision documentaire des critères UX : `0b1bee6683ef3f18043c61298a2584f7c5d2d45f`
+- Vocabulaire de fabrication clarifié dans le moteur : `25508e35184cb156736afae8684f6533aa6e9081`
+- Push / merge / déploiement public : aucun demandé dans ce lot.
 
-Le commit local final n’a pas pu être créé dans le sandbox : l’index réel du worktree est sous `/SSD-Sata/Projets/Avelune-Officiel/repository/.git/worktrees/repository-proto02/`, hors racine inscriptible, et Git échoue sur `index.lock` avec `Read-only file system`. Le dossier utilisateur non suivi `.codex-runs/` a été préservé et n’appartient pas au lot.
+Le statut n’est volontairement plus `REVIEW_READY` : les contrôles techniques de la baseline étaient verts, mais les nouveaux changements UX du 8 août doivent repasser `check`, tests et build puis être observés dans un navigateur avant validation.
 
-## Diagnostic initial
+## Baseline mécanique conservée
 
-La route active avait déjà été migrée vers un moteur P02 local et une page Svelte compacte. Les moteurs P01 (réseau, quatre familles défensives, captation et anciens champs d’onde) restent uniquement comme historique testé dans `src/lib/proto0/` ; ils ne sont ni importés ni exposés par la route P02.
+Le lot actuel ne rééquilibre pas le jeu. Les règles P02 existantes restent inchangées :
 
-La passe de consolidation a identifié puis corrigé : consommation possible de matières réservées par le transformateur automatique, désactivation/démontage dangereux des fournisseurs de capacité, blocage d’un objet neuf par un exemplaire démonté, validation trop permissive des sauvegardes, amélioration de fabrication répétable sans effet supplémentaire, sorties bloquées invisibles hors fabriques et rapport de fin incomplet.
+- plateau économique de 19 cellules ;
+- aucune mécanique de réseau/ports/câbles ;
+- stockage mécanique uniquement par bâtiments de stockage ;
+- ressources initiales primaires uniquement ;
+- Atelier de construction pour les bâtiments économiques ;
+- Fabrique défensive pour les tours ;
+- une seule famille défensive active, Affaiblissement ;
+- onde active à une seule caractéristique, `Puissance` ;
+- Puissance résiduelle `0` = victoire immédiate du testeur ;
+- Intégrité `0` = victoire du jeu ;
+- quatre niveaux répétables au total partagé pour la recherche ;
+- aucune matière issue des ondes dans l’économie P02.
 
-## Parcours réellement jouable
+Les tests de gameplay/équilibrage humain sont volontairement remis à plus tard par l’utilisateur. Ce lot corrige d’abord la représentation et la manipulation.
 
-Le testeur démarre avec un plateau de 19 hexagones vide. Le kit initial reste hors stockage ; la première membrane posée transfère les `4` organiques et `4` minéraux dans une capacité mécanique de `16`, sans stockage natif. Les six autres fonctions sont ensuite implantées librement.
+## Corrections UX réalisées après les captures du 8 août
 
-Le parcours couvre extraction des deux sols, recherche Transformation, transformation automatique, fabrication de composants et bâtiments par l’Atelier, fabrication de tours par la Fabrique défensive, Recyclerie, inventaire global, réservations, annulation avant démarrage, sorties locales bloquées sans perte, démontage/remontage en un cycle, énergie utilisée/capacité, population, entretien, améliorations dont Stockage amélioré, puis placement de tours d’Affaiblissement sur huit positions.
+### Structure hexagonale
 
-Les ondes utilisent uniquement la Puissance. Elle croît strictement (`18, 26, 35, 45…`), les tours réduisent séquentiellement le résidu, un résidu nul donne immédiatement la victoire au testeur, et l’Intégrité nulle donne la victoire au jeu. Le rapport d’onde est séparé du journal et la fin de run résume cycles, ondes, tours et évolutions.
+La géométrie CSS a été remplacée par une vraie tessellation axiale cohérente avec la forme dessinée des hexagones.
 
-La sauvegarde locale P02 v3 est isolée pour chacun des cinq profils testeurs. Les formes incompatibles ou corrompues (ressources négatives, plateau/défenses invalides, identifiant de bâtiment inconnu, progression hors limite) sont rejetées proprement.
+Règle désormais explicitement documentée :
 
-## Architecture retenue
+> Deux cellules voisines partagent une arête commune complète, sans espace, gouttière ni triangle décoratif entre elles, comme pour la représentation des anneaux.
 
-- `app/src/lib/proto02/game.ts` : catalogues explicites, état sérialisable et transitions métier ;
-- `app/src/lib/proto02/simulation.ts` : profils et balayage déterministes ;
-- `app/src/lib/proto02/testers.ts` : sauvegardes locales versionnées par profil ;
-- `app/src/routes/+page.svelte` : composition joueur et interactions ;
-- `app/tests/proto0/p02-game.test.ts` : 17 scénarios mécaniques P02 ;
-- `app/tests/proto0/p02-testers.test.ts` : isolation des profils.
+Cette contiguïté est uniquement visuelle/spatiale ; elle n’ajoute aucune mécanique d’adjacence.
 
-Cette architecture reste volontairement locale : aucun ECS, bus d’événements, graphe, arbre technologique générique, couche de persistance universelle ou dépendance supplémentaire.
+La taille et la position d’une cellule ne changent plus selon son état. Sélection, prévisualisation et implantation ne modifient que son rendu, pas sa géométrie.
 
-## Anciennes mécaniques retirées du parcours actif
+Le plateau a été agrandi pour occuper réellement la zone centrale.
 
-- aucun réseau, port, câble, routage ou espace abstrait concurrent ;
-- aucune réserve énergétique courte ;
-- aucun stockage natif du Corcite ;
-- aucune matière de vague ni captation ;
-- aucune famille Captation, Déstructuration ou Stabilisation ;
-- aucune caractéristique d’onde autre que Puissance ;
-- aucun quota symétrique d’ordres ni nombre fixe de vagues.
+### Gisements et bâtiments
 
-## Équilibrage de laboratoire
+- bâtiment posé = information visuelle principale ;
+- gisement = petit marqueur secondaire fixe ;
+- le marqueur de gisement est réduit et atténué lorsque la case est occupée ;
+- le gisement reste néanmoins identifiable.
 
-Paramètres centralisés retenus : Intégrité `60`, première onde au cycle `6`, écart minimal `5` cycles, retard déterministe `0–2`, Puissance initiale `18`, croissance `+8` avec accélération `+1`, Affaiblissement `9` par tour, extraction `2`, stockage `16`, amélioration de stockage `+6` par niveau, quatre niveaux répétés cumulés au maximum.
+### Densité et occupation de l’écran
 
-Résultats reproductibles :
+- HUD légèrement compacté ;
+- colonnes latérales resserrées ;
+- zone centrale renforcée ;
+- cartes du kit initial réduites ;
+- le kit complet n’est plus affiché en permanence dans Évolution/Défenses pendant le déploiement ; un rappel compact renvoie vers Structure ;
+- une fois le déploiement terminé, le kit disparaît comme auparavant.
 
-| Trajectoire | Résultat | Onde | Intégrité finale |
-|---|---|---:|---:|
-| développement raisonnable | victoire testeur | 3 | 34 |
-| recherche puis défense | victoire testeur | 4 | 17 |
-| extraction améliorée puis défense | victoire testeur | 4 | 17 |
-| défense tardive | victoire jeu | 3 | 0 |
-| économie sans défense | victoire jeu | 3 | 0 |
-| surinvestissement économique | victoire jeu | 3 | 0 |
+### Évolution
 
-Balayage déterministe de `1 000` trajectoires proches du seuil : `491` victoires testeur, `509` victoires jeu, onde terminale moyenne `3,226`. Le même seed reproduit exactement le résultat. Ces simulations portent sur le rythme d’acquisition défensive face à la courbe d’onde ; elles ne prétendent pas remplacer un playtest humain de toute l’économie.
+- cartes densifiées ;
+- `Transformation` devient visuellement la racine ;
+- les relations affichées utilisent seulement les vrais prérequis du moteur ;
+- connecteurs plus visibles ;
+- chaque descendant indique explicitement `depuis Transformation` ;
+- aucun prérequis fictif ajouté.
 
-## UX, visuel, responsive et accessibilité
+### Fabrication et extracteurs
 
-La composition suit le brief Gen3 corrigé : HUD haut, fiche Corcite gauche, plateau central, contexte droit, inventaire/ordres bas et vue tactique distincte. La palette prune/violet/lavande/opaline, les membranes, gemmes et formes biomorphiques donnent une identité Avelune sans humanoïde, médiéval générique ni usine sci-fi.
+Le moteur contenait déjà les recettes permettant à l’Atelier de fabriquer de nouveaux extracteurs. L’impression qu’ils étaient impossibles à reconstruire était donc un problème de lisibilité, pas une règle manquante.
 
-Les gisements restent visibles sous les bâtiments, les prévisualisations indiquent le rendement, et les formules extraction/transformation/stockage affichent base + évolution = résultat. Le HUD expose ressources engagées, stockage, énergie, population affectée/totale/disponible, entretien et Intégrité. Les sorties pleines ont un libellé joueur et une action de transfert. Les notices utilisent une région `aria-live`, les interrupteurs ont un focus visible et les boutons mobiles atteignent au moins `44px`. Le drag n’est jamais requis.
+Corrections :
 
-Desktop, tablette et mobile disposent de ruptures dédiées (`1150px`, `760px`). La vérification du responsive est statique dans ce sandbox ; un smoke visuel navigateur à `390px` reste recommandé avant mise en ligne.
+- description de l’Atelier explicite ;
+- indication contextuelle qu’un nouvel extracteur fabriqué rejoint l’inventaire puis peut être implanté ;
+- `Façonner 1 composant` devient `Fabriquer 1 composant` dans la donnée source, l’interface et les Échos associés ;
+- la Fabrique défensive utilise également le verbe explicite `Fabrique`.
 
-## Contrôles finaux exécutés
+### Défenses
 
-Runtime : Node `v24.19.0` fourni par l’environnement Codex.
+La vue tactique représente désormais explicitement la séquence :
 
-| Contrôle | Résultat |
-|---|---|
-| `npm run check` | PASS — 0 erreur, 0 avertissement |
-| `npm run test:proto0`      | PASS — 366 tests, 0 échec                              |
-| scénarios ciblés P02 | PASS — 17/17 moteur + 3/3 profils |
-| `npm run simulate:proto02` | PASS — 6 profils + 1 000 runs |
-| `npm run build` | PASS — client et SSR adapter-node |
-| `git diff --check` | PASS |
-| smoke HTTP local           | PASS — Docker, serveur Node et `/api/health` validés    |
-| smoke navigateur           | À FAIRE — contrôle visuel humain desktop/mobile         |
+`Fracture → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → Corcite`
 
-## Relecture des gates A à J
+Les positions ne sont plus présentées comme huit grandes zones indépendantes. L’ordre et le sens de parcours de la Puissance sont visibles graphiquement.
 
-- A démarrage/plateau : satisfaite.
-- B économie : satisfaite ; réservations et sorties bloquées couvertes par tests.
-- C inventaire/bâtiments : satisfaite ; stockage, démontage, délai et recyclage couverts.
-- D recherche/RPG : satisfaite ; Transformation, cinq améliorations, niveau utile maximal et limite cumulée.
-- E défense : satisfaite ; seule Affaiblissement est visible et active.
-- F onde/victoire : satisfaite ; croissance stricte et deux fins de run testées/simulées.
-- G équilibrage : satisfaite au niveau laboratoire ; playtest humain encore nécessaire pour affiner.
-- H UX/visuel : satisfaite statiquement ; contrôle navigateur réel recommandé.
-- I rapports/persistance : satisfaite.
-- J stabilité : satisfaite pour check, tests, simulation et build ; smoke réseau bloqué par le sandbox.
+### Rapport de cycle
 
-## Simplifications et dette restante
+Le petit feedback en bas de page n’est plus le seul retour après résolution.
 
-Le parcours actif reste limité à trois modules P02 et une page, sans couche de compatibilité avec P01. Aucun nouveau fichier, sous-système ou paquet n’a été ajouté pendant la consolidation. Les paramètres restent peu nombreux et lisibles.
+Une surcouche de cycle affiche désormais :
 
-Dette restante : glyphes/CSS temporaires au lieu d’assets finaux ; smoke visuel desktop/mobile à effectuer hors sandbox ; simulation économique complète non modélisée statistiquement ; moteurs P01 conservés comme historique isolé. Aucune décision de game design P02 n’est requise.
+- cycle résolu et cycle suivant ;
+- variations nettes de ressources ;
+- variations nettes d’objets fabriqués ;
+- recherches terminées pendant le cycle ;
+- si une onde a été résolue : Puissance initiale/résiduelle et Intégrité avant/après.
 
-## Commandes exactes de revue et de mise en ligne
+Le rapport d’onde détaillé reste séparé du journal technique/Échos.
 
-Depuis la racine :
+### Responsive et mouvement
+
+Les trois tailles de tessellation utilisent la même géométrie contiguë. Les animations de prévisualisation sont neutralisées sous `prefers-reduced-motion`.
+
+## Contrôles techniques
+
+### Baseline avant le correctif UX
+
+La baseline technique précédente avait passé :
+
+- `npm run check` ;
+- `npm run test:proto0` — 366 tests ;
+- `npm run simulate:proto02` ;
+- `npm run build` ;
+- image Docker et `/api/health`.
+
+### Correctif UX du 8 août
+
+À rejouer avant de taguer ou déployer :
 
 ```bash
 cd app
 PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run check
 PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run test:proto0
-PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run simulate:proto02
 PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run build
 cd ..
 git diff --check
-git status --short
-git diff -- app/src/lib/proto02 app/src/routes/+page.svelte app/tests/proto0/p02-game.test.ts docs/development/proto0.2/IMPLEMENTATION_REPORT.md
 ```
 
-Commit local à effectuer hors sandbox après revue :
+GitHub ne rapporte actuellement aucun workflow CI attaché à ces commits ; l’absence de statut GitHub ne vaut donc pas validation.
 
-```bash
-git add app/src/lib/proto02/game.ts app/src/lib/proto02/simulation.ts app/src/routes/+page.svelte app/tests/proto0/p02-game.test.ts docs/development/proto0.2/IMPLEMENTATION_REPORT.md
-git commit -m "fix: consolider l alpha jouable PROTO-0.2"
-```
+## Contrôle visuel humain requis
 
-Procédure de mise en ligne existante à exécuter uniquement après commit/revue humaine :
+Avant de considérer P02.1 validé :
 
-```bash
-docker build -t avelune-proto02 ./app
-docker run --rm -p 3000:3000 avelune-proto02
-curl --fail http://127.0.0.1:3000/api/health
-```
+1. ouvrir Structure à zoom navigateur 100 % ;
+2. vérifier qu’aucun interstice n’existe entre deux hexagones voisins ;
+3. lancer plusieurs implantations sans confirmer et vérifier que le plateau ne bouge jamais ;
+4. poser un bâtiment sur un gisement et vérifier la hiérarchie bâtiment/gisement ;
+5. ouvrir Évolution et vérifier la lecture immédiate de la racine et de ses descendants ;
+6. vérifier la fabrication de nouveaux extracteurs dans l’Atelier ;
+7. terminer un cycle et contrôler la nouvelle surcouche ;
+8. ouvrir Défenses et vérifier la lecture Fracture → 1…8 → Corcite ;
+9. contrôler une largeur mobile représentative sans perte de fonction ni rupture de la tessellation.
 
-### Validation hors sandbox — 8 août 2026
+## Prochaine décision
 
-La revue humaine hors sandbox a confirmé :
-
-- `npm run check` : PASS — 0 erreur, 0 avertissement ;
-- `npm run test:proto0` : PASS — 366 tests, 0 échec ;
-- `npm run simulate:proto02` : PASS ;
-- `npm run build` : PASS ;
-- construction de l’image Docker : PASS ;
-- démarrage du serveur Node dans un conteneur temporaire : PASS ;
-- `/api/health` : PASS, réponse `{"status":"ok","prototype":"PROTO-0"}` avant correction finale du libellé ;
-- le libellé du healthcheck a ensuite été corrigé en `PROTO-0.2` et les contrôles check/tests/build ont été rejoués avec succès.
-
-Le contrôle visuel humain desktop/mobile reste le dernier contrôle avant publication.
-
-Cette procédure est fournie pour la revue ; aucun push, merge ou déploiement public n’a été exécuté.
+Aucune nouvelle décision de game design n’est demandée pour cette passe. Après validation visuelle de ces corrections, l’utilisateur pourra reprendre les tests de jeu et d’équilibrage proprement dits.
