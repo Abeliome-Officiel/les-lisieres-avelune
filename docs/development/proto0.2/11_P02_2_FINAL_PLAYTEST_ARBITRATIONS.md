@@ -84,7 +84,9 @@ Modifier les recettes du prototype comme suit :
 | Recyclerie | 3 | 1 | 0 | 0 |
 | Extracteur organique | 2 | 1 | 1 | 0 |
 | Extracteur minéral | 1 | 2 | 1 | 0 |
-| Tour d'Affaiblissement | 0 | 1 | 1 | 1 |
+| Tour d'Affaiblissement de base | 1 | 3 | 0 | 0 |
+
+La première défense doit donc pouvoir être fabriquée avec les matières primaires seules. **Transformation ne doit pas être un prérequis direct ou indirect de la première Tour d'Affaiblissement.** Cela applique le delta normatif de rythme P02.2 et permet une première confrontation avant l'économie secondaire.
 
 Ne pas ajouter ce soir de bonus intrinsèque à une ressource, de pénalité, de double matière transformée ou de nouvelle chaîne.
 
@@ -97,6 +99,7 @@ La modification est acceptée seulement si les simulations et runs de contrôle 
 - aucune impasse structurelle créée par le nouveau tableau de coûts ;
 - Organique et Minéral ont des demandes perceptiblement différentes ;
 - aucune des deux matières n'est systématiquement inutile ou systématiquement bloquante ;
+- une première défense de base est réellement atteignable avant la première confrontation sans Transformation ;
 - plusieurs trajectoires restent jouables ;
 - le changement ne nécessite aucune nouvelle mécanique pour être compris.
 
