@@ -108,7 +108,62 @@ Décision inchangée : ne pas ajouter de nouvelle action uniquement pour occuper
 
 Instrumenter `forced_wait`, `voluntary_wait`, nombre d'actions et causes de blocage.
 
-## 6. Statut de ces décisions
+## 6. Temporalité des actions
+
+Le prototype ne doit pas donner l'impression qu'une règle abstraite « tout prend un cycle » gouverne toutes les opérations.
+
+Le moteur supporte déjà des durées différentes ; P02.2 doit rendre cette temporalité explicite et cohérente sans complexifier artificiellement le mini-jeu.
+
+### 6.1 Grammaire temporelle P02.2
+
+- **Immédiat** : actions de gestion et implantation d'un objet déjà fabriqué et disponible en stock, sous réserve des contraintes d'énergie, entretien, population et emplacement.
+- **1 cycle** : fabrication légère/composant et première recherche structurante lorsque la donnée de recette/recherche le prévoit.
+- **2 cycles** : fabrication des bâtiments économiques, extracteurs, défense de base et améliorations ordinaires, sauf valeur différente explicitement justifiée par simulation.
+- **Production continue** : extraction et transformation produisent à chaque résolution de cycle lorsque leurs conditions sont réunies ; elles ne reçoivent pas artificiellement un ordre répétitif d'un cycle.
+- **Démontage/remontage** : conserver la logique de délai déjà présente ; ne pas rendre instantané un remontage qui est explicitement différé.
+
+Ne pas introduire de durée de 3 cycles ou plus uniquement pour créer de la variété. Une durée plus longue n'est acceptable que si les simulations montrent qu'elle sert le rythme sans augmenter excessivement les `forced_wait`.
+
+### 6.2 Lisibilité de la durée
+
+Toute action non immédiate doit afficher avant validation :
+
+- sa durée en cycles ;
+- le cycle estimé de disponibilité lorsque cela est calculable.
+
+Pendant un ordre : afficher une information du type `1 cycle restant` / `prêt fin cycle N`.
+
+Le rapport de cycle doit signaler démarrage, progression pertinente et achèvement. La télémétrie doit conserver la durée prévue et la durée réellement observée.
+
+### 6.3 Fabrication améliorée
+
+Conserver le principe existant de `Fabrication améliorée` qui réduit la durée des fabrications, avec plancher à 1 cycle. Cette amélioration doit devenir perceptible dans l'interface ; elle ne doit pas créer de fabrication à durée nulle.
+
+## 7. Pictogrammes de ressources
+
+Les quatre ressources doivent avoir des pictogrammes stables et clairement distincts :
+
+- Organique ;
+- Minéral ;
+- Transformé ;
+- Composant.
+
+Principe d'affichage : **pictogramme + nom + valeur** pour toute lecture importante. Le pictogramme peut être utilisé seul comme repère secondaire seulement si un libellé accessible explicite reste disponible.
+
+Les mêmes pictogrammes doivent être réutilisés sans variation arbitraire dans :
+
+- HUD/zone de ressources compacte ;
+- vue `Stock` ;
+- coûts de Production ;
+- coûts de Recherche/Évolution ;
+- prévisualisation d'implantation lorsque pertinent ;
+- rapports de cycle ;
+- rapports d'onde lorsque des ressources y sont mentionnées ;
+- feedback ou contexte technique visible au joueur lorsque pertinent.
+
+L'objectif est de permettre une reconnaissance visuelle rapide des coûts et stocks, pas de remplacer le texte par une iconographie cryptique.
+
+## 8. Statut de ces décisions
 
 Ces règles sont figées pour **PROTO-0.2.2 Playtest** afin d'obtenir une version cohérente à diffuser pendant plusieurs semaines.
 
