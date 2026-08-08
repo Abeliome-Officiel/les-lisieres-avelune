@@ -1,264 +1,143 @@
-# CURRENT TASK — P02-002 — PROTO-0.2.1 structure UX et lisibilité
+# CURRENT TASK — P02-003 — PROTO-0.2.2 pack de playtest distribué
 
-**Status : READY_FOR_IMPLEMENTATION**
+**Status : READY_FOR_LONG_CODEX_RUN**
 
-**Base obligatoire : `develop/proto-0.2-ux-rules`**
+**Branche obligatoire : `develop/proto-0.2.2-playtest`**
 
-Baseline de référence : tag `proto-0.2.0-tech`.
+**Base fonctionnelle : `27a703294498ec9b9cacd1175841f18405a36fa8`**
 
 ## Mission
 
-Transformer la baseline techniquement saine mais humainement insuffisante en une **sous-version UX cohérente**, sans encore refondre l’équilibrage complet ni figer le rythme final du mini-jeu.
+Transformer PROTO-0.2.1 en une version **diffusable pendant quelques semaines à 10–15 testeurs**, sans ouvrir la prochaine grande phase de conception.
 
-Ce lot doit résoudre les défauts révélés par la première revue visuelle humaine : composition trop grande, hexagones instables, informations mal groupées, pictogrammes insuffisants, progression trop volumineuse, kit initial affiché hors contexte et architecture desktop difficile à transposer proprement sur mobile.
+Le lot doit permettre à un testeur anonyme de :
 
-Lire obligatoirement, dans cet ordre :
+1. comprendre immédiatement ce qu'il teste ;
+2. créer une partie avec un code numérique à 4 chiffres ;
+3. reprendre cette partie plus tard ou depuis un autre appareil ;
+4. jouer le même PROTO-0.2 sans réinvention mécanique ;
+5. signaler à tout moment bug, incompréhension, idée, désaccord, optimisation ou proposition ;
+6. produire une télémétrie minimale permettant d'analyser rythme, blocages et cycles vides ;
+7. conserver ses données côté serveur.
+
+## Source normative principale
+
+Lire en premier :
+
+`docs/development/proto0.2/10_P02_2_DISTRIBUTED_PLAYTEST_SPEC.md`
+
+Ce document prévaut pour P02-003 lorsqu'il précise ou remplace le comportement P02.1.
+
+Lire ensuite :
 
 1. `/AGENTS.md`
 2. `docs/development/proto0.2/08_SUBVERSIONS_RHYTHM_AND_PLAYTEST.md`
 3. `docs/development/proto0.2/09_P02_1_ACCEPTANCE_DELTA.md`
-4. `docs/development/proto0.2/00_CHARTER.md`
-5. `docs/development/proto0.2/01_RULES_AND_SCOPE.md`
-6. `docs/development/proto0.2/02_UX_SPEC.md`
-7. `docs/development/proto0.2/06_VISUAL_BRIEF_GEN3.md`
-8. `docs/development/proto0.2/03_TECHNICAL_GUARDRAILS.md`
-9. code réel et tests avant modification.
+4. `docs/development/proto0.2/01_RULES_AND_SCOPE.md`
+5. `docs/development/proto0.2/02_UX_SPEC.md`
+6. `docs/development/proto0.2/03_TECHNICAL_GUARDRAILS.md`
+7. code et tests réels.
 
-Les documents `08` et `09` prévalent lorsqu’ils modifient explicitement la baseline 0.2.0.
+## Ordre de travail attendu
+
+Traiter le lot par gates autonomes. Ne pas attendre une intervention humaine entre deux gates si les tests sont verts et qu'aucune décision de game design n'est nécessaire.
 
----
+### Gate A — corrections de playtest existantes
 
-## 1. Objectif UX principal
+- corriger la tessellation mobile qui chevauche les hexagones ;
+- Production : griser toute action impossible et expliquer exactement ce qui manque ;
+- refondre la résolution de cycle pour produire un résultat structuré exhaustif réutilisable par le rapport et la télémétrie ;
+- mesurer `forced_wait` / `voluntary_wait` sans ajouter de mécanique de remplissage ;
+- tests.
 
-Construire l’interface comme **six blocs fonctionnels réutilisables**, pas comme une grande page desktop à réduire ensuite :
+### Gate B — sessions serveur
 
-- A — identité / état du Corcite ;
-- B — ressources ;
-- C — navigation ;
-- D — espace de travail ;
-- E — contexte ;
-- F — activité / productions / rapports.
+- PostgreSQL minimal, sans ORM lourd ;
+- migration explicite ;
+- création/reprise/sauvegarde par code 4 chiffres ;
+- écran d'entrée ;
+- versionnement de sauvegarde ;
+- suppression du sélecteur des cinq profils du parcours public ;
+- repositories testables sans DB réelle ;
+- tests.
 
-Desktop et mobile doivent utiliser les mêmes données et responsabilités de composants. La mise en page peut changer fortement selon le breakpoint.
+### Gate C — télémétrie et feedback
 
-Ne pas créer un moteur de layout générique. Utiliser les composants et le CSS nécessaires au prototype réel.
+- journalisation serveur structurée ;
+- métriques de cycles vides ;
+- formulaire permanent `Signaler / proposer` ;
+- stockage feedback en DB AVANT notification ;
+- SMTP facultatif via variables d'environnement ;
+- échec SMTP non bloquant ;
+- tests.
 
----
+### Gate D — notice, intégration, qualité
 
-## 2. Structure du Corcite
+- introduction avant partie ;
+- notice/règles consultables pendant le jeu ;
+- rappel explicite de communiquer bugs, idées, désaccords et optimisations ;
+- version/commit visible discrètement ;
+- responsive 390×844 et 360×800 en priorité ;
+- check/tests/simulation/build/diff-check ;
+- smoke HTTP/Docker hors sandbox si disponible ;
+- `IMPLEMENTATION_REPORT.md` à jour ;
+- commits cohérents.
 
-Remplacer le vocabulaire joueur `Plateau` par le terme UX provisoire `Structure` / `Structure du Corcite`.
+## Arbitrage explicite sur les cycles vides
 
-Corriger impérativement :
+Ne pas ajouter ce soir d'action artificielle ou de nouvelle mécanique pour combler les cycles sans choix.
 
-- hexagones qui paraissent se superposer ;
-- cases qui se déplacent visuellement pendant l’implantation ;
-- géométrie différente avant/après pose ;
-- gisements trop nombreux ou trop présents visuellement ;
-- pictogrammes de fonctions trop similaires.
+Le signal humain actuel est trop faible pour justifier une modification de game design. Instrumenter d'abord la fréquence et les causes des `forced_wait` sur les parties distribuées.
 
-La carte doit être stable : une case conserve exactement sa position et sa taille quel que soit son état.
+## Feedback externe
 
-Une densité de gisements plus faible peut être testée pour améliorer la lecture. `2 organiques + 2 minéraux` est une hypothèse de laboratoire, pas une règle canonique ; la décision finale reste ouverte.
+Pour ce lot : **SMTP + PostgreSQL**, pas création automatique d'issue GitHub.
 
----
+La base est la source de vérité. Si l'email échoue, le feedback reste enregistré et le joueur ne doit rien ressaisir.
 
-## 3. Ressources et état du Corcite
+## Secrets
 
-Réorganiser le haut d’écran :
+Ne jamais committer :
 
-- rapprocher Intégrité, énergie, population et entretien de l’identité du Corcite ;
-- utiliser `icône + nom + valeur`, pas des nombres isolés ;
-- rendre la zone Ressources plus compacte ;
-- supprimer les quatre grands rectangles s’ils ne justifient pas leur surface ;
-- afficher les matières primaires d’amorçage dès le départ.
+- `DATABASE_URL` réelle ;
+- mots de passe PostgreSQL ;
+- identifiants SMTP ;
+- adresse privée si elle ne doit pas être publique ;
+- jetons quelconques.
 
-Le joueur doit comprendre :
+Documenter seulement les noms de variables d'environnement.
 
-- `4 organique + 4 minéral` existent dès l’ouverture ;
-- avant le premier stockage ils sont des ressources d’amorçage hors capacité mécanique normale ;
-- poser le stockage fournit une capacité, il ne crée pas les matières.
+## Interdictions
 
-Ne pas ajouter de stockage natif caché.
+Ne pas :
 
----
+- créer un compte utilisateur ;
+- créer du vrai multijoueur ;
+- ajouter une nouvelle famille de tour ;
+- ajouter une ressource ;
+- changer les conditions de victoire ;
+- refaire le rythme des vagues ;
+- transformer le prototype en survival game ;
+- créer un système analytics générique ;
+- ajouter de dépendance lourde sans nécessité ;
+- merger `main` ;
+- taguer ;
+- déployer publiquement sans instruction humaine explicite.
 
-## 4. Pictogrammes et cohérence visuelle
+## Validation finale
 
-Créer/adapter un petit jeu de pictogrammes suffisamment distincts pour :
+Avant de déclarer `REVIEW_READY` :
 
-- stockage ;
-- énergie ;
-- entretien ;
-- construction ;
-- extraction organique ;
-- extraction minérale ;
-- fabrication défensive ;
-- ressources principales ;
-- recherches déjà présentes lorsque pertinent.
-
-Une icône ne porte jamais seule une donnée essentielle : conserver un libellé lisible.
-
-Éviter de tout représenter par un losange abstrait semblable.
-
----
-
-## 5. Corcite visuel
-
-Remplacer/améliorer la représentation actuelle trop proche d’une sphère/planète/atome magique.
-
-Cible provisoire :
-
-- non anthropomorphe ;
-- asymétrique ;
-- biomorphique ;
-- organique + minéral ;
-- membranes internes, croissance cristalline, nervures, pétales abstraits ou volumes similaires sans créer d’animal/personnage ;
-- prune/violet/lavande/opaline/iridescent ;
-- plus de profondeur visuelle que la baseline 0.2.0.
-
-Ce n’est toujours pas la direction artistique finale.
-
----
-
-## 6. Évolution
-
-Compacter fortement la vue actuelle.
-
-Chaque recherche doit afficher clairement :
-
-- icône ;
-- nom ;
-- effet ;
-- coût ;
-- durée ;
-- état/niveau.
-
-Faire apparaître visuellement les relations ou déblocages réels entre recherches. Ne pas inventer de prérequis uniquement pour obtenir un dessin d’arbre.
-
-Le but est que le joueur comprenne rapidement ce que chaque choix améliore et ce qu’il ouvre.
-
----
-
-## 7. Production et contexte
-
-Le petit inspecteur contextuel ne doit plus être le seul endroit où gérer une fonction importante de fabrication.
-
-Préparer une entrée/bloc `Production` qui peut apparaître dans la navigation lorsque le Corcite possède une fonction pertinente.
-
-Le bloc Production doit pouvoir accueillir progressivement :
-
-- transformations ;
-- Atelier de construction ;
-- Fabrique défensive ;
-- Recyclerie ;
-- ordres en cours ;
-- sorties bloquées.
-
-Pour P02.1, ne pas inventer de nouvelle économie : réorganiser les fonctions existantes proprement.
-
-Le panneau Contexte reste destiné à l’objet sélectionné, aux prévisualisations et actions locales.
-
----
-
-## 8. Kit initial
-
-Le kit ne doit plus rester comme un grand bandeau dans toutes les vues.
-
-Pendant le déploiement :
-
-- vue Structure : kit disponible ;
-- Évolution / Défenses / autres vues : au maximum une indication compacte renvoyant à Structure ;
-- après déploiement : disparition du kit de l’interface courante.
-
-Ne pas modifier encore de façon définitive la composition des sept fonctions gratuites : ce point est explicitement réservé à PROTO-0.2.2 après comparaison de plusieurs ouvertures.
-
----
-
-## 9. Passage de cycle et activité
-
-Ajouter un feedback perceptible lorsque le joueur termine un cycle :
-
-- indication claire du cycle terminé ;
-- progression vers le suivant ;
-- résumé court des actions résolues ;
-- rapport consultable ensuite.
-
-Une animation courte de résolution/progression est autorisée si :
-
-- elle n’introduit aucune mécanique temps réel ;
-- elle est rapide ;
-- elle peut être ignorée/skippée ;
-- `prefers-reduced-motion` est respecté.
-
-Ne pas créer une animation longue répétitive.
-
----
-
-## 10. Sauvegarde
-
-Conserver l’autosauvegarde par profil.
-
-Rendre l’état de sauvegarde visible. Une action manuelle `Sauvegarder maintenant` peut être ajoutée si elle est utile, mais elle ne doit pas devenir une obligation ni l’action principale.
-
----
-
-## 11. Responsive
-
-Critère fort : un écran desktop courant doit être utilisable à zoom navigateur `100 %`.
-
-Mobile :
-
-- réutiliser les mêmes blocs ;
-- les empiler/réordonner ;
-- utiliser drawer/bottom-sheet pour le contexte si pertinent ;
-- pas de scroll horizontal structurel ;
-- pas de drag obligatoire ;
-- cibles tactiles raisonnables ;
-- aucune fonction essentielle supprimée.
-
----
-
-## 12. Ce que ce lot ne doit PAS résoudre
-
-Ne pas encore :
-
-- refaire tout l’équilibrage des vagues ;
-- modifier arbitrairement le nombre final de cycles/vagues ;
-- figer une durée en minutes ;
-- décider définitivement du kit initial ;
-- définir la forme finale de l’amélioration défensive ;
-- créer plusieurs familles de tours ;
-- réintroduire réseau/Factorio ;
-- ajouter de nouvelles ressources ;
-- changer la condition de victoire sans décision humaine explicite.
-
-Les règles suivantes sont déjà actées pour le lot suivant et doivent seulement être respectées architecturalement :
-
-- la première défense de base sera accessible avec matières primaires ;
-- les matières secondaires devront être une évolution méritée ;
-- le joueur choisira entre multiplier les tours, améliorer leur efficacité ou combiner les deux ;
-- le jeu ne devra pas forcer artificiellement une seule de ces stratégies.
-
----
-
-## 13. Validation
-
-Avant de proposer le jalon `proto-0.2.1-ux` :
-
-1. `npm run check` vert ;
-2. `npm run test:proto0` vert ;
-3. `npm run build` vert ;
-4. `git diff --check` vert ;
-5. smoke Docker/health si pertinent ;
-6. contrôle humain desktop à zoom 100 % ;
-7. contrôle humain mobile ;
-8. géométrie hexagonale stable ;
-9. ressources d’amorçage compréhensibles ;
-10. progression plus compacte et lisible ;
-11. blocs fonctionnels réutilisés ;
-12. `IMPLEMENTATION_REPORT.md` mis à jour avec ce qui est réellement validé et ce qui reste rejeté/ouvert.
-
-Le code peut être poussé avant le tag lorsqu’une phase intermédiaire est suffisamment saine. Le tag ne doit être posé qu’après vraie revue du sous-jalon.
-
-Ne pas merger `main` ni déployer publiquement dans ce lot sans instruction explicite.
+- `npm run check` vert ;
+- `npm run test:proto0` vert ;
+- `npm run simulate:proto02` vert ;
+- `npm run build` vert ;
+- `git diff --check` vert ;
+- tests des repositories/API/feedback ;
+- échec SMTP testé comme non destructif ;
+- session créée puis reprise ;
+- rapport de cycle exhaustif sur cas représentatifs ;
+- aucune superposition des hexagones aux breakpoints mobiles définis ;
+- `IMPLEMENTATION_REPORT.md` reflète exactement les validations réellement effectuées.
+
+Après validation, pousser uniquement `develop/proto-0.2.2-playtest`. Ne pas merger `main` et ne pas déployer sans ordre humain.
