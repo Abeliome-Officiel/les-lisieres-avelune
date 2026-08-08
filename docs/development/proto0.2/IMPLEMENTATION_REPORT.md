@@ -82,13 +82,13 @@ Runtime : Node `v24.19.0` fourni par l’environnement Codex.
 | Contrôle | Résultat |
 |---|---|
 | `npm run check` | PASS — 0 erreur, 0 avertissement |
-| `npm run test:proto0` | PASS — 39 fichiers, 39 passants |
+| `npm run test:proto0`      | PASS — 366 tests, 0 échec                              |
 | scénarios ciblés P02 | PASS — 17/17 moteur + 3/3 profils |
 | `npm run simulate:proto02` | PASS — 6 profils + 1 000 runs |
 | `npm run build` | PASS — client et SSR adapter-node |
 | `git diff --check` | PASS |
-| smoke HTTP local | NON EXÉCUTABLE — `listen EPERM 127.0.0.1:4173` |
-| smoke navigateur | NON EXÉCUTÉ — aucun navigateur/Playwright disponible |
+| smoke HTTP local           | PASS — Docker, serveur Node et `/api/health` validés    |
+| smoke navigateur           | À FAIRE — contrôle visuel humain desktop/mobile         |
 
 ## Relecture des gates A à J
 
