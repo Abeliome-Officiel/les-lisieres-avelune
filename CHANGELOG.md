@@ -1,5 +1,22 @@
 # Changelog
 
+## PROTO-0.2 — cadrage actif et documentation publique — 2026-08-08
+
+Le projet quitte la phase de simple analyse post-PROTO-0.1 et ouvre formellement le jalon **PROTO-0.2** sur `develop/proto-0.2-ux-rules`.
+
+Documentation mise à jour pour refléter ce jalon sans présenter PROTO-0.2 comme déjà stable :
+
+- `main` reste la baseline jouable et déployée de référence tant que PROTO-0.2 n’est pas revu et intégré ;
+- la page principale du dépôt distingue clairement PROTO-0.1 stable et PROTO-0.2 actif ;
+- `docs/index.md`, `docs/development/README.md` et `ROADMAP.md` pointent vers le cahier PROTO-0.2 ;
+- le cahier actif formalise plateau hexagonal, économie physique simplifiée, stockage par bâtiments, recherche, défense `Affaiblissement`, vague à `Puissance` unique et conditions de victoire/défaite ;
+- les anciennes caractéristiques `pression / structure / charge / matière capturable` restent historiques et ne sont plus considérées comme le canon futur de la vague ;
+- Gen3 devient une référence de composition UX uniquement, corrigée par le brief visuel Avelune ;
+- le run Codex long est documenté avec le worktree correct `repository-proto02`, `tmux`, journaux locaux et aucune autorisation de push/merge/déploiement ;
+- la synchronisation locale/distante documente désormais le cas de branches divergentes avec fusion non destructive au lieu d’un reset.
+
+Aucune publication de PROTO-0.2 n’est déclarée par cette entrée : tests, revue, push et déploiement restent à effectuer explicitement.
+
 ## post-PROTO-0.1 — nettoyage documentaire — 2026-08-06
 
 Après fusion du PROTO-0.1 dans `main`, nettoyage des références devenues transitoires :
