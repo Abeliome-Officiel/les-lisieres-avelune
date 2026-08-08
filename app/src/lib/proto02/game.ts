@@ -59,12 +59,12 @@ export const BUILDINGS: Record<BuildingId, { label: string; description: string;
 	storage: { label: 'Membrane de stockage', description: 'Étend l’inventaire global du Corcite.', energy: 0, population: 0, maintenance: 1, storage: 16 },
 	energy: { label: 'Gemme énergétique', description: 'Diffuse la capacité énergétique du Corcite.', energy: -10, population: 0, maintenance: 1, storage: 0 },
 	maintenance: { label: 'Nodule d’entretien', description: 'Soutient les fonctions implantées.', energy: 1, population: 1, maintenance: -10, storage: 0 },
-	workshop: { label: 'Atelier de construction', description: 'Façonne bâtiments et composants.', energy: 2, population: 1, maintenance: 1, storage: 0 },
+	workshop: { label: 'Atelier de construction', description: 'Fabrique les bâtiments économiques, notamment de nouveaux extracteurs, ainsi que les composants.', energy: 2, population: 1, maintenance: 1, storage: 0 },
 	'extractor-organic': { label: 'Extracteur organique', description: 'Récolte les filaments organiques du sol.', energy: 1, population: 1, maintenance: 1, storage: 0 },
 	'extractor-mineral': { label: 'Extracteur minéral', description: 'Récolte les excroissances minérales du sol.', energy: 1, population: 1, maintenance: 1, storage: 0 },
 	transformer: { label: 'Transformateur opalin', description: 'Fusionne les matières primaires.', energy: 2, population: 1, maintenance: 1, storage: 0 },
 	recycler: { label: 'Recyclerie', description: 'Rend une partie des objets à la matière.', energy: 1, population: 1, maintenance: 1, storage: 0 },
-	'defense-factory': { label: 'Fabrique défensive', description: 'Façonne les tours d’Affaiblissement.', energy: 2, population: 1, maintenance: 1, storage: 0 }
+	'defense-factory': { label: 'Fabrique défensive', description: 'Fabrique les tours d’Affaiblissement.', energy: 2, population: 1, maintenance: 1, storage: 0 }
 };
 
 export const LAB = {
@@ -86,7 +86,7 @@ const ZERO = (): Resources => ({ organic: 0, mineral: 0, refined: 0, component: 
 const KIT: ItemId[] = ['storage', 'energy', 'maintenance', 'workshop', 'extractor-organic', 'extractor-mineral', 'defense-factory'];
 
 export const RECIPES: Record<string, { producer: 'workshop' | 'defense-factory'; label: string; cost: Resources; turns: number; result: ItemId | ResourceId; quantity: number; requires?: ResearchId }> = {
-	component: { producer: 'workshop', label: 'Façonner 1 composant', cost: { organic: 0, mineral: 0, refined: 2, component: 0 }, turns: 1, result: 'component', quantity: 1, requires: 'transformation' },
+	component: { producer: 'workshop', label: 'Fabriquer 1 composant', cost: { organic: 0, mineral: 0, refined: 2, component: 0 }, turns: 1, result: 'component', quantity: 1, requires: 'transformation' },
 	storage: { producer: 'workshop', label: 'Membrane de stockage', cost: { organic: 2, mineral: 1, refined: 1, component: 0 }, turns: 2, result: 'storage', quantity: 1 },
 	energy: { producer: 'workshop', label: 'Gemme énergétique', cost: { organic: 1, mineral: 2, refined: 1, component: 0 }, turns: 2, result: 'energy', quantity: 1 },
 	maintenance: { producer: 'workshop', label: 'Nodule d’entretien', cost: { organic: 2, mineral: 1, refined: 1, component: 0 }, turns: 2, result: 'maintenance', quantity: 1 },
