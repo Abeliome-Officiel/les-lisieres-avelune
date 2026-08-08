@@ -4,8 +4,9 @@
 
 - `v0.8` : ancien jalon historique ;
 - `v0.8.3` : dernière baseline de conception figée avant PROTO-0.1 ;
-- **PROTO-0.1** : baseline jouable intégrée à `main`, actuellement déployée ;
-- **PROTO-0.2** : jalon de développement actif sur `develop/proto-0.2-ux-rules`.
+- **PROTO-0.1** : baseline jouable intégrée à `main` ;
+- **PROTO-0.2.1** : passe UX/règles intermédiaire ;
+- **PROTO-0.2.2** : candidat de playtest distribué **finalisé, validé et poussé** sur `develop/proto-0.2.2-playtest`.
 
 Il n’existe pas encore de nouvelle version stable arbitrairement nommée `v0.9`.
 
@@ -13,9 +14,11 @@ Il n’existe pas encore de nouvelle version stable arbitrairement nommée `v0.9
 
 Le projet est dans la phase :
 
-**PROTO-0.1 stable → PROTO-0.2 en développement → playtest du modèle concret du Corcite et de la boucle complète.**
+**PROTO-0.2.2 validé → déploiement public sur instruction explicite → collecte de playtests → analyse avant prochain jalon.**
 
-PROTO-0.2 n’a pas pour objectif d’ajouter massivement du contenu. Il doit vérifier que le jeu devient réellement lisible, manipulable et intéressant lorsqu’on assemble :
+Le lot fonctionnel de référence est le commit `d3b080c` (`PROTO-0.2.2: finaliser le playtest distribue`). La documentation peut évoluer après ce commit, mais les mécaniques du playtest doivent rester gelées hors bugs bloquants.
+
+La boucle testée reste :
 
 ```text
 implantation
@@ -28,11 +31,11 @@ implantation
 → victoire ou défaite
 ```
 
-## Jalon actif — PROTO-0.2
+## Jalon courant — PROTO-0.2.2
 
-Branche : `develop/proto-0.2-ux-rules`.
+Branche : `develop/proto-0.2.2-playtest`.
 
-Cahier : `docs/development/proto0.2/` sur cette branche.
+Cahier : `docs/development/proto0.2/`.
 
 ### 1. Plateau et modèle mental du Corcite
 
@@ -41,105 +44,134 @@ Cahier : `docs/development/proto0.2/` sur cette branche.
 - [x] ressources de sol pour l’extraction ;
 - [x] réseau direct/ports/câbles retirés du parcours actif ;
 - [x] pas d’adjacence, distance, orientation ou logistique spatiale dans ce jalon ;
-- [ ] valider en playtest que le plateau est plus naturel à comprendre et à manipuler.
+- [x] prévisualisation d’un extracteur compatible/incompatible sans interdiction artificielle ;
+- [x] revue humaine desktop/mobile effectuée ;
+- [ ] mesurer en playtest distribué si le plateau est réellement naturel à comprendre et à manipuler.
+
+Défauts visuels mineurs acceptés pour P02.2 : doubles bordures/superpositions légères entre hexagones et optimisation possible de l’espace périphérique du plateau.
 
 ### 2. Démarrage et économie
 
 - [x] plateau vide au départ ;
-- [x] kit de déploiement non posé ;
+- [x] kit de déploiement non posé et hors inventaire ;
+- [x] premier stockage déclenchant l’entrée des matières primaires dans le stock ;
 - [x] aucun stockage natif permanent du Corcite ;
-- [x] capacité de stockage fournie par les bâtiments de stockage ;
+- [x] capacité fournie par les bâtiments de stockage ;
 - [x] inventaire global ;
-- [x] extraction, transformation et fabrication dans la boucle cible ;
-- [x] Atelier de construction, Fabrique défensive et Recyclerie dans le périmètre ;
+- [x] asymétrie légère Organique / Minéral ;
+- [x] extraction, transformation et fabrication dans la boucle ;
+- [x] Atelier, Fabrique défensive et Recyclerie dans le périmètre ;
 - [x] réservation des matières et sortie bloquée sans destruction ;
-- [x] démontage/remontage des bâtiments ;
-- [ ] calibrer le bootstrap et les coûts par simulation et playtest.
+- [x] démontage/remontage temporisé ;
+- [x] simulations de non-soft-lock ;
+- [ ] recalibrer seulement si les sessions distribuées montrent une dérive réelle.
 
 ### 3. Énergie, population et entretien
 
-- [x] énergie simplifiée en `utilisée / capacité` ;
-- [x] ancienne réserve énergétique courte abandonnée pour ce jalon ;
-- [x] population affectée/disponible ;
+- [x] énergie active dans le modèle P02.2 ;
+- [x] population et travail intégrés ;
 - [x] entretien global ;
-- [ ] vérifier que ces contraintes produisent des arbitrages sans surcharge de microgestion.
+- [x] états de blocage explicités dans l’interface ;
+- [ ] vérifier par télémétrie et retour humain que ces contraintes produisent des arbitrages sans surcharge de microgestion.
 
 ### 4. Recherche / progression
 
 - [x] recherche comme couche transversale ;
 - [x] déblocage de la Transformation ;
-- [x] améliorations utiles dont `Stockage amélioré` ;
+- [x] améliorations d’Extraction, Transformation, Fabrication, Recyclerie et Stockage ;
 - [x] progression répétable volontairement bornée ;
+- [x] effet de réduction de durée avec plancher à un cycle lorsqu’applicable ;
 - [ ] vérifier que les recherches ouvrent de vrais choix sans devenir un arbre technologique prématuré.
 
 ### 5. Défense et vagues
 
-Pour PROTO-0.2 uniquement :
+Pour PROTO-0.2.2 uniquement :
 
 - [x] une famille défensive active : **Affaiblissement** ;
 - [x] une caractéristique active de vague : **Puissance** ;
+- [x] chemin `Fracture → positions 1..8 → Corcite` ;
 - [x] réduction séquentielle de la Puissance ;
+- [x] première défense accessible avec les matières primaires ;
 - [x] Puissance résiduelle `0` → victoire immédiate du testeur ;
 - [x] Intégrité du Corcite `0` → victoire du jeu ;
 - [x] vagues strictement plus puissantes ;
 - [x] suppression du nombre fixe de trois vagues ;
 - [x] aucune matière de vague/captation dans l’économie du jalon ;
-- [ ] calibrer un run challengeant, gagnable et fini ;
-- [ ] redéfinir après PROTO-0.2 la nature réelle de la vague et ses futures caractéristiques.
+- [x] trajectoires de victoire et de défaite simulées ;
+- [ ] redéfinir **après les playtests** la nature réelle de la vague et ses futures caractéristiques.
 
 Les anciennes notions `pression / structure / charge / matière capturable` restent historiques et ne constituent pas le canon futur.
 
-### 6. UX et direction visuelle
+### 6. UX, playtest distribué et direction visuelle
 
-- [x] Gen3 retenu comme référence de **composition** ;
-- [x] HUD haut, fiche Corcite gauche, plateau central, contexte droit, inventaire/ordres bas ;
-- [x] vue Défenses séparée ;
+- [x] Gen3 retenu comme référence de **composition** seulement ;
+- [x] HUD de ressources compact ;
+- [x] navigation Corcite / Stock / Évolution / Production / Défenses ;
+- [x] plateau central et contexte séparé ;
+- [x] Stock global contextualisé ;
+- [x] sessions anonymes à code 4 chiffres ;
+- [x] sauvegarde/reprise serveur ;
+- [x] feedback permanent `Signaler / proposer` ;
+- [x] version/commit visible ;
+- [x] revue desktop + 390×844 + 360×800 jugée acceptable ;
 - [x] direction provisoire : onirique, queer, organique/minérale, biomorphique, violet/prune/lavande/opaline ;
-- [ ] atteindre un prototype qui ressemble à un jeu Avelune et non à un back-office ;
-- [ ] valider desktop et mobile ;
-- [ ] tester lisibilité, contraste, clic/tap/clavier et absence de drag obligatoire.
+- [ ] produire et comparer plusieurs pistes graphiques du Corcite ;
+- [ ] mesurer en playtest lisibilité, rythme, fatigue cognitive et compréhension.
+
+Pistes UX explicitement reportées après P02.2 : meilleure exploitation du panneau droit et de l’espace autour du plateau, éventuel déplacement des ressources/actions globales hors du bandeau supérieur.
 
 ### 7. Qualité et architecture
 
 - [x] séparation données / logique / état / présentation comme principe ;
-- [x] priorité aux composants réutilisables lorsqu’ils répondent à un besoin réel ;
-- [x] refus des abstractions spéculatives pour remplir le temps de développement ;
-- [ ] tests ciblés verts ;
-- [ ] build production vert ;
-- [ ] simulations reproductibles ;
-- [ ] passe de simplification et suppression du code mort ;
-- [ ] rapport d’implémentation final à jour.
+- [x] cœur P02.2 indépendant de la persistance ;
+- [x] PostgreSQL 17 minimal sans ORM lourd ;
+- [x] repositories testables avec fakes mémoire ;
+- [x] migration additive ;
+- [x] tests : **380/380** ;
+- [x] `svelte-check` : **0 erreur, 0 warning** ;
+- [x] build production/Docker vert ;
+- [x] PostgreSQL réel validé ;
+- [x] smoke HTTP réel validé ;
+- [x] garde-fous API validés ;
+- [x] feedback PostgreSQL → SMTP réel validé de bout en bout ;
+- [x] rapport d’implémentation mis à jour ;
+- [x] commit/push P02.2 effectué ;
+- [ ] audit `npm audit --omit=dev` à classer avant une future release stable ;
+- [ ] simplification/refactor uniquement après retour de playtest, pas pendant la collecte.
 
-## Gate de sortie PROTO-0.2
+## Gate de sortie PROTO-0.2.2
 
-Le jalon peut être proposé au playtest lorsque :
+Les critères techniques et de revue nécessaires à la diffusion sont **atteints** :
 
-1. un run complet peut être joué sans reconstruire mentalement le système technique ;
-2. au moins une trajectoire raisonnable peut gagner ;
-3. une trajectoire insuffisante finit par perdre ;
-4. aucun soft-lock économique structurel n’est inévitable ;
-5. les états importants sont lisibles ;
-6. le prototype fonctionne sur desktop et reste utilisable sur mobile ;
-7. tests, build et simulations sont verts/validés ;
-8. le rapport d’implémentation reflète l’état réel ;
-9. la revue humaine confirme qu’un push et un déploiement sont appropriés.
+1. run jouable de bout en bout ;
+2. trajectoires gagnantes et perdantes ;
+3. absence de soft-lock économique structurel identifié ;
+4. états importants lisibles ;
+5. desktop et mobile utilisables ;
+6. tests, build et simulations validés ;
+7. persistance réelle validée ;
+8. feedback et SMTP validés ;
+9. revue humaine acceptée ;
+10. branche poussée.
 
-## Après PROTO-0.2
+Le déploiement public reste une action séparée nécessitant une instruction humaine explicite.
 
-Ne pas décider automatiquement que le prochain jalon consiste à ajouter du contenu.
+## Après distribution de PROTO-0.2.2
 
-D’abord analyser les playtests :
+Geler les modifications fonctionnelles hors bugs bloquants et collecter pendant plusieurs semaines :
 
 - compréhension du Corcite ;
 - plaisir de placement/manipulation ;
 - qualité des arbitrages économiques ;
 - valeur de la recherche ;
+- fréquence et causes des `forced_wait` ;
 - rythme du run ;
 - intérêt de la préparation défensive ;
 - tension des vagues ;
 - qualité des rapports ;
 - fatigue cognitive ;
-- identité visuelle perçue.
+- identité visuelle perçue ;
+- critiques, désaccords, simplifications et propositions spontanées.
 
 Ensuite seulement décider :
 
