@@ -1,5 +1,39 @@
 # Changelog
 
+## PROTO-0.2.2 — playtest distribué finalisé — 2026-08-08
+
+Le lot **PROTO-0.2.2** est finalisé et poussé sur `develop/proto-0.2.2-playtest`.
+
+Commit fonctionnel de référence : `d3b080c` — `PROTO-0.2.2: finaliser le playtest distribue`.
+
+Éléments principaux :
+
+- plateau hexagonal concret conservé comme modèle du Corcite, avec placement libre et compatibilité d’extraction prévisualisée ;
+- économie P02.2 avec asymétrie légère Organique / Minéral, coûts recalibrés et première défense accessible depuis les matières primaires ;
+- temporalités 1/2 cycles, réservations physiques, sorties bloquées sans perte et rapports de cycle structurés ;
+- Stock global contextualisé, Production avec coûts/durées/causes d’impossibilité, navigation et HUD compactés ;
+- sessions anonymes à code public 4 chiffres, UUID interne, sauvegarde PostgreSQL versionnée et stratégie LWW avec journalisation des conflits ;
+- télémétrie minimale de playtest et classification `not_idle` / `voluntary_wait` / `forced_wait` ;
+- formulaire permanent `Signaler / proposer`, feedback stocké en PostgreSQL avant notification et SMTP facultatif/non destructif ;
+- version/commit de build visible dans l’interface ;
+- configuration Docker/Compose et documentation SMTP complétées sans versionner les secrets ;
+- revue visuelle humaine desktop et mobile jugée acceptable pour diffusion.
+
+Validation finale :
+
+- **380/380 tests** ;
+- `svelte-check` : **0 erreur, 0 warning** ;
+- build production/Docker : **PASS** ;
+- PostgreSQL 17 réel + migration : **PASS** ;
+- smoke HTTP : **PASS** ;
+- garde-fous `turn >= 0` et `stateVersion >= 1` : **PASS** ;
+- feedback API → PostgreSQL → SMTP réel : **PASS** et réception confirmée ;
+- `git diff --check` : **PASS**.
+
+Défauts visuels mineurs acceptés pour le jalon : superpositions/doubles bordures légères des hexagones et exploitation encore perfectible du panneau droit et de l’espace périphérique du plateau. Ils sont reportés après la collecte de playtest, sauf s’ils deviennent bloquants.
+
+Aucune fusion vers `main`, aucun tag de release et aucun déploiement public ne sont déclarés par cette entrée. Le déploiement reste soumis à une instruction humaine explicite.
+
 ## PROTO-0.2 — cadrage actif et documentation publique — 2026-08-08
 
 Le projet quitte la phase de simple analyse post-PROTO-0.1 et ouvre formellement le jalon **PROTO-0.2** sur `develop/proto-0.2-ux-rules`.
