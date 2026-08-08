@@ -38,3 +38,6 @@ site/
 infra/.env
 runtime/
 *.log
+
+# Journaux locaux Codex
+.codex-runs/
