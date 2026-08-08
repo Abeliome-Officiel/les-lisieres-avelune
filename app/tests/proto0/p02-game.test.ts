@@ -64,6 +64,14 @@ test('le plateau prévisualise la compatibilité sans interdire un extracteur', 
 	assert.match(placementPreview(state, neutral.id, 'extractor-organic'), /^0/);
 });
 
+test('la densité visuelle de laboratoire conserve deux gisements de chaque matière', () => {
+	const state = createGame();
+	assert.equal(state.board.filter((cell) => cell.ground === 'organic').length, 2);
+	assert.equal(state.board.filter((cell) => cell.ground === 'mineral').length, 2);
+	assert.equal(state.board.find((cell) => cell.id === '-2:2')?.ground, 'organic');
+	assert.equal(state.board.find((cell) => cell.id === '-2:0')?.ground, 'mineral');
+});
+
 test('le déploiement complet lance une économie sans espace abstrait', () => {
 	const state = placeKit();
 	assert.equal(state.deployment, false);

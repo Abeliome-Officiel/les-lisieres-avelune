@@ -1,159 +1,111 @@
-# PROTO-0.2 — Rapport d’implémentation courant
+# PROTO-0.2 — Rapport d’implémentation
 
-**Statut : REVIEW_REQUIRED**
+**Statut : P02-002 IMPLÉMENTÉ — REVIEW_READY TECHNIQUE, REVUE HUMAINE VISUELLE REQUISE AVANT TAG**
 
-Dernière mise à jour : 2026-08-08, après revue visuelle humaine et correction du lot P02-002.
+## Lot et état Git
 
-## État Git
+- Lot : `P02-002` / `PROTO-0.2.1 structure UX et lisibilité`.
+- Branche : `develop/proto-0.2-ux-rules`.
+- HEAD local inspecté : `750f66ef3d59ace2c7f9420f1427f12c1021a200`; référence distante inspectée : `6f4e41282b4bf8e008ac560c3a88f06d5fb06cff`.
+- Le contenu correctif des quatre commits distants a été comparé puis intégré au travail local plus avancé sans perdre la vue Production. Le fast-forward, le commit et le push restent bloqués parce que le sandbox interdit l’écriture dans les métadonnées Git du worktree : `git add` échoue sur `.git/worktrees/repository-proto02/index.lock` avec `Read-only file system`.
+- Merge, tag et déploiement : aucun.
+- Mécaniques : aucune famille, ressource, condition de victoire ou règle de vague ajoutée.
 
-- Branche : `develop/proto-0.2-ux-rules`
-- Baseline technique précédemment validée : `proto-0.2.0-tech`
-- Ouverture du lot UX P02-002 : `4cfd602708ffff63ab4a7d24824f167acaec52dd`
-- Correctif principal interface : `2a09eabccf8f085945f9648af9d2a085202e8632`
-- Précision documentaire des critères UX : `0b1bee6683ef3f18043c61298a2584f7c5d2d45f`
-- Vocabulaire de fabrication clarifié dans le moteur : `25508e35184cb156736afae8684f6533aa6e9081`
-- Push / merge / déploiement public : aucun demandé dans ce lot.
+## Changements UX
 
-Le statut n’est volontairement plus `REVIEW_READY` : les contrôles techniques de la baseline étaient verts, mais les nouveaux changements UX du 8 août doivent repasser `check`, tests et build puis être observés dans un navigateur avant validation.
+L’interface active emploie désormais le vocabulaire **Structure / Structure du Corcite**. Les matières organiques et minérales d’amorçage (`4 + 4`) sont affichées dès l’ouverture avec la mention `amorçage · hors capacité`; la pose du stockage change leur statut de stockage sans suggérer leur création. Les quatre ressources tiennent dans une ligne compacte avec pictogramme, nom, disponible et réservé/total lorsque pertinent.
 
-## Baseline mécanique conservée
+L’identité du Corcite regroupe maintenant Intégrité, énergie utilisée/capacité, population affectée/totale, entretien, stockage et cycle sous la forme icône + libellé + valeur. La représentation sphérique a été remplacée par une forme CSS asymétrique, biomorphique, opaline et cristalline, sans visage ni silhouette humanoïde.
 
-Le lot actuel ne rééquilibre pas le jeu. Les règles P02 existantes restent inchangées :
+Un jeu de pictogrammes SVG local distingue ressources, stockage, énergie, entretien, population, construction, extractions organique/minérale, défense, recyclage, recherche et production. Les pictogrammes restent toujours accompagnés d’un texte lorsqu’ils portent une information utile.
 
-- plateau économique de 19 cellules ;
-- aucune mécanique de réseau/ports/câbles ;
-- stockage mécanique uniquement par bâtiments de stockage ;
-- ressources initiales primaires uniquement ;
-- Atelier de construction pour les bâtiments économiques ;
-- Fabrique défensive pour les tours ;
-- une seule famille défensive active, Affaiblissement ;
-- onde active à une seule caractéristique, `Puissance` ;
-- Puissance résiduelle `0` = victoire immédiate du testeur ;
-- Intégrité `0` = victoire du jeu ;
-- quatre niveaux répétables au total partagé pour la recherche ;
-- aucune matière issue des ondes dans l’économie P02.
+La vue Évolution utilise des cartes courtes. Chaque nœud montre icône, nom, effet, coût, durée, niveau/état et, seulement quand elle existe dans `RESEARCH`, la relation réelle vers `Transformation`. Aucune dépendance n’a été inventée.
 
-Les tests de gameplay/équilibrage humain sont volontairement remis à plus tard par l’utilisateur. Ce lot corrige d’abord la représentation et la manipulation.
+La nouvelle vue **Production** agrège les fonctions réellement implantées : Atelier, Transformateur, Fabrique défensive et Recyclerie, ainsi que recettes, ordres, annulation avant démarrage et sorties bloquées. L’inspecteur conserve les actions locales mais n’est plus l’unique écran de fabrication.
 
-## Corrections UX réalisées après les captures du 8 août
+Le vocabulaire joueur emploie `Fabriquer 1 composant`. La description de l’Atelier indique explicitement qu’il fabrique les bâtiments économiques, notamment de nouveaux extracteurs. La vue Défenses relie graphiquement les huit positions dans l’ordre `Fracture → 1 → … → 8 → Corcite`, tout en conservant les interactions clic/tap existantes.
 
-### Structure hexagonale
+Le kit initial complet n’est rendu que dans Structure. Les autres vues affichent un rappel compact renvoyant à Structure, puis le kit disparaît après déploiement. La fin de cycle produit une surcouche dédiée et fermable avec numéro de cycle, variations de ressources et d’objets, recherches terminées et synthèse d’onde; le rapport d’onde détaillé reste distinct des Échos. La transition dure 220 ms, ne bloque aucune mécanique et respecte `prefers-reduced-motion`.
 
-La géométrie CSS a été remplacée par une vraie tessellation axiale cohérente avec la forme dessinée des hexagones.
+L’autosauvegarde par profil est conservée. Son état est explicitement visible et une action secondaire `Sauvegarder maintenant` est disponible.
 
-Règle désormais explicitement documentée :
+## Architecture des six blocs
 
-> Deux cellules voisines partagent une arête commune complète, sans espace, gouttière ni triangle décoratif entre elles, comme pour la représentation des anneaux.
+- A — identité/état : `.corcite-card` et `.corcite-stats` ;
+- B — ressources : `.block-resources` ;
+- C — navigation : `.block-navigation` ;
+- D — espace de travail : `.stage`, avec Structure, Évolution, Production ou Défenses ;
+- E — contexte : `.context`, sélection et actions locales ;
+- F — activité : `.block-activity`, inventaire, résumé de cycle, notice et commandes.
 
-Cette contiguïté est uniquement visuelle/spatiale ; elle n’ajoute aucune mécanique d’adjacence.
+Desktop et mobile rendent exactement ces mêmes blocs et utilisent le même état. Seuls CSS Grid/Flex, ordre, densité et dimensions des hexagones changent aux breakpoints. Aucun moteur de layout ni seconde interface mobile n’a été créé. La seule primitive ajoutée est `AveluneIcon.svelte`, utilisée dans plusieurs blocs réels.
 
-La taille et la position d’une cellule ne changent plus selon son état. Sélection, prévisualisation et implantation ne modifient que son rendu, pas sa géométrie.
+## Structure et géométrie
 
-Le plateau a été agrandi pour occuper réellement la zone centrale.
+Les 19 cases gardent une position absolue dérivée uniquement de leurs coordonnées `q/r`. La largeur, la hauteur et les pas axial/diagonal utilisent les proportions d’une tessellation à sommet plat : deux voisines partagent une arête complète, sans gouttière ni triangle vide. Pose, gisement, bâtiment, preview et sélection sont des couches internes; survol et sélection ne changent plus le `transform`, la taille ou les coordonnées d’une case. La version mobile recalcule les mêmes proportions dans une largeur `100%`, sans translation latérale.
 
-### Gisements et bâtiments
+Les bâtiments restent au centre et au premier plan des cases occupées. Le gisement demeure dans un marqueur secondaire plus petit, moins opaque et sans halo dominant.
 
-- bâtiment posé = information visuelle principale ;
-- gisement = petit marqueur secondaire fixe ;
-- le marqueur de gisement est réduit et atténué lorsque la case est occupée ;
-- le gisement reste néanmoins identifiable.
+L’hypothèse de laboratoire autorisée `2 organiques + 2 minéraux` est appliquée pour réduire le bruit visuel. Les coordonnées utilisées par le scénario économique existant restent compatibles. Un test en verrouille l’état de laboratoire sans déclarer cette densité canonique; D-004 reste ouverte pour P02.2.
 
-### Densité et occupation de l’écran
+## Desktop et mobile
 
-- HUD légèrement compacté ;
-- colonnes latérales resserrées ;
-- zone centrale renforcée ;
-- cartes du kit initial réduites ;
-- le kit complet n’est plus affiché en permanence dans Évolution/Défenses pendant le déploiement ; un rappel compact renvoie vers Structure ;
-- une fois le déploiement terminé, le kit disparaît comme auparavant.
+Desktop a été densifié : HUD 66 px, gouttières/paddings réduits, colonnes `220 / fluide / 255`, scène compacte et structure continue de 520 px occupant réellement le centre. L’inventaire est plus court. La composition est exploitable à zoom 100 % sur une largeur desktop courante selon revue CSS et build; la validation perceptive finale reste humaine.
 
-### Évolution
+Sous 1150 px, le contexte passe sous l’espace principal. Sous 760 px, les mêmes blocs sont empilés, les ressources passent en deux colonnes, l’état en trois colonnes, les hexagones descendent à 76 px de large en conservant leur contiguïté, recettes/recherches/inventaire passent sur une colonne et le contexte devient un bloc vertical. `overflow-x` est neutralisé au niveau de la page et de la scène. Toutes les actions restent tap/clic, sans drag obligatoire; les commandes interactives mobiles ont une hauteur minimale de 44 px.
 
-- cartes densifiées ;
-- `Transformation` devient visuellement la racine ;
-- les relations affichées utilisent seulement les vrais prérequis du moteur ;
-- connecteurs plus visibles ;
-- chaque descendant indique explicitement `depuis Transformation` ;
-- aucun prérequis fictif ajouté.
+## Accessibilité
 
-### Fabrication et extracteurs
+- informations critiques toujours texte + icône ;
+- labels explicites sur Structure, Corcite et bouton de fermeture ;
+- régions `aria-live` pour sauvegarde, notices et résumé de cycle ;
+- focus clavier conservé, sélection distincte sans déplacement ;
+- `prefers-reduced-motion` neutralise animations et transitions ;
+- aucun hover-only ni drag-only ;
+- cibles mobiles de 44 px minimum.
 
-Le moteur contenait déjà les recettes permettant à l’Atelier de fabriquer de nouveaux extracteurs. L’impression qu’ils étaient impossibles à reconstruire était donc un problème de lisibilité, pas une règle manquante.
+## Contrôles exécutés
 
-Corrections :
+Runtime : Node `v24.19.0`.
 
-- description de l’Atelier explicite ;
-- indication contextuelle qu’un nouvel extracteur fabriqué rejoint l’inventaire puis peut être implanté ;
-- `Façonner 1 composant` devient `Fabriquer 1 composant` dans la donnée source, l’interface et les Échos associés ;
-- la Fabrique défensive utilise également le verbe explicite `Fabrique`.
+| Contrôle | Résultat |
+|---|---|
+| `npm run check` | PASS — 0 erreur, 0 avertissement |
+| `npm run test:proto0` | PASS — 39 entrées de suite, 0 échec, test de densité inclus |
+| `npm run simulate:proto02` | PASS — 6 profils, 1 000 runs; 491 victoires testeur / 509 jeu |
+| `npm run build` | PASS — client, SSR et adapter-node |
+| `git diff --check` | PASS après rapport final |
+| smoke Docker | BLOQUÉ PAR SANDBOX — accès refusé à `/var/run/docker.sock` |
+| smoke serveur local | BLOQUÉ PAR SANDBOX — `listen EPERM 127.0.0.1:4173` |
+| navigateur desktop/mobile | NON EXÉCUTABLE ICI — aucun Chromium/Playwright installé; revue humaine obligatoire |
 
-### Défenses
+## Dette restante et décisions ouvertes
 
-La vue tactique représente désormais explicitement la séquence :
+La dette visuelle se limite aux SVG/CSS procéduraux temporaires et à la revue humaine réelle desktop/mobile. Aucun asset final n’était requis. Les smokes sont empêchés par les permissions Docker/réseau local du sandbox; le build serveur est vert.
 
-`Fracture → 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → Corcite`
+Les décisions D-001 à D-008 de `DECISIONS_NEEDED.md` restent ouvertes selon leur jalon. P02-002 ne ferme notamment ni le kit initial définitif, ni la cadence/forme des premières vagues, ni la densité canonique des gisements, ni la forme de l’amélioration défensive. L’architecture continue d’autoriser quantité de tours, amélioration technologique ou stratégie mixte.
 
-Les positions ne sont plus présentées comme huit grandes zones indépendantes. L’ordre et le sens de parcours de la Puissance sont visibles graphiquement.
+## Commandes exactes de revue
 
-### Rapport de cycle
-
-Le petit feedback en bas de page n’est plus le seul retour après résolution.
-
-Une surcouche de cycle affiche désormais :
-
-- cycle résolu et cycle suivant ;
-- variations nettes de ressources ;
-- variations nettes d’objets fabriqués ;
-- recherches terminées pendant le cycle ;
-- si une onde a été résolue : Puissance initiale/résiduelle et Intégrité avant/après.
-
-Le rapport d’onde détaillé reste séparé du journal technique/Échos.
-
-### Responsive et mouvement
-
-Les trois tailles de tessellation utilisent la même géométrie contiguë. Les animations de prévisualisation sont neutralisées sous `prefers-reduced-motion`.
-
-## Contrôles techniques
-
-### Baseline avant le correctif UX
-
-La baseline technique précédente avait passé :
-
-- `npm run check` ;
-- `npm run test:proto0` — 366 tests ;
-- `npm run simulate:proto02` ;
-- `npm run build` ;
-- image Docker et `/api/health`.
-
-### Correctif UX du 8 août
-
-À rejouer avant de taguer ou déployer :
+Depuis la racine du dépôt :
 
 ```bash
 cd app
-PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run check
-PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run test:proto0
-PATH=/SSD-Sata/CONTainers-Data/Codex_CLI/tools/node-v24.19.0-linux-x64/bin:$PATH npm run build
+npm run check
+npm run test:proto0
+npm run simulate:proto02
+npm run build
 cd ..
 git diff --check
+git status --short
+git diff -- app/src/lib/proto02 app/src/routes/+page.svelte app/tests/proto0/p02-game.test.ts docs/development/proto0.2/IMPLEMENTATION_REPORT.md
 ```
 
-GitHub ne rapporte actuellement aucun workflow CI attaché à ces commits ; l’absence de statut GitHub ne vaut donc pas validation.
+Revue humaine hors sandbox :
 
-## Contrôle visuel humain requis
+```bash
+cd app
+npm run dev -- --host 127.0.0.1
+```
 
-Avant de considérer P02.1 validé :
-
-1. ouvrir Structure à zoom navigateur 100 % ;
-2. vérifier qu’aucun interstice n’existe entre deux hexagones voisins ;
-3. lancer plusieurs implantations sans confirmer et vérifier que le plateau ne bouge jamais ;
-4. poser un bâtiment sur un gisement et vérifier la hiérarchie bâtiment/gisement ;
-5. ouvrir Évolution et vérifier la lecture immédiate de la racine et de ses descendants ;
-6. vérifier la fabrication de nouveaux extracteurs dans l’Atelier ;
-7. terminer un cycle et contrôler la nouvelle surcouche ;
-8. ouvrir Défenses et vérifier la lecture Fracture → 1…8 → Corcite ;
-9. contrôler une largeur mobile représentative sans perte de fonction ni rupture de la tessellation.
-
-## Prochaine décision
-
-Aucune nouvelle décision de game design n’est demandée pour cette passe. Après validation visuelle de ces corrections, l’utilisateur pourra reprendre les tests de jeu et d’équilibrage proprement dits.
+Contrôler à zoom navigateur 100 % au minimum à `1440×900`, `1024×768`, `390×844` et `360×800` : déploiement initial, stabilité des 19 cases avant/après pose, amorçage avant/après stockage, quatre vues, Production avec ordre/sortie bloquée, résumé de cycle, sauvegarde et absence de scroll horizontal structurel.

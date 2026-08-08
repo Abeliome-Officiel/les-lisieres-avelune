@@ -109,8 +109,9 @@ export const RESEARCH: Record<ResearchId, { label: string; description: string; 
 function makeBoard(): HexCell[] {
 	const cells: HexCell[] = [];
 	for (let q = -2; q <= 2; q += 1) for (let r = -2; r <= 2; r += 1) if (Math.abs(q + r) <= 2) {
-		const marker = (q * 7 + r * 11 + 20) % 5;
-		cells.push({ id: `${q}:${r}`, q, r, ground: marker === 0 || marker === 3 ? 'organic' : marker === 1 || marker === 4 ? 'mineral' : null, building: null });
+		const id = `${q}:${r}`;
+		const ground: GroundResource = id === '-2:2' || id === '2:-1' ? 'organic' : id === '-2:0' || id === '1:1' ? 'mineral' : null;
+		cells.push({ id, q, r, ground, building: null });
 	}
 	return cells;
 }
