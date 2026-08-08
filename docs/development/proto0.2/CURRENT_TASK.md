@@ -8,7 +8,7 @@
 
 ## Mission
 
-Transformer PROTO-0.2.1 en une version **diffusable pendant quelques semaines à 10–15 testeurs**, sans ouvrir la prochaine grande phase de conception.
+Transformer PROTO-0.2.1 en une version **diffusable pendant quelques semaines**, sans ouvrir la prochaine grande phase de conception.
 
 Le lot doit permettre à un testeur anonyme de :
 
@@ -20,13 +20,16 @@ Le lot doit permettre à un testeur anonyme de :
 6. produire une télémétrie minimale permettant d'analyser rythme, blocages et cycles vides ;
 7. conserver ses données côté serveur.
 
-## Source normative principale
+Aucun quota artificiel de sessions n'est demandé.
 
-Lire en premier :
+## Sources normatives principales
 
-`docs/development/proto0.2/10_P02_2_DISTRIBUTED_PLAYTEST_SPEC.md`
+Lire en premier, dans cet ordre :
 
-Ce document prévaut pour P02-003 lorsqu'il précise ou remplace le comportement P02.1.
+1. `docs/development/proto0.2/10_P02_2_DISTRIBUTED_PLAYTEST_SPEC.md`
+2. `docs/development/proto0.2/11_P02_2_FINAL_PLAYTEST_ARBITRATIONS.md`
+
+Le document `11` prévaut lorsqu'il précise ou remplace le document `10`.
 
 Lire ensuite :
 
@@ -42,19 +45,26 @@ Lire ensuite :
 
 Traiter le lot par gates autonomes. Ne pas attendre une intervention humaine entre deux gates si les tests sont verts et qu'aucune décision de game design n'est nécessaire.
 
-### Gate A — corrections de playtest existantes
+### Gate A — corrections UX et économie de laboratoire
 
 - corriger la tessellation mobile qui chevauche les hexagones ;
-- Production : griser toute action impossible et expliquer exactement ce qui manque ;
+- remplacer l'inventaire permanent par la vue globale `Stock` définie dans le document 11 ;
+- clic/tap sur une unité de stockage → ouvrir ce même stock global ;
+- clic/tap sur une case vide → contexte `Implanter` avec ce qui est réellement en stock et posable ;
+- Production : afficher possédé en stock, posé, coût, durée ; griser toute action impossible et expliquer exactement ce qui manque ;
+- appliquer l'asymétrie Organique / Minéral et les coûts P02.2 du document 11 ;
 - refondre la résolution de cycle pour produire un résultat structuré exhaustif réutilisable par le rapport et la télémétrie ;
 - mesurer `forced_wait` / `voluntary_wait` sans ajouter de mécanique de remplissage ;
-- tests.
+- simulations et tests de non-soft-lock après modification des coûts.
 
 ### Gate B — sessions serveur
 
 - PostgreSQL minimal, sans ORM lourd ;
 - migration explicite ;
+- identifiant interne de session indépendant du code public ;
 - création/reprise/sauvegarde par code 4 chiffres ;
+- aucune limite artificielle du nombre de sessions ;
+- codes accessibles uniques ; collision → choisir un autre code ;
 - écran d'entrée ;
 - versionnement de sauvegarde ;
 - suppression du sélecteur des cinq profils du parcours public ;
@@ -76,6 +86,8 @@ Traiter le lot par gates autonomes. Ne pas attendre une intervention humaine ent
 - introduction avant partie ;
 - notice/règles consultables pendant le jeu ;
 - rappel explicite de communiquer bugs, idées, désaccords et optimisations ;
+- ressources compactes `icône + nom + quantité` ;
+- état de session/sauvegarde placé dans la zone droite sans le confondre avec le contexte de case ;
 - version/commit visible discrètement ;
 - responsive 390×844 et 360×800 en priorité ;
 - check/tests/simulation/build/diff-check ;
@@ -138,6 +150,7 @@ Avant de déclarer `REVIEW_READY` :
 - session créée puis reprise ;
 - rapport de cycle exhaustif sur cas représentatifs ;
 - aucune superposition des hexagones aux breakpoints mobiles définis ;
+- aucune impasse économique structurelle introduite par l'asymétrie Organique / Minéral ;
 - `IMPLEMENTATION_REPORT.md` reflète exactement les validations réellement effectuées.
 
 Après validation, pousser uniquement `develop/proto-0.2.2-playtest`. Ne pas merger `main` et ne pas déployer sans ordre humain.
