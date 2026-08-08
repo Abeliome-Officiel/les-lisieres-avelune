@@ -1,302 +1,264 @@
-# CURRENT TASK — P02-001 — Construire l’alpha jouable PROTO-0.2
+# CURRENT TASK — P02-002 — PROTO-0.2.1 structure UX et lisibilité
 
-**Status : READY_FOR_LONG_CODEX_RUN**
+**Status : READY_FOR_IMPLEMENTATION**
 
 **Base obligatoire : `develop/proto-0.2-ux-rules`**
 
+Baseline de référence : tag `proto-0.2.0-tech`.
+
 ## Mission
 
-Transformer l’état actuel du dépôt en une **alpha PROTO-0.2 complète et réellement jouable**, suffisamment solide pour qu’au retour de l’utilisateur il reste principalement à relire, pousser si nécessaire et mettre en ligne.
+Transformer la baseline techniquement saine mais humainement insuffisante en une **sous-version UX cohérente**, sans encore refondre l’équilibrage complet ni figer le rythme final du mini-jeu.
 
-Ce lot est volontairement large en **travail**, mais volontairement étroit en **périmètre fonctionnel**. Il est prévu pour plusieurs heures d’autonomie afin de finir, tester, simplifier, simuler et polir le même petit prototype — pas pour élargir Avelune.
+Ce lot doit résoudre les défauts révélés par la première revue visuelle humaine : composition trop grande, hexagones instables, informations mal groupées, pictogrammes insuffisants, progression trop volumineuse, kit initial affiché hors contexte et architecture desktop difficile à transposer proprement sur mobile.
 
-Ne pas s’arrêter après une première compilation verte ou un premier écran fonctionnel. Continuer jusqu’à ce que les gates de `04_ACCEPTANCE.md` soient satisfaites ou qu’une véritable décision humaine bloque tout travail indépendant.
+Lire obligatoirement, dans cet ordre :
 
-Lire obligatoirement :
 1. `/AGENTS.md`
-2. `docs/development/proto0.2/00_CHARTER.md`
-3. `docs/development/proto0.2/01_RULES_AND_SCOPE.md`
-4. `docs/development/proto0.2/02_UX_SPEC.md`
-5. `docs/development/proto0.2/06_VISUAL_BRIEF_GEN3.md`
-6. `docs/development/proto0.2/03_TECHNICAL_GUARDRAILS.md`
-7. `docs/development/proto0.2/04_ACCEPTANCE.md`
-8. `docs/development/proto0.2/LEGACY_REFERENCES.md`
-9. les documents `docs/conception/` utiles, uniquement s’ils ne contredisent pas les règles ci-dessus.
+2. `docs/development/proto0.2/08_SUBVERSIONS_RHYTHM_AND_PLAYTEST.md`
+3. `docs/development/proto0.2/09_P02_1_ACCEPTANCE_DELTA.md`
+4. `docs/development/proto0.2/00_CHARTER.md`
+5. `docs/development/proto0.2/01_RULES_AND_SCOPE.md`
+6. `docs/development/proto0.2/02_UX_SPEC.md`
+7. `docs/development/proto0.2/06_VISUAL_BRIEF_GEN3.md`
+8. `docs/development/proto0.2/03_TECHNICAL_GUARDRAILS.md`
+9. code réel et tests avant modification.
 
-Puis inspecter le code réel avant de modifier.
-
----
-
-# 1. Priorité absolue
-
-Livrer un mini-jeu assemblé : **plateau + économie + recherche + défenses + vagues croissantes + victoire/défaite + persistance + habillage visuel Avelune provisoire**.
-
-Le moteur existant doit être réutilisé lorsqu’il reste compatible. Les mécaniques historiques explicitement abandonnées pour PROTO-0.2 doivent être retirées du parcours actif au lieu d’être conservées comme seconde vérité.
-
-## Limite de taille — impérative
-
-Le résultat attendu est **petit, propre et jouable**, pas une nouvelle fondation générale du jeu.
-
-Pendant ce long run, privilégier dans cet ordre :
-1. terminer le parcours joueur déjà demandé ;
-2. corriger ce qui casse ou prête à confusion ;
-3. réduire les contradictions et le code mort ;
-4. tester et simuler ;
-5. améliorer l’ergonomie et le rendu ;
-6. seulement ensuite refactoriser ce qui gêne réellement la maintenabilité immédiate.
-
-Ne pas ajouter pour « préparer plus tard » : sous-système générique, framework interne, plugin system, ECS, event bus global, DSL, abstraction universelle de ressources, moteur de layout générique, éditeur, architecture réseau future, ou autre infrastructure sans usage direct dans ce lot.
-
-Ne pas créer de contenu supplémentaire pour remplir la durée disponible. **Le temps long sert à améliorer la qualité et la complétude, pas la quantité de fonctionnalités.**
-
-Quand une solution simple et locale satisfait le cahier proprement, la choisir plutôt qu’une solution plus générale.
+Les documents `08` et `09` prévalent lorsqu’ils modifient explicitement la baseline 0.2.0.
 
 ---
 
-# 2. Diagnostic initial obligatoire
+## 1. Objectif UX principal
 
-Avant grosse modification :
-- vérifier branche, Git status, historique récent ;
-- inventorier `app/src/lib/proto0`, composants, routes et tests ;
-- cartographier les anciennes dépendances : réserve énergie, espace abstrait, stockage natif, réseau direct, anciens champs de vague, captation ;
-- identifier ce qui peut être migré proprement ;
-- lire la stratégie Docker/validation avant d’exécuter les commandes ;
-- ne pas écraser de modifications utilisateur non comprises.
+Construire l’interface comme **six blocs fonctionnels réutilisables**, pas comme une grande page desktop à réduire ensuite :
 
-Documenter brièvement le diagnostic dans `IMPLEMENTATION_REPORT.md`, puis travailler.
+- A — identité / état du Corcite ;
+- B — ressources ;
+- C — navigation ;
+- D — espace de travail ;
+- E — contexte ;
+- F — activité / productions / rapports.
 
----
+Desktop et mobile doivent utiliser les mêmes données et responsabilités de composants. La mise en page peut changer fortement selon le breakpoint.
 
-# 3. Lot mécanique
-
-## A. Plateau hexagonal économique
-
-Créer/adapter un plateau principal :
-- cases hex ;
-- ressources de sol ;
-- 1 bâtiment par case ;
-- placement libre ;
-- prévisualisation ;
-- extracteur compatible → production ; incompatible → 0 ;
-- pas d’adjacence/logistique/réseau.
-
-Supprimer du parcours joueur la vue réseau/ports/connexions directes.
-
-## B. Déploiement initial
-
-Plateau vide. Kit initial non posé : stockage, énergie, entretien, Atelier de construction, deux extracteurs, Fabrique défensive.
-
-Pas de stockage natif permanent. Implémenter une phase de déploiement permettant de poser le premier stockage, puis faire entrer l’économie dans les règles normales.
-
-Stock initial de référence : `4` organique, `4` minéral, `0` transformé, `0` composant. Ajustable par simulation uniquement si indispensable au bootstrap, mais ne jamais donner de transformé/composant au départ.
-
-## C. Fabrication de bâtiments / défenses
-
-- Atelier de construction → bâtiments économiques ;
-- Fabrique défensive → tours ;
-- fabriqué → inventaire → posé/utilisé ;
-- commandes avec réservation correcte ;
-- sortie producteur bloquée si inventaire plein ;
-- rien perdu.
-
-Ajouter Recyclerie fabricable dès le départ.
-
-## D. Démontage/remontage
-
-- bâtiment posé démontable ;
-- objet démonté en inventaire ;
-- recyclable ;
-- remontable en 1 tour, sans nouveau coût matière ;
-- aucun déplacement instantané ;
-- stockage non retirable si capacité insuffisante ensuite.
-
-## E. Énergie/population/entretien/stockage
-
-- aucune réserve énergétique courte ;
-- énergie used/capacity ;
-- ON/OFF libère énergie mais garde population ;
-- population retirable séparément ;
-- stockage uniquement par bâtiments ;
-- ancien espace abstrait désactivé pour le parcours P02.
-
-## F. Recherche
-
-Construire une petite progression réellement utile :
-- unlock Transformation ;
-- Extraction améliorée ;
-- Transformation améliorée ;
-- Fabrication améliorée ;
-- Recyclerie améliorée ;
-- **Stockage amélioré** ;
-- autres petits nœuds seulement s’ils sont déjà justifiés par les sources et utiles au run.
-
-Progression répétable : max 4 niveaux **au total cumulé** dans le proto, gains modestes/configurables.
-
-Ne pas créer un arbre technologique complet ni une infrastructure générique d’arbre pour quelques nœuds : implémenter uniquement la structure nécessaire au parcours actuel, proprement séparée des données.
-
-## G. Défense simplifiée
-
-Remplacer le parcours à quatre familles par une seule famille joueur : **Affaiblissement**.
-
-- fabrication physique ;
-- inventaire ;
-- vue tactique séparée ;
-- chemin de 8 positions comme base ;
-- ordre mécanique visible ;
-- réduction séquentielle de la Puissance.
-
-Aucune captation, matière de vague, Déstructuration ou Stabilisation active.
-
-Ne pas construire un moteur générique de dizaines de familles de tours pour anticiper le jeu futur.
-
-## H. Onde / challenge
-
-Remplacer la résolution active complexe par la règle P02 :
-- une `Puissance` ;
-- chaque onde suivante strictement plus puissante ;
-- rythme impromptu/déterministe conforme aux règles ;
-- résidu 0 → victoire immédiate testeur ;
-- résidu >0 → dégâts d’Intégrité ;
-- Intégrité 0 → victoire du jeu ;
-- sinon continuer.
-
-Le run n’a pas un nombre fixe de vagues.
-
-Centraliser les quelques paramètres réellement nécessaires. Faire des simulations nombreuses pour calibrer un challenge continu, non trivial mais gagnable. Une mauvaise trajectoire doit finir par mourir ; une bonne trajectoire doit pouvoir atteindre une onde à résidu zéro avant cela.
-
-Ne pas chercher l’équilibrage du jeu final, ne pas ajouter d’autres caractéristiques de vague, et ne pas construire un moteur de profil de vague futur pour ce lot.
+Ne pas créer un moteur de layout générique. Utiliser les composants et le CSS nécessaires au prototype réel.
 
 ---
 
-# 4. Lot UX / visuel — obligatoire
+## 2. Structure du Corcite
 
-Ne pas remettre à plus tard toute la présentation.
+Remplacer le vocabulaire joueur `Plateau` par le terme UX provisoire `Structure` / `Structure du Corcite`.
 
-Utiliser `06_VISUAL_BRIEF_GEN3.md` : Gen3 donne la composition, pas la DA.
+Corriger impérativement :
 
-Cible desktop :
-- HUD haut ;
-- fiche Corcite gauche ;
-- plateau central dominant ;
-- contexte droit ;
-- inventaire/ordres bas ;
-- accès Défenses clair.
+- hexagones qui paraissent se superposer ;
+- cases qui se déplacent visuellement pendant l’implantation ;
+- géométrie différente avant/après pose ;
+- gisements trop nombreux ou trop présents visuellement ;
+- pictogrammes de fonctions trop similaires.
 
-Faire une vraie passe visuelle :
-- palette Avelune violet/prune/lavande/opaline ;
-- biomorphisme organique/minéral ;
-- Corcite non anthropomorphe ;
-- composants cohérents ;
-- états interactifs clairs ;
-- responsive mobile ;
-- pas de fantasy médiévale, humain/humanoïde ou sci-fi industrielle générique.
+La carte doit être stable : une case conserve exactement sa position et sa taille quel que soit son état.
 
-Le résultat peut être provisoire mais doit ressembler à un jeu Avelune testable, pas à un back-office.
-
-Ne pas créer une design system complète, une bibliothèque de composants générique ou une collection d’animations. Utiliser quelques tokens/styles cohérents et les composants nécessaires aux écrans réels du proto.
+Une densité de gisements plus faible peut être testée pour améliorer la lecture. `2 organiques + 2 minéraux` est une hypothèse de laboratoire, pas une règle canonique ; la décision finale reste ouverte.
 
 ---
 
-# 5. Rapports et sauvegarde
+## 3. Ressources et état du Corcite
 
-- rapport de vague séparé ;
-- puissance initiale ;
-- réductions successives ;
-- résidu ;
-- Intégrité avant/après ;
-- résultat du run ;
-- sauvegarde locale versionnée ;
-- anciennes sauvegardes incompatibles rejetées/migrées proprement ;
-- nouvelle partie explicite.
+Réorganiser le haut d’écran :
 
-La persistance doit être une primitive simple et isolée, remplaçable plus tard ; ne pas construire une couche de persistence universelle ou serveur.
+- rapprocher Intégrité, énergie, population et entretien de l’identité du Corcite ;
+- utiliser `icône + nom + valeur`, pas des nombres isolés ;
+- rendre la zone Ressources plus compacte ;
+- supprimer les quatre grands rectangles s’ils ne justifient pas leur surface ;
+- afficher les matières primaires d’amorçage dès le départ.
 
----
+Le joueur doit comprendre :
 
-# 6. Tests et simulations
+- `4 organique + 4 minéral` existent dès l’ouverture ;
+- avant le premier stockage ils sont des ressources d’amorçage hors capacité mécanique normale ;
+- poser le stockage fournit une capacité, il ne crée pas les matières.
 
-Boucle attendue :
-
-`inspecter → implémenter → formatter/typecheck → tester → build → simuler → smoke tester → corriger → recommencer`
-
-Ne pas s’arrêter à la première passe verte.
-
-Avant `REVIEW_READY`, viser :
-- `npm run check` vert ;
-- `npm run test:proto0` vert ;
-- `npm run build` vert ;
-- tests unitaires ciblés ;
-- simulations de plusieurs stratégies ;
-- smoke desktop ;
-- vérification responsive/mobile raisonnable ;
-- aucune régression historique silencieuse hors périmètre.
-
-Si Playwright est déjà disponible ou rapide à exploiter, ajouter seulement les parcours E2E prioritaires. Ne pas transformer le lot en chantier d’infrastructure de tests.
+Ne pas ajouter de stockage natif caché.
 
 ---
 
-# 7. Autonomie accordée
+## 4. Pictogrammes et cohérence visuelle
 
-Décider seul : architecture locale, refactors strictement nécessaires, composants, CSS, mise en page, responsive, accessibilité, stratégie de tests, fixtures, paramètres numériques de laboratoire, nombre de simulations, petits ajustements de coûts nécessaires à un bootstrap/challenge sain.
+Créer/adapter un petit jeu de pictogrammes suffisamment distincts pour :
 
-Cette autonomie ne vaut pas autorisation d’élargir l’architecture ou le contenu. Avant un refactor transversal, une nouvelle dépendance ou une nouvelle abstraction, demander : **est-ce nécessaire pour satisfaire une gate actuelle ou supprimer une duplication réelle maintenant ?** Si non, ne pas le faire.
+- stockage ;
+- énergie ;
+- entretien ;
+- construction ;
+- extraction organique ;
+- extraction minérale ;
+- fabrication défensive ;
+- ressources principales ;
+- recherches déjà présentes lorsque pertinent.
 
-Ne pas demander confirmation pour un problème purement technique.
+Une icône ne porte jamais seule une donnée essentielle : conserver un libellé lisible.
 
-Consigner dans `DECISIONS_NEEDED.md` uniquement une vraie bifurcation de game design non couverte par les sources. Continuer tout ce qui est indépendant avant de s’arrêter.
-
----
-
-# 8. Interdictions
-
-Ne pas :
-- réintroduire réseau direct/ports/Factorio ;
-- réintroduire réserve énergie ;
-- utiliser ancien espace abstrait en parallèle ;
-- créer stockage natif ;
-- ajouter matière de vague/captation ;
-- réinventer 4 familles de tours ;
-- ajouter une caractéristique de vague autre que Puissance au challenge P02 ;
-- inventer lore/races/classes/social ;
-- ajouter des fonctions « pour plus tard » non utilisées dans le run ;
-- créer des couches génériques spéculatives ;
-- ajouter une dépendance sans nécessité claire ;
-- multiplier les variantes ou abstractions pour anticiper une production future ;
-- force-push ;
-- merger `main` ;
-- déployer publiquement ;
-- supprimer des tests pour obtenir du vert.
+Éviter de tout représenter par un losange abstrait semblable.
 
 ---
 
-# 9. Critère de sobriété avant REVIEW_READY
+## 5. Corcite visuel
 
-Avant de déclarer `REVIEW_READY`, faire une passe explicite de réduction :
-- supprimer imports/helpers/composants devenus inutiles ;
-- vérifier qu’aucun ancien système abandonné ne reste dans le parcours actif ;
-- vérifier qu’aucune nouvelle abstraction n’existe sans usage réel ;
-- vérifier que les nouveaux composants ont une responsabilité claire ;
-- vérifier que les paramètres de laboratoire restent peu nombreux et compréhensibles ;
-- préférer supprimer ou fusionner ce qui est redondant plutôt que documenter une complexité inutile.
+Remplacer/améliorer la représentation actuelle trop proche d’une sphère/planète/atome magique.
 
-Mentionner dans `IMPLEMENTATION_REPORT.md` les simplifications effectuées et, si une architecture volontairement non généralisée a été choisie, l’assumer comme telle.
+Cible provisoire :
+
+- non anthropomorphe ;
+- asymétrique ;
+- biomorphique ;
+- organique + minéral ;
+- membranes internes, croissance cristalline, nervures, pétales abstraits ou volumes similaires sans créer d’animal/personnage ;
+- prune/violet/lavande/opaline/iridescent ;
+- plus de profondeur visuelle que la baseline 0.2.0.
+
+Ce n’est toujours pas la direction artistique finale.
 
 ---
 
-# 10. Rapport final obligatoire
+## 6. Évolution
 
-Mettre à jour `IMPLEMENTATION_REPORT.md` avec :
-- statut `REVIEW_READY`, `PARTIAL`, `DECISION_REQUIRED` ou `BLOCKED_TECHNICAL` ;
-- branche + SHA final ;
-- résumé jouable ;
-- architecture/primitives créées ;
-- migrations des anciennes mécaniques ;
-- résultats tests/build ;
-- résultats simulations et paramètres retenus ;
-- état visuel/desktop/mobile ;
-- simplifications/suppressions réalisées ;
-- dette restante ;
-- décisions réellement requises ;
-- commandes exactes pour revue et déploiement.
+Compacter fortement la vue actuelle.
 
-**Ne pas pousser vers `main` et ne pas déployer.** Le résultat doit rester prêt à être revu/poussé/mis en ligne par l’utilisateur à son retour.
+Chaque recherche doit afficher clairement :
+
+- icône ;
+- nom ;
+- effet ;
+- coût ;
+- durée ;
+- état/niveau.
+
+Faire apparaître visuellement les relations ou déblocages réels entre recherches. Ne pas inventer de prérequis uniquement pour obtenir un dessin d’arbre.
+
+Le but est que le joueur comprenne rapidement ce que chaque choix améliore et ce qu’il ouvre.
+
+---
+
+## 7. Production et contexte
+
+Le petit inspecteur contextuel ne doit plus être le seul endroit où gérer une fonction importante de fabrication.
+
+Préparer une entrée/bloc `Production` qui peut apparaître dans la navigation lorsque le Corcite possède une fonction pertinente.
+
+Le bloc Production doit pouvoir accueillir progressivement :
+
+- transformations ;
+- Atelier de construction ;
+- Fabrique défensive ;
+- Recyclerie ;
+- ordres en cours ;
+- sorties bloquées.
+
+Pour P02.1, ne pas inventer de nouvelle économie : réorganiser les fonctions existantes proprement.
+
+Le panneau Contexte reste destiné à l’objet sélectionné, aux prévisualisations et actions locales.
+
+---
+
+## 8. Kit initial
+
+Le kit ne doit plus rester comme un grand bandeau dans toutes les vues.
+
+Pendant le déploiement :
+
+- vue Structure : kit disponible ;
+- Évolution / Défenses / autres vues : au maximum une indication compacte renvoyant à Structure ;
+- après déploiement : disparition du kit de l’interface courante.
+
+Ne pas modifier encore de façon définitive la composition des sept fonctions gratuites : ce point est explicitement réservé à PROTO-0.2.2 après comparaison de plusieurs ouvertures.
+
+---
+
+## 9. Passage de cycle et activité
+
+Ajouter un feedback perceptible lorsque le joueur termine un cycle :
+
+- indication claire du cycle terminé ;
+- progression vers le suivant ;
+- résumé court des actions résolues ;
+- rapport consultable ensuite.
+
+Une animation courte de résolution/progression est autorisée si :
+
+- elle n’introduit aucune mécanique temps réel ;
+- elle est rapide ;
+- elle peut être ignorée/skippée ;
+- `prefers-reduced-motion` est respecté.
+
+Ne pas créer une animation longue répétitive.
+
+---
+
+## 10. Sauvegarde
+
+Conserver l’autosauvegarde par profil.
+
+Rendre l’état de sauvegarde visible. Une action manuelle `Sauvegarder maintenant` peut être ajoutée si elle est utile, mais elle ne doit pas devenir une obligation ni l’action principale.
+
+---
+
+## 11. Responsive
+
+Critère fort : un écran desktop courant doit être utilisable à zoom navigateur `100 %`.
+
+Mobile :
+
+- réutiliser les mêmes blocs ;
+- les empiler/réordonner ;
+- utiliser drawer/bottom-sheet pour le contexte si pertinent ;
+- pas de scroll horizontal structurel ;
+- pas de drag obligatoire ;
+- cibles tactiles raisonnables ;
+- aucune fonction essentielle supprimée.
+
+---
+
+## 12. Ce que ce lot ne doit PAS résoudre
+
+Ne pas encore :
+
+- refaire tout l’équilibrage des vagues ;
+- modifier arbitrairement le nombre final de cycles/vagues ;
+- figer une durée en minutes ;
+- décider définitivement du kit initial ;
+- définir la forme finale de l’amélioration défensive ;
+- créer plusieurs familles de tours ;
+- réintroduire réseau/Factorio ;
+- ajouter de nouvelles ressources ;
+- changer la condition de victoire sans décision humaine explicite.
+
+Les règles suivantes sont déjà actées pour le lot suivant et doivent seulement être respectées architecturalement :
+
+- la première défense de base sera accessible avec matières primaires ;
+- les matières secondaires devront être une évolution méritée ;
+- le joueur choisira entre multiplier les tours, améliorer leur efficacité ou combiner les deux ;
+- le jeu ne devra pas forcer artificiellement une seule de ces stratégies.
+
+---
+
+## 13. Validation
+
+Avant de proposer le jalon `proto-0.2.1-ux` :
+
+1. `npm run check` vert ;
+2. `npm run test:proto0` vert ;
+3. `npm run build` vert ;
+4. `git diff --check` vert ;
+5. smoke Docker/health si pertinent ;
+6. contrôle humain desktop à zoom 100 % ;
+7. contrôle humain mobile ;
+8. géométrie hexagonale stable ;
+9. ressources d’amorçage compréhensibles ;
+10. progression plus compacte et lisible ;
+11. blocs fonctionnels réutilisés ;
+12. `IMPLEMENTATION_REPORT.md` mis à jour avec ce qui est réellement validé et ce qui reste rejeté/ouvert.
+
+Le code peut être poussé avant le tag lorsqu’une phase intermédiaire est suffisamment saine. Le tag ne doit être posé qu’après vraie revue du sous-jalon.
+
+Ne pas merger `main` ni déployer publiquement dans ce lot sans instruction explicite.
