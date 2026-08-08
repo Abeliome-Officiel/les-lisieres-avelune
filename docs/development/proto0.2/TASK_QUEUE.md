@@ -1,49 +1,41 @@
 # PROTO-0.2 — File de tâches
 
-La priorité unique actuelle est `P02-001` définie dans `CURRENT_TASK.md`.
+La priorité unique actuelle est **P02-003 — PROTO-0.2.2 pack de playtest distribué**, définie dans `CURRENT_TASK.md` et détaillée dans `10_P02_2_DISTRIBUTED_PLAYTEST_SPEC.md`.
 
-## P02-001 — Alpha jouable PROTO-0.2
+## P02-003 — Pack de playtest distribué
 
 Statut : `READY_FOR_LONG_CODEX_RUN`
 
-Sous-lots attendus, à traiter de façon autonome et réordonnables techniquement :
+Ordre recommandé :
 
-1. Audit/migration de l’état historique.
-2. Plateau hexagonal + ressources de sol + placement.
-3. Déploiement initial sans stockage natif.
-4. Économie : extraction, transformation, fabrication.
-5. Atelier de construction + Fabrique défensive + Recyclerie.
-6. Inventaire global, réservations, sorties bloquées.
-7. Démontage/remontage.
-8. Énergie/population/entretien simplifiés.
-9. Recherche globale + `Stockage amélioré` + progression répétable bornée.
-10. Défense unique `Affaiblissement` et chemin tactique.
-11. Onde `Puissance`, croissance stricte, dégâts d’Intégrité, victoire/défaite.
-12. Simulations d’équilibrage de laboratoire.
-13. Persistance locale versionnée.
-14. Composition UX Gen3 corrigée.
-15. Passe visuelle Avelune provisoire et responsive.
-16. Rapports joueur.
-17. Tests, build, smoke/E2E et corrections.
-18. `IMPLEMENTATION_REPORT.md` final.
+1. Gate A — corrections UX de playtest : mobile hexagones, Production impossible explicitée, rapport de cycle exhaustif, instrumentation cycles vides.
+2. Gate B — sessions anonymes code 4 chiffres + persistance PostgreSQL.
+3. Gate C — télémétrie structurée + formulaire feedback + stockage DB + notification SMTP facultative.
+4. Gate D — intro/notice, version build, responsive, validations complètes, rapport d'implémentation.
 
-## Anciennes tâches annulées pour P02 actif
+Chaque gate doit rester fonctionnelle et testée avant de poursuivre. Codex peut enchaîner les gates sans validation humaine lorsqu'aucune décision de game design n'est requise.
 
-Ne plus traiter comme exigences :
-- réseau visuel productif ;
-- ports/connexions directes ;
-- buffer/routage Factorio ;
-- quatre familles de tours ;
-- captation/matière de vague ;
-- trois vagues fixes ;
-- réserve énergétique courte ;
-- espace abstrait concurrent du plateau.
+## Périmètre gelé pendant P02-003
 
-## Après P02-001
+Ne pas ajouter :
 
-À décider après playtest, pas pendant le long run :
-- nature réelle de la vague et ses 4 à 6 caractéristiques futures ;
-- retour éventuel d’un réseau Factorio/LabVIEW ;
-- approfondissement RPG ;
-- direction artistique finale ;
-- contenu supplémentaire.
+- nouvelle mécanique destinée à remplir les cycles vides ;
+- nouveaux types de tours ;
+- nouvelles ressources ;
+- nouveau RPG ;
+- multijoueur ;
+- monde persistant partagé ;
+- comptes utilisateurs ;
+- réseau Factorio/ports ;
+- refonte de la vague ou des conditions de victoire.
+
+Le taux de cycles contraints à l'attente doit être mesuré par télémétrie avant arbitrage.
+
+## Après P02-003
+
+Une fois la version de playtest distribuée et laissée active :
+
+- geler les changements importants de conception de PROTO-0.2 ;
+- collecter les sessions et retours pendant plusieurs semaines ;
+- basculer le travail principal vers le cahier des charges/verrouillage du jalon suivant ;
+- utiliser les données de playtest comme preuve, pas comme remplacement du jugement de design.
