@@ -1,51 +1,66 @@
 # PROTO-0.2 — Dossier de développement
 
-Ce dossier est la **source de travail active** du jalon PROTO-0.2 sur la branche `develop/proto-0.2-ux-rules`.
+Ce dossier est la **source de travail du jalon PROTO-0.2**. Le sous-jalon courant est désormais **PROTO-0.2.2**, finalisé et poussé sur `develop/proto-0.2.2-playtest`.
 
-PROTO-0.2 est un mini-jeu de validation : il doit permettre de tester une boucle complète, lisible et réellement jouable sans prétendre définir déjà le jeu final.
+PROTO-0.2 reste un mini-jeu de validation : il doit permettre de tester une boucle complète, lisible et réellement jouable sans prétendre définir déjà le jeu final.
+
+## État courant
+
+- branche : `develop/proto-0.2.2-playtest` ;
+- commit fonctionnel de référence : `d3b080c` ;
+- statut : **validé et prêt à être distribué** ;
+- merge `main` : non effectué ;
+- tag release : non effectué ;
+- déploiement public : action séparée, uniquement sur instruction humaine explicite.
+
+Validation finale connue :
+
+- 380/380 tests ;
+- `svelte-check` : 0 erreur, 0 warning ;
+- build Docker/production vert ;
+- PostgreSQL 17 réel + migration validés ;
+- smoke HTTP et garde-fous API validés ;
+- feedback PostgreSQL → SMTP réel validé de bout en bout ;
+- revue humaine desktop et mobile acceptée.
 
 ## Jalons Git
 
-La baseline technique issue du premier assemblage complet est conservée sous le tag :
+La baseline technique du premier assemblage complet est conservée sous le tag :
 
 ```text
 proto-0.2.0-tech
 ```
 
-Ce jalon est volontairement conservé comme référence : moteur/tests/build/Docker sains, mais UX et rythme humain jugés insuffisants après revue visuelle.
+Le jalon P02.1 a ensuite consolidé UX et règles avant P02.2.
 
-La suite est organisée en sous-versions documentées. Voir :
+La sous-version distribuée actuelle est décrite par :
 
-- [`08_SUBVERSIONS_RHYTHM_AND_PLAYTEST.md`](08_SUBVERSIONS_RHYTHM_AND_PLAYTEST.md)
-- [`09_P02_1_ACCEPTANCE_DELTA.md`](09_P02_1_ACCEPTANCE_DELTA.md)
+- [`10_P02_2_DISTRIBUTED_PLAYTEST_SPEC.md`](10_P02_2_DISTRIBUTED_PLAYTEST_SPEC.md)
+- [`11_P02_2_FINAL_PLAYTEST_ARBITRATIONS.md`](11_P02_2_FINAL_PLAYTEST_ARBITRATIONS.md)
+- [`CURRENT_TASK.md`](CURRENT_TASK.md)
+- [`TASK_QUEUE.md`](TASK_QUEUE.md)
+- [`IMPLEMENTATION_REPORT.md`](IMPLEMENTATION_REPORT.md)
 
-Principe : lorsqu’une phase atteint un niveau cohérent et vérifié, elle doit être commitée, poussée et, si elle constitue un vrai point de référence/retour arrière, taguée. Ne pas attendre la fin globale du prototype pour créer des jalons utiles.
-
-## Ordre de lecture actif pour Codex
+## Ordre de lecture actif
 
 1. `/AGENTS.md`
-2. `CODEX_START_HERE.md`
-3. `CURRENT_TASK.md`
-4. `08_SUBVERSIONS_RHYTHM_AND_PLAYTEST.md`
-5. `09_P02_1_ACCEPTANCE_DELTA.md`
-6. `00_CHARTER.md`
+2. `11_P02_2_FINAL_PLAYTEST_ARBITRATIONS.md`
+3. `10_P02_2_DISTRIBUTED_PLAYTEST_SPEC.md`
+4. `CURRENT_TASK.md`
+5. `08_SUBVERSIONS_RHYTHM_AND_PLAYTEST.md`
+6. `09_P02_1_ACCEPTANCE_DELTA.md`
 7. `01_RULES_AND_SCOPE.md`
 8. `02_UX_SPEC.md`
 9. `06_VISUAL_BRIEF_GEN3.md`
 10. `03_TECHNICAL_GUARDRAILS.md`
 11. `04_ACCEPTANCE.md`
-12. `05_EXECUTION_PLAN.md`
-13. `TASK_QUEUE.md`
-14. `DECISIONS_NEEDED.md`
-15. `LEGACY_REFERENCES.md` uniquement comme historique/contextualisation
+12. `TASK_QUEUE.md`
+13. `IMPLEMENTATION_REPORT.md`
+14. `LEGACY_REFERENCES.md` uniquement comme historique/contextualisation
 
-À partir de PROTO-0.2.1, `08_SUBVERSIONS_RHYTHM_AND_PLAYTEST.md` et `09_P02_1_ACCEPTANCE_DELTA.md` prévalent sur les documents 0.2.0 lorsqu’ils signalent explicitement une évolution issue du playtest humain.
+Le document `11` prévaut lorsqu’il précise ou remplace `10`. Les documents P02.2 prévalent sur les sources P02.0/P02.1 lorsqu’ils actent explicitement une évolution.
 
-`IMPLEMENTATION_REPORT.md` est la sortie d’implémentation et doit refléter l’état réel du code, des tests, simulations et revues humaines.
-
-`TONIGHT_RUN.md` est conservé uniquement comme marqueur historique et est superseded par le lot courant.
-
-## Cible mécanique
+## Cible mécanique P02.2
 
 Boucle active :
 
@@ -69,34 +84,52 @@ Principes clés :
 - pas d’adjacence ou de logistique spatiale active ;
 - pas de réseau direct/ports/câbles/Factorio dans le parcours joueur ;
 - stockage fourni uniquement par les bâtiments de stockage ;
-- inventaire global ;
-- fabrication physique : fabriqué → inventaire → posé/utilisé ;
+- Stock global ;
+- fabrication physique : fabriqué → stock → posé/utilisé ;
+- légère asymétrie Organique / Minéral ;
 - recherche courte et utile ;
 - défense unique : **Affaiblissement** ;
 - vague active à **Puissance** unique ;
-- Puissance résiduelle à `0` → victoire immédiate du testeur pour l’instant ;
+- première défense accessible depuis les matières primaires ;
+- Puissance résiduelle à `0` → victoire immédiate du testeur pour ce jalon ;
 - Intégrité du Corcite à `0` → victoire du jeu ;
 - vagues de plus en plus fortes ;
 - aucun nombre fixe de vagues ;
 - aucune matière de vague/captation dans ce proto.
 
-À partir de PROTO-0.2.2, la première défense d’Affaiblissement doit devenir accessible avec les matières primaires. Transformation devient une montée de sophistication, pas le ticket d’entrée vers la première défense.
-
 Le joueur doit rester libre d’augmenter sa défense par **quantité de tours**, par **amélioration d’efficacité**, ou par combinaison des deux. Aucune voie ne doit être déclarée correcte artificiellement.
 
 Les anciennes notions `pression / structure / charge / matière capturable` sont historiques et ne constituent pas le canon futur de la vague.
+
+## Playtest distribué
+
+P02.2 ajoute uniquement l’infrastructure nécessaire à la collecte :
+
+- session anonyme ;
+- UUID interne ;
+- code public à quatre chiffres ;
+- sauvegarde PostgreSQL ;
+- LWW avec journalisation des conflits ;
+- télémétrie structurée minimale ;
+- classification des cycles vides ;
+- feedback permanent ;
+- stockage DB avant SMTP ;
+- SMTP facultatif et non destructif.
+
+Ce lot n’ajoute ni comptes utilisateurs, ni vrai multijoueur, ni analytics générique.
 
 ## Cible UX / visuelle
 
 Gen3 sert de **référence de composition**, pas de direction artistique littérale.
 
-La composition doit désormais être pensée par blocs fonctionnels réutilisables :
+La composition est pensée par blocs fonctionnels réutilisables :
 
 - identité / état du Corcite ;
 - ressources ;
 - navigation ;
-- espace de travail ;
+- plateau / espace de travail ;
 - contexte ;
+- Session ;
 - activité / productions / rapports.
 
 Desktop organise ces blocs spatialement. Mobile réutilise les mêmes blocs et les mêmes données dans un ordre adapté ; pas de seconde interface parallèle.
@@ -105,13 +138,22 @@ Direction provisoire : onirique, queer, organique/minérale, biomorphique, viole
 
 Le résultat doit ressembler à un jeu Avelune testable, pas à un outil administratif.
 
+La représentation graphique actuelle du Corcite n’est **pas figée**. Une exploration comparative de plusieurs directions visuelles distinctes peut continuer sans modifier les mécaniques du playtest.
+
+### Dette UI acceptée pour la diffusion
+
+- doubles bordures/superpositions légères de certains hexagones ;
+- espace autour du plateau encore sous-exploité ;
+- panneau droit encore sous-exploité ;
+- possibilité future de déplacer certaines informations/actions globales vers la périphérie du plateau ou la zone droite.
+
+Ne pas rouvrir ces points pendant la collecte sauf blocage réel.
+
 ## Rythme humain
 
 PROTO-0.2 doit rester court et rejouable, mais aucune durée exacte n’est figée tant que le temps humain réel n’est pas mesuré.
 
-La première confrontation doit arriver assez tôt pour enseigner concrètement le danger et la défense, sans punir brutalement un joueur qui découvre encore l’interface.
-
-La montée du Corcite doit suivre une logique de base éprouvée : ouverture lisible, premières capacités rapidement utiles, puis augmentation progressive du débit économique, de la production et du nombre de décisions possibles par cycle.
+P02.2 instrumente les cycles `forced_wait` et `voluntary_wait` afin de mesurer le rythme avant d’ajouter une mécanique destinée à remplir artificiellement les temps morts.
 
 ## Autonomie Codex
 
@@ -119,7 +161,7 @@ Codex peut décider seul des choix purement techniques, de l’architecture loca
 
 Il ne doit pas inventer une nouvelle mécanique pour simplifier le code ni figer une zone d’ombre de game design sans source.
 
-En cas de vraie bifurcation de game design non couverte : consigner dans `DECISIONS_NEEDED.md`, continuer tout le travail indépendant, puis s’arrêter uniquement lorsqu’aucun travail sûr ne reste.
+Après distribution de P02.2, les changements fonctionnels doivent rester gelés hors bugs bloquants.
 
 ## Lancement détaché depuis Wetty
 
@@ -134,24 +176,23 @@ Worktree actif connu :
 Branche :
 
 ```text
-develop/proto-0.2-ux-rules
+develop/proto-0.2.2-playtest
 ```
 
-Le lancement doit utiliser `tmux` afin que Codex continue après fermeture de Wetty/SSH.
+Les gros collages Wetty sont considérés peu fiables : privilégier des commandes courtes et séparer création de prompt, contrôle puis lancement.
 
 ## Sortie attendue d’un sous-jalon
 
 Avant de considérer un sous-jalon suffisamment cohérent :
 
-- critères de son delta d’acceptation vérifiés ;
+- critères d’acceptation vérifiés ;
 - tests pertinents verts ;
 - build validé ;
 - simulations si la mécanique a changé ;
 - responsive contrôlé ;
 - passe visuelle humaine effectuée lorsque l’UX change ;
-- code mort/contradictions historiques supprimés du parcours actif ;
 - documentation et `IMPLEMENTATION_REPORT.md` mis à jour ;
 - push de la branche lorsque la phase est suffisamment stable ;
-- tag uniquement lorsqu’un vrai point de référence est atteint.
+- tag uniquement lorsqu’un vrai point de référence est décidé.
 
-Ne pas merger vers `main` ni déployer publiquement sans instruction explicite.
+PROTO-0.2.2 satisfait ces critères de diffusion. Ne pas merger vers `main` ni déployer publiquement sans instruction explicite.
