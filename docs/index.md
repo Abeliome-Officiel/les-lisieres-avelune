@@ -29,11 +29,13 @@ Ces documents portent la vision large du jeu. Lorsqu’un document de conception
 ### Références de préproduction actuelles
 
 - **[Manifeste de conception — Faire Monde](17_manifeste_faire_monde.md)** — cadre normatif révisable : étoile polaire, liberté du joueur, vivant, UX, monde systémique et contrôle de dérive.
-- **[Système d'évolution de la vague — v0.2](19_systeme_evolution_vague_v0.2.md)** — référence active du moteur naturel : composition, six propriétés, dérive autonome, régimes, excès et 1,6 million de vagues simulées sans joueur.
+- **[Système d'évolution de la vague — v0.2](19_systeme_evolution_vague_v0.2.md)** — référence active du moteur naturel : composition, six propriétés, dérive autonome, régimes et excès.
+- **[Moteur de naissance des vagues — v0.1](20_moteur_naissance_vagues_v0.1.md)** — tension de vague, respiration, stress, cadence variable et 2,27 millions d’intervalles simulés.
 - [Modèle évolutif de vague — v0.1](18_modele_vague_evolutive.md) — baseline historique conservée pour traçabilité.
-- [Simulateur exploratoire v0.2](../tools/simulate_wave_evolution_v0_2.py) — modèle reproductible d'analyse, distinct du runtime du jeu.
 
-Le manifeste et la v0.2 du système d'évolution décrivent le **canon de préproduction post-PROTO-0.2**. Ils ne modifient pas rétroactivement le périmètre du prototype actif ; lorsqu'une formulation conceptuelle historique les contredit sur le futur du jeu, ils font autorité.
+Le manifeste, le système d'évolution v0.2 et le moteur de naissance v0.1 décrivent le **canon comportemental de préproduction post-PROTO-0.2**. Ils ne modifient pas rétroactivement le périmètre du prototype actif ; lorsqu'une formulation conceptuelle historique les contredit sur le futur du jeu, ils font autorité.
+
+Les recettes exactes des moteurs (coefficients, fonctions cachées, poids, graines et relations latentes) sont destinées au **coffre secret d’Avelune** et ne doivent plus être ajoutées au dépôt documentaire courant. GitHub conserve les contrats, interfaces et résultats agrégés nécessaires à la production.
 
 ## 3. Identité et direction artistique
 
@@ -103,7 +105,7 @@ implanter
 - pas de nombre fixe de vagues ;
 - pas de matière issue des vagues ni de captation dans ce proto.
 
-Pour PROTO-0.2, seule la **Puissance** reste active par simplification volontaire. Le modèle futur de vague est désormais défini séparément dans [le système d'évolution v0.2](19_systeme_evolution_vague_v0.2.md) ; il ne doit pas être réinjecté dans le prototype actif sans décision de périmètre.
+Pour PROTO-0.2, seule la **Puissance** reste active par simplification volontaire. Les modèles futurs de composition et de cadence sont définis séparément dans les références de préproduction ; ils ne doivent pas être réinjectés dans le prototype actif sans décision de périmètre.
 
 ## 6. Architecture et méthode
 
