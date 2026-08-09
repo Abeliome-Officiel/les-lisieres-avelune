@@ -29,9 +29,11 @@ Ces documents portent la vision large du jeu. Lorsqu’un document de conception
 ### Références de préproduction actuelles
 
 - **[Manifeste de conception — Faire Monde](17_manifeste_faire_monde.md)** — cadre normatif révisable : étoile polaire, liberté du joueur, vivant, UX, monde systémique et contrôle de dérive.
-- **[Modèle évolutif de vague — baseline de simulation v0.1](18_modele_vague_evolutive.md)** — composition, six propriétés fondamentales, mémoire retardée, succession locale et résultats de simulation autonome.
+- **[Système d'évolution de la vague — v0.2](19_systeme_evolution_vague_v0.2.md)** — référence active du moteur naturel : composition, six propriétés, dérive autonome, régimes, excès et 1,6 million de vagues simulées sans joueur.
+- [Modèle évolutif de vague — v0.1](18_modele_vague_evolutive.md) — baseline historique conservée pour traçabilité.
+- [Simulateur exploratoire v0.2](../tools/simulate_wave_evolution_v0_2.py) — modèle reproductible d'analyse, distinct du runtime du jeu.
 
-Ces deux documents décrivent le **canon de préproduction post-PROTO-0.2**. Ils ne modifient pas rétroactivement le périmètre du prototype actif ; lorsqu'une formulation conceptuelle historique les contredit sur le futur du jeu, ils font autorité.
+Le manifeste et la v0.2 du système d'évolution décrivent le **canon de préproduction post-PROTO-0.2**. Ils ne modifient pas rétroactivement le périmètre du prototype actif ; lorsqu'une formulation conceptuelle historique les contredit sur le futur du jeu, ils font autorité.
 
 ## 3. Identité et direction artistique
 
@@ -101,7 +103,7 @@ implanter
 - pas de nombre fixe de vagues ;
 - pas de matière issue des vagues ni de captation dans ce proto.
 
-Pour PROTO-0.2, seule la **Puissance** reste active par simplification volontaire. Le modèle futur de vague est désormais défini séparément dans [la baseline évolutive v0.1](18_modele_vague_evolutive.md) ; il ne doit pas être réinjecté dans le prototype actif sans décision de périmètre.
+Pour PROTO-0.2, seule la **Puissance** reste active par simplification volontaire. Le modèle futur de vague est désormais défini séparément dans [le système d'évolution v0.2](19_systeme_evolution_vague_v0.2.md) ; il ne doit pas être réinjecté dans le prototype actif sans décision de périmètre.
 
 ## 6. Architecture et méthode
 
