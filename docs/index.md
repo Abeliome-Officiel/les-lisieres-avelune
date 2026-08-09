@@ -26,6 +26,13 @@ Le projet ne doit pas être présenté comme ayant déjà atteint une nouvelle v
 
 Ces documents portent la vision large du jeu. Lorsqu’un document de conception historique entre en contradiction avec le cahier actif PROTO-0.2, il ne doit pas être utilisé pour modifier le périmètre du prototype courant.
 
+### Références de préproduction actuelles
+
+- **[Manifeste de conception — Faire Monde](17_manifeste_faire_monde.md)** — cadre normatif révisable : étoile polaire, liberté du joueur, vivant, UX, monde systémique et contrôle de dérive.
+- **[Modèle évolutif de vague — baseline de simulation v0.1](18_modele_vague_evolutive.md)** — composition, six propriétés fondamentales, mémoire retardée, succession locale et résultats de simulation autonome.
+
+Ces deux documents décrivent le **canon de préproduction post-PROTO-0.2**. Ils ne modifient pas rétroactivement le périmètre du prototype actif ; lorsqu'une formulation conceptuelle historique les contredit sur le futur du jeu, ils font autorité.
+
 ## 3. Identité et direction artistique
 
 - [Charte graphique de travail](art/CHARTE_GRAPHIQUE.md)
@@ -94,7 +101,7 @@ implanter
 - pas de nombre fixe de vagues ;
 - pas de matière issue des vagues ni de captation dans ce proto.
 
-Les anciennes notions `pression / structure / charge / matière capturable` ne constituent pas le canon futur de la vague : la nature détaillée de la vague doit être redéfinie après ce jalon.
+Pour PROTO-0.2, seule la **Puissance** reste active par simplification volontaire. Le modèle futur de vague est désormais défini séparément dans [la baseline évolutive v0.1](18_modele_vague_evolutive.md) ; il ne doit pas être réinjecté dans le prototype actif sans décision de périmètre.
 
 ## 6. Architecture et méthode
 
