@@ -1,6 +1,6 @@
 # Documentation — Les Lisières d’Avelune
 
-Cet index distingue les **principes de conception**, les **jalons jouables stables**, les **documents historiques** et le **développement actif PROTO-0.2**.
+Cet index distingue les **principes de conception partageables**, les **jalons jouables stables**, les **documents historiques**, le **développement actif PROTO-0.2** et les spécifications dont la recette détaillée est désormais classée **Cœur d’Avelune** hors dépôt.
 
 ## 1. Repères de version
 
@@ -24,18 +24,20 @@ Le projet ne doit pas être présenté comme ayant déjà atteint une nouvelle v
 - [Trame RPG](14_trame_rpg.md)
 - [Passage et Lisière](15_lisiere_et_passage.md)
 
-Ces documents portent la vision large du jeu. Lorsqu’un document de conception historique entre en contradiction avec le cahier actif PROTO-0.2, il ne doit pas être utilisé pour modifier le périmètre du prototype courant.
+Ces documents portent la vision large du jeu. Lorsqu’un document historique contient une ancienne interprétation aujourd’hui classée Cœur d’Avelune ou contredit un jalon actif, il ne doit pas être utilisé comme source normative.
 
 ### Références de préproduction actuelles
 
-- **[Manifeste de conception — Faire Monde](17_manifeste_faire_monde.md)** — cadre normatif révisable : étoile polaire, liberté du joueur, vivant, UX, monde systémique et contrôle de dérive.
-- **[Système d'évolution de la vague — v0.2](19_systeme_evolution_vague_v0.2.md)** — référence active du moteur naturel : composition, six propriétés, dérive autonome, régimes et excès.
-- **[Moteur de naissance des vagues — v0.1](20_moteur_naissance_vagues_v0.1.md)** — tension de vague, respiration, stress, cadence variable et 2,27 millions d’intervalles simulés.
-- [Modèle évolutif de vague — v0.1](18_modele_vague_evolutive.md) — baseline historique conservée pour traçabilité.
+- **[Manifeste de conception — Faire Monde](17_manifeste_faire_monde.md)** — cadre normatif de production, désormais expurgé des motivations cosmologiques et recettes propriétaires.
+- **[Système d'évolution du monde et des vagues — contrat expurgé](19_systeme_evolution_vague_v0.2.md)** — interfaces, garanties de comportement, observabilité et confidentialité ; recette détaillée hors GitHub.
+- **[Moteur de naissance des vagues — contrat expurgé](20_moteur_naissance_vagues_v0.1.md)** — interface de cadence, multiplicateur administrateur, observabilité et confidentialité ; formule détaillée hors GitHub.
+- [Modèle évolutif de vague — notice historique expurgée](18_modele_vague_evolutive.md) — trace historique sans recette exploitable.
 
-Le manifeste, le système d'évolution v0.2 et le moteur de naissance v0.1 décrivent le **canon comportemental de préproduction post-PROTO-0.2**. Ils ne modifient pas rétroactivement le périmètre du prototype actif ; lorsqu'une formulation conceptuelle historique les contredit sur le futur du jeu, ils font autorité.
+Le dépôt ne doit plus contenir les fonctions exactes, coefficients, seuils, graphes cachés, causalités propriétaires, recettes de variabilité ou vérités narratives réservées constituant le **Cœur d’Avelune**.
 
-Les recettes exactes des moteurs (coefficients, fonctions cachées, poids, graines et relations latentes) sont destinées au **coffre secret d’Avelune** et ne doivent plus être ajoutées au dépôt documentaire courant. GitHub conserve les contrats, interfaces et résultats agrégés nécessaires à la production.
+GitHub conserve seulement ce qui est nécessaire au développement partagé : contrats, interfaces, exigences, éléments visibles du jeu, télémétrie autorisée et résultats de validation suffisamment agrégés.
+
+**Historique :** certains anciens commits ont contenu des modèles exploratoires plus détaillés. Leur retrait de `main` ne purge pas les objets Git historiques ; une réécriture contrôlée de l’historique est un chantier distinct.
 
 ## 3. Identité et direction artistique
 
@@ -105,7 +107,7 @@ implanter
 - pas de nombre fixe de vagues ;
 - pas de matière issue des vagues ni de captation dans ce proto.
 
-Pour PROTO-0.2, seule la **Puissance** reste active par simplification volontaire. Les modèles futurs de composition et de cadence sont définis séparément dans les références de préproduction ; ils ne doivent pas être réinjectés dans le prototype actif sans décision de périmètre.
+Pour PROTO-0.2, seule la **Puissance** reste active par simplification volontaire. Les moteurs futurs ne doivent pas être réinjectés dans le prototype actif sans décision explicite de périmètre.
 
 ## 6. Architecture et méthode
 
@@ -130,7 +132,6 @@ Ces fichiers sont conservés pour la traçabilité. Ils ne doivent pas reprendre
 ## 8. Principes à garder visibles
 
 - monde partagé unique ;
-- protection collective de la Lisière ;
 - coopération directe entre Corcites facultative ;
 - progression principalement horizontale ;
 - échec fertile ;
@@ -141,4 +142,5 @@ Ces fichiers sont conservés pour la traçabilité. Ils ne doivent pas reprendre
 - plusieurs styles et profondeurs de jeu légitimes ;
 - attention explicite aux profils TSA, TDAH et dys ;
 - identité queer et non genrée ;
-- direction visuelle onirique, féerique, organique et minérale.
+- direction visuelle onirique, féerique, organique et minérale ;
+- séparation stricte entre documentation de production et Cœur d’Avelune.
