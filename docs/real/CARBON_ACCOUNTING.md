@@ -16,7 +16,7 @@ Tant qu'un poste matériel ou numérique important reste non quantifié, l'inter
 
 ## Sources de référence
 
-La source de référence pour les facteurs de comptabilité carbone est la **Base Carbone / Base Empreinte de l'ADEME**. La version publique repérée lors de la conception de cette v0.1 est **V23.6** ; la valeur du facteur électricité doit être récupérée depuis l'API officielle et vérifiée comme facteur valide avant activation.
+La source de référence pour les facteurs de comptabilité carbone est la **Base Carbone / Base Empreinte de l'ADEME**. La version publique repérée lors de la conception de cette v0.1 est **V23.6**. L'API officielle est publiée par l'ADEME via son portail open data sous le jeu `base-carboner` ; la valeur du facteur électricité doit être récupérée puis vérifiée comme facteur valide avant activation.
 
 RTE publie par ailleurs un signal continu d'émissions de la production électrique française. Ce signal a un autre périmètre : il ne prend notamment pas en compte la construction des moyens de production, le cycle amont des combustibles ni les échanges aux interconnexions. Il peut donc être affiché ultérieurement comme contexte, mais pas substitué silencieusement au facteur de comptabilité carbone.
 
