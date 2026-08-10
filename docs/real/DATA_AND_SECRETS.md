@@ -12,6 +12,7 @@ Le `.gitignore` du dépôt exclut déjà `.env`, `.env.*` (hors `.env.example`),
 - identifiants logiques génériques de sources ;
 - données publiques déjà destinées à l'affichage ;
 - valeurs initiales explicitement qualifiées ;
+- facteurs d'émission publics avec leur source/version lorsqu'ils ont été vérifiés ;
 - exemples factices ;
 - documentation d'architecture sans IP, token ni identifiant privé.
 
@@ -20,7 +21,7 @@ Le `.gitignore` du dépôt exclut déjà `.env`, `.env.*` (hors `.env.example`),
 - mots de passe ;
 - jetons d'API ;
 - secrets PayPal ou webhook ;
-- identifiants de prise ;
+- identifiants privés de prise ;
 - comptes cloud du fabricant ;
 - adresses IP privées d'exploitation ;
 - noms DNS internes ;
@@ -48,9 +49,10 @@ Ces valeurs ne doivent jamais être placées dans une variable publique exposée
 Chaque source reçoit un identifiant logique non sensible, par exemple :
 
 ```text
-server_power_meter_01
+lab_power_meter_01
 manual_human_time
 manual_hardware_cost
+ademe_base_empreinte_electricity_fr
 world_public_metrics
 paypal_aggregate
 ```
@@ -69,13 +71,27 @@ Contrat conceptuel minimal :
   "value": 142.0,
   "unit": "Wh",
   "status": "measured",
-  "sourceId": "server_power_meter_01",
-  "scope": "server_power_input",
+  "sourceId": "lab_power_meter_01",
+  "scope": "lab_power_input",
   "note": null
 }
 ```
 
 Une donnée publique agrégée ne doit pas transporter les secrets ou les identifiants techniques nécessaires à la collecte.
+
+## Carbone
+
+Les événements carbone sont calculés depuis des données d'activité et des facteurs d'émission documentés. La provenance doit permettre de retrouver :
+
+- l'événement énergétique ou matériel source ;
+- le facteur d'émission utilisé ;
+- la version/période du facteur ;
+- le périmètre méthodologique ;
+- le résultat en kgCO2e.
+
+Le coût en euros ne constitue jamais à lui seul une provenance carbone suffisante.
+
+Le carbone de l'IA reste `null` tant qu'une méthode robuste manque. Une valeur `null` est une information de qualité de données, pas une erreur à masquer.
 
 ## Données personnelles
 
@@ -90,6 +106,7 @@ Les données publiques doivent être agrégées. Un donateur, un joueur ou un te
 - les événements source sont append-only ;
 - les corrections sont explicites ;
 - les agrégats sont recalculables ;
+- les facteurs carbone sont versionnés ;
 - les sauvegardes du schéma `real_dashboard` rejoignent la politique de sauvegarde de la base existante ;
 - aucune sauvegarde publique ne contient la configuration privée des sources.
 
@@ -101,4 +118,5 @@ Avant toute nouvelle métrique publique, vérifier :
 2. qu'elle ne révèle aucun secret de conception réservé ;
 3. qu'elle ne permet pas d'identifier une personne ;
 4. que son statut de vérité est correct ;
-5. que son périmètre de mesure est explicite.
+5. que son périmètre de mesure est explicite ;
+6. pour le carbone, que le facteur et son périmètre sont traçables et compatibles avec les agrégats auxquels la valeur est ajoutée.
