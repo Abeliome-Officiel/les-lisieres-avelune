@@ -2,44 +2,59 @@
 
 ## Principe
 
-Un service utilisé à la fois pour Avelune et pour d'autres usages n'est pas imputé automatiquement à 100 % au projet.
+Un service ou une ressource peut être réellement payé par l'utilisateur sans être exclusivement consacré à Avelune.
 
-Le Tableau réel conserve séparément :
+Le Tableau réel conserve donc séparément :
 
-1. la dépense réellement payée ;
-2. le coefficient d'attribution à Avelune ;
-3. le coût Avelune calculé ;
-4. la période et la justification de ce coefficient.
+1. le montant réellement facturé ;
+2. la clé d'attribution Avelune applicable à la période ;
+3. le coût calculé attribué à Avelune.
 
-Le coefficient peut changer au fil du temps. Une nouvelle période reçoit un nouveau coefficient ; l'historique n'est pas réécrit.
+Cette règle s'applique notamment au serveur partagé, aux services numériques, aux abonnements et à tout futur outil utilisé pour plusieurs activités.
 
 ## ChatGPT Plus — période courante
 
-Justificatif utilisateur du 11/08/2026 :
-
-- transaction ChatGPT Plus du **24/07/2026** : **23,00 EUR** ;
-- transaction précédente du 24/06/2026 : 23,00 EUR ;
-- transaction précédente du 24/05/2026 : 23,00 EUR ;
-- fin actuellement affichée du forfait : 24/08/2026.
-
-Pour le Tableau réel v0.1 :
+Donnée actuellement connue :
 
 ```text
-facture réelle retenue        = 23,00 EUR
-attribution Avelune déclarée  = 99 %
-coût Avelune calculé          = 22,77 EUR
+Paiement constaté : 23,00 EUR
+Date : 24/07/2026
+Attribution Avelune déclarée : 99 %
+Coût Avelune calculé : 22,77 EUR
 ```
 
-Qualification :
+Le paiement est une donnée réelle. Le coefficient de 99 % est une estimation déclarée de l'usage actuel et peut être remplacé pour les périodes futures si la répartition d'usage change.
 
-- les **23,00 EUR** sont une dépense **MESURÉE / constatée** à partir de l'historique de facturation ;
-- les **99 %** sont une attribution **ESTIMÉE**, déclarée à partir de l'usage actuel ;
-- les **22,77 EUR** sont **CALCULÉS** à partir des deux valeurs précédentes.
+Les paiements du 24/05/2026 et du 24/06/2026 ne sont pas imputés à Avelune tant que la date zéro officielle du projet et l'attribution historique de ces périodes ne sont pas établies.
 
-Les paiements du 24/05 et du 24/06 ne sont pas imputés à Avelune à ce stade. Ils restent hors total tant que la date zéro officielle du projet n'est pas fixée et qu'aucune attribution historique n'est justifiée.
+## Historisation
 
-## Règle générale
+La clé d'attribution est **périodique**, pas globale et éternelle.
 
-Cette méthode s'applique également aux futurs services partagés : abonnement logiciel, stockage, hébergement, outil créatif ou autre ressource non exclusivement dédiée à Avelune.
+Exemple :
 
-Une dépense partagée ne doit pas être transformée artificiellement en dépense totale Avelune, mais une utilisation très majoritairement liée au projet doit pouvoir être reconnue de manière transparente.
+```text
+2026-07-24 -> période courante : 99 %
+2026-08-24 -> période suivante : coefficient alors constaté
+```
+
+Une modification future ne réécrit pas silencieusement l'historique.
+
+## Pas de double comptage
+
+Le total de coût Avelune utilise uniquement le **montant attribué**. Le montant brut de la facture reste visible dans le détail mais n'est pas ajouté une deuxième fois au total.
+
+## Distinction carbone
+
+Une clé d'attribution financière peut servir à répartir une ressource partagée lorsque sa donnée physique est connue, mais **les euros ne sont pas convertis directement en CO2e**.
+
+Pour ChatGPT Plus, le fait de connaître `23,00 EUR × 99 % = 22,77 EUR` ne donne aucune valeur carbone fiable. Le carbone du service IA reste non quantifié tant qu'une donnée d'activité et un facteur d'émission suffisamment robustes ne sont pas disponibles.
+
+Pour le serveur partagé, la quote-part carbone doit de préférence être appliquée à une donnée énergétique ou physique, pas au seul coût en euros.
+
+## Statuts de vérité
+
+- facture : **MESURÉ / constaté** ;
+- coefficient d'attribution : **ESTIMÉ** ;
+- coût attribué : **CALCULÉ** ;
+- carbone du service : **NON QUANTIFIÉ** tant qu'une méthode robuste manque.
