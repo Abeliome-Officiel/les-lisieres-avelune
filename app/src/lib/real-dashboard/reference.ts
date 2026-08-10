@@ -42,6 +42,13 @@ export const PUBLIC_REAL_DASHBOARD_SEED: RealDashboardSeed = {
 		sourceEnvironment: 'project',
 		note: 'Quote-part Avelune du serveur partagé à définir avec une méthode documentée.'
 	},
+	sharedServerElectricityKwh: {
+		value: null,
+		status: 'estimated',
+		sourceId: 'shared_server_allocation',
+		sourceEnvironment: 'project',
+		note: 'Énergie électrique attribuée à Avelune sur le serveur partagé. À calculer avec la même méthode que la quote-part financière.'
+	},
 	sharedServerElectricityCostEur: {
 		value: null,
 		status: 'estimated',
@@ -75,6 +82,34 @@ export const PUBLIC_REAL_DASHBOARD_SEED: RealDashboardSeed = {
 		status: 'measured',
 		sourceId: 'manual_other_cost',
 		sourceEnvironment: 'project'
+	},
+	hardwareEmbodiedCarbonKgCo2e: {
+		value: null,
+		status: 'estimated',
+		sourceId: 'hardware_carbon_inventory',
+		sourceEnvironment: 'project',
+		note: 'À établir depuis le modèle exact du lab et un facteur physique ou une donnée environnementale documentée. Le prix de 270 EUR n’est pas converti en CO2e.'
+	},
+	aiServiceCarbonKgCo2e: {
+		value: null,
+		status: 'estimated',
+		sourceId: 'ai_carbon_unquantified',
+		sourceEnvironment: 'project',
+		note: 'Non quantifié : le prix de l’abonnement et le pourcentage d’usage ne suffisent pas pour estimer proprement les émissions du service IA.'
+	},
+	otherCarbonKgCo2e: {
+		value: null,
+		status: 'estimated',
+		sourceId: 'other_carbon_inventory',
+		sourceEnvironment: 'project',
+		note: 'Aucun autre poste carbone n’est encore quantifié.'
+	},
+	electricityCarbonFactor: {
+		valueGCo2ePerKwh: null,
+		sourceId: 'ademe_base_empreinte_electricity_fr',
+		version: 'Base Carbone V23.6',
+		perimeter: 'Facteur de comptabilité carbone pour l’électricité en France ; valeur valide générique à récupérer et verrouiller avant calcul automatique.',
+		note: 'Ne pas remplacer silencieusement ce facteur par le signal RTE temps réel, dont le périmètre est différent.'
 	},
 	supportGrossEur: {
 		value: 0,
