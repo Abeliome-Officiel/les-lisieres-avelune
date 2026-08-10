@@ -6,6 +6,8 @@ Tant qu'aucun monde de production persistant n'existe, le Tableau réel peut uti
 
 Cette décision permet d'alimenter progressivement les compteurs sans attendre la production, tout en évitant de présenter des données de test comme des statistiques de production.
 
+Les métriques de jeu PROTO et les métriques réelles d'énergie/carbone sont indépendantes : une partie de test peut nourrir les compteurs de vie du jeu, tandis que la prise du lab nourrit la consommation réelle du projet.
+
 ## Métriques retenues pour le PROTO actuel
 
 Pour le playtest distribué, le schéma PostgreSQL existant contient la table `playtest_sessions` avec un statut contraint à `active`, `finished` ou `archived`.
@@ -55,6 +57,12 @@ Lorsqu'une métrique de production devient disponible :
 - `sourceEnvironment` devient `production` ;
 - l'historique PROTO peut rester consultable comme période préproduction s'il est utile ;
 - les données PROTO ne sont jamais réétiquetées rétroactivement comme données de production.
+
+## Carbone des playtests
+
+Le Tableau réel ne crée pas un « coût carbone par partie » artificiel à partir du compteur de sessions.
+
+Les émissions du playtest sont déjà captées, lorsqu'elles sont mesurables, par les ressources réelles utilisées : consommation du lab, quote-part serveur et services numériques quantifiés. Une ventilation par partie ne sera ajoutée que si elle présente un intérêt réel et repose sur une méthode défendable.
 
 ## Données personnelles
 
