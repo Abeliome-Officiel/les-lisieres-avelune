@@ -94,6 +94,7 @@ Lorsqu'un facteur de référence évolue, les nouvelles périodes utilisent le n
 10. **Deux facteurs de périmètres différents ne sont pas additionnés comme s'ils mesuraient la même chose.**
 11. **L'instrumentation carbone reste sobre : aucun appel temps réel n'est requis pour afficher la page.**
 12. **Une partie de PROTO n'est pas transformée arbitrairement en grammes de CO2e ; les émissions sont suivies par les ressources réelles utilisées.**
+13. **Le public voit le résultat, la méthode et le degré de complétude ; il ne voit aucun secret d'exploitation.**
 
 ## Données v0.1
 
