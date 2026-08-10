@@ -8,7 +8,8 @@ Documents :
 - [`ARCHITECTURE.md`](ARCHITECTURE.md) — hébergement serveur, mesure du lab, quote-part serveur partagé et interconnexions ;
 - [`DATA_AND_SECRETS.md`](DATA_AND_SECRETS.md) — frontière public/privé, provenance et politique de secrets ;
 - [`PROTO_DATA_POLICY.md`](PROTO_DATA_POLICY.md) — utilisation des prototypes comme sources temporaires des métriques de jeu ;
-- [`COST_ATTRIBUTION.md`](COST_ATTRIBUTION.md) — règles d'attribution des services partagés, dont l'IA.
+- [`COST_ATTRIBUTION.md`](COST_ATTRIBUTION.md) — règles d'attribution des services partagés, dont l'IA ;
+- [`CARBON_ACCOUNTING.md`](CARBON_ACCOUNTING.md) — carbone incorporé, carbone d'usage, facteurs d'émission et règles de complétude.
 
 Implémentation préparatoire :
 
@@ -26,12 +27,18 @@ Implémentation préparatoire :
 - [x] première interface préparée ;
 - [x] 270 EUR de matériel préchargés comme estimation déclarée ;
 - [x] coût ChatGPT Plus courant intégré : 23,00 EUR réels, 99 % attribués, 22,77 EUR imputés à Avelune ;
+- [x] registre carbone ajouté : incorporé / usage / empreinte connue ;
+- [x] calcul carbone électrique prévu à partir des kWh et d'un facteur ADEME versionné ;
+- [x] absence de faux total carbone tant que des postes importants sont non quantifiés ;
+- [x] IA explicitement laissée non quantifiée en CO2e tant qu'une méthode défendable manque ;
 - [x] PROTO autorisés comme sources provisoires des métriques de jeu ;
 - [x] distinction `project` / `proto` / `production` prévue dans le modèle de provenance ;
 - [ ] date zéro officielle à fixer ;
-- [ ] modèle exact de la prise à identifier à réception ;
+- [ ] modèle exact de la prise à confirmer à réception ;
 - [ ] API/protocole officiel de la prise à vérifier ;
 - [ ] tarif électrique à enregistrer avec période de validité ;
+- [ ] facteur d'émission électricité ADEME valide générique à récupérer et verrouiller ;
+- [ ] carbone incorporé du lab à établir depuis son matériel réel ;
 - [ ] méthode et pourcentage de quote-part serveur à décider ;
 - [ ] temps humain initial à consolider ;
 - [ ] persistance PostgreSQL à activer ;
