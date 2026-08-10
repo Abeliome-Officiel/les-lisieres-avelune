@@ -29,6 +29,8 @@ Implémentation préparatoire :
 - [x] coût ChatGPT Plus courant intégré : 23,00 EUR réels, 99 % attribués, 22,77 EUR imputés à Avelune ;
 - [x] registre carbone ajouté : incorporé / usage / empreinte connue ;
 - [x] calcul carbone électrique prévu à partir des kWh et d'un facteur ADEME versionné ;
+- [x] source de référence fixée : Base Carbone / Base Empreinte ADEME ;
+- [x] RTE conservé comme signal complémentaire de périmètre différent ;
 - [x] absence de faux total carbone tant que des postes importants sont non quantifiés ;
 - [x] IA explicitement laissée non quantifiée en CO2e tant qu'une méthode défendable manque ;
 - [x] PROTO autorisés comme sources provisoires des métriques de jeu ;
