@@ -74,26 +74,19 @@ export const PUBLIC_REAL_DASHBOARD_SEED: RealDashboardSeed = {
 		sourceEnvironment: 'project',
 		note: 'Les environnements techniques ne sont pas des mondes.'
 	},
-	players: {
+	playtestSessionsCreated: {
 		value: null,
 		status: 'calculated',
-		sourceId: 'proto_public_metrics',
+		sourceId: 'proto_playtest_sessions',
 		sourceEnvironment: 'proto',
-		note: 'À connecter aux métriques agrégées du ou des PROTO avant la production.'
+		note: 'Nombre total de lignes de playtest_sessions. À lire directement dans PostgreSQL.'
 	},
-	corcitesCreated: {
+	playtestSessionsActive: {
 		value: null,
 		status: 'calculated',
-		sourceId: 'proto_public_metrics',
+		sourceId: 'proto_playtest_sessions',
 		sourceEnvironment: 'proto',
-		note: 'À connecter aux métriques agrégées du ou des PROTO avant la production.'
-	},
-	corcitesActive: {
-		value: null,
-		status: 'calculated',
-		sourceId: 'proto_public_metrics',
-		sourceEnvironment: 'proto',
-		note: 'À connecter aux métriques agrégées du ou des PROTO avant la production.'
+		note: "Nombre de lignes de playtest_sessions dont status = 'active'."
 	},
 	lifeHours: {
 		value: null,

@@ -24,9 +24,8 @@ export interface RealDashboardSeed {
 	supportGrossEur: QualifiedValue<number>;
 	supportFeesEur: QualifiedValue<number>;
 	worldCount: QualifiedValue<number>;
-	players: QualifiedValue<number>;
-	corcitesCreated: QualifiedValue<number>;
-	corcitesActive: QualifiedValue<number>;
+	playtestSessionsCreated: QualifiedValue<number>;
+	playtestSessionsActive: QualifiedValue<number>;
 	lifeHours: QualifiedValue<number>;
 }
 

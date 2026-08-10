@@ -131,24 +131,24 @@
 				<p class="eyebrow">Vie d’Avelune</p>
 				<h2 id="world-title">Ce qui vit de l’autre côté</h2>
 			</div>
-			<p>Les environnements de test et de développement ne comptent pas comme des mondes.</p>
+			<p>En préproduction, les chiffres de partie viennent du PROTO et sont lus dans sa base.</p>
 		</div>
 
 		<div class="metric-grid world-grid">
 			<article class="metric">
 				<div class="metric-head"><span>Mondes</span><small>{statusLabel(seed.worldCount.status)}</small></div>
 				<strong>{seed.worldCount.value ?? '—'}</strong>
-				<p>Un monde partagé. C’est déjà beaucoup.</p>
+				<p>Un monde partagé. Les environnements techniques ne comptent pas comme des mondes.</p>
 			</article>
 			<article class="metric">
-				<div class="metric-head"><span>Joueurs</span><small>{statusLabel(seed.players.status)}</small></div>
-				<strong>{maybeNumber(seed.players.value)}</strong>
-				<p>Compteur public à connecter.</p>
+				<div class="metric-head"><span>Parties créées</span><small>{statusLabel(seed.playtestSessionsCreated.status)}</small></div>
+				<strong>{maybeNumber(seed.playtestSessionsCreated.value)}</strong>
+				<p>Toutes les sessions enregistrées dans <code>playtest_sessions</code>, y compris terminées ou archivées.</p>
 			</article>
 			<article class="metric">
-				<div class="metric-head"><span>Corcites nées</span><small>{statusLabel(seed.corcitesCreated.status)}</small></div>
-				<strong>{maybeNumber(seed.corcitesCreated.value)}</strong>
-				<p>Compteur public à connecter.</p>
+				<div class="metric-head"><span>Parties en cours</span><small>{statusLabel(seed.playtestSessionsActive.status)}</small></div>
+				<strong>{maybeNumber(seed.playtestSessionsActive.value)}</strong>
+				<p>Sessions dont le statut BDD est exactement <code>active</code>.</p>
 			</article>
 			<article class="metric">
 				<div class="metric-head"><span>Temps de vie</span><small>{statusLabel(seed.lifeHours.status)}</small></div>
@@ -308,6 +308,11 @@
 		font-size: .82rem;
 		line-height: 1.55;
 		color: #69726c;
+	}
+
+	.metric code {
+		font-size: .76rem;
+		color: #515b54;
 	}
 
 	.funding {
