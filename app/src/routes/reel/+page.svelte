@@ -5,7 +5,7 @@
 
 	const snapshot = buildRealDashboardSnapshot(seed);
 	const euro = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' });
-	const number = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 1 });
+	const number = new Intl.NumberFormat('fr-FR', { maximumFractionDigits: 2 });
 	const percent = new Intl.NumberFormat('fr-FR', { style: 'percent', maximumFractionDigits: 1 });
 
 	const labels: Record<RealDataStatus, string> = {
@@ -22,13 +22,17 @@
 	function maybeNumber(value: number | null, suffix = '') {
 		return value === null ? 'À connecter' : `${number.format(value)}${suffix}`;
 	}
+
+	function maybeCarbon(value: number | null) {
+		return value === null ? 'À établir' : `${number.format(value)} kgCO₂e`;
+	}
 </script>
 
 <svelte:head>
 	<title>Tableau réel — Avelune</title>
 	<meta
 		name="description"
-		content="Le Tableau réel d’Avelune : temps humain, matériel, énergie, services, financement et signes de vie du monde."
+		content="Le Tableau réel d’Avelune : temps humain, matériel, énergie, carbone, services, financement et signes de vie du monde."
 	/>
 </svelte:head>
 
@@ -98,6 +102,51 @@
 				<strong>{euro.format(snapshot.knownCostEur)}</strong>
 				<p>Total des dépenses actuellement renseignées, pas une estimation du coût final du projet.</p>
 			</article>
+		</div>
+	</section>
+
+	<section class="carbon" aria-labelledby="carbon-title">
+		<div class="section-title">
+			<div>
+				<p class="eyebrow">Empreinte carbone</p>
+				<h2 id="carbon-title">Ce que le monde laisse derrière lui</h2>
+			</div>
+			<p>Du CO₂e, pas du CO₂ magique : les euros ne sont jamais convertis arbitrairement en carbone.</p>
+		</div>
+
+		<div class="metric-grid">
+			<article class="metric">
+				<div class="metric-head"><span>Carbone incorporé</span><small>{statusLabel(seed.hardwareEmbodiedCarbonKgCo2e.status)}</small></div>
+				<strong>{maybeCarbon(snapshot.knownEmbodiedCarbonKgCo2e)}</strong>
+				<p>Fabrication du matériel attribué à Avelune. Le facteur reste à établir depuis le matériel réel.</p>
+			</article>
+
+			<article class="metric">
+				<div class="metric-head"><span>Carbone d’usage</span><small>CALCULÉ</small></div>
+				<strong>{maybeCarbon(snapshot.knownOperationalCarbonKgCo2e)}</strong>
+				<p>Électricité du lab, quote-part serveur et services numériques lorsqu’ils sont quantifiables.</p>
+			</article>
+
+			<article class="metric">
+				<div class="metric-head"><span>Lab au fil du temps</span><small>CALCULÉ</small></div>
+				<strong>{maybeCarbon(snapshot.labOperationalCarbonKgCo2e)}</strong>
+				<p>Les kWh de la prise seront convertis avec un facteur ADEME versionné, sans appel externe à chaque affichage.</p>
+			</article>
+
+			<article class="metric prominent">
+				<div class="metric-head"><span>Empreinte connue</span><small>{snapshot.carbonIsComplete ? 'COMPLÈTE' : 'PÉRIMÈTRE INCOMPLET'}</small></div>
+				<strong>{maybeCarbon(snapshot.knownCarbonKgCo2e)}</strong>
+				<p>{snapshot.carbonIsComplete ? 'Tous les postes retenus sont quantifiés.' : `Encore non quantifié : ${snapshot.unquantifiedCarbonSources.join(', ')}.`}</p>
+			</article>
+		</div>
+
+		<div class="method-note">
+			<strong>Facteur électricité</strong>
+			<p>
+				{seed.electricityCarbonFactor.valueGCo2ePerKwh === null
+					? 'À verrouiller depuis la Base Carbone / Base Empreinte ADEME avant le premier calcul automatique.'
+					: `${number.format(seed.electricityCarbonFactor.valueGCo2ePerKwh)} gCO₂e/kWh — ${seed.electricityCarbonFactor.version ?? 'version documentée'}.`}
+			</p>
 		</div>
 	</section>
 
@@ -186,202 +235,42 @@
 		padding: 4.5rem 0 3rem;
 	}
 
-	.hero {
-		max-width: 820px;
-		margin-bottom: 3rem;
-	}
-
-	.eyebrow {
-		margin: 0 0 .45rem;
-		font-size: .72rem;
-		font-weight: 750;
-		letter-spacing: .16em;
-		text-transform: uppercase;
-		color: #59675e;
-	}
-
+	.hero { max-width: 820px; margin-bottom: 3rem; }
+	.eyebrow { margin: 0 0 .45rem; font-size: .72rem; font-weight: 750; letter-spacing: .16em; text-transform: uppercase; color: #59675e; }
 	h1, h2, p { margin-top: 0; }
-
-	h1 {
-		margin-bottom: .8rem;
-		font-family: Georgia, "Times New Roman", serif;
-		font-size: clamp(2.8rem, 7vw, 5.8rem);
-		font-weight: 500;
-		letter-spacing: -.045em;
-		line-height: .96;
-	}
-
-	h2 {
-		margin-bottom: 0;
-		font-family: Georgia, "Times New Roman", serif;
-		font-size: clamp(1.65rem, 3vw, 2.35rem);
-		font-weight: 500;
-		letter-spacing: -.025em;
-	}
-
-	.lead {
-		max-width: 680px;
-		font-size: clamp(1.2rem, 2.2vw, 1.55rem);
-		line-height: 1.5;
-		color: #3c4740;
-	}
-
-	.intro {
-		max-width: 760px;
-		line-height: 1.75;
-		color: #586159;
-	}
-
-	.age {
-		margin: 0 0 4.5rem;
-		padding: 1.5rem 0 1.8rem;
-		border-top: 1px solid #c9cec8;
-		border-bottom: 1px solid #c9cec8;
-	}
-
-	.age p, .age span {
-		margin-bottom: .35rem;
-		color: #667069;
-	}
-
-	.age strong {
-		display: block;
-		margin-bottom: .5rem;
-		font-family: Georgia, "Times New Roman", serif;
-		font-size: clamp(2rem, 4vw, 3.6rem);
-		font-weight: 500;
-	}
-
+	h1 { margin-bottom: .8rem; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.8rem, 7vw, 5.8rem); font-weight: 500; letter-spacing: -.045em; line-height: .96; }
+	h2 { margin-bottom: 0; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.65rem, 3vw, 2.35rem); font-weight: 500; letter-spacing: -.025em; }
+	.lead { max-width: 680px; font-size: clamp(1.2rem, 2.2vw, 1.55rem); line-height: 1.5; color: #3c4740; }
+	.intro { max-width: 760px; line-height: 1.75; color: #586159; }
+	.age { margin: 0 0 4.5rem; padding: 1.5rem 0 1.8rem; border-top: 1px solid #c9cec8; border-bottom: 1px solid #c9cec8; }
+	.age p, .age span { margin-bottom: .35rem; color: #667069; }
+	.age strong { display: block; margin-bottom: .5rem; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2rem, 4vw, 3.6rem); font-weight: 500; }
 	section { margin-bottom: 4.5rem; }
-
-	.section-title {
-		display: flex;
-		align-items: end;
-		justify-content: space-between;
-		gap: 2rem;
-		margin-bottom: 1.4rem;
-	}
-
-	.section-title > p {
-		max-width: 390px;
-		margin-bottom: 0;
-		font-size: .9rem;
-		line-height: 1.5;
-		color: #6a736d;
-	}
-
-	.metric-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-		border-top: 1px solid #c9cec8;
-		border-left: 1px solid #c9cec8;
-	}
-
-	.metric {
-		min-height: 200px;
-		padding: 1.15rem;
-		border-right: 1px solid #c9cec8;
-		border-bottom: 1px solid #c9cec8;
-		background: rgba(255, 255, 255, .28);
-	}
-
+	.section-title { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 1.4rem; }
+	.section-title > p { max-width: 390px; margin-bottom: 0; font-size: .9rem; line-height: 1.5; color: #6a736d; }
+	.metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); border-top: 1px solid #c9cec8; border-left: 1px solid #c9cec8; }
+	.metric { min-height: 200px; padding: 1.15rem; border-right: 1px solid #c9cec8; border-bottom: 1px solid #c9cec8; background: rgba(255, 255, 255, .28); }
 	.metric.prominent { background: rgba(224, 229, 219, .55); }
-
-	.metric-head {
-		display: flex;
-		justify-content: space-between;
-		gap: .6rem;
-		font-size: .86rem;
-		color: #59635c;
-	}
-
-	.metric-head small {
-		font-size: .61rem;
-		letter-spacing: .08em;
-		color: #7a847d;
-	}
-
-	.metric strong {
-		display: block;
-		margin: 2rem 0 .8rem;
-		font-family: Georgia, "Times New Roman", serif;
-		font-size: clamp(1.7rem, 3vw, 2.5rem);
-		font-weight: 500;
-	}
-
-	.metric p {
-		margin-bottom: 0;
-		font-size: .82rem;
-		line-height: 1.55;
-		color: #69726c;
-	}
-
-	.metric code {
-		font-size: .76rem;
-		color: #515b54;
-	}
-
-	.funding {
-		padding: 2rem;
-		border: 1px solid #bcc4bd;
-		background: rgba(255,255,255,.38);
-	}
-
-	.funding-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 1rem;
-		margin: 2rem 0 1.6rem;
-	}
-
-	.funding-grid div {
-		display: flex;
-		flex-direction: column;
-		gap: .4rem;
-	}
-
+	.metric-head { display: flex; justify-content: space-between; gap: .6rem; font-size: .86rem; color: #59635c; }
+	.metric-head small { font-size: .61rem; letter-spacing: .08em; color: #7a847d; }
+	.metric strong { display: block; margin: 2rem 0 .8rem; font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 500; }
+	.metric p { margin-bottom: 0; font-size: .82rem; line-height: 1.55; color: #69726c; }
+	.metric code { font-size: .76rem; color: #515b54; }
+	.carbon { padding-top: .5rem; }
+	.method-note { margin-top: 1rem; padding: 1rem 1.15rem; border-left: 3px solid #aeb9af; background: rgba(255,255,255,.25); }
+	.method-note strong { font-size: .82rem; }
+	.method-note p { margin: .35rem 0 0; font-size: .82rem; line-height: 1.55; color: #657068; }
+	.funding { padding: 2rem; border: 1px solid #bcc4bd; background: rgba(255,255,255,.38); }
+	.funding-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0 1.6rem; }
+	.funding-grid div { display: flex; flex-direction: column; gap: .4rem; }
 	.funding-grid span { color: #667069; }
 	.funding-grid strong { font-size: 1.8rem; font-weight: 600; }
-
-	.bar {
-		height: 9px;
-		overflow: hidden;
-		border-radius: 999px;
-		background: #d9ddd8;
-	}
-
-	.bar span {
-		display: block;
-		height: 100%;
-		background: #66796a;
-	}
-
-	.bar-label {
-		margin: .65rem 0 0;
-		font-size: .82rem;
-		color: #68726b;
-	}
-
-	footer {
-		padding-top: 1.4rem;
-		border-top: 1px solid #c9cec8;
-		color: #636d66;
-	}
-
-	.legend {
-		display: flex;
-		flex-wrap: wrap;
-		gap: .5rem;
-		margin-bottom: 1rem;
-	}
-
-	.legend span {
-		padding: .3rem .5rem;
-		border: 1px solid #c1c8c2;
-		border-radius: 999px;
-		font-size: .62rem;
-		letter-spacing: .07em;
-	}
+	.bar { height: 9px; overflow: hidden; border-radius: 999px; background: #d9ddd8; }
+	.bar span { display: block; height: 100%; background: #66796a; }
+	.bar-label { margin: .65rem 0 0; font-size: .82rem; color: #68726b; }
+	footer { padding-top: 1.4rem; border-top: 1px solid #c9cec8; color: #636d66; }
+	.legend { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+	.legend span { padding: .3rem .5rem; border: 1px solid #c1c8c2; border-radius: 999px; font-size: .62rem; letter-spacing: .07em; }
 
 	@media (max-width: 850px) {
 		.section-title { align-items: start; flex-direction: column; gap: .7rem; }
