@@ -16,6 +16,21 @@ function known(value: number | null): number {
 	return value ?? 0;
 }
 
+function sumKnown(values: Array<number | null>): number | null {
+	const defined = values.filter((value): value is number => value !== null);
+	if (defined.length === 0) return null;
+	return defined.reduce((sum, value) => sum + value, 0);
+}
+
+export function carbonKgFromEnergy(
+	energyKwh: number | null,
+	factorGCo2ePerKwh: number | null
+): number | null {
+	if (energyKwh === null || factorGCo2ePerKwh === null) return null;
+	if (energyKwh < 0 || factorGCo2ePerKwh < 0) return null;
+	return (energyKwh * factorGCo2ePerKwh) / 1000;
+}
+
 export function buildRealDashboardSnapshot(
 	seed: RealDashboardSeed,
 	now: Date = new Date()
@@ -35,11 +50,43 @@ export function buildRealDashboardSnapshot(
 	const knownSelfFundedEur = Math.max(0, knownCostEur - netSupportEur);
 	const coverageRatio = knownCostEur > 0 ? Math.min(1, netSupportEur / knownCostEur) : null;
 
+	const factor = seed.electricityCarbonFactor.valueGCo2ePerKwh;
+	const labOperationalCarbonKgCo2e = carbonKgFromEnergy(seed.labElectricityKwh.value, factor);
+	const sharedServerOperationalCarbonKgCo2e = carbonKgFromEnergy(
+		seed.sharedServerElectricityKwh.value,
+		factor
+	);
+
+	const knownOperationalCarbonKgCo2e = sumKnown([
+		labOperationalCarbonKgCo2e,
+		sharedServerOperationalCarbonKgCo2e,
+		seed.aiServiceCarbonKgCo2e.value,
+		seed.otherCarbonKgCo2e.value
+	]);
+	const knownEmbodiedCarbonKgCo2e = sumKnown([seed.hardwareEmbodiedCarbonKgCo2e.value]);
+	const knownCarbonKgCo2e = sumKnown([
+		knownEmbodiedCarbonKgCo2e,
+		knownOperationalCarbonKgCo2e
+	]);
+
+	const unquantifiedCarbonSources: string[] = [];
+	if (seed.hardwareEmbodiedCarbonKgCo2e.value === null) unquantifiedCarbonSources.push('matériel');
+	if (seed.labElectricityKwh.value === null || factor === null) unquantifiedCarbonSources.push('électricité du lab');
+	if (seed.sharedServerElectricityKwh.value === null || factor === null) unquantifiedCarbonSources.push('serveur partagé');
+	if (seed.aiServiceCarbonKgCo2e.value === null) unquantifiedCarbonSources.push('IA / services numériques');
+
 	return {
 		daysAlive: daysSince(seed.projectBirthDate.value, now),
 		knownCostEur,
 		netSupportEur,
 		knownSelfFundedEur,
-		coverageRatio
+		coverageRatio,
+		labOperationalCarbonKgCo2e,
+		sharedServerOperationalCarbonKgCo2e,
+		knownOperationalCarbonKgCo2e,
+		knownEmbodiedCarbonKgCo2e,
+		knownCarbonKgCo2e,
+		carbonIsComplete: unquantifiedCarbonSources.length === 0,
+		unquantifiedCarbonSources
 	};
 }
