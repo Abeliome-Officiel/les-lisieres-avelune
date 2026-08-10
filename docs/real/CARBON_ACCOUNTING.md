@@ -14,6 +14,12 @@ Le carbone est un registre parallèle aux euros : une dépense financière n'est
 
 Tant qu'un poste matériel ou numérique important reste non quantifié, l'interface dit **empreinte carbone connue** et signale que le périmètre est incomplet. Elle ne présente jamais cette valeur comme un total exhaustif.
 
+## Sources de référence
+
+La source de référence pour les facteurs de comptabilité carbone est la **Base Carbone / Base Empreinte de l'ADEME**. La version publique repérée lors de la conception de cette v0.1 est **V23.6** ; la valeur du facteur électricité doit être récupérée depuis l'API officielle et vérifiée comme facteur valide avant activation.
+
+RTE publie par ailleurs un signal continu d'émissions de la production électrique française. Ce signal a un autre périmètre : il ne prend notamment pas en compte la construction des moyens de production, le cycle amont des combustibles ni les échanges aux interconnexions. Il peut donc être affiché ultérieurement comme contexte, mais pas substitué silencieusement au facteur de comptabilité carbone.
+
 ## Électricité du lab
 
 La prise connectée mesure l'énergie réellement consommée par le lab en kWh.
@@ -25,15 +31,15 @@ Le calcul carbone est ensuite :
 = kgCO2e
 ```
 
-Le facteur d'émission doit être issu de la **Base Carbone / Base Empreinte ADEME**, avec son identifiant logique, sa valeur, sa version, sa date de validité et son périmètre conservés dans la provenance.
+Le facteur d'émission doit conserver son identifiant logique, sa valeur, sa version, sa date de validité et son périmètre dans la provenance.
 
-La Base Carbone publiée par l'ADEME est accessible par API publique. Le Tableau réel ne doit pas dépendre de cette API à chaque affichage : le facteur peut être rafraîchi ponctuellement, contrôlé, puis stocké/versionné côté serveur.
+Le Tableau réel ne dépend pas de l'API ADEME à chaque affichage : le facteur est rafraîchi ponctuellement, contrôlé, puis stocké/versionné côté serveur.
 
 ## RTE : signal complémentaire, pas facteur interchangeable
 
-RTE publie une estimation continue des émissions de la production électrique française. Ce signal peut être ajouté ultérieurement pour montrer le contexte électrique au moment de la consommation.
+RTE peut être ajouté ultérieurement pour montrer le contexte électrique au moment de la consommation, sans modifier le calcul de référence.
 
-Il ne doit pas remplacer silencieusement le facteur de comptabilité carbone ADEME : le périmètre RTE ne couvre notamment pas la construction des moyens de production, le cycle amont des combustibles ni les échanges aux interconnexions.
+L'objectif n'est pas de fabriquer une fausse précision temporelle : une collecte électrique toutes les quelques minutes reste suffisante pour le Tableau réel, et le signal carbone n'a pas besoin d'être interrogé à la seconde.
 
 ## Serveur partagé
 
@@ -87,6 +93,7 @@ Lorsqu'un facteur de référence évolue, les nouvelles périodes utilisent le n
 9. **L'IA reste non quantifiée tant qu'une méthode défendable manque.**
 10. **Deux facteurs de périmètres différents ne sont pas additionnés comme s'ils mesuraient la même chose.**
 11. **L'instrumentation carbone reste sobre : aucun appel temps réel n'est requis pour afficher la page.**
+12. **Une partie de PROTO n'est pas transformée arbitrairement en grammes de CO2e ; les émissions sont suivies par les ressources réelles utilisées.**
 
 ## Données v0.1
 
