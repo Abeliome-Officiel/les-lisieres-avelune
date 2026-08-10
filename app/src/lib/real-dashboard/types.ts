@@ -2,10 +2,13 @@ export type RealDataStatus = 'measured' | 'calculated' | 'estimated' | 'symbolic
 
 export type RealMetricFamily = 'time' | 'cost' | 'energy' | 'funding' | 'world';
 
+export type RealSourceEnvironment = 'project' | 'proto' | 'production';
+
 export interface QualifiedValue<T> {
 	value: T | null;
 	status: RealDataStatus;
 	sourceId: string;
+	sourceEnvironment?: RealSourceEnvironment;
 	note?: string;
 }
 
@@ -44,6 +47,7 @@ export interface RealEvent {
 	unit: string;
 	status: RealDataStatus;
 	sourceId: string;
+	sourceEnvironment?: RealSourceEnvironment;
 	scope: string;
 	note?: string;
 }
