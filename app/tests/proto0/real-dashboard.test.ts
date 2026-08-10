@@ -8,7 +8,7 @@ test('Tableau réel : une date absente reste inconnue', () => {
 	assert.equal(daysSince(null, new Date('2026-08-11T00:00:00+02:00')), null);
 });
 
-test('Tableau réel : les coûts connus additionnent matériel, lab, serveur partagé et autres coûts', () => {
+test('Tableau réel : les coûts connus additionnent matériel, énergie, service IA et autres coûts', () => {
 	const seed = structuredClone(PUBLIC_REAL_DASHBOARD_SEED);
 	seed.labElectricityCostEur.value = 12.5;
 	seed.sharedServerElectricityCostEur.value = 3.5;
@@ -18,19 +18,22 @@ test('Tableau réel : les coûts connus additionnent matériel, lab, serveur par
 
 	const snapshot = buildRealDashboardSnapshot(seed, new Date('2026-08-11T00:00:00+02:00'));
 
-	assert.equal(snapshot.knownCostEur, 300);
+	assert.equal(snapshot.knownCostEur, 322.77);
 	assert.equal(snapshot.netSupportEur, 48);
-	assert.equal(snapshot.knownSelfFundedEur, 252);
-	assert.equal(snapshot.coverageRatio, 0.16);
+	assert.equal(snapshot.knownSelfFundedEur, 274.77);
+	assert.equal(snapshot.coverageRatio, 48 / 322.77);
 });
 
-test('Tableau réel : une valeur inconnue ne devient pas une fausse dépense', () => {
+test('Tableau réel : le coût IA attribué est inclus, pas la facture brute entière', () => {
 	const snapshot = buildRealDashboardSnapshot(
 		PUBLIC_REAL_DASHBOARD_SEED,
 		new Date('2026-08-11T00:00:00+02:00')
 	);
 
-	assert.equal(snapshot.knownCostEur, 270);
+	assert.equal(PUBLIC_REAL_DASHBOARD_SEED.aiSubscriptionChargeEur.value, 23);
+	assert.equal(PUBLIC_REAL_DASHBOARD_SEED.aiSubscriptionAllocationPct.value, 99);
+	assert.equal(PUBLIC_REAL_DASHBOARD_SEED.aiSubscriptionAttributedCostEur.value, 22.77);
+	assert.equal(snapshot.knownCostEur, 292.77);
 	assert.equal(snapshot.netSupportEur, 0);
-	assert.equal(snapshot.knownSelfFundedEur, 270);
+	assert.equal(snapshot.knownSelfFundedEur, 292.77);
 });

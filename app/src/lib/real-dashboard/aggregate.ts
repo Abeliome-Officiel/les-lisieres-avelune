@@ -24,6 +24,7 @@ export function buildRealDashboardSnapshot(
 		known(seed.hardwareCostEur.value) +
 		known(seed.labElectricityCostEur.value) +
 		known(seed.sharedServerElectricityCostEur.value) +
+		known(seed.aiSubscriptionAttributedCostEur.value) +
 		known(seed.otherCostEur.value);
 
 	const netSupportEur = Math.max(

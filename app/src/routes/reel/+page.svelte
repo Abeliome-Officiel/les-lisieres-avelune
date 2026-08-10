@@ -28,7 +28,7 @@
 	<title>Tableau réel — Avelune</title>
 	<meta
 		name="description"
-		content="Le Tableau réel d’Avelune : temps humain, matériel, énergie, financement et signes de vie du monde."
+		content="Le Tableau réel d’Avelune : temps humain, matériel, énergie, services, financement et signes de vie du monde."
 	/>
 </svelte:head>
 
@@ -85,6 +85,12 @@
 				<div class="metric-head"><span>Quote-part serveur</span><small>{statusLabel(seed.sharedServerElectricityCostEur.status)}</small></div>
 				<strong>{seed.sharedServerElectricityCostEur.value === null ? 'À définir' : euro.format(seed.sharedServerElectricityCostEur.value)}</strong>
 				<p>Le serveur est partagé : seule une part raisonnable de son électricité sera imputée à Avelune.</p>
+			</article>
+
+			<article class="metric">
+				<div class="metric-head"><span>IA / outils</span><small>{statusLabel(seed.aiSubscriptionAttributedCostEur.status)}</small></div>
+				<strong>{euro.format(seed.aiSubscriptionAttributedCostEur.value ?? 0)}</strong>
+				<p>ChatGPT Plus : {euro.format(seed.aiSubscriptionChargeEur.value ?? 0)} payés le 24/07/2026 × {number.format(seed.aiSubscriptionAllocationPct.value ?? 0)} % attribués à Avelune.</p>
 			</article>
 
 			<article class="metric prominent">

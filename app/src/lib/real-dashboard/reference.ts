@@ -49,6 +49,27 @@ export const PUBLIC_REAL_DASHBOARD_SEED: RealDashboardSeed = {
 		sourceEnvironment: 'project',
 		note: 'Le serveur n’est pas dédié à Avelune ; seul un coût électrique proportionnel sera imputé.'
 	},
+	aiSubscriptionChargeEur: {
+		value: 23,
+		status: 'measured',
+		sourceId: 'chatgpt_plus_billing_2026_07_24',
+		sourceEnvironment: 'project',
+		note: 'Paiement ChatGPT Plus réellement effectué le 24/07/2026. Les paiements antérieurs visibles ne sont pas imputés tant que la date zéro d’Avelune n’est pas fixée.'
+	},
+	aiSubscriptionAllocationPct: {
+		value: 99,
+		status: 'estimated',
+		sourceId: 'manual_ai_usage_allocation',
+		sourceEnvironment: 'project',
+		note: 'Attribution déclarée de l’usage actuel de ChatGPT Plus à Avelune. Ce coefficient peut évoluer pour les périodes futures.'
+	},
+	aiSubscriptionAttributedCostEur: {
+		value: 22.77,
+		status: 'calculated',
+		sourceId: 'ai_cost_allocation_2026_07_24',
+		sourceEnvironment: 'project',
+		note: '23,00 EUR × 99 %. La facture est réelle ; le coefficient d’attribution reste une estimation déclarée.'
+	},
 	otherCostEur: {
 		value: 0,
 		status: 'measured',

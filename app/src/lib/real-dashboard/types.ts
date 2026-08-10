@@ -20,6 +20,9 @@ export interface RealDashboardSeed {
 	labElectricityCostEur: QualifiedValue<number>;
 	sharedServerAllocationPct: QualifiedValue<number>;
 	sharedServerElectricityCostEur: QualifiedValue<number>;
+	aiSubscriptionChargeEur: QualifiedValue<number>;
+	aiSubscriptionAllocationPct: QualifiedValue<number>;
+	aiSubscriptionAttributedCostEur: QualifiedValue<number>;
 	otherCostEur: QualifiedValue<number>;
 	supportGrossEur: QualifiedValue<number>;
 	supportFeesEur: QualifiedValue<number>;

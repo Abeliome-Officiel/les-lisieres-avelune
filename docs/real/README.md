@@ -7,7 +7,8 @@ Documents :
 - [`SPECIFICATION.md`](SPECIFICATION.md) — cahier des charges et lois ;
 - [`ARCHITECTURE.md`](ARCHITECTURE.md) — hébergement serveur, mesure du lab, quote-part serveur partagé et interconnexions ;
 - [`DATA_AND_SECRETS.md`](DATA_AND_SECRETS.md) — frontière public/privé, provenance et politique de secrets ;
-- [`PROTO_DATA_POLICY.md`](PROTO_DATA_POLICY.md) — utilisation des prototypes comme sources temporaires des métriques de jeu.
+- [`PROTO_DATA_POLICY.md`](PROTO_DATA_POLICY.md) — utilisation des prototypes comme sources temporaires des métriques de jeu ;
+- [`COST_ATTRIBUTION.md`](COST_ATTRIBUTION.md) — règles d'attribution des services partagés, dont l'IA.
 
 Implémentation préparatoire :
 
@@ -24,6 +25,7 @@ Implémentation préparatoire :
 - [x] politique de secrets documentée ;
 - [x] première interface préparée ;
 - [x] 270 EUR de matériel préchargés comme estimation déclarée ;
+- [x] coût ChatGPT Plus courant intégré : 23,00 EUR réels, 99 % attribués, 22,77 EUR imputés à Avelune ;
 - [x] PROTO autorisés comme sources provisoires des métriques de jeu ;
 - [x] distinction `project` / `proto` / `production` prévue dans le modèle de provenance ;
 - [ ] date zéro officielle à fixer ;
