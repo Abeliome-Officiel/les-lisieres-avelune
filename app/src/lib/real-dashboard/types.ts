@@ -1,6 +1,6 @@
 export type RealDataStatus = 'measured' | 'calculated' | 'estimated' | 'symbolic';
 
-export type RealMetricFamily = 'time' | 'cost' | 'energy' | 'funding' | 'world';
+export type RealMetricFamily = 'time' | 'cost' | 'energy' | 'carbon' | 'funding' | 'world';
 
 export type RealSourceEnvironment = 'project' | 'proto' | 'production';
 
@@ -12,6 +12,15 @@ export interface QualifiedValue<T> {
 	note?: string;
 }
 
+export interface CarbonFactorReference {
+	valueGCo2ePerKwh: number | null;
+	sourceId: string;
+	version?: string;
+	validFrom?: string;
+	perimeter: string;
+	note?: string;
+}
+
 export interface RealDashboardSeed {
 	projectBirthDate: QualifiedValue<string>;
 	humanHours: QualifiedValue<number>;
@@ -19,11 +28,16 @@ export interface RealDashboardSeed {
 	labElectricityKwh: QualifiedValue<number>;
 	labElectricityCostEur: QualifiedValue<number>;
 	sharedServerAllocationPct: QualifiedValue<number>;
+	sharedServerElectricityKwh: QualifiedValue<number>;
 	sharedServerElectricityCostEur: QualifiedValue<number>;
 	aiSubscriptionChargeEur: QualifiedValue<number>;
 	aiSubscriptionAllocationPct: QualifiedValue<number>;
 	aiSubscriptionAttributedCostEur: QualifiedValue<number>;
 	otherCostEur: QualifiedValue<number>;
+	hardwareEmbodiedCarbonKgCo2e: QualifiedValue<number>;
+	aiServiceCarbonKgCo2e: QualifiedValue<number>;
+	otherCarbonKgCo2e: QualifiedValue<number>;
+	electricityCarbonFactor: CarbonFactorReference;
 	supportGrossEur: QualifiedValue<number>;
 	supportFeesEur: QualifiedValue<number>;
 	worldCount: QualifiedValue<number>;
@@ -38,6 +52,13 @@ export interface RealDashboardSnapshot {
 	netSupportEur: number;
 	knownSelfFundedEur: number;
 	coverageRatio: number | null;
+	labOperationalCarbonKgCo2e: number | null;
+	sharedServerOperationalCarbonKgCo2e: number | null;
+	knownOperationalCarbonKgCo2e: number | null;
+	knownEmbodiedCarbonKgCo2e: number | null;
+	knownCarbonKgCo2e: number | null;
+	carbonIsComplete: boolean;
+	unquantifiedCarbonSources: string[];
 }
 
 export interface RealEvent {
