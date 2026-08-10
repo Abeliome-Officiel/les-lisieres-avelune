@@ -13,7 +13,7 @@ Motifs d'hébergement :
 - l'application SvelteKit et PostgreSQL existent déjà sur le serveur : la charge marginale du Tableau réel peut rester quasi nulle ;
 - les secrets de collecte restent côté serveur et ne sont jamais envoyés au navigateur.
 
-Le lab est la principale **source physique mesurée**. Le serveur est à la fois l'hôte du Tableau réel et une **source de coût partagé estimé**.
+Le lab est la principale **source physique mesurée**. Le serveur est à la fois l'hôte du Tableau réel et une **source de coût et de carbone partagés estimés**.
 
 ## Organigramme physique
 
@@ -26,12 +26,14 @@ Réseau électrique
       v
 [ LAB Avelune ]
       |
-      +---- consommation du lab MESURÉE
+      +---- consommation du lab MESURÉE (kWh)
+      +---- carbone d'usage CALCULÉ depuis kWh × facteur ADEME
 
 [ Serveur principal partagé ]
       |
       +---- Avelune + nombreux autres services
       +---- quote-part électrique Avelune ESTIMÉE
+      +---- quote-part carbone Avelune CALCULÉE/ESTIMÉE
       +---- héberge le Tableau réel
 ```
 
@@ -40,7 +42,7 @@ Conséquence :
 - la prise aux fesses du lab mesure **le lab** ;
 - cette mesure peut être qualifiée **MESURÉE** ;
 - le serveur ne doit jamais être présenté comme entièrement consommé par Avelune ;
-- sa contribution au coût électrique d'Avelune est une **quote-part ESTIMÉE**, fondée sur une méthode documentée ;
+- sa contribution au coût électrique et au carbone d'Avelune est une **quote-part**, fondée sur une méthode documentée ;
 - le pourcentage de quote-part n'est pas fixé tant qu'une méthode raisonnable n'a pas été choisie.
 
 ## Organigramme logique cible
@@ -63,7 +65,11 @@ Conséquence :
                      │ PostgreSQL existant    │
                      │ schéma real_dashboard │
                      └───────────┬────────────┘
-                                 │ lecture agrégée
+                                 │
+                     ┌───────────┴────────────┐
+                     │ Agrégats coûts/carbone │
+                     │ + facteurs versionnés  │
+                     └───────────┬────────────┘
                                  v
                      ┌────────────────────────┐
                      │ SvelteKit existant     │
@@ -73,10 +79,15 @@ Conséquence :
                                  v
                             Navigateur
 
-[ Coût serveur partagé ]
+[ Base Carbone / Base Empreinte ADEME ]
+        |
+        +--> rafraîchissement ponctuel du facteur électricité
+             (jamais requis à chaque affichage)
+
+[ Coût / énergie serveur partagé ]
         |
         +--> estimation périodique / quote-part documentée
-        +--> événement ESTIMÉ dans real_dashboard
+        +--> coût et carbone attribués à Avelune
 ```
 
 ## Principe de consommation minimale
@@ -89,13 +100,14 @@ La v0.1 ne crée **aucun nouveau service permanent**.
 - aucun WebSocket n'est requis ;
 - aucun rafraîchissement seconde par seconde n'est requis ;
 - le collecteur de prise doit de préférence être lancé par timer ponctuel plutôt qu'en démon permanent, si le protocole du matériel le permet ;
-- PostgreSQL existant est réutilisé avec un schéma dédié au lieu d'ajouter une nouvelle base ou un nouveau conteneur.
+- PostgreSQL existant est réutilisé avec un schéma dédié au lieu d'ajouter une nouvelle base ou un nouveau conteneur ;
+- le facteur carbone ADEME est récupéré rarement puis conservé localement avec sa version.
 
 Cible initiale de collecte électrique : **un relevé toutes les 5 minutes au maximum**, à ajuster après observation. Le Tableau réel n'a pas besoin d'une télémétrie à la seconde.
 
 ## Prise connectée : règle d'intégration
 
-Le modèle exact de la prise n'est pas encore documenté dans le dépôt. **Aucun protocole n'est supposé.**
+Le modèle recommandé pour ce type de mesure est de la famille TP-Link Tapo P110/P115 ; le modèle effectivement reçu doit encore être confirmé avant intégration.
 
 À réception du matériel :
 
@@ -119,24 +131,53 @@ status = MESURÉ
 provenance
 ```
 
-Ainsi, un changement de prise ne demande pas de réécrire l'interface ou le modèle métier.
+Le calcul carbone consomme ces événements énergétiques sans dépendre du modèle de prise.
 
-## Quote-part électrique du serveur partagé
+## Facteur carbone électricité
+
+Le facteur de comptabilité carbone est conservé comme donnée versionnée :
+
+```text
+source_id
+value_gco2e_per_kwh
+version
+valid_from
+perimeter
+provenance
+```
+
+La source de référence est la Base Carbone / Base Empreinte ADEME. Le facteur ne doit pas être téléchargé à chaque page vue.
+
+RTE peut fournir ultérieurement un signal complémentaire sur l'intensité de production au moment de la consommation. Ce signal possède un périmètre différent et n'est pas substitué au facteur ADEME dans le total de comptabilité carbone.
+
+## Quote-part électrique et carbone du serveur partagé
 
 Le serveur n'est pas dédié à Avelune. Sa consommation ne doit donc pas être ajoutée intégralement.
 
-La v0.1 prévoit une donnée distincte :
+La v0.1 prévoit :
 
 ```text
 shared_server_allocation_percent
+shared_server_electricity_kwh
 shared_server_electricity_cost
-status = ESTIMÉ
+shared_server_carbon_kgco2e
+status = ESTIMÉ / CALCULÉ
 method = description de la méthode
 ```
 
 Le pourcentage reste `null` jusqu'à décision.
 
-Méthodes envisageables à évaluer ultérieurement : part fixe conventionnelle, part fondée sur les services Avelune actifs, ou autre méthode mesurable. Une méthode choisie doit être stable, compréhensible et documentée ; elle n'a pas besoin de prétendre à une précision impossible.
+## Carbone incorporé du matériel
+
+Le coût financier du lab n'est pas un facteur carbone.
+
+L'inventaire matériel doit pouvoir recevoir un `embodied_carbon_kgco2e`, sa source et son statut. Une valeur générique ADEME/ARCEP peut être utilisée si le matériel exact ne dispose pas de donnée environnementale, mais elle reste alors explicitement **ESTIMÉE**.
+
+## Services numériques et IA
+
+Le registre financier peut connaître le coût ChatGPT Plus et son coefficient d'attribution Avelune. Le registre carbone ne déduit rien de ces euros.
+
+Une empreinte IA ne sera intégrée que lorsqu'une donnée d'activité et un facteur suffisamment robustes permettent un calcul documenté. D'ici là : `ai_service_carbon_kgco2e = null`, affiché comme non quantifié.
 
 ## Données du lab
 
@@ -157,19 +198,12 @@ Tables minimales futures :
 
 - `real_event` : faits élémentaires ;
 - `real_source` : source et portée d'une donnée ;
+- `real_carbon_factor` : facteurs d'émission versionnés ;
 - `real_funding_need` : besoin futur concret ;
 - `real_contribution` : contribution financière ;
 - vues ou requêtes d'agrégation pour l'interface.
 
 La v0.1 du code n'active pas encore cette migration : elle prépare les types et l'interface sans imposer un schéma avant que les premières sources réelles soient vérifiées.
-
-## Flux futur des dons
-
-Phase 1 : saisie/import manuel des contributions nettes.  
-Phase 2 : automatisation seulement si le volume le justifie.  
-Phase 3 éventuelle : webhook PayPal authentifié et vérifié côté serveur.
-
-Aucun identifiant PayPal, secret webhook ou information personnelle de donateur ne doit être exposé dans le client ou le dépôt.
 
 ## Frontière publique / privée
 
@@ -177,8 +211,9 @@ Aucun identifiant PayPal, secret webhook ou information personnelle de donateur 
 
 - valeurs agrégées ;
 - statut MESURÉ/CALCULÉ/ESTIMÉ/SYMBOLIQUE ;
-- description générique de la source (« prise lab », « quote-part serveur ») ;
+- description générique de la source (« prise lab », « quote-part serveur », « facteur ADEME ») ;
 - méthode de calcul non sensible ;
+- empreinte carbone connue et postes encore non quantifiés ;
 - chiffres de financement agrégés ;
 - métriques globales du monde.
 
@@ -197,5 +232,6 @@ Aucun identifiant PayPal, secret webhook ou information personnelle de donateur 
 **Serveur partagé = hébergement et source de vérité.**  
 **Prise = capteur de la consommation du lab.**  
 **Lab = équipement instrumenté et producteur facultatif d'événements.**  
-**Serveur électrique = quote-part estimée, jamais coût intégral.**  
+**Serveur électrique/carbone = quote-part estimée, jamais coût ou carbone intégral.**  
+**ADEME = source de référence des facteurs de comptabilité carbone.**  
 **Navigateur = lecture uniquement.**
