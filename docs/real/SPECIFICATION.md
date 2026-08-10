@@ -1,4 +1,4 @@
-# Avelune — Tableau réel
+# AVELUNE — TABLEAU RÉEL
 ## Cahier des charges fonctionnel v0.1
 
 Statut : **socle durable**.  
@@ -15,9 +15,10 @@ Il doit conserver une trace honnête et durable de ce qu'il faut réellement pou
 - matériel engagé ;
 - énergie consommée ;
 - coûts monétaires ;
+- empreinte carbone incorporée et d'usage ;
 - soutien financier reçu ;
 - part autofinancée ;
-- signes de vie du monde : joueurs, Corcites, temps de vie et autres métriques globales pertinentes.
+- signes de vie du monde : parties de prototype, puis joueurs, Corcites, temps de vie et autres métriques globales pertinentes lorsque la production existera.
 
 Le tableau est **simple mais technique, accessible, sérieux sans être solennel**. La légèreté, la féérie et l'autodérision accompagnent les chiffres ; elles ne les remplacent jamais.
 
@@ -50,18 +51,15 @@ Ce rappel est volontairement non technique. Le Tableau réel n'a pas vocation à
 - matériel ;
 - électricité ;
 - services et autres dépenses ;
+- empreinte carbone ;
 - financement ;
 - autofinancement.
 
 ### 3.2 Vie d'Avelune
 
 - monde public ;
-- joueurs ;
-- Corcites créées ;
-- Corcites actives ou dormantes ;
-- temps de jeu cumulé ;
-- temps de vie cumulé ;
-- vagues, mues et autres signes de vie globaux lorsque ces données seront disponibles.
+- parties créées et en cours pendant les PROTO ;
+- puis, lorsque le monde persistant existe, joueurs, Corcites, temps de vie et autres signes de vie globaux retenus.
 
 Les deux espaces peuvent être affichés ensemble, mais leurs chiffres ne sont jamais additionnés ou sémantiquement mélangés.
 
@@ -81,25 +79,18 @@ Une estimation ne doit jamais être présentée comme une mesure.
 Le socle v0.1 connaît actuellement :
 
 - coût machine/laboratoire Avelune : **270 €**, déclaré comme **ESTIMÉ** tant que le détail d'achat n'est pas enregistré ;
+- abonnement ChatGPT Plus courant : **23,00 € payés**, **99 % attribués à Avelune**, soit **22,77 € calculés** pour le projet ;
 - acquisition du serveur principal : **non imputée** à Avelune, puisqu'il existait déjà et sert à d'autres usages ;
 - électricité antérieure à l'instrumentation : à enregistrer ultérieurement comme **ESTIMÉE**, avec méthode documentée ;
-- mesure électrique future : à enregistrer comme **MESURÉE** à partir de la prise connectée ;
+- mesure électrique future : à enregistrer comme **MESURÉE** à partir de la prise du lab ;
+- empreinte carbone : structure prête, valeurs encore à établir ;
 - monde public : **1**, valeur **SYMBOLIQUE** ;
 - soutien communautaire : **0 €** tant qu'aucun soutien réel n'est enregistré ;
 - date zéro du projet : **à fixer explicitement** ; aucune date ne doit être inventée.
 
 ## 6. Temps humain
 
-Le temps humain est une métrique historique. Il peut être ventilé par catégories :
-
-- conception ;
-- développement ;
-- infrastructure ;
-- documentation ;
-- tests ;
-- administration ;
-- communauté ;
-- autre.
+Le temps humain est une métrique historique. Il peut être ventilé par catégories : conception, développement, infrastructure, documentation, tests, administration, communauté, autre.
 
 Une valorisation économique théorique peut exister plus tard, mais elle doit rester distincte des dépenses réellement payées.
 
@@ -107,76 +98,45 @@ Une valorisation économique théorique peut exister plus tard, mais elle doit r
 
 ## 7. Coûts et énergie
 
-Les coûts sont enregistrés sous forme d'événements élémentaires et non seulement sous forme de totaux.
+Les coûts sont enregistrés sous forme d'événements élémentaires et non seulement sous forme de totaux. Les totaux sont calculés depuis les événements sources.
 
-Exemples :
+Le serveur principal étant partagé, son achat n'est pas imputé à Avelune et seule une quote-part énergétique documentée peut être attribuée au projet.
 
-```text
-2026-08-11 | matériel    | 270,00 EUR | machine/lab Avelune | ESTIMÉ
-2026-08-11 | électricité | 4,20 EUR   | période pré-compteur | ESTIMÉ
-2026-08-12 | électricité | 1,84 kWh   | prise serveur        | MESURÉ
-```
+## 8. Empreinte carbone
 
-Les totaux sont calculés depuis les événements sources.
+Le registre carbone est séparé du registre financier.
 
-## 8. Financement
+Il distingue :
 
-Le tableau distingue :
+- **carbone incorporé** : fabrication, distribution et éventuellement fin de vie du matériel ;
+- **carbone d'usage** : émissions dues au fonctionnement au fil du temps ;
+- **empreinte carbone connue** : somme des postes quantifiés sur des périmètres compatibles.
 
-- contributions brutes ;
-- frais ;
-- contributions nettes ;
-- part des coûts connus couverte ;
-- part autofinancée.
+Les euros ne sont jamais convertis automatiquement en CO2e. L'électricité est convertie depuis les kWh réellement mesurés et un facteur d'émission ADEME versionné. Le carbone du serveur partagé suit une quote-part Avelune. Le carbone de l'IA reste non quantifié tant qu'une méthode défendable manque.
 
-Deux jauges différentes peuvent exister :
+Tant qu'un poste important reste inconnu, l'interface affiche **empreinte carbone connue** et **périmètre incomplet**, jamais un faux total exhaustif.
 
-1. **couverture historique** : quelle part des dépenses réelles connues a été couverte par des contributions ?
-2. **besoin futur concret** : quel achat ou coût identifié reste à financer ?
+La méthode détaillée est décrite dans `CARBON_ACCOUNTING.md`.
 
-Une jauge ne doit jamais créer artificiellement un besoin dans le seul but de pousser au don.
+## 9. Financement
 
-## 9. Provenance et historisation
+Le tableau distingue contributions brutes, frais, contributions nettes et part des coûts connus couverte.
 
-Toute donnée importante doit pouvoir répondre à trois questions :
+Deux jauges différentes peuvent exister : couverture historique et besoin futur concret. Une jauge ne doit jamais créer artificiellement un besoin dans le seul but de pousser au don.
 
-1. d'où vient-elle ?
-2. quand a-t-elle été enregistrée ?
-3. comment a-t-elle été obtenue ?
+## 10. Provenance et historisation
+
+Toute donnée importante doit pouvoir répondre à trois questions : d'où vient-elle, quand a-t-elle été enregistrée et comment a-t-elle été obtenue ?
 
 Les événements sont append-only par défaut. Une correction est une nouvelle entrée de correction ou d'annulation, pas une réécriture silencieuse du passé.
 
-## 10. Lisibilité
+Les facteurs d'émission carbone sont également versionnés : une nouvelle valeur ne réécrit pas silencieusement les calculs historiques.
 
-Le premier niveau doit être compréhensible en quelques secondes :
+## 11. Lisibilité et ton
 
-- âge d'Avelune ;
-- temps humain ;
-- matériel ;
-- énergie ;
-- coûts connus ;
-- soutien net ;
-- autofinancement ;
-- principaux signes de vie du monde.
+Le premier niveau doit être compréhensible en quelques secondes. Le détail doit rester accessible sans être imposé.
 
-Le détail doit rester accessible sans être imposé.
-
-## 11. Ton éditorial
-
-Sont autorisés :
-
-- microtextes légers ;
-- références discrètes à l'univers ;
-- féérie visuelle sobre ;
-- autodérision ponctuelle.
-
-Exemples :
-
-- « Oui, les serveurs mangent aussi. »
-- « Quelques heures humaines se sont encore égarées dans les Lisières. »
-- « Mondes entretenus : 1. C'est déjà beaucoup. »
-
-La donnée brute et son unité restent toujours visibles.
+Sont autorisés : microtextes légers, références discrètes à l'univers, féérie visuelle sobre et autodérision ponctuelle. La donnée brute et son unité restent toujours visibles.
 
 ## 12. Lois du Tableau réel
 
@@ -200,16 +160,11 @@ La donnée brute et son unité restent toujours visibles.
 18. **Aucun secret d'exploitation n'appartient au tableau public.**
 19. **Une source absente vaut mieux qu'une valeur inventée.**
 20. **L'instrumentation doit coûter moins de ressources qu'elle n'en observe raisonnablement.**
+21. **Le CO2e n'est pas déduit des euros.**
+22. **Carbone incorporé et carbone d'usage restent distincts.**
+23. **Un total carbone incomplet est nommé comme tel.**
+24. **Tout facteur carbone est sourcé et versionné.**
 
 ## 13. Critère de réussite
 
-Une personne doit pouvoir comprendre en moins de trente secondes :
-
-- ce qu'est Avelune ;
-- depuis combien de temps le projet existe ;
-- combien de temps humain lui a été consacré ;
-- ce qu'il a coûté réellement ;
-- ce qui est mesuré, calculé ou estimé ;
-- ce qui a été soutenu ou autofinancé ;
-- quelques signes de vie du monde ;
-- sans jamais avoir besoin de connaître l'infrastructure privée du projet.
+Une personne doit pouvoir comprendre en moins de trente secondes ce qu'est Avelune, depuis combien de temps le projet existe, combien de temps humain lui a été consacré, ce qu'il a coûté réellement, quelle empreinte carbone est déjà quantifiée, ce qui reste inconnu, ce qui a été soutenu ou autofinancé et quelques signes de vie du monde — sans jamais avoir besoin de connaître l'infrastructure privée du projet.
