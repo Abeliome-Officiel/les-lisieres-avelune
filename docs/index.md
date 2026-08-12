@@ -27,6 +27,7 @@ Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation no
 - [Vagues, météo et Échos](04_evenements_et_donnees_reelles.md)
 - [Social et communication](05_social_et_communication.md)
 - [Accessibilité, éthique et inclusivité](06_accessibilite_ethique.md)
+- [Sources et inspirations](09_sources.md)
 - [Background](10_background_avelune.md)
 - [Trame RPG](14_trame_rpg.md)
 - [Passage et Lisière](15_lisiere_et_passage.md)
@@ -41,6 +42,7 @@ Lorsqu’un document historique contredit un référentiel plus récent, il rest
 - **[Système d'évolution du monde et des vagues — contrat expurgé](19_systeme_evolution_vague_v0.2.md)**
 - **[Moteur de naissance des vagues — contrat expurgé](20_moteur_naissance_vagues_v0.1.md)**
 - **[Cœur vivant et genèse canonique](21_coeur_vivant_genese_canonique.md)**
+- **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)**
 - **[Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)**
 - **[Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)**
 - [Modèle évolutif de vague — notice historique](18_modele_vague_evolutive.md)
@@ -68,6 +70,8 @@ Ordre de travail révisé :
 Le principe anti-réécriture est obligatoire : **un interpréteur ne consomme pas durablement les tables, classes ou variables internes d’une révision du Cœur**. Une évolution interne doit être absorbée autant que possible par l’adaptateur ou une migration explicite du contrat.
 
 Au 12 août, les diagnostics R2.6 à R2.9 ont isolé le problème de persistance précoce des lignées ; R2.10 mesure le goulot entre établissement, première propagation et exposition aux vagues. Les détails de recette et le code de laboratoire restent hors dépôt.
+
+La recherche du Cœur suit désormais la même règle de traçabilité que MUSIQUE-0 : les sources extérieures, hypothèses Avelune, résultats internes et décisions actées sont distingués explicitement. Voir **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)**.
 
 ## 4. Tableau Réel
 
@@ -159,4 +163,5 @@ Ces fichiers restent utiles pour la traçabilité mais ne reprennent pas autorit
 - budget visuel/sonore évalué avec le jeu et le Cœur, jamais isolément ;
 - dégradation gracieuse des fonctions non canoniques avant altération des lois ;
 - matériel dimensionné et renouvelé à partir de mesures et de criticité ;
-- séparation entre documentation partageable et informations propriétaires.
+- séparation entre documentation partageable et informations propriétaires ;
+- **références extérieures, hypothèses Avelune, résultats testés et décisions actées restent traçables et distincts**.
