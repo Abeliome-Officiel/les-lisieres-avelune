@@ -1,5 +1,21 @@
 # Changelog
 
+## Visuel du Cœur — contrat anti-réécriture et LAB VISUEL — 2026-08-13
+
+- ajout de `docs/24_visuel_coeur_contrat_public.md` comme cahier de préproduction partageable ;
+- autorisation d’avancer sur un LAB VISUEL avant achèvement complet du Cœur, uniquement via un sous-ensemble sémantique stable et versionné ;
+- interdiction de prendre tables, classes, colonnes ou paramètres d’une révision R2.x comme API durable du visuel ;
+- introduction d’un adaptateur de version entre Cœur/replays et contrat de représentation afin qu’une évolution interne soit absorbable sans réécriture de la grammaire ou des vues ;
+- même contrat prévu pour fixtures synthétiques, replays de laboratoire et future instance canonique ;
+- introduction de la mue comme cas de test précoce de continuité d’identité, sans prédéterminer la genèse des races ;
+- découplage explicite des cadences du Cœur, de publication sémantique et de rendu ; rendu client par défaut et interpolation sans création de trajectoire canonique ;
+- niveaux de qualité sobre / normal / riche avec le niveau normal comme cible, le riche comme bonus et le sobre comme mode fonctionnel ;
+- budget du visuel à mesurer avec le jeu, le sonore et les autres charges pertinentes plutôt qu’isolément ;
+- formalisation de gates avant investissement de production : contrat, replay, identité/mue, renderer remplaçable, évolution du Cœur absorbable par adaptateur, coût cumulé, accessibilité, dégradation et reconstructibilité ;
+- ajout de références initiales à Algorithmic Botany/L-systems, Clades, réaction-diffusion, cohérence temporelle, Level of Detail, WCAG et documentation PixiJS ;
+- mise à jour du contrat public du Cœur, de la roadmap, de l’index documentaire, du manifeste et des documents privés/lois correspondants ;
+- maintien hors GitHub des correspondances exactes Cœur → morphologie, règles propriétaires d’héritage, seuils, seeds révélatrices, signatures de lignées et causalités réservées.
+
 ## Univers sonore — cadrage initial — 2026-08-13
 
 - ajout du contrat partageable de l’univers sonore d’Avelune ;
