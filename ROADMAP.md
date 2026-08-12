@@ -61,7 +61,7 @@ Le Cœur est le monde autonome avant les joueurs. Son implémentation de laborat
 
 - [ ] définir le plus petit contrat de représentation v0 utile au LAB ;
 - [ ] exporter quelques états/replays de référence par adaptateur ;
-- [ ] conserver les mécaniques R2.x expérimentales derrière l’adaptateur ;
+- [ ] conserver les mécaniques expérimentales derrière l’adaptateur ;
 - [ ] tester qu’une révision fictive du Cœur peut être absorbée sans réécrire les interpréteurs.
 
 ### Avant instance canonique
@@ -138,29 +138,29 @@ Voir : `docs/23_univers_sonore_contrat_public.md`.
 - [x] architecture contract-first avec adaptateur de version ;
 - [x] même contrat pour fixtures, replays et future production ;
 - [x] direction : satisfaisante, contemplative, onirique et féerique ;
-- [x] continuité morphologique et parenté comme contraintes ;
-- [x] mue exploitable tôt sans prédéterminer les races ;
+- [x] continuité d’identité et cohérence temporelle comme contraintes ;
+- [x] mue utilisable comme cas de test de transformation majeure ;
 - [x] niveaux sobre / normal / riche à partir du même canon ;
 - [x] rendu client par défaut et cadences Cœur/publication/rendu découplées ;
 - [x] bibliographie initiale : L-systems/Algorithmic Botany, Clades, réaction-diffusion, cohérence temporelle, LOD, WCAG et documentation de renderer candidat ;
-- [x] frontières public/secret formalisées.
+- [x] frontière public/privé renforcée : GitHub ne décrit ni organisation ni mécanismes réservés du CODEX.
 
 ### VISUEL-0 — prochaine gate
 
 - [ ] définir un contrat sémantique v0 **minimal**, versionné et validé par schéma ;
-- [ ] créer des fixtures synthétiques représentatives sans recopier la biologie R2.x ;
+- [ ] créer des fixtures synthétiques représentatives sans recopier les internes du Cœur ;
 - [ ] écrire un adaptateur d’exports/replays de simulations existantes ;
 - [ ] prouver que fixtures et replays alimentent exactement le même LAB ;
 - [ ] créer un renderer factice pour tester l’indépendance du contrat ;
 - [ ] simuler une révision incompatible du Cœur et la corriger uniquement par adaptateur/migration ;
 - [ ] mesurer un premier budget CPU/GPU/RAM/réseau côté client ;
-- [ ] ne produire aucun design définitif de race.
+- [ ] ne figer aucun contenu futur inutile à la validation du LAB.
 
 ### VISUEL-1 à VISUEL-5, seulement après gate
 
 - [ ] coût minimal du vivant et cohérence temporelle ;
 - [ ] continuité d’identité et premières mues ;
-- [ ] héritage visuel et divergence des lignées ;
+- [ ] variations historiques sans dépendance aux mécanismes privés ;
 - [ ] environnement, traces et vagues ;
 - [ ] Orée expérimentale ;
 - [ ] mesures en charge avec jeu et sonore représentatifs ;
@@ -174,7 +174,8 @@ Voir : `docs/24_visuel_coeur_contrat_public.md`.
 - [x] documentation de pilotage synchronisée au 12 août ;
 - [x] documentation TA3 partageable migrée vers GitHub ;
 - [x] frontière public/secret du futur univers sonore formalisée ;
-- [x] contrat visuel partageable, mue précoce, gates anti-réécriture et références documentés ;
+- [x] contrat visuel partageable, mue comme cas de test, gates anti-réécriture et références documentés ;
+- [x] reformulation de la documentation visuelle publique pour ne pas exposer la structure des mécanismes réservés ;
 - [ ] conserver hors dépôt les détails propriétaires et opérationnels ;
 - [ ] nettoyer progressivement du Drive les doublons qui n’avaient été créés que pendant le gel GitHub ;
 - [ ] ne supprimer une information sensible d’un stockage temporaire qu’après vérification de sa copie de référence.
