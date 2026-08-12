@@ -14,6 +14,8 @@ Trois chantiers doivent être lus séparément :
 
 `main` reste la baseline stable d’intégration jusqu’à décision explicite sur le candidat PROTO-0.2.2.
 
+Depuis le 13 août 2026, les décisions transversales de technologie, données, calcul, énergie et matériel suivent le document [Arbitrage transversal — pérennité, ressources et matériel](ARBITRATION_LONGEVITY_AND_RESOURCES.md). Ce cadre n’est pas un quatrième runtime : il protège la continuité et la remplaçabilité des trois chantiers.
+
 ## PROTO-0.2.2
 
 Branche : [`develop/proto-0.2.2-playtest`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest)
@@ -38,6 +40,7 @@ Documentation partageable :
 
 - [Cœur vivant et genèse canonique](../21_coeur_vivant_genese_canonique.md)
 - [État agrégé de validation — 12 août 2026](../22_coeur_vivant_validation_2026-08-12.md)
+- [Univers sonore — contrat partageable](../23_univers_sonore_contrat_public.md)
 
 L’implémentation exacte du laboratoire reste hors GitHub. Le dépôt publie les contrats et résultats agrégés utiles au développement.
 
@@ -55,12 +58,14 @@ TA3 ne doit pas dépendre du runtime ou de la base d’un PROTO éphémère.
 
 - [Audit du développement et de l'architecture](AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)
 - [Architecture actuelle et cible](ARCHITECTURE_CURRENT_AND_TARGET.md)
+- [Arbitrage transversal — pérennité, ressources et matériel](ARBITRATION_LONGEVITY_AND_RESOURCES.md)
 - [Politique données/configuration](DATA_CONFIGURATION_POLICY.md)
 - [Méthode de développement jeu vidéo](GAME_DEVELOPMENT_METHOD.md)
 - [Dette technique et prochaines étapes](TECHNICAL_DEBT_AND_NEXT_STEPS.md)
 - [Tests, sécurité et persistance](TEST_SECURITY_PERSISTENCE_STRATEGY.md)
 - [ADR-0001 — cœur métier indépendant de l'UI](adr/ADR-0001-FUNCTIONAL-CORE.md)
 - [ADR-0002 — contenu data-driven](adr/ADR-0002-DATA-DRIVEN-CONTENT.md)
+- [ADR-0003 — Cœur indépendant de ses représentations](adr/ADR-0003-CORE-REPRESENTATION-INDEPENDENCE.md)
 
 ## Règle de lecture
 
@@ -70,5 +75,7 @@ Les documents historiques restent conservés pour traçabilité. Lorsqu’ils so
 2. cahier du jalon concerné ;
 3. ADR et règles d’architecture plus récents ;
 4. état réel du code de la branche concernée.
+
+Pour les arbitrages transversaux, appliquer en outre l’ordre : fidélité aux lois d’Avelune ; indépendance du Cœur ; pérennité ; réversibilité ; ressources et coût ; complexité de maintenance.
 
 Principe directeur : **architecture suffisamment propre pour évoluer sans refonte inutile, sans construire prématurément des systèmes non encore justifiés.**
