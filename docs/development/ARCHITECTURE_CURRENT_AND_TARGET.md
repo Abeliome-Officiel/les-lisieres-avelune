@@ -18,6 +18,8 @@ Aucun chantier ne doit dépendre du runtime éphémère d’un autre par simple 
 
 Les futurs rendus visuel et sonore constituent des **couches de représentation**, pas de nouveaux moteurs du monde ni de nouveaux axes runtime actuels.
 
+Les choix transversaux de technologie, ressources, données et matériel suivent désormais la doctrine [Arbitrage transversal — pérennité, ressources et matériel](ARBITRATION_LONGEVITY_AND_RESOURCES.md).
+
 ## 2. PROTO jouable
 
 La baseline intégrée à `main` conserve l’architecture PROTO-0.1 :
@@ -74,6 +76,22 @@ Contraintes :
 - les rendus visuel et sonore sont remplaçables sans modifier l’histoire du monde ;
 - les préférences d’accessibilité peuvent modifier un rendu sans modifier l’état canonique ;
 - séparation stricte entre monde de laboratoire et future instance canonique.
+
+### 3.1 Invariant de survie
+
+**Avelune ne doit jamais dépendre pour sa survie d’un moteur chargé de la représenter.**
+
+Une panne, suppression ou migration du visuel, du sonore, de l’Observatoire ou de la Console peut dégrader le service correspondant, mais ne doit ni arrêter ni falsifier l’évolution canonique si le Cœur et sa persistance sont sains.
+
+Les technologies de représentation, y compris leurs éventuelles dépendances GPU, frameworks ou fournisseurs, restent hors du chemin de survie du Cœur. Voir [ADR-0003](adr/ADR-0003-CORE-REPRESENTATION-INDEPENDENCE.md).
+
+### 3.2 Ressources et échelles de calcul
+
+Toute charge importante doit être distinguée entre **permanente**, **périodique** et **à la demande**. Les charges permanentes doivent être mesurées en fonction des besoins réels : CPU, GPU, RAM, stockage, I/O, réseau, énergie, thermique et charge d’exploitation.
+
+La cadence d’un calcul peut être adaptée à l’échelle temporelle du phénomène lorsqu’elle conserve les lois, invariants, causalités et résultats significatifs. La résolution maximale n’est pas un objectif autonome.
+
+En cas de saturation, dégrader d’abord les représentations, analyses dérivées et services auxiliaires. Ne pas modifier silencieusement les lois du monde pour masquer une limite d’infrastructure et ne jamais inventer une évolution canonique côté client.
 
 L’implémentation détaillée du laboratoire n’est pas stockée dans ce dépôt GitHub. Les correspondances exactes, seuils, temporalités, recettes de variabilité et causalités reliant les internes du Cœur aux représentations restent également hors dépôt.
 
@@ -166,5 +184,7 @@ La page racine orchestre navigation, session et composition ; elle ne devient pa
 - branche PROTO-0.2.2 : candidat jouable courant ;
 - dépôt propriétaire séparé : laboratoire détaillé du Cœur ;
 - stockage interne : informations d’exploitation, recettes de représentation et données non destinées au dépôt.
+
+L’identité durable du monde doit rester reconstructible à partir de ses lois, données canoniques, contrats et spécifications versionnées ; elle ne doit pas être captive d’un moteur ou format de représentation particulier.
 
 Un ancien clone ou worktree antérieur au nettoyage de l’historique GitHub doit être contrôlé avant de pouvoir redevenir une source de travail.
