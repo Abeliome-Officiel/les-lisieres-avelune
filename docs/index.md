@@ -11,6 +11,7 @@ Cet index distingue les **principes de conception partageables**, les **jalons j
 - **Cœur vivant / CŒUR-0** : chantier headless distinct, actuellement en campagne de diagnostic R2.10.
 - **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; Phase B suivante.
 - **Univers sonore** : direction de conception future cadrée ; aucun moteur audio choisi et aucun impact sur le PROTO courant.
+- **Arbitrage transversal** : doctrine de pérennité, ressources, données et matériel actée le 13 août 2026 ; ce cadre n’est pas un runtime supplémentaire.
 
 État de pilotage détaillé : **[Avelune — état de développement au 12 août 2026](development/PROJECT_STATUS_2026-08-12.md)**.
 
@@ -56,7 +57,8 @@ Ordre de travail :
 4. observatoire analytique privé ;
 5. contrat sémantique de représentation puis interpréteurs visuel et sonore indépendants ;
 6. Orée et autres rendus seulement lorsque leurs prérequis sont stabilisés ;
-7. seulement après validation suffisante : instance canonique persistante.
+7. validation de la pérennité, des migrations, des ressources et des modes dégradés ;
+8. seulement après validation suffisante : instance canonique persistante.
 
 Au 12 août, les diagnostics R2.6 à R2.9 ont isolé le problème de persistance précoce des lignées ; R2.10 mesure le goulot entre établissement, première propagation et exposition aux vagues. Les détails de recette et le code de laboratoire restent hors dépôt.
 
@@ -97,12 +99,14 @@ Le jalon teste volontairement une boucle simplifiée et distribuable : implantat
 - [État du projet — 12 août 2026](development/PROJECT_STATUS_2026-08-12.md)
 - [Audit développement et architecture — 2026-08-06](development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)
 - [Architecture actuelle et cible](development/ARCHITECTURE_CURRENT_AND_TARGET.md)
+- **[Arbitrage transversal — pérennité, ressources et matériel](development/ARBITRATION_LONGEVITY_AND_RESOURCES.md)**
 - [Politique données/configuration](development/DATA_CONFIGURATION_POLICY.md)
 - [Méthode de développement](development/GAME_DEVELOPMENT_METHOD.md)
 - [Dette technique et prochaines étapes](development/TECHNICAL_DEBT_AND_NEXT_STEPS.md)
 - [Tests, sécurité et persistance](development/TEST_SECURITY_PERSISTENCE_STRATEGY.md)
 - [ADR-0001 — cœur métier indépendant de l'UI](development/adr/ADR-0001-FUNCTIONAL-CORE.md)
 - [ADR-0002 — contenu data-driven](development/adr/ADR-0002-DATA-DRIVEN-CONTENT.md)
+- **[ADR-0003 — Cœur indépendant de ses représentations](development/adr/ADR-0003-CORE-REPRESENTATION-INDEPENDENCE.md)**
 
 ## 8. Identité et direction artistique
 
@@ -138,4 +142,9 @@ Ces fichiers restent utiles pour la traçabilité mais ne reprennent pas autorit
 - monde autonome même sans joueur ;
 - séparation entre prototype jouable, Cœur vivant et Tableau Réel ;
 - séparation entre état canonique et représentations visuelle/sonore ;
+- **le Cœur survit à la disparition ou au remplacement de ses représentations** ;
+- technologies et formats choisis avec une voie de migration réaliste ;
+- coût permanent et croissance des données mesurés ;
+- dégradation gracieuse des fonctions non canoniques avant altération des lois ;
+- matériel dimensionné et renouvelé à partir de mesures et de criticité ;
 - séparation entre documentation partageable et informations propriétaires.
