@@ -1,17 +1,19 @@
 # Manifeste du dépôt
 
-## État courant
+## État courant — 12 août 2026
 
-Projet : Les Lisières d'Avelune  
-Branche de développement jouable : `develop/proto-0.1-playable`  
-Baseline de conception : v0.8.3 + décisions et prototype jouable postérieurs  
-Statut : PROTO-0 intégré prêt pour playtest humain.
+Projet : **Les Lisières d’Avelune**  
+Baseline d’intégration : `main`  
+Candidat jouable : `develop/proto-0.2.2-playtest`  
+Chantiers parallèles : **Cœur vivant** et **Tableau Réel (TA3)**.
 
-## Politique d'intégrité
+Le dépôt GitHub contient les éléments destinés au développement partagé. L’implémentation détaillée du laboratoire du Cœur et les informations d’exploitation internes ne font pas partie de ce manifeste.
 
-L'ancien manifeste maintenait manuellement un nombre de fichiers et des SHA-256. Cette liste était devenue obsolète à mesure que le prototype évoluait.
+## Politique d’intégrité
 
-À partir de cet audit, **Git est la source d'intégrité fichier par fichier** (objets Git, commits et historique). `MANIFEST.md` devient un manifeste sémantique des ensembles du dépôt et ne duplique plus les empreintes que Git maintient déjà.
+Git est la source d’intégrité fichier par fichier. `MANIFEST.md` décrit les ensembles sémantiques du dépôt et ne duplique pas les SHA que Git maintient déjà.
+
+Le nettoyage contrôlé de l’ancien historique GitHub est clos. Les références actuelles sont la source de vérité. Un ancien clone ou worktree doit être vérifié avant réutilisation afin de ne pas réintroduire un historique antérieur.
 
 ## Ensembles principaux
 
@@ -19,72 +21,81 @@ L'ancien manifeste maintenait manuellement un nombre de fichiers et des SHA-256.
 
 `app/`
 
-- application SvelteKit ;
-- moteurs PROTO-0 ;
-- tests ;
-- scripts de simulation ;
-- Dockerfile.
+Application SvelteKit, règles du prototype intégré, tests, simulations et Dockerfile.
 
-### Prototype jouable courant
+### Prototype intégré à `main`
 
 `app/src/lib/proto0/`
 
-Sous-ensembles : `domain`, `config`, `corcite`, `turn`, `tf`, `rpg`, `td`, `wave`, `simulation`, contrôleur navigateur et carnet.
+Baseline PROTO-0.1 conservée comme jalon stable tant qu’une intégration explicite plus récente n’est pas décidée.
 
-### Documentation PROTO-0
+### Candidat PROTO-0.2.2
 
-`docs/proto0/`
+Branche `develop/proto-0.2.2-playtest`.
 
-Documents courants :
+Elle porte le mini-jeu distribué validé et son dossier `docs/development/proto0.2/`. Cette branche n’est pas automatiquement fusionnée dans `main`.
 
-- `PROTO0_PLAYABLE_SCOPE.md`
-- `PROTO0_PLAYTEST_READY.md`
-- `PROTO0_TEST_NOTEBOOK.md`
-- `PROTO0_PLAYABLE_BALANCE_REPORT.md`
-- `PROTO0_PLAYABLE_REFERENCE_PLAYTHROUGH.md`
+### Cœur vivant
 
-Documents P0-P10 conservés comme historiques/régression : spécification, data reference, backlog, simulation report et P9 engine report.
+Documentation partageable :
+
+- `docs/21_coeur_vivant_genese_canonique.md`
+- `docs/22_coeur_vivant_validation_2026-08-12.md`
+
+Le moteur de laboratoire détaillé reste dans son dépôt propriétaire séparé. Les documents GitHub n’en publient que le contrat et les résultats agrégés nécessaires au pilotage.
+
+### Tableau Réel
+
+`docs/real/`
+
+- `README.md`
+- `SPECIFICATION.md`
+- `EXECUTION_PLAN.md`
+
+TA3 est une brique persistante autonome. Le Gate 0 exclut une migration TA3 dans la base du PROTO et impose un runtime/stockage propres.
 
 ### Documentation architecture/développement
 
 `docs/development/`
 
-- audit du 6 août 2026 ;
+Contient notamment :
+
+- état courant au 12 août 2026 ;
+- audit du 6 août ;
 - architecture actuelle/cible ;
-- politique données/configuration ;
+- politique de données ;
 - méthode de développement ;
 - dette technique ;
-- tests/sécurité/persistance ;
+- stratégie tests/sécurité/persistance ;
 - ADR structurants.
 
 ### Conception et historique
 
 - `docs/conception/`
-- `docs/00_vision.md` à `docs/16_proto_minimal.md`
+- `docs/00_vision.md` à `docs/22_coeur_vivant_validation_2026-08-12.md`
 - `logs/`
 - `csv/`
 - `data/`
 - `design-data/`
 
-Ces ensembles contiennent plusieurs générations de conception. Leur présence ne signifie pas qu'ils constituent tous une source runtime courante.
+Plusieurs générations de conception sont volontairement conservées. Leur présence n’en fait pas toutes des références runtime actuelles.
 
 ### Infrastructure
 
 `infra/`
 
-- PostgreSQL ;
-- application Node/SvelteKit ;
-- réseaux Docker ;
-- configuration de déploiement et healthchecks.
+Infrastructure du prototype intégré. Toute infrastructure persistante propre à TA3 doit être introduite seulement après son audit Phase B et ne doit pas être confondue avec la base du PROTO.
 
 ## Source de vérité documentaire
 
-Pour l'état courant :
+Pour l’état courant :
 
 1. `README.md`
 2. `ROADMAP.md`
 3. `docs/index.md`
-4. `docs/proto0/PROTO0_PLAYABLE_SCOPE.md`
-5. `docs/development/`
+4. `docs/development/PROJECT_STATUS_2026-08-12.md`
+5. `docs/21_coeur_vivant_genese_canonique.md` et `docs/22_coeur_vivant_validation_2026-08-12.md`
+6. `docs/real/` pour TA3
+7. le dossier `docs/development/proto0.2/` de `develop/proto-0.2.2-playtest` pour le candidat jouable courant.
 
-Les documents historiques sont conservés et explicitement étiquetés comme tels dans l'index.
+Les documents historiques restent disponibles pour la traçabilité mais ne reprennent pas autorité sur ces référentiels.
