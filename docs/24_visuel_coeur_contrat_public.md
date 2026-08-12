@@ -2,7 +2,7 @@
 
 > **Statut : cahier de préproduction partageable — v0.2**  
 > Date : 13 août 2026  
-> Les correspondances exactes entre données du Cœur, lignées, mues et morphologie, ainsi que les seuils, pondérations, seeds et causalités réservées, restent hors GitHub.
+> Les recettes propriétaires, paramètres non publics, causalités cachées et mécanismes réservés restent hors GitHub.
 
 ## 1. Finalité
 
@@ -10,7 +10,7 @@ Le visuel d’Avelune doit donner une perception **cohérente, historique, quali
 
 Direction recherchée : **satisfaisante · contemplative · onirique · féerique**, dans la continuité de l’identité poétique · organique · minérale · florale-abstraite · queer d’Avelune.
 
-Le Cœur reste exclusivement le moteur autonome d’évolution du vivant et de production de l’état canonique. Le visuel ne décide ni naissance, ni survie, ni reproduction, ni divergence, ni extinction, ni mue.
+Le Cœur reste exclusivement le moteur autonome d’évolution du vivant et de production de l’état canonique. Le visuel ne décide ni naissance, ni survie, ni reproduction, ni divergence, ni extinction, ni transformation canonique.
 
 ## 2. Architecture et frontière anti-réécriture
 
@@ -23,7 +23,7 @@ adaptateur de version
         ↓
 contrat sémantique de représentation versionné
         ↓
-grammaire morphologique d’Avelune
+grammaire visuelle d’Avelune
         ↓
 renderer remplaçable
         ↓
@@ -34,13 +34,13 @@ Le **LAB VISUEL peut commencer avant que le Cœur soit terminé**, mais uniqueme
 
 Règles :
 
-- le LAB ne prend pas les tables, classes, colonnes, coefficients ou structures internes d’une révision R2.x comme API durable ;
+- le LAB ne prend pas les tables, classes, colonnes, coefficients ou structures internes d’une révision de laboratoire comme API durable ;
 - fixtures synthétiques, replays enregistrés et future instance canonique utilisent le même contrat de représentation ;
 - une évolution interne du Cœur doit être absorbable par un adaptateur ou une migration explicite de version du contrat ;
-- la grammaire morphologique et les vues ne doivent pas être réécrites à chaque changement du modèle interne ;
+- la grammaire visuelle et les vues ne doivent pas être réécrites à chaque changement du modèle interne ;
 - aucune commodité graphique ne doit imposer une mécanique au Cœur.
 
-Le contrat doit privilégier des notions durables telles qu’identité, parenté, relations spatiales, état, transformation significative, continuités historiques et descripteurs de représentation autorisés. Il ne doit pas constituer une copie renommée des paramètres secrets du Cœur.
+Le contrat privilégie des notions sémantiques durables et strictement nécessaires à la représentation. Il ne doit pas constituer une copie renommée des paramètres internes du Cœur.
 
 ## 3. Replays et fixtures comme première source
 
@@ -54,45 +54,33 @@ Il doit pouvoir consommer :
 
 Ces trois sources doivent être interchangeables du point de vue de la grammaire et du renderer.
 
-Un même replay, avec une même version de grammaire et les mêmes seeds de représentation autorisées, doit produire une identité visuelle cohérente et reproductible.
+Un même replay, avec une même version de grammaire et les mêmes données de représentation autorisées, doit produire une identité visuelle cohérente et reproductible.
 
 ## 4. Représenter le vivant sans créer une seconde biologie
 
 Une image, une texture, un mesh, un sprite ou une animation n’est pas en soi une vérité canonique.
 
-Le visuel peut exploiter des descripteurs de représentation tels que : organisation générale, ancrage, cohésion, densité, ramification, segmentation, symétrie, souplesse, surface, motifs, mobilité, stade ou traces durables. Le vocabulaire définitif et ses correspondances exactes restent à concevoir.
+Le visuel peut exploiter des descripteurs de représentation abstraits nécessaires à la forme, au mouvement, à la surface, à la continuité et aux transformations observables. Le vocabulaire définitif et ses correspondances exactes restent à concevoir hors de ce contrat public.
 
 Les rendus et caches doivent être autant que possible reconstructibles à partir des données structurées et des versions de grammaire nécessaires.
 
-## 5. Continuité des lignées
+## 5. Continuité historique du vivant
 
-Lorsqu’une parenté existe dans le canon, le rendu doit pouvoir conserver des continuités perceptibles sans produire des copies : silhouette, organisation, proportions, motifs, mouvements ou autres signatures morphologiques.
+Lorsqu’une continuité réelle existe dans le canon, le rendu doit pouvoir la rendre perceptible sans produire des copies identiques.
 
-Une divergence historique peut progressivement modifier ces signatures.
+Les changements d’apparence doivent rester cohérents dans le temps et ne pas inventer rétroactivement une histoire absente du Cœur.
 
-Le principe reste causal : le visuel traduit une ascendance et une histoire déjà enregistrées ; il n’invente pas rétroactivement une généalogie pour justifier un concept art.
+Cette exigence concerne la qualité de représentation ; les mécanismes internes qui produisent l’histoire du vivant ne sont pas décrits ici.
 
-La relation précise entre certaines lignées historiques et la genèse future des races reste hors documentation partageable.
+## 6. Mue et transformations majeures
 
-## 6. Mue avant les races
+La **mue** peut être expérimentée tôt comme cas visuel de transformation majeure d’un même vivant.
 
-La **mue** peut être expérimentée tôt comme transformation majeure d’un vivant sans attendre la définition des races jouables.
-
-Le principe public est :
-
-```text
-identité canonique
-      ↓
-transformation significative décidée en amont
-      ↓
-état avant / état après
-      ↓
-continuité morphologique rendue perceptible
-```
+Le principe public est simple : le Cœur indique qu’une transformation canonique significative a eu lieu ; le visuel doit la rendre lisible tout en conservant la continuité d’identité lorsque le canon la conserve.
 
 Le renderer ne déclenche jamais la mue et ne décide pas de ses conséquences biologiques.
 
-Le LAB doit notamment tester qu’une forme reste reconnaissable à travers une transformation importante et que des individus apparentés peuvent conserver des signatures communes. Les déclencheurs biologiques, seuils et relations futures avec les Corcites restent ouverts ou réservés.
+Le LAB doit notamment tester qu’une forme reste reconnaissable à travers une transformation importante. Les règles biologiques qui déclenchent ou gouvernent ces transformations restent hors de ce document.
 
 ## 7. Direction perceptive
 
@@ -106,7 +94,7 @@ Mouvements lents, respiration, temps long et densité maîtrisée. Une scène n�
 
 ### Onirique
 
-Les formes peuvent rester biologiquement ambiguës : membraneuses, filamenteuses, agrégées, diffuses, minérales-organiques ou hybrides, sans recopier un catalogue terrestre.
+Les formes peuvent rester biologiquement ambiguës, organiques, minérales, diffuses ou hybrides, sans recopier un catalogue terrestre.
 
 ### Féerique
 
@@ -114,16 +102,16 @@ Luminosité, translucidité, iridescence ou étrangeté peuvent participer à l�
 
 ## 8. Travaux et familles techniques de référence
 
-Avelune n’a pas à réinventer les briques mathématiques ou perceptives déjà étudiées. La valeur propre du projet réside dans sa grammaire de traduction et son articulation avec l’histoire canonique.
+Avelune n’a pas à réinventer les briques mathématiques ou perceptives déjà étudiées. La valeur propre du projet réside dans sa grammaire de traduction et son articulation avec l’état canonique.
 
 Pistes de recherche :
 
-- **L-systems / Algorithmic Botany** pour croissance, structures ramifiées et continuité de développement ;
-- **Clades** comme précédent de duplication/diversification de formes générées par L-systems ;
-- **réaction-diffusion** pour motifs de surface, réseaux, marbrures, nervures ou traces ;
-- **formes implicites, SDF et metaballs** pour masses molles, membranes, fusions et transformations ;
+- **L-systems / Algorithmic Botany** pour croissance et structures procédurales ;
+- **Clades** comme précédent de variation de formes générées par grammaires ;
+- **réaction-diffusion** pour motifs de surface et organisations locales ;
+- **formes implicites, SDF et metaballs** pour masses molles et transformations ;
 - **particules et champs de flux** pour formes diffuses ou flottantes ;
-- principes classiques d’animation et travaux sur la **cohérence temporelle** pour éviter qu’un beau rendu image par image devienne instable en mouvement ;
+- principes classiques d’animation et travaux sur la **cohérence temporelle** ;
 - **Level of Detail** et transitions progressives pour concentrer le coût là où il apporte une valeur perceptive ;
 - standards **WCAG/W3C** pour la réduction du mouvement et la redondance de l’information.
 
@@ -133,11 +121,11 @@ Ces références inspirent et contraignent les tests ; elles ne deviennent pas a
 
 Aucun moteur graphique final n’est choisi.
 
-**PixiJS v8** constitue un candidat de premier laboratoire pour un rendu navigateur 2D/2,5D, notamment grâce à ses primitives de rendu, de particules et de mise en cache. Three.js/Threlte ou d’autres solutions pourront être évalués si une profondeur 3D réelle devient nécessaire.
+**PixiJS v8** constitue un candidat de premier laboratoire pour un rendu navigateur 2D/2,5D. Three.js/Threlte ou d’autres solutions pourront être évalués si une profondeur 3D réelle devient nécessaire.
 
 Le choix dépendra de mesures : qualité perceptive, compatibilité navigateur, accessibilité, coût CPU/GPU/RAM/réseau/énergie, maintenabilité, pérennité et voie de migration.
 
-La grammaire morphologique d’Avelune ne dépend d’aucun renderer particulier.
+La grammaire visuelle d’Avelune ne dépend d’aucun renderer particulier.
 
 ## 10. Sobriété et partage de l’enveloppe
 
@@ -160,7 +148,7 @@ Le serveur ne doit pas rendre une scène distincte par observateur sauf besoin u
 
 La cadence du Cœur, la cadence de publication sémantique et la cadence graphique sont découplées. Le client peut interpoler entre états autorisés sans inventer une évolution canonique.
 
-Une technique procédurale coûteuse doit être calculée à l’apparition, lors d’une mue ou d’un changement significatif, ou à une cadence justifiée, puis mise en cache lorsque cela produit un résultat perceptif équivalent à un recalcul continu.
+Une technique procédurale coûteuse doit être calculée à l’apparition, lors d’une transformation significative, ou à une cadence justifiée, puis mise en cache lorsque cela produit un résultat perceptif équivalent à un recalcul continu.
 
 Le principe d’arbitrage est : **maximiser la qualité perceptive par unité de calcul, pas la sophistication technique pour elle-même.**
 
@@ -191,11 +179,11 @@ Ordre de travail recommandé :
 1. **VISUEL-0 — contrat et replay** : schéma minimal, fixtures et adaptateur d’exports existants ;
 2. **VISUEL-1 — coût minimal du vivant** : obtenir une impression de vie avec peu de calcul ;
 3. **VISUEL-2 — continuité et mue** : même identité avant/après transformation ;
-4. **VISUEL-3 — lignées** : héritage perceptible et divergence ;
+4. **VISUEL-3 — continuités et variations historiques** ;
 5. **VISUEL-4 — environnement, traces et vagues** ;
 6. **VISUEL-5 — Orée expérimentale**.
 
-Les races jouables et leur design définitif ne sont pas un objectif de ce laboratoire initial.
+Le LAB initial ne doit pas figer des mécanismes ou contenus futurs qui ne sont pas nécessaires à sa validation.
 
 ## 14. Gates avant investissement de production
 
@@ -203,7 +191,7 @@ Le LAB n’autorise une production visuelle de grande ampleur que si les points 
 
 - **contrat** : aucune dépendance persistante aux internes du Cœur ;
 - **replay** : un même état contractuel produit une représentation cohérente et reproductible ;
-- **identité** : croissance, divergence et mue préservent les continuités attendues ;
+- **identité** : croissance et transformations préservent les continuités attendues ;
 - **remplacement** : un renderer alternatif ou factice peut consommer le contrat sans changement du Cœur ;
 - **évolution** : une révision simulée du Cœur est absorbée par un adaptateur sans réécrire le LAB ;
 - **coût** : CPU, GPU, RAM, réseau, stockage et énergie sont mesurés avec les autres charges pertinentes ;
@@ -213,9 +201,9 @@ Le LAB n’autorise une production visuelle de grande ampleur que si les points 
 
 ## 15. Frontière de publication
 
-Peuvent être publiés : architecture, contrat de haut niveau, exigences de qualité/accessibilité, familles techniques étudiées, budgets agrégés, stratégies de repli, références et résultats de validation suffisamment agrégés.
+GitHub peut documenter les principes d’architecture, exigences de qualité et d’accessibilité, références extérieures, stratégies de repli, interfaces expurgées et résultats de validation suffisamment agrégés.
 
-Restent hors GitHub : correspondances exactes entre variables du Cœur et paramètres morphologiques ; pondérations ; seuils ; seeds révélatrices ; règles propriétaires d’héritage visuel ; signatures de lignées ; recettes de mutation ; mécanismes permettant d’anticiper une lignée fondatrice ; causalités secrètes ou narratives.
+Les recettes propriétaires, paramètres réservés, mécanismes causaux non publics, signatures internes et informations narratives sensibles restent dans les espaces privés appropriés. La documentation publique ne doit pas détailler leur organisation ni permettre d’en reconstruire la structure.
 
 ## 16. Références initiales
 
@@ -234,13 +222,13 @@ Restent hors GitHub : correspondances exactes entre variables du Cœur et param�
 
 - vocabulaire minimal exact du contrat sémantique v0 ;
 - politique de compatibilité et migration entre versions du contrat ;
-- grammaire morphologique exacte ;
-- définition biologique précise des mues et de leurs conséquences ;
+- grammaire visuelle exacte ;
+- règles biologiques des transformations que le rendu devra un jour représenter ;
 - poids relatif 2D / 2,5D / 3D ;
 - renderer final ;
 - budgets chiffrés sur matériel représentatif ;
 - seuils perceptifs justifiant les effets coûteux ;
 - stratégie finale de cache et reconstruction ;
-- articulation précise entre le vivant pré-corcitique, les Corcites jouables et l’identité visuelle générale du jeu.
+- articulation avec l’identité visuelle générale du jeu.
 
 Le principe retenu est plus important que la bibliothèque : **Avelune produit le vivant ; le visuel lui donne une perception cohérente, accessible, historique, sobre et remplaçable.**
