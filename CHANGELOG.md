@@ -1,5 +1,17 @@
 # Changelog
 
+## Synchronisation Avelune — GitHub réouvert — 2026-08-12
+
+- clôture du gel GitHub après nettoyage contrôlé de l’ancien historique ;
+- ajout d’un état de pilotage partageable au 12 août 2026 ;
+- ajout de l’état agrégé de validation du Cœur vivant jusqu’au diagnostic R2.10 ;
+- maintien de l’implémentation détaillée du laboratoire CŒUR-0 hors GitHub ;
+- migration vers GitHub du cadrage partageable du Tableau Réel ;
+- Gate 0 TA3 reflété dans la documentation : runtime et stockage autonomes, aucune migration TA3 dans la base du PROTO ;
+- correction du cadrage financier : date zéro officielle au 26 juillet 2026 et exclusion des paiements antérieurs de l’agrégat Avelune ;
+- conservation de PROTO-0.2.2 sur `develop/proto-0.2.2-playtest` tant qu’une intégration explicite dans `main` n’a pas été décidée ;
+- le brouillon historique de PR Tableau Réel est reclassé comme non fusionnable tel quel car son hypothèse d’intégration directe au runtime existant est dépassée par le Gate 0.
+
 ## PROTO-0.2 — cadrage actif et documentation publique — 2026-08-08
 
 Le projet quitte la phase de simple analyse post-PROTO-0.1 et ouvre formellement le jalon **PROTO-0.2** sur `develop/proto-0.2-ux-rules`.

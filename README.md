@@ -8,52 +8,33 @@
 
 ---
 
-## État du projet — 8 août 2026
+## État du projet — 12 août 2026
 
-Trois repères doivent être distingués :
+Avelune avance désormais sur trois chantiers distincts :
 
-| Repère | Statut |
+| Chantier | État |
 |---|---|
-| **PROTO-0.1** | baseline jouable intégrée à `main`, conservée comme jalon stable |
-| **PROTO-0.2.1** | passe UX/règles intermédiaire, conservée comme jalon de travail |
-| **PROTO-0.2.2** | **candidat de playtest distribué finalisé, validé et poussé** sur `develop/proto-0.2.2-playtest` |
+| **PROTO-0.2.2** | candidat de playtest distribué validé sur `develop/proto-0.2.2-playtest` |
+| **Cœur vivant / CŒUR-0** | laboratoire headless autonome ; diagnostic de persistance R2.10 en cours |
+| **Tableau Réel (TA3)** | Gate 0 validé ; architecture persistante autonome ; Phase B suivante |
 
-`main` reste la **baseline stable du dépôt** : PROTO-0.2.2 n’y est pas encore fusionné et aucun déploiement public de référence n’est déclaré par ce README.
+Le nettoyage contrôlé de l’ancien historique GitHub est **clos** et la synchronisation normale du dépôt est rétablie. Les anciens clones/worktrees doivent être contrôlés avant réutilisation.
 
-Le candidat courant est disponible sur :
-
-**[`develop/proto-0.2.2-playtest`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest)**
-
-Commit fonctionnel de référence : **`d3b080c` — `PROTO-0.2.2: finaliser le playtest distribue`**.
-
-### Validation finale de PROTO-0.2.2
-
-- `svelte-check` : **0 erreur, 0 warning** ;
-- suite PROTO-0 : **380/380 tests réussis** ;
-- build Docker/production : **PASS** ;
-- PostgreSQL 17 réel + migration : **PASS** ;
-- création, reprise et sauvegarde de session : **PASS** ;
-- gestion des conflits LWW : **PASS** ;
-- validation HTTP des entrées invalides : **PASS** ;
-- feedback enregistré en PostgreSQL puis notification SMTP : **PASS de bout en bout** ;
-- revue humaine desktop et mobile : **acceptable pour diffusion**.
-
-Défauts visuels mineurs connus et acceptés pour ce jalon : bordures/superpositions légères des hexagones et optimisation encore possible de l’espace autour du plateau et du panneau droit. Ils ne bloquent pas le playtest.
+`main` reste la **baseline stable d’intégration** tant qu’une fusion plus récente n’est pas décidée explicitement.
 
 ### Accès rapide
 
-- **Baseline stable** : [`main`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/main)
-- **Candidat distribué PROTO-0.2.2** : [`develop/proto-0.2.2-playtest`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest)
-- **Cahier PROTO-0.2** : [`docs/development/proto0.2`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest/docs/development/proto0.2)
-- **Spécification playtest distribué** : [`10_P02_2_DISTRIBUTED_PLAYTEST_SPEC.md`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.2.2-playtest/docs/development/proto0.2/10_P02_2_DISTRIBUTED_PLAYTEST_SPEC.md)
-- **Arbitrages finaux P02.2** : [`11_P02_2_FINAL_PLAYTEST_ARBITRATIONS.md`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.2.2-playtest/docs/development/proto0.2/11_P02_2_FINAL_PLAYTEST_ARBITRATIONS.md)
-- **Rapport d’implémentation** : [`IMPLEMENTATION_REPORT.md`](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.2.2-playtest/docs/development/proto0.2/IMPLEMENTATION_REPORT.md)
-- **Vision générale** : [`docs/00_vision.md`](docs/00_vision.md)
-- **Accessibilité et éthique** : [`docs/06_accessibilite_ethique.md`](docs/06_accessibilite_ethique.md)
+- [État détaillé au 12 août 2026](docs/development/PROJECT_STATUS_2026-08-12.md)
+- [Roadmap](ROADMAP.md)
+- [Index documentaire](docs/index.md)
+- [Cœur vivant — contrat de production](docs/21_coeur_vivant_genese_canonique.md)
+- [Cœur vivant — état agrégé de validation](docs/22_coeur_vivant_validation_2026-08-12.md)
+- [Tableau Réel](docs/real/README.md)
+- [Candidat PROTO-0.2.2](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest)
 
 ---
 
-# PROTO-0.2.2 — objectif du jalon
+## PROTO-0.2.2
 
 PROTO-0.2.2 est un **mini-jeu de validation distribué**, pas le jeu final. Il teste une boucle complète et compréhensible :
 
@@ -69,213 +50,147 @@ implanter
 → gagner ou perdre le run
 ```
 
-Le playtest doit permettre d’évaluer réellement :
+Référence fonctionnelle : `d3b080c` — `PROTO-0.2.2: finaliser le playtest distribue`.
 
-- le modèle mental du Corcite ;
-- le plaisir de manipulation ;
-- les arbitrages économiques ;
-- la progression ;
-- la préparation défensive ;
-- le challenge ;
-- la lisibilité de l’interface ;
-- la cohérence visuelle d’Avelune ;
-- le rythme des cycles, notamment les attentes contraintes ;
-- les incompréhensions, désaccords et propositions des testeurs.
+Validation acquise :
 
-Le prototype reste volontairement limité afin de ne pas confondre **validation d’une boucle** et développement prématuré du jeu complet.
+- `svelte-check` : 0 erreur, 0 warning ;
+- 380/380 tests PROTO réussis ;
+- build production validé ;
+- PostgreSQL 17 réel + migration validés ;
+- création, reprise et sauvegarde des sessions validées ;
+- conflits last-write-wins journalisés ;
+- feedback enregistré avant notification ;
+- SMTP facultatif et non destructif ;
+- revue desktop/mobile acceptable pour diffusion.
 
----
+### Modèle de jeu du jalon
 
-## Sessions distribuées et retours de test
-
-PROTO-0.2.2 ajoute une couche minimale de playtest distribué :
-
-- session anonyme identifiée en interne par UUID ;
-- code public numérique à quatre chiffres pour créer ou reprendre une partie ;
-- sauvegarde PostgreSQL versionnée ;
-- stratégie last-write-wins avec journalisation des conflits ;
-- télémétrie structurée des événements utiles au playtest ;
-- classification des cycles `not_idle`, `voluntary_wait` et `forced_wait` ;
-- formulaire permanent **Signaler / proposer** ;
-- feedback enregistré en PostgreSQL avant toute tentative de notification ;
-- SMTP facultatif et non destructif en cas d’échec.
-
-Aucun compte utilisateur, aucune donnée personnelle requise et aucun vrai multijoueur ne sont introduits par ce lot.
-
----
-
-## Le Corcite comme espace concret
-
-Le cœur économique de PROTO-0.2.2 est un **plateau hexagonal** représentant l’organisation du Corcite.
-
-Principes actifs :
+Le Corcite est représenté par un plateau hexagonal concret :
 
 - `1 bâtiment = 1 case` ;
-- certaines cases possèdent des ressources de sol ;
-- les extracteurs produisent lorsqu’ils sont placés sur un gisement compatible ;
-- un extracteur incompatible peut être posé mais produit `0`, avec prévisualisation ;
-- hors extraction, la position n’a pas encore d’effet mécanique ;
-- pas d’adjacence, routes, orientation, bâtiments multi-cases ou logistique spatiale ;
-- pas de réseau direct, ports, câbles ou routage Factorio dans le parcours actif.
-
-La piste de réseaux productifs reste une possibilité future, mais elle n’est pas nécessaire pour valider ce jalon.
-
----
-
-## Économie physique simplifiée
-
-PROTO-0.2.2 teste notamment :
-
-- matières primaires **Organique** et **Minéral** avec rôles légèrement différenciés ;
-- transformation et composants ;
-- fabrication de bâtiments et défenses ;
-- Atelier ;
-- Fabrique défensive ;
-- Recyclerie ;
-- énergie ;
-- population ;
-- entretien global ;
+- ressources de sol pour l’extraction ;
+- stockage fourni par les bâtiments de stockage ;
 - inventaire mécanique global ;
-- stockage fourni **uniquement par les bâtiments de stockage**.
+- extraction, transformation et fabrication ;
+- énergie, population et entretien ;
+- recherche courte et bornée ;
+- défense volontairement simplifiée pour le playtest.
 
-Le démarrage utilise un kit de déploiement hors inventaire. Les matières primaires entrent dans le stock après pose de la première membrane de stockage.
+Le RPG reste une couche transversale, pas une troisième boucle artificiellement symétrique à la production et à la défense.
 
-Un bâtiment est fabriqué, entre dans l’inventaire puis est posé. Un bâtiment posé peut être démonté et remonté avec un coût en temps.
+Pour ce jalon uniquement, la vague de test est volontairement plus simple que la future vague du jeu. Les anciennes caractéristiques historiques ne constituent pas automatiquement le canon du Cœur vivant.
 
-Les ordres réservent leurs matières. Une production terminée ne détruit pas son résultat si le stockage est plein : elle bloque proprement la sortie du producteur jusqu’à libération de capacité.
+### Playtest distribué
 
----
+PROTO-0.2.2 apporte une couche minimale de sessions distribuées :
 
-## Recherche et évolution
+- session anonyme ;
+- code public de reprise ;
+- sauvegarde PostgreSQL versionnée ;
+- stratégie last-write-wins avec journalisation ;
+- télémétrie structurée utile au playtest ;
+- formulaire permanent de signalement/proposition ;
+- aucune création de compte joueur nécessaire pour ce lot.
 
-Le RPG reste une couche **transversale**, pas une troisième boucle artificiellement symétrique à la production et à la défense.
-
-PROTO-0.2.2 teste une petite progression utile :
-
-- déblocage de la Transformation ;
-- améliorations d’Extraction ;
-- améliorations de Transformation ;
-- améliorations de Fabrication ;
-- amélioration de la Recyclerie ;
-- amélioration du Stockage.
-
-Les améliorations répétables sont volontairement bornées afin que le run reste lisible et simulable.
+Après diffusion, le jalon doit rester gelé hors bugs bloquants pendant la collecte des retours.
 
 ---
 
-## Défense et vagues — simplification de laboratoire
+## Cœur vivant
 
-La vague du jeu final devra être redéfinie plus finement après ce jalon. Les anciennes caractéristiques `pression / structure / charge / matière capturable` ne sont donc pas considérées comme le canon futur.
+Le **Cœur vivant** est le moteur autonome qui doit faire vivre Avelune indépendamment du gameplay et de la présence des joueurs.
 
-Pour PROTO-0.2.2, le challenge défensif utilise volontairement **une seule caractéristique active : la Puissance** et une seule famille de défense : **Affaiblissement**.
+Une future instance canonique devra pouvoir :
+
+- fonctionner avant l’arrivée des joueurs ;
+- conserver son histoire ;
+- produire des transformations locales persistantes ;
+- être sauvegardée, restaurée et migrée ;
+- continuer ensuite dans le jeu produit sans remise à zéro de convenance.
+
+Le laboratoire CŒUR-0 est séparé du prototype jouable. Son implémentation détaillée reste hors GitHub ; le dépôt contient seulement les contrats et résultats agrégés partageables.
+
+### Validation actuelle
+
+Les campagnes R2 ont isolé un goulot de persistance des formes pré-corcitiques : les lignées disparues meurent presque toujours alors qu’elles sont encore limitées à leur première implantation et avant leur première propagation locale.
+
+La baseline de travail R2.7 réduit le turnover local et allonge la coexistence sans modification importante démontrée de l’occupation globale. R2.10 mesure maintenant si le goulot vient principalement de l’atteinte de l’état reproductif, de l’attente avant propagation ou de l’érosion par les vagues.
+
+Voir [l’état agrégé de validation](docs/22_coeur_vivant_validation_2026-08-12.md).
+
+---
+
+## Tableau Réel
+
+Le **Tableau Réel (TA3)** mesure le projet Avelune dans le monde réel : âge du projet, temps humain, matériel, énergie, coûts, financement, empreinte carbone connue et métriques globales de vie.
+
+Le Gate 0 a établi une contrainte structurante : TA3 ne doit dépendre ni du conteneur ni de la base d’un PROTO éphémère.
+
+Architecture retenue :
 
 ```text
-Fracture
-→ position 1
-→ …
-→ position 8
-→ Corcite
+sources temporaires / instruments / saisies
+                    ↓
+            adaptateurs de source
+                    ↓
+          stockage persistant TA3
+                    ↓
+              agrégats
+                    ↓
+          interface publique
 ```
 
-Chaque tour réduit successivement la Puissance. La première défense est accessible depuis les matières primaires : la Transformation est une montée de sophistication, pas le ticket d’entrée vers la défense de base.
+Une source indisponible rend sa donnée ancienne ou inconnue ; elle ne rend pas TA3 indisponible.
 
-- Puissance résiduelle `0` : **victoire immédiate du testeur** ;
-- sinon elle endommage l’**Intégrité du Corcite** ;
-- Intégrité `0` : **victoire du jeu / défaite du testeur** ;
-- sinon le développement reprend avant une nouvelle vague plus puissante.
+La Phase B doit auditer le socle persistant disponible hors PROTO puis choisir le plus petit runtime autonome adapté. Aucune migration TA3 ne doit être créée dans la base du PROTO.
 
-Il n’y a pas de victoire arbitraire après un nombre fixe de vagues. Le run est borné par ses conditions de victoire et de défaite.
-
-Aucune matière issue des vagues et aucune captation n’entrent dans l’économie de PROTO-0.2.2.
+Voir [`docs/real/`](docs/real/README.md).
 
 ---
 
-# UX et direction visuelle
+## Direction du jeu à long terme
 
-La proposition visuelle **Gen3** reste une référence de **composition ergonomique**, pas une direction artistique à recopier.
-
-Composition actuellement testée :
-
-- HUD de ressources compact ;
-- identité/navigation du Corcite à gauche ;
-- grand plateau hexagonal central ;
-- panneau contextuel à droite ;
-- Stock comme vue globale plutôt qu’inventaire permanent massif ;
-- Production et Défenses séparées ;
-- bloc Session et code de reprise visibles ;
-- rapport de cycle et rapport de vague distincts ;
-- feedback accessible en permanence.
-
-Le prototype doit déjà se rapprocher de l’identité d’Avelune :
-
-- onirique ;
-- féerique abstraite ;
-- queer sans caricature ;
-- organique et minérale ;
-- biomorphique ;
-- violet, prune, lavande, opalin et iridescent ;
-- Corcite non anthropomorphe.
-
-À éviter : personnage humain/humanoïde, fantasy médiévale générique, forêt fantasy naturaliste ou usine sci-fi industrielle générique.
-
-La représentation graphique du Corcite reste **ouverte** : une exploration visuelle dédiée suit désormais le gel fonctionnel de P02.2.
-
----
-
-# Le cœur d’Avelune à long terme
-
-Les Lisières d’Avelune vise un monde partagé unique dans lequel les Corcites contribuent collectivement à la préservation de la Lisière sans imposer une coopération sociale permanente.
+Les Lisières d’Avelune vise un monde partagé unique dans lequel les Corcites contribuent collectivement à la préservation de la Lisière sans imposer une présence sociale permanente.
 
 Principes structurants :
 
 - monde partagé unique ;
 - Corcite comme personnage, organisme et cité ;
 - progression principalement horizontale ;
-- recherche et connaissance du monde ;
 - plusieurs styles de jeu légitimes ;
-- coopération possible mais non obligatoire en permanence ;
+- coopération possible sans obligation permanente ;
 - échec fertile ;
 - absence non punitive ;
 - pas de classement humiliant ;
 - pas de FOMO ou de micro-dopamine comme moteur de rétention ;
 - challenge systémique plutôt que punition artificielle ;
-- attention explicite aux profils TSA, TDAH et dys ;
+- accessibilité intégrée, notamment pour les profils TSA, TDAH et dys ;
 - identité queer et non genrée intégrée à la conception.
 
-Le jeu final pourra être beaucoup plus riche que PROTO-0.2. Les systèmes futurs ne doivent cependant être construits qu’après validation de leur besoin et de leur intérêt joueur.
+Le contenu et les systèmes futurs ne sont ajoutés qu’après validation de leur besoin et de leur intérêt joueur.
 
 ---
 
-# Architecture et développement
+## Architecture de développement
 
-Application : **SvelteKit + TypeScript**.  
-Persistance du playtest : **PostgreSQL 17**, sans ORM lourd.
+Socle applicatif : **SvelteKit + TypeScript**.  
+Persistance du playtest distribué : **PostgreSQL 17**.
 
-Principes de développement :
+Principes :
 
-- séparer données, logique métier, état et présentation ;
-- favoriser des composants réutilisables lorsqu’un besoin réel le justifie ;
-- conserver un cœur testable indépendamment de l’UI ;
-- éviter les abstractions et infrastructures spéculatives ;
-- centraliser les paramètres de laboratoire utiles à l’équilibrage ;
-- tester et simuler les règles actives ;
-- limiter la charge réseau côté utilisateur et la charge CPU côté serveur lorsque l’architecture évolue vers la production.
-
-Documentation :
-
-- [`docs/index.md`](docs/index.md)
-- [`docs/development/README.md`](docs/development/README.md)
-- [Documentation active PROTO-0.2.2](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest/docs/development/proto0.2)
+- règles métier testables hors UI ;
+- séparation données, logique, état et présentation ;
+- simulations utilisant les mêmes règles que le runtime correspondant ;
+- pas d’abstraction spéculative ;
+- paramètres de laboratoire versionnés ;
+- attention explicite aux coûts CPU, RAM et réseau ;
+- séparation stricte entre PROTO jouable, Cœur vivant, Tableau Réel et rendu graphique.
 
 ---
 
-## Statut de publication
+## Frontière de publication
 
-Au **8 août 2026** :
+GitHub est la source de vérité des contrats, décisions partageables, documentation de développement et code destiné au dépôt.
 
-- PROTO-0.2.2 est **validé, poussé et prêt à être distribué** ;
-- la branche de référence est `develop/proto-0.2.2-playtest` ;
-- le lot fonctionnel de référence est `d3b080c` ;
-- `main` reste la baseline stable tant qu’aucune intégration explicite n’est effectuée ;
-- aucun tag de release ni déploiement public de référence n’est déclaré ici ;
-- après distribution, P02.2 doit rester gelé hors bugs bloquants pendant la collecte de retours.
+Les informations propriétaires du moteur du monde, données privées et détails d’exploitation restent dans les espaces internes appropriés. Le fait que le dépôt soit privé ne transforme pas ces informations en contenu GitHub acceptable.
