@@ -53,7 +53,7 @@ Documentation partageable :
 
 - `docs/23_univers_sonore_contrat_public.md`
 
-Le sonore est une couche de représentation en aval de l’état canonique ; il ne modifie pas le rôle du Cœur et ne fait pas partie du PROTO courant. Les correspondances exactes, seuils, temporalités, recettes de motifs, signatures cachées et causalités restent dans le stockage interne approprié et ne sont pas des contenus GitHub.
+Le sonore est une couche de représentation en aval de l’état canonique ; il ne modifie pas le rôle du Cœur et ne fait pas partie du PROTO courant. Les recettes propriétaires et informations réservées restent dans le stockage interne approprié et ne sont pas des contenus GitHub.
 
 ### Visuel du Cœur / LAB VISUEL
 
@@ -63,9 +63,9 @@ Documentation partageable :
 
 Le visuel est une couche de représentation en aval. Le LAB peut être développé avant l’achèvement du Cœur uniquement contre un sous-ensemble sémantique suffisamment stable, sous forme de contrat versionné alimentable par fixtures, replays et futurs états canoniques.
 
-Le contrat public documente notamment : séparation anti-réécriture, continuité morphologique, mue précoce sans prédétermination des races, qualité adaptative sobre/normal/riche, rendu client par défaut, cadences découplées, gates de ressources et références de recherche.
+Le contrat public documente la séparation anti-réécriture, la continuité visuelle, la mue comme cas de transformation, la qualité adaptative sobre/normal/riche, le rendu client par défaut, les cadences découplées, les gates de ressources et les références de recherche.
 
-Les correspondances exactes Cœur → morphologie, règles propriétaires d’héritage, seeds révélatrices, seuils, pondérations, signatures de lignées et causalités réservées restent hors GitHub.
+Les recettes propriétaires, paramètres réservés, mécanismes causaux non publics et informations narratives sensibles restent hors GitHub. Le manifeste n’en décrit pas l’organisation interne.
 
 ### Tableau Réel
 
