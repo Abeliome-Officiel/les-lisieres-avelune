@@ -1,7 +1,7 @@
 # Avelune — Cœur vivant et genèse canonique
 
-> **Statut : contrat de production expurgé — v0.1**  
-> Date : 9 août 2026  
+> **Statut : contrat de production expurgé — v0.2**  
+> Date : 13 août 2026  
 > Les recettes exactes, fonctions, coefficients, seuils, graines, poids de causalité et vérités narratives réservées sont classés **Cœur d’Avelune** et conservés hors GitHub.
 
 ## 1. Finalité
@@ -97,7 +97,7 @@ Une couche d’implantation devra cependant garantir une équité raisonnable : 
 
 Après l’arrivée des joueurs, les actions agrégées des Corcites peuvent devenir une force supplémentaire. Avelune garde sa dynamique propre, mais une activité collective persistante peut infléchir son histoire à long terme.
 
-## 9. Persistance et durée inconnue
+## 9. Persistance, données et durée inconnue
 
 Le Cœur doit être conçu pour une durée de fonctionnement indéterminée.
 
@@ -111,7 +111,11 @@ Exigences :
 - journal causal et événementiel ;
 - reprise contrôlée après arrêt ;
 - séparation stricte entre mondes de laboratoire et monde canonique ;
-- absence de deuxième histoire concurrente après crash ou restauration.
+- absence de deuxième histoire concurrente après crash ou restauration ;
+- formats et contrats suffisamment documentés pour permettre une migration future ;
+- cycle de vie explicite des familles de données importantes.
+
+La mémoire canonique ne signifie pas « tout conserver pour toujours ». Il faut distinguer l’état canonique courant, l’historique causal ou d’audit, les snapshots de restauration, les archives, les agrégats dérivés, les données reconstructibles et les données transitoires. Les règles de rétention doivent protéger l’identité du monde sans imposer une croissance incontrôlée de télémétrie brute.
 
 Une instance canonique ne doit pas être lancée avant que ces opérations aient été éprouvées sur des mondes de test.
 
@@ -132,7 +136,7 @@ Le laboratoire doit pouvoir :
 9. exécuter des campagnes accélérées sur de nombreuses seeds ;
 10. vérifier automatiquement les invariants de stabilité.
 
-## 11. Invariants de validation
+## 11. Invariants de validation et coût de fonctionnement
 
 Le Cœur doit notamment éviter :
 
@@ -143,7 +147,8 @@ Le Cœur doit notamment éviter :
 - croissance monotone « toujours plus » ;
 - stagnation durable non voulue ;
 - dépendance à la présence d’un joueur ;
-- coût CPU/RAM incompatible avec l’infrastructure cible.
+- coût CPU/GPU/RAM/stockage/I/O incompatible avec l’infrastructure cible ;
+- dépendance permanente à un moteur de représentation ou à un matériel spécialisé non nécessaire aux lois du monde.
 
 Il doit permettre au contraire :
 
@@ -152,7 +157,10 @@ Il doit permettre au contraire :
 - des histoires régionales distinctes ;
 - des transformations persistantes ;
 - une causalité reconstructible côté propriétaire ;
-- une simulation reproductible à version et entrées identiques.
+- une simulation reproductible à version et entrées identiques ;
+- des cadences de calcul adaptées à la temporalité des phénomènes lorsqu’elles préservent lois, invariants et causalité.
+
+Toute charge significative doit pouvoir être qualifiée comme permanente, périodique ou à la demande. Avant de rendre un calcul permanent ou d’augmenter le matériel, vérifier que sa fréquence et sa précision sont réellement nécessaires au phénomène simulé.
 
 Les métriques et seuils chiffrés de validation sont des paramètres de laboratoire et peuvent rester hors de ce document.
 
@@ -163,6 +171,8 @@ Une fois le moteur headless jugé viable, un **Observatoire privé** pourra affi
 L’Observatoire est un outil d’ingénierie. Il peut nommer des variables et montrer des informations qui ne seront jamais exposées aux joueurs.
 
 Le port hôte réservé pour une éventuelle exposition HTTP de ce chantier est **8091**. Le moteur headless n’a pas besoin d’ouvrir de port tant qu’aucune API ou interface n’est nécessaire.
+
+L’Observatoire ne fait pas partie du chemin de survie canonique : sa panne ou son arrêt ne doit pas empêcher le Cœur sain de continuer.
 
 ## 13. L’Orée : traduction contemplative pérenne
 
@@ -181,9 +191,9 @@ La scène recherchée doit rester onirique, féerique, calme et peu explicative 
 
 La version publique ne doit pas exposer la recette du Cœur ni transformer les états internes en dashboard technique.
 
-## 14. Graphisme remplaçable
+## 14. Représentations remplaçables et dégradation gracieuse
 
-Le Cœur ne connaît jamais directement les sprites, modèles, textures, shaders, couleurs ou animations.
+Le Cœur ne connaît jamais directement les sprites, modèles, textures, shaders, couleurs, animations, instruments, moteurs audio ou autres technologies de représentation.
 
 Architecture cible :
 
@@ -192,14 +202,18 @@ Architecture cible :
         ↓
 contrat sémantique de représentation
         ↓
-moteur de rendu / direction artistique
+interpréteurs / moteurs de rendu
 ```
 
-Cette séparation doit permettre à un futur graphiste de remplacer ou enrichir la direction artistique sans modifier les moteurs ni réécrire l’histoire du monde.
+Cette séparation doit permettre à plusieurs générations de rendu visuel, sonore ou futur de se succéder au-dessus du même Avelune sans modifier les moteurs ni réécrire l’histoire du monde.
 
-Plusieurs générations de rendu peuvent ainsi se succéder au-dessus du même Avelune.
+**Avelune ne doit jamais dépendre pour sa survie d’un moteur chargé de la représenter.**
+
+Si une ressource manque ou si un interpréteur tombe, le mode dégradé porte d’abord sur la qualité, la fréquence ou la disponibilité de la représentation. Le Cœur ne doit pas modifier silencieusement ses lois pour masquer une limite de rendu.
 
 Si le jeu est indisponible mais que le Cœur fonctionne, l’Orée peut continuer à refléter l’état réel. Si le Cœur lui-même est indisponible, elle peut afficher le dernier snapshot validé et des micro-animations d’ambiance, mais elle ne doit jamais inventer une évolution canonique côté client.
+
+Voir `docs/development/ARBITRATION_LONGEVITY_AND_RESOURCES.md` et `docs/development/adr/ADR-0003-CORE-REPRESENTATION-INDEPENDENCE.md`.
 
 ## 15. Ordre de réalisation
 
@@ -209,9 +223,10 @@ Si le jeu est indisponible mais que le Cœur fonctionne, l’Orée peut continue
 4. Observatoire analytique ;
 5. contrat sémantique et prototype visuel de l’Orée ;
 6. validation sauvegarde/restauration/migrations ;
-7. seulement ensuite : naissance de l’instance canonique.
+7. revue de pérennité, ressources, dépendances et stratégie de remplacement ;
+8. seulement ensuite : naissance de l’instance canonique.
 
-L’investissement graphique important n’est pas prioritaire tant que le moteur ne prouve pas qu’il sait réellement vivre.
+L’investissement graphique ou sonore important n’est pas prioritaire tant que le moteur ne prouve pas qu’il sait réellement vivre.
 
 ## 16. Confidentialité
 
@@ -224,7 +239,8 @@ GitHub peut contenir :
 - télémétrie autorisée ;
 - résultats agrégés de validation ;
 - architecture de persistance ;
-- couche de rendu générique.
+- couches de rendu génériques ;
+- doctrine publique d’arbitrage technique et de pérennité.
 
 GitHub ne doit pas contenir :
 
