@@ -2,7 +2,7 @@
 
 > **Statut : contrat de production expurgé — v0.3**  
 > Date : 13 août 2026  
-> Les recettes exactes, fonctions, coefficients, seuils, graines, poids de causalité et vérités narratives réservées sont classés **Cœur d’Avelune** et conservés hors GitHub.
+> Les recettes exactes, paramètres internes, causalités réservées et vérités narratives sensibles sont conservés hors GitHub.
 
 ## 1. Finalité
 
@@ -85,9 +85,9 @@ Le monde commence avant la population jouable.
 
 La genèse peut passer d’états très simples vers des formes d’organisation plus complexes, sans imposer une biologie terrestre littérale et sans exiger un simulateur d’écosystème individualisé coûteux.
 
-Le moteur peut faire apparaître des structures organisées transitoires avant l’arrivée des Corcites. Leur interprétation narrative précise et leur relation éventuelle avec les Corcites sont réservées au **Cœur d’Avelune**.
+Le moteur peut faire apparaître des structures organisées transitoires avant l’arrivée des Corcites. Leur interprétation narrative précise et leurs mécanismes internes restent réservés.
 
-Des transformations majeures d’un même vivant, dont des **mues** au sens générique, peuvent être expérimentées avant la définition des races jouables. Le Cœur demeure l’autorité sur l’identité et la transformation ; le rendu ne déduit ni ne crée une généalogie à partir de l’apparence.
+Des transformations majeures d’un même vivant, dont des **mues** au sens générique, peuvent être expérimentées tôt. Le Cœur demeure l’autorité sur l’identité et la transformation ; le rendu ne déduit ni ne crée des faits canoniques à partir de l’apparence.
 
 ## 8. Arrivée future des joueurs
 
@@ -134,8 +134,8 @@ Le laboratoire doit pouvoir :
 5. conserver des cicatrices ;
 6. sauvegarder et reprendre l’état ;
 7. exporter des métriques et un journal ;
-8. reproduire une simulation avec la même version, les mêmes entrées et la même seed ;
-9. exécuter des campagnes accélérées sur de nombreuses seeds ;
+8. reproduire une simulation avec la même version et les mêmes entrées conservées ;
+9. exécuter des campagnes accélérées sur de nombreux cas ;
 10. vérifier automatiquement les invariants de stabilité.
 
 L’existence ultérieure d’un LAB VISUEL parallèle ne change pas cette exigence : le Cœur reste exécutable et validable sans lui.
@@ -166,7 +166,7 @@ Il doit permettre au contraire :
 
 Toute charge significative doit pouvoir être qualifiée comme permanente, périodique ou à la demande. Avant de rendre un calcul permanent ou d’augmenter le matériel, vérifier que sa fréquence et sa précision sont réellement nécessaires au phénomène simulé.
 
-Les métriques et seuils chiffrés de validation sont des paramètres de laboratoire et peuvent rester hors de ce document.
+Les métriques et seuils chiffrés de validation peuvent rester hors de ce document.
 
 ## 12. Observatoire analytique
 
@@ -196,7 +196,7 @@ interpréteur visuel
 
 Les fixtures synthétiques, exports de simulations enregistrées et futurs états canoniques doivent pouvoir employer ce même contrat. Une révision du Cœur doit être absorbée autant que possible par l’adaptateur ou par une migration explicite du contrat, et non imposer une réécriture de la grammaire ou des vues.
 
-Le LAB peut tester tôt continuité morphologique, mues, lignées, temps long, traces, accessibilité, qualité adaptative et coût de rendu. Il reste **non canonique** tant que les gates de production ne sont pas franchies.
+Le LAB peut tester tôt continuité d’identité, transformations majeures, temps long, traces, accessibilité, qualité adaptative et coût de rendu. Il reste **non canonique** tant que les gates de production ne sont pas franchies.
 
 L’**Orée** est la façade contemplative pérenne destinée à traduire le vrai état du monde : vitrine de genèse, écran d’accueil public, seuil facultatif vers le jeu, point d’observation ultérieur ou façade de maintenance.
 
@@ -242,7 +242,7 @@ Le Cœur et ses interpréteurs n’avancent pas selon une chaîne rigide « Cœu
 
 1. documentation, frontières public/secret et invariants ;
 2. moteur headless + persistance + simulateur accéléré ;
-3. campagnes longues, multi-seeds et tests d’invariants ;
+3. campagnes longues et tests d’invariants ;
 4. dès qu’un sous-ensemble sémantique est suffisamment stable : **contrat de représentation v0 + fixtures/replays + LAB VISUEL ou sonore isolé** ;
 5. Observatoire analytique et poursuite des diagnostics du Cœur ;
 6. faire évoluer les adaptateurs et le contrat sans coupler les interpréteurs aux mécanismes expérimentaux ;
@@ -251,14 +251,13 @@ Le Cœur et ses interpréteurs n’avancent pas selon une chaîne rigide « Cœu
 9. seulement après stabilisation suffisante : Orée et représentations de production ;
 10. seulement après validation opérationnelle et comportementale suffisante : naissance de l’instance canonique.
 
-L’investissement artistique et technique peut donc commencer de façon contrôlée avant la fin du Cœur. **La production massive d’assets ou le design définitif des races restent en revanche interdits tant que le contrat, les lignées et leurs mécanismes amont ne sont pas suffisamment stables.**
+L’investissement artistique et technique peut donc commencer de façon contrôlée avant la fin du Cœur. **La production massive de contenu reste en revanche différée tant que le contrat et les mécanismes amont nécessaires ne sont pas suffisamment stables.**
 
 ## 16. Confidentialité
 
 GitHub peut contenir :
 
-- contrats de modules ;
-- interfaces de données expurgées ;
+- contrats et interfaces expurgés ;
 - invariants ;
 - outils de test ;
 - télémétrie autorisée ;
@@ -266,16 +265,6 @@ GitHub peut contenir :
 - architecture de persistance ;
 - couches de rendu génériques ;
 - doctrine publique d’arbitrage technique et de pérennité ;
-- principes d’adaptation et de versionnement du contrat de représentation.
+- principes d’adaptation et de versionnement des contrats de représentation.
 
-GitHub ne doit pas contenir :
-
-- formule exacte de naissance ;
-- recette exacte d’évolution ;
-- paramètres canoniques cachés ;
-- seuils invisibles ;
-- signatures secrètes ;
-- correspondances exactes entre variables du Cœur et morphologie ou musique ;
-- règles propriétaires d’héritage, de sélection ou de mue lorsqu’elles révèlent les internes ;
-- causalités narratives réservées ;
-- mécanismes permettant de reconstruire précisément le comportement propriétaire du Cœur.
+GitHub ne doit pas détailler les recettes propriétaires, paramètres internes, mécanismes causaux réservés, signatures non publiques, secrets narratifs ou informations permettant de reconstruire le fonctionnement confidentiel du Cœur ou de ses traductions.
