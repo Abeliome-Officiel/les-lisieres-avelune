@@ -1,6 +1,6 @@
 # Avelune — Cœur vivant et genèse canonique
 
-> **Statut : contrat de production expurgé — v0.2**  
+> **Statut : contrat de production expurgé — v0.3**  
 > Date : 13 août 2026  
 > Les recettes exactes, fonctions, coefficients, seuils, graines, poids de causalité et vérités narratives réservées sont classés **Cœur d’Avelune** et conservés hors GitHub.
 
@@ -87,6 +87,8 @@ La genèse peut passer d’états très simples vers des formes d’organisation
 
 Le moteur peut faire apparaître des structures organisées transitoires avant l’arrivée des Corcites. Leur interprétation narrative précise et leur relation éventuelle avec les Corcites sont réservées au **Cœur d’Avelune**.
 
+Des transformations majeures d’un même vivant, dont des **mues** au sens générique, peuvent être expérimentées avant la définition des races jouables. Le Cœur demeure l’autorité sur l’identité et la transformation ; le rendu ne déduit ni ne crée une généalogie à partir de l’apparence.
+
 ## 8. Arrivée future des joueurs
 
 Lorsque les premiers Corcites jouables arrivent, ils doivent s’implanter dans **l’état réellement atteint par Avelune**.
@@ -121,7 +123,7 @@ Une instance canonique ne doit pas être lancée avant que ces opérations aient
 
 ## 10. Laboratoire headless
 
-Le premier chantier d’implémentation ne comporte **aucun frontend**.
+Le premier chantier d’implémentation du Cœur ne comporte **aucun frontend nécessaire à son fonctionnement**.
 
 Le laboratoire doit pouvoir :
 
@@ -135,6 +137,8 @@ Le laboratoire doit pouvoir :
 8. reproduire une simulation avec la même version, les mêmes entrées et la même seed ;
 9. exécuter des campagnes accélérées sur de nombreuses seeds ;
 10. vérifier automatiquement les invariants de stabilité.
+
+L’existence ultérieure d’un LAB VISUEL parallèle ne change pas cette exigence : le Cœur reste exécutable et validable sans lui.
 
 ## 11. Invariants de validation et coût de fonctionnement
 
@@ -174,33 +178,46 @@ Le port hôte réservé pour une éventuelle exposition HTTP de ce chantier est 
 
 L’Observatoire ne fait pas partie du chemin de survie canonique : sa panne ou son arrêt ne doit pas empêcher le Cœur sain de continuer.
 
-## 13. L’Orée : traduction contemplative pérenne
+## 13. LAB VISUEL et L’Orée
 
-Après validation analytique, une couche visuelle pourra traduire le vrai état du monde sous forme contemplative.
+Le **LAB VISUEL peut être ouvert avant l’achèvement complet du Cœur** dès qu’un sous-ensemble sémantique est suffisamment stable pour être représenté sans figer les mécanismes expérimentaux.
 
-Cette façade, provisoirement appelée **l’Orée**, est conçue pour durer :
+Il ne consomme pas les tables, classes ou variables internes du Cœur comme API durable. Architecture :
 
-- vitrine de genèse avant le lancement ;
-- écran d’accueil public avant inscription ;
-- seuil facultatif vers le jeu ;
-- point d’observation ultérieur ;
-- façade de maintenance ou d’indisponibilité partielle ;
-- écran rappelable lors de certains événements ou transitions.
+```text
+Cœur ou replay de laboratoire
+        ↓
+adaptateur de version
+        ↓
+contrat sémantique de représentation versionné
+        ↓
+interpréteur visuel
+```
 
-La scène recherchée doit rester onirique, féerique, calme et peu explicative : point de vue depuis la Lisière, Sol et ciel, profondeur, formes lointaines, matière proche autour du cadre et possibilité de percevoir une vague réelle approcher puis passer.
+Les fixtures synthétiques, exports de simulations enregistrées et futurs états canoniques doivent pouvoir employer ce même contrat. Une révision du Cœur doit être absorbée autant que possible par l’adaptateur ou par une migration explicite du contrat, et non imposer une réécriture de la grammaire ou des vues.
 
-La version publique ne doit pas exposer la recette du Cœur ni transformer les états internes en dashboard technique.
+Le LAB peut tester tôt continuité morphologique, mues, lignées, temps long, traces, accessibilité, qualité adaptative et coût de rendu. Il reste **non canonique** tant que les gates de production ne sont pas franchies.
 
-## 14. Représentations remplaçables et dégradation gracieuse
+L’**Orée** est la façade contemplative pérenne destinée à traduire le vrai état du monde : vitrine de genèse, écran d’accueil public, seuil facultatif vers le jeu, point d’observation ultérieur ou façade de maintenance.
+
+La scène recherchée doit rester onirique, féerique, calme et peu explicative. La version publique ne doit ni exposer la recette du Cœur ni transformer les états internes en dashboard technique.
+
+La production définitive de l’Orée reste postérieure à une stabilisation suffisante du contrat et à la validation des coûts, de la dégradation et de la pérennité.
+
+Voir `docs/24_visuel_coeur_contrat_public.md`.
+
+## 14. Représentations remplaçables, cadences et dégradation gracieuse
 
 Le Cœur ne connaît jamais directement les sprites, modèles, textures, shaders, couleurs, animations, instruments, moteurs audio ou autres technologies de représentation.
 
-Architecture cible :
+Architecture cible générale :
 
 ```text
 état canonique du monde
         ↓
-contrat sémantique de représentation
+adaptateurs de représentation
+        ↓
+contrat sémantique versionné
         ↓
 interpréteurs / moteurs de rendu
 ```
@@ -209,38 +226,47 @@ Cette séparation doit permettre à plusieurs générations de rendu visuel, son
 
 **Avelune ne doit jamais dépendre pour sa survie d’un moteur chargé de la représenter.**
 
+La cadence de calcul du Cœur, la cadence de publication d’un état sémantique et les cadences de rendu sont distinctes. Un navigateur peut interpoler ou animer entre états autorisés sans inventer une trajectoire canonique. Un besoin de fluidité graphique ou sonore ne constitue pas à lui seul une raison d’augmenter la fréquence du Cœur.
+
+Le rendu est effectué côté client autant que possible. Le serveur publie des états ou événements compacts ; il ne rend pas une scène distincte par observateur sauf nécessité ultérieure démontrée.
+
 Si une ressource manque ou si un interpréteur tombe, le mode dégradé porte d’abord sur la qualité, la fréquence ou la disponibilité de la représentation. Le Cœur ne doit pas modifier silencieusement ses lois pour masquer une limite de rendu.
 
 Si le jeu est indisponible mais que le Cœur fonctionne, l’Orée peut continuer à refléter l’état réel. Si le Cœur lui-même est indisponible, elle peut afficher le dernier snapshot validé et des micro-animations d’ambiance, mais elle ne doit jamais inventer une évolution canonique côté client.
 
-Voir `docs/development/ARBITRATION_LONGEVITY_AND_RESOURCES.md` et `docs/development/adr/ADR-0003-CORE-REPRESENTATION-INDEPENDENCE.md`.
+Voir `docs/development/ARBITRATION_LONGEVITY_AND_RESOURCES.md`, `docs/development/adr/ADR-0003-CORE-REPRESENTATION-INDEPENDENCE.md`, `docs/23_univers_sonore_contrat_public.md` et `docs/24_visuel_coeur_contrat_public.md`.
 
 ## 15. Ordre de réalisation
 
-1. documentation et séparation des secrets ;
+Le Cœur et ses interpréteurs n’avancent pas selon une chaîne rigide « Cœur fini puis rendu ». L’ordre cible devient :
+
+1. documentation, frontières public/secret et invariants ;
 2. moteur headless + persistance + simulateur accéléré ;
 3. campagnes longues, multi-seeds et tests d’invariants ;
-4. Observatoire analytique ;
-5. contrat sémantique et prototype visuel de l’Orée ;
-6. validation sauvegarde/restauration/migrations ;
-7. revue de pérennité, ressources, dépendances et stratégie de remplacement ;
-8. seulement ensuite : naissance de l’instance canonique.
+4. dès qu’un sous-ensemble sémantique est suffisamment stable : **contrat de représentation v0 + fixtures/replays + LAB VISUEL ou sonore isolé** ;
+5. Observatoire analytique et poursuite des diagnostics du Cœur ;
+6. faire évoluer les adaptateurs et le contrat sans coupler les interpréteurs aux mécanismes expérimentaux ;
+7. validation sauvegarde/restauration/migrations, pérennité et ressources cumulées ;
+8. gates de compatibilité des interpréteurs : remplacement, mode dégradé, accessibilité et budget ;
+9. seulement après stabilisation suffisante : Orée et représentations de production ;
+10. seulement après validation opérationnelle et comportementale suffisante : naissance de l’instance canonique.
 
-L’investissement graphique ou sonore important n’est pas prioritaire tant que le moteur ne prouve pas qu’il sait réellement vivre.
+L’investissement artistique et technique peut donc commencer de façon contrôlée avant la fin du Cœur. **La production massive d’assets ou le design définitif des races restent en revanche interdits tant que le contrat, les lignées et leurs mécanismes amont ne sont pas suffisamment stables.**
 
 ## 16. Confidentialité
 
 GitHub peut contenir :
 
 - contrats de modules ;
-- interfaces de données ;
+- interfaces de données expurgées ;
 - invariants ;
 - outils de test ;
 - télémétrie autorisée ;
 - résultats agrégés de validation ;
 - architecture de persistance ;
 - couches de rendu génériques ;
-- doctrine publique d’arbitrage technique et de pérennité.
+- doctrine publique d’arbitrage technique et de pérennité ;
+- principes d’adaptation et de versionnement du contrat de représentation.
 
 GitHub ne doit pas contenir :
 
@@ -249,5 +275,7 @@ GitHub ne doit pas contenir :
 - paramètres canoniques cachés ;
 - seuils invisibles ;
 - signatures secrètes ;
+- correspondances exactes entre variables du Cœur et morphologie ou musique ;
+- règles propriétaires d’héritage, de sélection ou de mue lorsqu’elles révèlent les internes ;
 - causalités narratives réservées ;
 - mécanismes permettant de reconstruire précisément le comportement propriétaire du Cœur.
