@@ -6,9 +6,9 @@ Projet : **Les Lisières d’Avelune**
 Baseline d’intégration : `main`  
 Candidat jouable : `develop/proto-0.2.2-playtest`  
 Chantiers parallèles actuels : **Cœur vivant** et **Tableau Réel (TA3)**.  
-Conception future cadrée : **univers sonore / interpréteur sonore**.
+Conceptions de représentation cadrées : **univers sonore** et **visuel du Cœur / LAB VISUEL**.
 
-Le dépôt GitHub contient les éléments destinés au développement partagé. L’implémentation détaillée du laboratoire du Cœur, les recettes de traduction vers les représentations et les informations d’exploitation internes ne font pas partie de ce manifeste.
+Le dépôt GitHub contient les éléments destinés au développement partagé. L’implémentation détaillée du laboratoire du Cœur, les recettes exactes de traduction vers les représentations et les informations d’exploitation internes ne font pas partie de ce manifeste.
 
 ## Politique d’intégrité
 
@@ -45,13 +45,27 @@ Documentation partageable :
 
 Le moteur de laboratoire détaillé reste dans son dépôt propriétaire séparé. Les documents GitHub n’en publient que le contrat et les résultats agrégés nécessaires au pilotage.
 
+Le Cœur ne dépend d’aucun interpréteur. Les futurs visuel et sonore s’y raccordent par adaptateurs et contrats sémantiques versionnés ; ils ne prennent pas les structures internes du laboratoire comme API durable.
+
 ### Univers sonore
 
 Documentation partageable :
 
 - `docs/23_univers_sonore_contrat_public.md`
 
-Le sonore est une future couche de représentation en aval de l’état canonique ; il ne modifie pas le rôle du Cœur et ne fait pas partie du PROTO courant. Les correspondances exactes, seuils, temporalités, recettes de motifs, signatures cachées et causalités restent dans le stockage interne approprié et ne sont pas des contenus GitHub.
+Le sonore est une couche de représentation en aval de l’état canonique ; il ne modifie pas le rôle du Cœur et ne fait pas partie du PROTO courant. Les correspondances exactes, seuils, temporalités, recettes de motifs, signatures cachées et causalités restent dans le stockage interne approprié et ne sont pas des contenus GitHub.
+
+### Visuel du Cœur / LAB VISUEL
+
+Documentation partageable :
+
+- `docs/24_visuel_coeur_contrat_public.md`
+
+Le visuel est une couche de représentation en aval. Le LAB peut être développé avant l’achèvement du Cœur uniquement contre un sous-ensemble sémantique suffisamment stable, sous forme de contrat versionné alimentable par fixtures, replays et futurs états canoniques.
+
+Le contrat public documente notamment : séparation anti-réécriture, continuité morphologique, mue précoce sans prédétermination des races, qualité adaptative sobre/normal/riche, rendu client par défaut, cadences découplées, gates de ressources et références de recherche.
+
+Les correspondances exactes Cœur → morphologie, règles propriétaires d’héritage, seeds révélatrices, seuils, pondérations, signatures de lignées et causalités réservées restent hors GitHub.
 
 ### Tableau Réel
 
@@ -81,7 +95,7 @@ Contient notamment :
 ### Conception et historique
 
 - `docs/conception/`
-- `docs/00_vision.md` à `docs/23_univers_sonore_contrat_public.md`
+- `docs/00_vision.md` à `docs/24_visuel_coeur_contrat_public.md`
 - `logs/`
 - `csv/`
 - `data/`
@@ -105,7 +119,8 @@ Pour l’état courant :
 4. `docs/development/PROJECT_STATUS_2026-08-12.md`
 5. `docs/21_coeur_vivant_genese_canonique.md` et `docs/22_coeur_vivant_validation_2026-08-12.md`
 6. `docs/23_univers_sonore_contrat_public.md` pour la direction sonore partageable
-7. `docs/real/` pour TA3
-8. le dossier `docs/development/proto0.2/` de `develop/proto-0.2.2-playtest` pour le candidat jouable courant.
+7. `docs/24_visuel_coeur_contrat_public.md` pour le visuel du Cœur et le LAB VISUEL
+8. `docs/real/` pour TA3
+9. le dossier `docs/development/proto0.2/` de `develop/proto-0.2.2-playtest` pour le candidat jouable courant.
 
 Les documents historiques restent disponibles pour la traçabilité mais ne reprennent pas autorité sur ces référentiels.
