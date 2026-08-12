@@ -22,6 +22,8 @@ interpréteurs indépendants
 
 Le rendu sonore ne modifie jamais l’état canonique et ne renvoie aucune décision vers le Cœur.
 
+**Le Cœur doit continuer à vivre normalement si le module sonore est arrêté, remplacé ou indisponible.**
+
 ## 2. Direction sonore
 
 L’identité sonore visée est :
@@ -80,13 +82,27 @@ Ces réglages modifient le **rendu**, pas les règles ni les droits de jeu. Une 
 - il ne réécrit pas l’histoire du monde ;
 - le compositeur/générateur musical et le moteur de rendu audio doivent rester remplaçables ;
 - les interpréteurs visuel et sonore peuvent exploiter un même état sans dépendre l’un de l’autre ;
-- les préférences d’accessibilité peuvent réduire, filtrer ou simplifier le rendu sans altérer le canon.
+- les préférences d’accessibilité peuvent réduire, filtrer ou simplifier le rendu sans altérer le canon ;
+- le sonore ne fait pas partie du chemin de survie du Cœur ;
+- une dépendance GPU, un moteur propriétaire ou un service externe nécessaire au sonore ne devient pas par transitivité une dépendance canonique.
 
-## 7. Statut technique
+## 7. Statut technique, ressources et modes de repli
 
-**Aucun moteur audio n’est sélectionné.** Les bibliothèques et moteurs éventuels devront être réévalués lorsque le chantier deviendra concret, selon les besoins réels, le navigateur cible, la qualité musicale, l’accessibilité et la sobriété CPU/RAM/réseau.
+**Aucun moteur audio n’est sélectionné.** Les bibliothèques et moteurs éventuels devront être réévalués lorsque le chantier deviendra concret, selon les besoins réels, le navigateur cible, la qualité musicale, l’accessibilité, la pérennité de la technologie et la sobriété CPU/GPU/RAM/réseau/énergie.
 
 La règle structurante est de conserver une couche d’interprétation propre à Avelune entre les données du monde et le moteur audio afin de ne pas coupler le Cœur à une technologie de rendu.
+
+Avant toute implémentation, distinguer ce qui doit réellement être :
+
+- **permanent** ;
+- **périodique** ;
+- **calculé à la demande**.
+
+Une musique générative n’a pas à mobiliser en permanence un GPU ou un service externe si le même résultat perceptif peut être produit à une cadence plus sobre sans perte canonique.
+
+Le mode dégradé sonore peut réduire densité, fréquence de régénération, nombre de couches ou qualité de synthèse, voire suspendre temporairement le sonore. Il ne doit jamais modifier le Cœur ni fabriquer une évolution du monde absente de l’état canonique.
+
+Les choix de moteur doivent être accompagnés d’une stratégie de remplacement ou d’export réaliste. Voir `development/ARBITRATION_LONGEVITY_AND_RESOURCES.md`.
 
 ## 8. Frontière de publication
 
@@ -97,7 +113,8 @@ Peuvent être documentés dans GitHub :
 - la séparation architecturale ;
 - les trois couches sonores ;
 - le principe d’une musique évolutive interprétant l’état du monde ;
-- les interfaces et contrats nécessaires au développement partagé.
+- les interfaces et contrats nécessaires au développement partagé ;
+- les budgets de ressources agrégés et stratégies de repli non secrets.
 
 Restent hors GitHub :
 
@@ -114,7 +131,7 @@ Restent hors GitHub :
 - palette de timbres et instrumentation ;
 - mémoire et transformation des motifs sur de longues durées ;
 - part commune au monde partagé et adaptation locale au joueur ;
-- budget CPU/RAM/réseau et stratégie de rendu navigateur ;
-- moteur audio final et éventuels modes de repli.
+- budget CPU/GPU/RAM/réseau/énergie et stratégie de rendu navigateur ;
+- moteur audio final, pérennité de ses dépendances et modes de repli.
 
 Ces questions seront reprises lorsque le contrat sémantique de représentation du monde sera suffisamment stable.
