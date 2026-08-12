@@ -1,14 +1,16 @@
 # Roadmap — Les Lisières d’Avelune
 
-## État au 12 août 2026
+## État au 13 août 2026
 
-Le projet avance désormais sur **trois axes indépendants** :
+Le projet avance actuellement sur **trois axes indépendants** :
 
 | Axe | État | Prochaine gate |
 |---|---|---|
 | PROTO jouable | PROTO-0.2.2 validé sur `develop/proto-0.2.2-playtest` | playtests puis décision explicite d’intégration |
 | Cœur vivant | laboratoire headless, diagnostic R2.10 en cours | identifier le goulot de persistance avant nouveau mécanisme |
 | Tableau Réel | Gate 0 validé | Phase B : socle persistant autonome hors PROTO |
+
+L’**univers sonore** est désormais cadré comme chantier futur de représentation. Il ne devient pas un quatrième axe runtime courant et ne modifie pas le PROTO.
 
 Le nettoyage de l’historique GitHub est clos. Le dépôt peut de nouveau être synchronisé normalement, avec contrôle obligatoire des anciens clones/worktrees avant réutilisation.
 
@@ -58,6 +60,7 @@ Le Cœur est le monde autonome avant les joueurs. Son implémentation de laborat
 - [ ] validation sauvegarde/restauration/migrations pour durée indéterminée ;
 - [ ] Observatoire analytique privé ;
 - [ ] contrat sémantique de représentation ;
+- [ ] prototypes d’interpréteurs visuel et sonore seulement après stabilisation suffisante du contrat ;
 - [ ] prototype de l’Orée ;
 - [ ] naissance canonique uniquement après validation des opérations et du comportement long terme.
 
@@ -94,16 +97,40 @@ Le Gate 0 a invalidé l’idée de dépendre du conteneur ou de la base du PROTO
 
 Voir `docs/real/`.
 
-## 4. Documentation et gouvernance
+## 4. Univers sonore — conception future
+
+### Acquis de conception
+
+- [x] le Cœur reste exclusivement le moteur d’évolution du vivant ;
+- [x] le sonore est un interpréteur en aval de l’état canonique, au même niveau conceptuel que le visuel ;
+- [x] direction : satisfaisante, contemplative, onirique et féerique ;
+- [x] séparation musique du monde / sons du jeu / signaux d’information ;
+- [x] accessibilité sensorielle paramétrique, sans « mode neuroA » unique ;
+- [x] séparation explicite entre contrat partageable et recettes internes.
+
+### À reprendre plus tard
+
+- [ ] définir la grammaire musicale d’Avelune ;
+- [ ] définir la mémoire et la transformation des motifs ;
+- [ ] arbitrer la part commune au monde et l’adaptation locale ;
+- [ ] fixer les contraintes de sécurité et de confort sonore ;
+- [ ] mesurer le budget CPU/RAM/réseau ;
+- [ ] comparer les moteurs de rendu sur un prototype isolé ;
+- [ ] choisir une technologie seulement à partir de besoins stabilisés.
+
+Voir : `docs/23_univers_sonore_contrat_public.md`.
+
+## 5. Documentation et gouvernance
 
 - [x] GitHub redevient la source de vérité des contenus destinés au dépôt ;
 - [x] documentation de pilotage synchronisée au 12 août ;
 - [x] documentation TA3 partageable migrée vers GitHub ;
+- [x] frontière public/secret du futur univers sonore formalisée ;
 - [ ] conserver hors dépôt les détails propriétaires et opérationnels ;
 - [ ] nettoyer progressivement du Drive les doublons qui n’avaient été créés que pendant le gel GitHub ;
 - [ ] ne supprimer une information sensible d’un stockage temporaire qu’après vérification de sa copie de référence.
 
-## 5. Principes invariants
+## 6. Principes invariants
 
 - monde partagé unique ;
 - Corcite comme personnage, organisme et cité ;
@@ -116,4 +143,4 @@ Voir `docs/real/`.
 - accessibilité intégrée ;
 - identité queer et non genrée ;
 - sobriété technique ;
-- séparation entre prototype, monde autonome, instrumentation du projet et rendu graphique.
+- séparation entre prototype, monde autonome, instrumentation du projet et représentations visuelle/sonore.

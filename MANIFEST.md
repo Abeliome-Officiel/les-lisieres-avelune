@@ -1,13 +1,14 @@
 # Manifeste du dépôt
 
-## État courant — 12 août 2026
+## État courant — 13 août 2026
 
 Projet : **Les Lisières d’Avelune**  
 Baseline d’intégration : `main`  
 Candidat jouable : `develop/proto-0.2.2-playtest`  
-Chantiers parallèles : **Cœur vivant** et **Tableau Réel (TA3)**.
+Chantiers parallèles actuels : **Cœur vivant** et **Tableau Réel (TA3)**.  
+Conception future cadrée : **univers sonore / interpréteur sonore**.
 
-Le dépôt GitHub contient les éléments destinés au développement partagé. L’implémentation détaillée du laboratoire du Cœur et les informations d’exploitation internes ne font pas partie de ce manifeste.
+Le dépôt GitHub contient les éléments destinés au développement partagé. L’implémentation détaillée du laboratoire du Cœur, les recettes de traduction vers les représentations et les informations d’exploitation internes ne font pas partie de ce manifeste.
 
 ## Politique d’intégrité
 
@@ -44,6 +45,14 @@ Documentation partageable :
 
 Le moteur de laboratoire détaillé reste dans son dépôt propriétaire séparé. Les documents GitHub n’en publient que le contrat et les résultats agrégés nécessaires au pilotage.
 
+### Univers sonore
+
+Documentation partageable :
+
+- `docs/23_univers_sonore_contrat_public.md`
+
+Le sonore est une future couche de représentation en aval de l’état canonique ; il ne modifie pas le rôle du Cœur et ne fait pas partie du PROTO courant. Les correspondances exactes, seuils, temporalités, recettes de motifs, signatures cachées et causalités restent dans le stockage interne approprié et ne sont pas des contenus GitHub.
+
 ### Tableau Réel
 
 `docs/real/`
@@ -72,7 +81,7 @@ Contient notamment :
 ### Conception et historique
 
 - `docs/conception/`
-- `docs/00_vision.md` à `docs/22_coeur_vivant_validation_2026-08-12.md`
+- `docs/00_vision.md` à `docs/23_univers_sonore_contrat_public.md`
 - `logs/`
 - `csv/`
 - `data/`
@@ -95,7 +104,8 @@ Pour l’état courant :
 3. `docs/index.md`
 4. `docs/development/PROJECT_STATUS_2026-08-12.md`
 5. `docs/21_coeur_vivant_genese_canonique.md` et `docs/22_coeur_vivant_validation_2026-08-12.md`
-6. `docs/real/` pour TA3
-7. le dossier `docs/development/proto0.2/` de `develop/proto-0.2.2-playtest` pour le candidat jouable courant.
+6. `docs/23_univers_sonore_contrat_public.md` pour la direction sonore partageable
+7. `docs/real/` pour TA3
+8. le dossier `docs/development/proto0.2/` de `develop/proto-0.2.2-playtest` pour le candidat jouable courant.
 
 Les documents historiques restent disponibles pour la traçabilité mais ne reprennent pas autorité sur ces référentiels.

@@ -1,5 +1,15 @@
 # Changelog
 
+## Univers sonore — cadrage initial — 2026-08-13
+
+- ajout du contrat partageable de l’univers sonore d’Avelune ;
+- confirmation que le Cœur reste exclusivement le moteur d’évolution du vivant et que le sonore n’est qu’un interpréteur en aval de l’état canonique ;
+- direction sonore initiale fixée à **satisfaisante · contemplative · onirique · féerique** ;
+- séparation de la musique du monde, des sons du jeu et des signaux d’information ;
+- accessibilité sensorielle conçue par réglages indépendants plutôt que par un unique « mode neuroA » ;
+- moteur audio volontairement non choisi à ce stade et chantier maintenu hors du PROTO courant ;
+- séparation documentaire entre contrat partageable et recettes internes : correspondances exactes, seuils, temporalités, motifs, signatures et causalités restent hors GitHub.
+
 ## Synchronisation Avelune — GitHub réouvert — 2026-08-12
 
 - clôture du gel GitHub après nettoyage contrôlé de l’ancien historique ;

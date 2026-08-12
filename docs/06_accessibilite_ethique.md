@@ -29,6 +29,25 @@ Le principe est : **conserver la profondeur, mais offrir plusieurs chemins pour 
 
 Outils visés : récapitulatifs, hiérarchisation de l’information, automatisation possible, conséquences expliquées, affichages progressifs et absence d’exigence de réflexe.
 
+## Accessibilité sensorielle et sonore
+
+Avelune ne doit pas définir un unique « mode neuroA ». Des besoins sensoriels différents peuvent être légitimes et parfois opposés.
+
+Le futur rendu sonore doit donc permettre des réglages indépendants portant notamment sur :
+
+- intensité des transitoires et dynamique générale ;
+- densité musicale et nombre de couches simultanées ;
+- répétition et fréquence de variation ;
+- basses, aigus et spatialisation ;
+- sons ponctuels et complexité rythmique ;
+- sons d’interface et quantité de silence.
+
+Des profils peuvent servir de points de départ, mais ils restent modifiables et ne doivent jamais être assimilés à un diagnostic.
+
+Ces réglages agissent sur le rendu sans modifier les règles, les droits de jeu ou l’état canonique. Une information critique ne doit jamais dépendre exclusivement du son : elle doit disposer d’un équivalent visuel, textuel ou fonctionnel approprié.
+
+Voir aussi : [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md).
+
 ## Challenge sans punition
 
 Avelune doit proposer de vraies contraintes et de vrais arbitrages.

@@ -1,7 +1,7 @@
 # Architecture actuelle et architecture cible
 
 Statut : document normatif de développement.  
-Mise à jour : 12 août 2026.
+Mise à jour : 13 août 2026.
 
 ## 1. Principe général
 
@@ -15,6 +15,8 @@ validation UX/mécaniques   monde autonome headless     projet réel persistant
 ```
 
 Aucun chantier ne doit dépendre du runtime éphémère d’un autre par simple commodité.
+
+Les futurs rendus visuel et sonore constituent des **couches de représentation**, pas de nouveaux moteurs du monde ni de nouveaux axes runtime actuels.
 
 ## 2. PROTO jouable
 
@@ -57,19 +59,25 @@ simulateur accéléré / observabilité
       ↓
 contrat sémantique de représentation
       ↓
-rendu éventuel
+interpréteurs indépendants
+      ├─ visuel
+      └─ sonore
 ```
 
 Contraintes :
 
-- aucun besoin d’UI pour faire évoluer le monde ;
+- aucun besoin d’UI ou d’audio pour faire évoluer le monde ;
 - même logique pour laboratoire accéléré et futur runtime canonique ;
 - persistance versionnée ;
 - reprise/restauration/migrations testables ;
-- rendu graphique remplaçable sans modifier l’histoire du monde ;
+- les interpréteurs ne renvoient aucune décision vers le Cœur ;
+- les rendus visuel et sonore sont remplaçables sans modifier l’histoire du monde ;
+- les préférences d’accessibilité peuvent modifier un rendu sans modifier l’état canonique ;
 - séparation stricte entre monde de laboratoire et future instance canonique.
 
-L’implémentation détaillée du laboratoire n’est pas stockée dans ce dépôt GitHub.
+L’implémentation détaillée du laboratoire n’est pas stockée dans ce dépôt GitHub. Les correspondances exactes, seuils, temporalités, recettes de variabilité et causalités reliant les internes du Cœur aux représentations restent également hors dépôt.
+
+Voir `docs/23_univers_sonore_contrat_public.md` pour le contrat partageable du futur interpréteur sonore.
 
 ## 4. Tableau Réel
 
@@ -139,6 +147,8 @@ app/content/
 
 Cette cible ne justifie pas une réécriture prématurée. Une brique migre lorsqu’un besoin réel apparaît, avec tests de non-régression.
 
+Le futur interpréteur sonore n’impose à ce stade aucun nouveau dossier, service ou framework dans cette cible : son emplacement concret sera décidé seulement lorsqu’un besoin d’implémentation aura été validé.
+
 ## 6. Dette d’interface
 
 Les pages de prototype volumineuses sont une dette assumée tant que la boucle change rapidement. Lorsqu’un découpage devient utile, préférer :
@@ -155,6 +165,6 @@ La page racine orchestre navigation, session et composition ; elle ne devient pa
 - GitHub : code et documentation destinés au dépôt ;
 - branche PROTO-0.2.2 : candidat jouable courant ;
 - dépôt propriétaire séparé : laboratoire détaillé du Cœur ;
-- stockage interne : informations d’exploitation et données non destinées au dépôt.
+- stockage interne : informations d’exploitation, recettes de représentation et données non destinées au dépôt.
 
 Un ancien clone ou worktree antérieur au nettoyage de l’historique GitHub doit être contrôlé avant de pouvoir redevenir une source de travail.

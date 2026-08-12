@@ -1,6 +1,6 @@
 # Documentation — Les Lisières d’Avelune
 
-Cet index distingue les **principes de conception partageables**, les **jalons jouables**, le **Cœur vivant**, le **Tableau Réel**, les documents historiques et les informations propriétaires conservées hors dépôt.
+Cet index distingue les **principes de conception partageables**, les **jalons jouables**, le **Cœur vivant**, le **Tableau Réel**, les futures couches de représentation, les documents historiques et les informations propriétaires conservées hors dépôt.
 
 ## 1. État courant
 
@@ -10,6 +10,7 @@ Cet index distingue les **principes de conception partageables**, les **jalons j
 - **PROTO-0.2.2** : candidat de playtest distribué sur `develop/proto-0.2.2-playtest` ; son intégration dans `main` reste une décision explicite.
 - **Cœur vivant / CŒUR-0** : chantier headless distinct, actuellement en campagne de diagnostic R2.10.
 - **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; Phase B suivante.
+- **Univers sonore** : direction de conception future cadrée ; aucun moteur audio choisi et aucun impact sur le PROTO courant.
 
 État de pilotage détaillé : **[Avelune — état de développement au 12 août 2026](development/PROJECT_STATUS_2026-08-12.md)**.
 
@@ -27,6 +28,7 @@ Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation no
 - [Background](10_background_avelune.md)
 - [Trame RPG](14_trame_rpg.md)
 - [Passage et Lisière](15_lisiere_et_passage.md)
+- [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
 
 Lorsqu’un document historique contredit un référentiel plus récent, il reste une trace et non une source normative.
 
@@ -38,7 +40,7 @@ Lorsqu’un document historique contredit un référentiel plus récent, il rest
 - **[Cœur vivant et genèse canonique](21_coeur_vivant_genese_canonique.md)**
 - [Modèle évolutif de vague — notice historique](18_modele_vague_evolutive.md)
 
-Les fonctions exactes, coefficients, seuils cachés, recettes de variabilité, causalités propriétaires et vérités narratives réservées ne sont pas des contenus GitHub.
+Les fonctions exactes, coefficients, seuils cachés, recettes de variabilité, causalités propriétaires et vérités narratives réservées ne sont pas des contenus GitHub. Cette frontière s’applique également aux futures recettes de traduction visuelle et sonore du Cœur.
 
 GitHub conserve les contrats, interfaces, exigences, architecture, tests partageables et résultats de validation suffisamment agrégés.
 
@@ -52,8 +54,9 @@ Ordre de travail :
 2. persistance, journal causal et simulateur accéléré ;
 3. campagnes longues et multi-seeds ;
 4. observatoire analytique privé ;
-5. traduction visuelle sémantique et Orée ;
-6. seulement après validation suffisante : instance canonique persistante.
+5. contrat sémantique de représentation puis interpréteurs visuel et sonore indépendants ;
+6. Orée et autres rendus seulement lorsque leurs prérequis sont stabilisés ;
+7. seulement après validation suffisante : instance canonique persistante.
 
 Au 12 août, les diagnostics R2.6 à R2.9 ont isolé le problème de persistance précoce des lignées ; R2.10 mesure le goulot entre établissement, première propagation et exposition aux vagues. Les détails de recette et le code de laboratoire restent hors dépôt.
 
@@ -104,10 +107,13 @@ Le jalon teste volontairement une boucle simplifiée et distribuable : implantat
 ## 8. Identité et direction artistique
 
 - [Charte graphique de travail](art/CHARTE_GRAPHIQUE.md)
+- [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
 - [Assets GitHub](assets/README.md)
 - [Brief visuel PROTO-0.2 / Gen3 corrigé](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.2.2-playtest/docs/development/proto0.2/06_VISUAL_BRIEF_GEN3.md)
 
-Direction actuelle : **poétique · onirique · féerique · organique · minérale · florale-abstraite · queer**.
+Direction visuelle actuelle : **poétique · onirique · féerique · organique · minérale · florale-abstraite · queer**.
+
+Direction sonore initiale : **satisfaisante · contemplative · onirique · féerique**.
 
 ## 9. Historique
 
@@ -131,5 +137,5 @@ Ces fichiers restent utiles pour la traçabilité mais ne reprennent pas autorit
 - identité queer et non genrée ;
 - monde autonome même sans joueur ;
 - séparation entre prototype jouable, Cœur vivant et Tableau Réel ;
-- séparation entre état canonique et représentation graphique ;
+- séparation entre état canonique et représentations visuelle/sonore ;
 - séparation entre documentation partageable et informations propriétaires.
