@@ -1,6 +1,6 @@
 # Documentation — Les Lisières d’Avelune
 
-Cet index distingue les **principes de conception partageables**, les **jalons jouables**, le **Cœur vivant**, le **Tableau Réel**, les futures couches de représentation, les documents historiques et les informations propriétaires conservées hors dépôt.
+Cet index distingue les **principes de conception partageables**, les **jalons jouables**, le **Cœur vivant**, le **Tableau Réel**, les couches de représentation, les documents historiques et les informations propriétaires conservées hors dépôt.
 
 ## 1. État courant
 
@@ -11,6 +11,7 @@ Cet index distingue les **principes de conception partageables**, les **jalons j
 - **Cœur vivant / CŒUR-0** : chantier headless distinct, actuellement en campagne de diagnostic R2.10.
 - **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; Phase B suivante.
 - **Univers sonore** : direction de conception future cadrée ; aucun moteur audio choisi et aucun impact sur le PROTO courant.
+- **Visuel du Cœur / LAB VISUEL** : cahier de préproduction cadré ; développement anticipé autorisé uniquement via un contrat sémantique versionné, sans dépendance durable aux internes du Cœur.
 - **Arbitrage transversal** : doctrine de pérennité, ressources, données et matériel actée le 13 août 2026 ; ce cadre n’est pas un runtime supplémentaire.
 
 État de pilotage détaillé : **[Avelune — état de développement au 12 août 2026](development/PROJECT_STATUS_2026-08-12.md)**.
@@ -30,6 +31,7 @@ Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation no
 - [Trame RPG](14_trame_rpg.md)
 - [Passage et Lisière](15_lisiere_et_passage.md)
 - [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
+- [Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)
 
 Lorsqu’un document historique contredit un référentiel plus récent, il reste une trace et non une source normative.
 
@@ -39,26 +41,31 @@ Lorsqu’un document historique contredit un référentiel plus récent, il rest
 - **[Système d'évolution du monde et des vagues — contrat expurgé](19_systeme_evolution_vague_v0.2.md)**
 - **[Moteur de naissance des vagues — contrat expurgé](20_moteur_naissance_vagues_v0.1.md)**
 - **[Cœur vivant et genèse canonique](21_coeur_vivant_genese_canonique.md)**
+- **[Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)**
+- **[Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)**
 - [Modèle évolutif de vague — notice historique](18_modele_vague_evolutive.md)
 
-Les fonctions exactes, coefficients, seuils cachés, recettes de variabilité, causalités propriétaires et vérités narratives réservées ne sont pas des contenus GitHub. Cette frontière s’applique également aux futures recettes de traduction visuelle et sonore du Cœur.
+Les fonctions exactes, coefficients, seuils cachés, recettes de variabilité, causalités propriétaires et vérités narratives réservées ne sont pas des contenus GitHub. Cette frontière s’applique également aux recettes de traduction visuelle et sonore du Cœur.
 
-GitHub conserve les contrats, interfaces, exigences, architecture, tests partageables et résultats de validation suffisamment agrégés.
+GitHub conserve les contrats, interfaces, exigences, architecture, tests partageables, références extérieures et résultats de validation suffisamment agrégés.
 
 ## 3. Cœur vivant / genèse canonique
 
 Le chantier est parallèle et indépendant du playtest PROTO-0.2.2.
 
-Ordre de travail :
+Ordre de travail révisé :
 
 1. moteur headless autonome ;
 2. persistance, journal causal et simulateur accéléré ;
 3. campagnes longues et multi-seeds ;
-4. observatoire analytique privé ;
-5. contrat sémantique de représentation puis interpréteurs visuel et sonore indépendants ;
-6. Orée et autres rendus seulement lorsque leurs prérequis sont stabilisés ;
-7. validation de la pérennité, des migrations, des ressources et des modes dégradés ;
-8. seulement après validation suffisante : instance canonique persistante.
+4. dès qu’un sous-ensemble sémantique est assez stable, contrat de représentation v0 + fixtures/replays ;
+5. LAB VISUEL et/ou sonore isolé, derrière des adaptateurs de version, pendant que les diagnostics du Cœur continuent ;
+6. Observatoire analytique privé et poursuite de la validation du Cœur ;
+7. validation de la pérennité, des migrations, des ressources cumulées et des modes dégradés ;
+8. Orée et autres rendus de production seulement lorsque leurs gates et le contrat sont suffisamment stabilisés ;
+9. seulement après validation suffisante : instance canonique persistante.
+
+Le principe anti-réécriture est obligatoire : **un interpréteur ne consomme pas durablement les tables, classes ou variables internes d’une révision du Cœur**. Une évolution interne doit être absorbée autant que possible par l’adaptateur ou une migration explicite du contrat.
 
 Au 12 août, les diagnostics R2.6 à R2.9 ont isolé le problème de persistance précoce des lignées ; R2.10 mesure le goulot entre établissement, première propagation et exposition aux vagues. Les détails de recette et le code de laboratoire restent hors dépôt.
 
@@ -112,12 +119,15 @@ Le jalon teste volontairement une boucle simplifiée et distribuable : implantat
 
 - [Charte graphique de travail](art/CHARTE_GRAPHIQUE.md)
 - [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
+- [Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)
 - [Assets GitHub](assets/README.md)
 - [Brief visuel PROTO-0.2 / Gen3 corrigé](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.2.2-playtest/docs/development/proto0.2/06_VISUAL_BRIEF_GEN3.md)
 
-Direction visuelle actuelle : **poétique · onirique · féerique · organique · minérale · florale-abstraite · queer**.
+Direction visuelle actuelle : **poétique · onirique · féerique · organique · minérale · florale-abstraite · queer**, avec pour la représentation vivante une recherche **satisfaisante · contemplative · onirique · féerique**.
 
 Direction sonore initiale : **satisfaisante · contemplative · onirique · féerique**.
+
+Le visuel de préproduction privilégie une grammaire morphologique indépendante du renderer, la continuité des lignées et des mues, la cohérence temporelle, une qualité adaptative sobre/normal/riche et un budget mesuré avec les autres charges du système.
 
 ## 9. Historique
 
@@ -143,8 +153,10 @@ Ces fichiers restent utiles pour la traçabilité mais ne reprennent pas autorit
 - séparation entre prototype jouable, Cœur vivant et Tableau Réel ;
 - séparation entre état canonique et représentations visuelle/sonore ;
 - **le Cœur survit à la disparition ou au remplacement de ses représentations** ;
+- **les interpréteurs anticipés consomment un contrat versionné, jamais les internes provisoires comme API durable** ;
 - technologies et formats choisis avec une voie de migration réaliste ;
 - coût permanent et croissance des données mesurés ;
+- budget visuel/sonore évalué avec le jeu et le Cœur, jamais isolément ;
 - dégradation gracieuse des fonctions non canoniques avant altération des lois ;
 - matériel dimensionné et renouvelé à partir de mesures et de criticité ;
 - séparation entre documentation partageable et informations propriétaires.
