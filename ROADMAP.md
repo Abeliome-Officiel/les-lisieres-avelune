@@ -135,8 +135,12 @@ Voir : `docs/23_univers_sonore_contrat_public.md`.
 ### Acquis de conception
 
 - [x] représentation strictement en aval du Cœur ;
-- [x] architecture contract-first avec adaptateur de version ;
+- [x] architecture contract-first avec adaptateur privé de version ;
+- [x] projection publique par liste positive : aucun état privé inutile n’est transmis au navigateur ;
 - [x] même contrat pour fixtures, replays et future production ;
+- [x] contrat indépendant du protocole de transport ;
+- [x] état complet de resynchronisation prévu en cas de trou ou incompatibilité ;
+- [x] versions source/Cœur, adaptateur/contrat, grammaire et renderer distinguées ;
 - [x] direction : satisfaisante, contemplative, onirique et féerique ;
 - [x] continuité d’identité et cohérence temporelle comme contraintes ;
 - [x] mue utilisable comme cas de test de transformation majeure ;
@@ -148,12 +152,16 @@ Voir : `docs/23_univers_sonore_contrat_public.md`.
 ### VISUEL-0 — prochaine gate
 
 - [ ] définir un contrat sémantique v0 **minimal**, versionné et validé par schéma ;
+- [ ] définir la projection de publication et tester l’absence de données privées dans les payloads client ;
 - [ ] créer des fixtures synthétiques représentatives sans recopier les internes du Cœur ;
 - [ ] écrire un adaptateur d’exports/replays de simulations existantes ;
-- [ ] prouver que fixtures et replays alimentent exactement le même LAB ;
+- [ ] prouver que fixtures, replay local et flux simulé alimentent exactement le même LAB ;
+- [ ] définir état complet, identifiant/ordre d’état et mécanisme de resynchronisation ;
+- [ ] limiter chaque payload à la scène ou région utile au rendu ;
 - [ ] créer un renderer factice pour tester l’indépendance du contrat ;
 - [ ] simuler une révision incompatible du Cœur et la corriger uniquement par adaptateur/migration ;
-- [ ] mesurer un premier budget CPU/GPU/RAM/réseau côté client ;
+- [ ] tester séparément les changements de source, contrat, grammaire et renderer ;
+- [ ] mesurer un premier budget CPU/GPU/RAM/réseau côté client et côté serveur ;
 - [ ] ne figer aucun contenu futur inutile à la validation du LAB.
 
 ### VISUEL-1 à VISUEL-5, seulement après gate
@@ -175,6 +183,7 @@ Voir : `docs/24_visuel_coeur_contrat_public.md`.
 - [x] documentation TA3 partageable migrée vers GitHub ;
 - [x] frontière public/secret du futur univers sonore formalisée ;
 - [x] contrat visuel partageable, mue comme cas de test, gates anti-réécriture et références documentés ;
+- [x] projection publique, resynchronisation et frontières de version ajoutées au cahier visuel ;
 - [x] reformulation de la documentation visuelle publique pour ne pas exposer la structure des mécanismes réservés ;
 - [ ] conserver hors dépôt les détails propriétaires et opérationnels ;
 - [ ] nettoyer progressivement du Drive les doublons qui n’avaient été créés que pendant le gel GitHub ;
@@ -195,4 +204,7 @@ Voir : `docs/24_visuel_coeur_contrat_public.md`.
 - sobriété technique ;
 - séparation entre prototype, monde autonome, instrumentation du projet et représentations visuelle/sonore ;
 - interpréteurs anticipés branchés sur un contrat versionné, jamais sur les internes provisoires du Cœur ;
+- projection minimale avant envoi aux clients ;
+- protocole de transport distinct du contrat sémantique ;
+- versions source/contrat/grammaire/renderer découplées ;
 - budgets de ressources arbitrés au niveau du système complet et non de chaque brique isolément.
