@@ -53,3 +53,5 @@ Avelune vise une identité :
 **poétique · onirique · féerique · organique · minérale · florale-abstraite · queer**.
 
 Le monde ne doit pas être visuellement défini au-delà de ce qui a réellement été conçu. La nature de la population des Corcites et l’existence/nature d’une éventuelle faune ou flore extérieures restent ouvertes ; elles ne doivent donc pas être inventées dans les visuels actuels.
+
+Avelune doit aussi laisser, par moments, l’impression qu’un phénomène visible n’est que la surface de quelque chose de plus profond. Une répétition imparfaite, une trace qui revient, un détail qui semble répondre à un événement ancien peuvent servir de **cailloux du Petit Poucet**. Ces indices doivent rester rares, ambigus et non didactiques : assez présents pour faire naître le doute qu’« il y a quelque chose en dessous », jamais assez explicites pour transformer le monde en équation ou en puzzle à résoudre.
