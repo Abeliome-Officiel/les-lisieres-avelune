@@ -1,0 +1,22 @@
+{
+  "synthetic_format": "A",
+  "snapshot_no": 7,
+  "items": [
+    {
+      "local_key": "A-991",
+      "screen": {"left": 0.44, "top": 0.52, "size": 0.4},
+      "look": {
+        "compact": 0.71,
+        "long": 0.38,
+        "forked": 0.29,
+        "soft": 0.69,
+        "clear": 0.48,
+        "detail": 0.36,
+        "glow": 0.27,
+        "move": 0.19,
+        "beat": 0.25,
+        "mist": 0.16
+      }
+    }
+  ]
+}
