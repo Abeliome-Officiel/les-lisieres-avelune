@@ -3,7 +3,7 @@
 Statut : **doctrine technique partageable**.  
 Date : 13 août 2026.
 
-Ce document traduit en règles d’architecture les principes de la Constitution vivante d’Avelune v0.4. Il ne contient ni recette propriétaire du Cœur, ni mécanisme réservé, ni choix prématuré de moteur de rendu.
+Ce document traduit en règles d’architecture les principes de la Constitution vivante d’Avelune. Il ne contient ni recette propriétaire du Cœur, ni mécanisme réservé, ni choix prématuré de moteur de rendu.
 
 ## 1. Position dans l’architecture
 
@@ -243,3 +243,20 @@ Pour une décision technique ou matérielle significative, conserver au minimum 
 - condition de réexamen.
 
 Un ADR est approprié lorsqu’un choix modifie durablement l’architecture. Les valeurs opérationnelles et seuils mesurés restent dans les documents d’exploitation correspondants.
+
+## 16. Observabilité et capacité d’action
+
+Une instrumentation n’acquiert pas un pouvoir de commande simplement parce que le matériel ou l’API observés le permettent techniquement.
+
+Séparer explicitement lorsque pertinent :
+
+- acquisition de mesures ;
+- stockage et historisation ;
+- agrégation et diagnostic ;
+- présentation ;
+- alertes ;
+- actions automatiques ou manuelles.
+
+Une chaîne d’observation peut être volontairement **lecture seule**. Sa panne doit au pire rendre une mesure ancienne, inconnue ou indisponible ; elle ne doit pas modifier le système observé.
+
+Toute capacité d’action future doit être décidée séparément, justifier son besoin, ses droits, ses garde-fous, sa réversibilité et son comportement en cas de perte de communication. Cette séparation s’applique notamment au matériel d’alimentation et à l’observabilité du laboratoire.
