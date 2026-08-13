@@ -6,14 +6,16 @@ Statut : **direction de conception future**. Les principes ci-dessous sont acté
 
 Le **Cœur vivant** reste exclusivement le moteur autonome d’évolution du vivant et de production de l’état canonique d’Avelune. Il ne devient pas un moteur musical.
 
-Le sonore est un **interpréteur en aval**, au même niveau conceptuel que le futur interpréteur visuel :
+Le sonore est un **interpréteur en aval**, au même niveau conceptuel que l’interpréteur visuel :
 
 ```text
 Cœur vivant
     ↓
 état canonique du monde
     ↓
-contrat sémantique de représentation
+projection sémantique autorisée
+    ↓
+contrat de représentation versionné
     ↓
 interpréteurs indépendants
     ├─ visuel
@@ -47,91 +49,70 @@ Ces couches peuvent partager une identité timbrale, mais leurs responsabilités
 
 ## 4. Une musique issue du monde, pas une lecture brute des données
 
-Le sonore peut exploiter les résultats du Cœur sans devenir une simple sonification de statistiques.
+Le sonore peut exploiter les conséquences perceptibles autorisées de l’état du monde sans devenir une simple sonification de statistiques.
 
-Les transformations du monde doivent influencer une **grammaire musicale** — par exemple sa densité, sa stabilité, ses timbres, ses motifs, son registre, son rythme ou ses transitions — plutôt qu’établir une conversion directe entre une valeur du moteur et une note.
+Les transformations du monde influencent une **grammaire musicale** plutôt qu’une conversion directe d’une donnée interne en paramètre audio. La bande-son peut ainsi évoluer progressivement avec Avelune et conserver une continuité perceptible dans le temps, tandis que le Cœur reste totalement indépendant de la musique.
 
-La bande-son pourra ainsi évoluer progressivement avec Avelune et conserver une continuité perceptible dans le temps, tandis que le Cœur reste totalement indépendant de la musique.
+Le contrat public décrit uniquement la sémantique nécessaire au rôle autorisé du client ou de l’interpréteur. Il ne constitue pas une copie renommée du modèle interne du Cœur.
 
 ## 5. Accessibilité sensorielle et neurodiversité
 
 Il ne doit pas exister un unique « mode neuroA ». Les besoins sensoriels peuvent être différents, voire opposés.
 
-L’accessibilité sonore doit donc être pensée comme un ensemble de réglages indépendants, avec éventuellement des profils de départ entièrement modifiables. Les dimensions envisageables comprennent notamment :
-
-- intensité des transitoires ;
-- dynamique générale ;
-- densité musicale ;
-- quantité de répétition ;
-- fréquence des variations ;
-- importance des basses ;
-- richesse des aigus ;
-- spatialisation ;
-- quantité de sons ponctuels ;
-- complexité rythmique ;
-- nombre de couches simultanées ;
-- présence des sons d’interface ;
-- quantité de silence.
+L’accessibilité sonore doit donc être pensée comme un ensemble de réglages indépendants, avec éventuellement des profils de départ entièrement modifiables. Les dimensions de rendu peuvent notamment agir sur l’intensité, la dynamique, la densité, la répétition, la richesse spectrale, la spatialisation, la complexité rythmique, le nombre de couches, les sons ponctuels et la quantité de silence.
 
 Ces réglages modifient le **rendu**, pas les règles ni les droits de jeu. Une information critique doit toujours disposer d’un équivalent non sonore.
 
-## 6. Contrat d’architecture
+## 6. Contrat d’architecture et anti-réécriture
 
 - le module sonore reste strictement en aval de l’état canonique ;
-- il consomme un contrat sémantique de représentation, pas les internes du Cœur ;
-- il ne réécrit pas l’histoire du monde ;
+- il consomme uniquement une projection sémantique autorisée et versionnée ;
+- il ne dépend pas durablement des structures internes d’une révision du Cœur ;
+- une évolution interne doit pouvoir être absorbée par un adaptateur ou une migration explicite du contrat ;
 - le compositeur/générateur musical et le moteur de rendu audio doivent rester remplaçables ;
-- les interpréteurs visuel et sonore peuvent exploiter un même état sans dépendre l’un de l’autre ;
+- le visuel et le sonore restent indépendants l’un de l’autre et peuvent utiliser un socle commun ou des contrats frères selon leurs besoins ;
+- le protocole de transport ne définit pas la sémantique du contrat ;
 - les préférences d’accessibilité peuvent réduire, filtrer ou simplifier le rendu sans altérer le canon ;
-- le sonore ne fait pas partie du chemin de survie du Cœur ;
-- une dépendance GPU, un moteur propriétaire ou un service externe nécessaire au sonore ne devient pas par transitivité une dépendance canonique.
+- le sonore ne fait pas partie du chemin de survie du Cœur.
+
+Fixtures synthétiques, replays autorisés et future source active doivent pouvoir alimenter la même frontière contractuelle sans imposer à la grammaire musicale une connaissance de leur origine.
 
 ## 7. Statut technique, ressources et modes de repli
 
-**Aucun moteur audio n’est sélectionné.** Les bibliothèques et moteurs éventuels devront être réévalués lorsque le chantier deviendra concret, selon les besoins réels, le navigateur cible, la qualité musicale, l’accessibilité, la pérennité de la technologie et la sobriété CPU/GPU/RAM/réseau/énergie.
+**Aucun moteur audio n’est sélectionné.** Les bibliothèques et moteurs éventuels seront réévalués lorsque le chantier le nécessitera, selon les besoins réels, le navigateur cible, la qualité musicale, l’accessibilité, la pérennité de la technologie et la sobriété CPU/GPU/RAM/réseau/énergie.
 
-La règle structurante est de conserver une couche d’interprétation propre à Avelune entre les données du monde et le moteur audio afin de ne pas coupler le Cœur à une technologie de rendu.
+Avant toute implémentation durable, distinguer ce qui doit réellement être permanent, périodique ou calculé à la demande.
 
-Avant toute implémentation, distinguer ce qui doit réellement être :
+Le budget final est **cumulatif et concurrent** : côté client, jeu, visuel, audio, accessibilité et réseau doivent être testés ensemble lorsqu’ils cohabitent ; côté serveur, le Cœur/backend est mesuré avec les services réellement présents sur le même hôte. Un benchmark audio isolé attribue un coût mais ne valide pas l’intégration.
 
-- **permanent** ;
-- **périodique** ;
-- **calculé à la demande**.
+Le mode dégradé sonore réduit d’abord la sophistication du rendu ou peut suspendre le sonore. Il ne modifie jamais le Cœur et ne fabrique aucune évolution du monde absente de l’état canonique.
 
-Une musique générative n’a pas à mobiliser en permanence un GPU ou un service externe si le même résultat perceptif peut être produit à une cadence plus sobre sans perte canonique.
-
-Le mode dégradé sonore peut réduire densité, fréquence de régénération, nombre de couches ou qualité de synthèse, voire suspendre temporairement le sonore. Il ne doit jamais modifier le Cœur ni fabriquer une évolution du monde absente de l’état canonique.
-
-Les choix de moteur doivent être accompagnés d’une stratégie de remplacement ou d’export réaliste. Voir `development/ARBITRATION_LONGEVITY_AND_RESOURCES.md`.
+Les choix de moteur doivent disposer d’une voie réaliste de remplacement ou de migration. Voir `development/ARBITRATION_LONGEVITY_AND_RESOURCES.md`.
 
 ## 8. Frontière de publication
 
-Peuvent être documentés dans GitHub :
+GitHub documente uniquement ce qui est nécessaire au développement partagé : direction artistique, exigences d’accessibilité, garanties architecturales, interfaces autorisées, méthode, références extérieures, gates et résultats suffisamment agrégés.
 
-- la direction artistique sonore ;
-- les exigences d’accessibilité ;
-- la séparation architecturale ;
-- les trois couches sonores ;
-- le principe d’une musique évolutive interprétant l’état du monde ;
-- les interfaces et contrats nécessaires au développement partagé ;
-- les budgets de ressources agrégés et stratégies de repli non secrets.
+Les informations classées dans les espaces internes ne sont décrites ici que par des formulations génériques. **Cette documentation ne dresse pas l’inventaire de leur contenu, de leur organisation, de leurs relations ni de leur place éventuelle dans une chaîne causale.**
 
-Restent hors GitHub :
+La frontière de publication s’applique au contenu comme à la structure documentaire. Le caractère privé du dépôt ne constitue pas une autorisation de publier des éléments classés CODEX ou propriétaires.
 
-- les correspondances exactes entre données du Cœur et paramètres musicaux ;
-- les seuils, fenêtres temporelles et règles de transition ;
-- les recettes de persistance, mutation ou réapparition des motifs ;
-- les recettes de variabilité ;
-- les signatures cachées ;
-- les causalités ou indices susceptibles de révéler le fonctionnement propriétaire du Cœur ou des secrets narratifs.
+## 9. Méthode de recherche
 
-## 9. Questions laissées ouvertes
+Les études, œuvres, conférences, standards et précédents utilisés sont cités dans `26_univers_sonore_references_methode.md` avec leur rôle et leurs limites.
 
-- grammaire harmonique et rythmique propre à Avelune ;
-- palette de timbres et instrumentation ;
-- mémoire et transformation des motifs sur de longues durées ;
-- part commune au monde partagé et adaptation locale au joueur ;
-- budget CPU/GPU/RAM/réseau/énergie et stratégie de rendu navigateur ;
-- moteur audio final, pérennité de ses dépendances et modes de repli.
+Quatre statuts restent distincts : **[RÉFÉRENCE]**, **[HYPOTHÈSE AVELUNE]**, **[TESTÉ]** et **[ACTÉ]**. Une source extérieure éclaire ou contredit une hypothèse ; elle ne devient pas une loi d’Avelune par autorité.
 
-Ces questions seront reprises lorsque le contrat sémantique de représentation du monde sera suffisamment stable.
+## 10. Questions laissées ouvertes
+
+Restent notamment à éprouver :
+
+- la grammaire musicale propre à Avelune ;
+- la palette de timbres et l’instrumentation ;
+- la continuité musicale sur le temps long ;
+- l’articulation entre paysage commun du monde et expérience locale ;
+- les budgets mesurés et les modes de repli ;
+- le moteur audio final et sa stratégie de migration ;
+- la version initiale de la sémantique sonore autorisée et sa politique de compatibilité.
+
+Le principe retenu est plus important que la bibliothèque : **Avelune produit son histoire ; le sonore en donne une perception cohérente, accessible, sobre et remplaçable.**
