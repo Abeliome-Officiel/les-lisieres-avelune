@@ -6,6 +6,7 @@ import test from 'node:test';
 
 import { buildBenchmarkScene } from '../src/benchmark.mjs';
 import { planScene } from '../src/planner.mjs';
+import { assertRendererPort, RecordingRenderer } from '../src/renderer-port.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const fixtureRoot = path.resolve(here, '../../../docs/contracts/visuel0-fixtures');
@@ -58,6 +59,22 @@ test('benchmark generator remains inside the public VISUEL-0 profile up to 128 e
 
   assert.equal(plan.entities.length, 128);
   assert.equal(new Set(plan.entities.map((entity) => entity.id)).size, 128);
+});
+
+test('renderer implementations consume the render plan through a replaceable port', async () => {
+  const payload = await fixture('stable-full.json');
+  const plan = planScene(payload, { quality: 'normal' });
+  const renderer = assertRendererPort(new RecordingRenderer());
+  const result = renderer.render(plan);
+
+  assert.deepEqual(result, { sequence: plan.sequence, entities: plan.entities.length });
+  assert.deepEqual(renderer.frames()[0], plan);
+  renderer.destroy();
+  assert.deepEqual(renderer.frames(), []);
+});
+
+test('invalid renderer implementations fail closed', () => {
+  assert.throws(() => assertRendererPort({}), /must expose render/);
 });
 
 test('unknown quality tiers fail closed', async () => {
