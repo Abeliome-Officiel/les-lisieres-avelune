@@ -9,7 +9,7 @@ Cet index distingue les **principes de conception partageables**, les **jalons j
 - **PROTO-0.1** : jalon jouable intégré à `main`.
 - **PROTO-0.2.2** : candidat de playtest distribué sur `develop/proto-0.2.2-playtest` ; son intégration dans `main` reste une décision explicite.
 - **Cœur vivant / CŒUR-0** : chantier headless distinct, actuellement en campagne de diagnostic R2.10.
-- **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; Phase B suivante.
+- **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; première source physique d’énergie AvLab active en lecture seule ; Phase B suivante.
 - **Univers sonore / MUSIQUE-0** : préproduction v0.2 autorisée hors ligne sur enveloppe sémantique versionnée, fixtures neutres et replays autorisés ; aucun moteur audio choisi et aucune intégration live au Cœur actée.
 - **Visuel du Cœur / LAB VISUEL** : cahier de préproduction v0.3 cadré ; développement anticipé autorisé uniquement via projection publique minimale et contrat sémantique versionné, sans dépendance durable aux internes du Cœur.
 - **Arbitrage transversal** : doctrine de pérennité, ressources, données et matériel actée le 13 août 2026 ; ce cadre n’est pas un runtime supplémentaire.
@@ -88,8 +88,11 @@ Le Tableau Réel suit le projet **réel** sans le confondre avec le monde de jeu
 - [Index TA3](real/README.md)
 - [Spécification fonctionnelle et architecture](real/SPECIFICATION.md)
 - [Plan d’exécution post-Gate 0](real/EXECUTION_PLAN.md)
+- [Source énergie AvLab — télémétrie locale](real/AVLAB_POWER_TELEMETRY.md)
 
 Décision structurante : TA3 doit disposer de son propre stockage et runtime persistants. Les PROTO, instruments, saisies et futures sources de production s’y raccordent par des adaptateurs remplaçables.
+
+La télémétrie électrique AvLab est actuellement une source locale de lecture seule ; son stockage de collecte est un staging remplaçable et non le registre canonique TA3.
 
 ## 5. PROTO-0.1 — baseline de `main`
 
@@ -178,6 +181,7 @@ Ces fichiers restent utiles pour la traçabilité mais ne reprennent pas autorit
 - budget visuel/sonore évalué avec le jeu et le Cœur, jamais isolément ;
 - dégradation gracieuse des fonctions non canoniques avant altération des lois ;
 - matériel dimensionné et renouvelé à partir de mesures et de criticité ;
+- observabilité et capacité d’action restent des responsabilités distinctes ;
 - séparation entre documentation partageable et informations propriétaires ;
 - **la confidentialité porte aussi sur la structure documentaire : ne pas cartographier un mécanisme réservé pour dire qu’il est secret** ;
 - **références extérieures, hypothèses Avelune, résultats testés et décisions actées restent traçables et distincts**.
