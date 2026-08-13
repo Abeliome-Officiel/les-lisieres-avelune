@@ -2,7 +2,7 @@
 
 > Date : 13 août 2026  
 > Statut : **cahier partageable de recherche**.  
-> Les références extérieures, leur portée générale et la méthode de recherche sont partageables. Leur application exacte aux mécanismes internes du Cœur reste propriétaire.
+> Les références extérieures, leur portée générale et la méthode de recherche sont partageables. Seuls les éléments explicitement autorisés à la publication sont décrits ici.
 
 ## 1. Règle de traçabilité
 
@@ -13,32 +13,17 @@ Toute influence extérieure significative reçoit une citation permettant de ret
 - **[TESTÉ]** : résultat obtenu par les protocoles propres à Avelune ;
 - **[ACTÉ]** : décision de conception explicitement retenue.
 
-Une référence ne devient jamais une loi d’Avelune par autorité. Les études servent à construire de meilleures questions, des protocoles et des critères de confrontation. Les espèces, valeurs numériques, équations ou paramètres d’un modèle publié ne sont pas importés automatiquement dans Avelune.
+Une référence ne devient jamais une loi d’Avelune par autorité. Les études servent à construire de meilleures questions, des protocoles et des critères de confrontation. Les modèles publiés ne sont pas importés automatiquement dans Avelune.
 
 Lorsqu’une publication est consultée après un jalon déjà conçu, elle est documentée comme **confrontation rétrospective** et non présentée comme cause historique de la décision antérieure.
 
 ## 2. Frontière de publication
 
-Ce registre public ne décrit pas la topologie interne du Cœur.
+Ce registre public décrit les références, leur portée générale, leurs limites et les principes de méthode nécessaires à la compréhension du chantier.
 
-Peuvent être partagés :
+**Il ne dresse pas l’inventaire des informations classées, de leur organisation, de leurs relations ni de leur place éventuelle dans une chaîne causale.** Lorsqu’une publication éclaire une conception interne, la référence peut rester publique tandis que son application propre à Avelune est documentée dans l’espace interne approprié.
 
-- la référence bibliographique ;
-- le domaine étudié ;
-- les conclusions générales pertinentes dans les limites de la publication ;
-- les limites méthodologiques ;
-- les principes généraux de protocole et de reproductibilité.
-
-Restent dans les espaces propriétaires :
-
-- la correspondance précise entre une publication et un mécanisme interne ;
-- les hypothèses qui révèlent une causalité, une structure ou une séquence réservée ;
-- les variables, seuils, paramètres, distributions, pondérations et temporalités internes ;
-- les diagnostics détaillés lorsqu’ils permettent d’inférer une recette ;
-- les décisions narratives ou biologiques classées CODEX ;
-- toute combinaison d’informations publiques qui, par sa structure, permettrait de reconstruire un secret.
-
-GitHub est traité comme une surface de publication même lorsque le dépôt est privé.
+GitHub est traité comme une surface de publication même lorsque le dépôt est privé. La confidentialité porte sur le contenu comme sur la structure documentaire.
 
 ## 3. Corpus initial — écologie spatiale et coexistence
 
@@ -86,7 +71,7 @@ Keitt, T. H.; Lewis, M. A.; Holt, R. D. (2001), **“Allee Effects, Invasion Pin
 DOI : https://doi.org/10.1086/318633
 
 Intérêt général : effets possibles de dépendances à la densité sur l’expansion spatiale.  
-Limite : citer ce travail ne signifie pas qu’Avelune implémente un modèle d’Allee.
+Limite : citer ce travail ne signifie pas qu’Avelune implémente ce modèle.
 
 ### [RÉFÉRENCE] Fukami et al. — histoire d’assemblage
 
@@ -116,7 +101,7 @@ Intérêt général : perturbations localisées, hétérogénéité spatio-tempo
 Paine, R. T.; Levin, S. A. (1981), **“Intertidal Landscapes: Disturbance and the Dynamics of Pattern”**, *Ecological Monographs* 51(2), 145–178.  
 DOI : https://doi.org/10.2307/2937261
 
-Intérêt général : formation, âge, taille et renouvellement des patches dans un paysage soumis à perturbation.
+Intérêt général : formation, âge, taille et renouvellement de patches dans un paysage soumis à perturbation.
 
 ### [RÉFÉRENCE] Hastings — perturbation, coexistence et histoire
 
@@ -135,7 +120,7 @@ Les hypothèses partageables restent volontairement générales :
 - **[HYPOTHÈSE AVELUNE]** coexistence, occupation, diversité et persistance ne doivent pas être traitées comme des synonymes ;
 - **[HYPOTHÈSE AVELUNE]** une explication causale doit être préférée à un réglage opportuniste lorsqu’un diagnostic peut départager plusieurs interprétations.
 
-Les traductions de ces principes vers les mécanismes actuellement testés sont documentées hors GitHub lorsque leur précision révélerait le Cœur.
+Les applications propres au Cœur sont classées avant toute publication.
 
 ## 7. Méthode expérimentale
 
@@ -149,7 +134,7 @@ Lorsque pertinent, les expériences du Cœur privilégient :
 - reproductibilité à version, entrées et seed identiques ;
 - conservation du contexte matériel lorsque la performance fait partie du verdict.
 
-Les résultats publiés doivent rester suffisamment agrégés pour être utiles au pilotage sans exposer les mécanismes réservés.
+Les résultats publiés doivent rester suffisamment agrégés pour être utiles au pilotage sans cartographier le savoir classé.
 
 ## 8. Entretien
 
@@ -157,4 +142,4 @@ Toute nouvelle source effectivement utilisée est ajoutée avec son rôle, ses l
 
 Une source abandonnée peut rester comme historique avec la raison du rejet. Une référence consultée après coup ne doit jamais être présentée comme origine d’une décision antérieure.
 
-Le registre propriétaire conserve, lorsque nécessaire, le lien précis entre source, hypothèse interne, expérience, résultat et décision. Le registre public conserve seulement ce qui peut être partagé sans dévoiler le CODEX ou la recette du Cœur.
+La documentation propriétaire conserve les liens internes nécessaires à la recherche. Le registre public conserve seulement ce qui est explicitement partageable selon la Constitution vivante.
