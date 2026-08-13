@@ -1,0 +1,62 @@
+name: VISUEL-1 foundation
+
+on:
+  push:
+    branches:
+      - develop/visuel-1-foundation
+    paths:
+      - 'labs/visuel0/**'
+      - 'labs/visuel1/**'
+      - 'docs/contracts/representation-semantic-v0.schema.json'
+      - 'docs/contracts/visuel0/**'
+      - 'docs/contracts/visuel0-fixtures/**'
+      - 'docs/development/visuel1/**'
+      - '.github/workflows/visuel1-foundation.yml'
+  pull_request:
+    paths:
+      - 'labs/visuel0/**'
+      - 'labs/visuel1/**'
+      - 'docs/contracts/representation-semantic-v0.schema.json'
+      - 'docs/contracts/visuel0/**'
+      - 'docs/contracts/visuel0-fixtures/**'
+      - 'docs/development/visuel1/**'
+      - '.github/workflows/visuel1-foundation.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  foundation:
+    name: Contract, neutral plan and adaptive profiles
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Validate shared JSON fixtures
+        run: |
+          python -m json.tool docs/contracts/representation-semantic-v0.schema.json >/dev/null
+          python -m json.tool docs/contracts/visuel0/visual-scene-v0.schema.json >/dev/null
+          for file in docs/contracts/visuel0-fixtures/*.json; do
+            python -m json.tool "$file" >/dev/null
+          done
+
+      - name: Re-run VISUEL-0 gate
+        working-directory: labs/visuel0
+        run: npm test
+
+      - name: Run VISUEL-1 foundation tests
+        working-directory: labs/visuel1
+        run: npm test
+
+      - name: Record VISUEL-1 planning baseline
+        working-directory: labs/visuel1
+        run: npm run measure
