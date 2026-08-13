@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://avelune.invalid/contracts/representation-semantic-v0.schema.json",
-  "title": "Avelune Representation Semantic Contract v0",
-  "description": "Contrat expérimental de représentation. Il décrit une sémantique autorisée et ne publie aucun champ interne du Cœur ni aucune recette d'extraction.",
+  "title": "Avelune Representation Semantic Envelope v0",
+  "description": "Enveloppe expérimentale versionnée pour des données de représentation explicitement autorisées.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -24,8 +24,7 @@
     },
     "projection_profile": {
       "type": "string",
-      "minLength": 1,
-      "description": "Profil explicite de projection/whitelist utilisé avant publication du contrat."
+      "minLength": 1
     },
     "source": {
       "type": "object",
@@ -68,8 +67,7 @@
         },
         "logical_time": {
           "type": "number",
-          "minimum": 0,
-          "description": "Temps logique relatif à la source/replay ; aucune unité canonique n'est imposée par le contrat v0."
+          "minimum": 0
         },
         "mode": {
           "enum": ["full", "delta"]
@@ -96,7 +94,11 @@
       "allOf": [
         {
           "if": {
-            "properties": {"mode": {"const": "delta"}}
+            "properties": {
+              "mode": {
+                "const": "delta"
+              }
+            }
           },
           "then": {
             "required": ["base_sequence"]
@@ -106,7 +108,6 @@
     },
     "descriptors": {
       "type": "object",
-      "description": "Descripteurs sémantiques normalisés. Les clés sont un vocabulaire de représentation, jamais des noms de colonnes ou paramètres privés du Cœur.",
       "propertyNames": {
         "pattern": "^[a-z][a-z0-9_.-]{2,63}$"
       },
@@ -122,7 +123,6 @@
     },
     "extensions": {
       "type": "object",
-      "description": "Extensions expérimentales namespacées ; elles ne sont pas garanties entre versions.",
       "propertyNames": {
         "pattern": "^[a-z][a-z0-9_.-]{2,63}$"
       },
@@ -143,21 +143,14 @@
         "trend": {
           "type": "number",
           "minimum": -1,
-          "maximum": 1,
-          "description": "Tendance sémantique locale optionnelle, non prédictive."
-        },
-        "persistence": {
-          "type": "number",
-          "minimum": 0,
-          "maximum": 1,
-          "description": "Poids de continuité/mémoire de représentation optionnel."
+          "maximum": 1
         }
       }
     },
     "event": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["event_id", "type", "phase", "intensity"],
+      "required": ["event_id", "type"],
       "properties": {
         "event_id": {
           "type": "string",
@@ -165,11 +158,10 @@
         },
         "type": {
           "type": "string",
-          "pattern": "^[a-z][a-z0-9_.-]{2,63}$",
-          "description": "Type sémantique explicitement autorisé à la publication."
+          "pattern": "^[a-z][a-z0-9_.-]{2,63}$"
         },
         "phase": {
-          "enum": ["start", "active", "peak", "end", "aftermath"]
+          "enum": ["start", "active", "end"]
         },
         "intensity": {
           "type": "number",
