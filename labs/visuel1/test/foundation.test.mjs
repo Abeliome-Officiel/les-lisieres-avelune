@@ -41,6 +41,8 @@ test('quality tiers preserve identity and primary morphology', async () => {
 
 test('reduced motion removes animation without removing the change information', async () => {
   const payload = await fixture('transition-after.json');
+  payload.extensions['visual.scene'].entities[0].transition_state = 'changing';
+
   const normal = planScene(payload, { quality: 'normal', reducedMotion: false });
   const reduced = planScene(payload, { quality: 'normal', reducedMotion: true });
 
