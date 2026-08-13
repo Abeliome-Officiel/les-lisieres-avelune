@@ -1,8 +1,8 @@
 # AVELUNE — TABLEAU RÉEL
-## Spécification fonctionnelle et architecture — v0.1
+## Spécification fonctionnelle et architecture — v0.2
 
 Statut : **Gate 0 validé — architecture autonome retenue**.  
-Date de synchronisation : 12 août 2026.
+Date de synchronisation : 13 août 2026.
 
 ## 1. Objet
 
@@ -35,15 +35,15 @@ Une donnée inconnue reste `NULL`/inconnue. Un zéro signifie réellement zéro 
 TA3 est une brique persistante indépendante du cycle de vie des PROTO.
 
 ```text
-sources externes / PROTO / saisies
-             ↓
-      adaptateurs de source
-             ↓
- registre canonique persistant TA3
-             ↓
-     agrégats versionnés
-             ↓
-      interface publique
+sources externes / instruments / PROTO / saisies
+                    ↓
+             adaptateurs de source
+                    ↓
+        registre canonique persistant TA3
+                    ↓
+            agrégats versionnés
+                    ↓
+             interface publique
 ```
 
 Principes :
@@ -52,7 +52,8 @@ Principes :
 - un adaptateur peut être remplacé ou supprimé sans changer le contrat public ;
 - une source indisponible rend sa donnée ancienne ou inconnue mais ne rend pas TA3 indisponible ;
 - le rendu public ne lit jamais directement une prise, une base de PROTO ou une API externe ;
-- TA3 conserve son propre historique après disparition d’une source.
+- TA3 conserve son propre historique après disparition d’une source ;
+- **observer n’autorise pas à agir** : une source de mesure reste en lecture seule tant qu’une capacité de commande distincte n’a pas été explicitement conçue et autorisée.
 
 Le service doit utiliser le plus petit runtime persistant approprié déjà disponible ou justifié sur le serveur partagé. Il ne doit pas être hébergé dans le conteneur ou la base éphémère du PROTO.
 
@@ -101,7 +102,13 @@ Une alerte est fondée sur une mesure, une règle de maintenance ou une décisio
 
 ### Énergie
 
-Le laboratoire doit être mesuré par une prise locale lorsque le modèle installé est confirmé. Les kWh réellement observés sont `MESURÉS`. La quote-part du serveur partagé reste `ESTIMÉE` jusqu’à définition d’une méthode versionnée.
+**Une source physique locale de mesure AvLab est active depuis le 13 août 2026.** AvLab est mesuré au mur par une prise de mesure locale. La collecte actuelle est périodique, légère et strictement en lecture seule ; elle produit un historique local de staging avant intégration TA3.
+
+Première baseline instantanée validée : **30,2 W au mur**. Cette valeur n’est pas encore une moyenne de régime et ne doit pas être utilisée comme consommation journalière représentative sans agrégation temporelle.
+
+Les kWh réellement observés sont `MESURÉS`. L’historique local de l’instrument n’est pas le registre canonique TA3 : son ingestion doit passer par un adaptateur avec horodatage, unité, provenance et clé d’idempotence. Voir [Source énergie AvLab — télémétrie locale](AVLAB_POWER_TELEMETRY.md).
+
+La quote-part du serveur partagé reste `ESTIMÉE` jusqu’à définition d’une méthode versionnée.
 
 ### Services partagés
 
@@ -153,6 +160,7 @@ La partie publique n’expose jamais :
 - données personnelles ;
 - détails d’infrastructure exploitables ;
 - identifiants matériels sensibles ;
+- adresses réseau locales ou topologie d’administration ;
 - informations d’administration ;
 - paramètres propriétaires du moteur du monde ;
 - contenu interne classé non publiable.
@@ -166,7 +174,8 @@ Les sources sensibles restent côté serveur et les journaux techniques ne recop
 - pas de polling navigateur permanent ;
 - pas de dépendance à un appel externe au moment de l’affichage ;
 - collecte périodique par timer/cron/tâche légère lorsque nécessaire ;
-- pas de nouveau service permanent si une capacité existante répond proprement au besoin.
+- pas de nouveau service permanent si une capacité existante répond proprement au besoin ;
+- la rétention des mesures brutes peut être bornée et remplacée par des agrégats versionnés lorsque la granularité fine n’a plus de valeur utile.
 
 L’autonomie de TA3 vis-à-vis du PROTO est, en revanche, une nécessité d’architecture.
 
@@ -187,9 +196,12 @@ L’autonomie de TA3 vis-à-vis du PROTO est, en revanche, une nécessité d’a
 13. Tout facteur est sourcé et versionné.
 14. Un total carbone incomplet est nommé comme tel.
 15. L’instrumentation doit coûter moins de ressources qu’elle n’en observe raisonnablement.
+16. Mesurer n’autorise pas à piloter : collecte et action sont des capacités distinctes.
 
 ## 11. État de sortie Gate 0
 
 L’audit du 11 août 2026 a validé le passage à la Phase B avec la règle suivante :
 
 > auditer d’abord les capacités persistantes disponibles hors PROTO, puis choisir le plus petit runtime et stockage autonomes adaptés à TA3 ; ne créer aucune migration TA3 dans la base du PROTO.
+
+La source énergie AvLab constitue désormais une première source physique réelle à raccorder lors de cette Phase B, sans modifier cette règle d’autonomie.
