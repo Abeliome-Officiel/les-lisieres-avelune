@@ -45,6 +45,8 @@ Lorsqu’un document historique contredit un référentiel plus récent, il rest
 - **[Moteur de naissance des vagues — contrat expurgé](20_moteur_naissance_vagues_v0.1.md)**
 - **[Cœur vivant et genèse canonique](21_coeur_vivant_genese_canonique.md)**
 - **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)**
+- **[Cœur vivant — synthèse trans-échelles](28_coeur_vivant_synthese_trans_echelles.md)**
+- **[Cœur vivant — gate de suffisance et limite de recherche](29_coeur_vivant_gate_suffisance.md)**
 - **[Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)**
 - **[Univers sonore — références et méthode MUSIQUE-0](26_univers_sonore_references_methode.md)**
 - **[MUSIQUE-0 — intégration](27_musique0_cahier_integration.md)**
@@ -76,6 +78,8 @@ Le principe anti-réécriture est obligatoire : **un interpréteur ne consomme p
 Au 12 août, les diagnostics R2.6 à R2.9 ont isolé le problème de persistance précoce des lignées ; R2.10 mesure le goulot entre établissement, première propagation et exposition aux vagues. Les détails de laboratoire restent hors dépôt.
 
 La recherche du Cœur suit la même règle de traçabilité : sources extérieures, hypothèses Avelune, résultats internes et décisions actées sont distingués explicitement. Voir **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)**.
+
+La méthode de synthèse entre macro-vivant, micro-vivant et vivant imaginaire est formalisée dans **[Cœur vivant — synthèse trans-échelles](28_coeur_vivant_synthese_trans_echelles.md)**. La condition de sortie de recherche ouverte et la qualification de CŒUR-0 sont définies dans **[Cœur vivant — gate de suffisance et limite de recherche](29_coeur_vivant_gate_suffisance.md)**.
 
 ## 4. Tableau Réel
 
