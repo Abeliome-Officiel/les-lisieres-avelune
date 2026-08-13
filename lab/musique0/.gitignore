@@ -1,0 +1,19 @@
+# Données et sorties locales de MUSIQUE-0 — ne jamais publier par défaut.
+private-input/
+private-output/
+renders/
+reports-local/
+
+# Environnements et caches locaux.
+.venv/
+__pycache__/
+*.pyc
+
+# Rendus et journaux de travail.
+*.wav
+*.flac
+*.aiff
+*.aif
+*.mid
+*.midi
+*.log
