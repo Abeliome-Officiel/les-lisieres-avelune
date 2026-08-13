@@ -1,0 +1,38 @@
+{
+  "contract_id": "avelune.representation.semantic",
+  "schema_version": "0.2.0",
+  "projection_profile": "public-neutral-lab-v0",
+  "source": {
+    "kind": "synthetic",
+    "source_id": "musique0-fixture-b",
+    "source_version": "synthetic-0.2",
+    "adapter_version": "fixture-direct-0.2",
+    "replay_id": "fixture-b-v0"
+  },
+  "frame": {
+    "state_id": "fixture-b-0002",
+    "sequence": 2,
+    "logical_time": 200,
+    "mode": "full",
+    "scope": {
+      "kind": "world",
+      "id": "synthetic-neutral"
+    }
+  },
+  "descriptors": {
+    "example.dimension_a": {"value": 0.80, "trend": 0.10},
+    "example.dimension_b": {"value": 0.25, "trend": -0.20},
+    "example.dimension_c": {"value": 0.60, "trend": 0.05}
+  },
+  "events": [
+    {
+      "event_id": "synthetic-event-b",
+      "type": "example.event",
+      "phase": "active",
+      "intensity": 0.70
+    }
+  ],
+  "extensions": {
+    "lab.fixture_label": "neutral-b"
+  }
+}
