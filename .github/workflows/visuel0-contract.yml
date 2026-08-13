@@ -1,0 +1,50 @@
+name: VISUEL-0 contract lab
+
+on:
+  push:
+    branches:
+      - develop/visuel-0-contract
+    paths:
+      - 'labs/visuel0/**'
+      - 'docs/contracts/representation-semantic-v0.schema.json'
+      - 'docs/contracts/visuel0/**'
+      - 'docs/contracts/visuel0-fixtures/**'
+      - '.github/workflows/visuel0-contract.yml'
+  pull_request:
+    paths:
+      - 'labs/visuel0/**'
+      - 'docs/contracts/representation-semantic-v0.schema.json'
+      - 'docs/contracts/visuel0/**'
+      - 'docs/contracts/visuel0-fixtures/**'
+      - '.github/workflows/visuel0-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    name: Contract, projection and resync
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Validate JSON syntax
+        run: |
+          python -m json.tool docs/contracts/representation-semantic-v0.schema.json >/dev/null
+          python -m json.tool docs/contracts/visuel0/visual-scene-v0.schema.json >/dev/null
+          for file in docs/contracts/visuel0-fixtures/*.json; do
+            python -m json.tool "$file" >/dev/null
+          done
+
+      - name: Run VISUEL-0 contract tests
+        working-directory: labs/visuel0
+        run: npm test
