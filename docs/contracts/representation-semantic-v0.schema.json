@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://avelune.invalid/contracts/representation-semantic-v0.schema.json",
+  "title": "Avelune Representation Semantic Contract v0",
+  "description": "Contrat expérimental de représentation. Il décrit une sémantique autorisée et ne publie aucun champ interne du Cœur ni aucune recette d'extraction.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_id",
+    "schema_version",
+    "projection_profile",
+    "source",
+    "frame",
+    "descriptors",
+    "events"
+  ],
+  "properties": {
+    "contract_id": {
+      "const": "avelune.representation.semantic"
+    },
+    "schema_version": {
+      "type": "string",
+      "pattern": "^0\\.[0-9]+\\.[0-9]+$"
+    },
+    "projection_profile": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Profil explicite de projection/whitelist utilisé avant publication du contrat."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "source_id", "source_version", "adapter_version"],
+      "properties": {
+        "kind": {
+          "enum": ["synthetic", "replay", "live"]
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "adapter_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "replay_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["state_id", "sequence", "logical_time", "mode", "scope"],
+      "properties": {
+        "state_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "logical_time": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Temps logique relatif à la source/replay ; aucune unité canonique n'est imposée par le contrat v0."
+        },
+        "mode": {
+          "enum": ["full", "delta"]
+        },
+        "base_sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "scope": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "id"],
+          "properties": {
+            "kind": {
+              "enum": ["world", "region", "scene"]
+            },
+            "id": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {"mode": {"const": "delta"}}
+          },
+          "then": {
+            "required": ["base_sequence"]
+          }
+        }
+      ]
+    },
+    "descriptors": {
+      "type": "object",
+      "description": "Descripteurs sémantiques normalisés. Les clés sont un vocabulaire de représentation, jamais des noms de colonnes ou paramètres privés du Cœur.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_.-]{2,63}$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/descriptor"
+      }
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      }
+    },
+    "extensions": {
+      "type": "object",
+      "description": "Extensions expérimentales namespacées ; elles ne sont pas garanties entre versions.",
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9_.-]{2,63}$"
+      },
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "descriptor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value"],
+      "properties": {
+        "value": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "trend": {
+          "type": "number",
+          "minimum": -1,
+          "maximum": 1,
+          "description": "Tendance sémantique locale optionnelle, non prédictive."
+        },
+        "persistence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Poids de continuité/mémoire de représentation optionnel."
+        }
+      }
+    },
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_id", "type", "phase", "intensity"],
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "type": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_.-]{2,63}$",
+          "description": "Type sémantique explicitement autorisé à la publication."
+        },
+        "phase": {
+          "enum": ["start", "active", "peak", "end", "aftermath"]
+        },
+        "intensity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    }
+  }
+}
