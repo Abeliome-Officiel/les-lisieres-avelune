@@ -44,7 +44,14 @@ jobs:
           for file in docs/contracts/visuel0-fixtures/*.json; do
             python -m json.tool "$file" >/dev/null
           done
+          for file in labs/visuel0/fixtures/*.json; do
+            python -m json.tool "$file" >/dev/null
+          done
 
       - name: Run VISUEL-0 contract tests
         working-directory: labs/visuel0
         run: npm test
+
+      - name: Record baseline payload measurements
+        working-directory: labs/visuel0
+        run: npm run measure
