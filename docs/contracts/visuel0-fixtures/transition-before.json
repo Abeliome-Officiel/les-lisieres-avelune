@@ -1,0 +1,54 @@
+{
+  "contract_id": "avelune.representation.semantic",
+  "schema_version": "0.1.0",
+  "projection_profile": "visual-lab-v0",
+  "source": {
+    "kind": "synthetic",
+    "source_id": "visual-public-projection",
+    "source_version": "projection-synthetic-0.1",
+    "adapter_version": "public-adapter-synthetic-0.1",
+    "replay_id": "visuel0-transition-v0"
+  },
+  "frame": {
+    "state_id": "visual-transition-0020",
+    "sequence": 20,
+    "logical_time": 200,
+    "mode": "full",
+    "scope": {
+      "kind": "scene",
+      "id": "view-scene-transition"
+    }
+  },
+  "descriptors": {},
+  "events": [],
+  "extensions": {
+    "visual.scene": {
+      "entities": [
+        {
+          "entity_id": "view-form-mu-01",
+          "entity_type": "living-form",
+          "pose": {
+            "x": 0.5,
+            "y": 0.56,
+            "scale": 0.38,
+            "depth_hint": 0
+          },
+          "appearance": {
+            "cohesion": 0.76,
+            "elongation": 0.36,
+            "branching": 0.22,
+            "symmetry": 0.61,
+            "softness": 0.74,
+            "translucency": 0.47,
+            "surface_detail": 0.32,
+            "luminosity": 0.24,
+            "motion_amplitude": 0.16,
+            "pulse": 0.27,
+            "diffuseness": 0.14
+          },
+          "transition_state": "stable"
+        }
+      ]
+    }
+  }
+}
