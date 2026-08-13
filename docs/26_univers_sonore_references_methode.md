@@ -1,7 +1,7 @@
 # Univers sonore d’Avelune — références et méthode MUSIQUE-0
 
-> **Statut : cahier partageable de recherche — v0.1**  
-> Les sources extérieures sont partageables ; leur application exacte aux internes du Cœur peut rester secrète.
+> **Statut : cahier partageable de recherche — v0.2**  
+> Les sources extérieures et leur rôle méthodologique peuvent être documentés ici ; seuls les éléments explicitement autorisés à la publication sont décrits.
 
 ## 1. Règle de traçabilité
 
@@ -18,26 +18,26 @@ Une référence n’est jamais une loi par autorité. Un précédent de créatio
 
 ### [RÉFÉRENCE] No Man’s Sky — système musical génératif
 
-Paul Weir, **“The Sound of 'No Man's Sky'”**, GDC 2017, GDC Vault.  
+Paul Weir, **“The Sound of 'No Man's Sky'”**, Game Developers Conference, 2017, GDC Vault.  
 Source : https://www.gdcvault.com/play/1024067/The-Sound-of-No-Man
 
-Intérêt pour Avelune : précédent d’un système de musique générative réactive associé à un univers procédural et alimenté par du matériau musical composé. La conférence décrit également le travail avec 65daysofstatic pour produire des paysages sonores génératifs.
+Intérêt : précédent documenté d’un système de musique générative associé à un univers procédural et alimenté par du matériau musical composé.
 
-Limite : l’architecture de No Man’s Sky n’est pas transposée telle quelle à Avelune ; le Cœur doit notamment rester indépendant de tout système sonore.
+Limite : l’architecture et l’esthétique de ce système ne sont pas transposées telles quelles à Avelune.
 
 ### [RÉFÉRENCE] Mini Metro — audio procédural
 
 Emily Short, Rich “Disasterpeace” Vreeland, Loren Schmidt, Innes McKendrick, **“Beyond Procedural Horizons: Exploring Different Uses of Procedural Content Generation”**, GDC 2018.  
 Source : https://www.gdcvault.com/play/1025069/Beyond-Procedural-Horizons-Exploring-Different
 
-Intérêt : la session documente l’approche audio procédurale de *Mini Metro* comme exemple d’un son façonné par un système plutôt que par une simple lecture de pistes linéaires.
+Intérêt : exemple documenté d’un son façonné par un système plutôt que par une simple succession de pistes linéaires.
 
 ### [RÉFÉRENCE] 65daysofstatic — retour de créateurs
 
 65daysofstatic, **“No Man's Sky: Journeys - NEW ALBUM”**, 27 août 2025.  
 Source : https://www.65daysofstatic.com/no-mans-sky-journeys-new-album/
 
-Intérêt : retour rétrospectif sur la création de bibliothèques et paysages sonores conçus pour être génératifs et continuellement changeants. Le retour insiste sur le fait que composer pour un système génératif appelle une logique différente de la composition linéaire.
+Intérêt : retour rétrospectif sur la création de bibliothèques et paysages sonores destinés à des environnements génératifs et continuellement changeants. Il rappelle que composer pour un système génératif appelle une logique différente de la composition linéaire.
 
 ## 3. Perception, plaisir musical et sonification
 
@@ -46,7 +46,7 @@ Intérêt : retour rétrospectif sur la création de bibliothèques et paysages 
 Cheung, V. K. M. et al. (2019), **“Uncertainty and Surprise Jointly Predict Musical Pleasure and Amygdala, Hippocampus, and Auditory Cortex Activity”**, *Current Biology* 29(23), 4084–4092.e4.  
 DOI : https://doi.org/10.1016/j.cub.2019.09.067
 
-Intérêt : le protocole montre une interaction entre incertitude et surprise dans le plaisir musical.  
+Intérêt : le protocole étudié met en évidence une interaction entre incertitude et surprise dans le plaisir musical.  
 Limite : ne pas convertir ce résultat en formule universelle du « satisfaisant ».
 
 ### [RÉFÉRENCE] Sonification Handbook / ICAD
@@ -54,7 +54,7 @@ Limite : ne pas convertir ce résultat en formule universelle du « satisfaisant
 Hermann, T.; Hunt, A.; Neuhoff, J. G. (dir.) (2011), **The Sonification Handbook**, Logos Verlag Berlin, ISBN 978-3-8325-2819-5.  
 Point d’entrée ICAD : https://icad.org/new-to-auditory-displays/
 
-Intérêt : vocabulaire, méthodes et critères du domaine de la sonification/auditory display ; base méthodologique pour éviter les mappings arbitraires.
+Intérêt : vocabulaire, méthodes et critères du domaine de la sonification et de l’auditory display ; base méthodologique pour éviter des correspondances arbitraires.
 
 ### [RÉFÉRENCE] Information biologique perceptualisée par le son
 
@@ -68,7 +68,7 @@ Intérêt : précédent directement lié à la représentation sonore d’inform
 Ziemer, T.; Schultheis, H. (2022), **“PAMPAS: A PsychoAcoustical Method for the Perceptual Analysis of multidimensional Sonification”**, *Frontiers in Neuroscience* 16:930944.  
 DOI : https://doi.org/10.3389/fnins.2022.930944
 
-Intérêt : incite à mesurer résolution perceptive, interférences et hystérésis au lieu de supposer qu’un mapping multidimensionnel est lisible.
+Intérêt : incite à mesurer la résolution perceptive, les interférences et les propriétés perceptives d’une représentation multidimensionnelle plutôt qu’à supposer qu’elle est lisible.
 
 ### [RÉFÉRENCE] Esthétique et mapping de données
 
@@ -91,37 +91,41 @@ Intérêt : une instruction ne doit pas reposer exclusivement sur une caractéri
 Ríos Llamas, C.; Camacho Vega, D. O.; Delgadillo Ramos, M. G. (2026), **“Light and sound hypersensitivity in autism spectrum disorder: a systematic review focusing on age and gender bias”**, *Frontiers in Psychiatry* 17:1771956.  
 DOI : https://doi.org/10.3389/fpsyt.2026.1771956
 
-Intérêt : documenter l’hétérogénéité des sensibilités, l’habituation et les limites du corpus.  
+Intérêt : documenter l’hétérogénéité des sensibilités et les limites du corpus.  
 Limite : cette revue ne définit aucun « profil sonore autiste » et ne justifie aucun mode neuroA unique.
 
 ## 5. Hypothèses Avelune à éprouver
 
 - **[HYPOTHÈSE AVELUNE]** Le caractère satisfaisant pourrait émerger d’un équilibre entre continuité, attente, surprise bornée et résolution partielle plutôt que d’une succession de récompenses sonores.
-- **[HYPOTHÈSE AVELUNE]** Le Cœur doit être interprété par une couche sémantique puis une grammaire musicale ; une conversion directe `variable = note` est a priori trop pauvre et potentiellement trop révélatrice.
-- **[HYPOTHÈSE AVELUNE]** Deux trajectoires écologiquement différentes mais proches sur certains agrégats doivent pouvoir produire des différences perceptibles sans rupture caricaturale de l’identité sonore.
+- **[HYPOTHÈSE AVELUNE]** La représentation musicale doit passer par une couche sémantique explicite plutôt que par une conversion brute de données en sons.
+- **[HYPOTHÈSE AVELUNE]** Des trajectoires du monde différentes devraient pouvoir produire des différences perceptibles sans rupture caricaturale de l’identité sonore.
 - **[HYPOTHÈSE AVELUNE]** Les réglages sensoriels doivent pouvoir simplifier plusieurs dimensions indépendamment sans changer les règles ou la vérité du monde.
+
+Ces hypothèses restent générales. Leur mise en œuvre interne n’est pas décrite dans le cahier partageable.
 
 ## 6. Protocole MUSIQUE-0
 
-MUSIQUE-0 fonctionne d’abord hors ligne sur des fixtures synthétiques puis sur des exports figés de campagnes closes. Il ne charge pas le code du Cœur et ne lit pas sa configuration privée.
+MUSIQUE-0 fonctionne d’abord hors ligne sur des fixtures synthétiques neutres puis sur des replays explicitement autorisés. Il ne charge pas le code du Cœur et ne dépend pas d’une configuration privée.
 
-Chaîne expérimentale :
+Chaîne partageable :
 
 ```text
-fixture / replay
+fixture / replay autorisé
       ↓
 adaptateur de version
       ↓
-contrat sémantique v0
+projection sémantique autorisée
       ↓
-état musical abstrait
+contrat versionné
       ↓
-grammaire / compositeur
+grammaire musicale
       ↓
 renderer expérimental
 ```
 
-Chaque expérience conserve : versions source/adaptateur/contrat/grammaire/renderer, manifeste de replay, hypothèse, configuration, résultat perceptif/technique et décision éventuelle.
+Chaque expérience conserve les versions nécessaires à sa reproduction, son hypothèse, sa configuration, ses résultats perceptifs et techniques, puis la décision éventuelle.
+
+Le détail interne d’une expérience est classé avant publication. Seuls les éléments explicitement autorisés sont synchronisés vers GitHub.
 
 ## 7. Ressources
 
@@ -129,12 +133,18 @@ Un benchmark audio isolé attribue un coût mais ne valide pas l’intégration.
 
 Sur AVLAB, les expériences de représentation utilisent par défaut des campagnes closes et ne concurrencent pas une campagne scientifique du Cœur sauf test de capacité explicitement décidé.
 
-## 8. Frontière public / secret
+## 8. Hygiène de publication
 
-Peuvent être publics : bibliographie, principes de méthode, hypothèses générales, contrats abstraits, protocoles et résultats suffisamment agrégés.
+Ce cahier peut publier la bibliographie, les principes de méthode, les hypothèses générales, les protocoles partageables et les résultats suffisamment agrégés.
 
-Restent secrets : champs exacts du Cœur consommés, extraction, fonctions de mapping, seuils, hystérésis, lissage, temporalités, seeds, signatures, règles de motifs et toute application d’une source extérieure révélant des causalités propriétaires ou narratives.
+Il ne décrit pas l’organisation des informations classées, même pour expliquer qu’elles sont confidentielles. **La simple énumération de mécanismes, catégories ou relations internes est évitée lorsqu’elle n’est pas indispensable à la compréhension du contrat public.**
+
+Lorsqu’une source extérieure éclaire une conception interne, la référence peut rester publique tandis que son application propre à Avelune est documentée dans l’espace interne approprié.
+
+GitHub est traité comme une surface de publication, même lorsque le dépôt est privé.
 
 ## 9. Entretien
 
-Toute nouvelle source effectivement utilisée est ajoutée avec son rôle et ses limites. Une source abandonnée peut rester comme historique avec la raison du rejet. Les décisions doivent rester retraçables jusqu’aux références, hypothèses et tests qui les ont éclairées.
+Toute nouvelle source effectivement utilisée est ajoutée avec son rôle et ses limites. Une source abandonnée peut rester comme historique avec la raison du rejet.
+
+Les décisions doivent rester retraçables jusqu’aux références, hypothèses et tests qui les ont éclairées, sans prétendre qu’une publication extérieure prouve à elle seule qu’une solution convient à Avelune.
