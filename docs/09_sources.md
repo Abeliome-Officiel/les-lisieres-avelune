@@ -9,9 +9,10 @@ Une référence extérieure ne devient jamais une loi d'Avelune par autorité. T
 Cahiers spécialisés partageables :
 
 - [Cœur vivant — références scientifiques et méthode de recherche](25_coeur_vivant_references_methode.md) ;
-- univers sonore : registre de recherche MUSIQUE-0 conservé dans la documentation de travail, dont les principes partageables sont résumés dans [le contrat sonore](23_univers_sonore_contrat_public.md).
+- [Univers sonore — références et méthode MUSIQUE-0](26_univers_sonore_references_methode.md) ;
+- [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md).
 
-Les applications exactes permettant de reconstruire une recette propriétaire restent dans le Coffre, même lorsque la bibliographie elle-même est partageable.
+La confidentialité porte aussi sur la structure de l'information. Les cahiers partageables documentent les références et les éléments autorisés sans dresser l'inventaire des mécanismes, catégories ou relations internes qui ne sont pas nécessaires à leur compréhension.
 
 ## Inspirations mécaniques générales
 
