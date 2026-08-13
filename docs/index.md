@@ -10,7 +10,7 @@ Cet index distingue les **principes de conception partageables**, les **jalons j
 - **PROTO-0.2.2** : candidat de playtest distribué sur `develop/proto-0.2.2-playtest` ; son intégration dans `main` reste une décision explicite.
 - **Cœur vivant / CŒUR-0** : chantier headless distinct, actuellement en campagne de diagnostic R2.10.
 - **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; Phase B suivante.
-- **Univers sonore** : direction de conception future cadrée ; aucun moteur audio choisi et aucun impact sur le PROTO courant.
+- **Univers sonore / MUSIQUE-0** : préproduction v0.2 autorisée hors ligne sur enveloppe sémantique versionnée, fixtures neutres et replays autorisés ; aucun moteur audio choisi et aucune intégration live au Cœur actée.
 - **Visuel du Cœur / LAB VISUEL** : cahier de préproduction v0.3 cadré ; développement anticipé autorisé uniquement via projection publique minimale et contrat sémantique versionné, sans dépendance durable aux internes du Cœur.
 - **Arbitrage transversal** : doctrine de pérennité, ressources, données et matériel actée le 13 août 2026 ; ce cadre n’est pas un runtime supplémentaire.
 
@@ -32,6 +32,8 @@ Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation no
 - [Trame RPG](14_trame_rpg.md)
 - [Passage et Lisière](15_lisiere_et_passage.md)
 - [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
+- [Univers sonore — références et méthode MUSIQUE-0](26_univers_sonore_references_methode.md)
+- [MUSIQUE-0 — cahier des charges d’intégration](27_musique0_cahier_integration.md)
 - [Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)
 
 Lorsqu’un document historique contredit un référentiel plus récent, il reste une trace et non une source normative.
@@ -44,10 +46,12 @@ Lorsqu’un document historique contredit un référentiel plus récent, il rest
 - **[Cœur vivant et genèse canonique](21_coeur_vivant_genese_canonique.md)**
 - **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)**
 - **[Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)**
+- **[Univers sonore — références et méthode MUSIQUE-0](26_univers_sonore_references_methode.md)**
+- **[MUSIQUE-0 — intégration](27_musique0_cahier_integration.md)**
 - **[Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)**
 - [Modèle évolutif de vague — notice historique](18_modele_vague_evolutive.md)
 
-Les recettes propriétaires, paramètres réservés, causalités cachées et informations narratives sensibles ne sont pas des contenus GitHub. La documentation partageable décrit les contrats, exigences et résultats autorisés sans détailler l’organisation des mécanismes privés.
+Les contenus classés ne sont pas des contenus GitHub. La documentation partageable décrit uniquement les contrats, exigences, méthodes, références et résultats autorisés sans détailler l’organisation du savoir propriétaire.
 
 GitHub conserve les contrats, interfaces, exigences, architecture, tests partageables, références extérieures et résultats de validation suffisamment agrégés.
 
@@ -67,11 +71,11 @@ Ordre de travail révisé :
 8. Orée et autres rendus de production seulement lorsque leurs gates et le contrat sont suffisamment stabilisés ;
 9. seulement après validation suffisante : instance canonique persistante.
 
-Le principe anti-réécriture est obligatoire : **un interpréteur ne consomme pas durablement les tables, classes ou variables internes d’une révision du Cœur**. Une évolution interne doit être absorbée autant que possible par l’adaptateur ou une migration explicite du contrat. Le protocole de transport, la grammaire et le renderer doivent pouvoir évoluer indépendamment lorsqu’ils ne changent pas la signification des données.
+Le principe anti-réécriture est obligatoire : **un interpréteur ne consomme pas durablement les structures internes d’une révision du Cœur**. Une évolution interne doit être absorbée autant que possible par l’adaptateur ou une migration explicite du contrat. Le protocole de transport, la grammaire et le renderer doivent pouvoir évoluer indépendamment lorsqu’ils ne changent pas la signification des données.
 
-Au 12 août, les diagnostics R2.6 à R2.9 ont isolé le problème de persistance précoce des lignées ; R2.10 mesure le goulot entre établissement, première propagation et exposition aux vagues. Les détails de recette et le code de laboratoire restent hors dépôt.
+Au 12 août, les diagnostics R2.6 à R2.9 ont isolé le problème de persistance précoce des lignées ; R2.10 mesure le goulot entre établissement, première propagation et exposition aux vagues. Les détails de laboratoire restent hors dépôt.
 
-La recherche du Cœur suit désormais la même règle de traçabilité que MUSIQUE-0 : les sources extérieures, hypothèses Avelune, résultats internes et décisions actées sont distingués explicitement. Voir **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)**.
+La recherche du Cœur suit la même règle de traçabilité : sources extérieures, hypothèses Avelune, résultats internes et décisions actées sont distingués explicitement. Voir **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)**.
 
 ## 4. Tableau Réel
 
@@ -123,6 +127,8 @@ Le jalon teste volontairement une boucle simplifiée et distribuable : implantat
 
 - [Charte graphique de travail](art/CHARTE_GRAPHIQUE.md)
 - [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
+- [Univers sonore — références et méthode](26_univers_sonore_references_methode.md)
+- [MUSIQUE-0 — intégration](27_musique0_cahier_integration.md)
 - [Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)
 - [Assets GitHub](assets/README.md)
 - [Brief visuel PROTO-0.2 / Gen3 corrigé](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.2.2-playtest/docs/development/proto0.2/06_VISUAL_BRIEF_GEN3.md)
@@ -132,6 +138,8 @@ Direction visuelle actuelle : **poétique · onirique · féerique · organique 
 Direction sonore initiale : **satisfaisante · contemplative · onirique · féerique**.
 
 Le visuel de préproduction privilégie une grammaire visuelle indépendante du renderer, la continuité d’identité à travers les transformations, la cohérence temporelle, une qualité adaptative sobre/normal/riche et un budget mesuré avec les autres charges du système.
+
+MUSIQUE-0 privilégie une enveloppe sémantique neutre, des fixtures/replays indépendants de la source, une grammaire séparée du renderer et des gates explicites avant tout branchement live.
 
 ## 9. Historique
 
@@ -167,4 +175,5 @@ Ces fichiers restent utiles pour la traçabilité mais ne reprennent pas autorit
 - dégradation gracieuse des fonctions non canoniques avant altération des lois ;
 - matériel dimensionné et renouvelé à partir de mesures et de criticité ;
 - séparation entre documentation partageable et informations propriétaires ;
+- **la confidentialité porte aussi sur la structure documentaire : ne pas cartographier un mécanisme réservé pour dire qu’il est secret** ;
 - **références extérieures, hypothèses Avelune, résultats testés et décisions actées restent traçables et distincts**.
