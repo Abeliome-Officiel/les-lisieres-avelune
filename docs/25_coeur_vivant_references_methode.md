@@ -2,107 +2,159 @@
 
 > Date : 13 août 2026  
 > Statut : **cahier partageable de recherche**.  
-> Ce document trace les sources extérieures utilisées pour éclairer la conception et l'analyse du Cœur vivant. Il ne contient ni recette secrète, ni seuil caché, ni paramètre permettant de reconstruire le moteur propriétaire.
+> Les références extérieures, leur portée générale et la méthode de recherche sont partageables. Leur application exacte aux mécanismes internes du Cœur reste propriétaire.
 
 ## 1. Règle de traçabilité
 
-Toute influence extérieure significative reçoit une citation permettant de retrouver la source et un rôle explicite dans le raisonnement. Comme pour le cahier MUSIQUE-0, quatre statuts restent distincts :
+Toute influence extérieure significative reçoit une citation permettant de retrouver la source et un rôle explicite dans le raisonnement. Comme pour MUSIQUE-0, quatre statuts restent distincts :
 
-- **[RÉFÉRENCE]** : ce qu'une source extérieure établit, modélise ou documente ;
-- **[HYPOTHÈSE AVELUNE]** : ce que nous proposons d'en tirer pour le Cœur ;
-- **[TESTÉ]** : résultat obtenu avec nos propres simulations et protocoles ;
+- **[RÉFÉRENCE]** : ce qu’une source extérieure établit, modélise ou documente ;
+- **[HYPOTHÈSE AVELUNE]** : proposition de recherche formulée pour Avelune ;
+- **[TESTÉ]** : résultat obtenu par les protocoles propres à Avelune ;
 - **[ACTÉ]** : décision de conception explicitement retenue.
 
-Une référence ne devient jamais une loi d'Avelune par autorité. Les études servent à formuler de meilleures hypothèses, construire des observateurs et confronter nos résultats. Les valeurs numériques, espèces et équations terrestres ne sont pas importées automatiquement dans Avelune.
+Une référence ne devient jamais une loi d’Avelune par autorité. Les études servent à construire de meilleures questions, des protocoles et des critères de confrontation. Les espèces, valeurs numériques, équations ou paramètres d’un modèle publié ne sont pas importés automatiquement dans Avelune.
 
-### Traçabilité historique
+Lorsqu’une publication est consultée après un jalon déjà conçu, elle est documentée comme **confrontation rétrospective** et non présentée comme cause historique de la décision antérieure.
 
-Une partie des jalons R1 à R2.10 a été conçue et testée avant la constitution formelle de cette bibliographie. Le présent registre **ne prétend pas rétroactivement** qu'une publication précise a causé une décision antérieure lorsqu'aucune citation n'avait alors été consignée. Dans ce cas, la source est qualifiée de référence de confrontation rétrospective et sert surtout à orienter les diagnostics suivants.
+## 2. Frontière de publication
 
-## 2. Corpus initial — coexistence, dispersion et structure spatiale
+Ce registre public ne décrit pas la topologie interne du Cœur.
 
-**[RÉFÉRENCE]** Tilman, D. (1994), « Competition and Biodiversity in Spatially Structured Habitats », *Ecology* 75(1), 2–16. DOI : `10.2307/1939377`.  
-Intérêt : la coexistence spatiale peut dépendre de compromis entre capacité compétitive, colonisation et longévité ; la dispersion et le voisinage peuvent permettre des coexistences impossibles dans un modèle non spatial.
+Peuvent être partagés :
 
-**[RÉFÉRENCE]** Brown, J. H.; Kodric-Brown, A. (1977), « Turnover Rates in Insular Biogeography: Effect of Immigration on Extinction », *Ecology* 58(2), 445–449. DOI : `10.2307/1935620`.  
-Intérêt : formalisation du **rescue effect** : l'immigration peut réduire le risque d'extinction d'une population locale.
+- la référence bibliographique ;
+- le domaine étudié ;
+- les conclusions générales pertinentes dans les limites de la publication ;
+- les limites méthodologiques ;
+- les principes généraux de protocole et de reproductibilité.
 
-**[RÉFÉRENCE]** Hanski, I.; Ovaskainen, O. (2000), « The metapopulation capacity of a fragmented landscape », *Nature* 404, 755–758. DOI : `10.1038/35008063`.  
-Intérêt : la persistance dépend non seulement du nombre de sites mais de leur configuration et de leur connectivité ; un paysage possède une capacité de métapopulation liée à sa structure spatiale.
+Restent dans les espaces propriétaires :
 
-**[RÉFÉRENCE]** Holt, R. D. (1985), « Population dynamics in two-patch environments: Some anomalous consequences of an optimal habitat distribution », *Theoretical Population Biology* 28(2), 181–208. DOI : `10.1016/0040-5809(85)90027-9`.  
-Intérêt : dynamique source–puits et rôle de la dispersion entre habitats de qualité différente.
+- la correspondance précise entre une publication et un mécanisme interne ;
+- les hypothèses qui révèlent une causalité, une structure ou une séquence réservée ;
+- les variables, seuils, paramètres, distributions, pondérations et temporalités internes ;
+- les diagnostics détaillés lorsqu’ils permettent d’inférer une recette ;
+- les décisions narratives ou biologiques classées CODEX ;
+- toute combinaison d’informations publiques qui, par sa structure, permettrait de reconstruire un secret.
 
-**[RÉFÉRENCE]** Snyder, R. E. (2003), « Local dispersal can facilitate coexistence in the presence of permanent spatial heterogeneity », *Ecology Letters* 6(4), 301–309. DOI : `10.1046/j.1461-0248.2003.00434.x`.  
-Intérêt : une dispersion locale, combinée à une hétérogénéité environnementale, peut renforcer la coexistence au lieu de simplement homogénéiser le système.
+GitHub est traité comme une surface de publication même lorsque le dépôt est privé.
 
-## 3. Corpus initial — établissement, seuils et histoire d'assemblage
+## 3. Corpus initial — écologie spatiale et coexistence
 
-**[RÉFÉRENCE]** Keitt, T. H.; Lewis, M. A.; Holt, R. D. (2001), « Allee Effects, Invasion Pinning, and Species' Borders », *The American Naturalist* 157(2), 203–216. DOI : `10.1086/318633`.  
-Intérêt : une dépendance positive à la densité et un seuil critique peuvent empêcher l'expansion d'une population même en environnement autrement compatible.
+### [RÉFÉRENCE] Tilman — compétition et biodiversité spatiale
 
-**[RÉFÉRENCE]** Fukami, T.; Bezemer, T. M.; Mortimer, S. R.; van der Putten, W. H. (2005), « Species divergence and trait convergence in experimental plant community assembly », *Ecology Letters* 8(12), 1283–1290. DOI : `10.1111/j.1461-0248.2005.00829.x`.  
-Intérêt : l'histoire initiale d'assemblage peut laisser des trajectoires d'identité durablement différentes alors que certains traits convergent ; les effets de priorité peuvent coexister avec un filtrage déterministe.
+Tilman, D. (1994), **“Competition and Biodiversity in Spatially Structured Habitats”**, *Ecology* 75(1), 2–16.  
+DOI : https://doi.org/10.2307/1939377
 
-**[RÉFÉRENCE]** Connell, J. H.; Slatyer, R. O. (1977), « Mechanisms of Succession in Natural Communities and Their Role in Community Stability and Organization », *The American Naturalist* 111(982), 1119–1144. DOI : `10.1086/283241`.  
-Intérêt : distingue plusieurs mécanismes d'assemblage/succession — facilitation, tolérance, inhibition — et rappelle que l'ouverture d'espace et l'histoire des occupants modifient les successions possibles.
+Intérêt général : coexistence dans des habitats spatialement structurés, compromis écologiques et importance de la dispersion.  
+Limite : le modèle et ses paramètres ne sont pas transposés tels quels à Avelune.
 
-## 4. Corpus initial — perturbation, mosaïque et temporalités
+### [RÉFÉRENCE] Brown & Kodric-Brown — immigration et extinction locale
 
-**[RÉFÉRENCE]** Levin, S. A.; Paine, R. T. (1974), « Disturbance, Patch Formation, and Community Structure », *Proceedings of the National Academy of Sciences* 71(7), 2744–2747. DOI : `10.1073/pnas.71.7.2744`.  
-Intérêt : des perturbations localisées créent une hétérogénéité spatio-temporelle et renouvellent des opportunités qui peuvent empêcher le seul compétiteur dominant de monopoliser l'espace.
+Brown, J. H.; Kodric-Brown, A. (1977), **“Turnover Rates in Insular Biogeography: Effect of Immigration on Extinction”**, *Ecology* 58(2), 445–449.  
+DOI : https://doi.org/10.2307/1935620
 
-**[RÉFÉRENCE]** Paine, R. T.; Levin, S. A. (1981), « Intertidal Landscapes: Disturbance and the Dynamics of Pattern », *Ecological Monographs* 51(2), 145–178. DOI : `10.2307/2937261`.  
-Intérêt : observations et expériences sur naissance/mort des patches, âge et taille des ouvertures, colonisation et interaction entre régime de perturbation et calendrier reproductif.
+Intérêt général : relation entre immigration, turnover et risque d’extinction locale.
 
-**[RÉFÉRENCE]** Hastings, A. (1980), « Disturbance, coexistence, history, and competition for space », *Theoretical Population Biology* 18(3), 363–373. DOI : `10.1016/0040-5809(80)90059-3`.  
-Intérêt : montre qu'un même niveau de perturbation peut avoir des conséquences complexes selon l'histoire et la hiérarchie compétitive ; la perturbation n'est ni intrinsèquement bénéfique ni intrinsèquement destructrice.
+### [RÉFÉRENCE] Hanski & Ovaskainen — capacité métapopulationnelle
 
-## 5. Résultats internes déjà établis à confronter à ce corpus
+Hanski, I.; Ovaskainen, O. (2000), **“The metapopulation capacity of a fragmented landscape”**, *Nature* 404, 755–758.  
+DOI : https://doi.org/10.1038/35008063
 
-**[TESTÉ]** Les diagnostics R2.6 ont réfuté, dans la précision mesurée, l'hypothèse d'un favoritisme direct caché des cellules déjà occupées ; les différences d'établissement observées sont surtout compatibles avec le contexte spatial, la viabilité et l'exposition aux propagules.
+Intérêt général : rôle de la configuration spatiale et de la connectivité dans la persistance à l’échelle d’un paysage.
 
-**[TESTÉ]** R2.7 réduit nettement le turnover local et augmente la coexistence sans gain démontré de persistance finale des lignées.
+### [RÉFÉRENCE] Holt — dynamique entre habitats
 
-**[TESTÉ]** R2.8 et R2.9 montrent que la quasi-totalité des lignées éteintes disparaît alors qu'elle ne possède encore qu'une implantation et avant sa première propagation locale. L'exposition aux vagues précède presque toujours cette première propagation.
+Holt, R. D. (1985), **“Population dynamics in two-patch environments: Some anomalous consequences of an optimal habitat distribution”**, *Theoretical Population Biology* 28(2), 181–208.  
+DOI : https://doi.org/10.1016/0040-5809(85)90027-9
 
-**[TESTÉ]** R2.10 est un observateur neutre destiné à séparer : incapacité à atteindre l'état de propagation, attente après éligibilité, et érosion par les vagues. Aucun verdict n'est inscrit avant clôture et analyse de la campagne.
+Intérêt général : conséquences de la dispersion entre habitats de qualités différentes.
 
-## 6. Hypothèses nouvelles alimentées par la littérature — pas encore actées
+### [RÉFÉRENCE] Snyder — dispersion locale et hétérogénéité
 
-**[HYPOTHÈSE AVELUNE — temporalités]** Le goulot précoce pourrait être avant tout un **désaccord d'échelles de temps** : maturation/propagation trop lente relativement au régime de perturbation. Cela rappellerait, sans l'assimiler, le problème R1 où la cadence des vagues et les temps de récupération étaient incompatibles. R2.10 doit quantifier ce rapport avant toute nouvelle mécanique.
+Snyder, R. E. (2003), **“Local dispersal can facilitate coexistence in the presence of permanent spatial heterogeneity”**, *Ecology Letters* 6(4), 301–309.  
+DOI : https://doi.org/10.1046/j.1461-0248.2003.00434.x
 
-**[HYPOTHÈSE AVELUNE — seuil effectif]** Si la première propagation exige un état local discret difficile à atteindre ou à conserver, le système peut produire un **effet de seuil analogue à un mécanisme d'Allee au niveau de l'expansion**, même si la croissance locale elle-même n'est pas un modèle d'Allee. Il faut distinguer cette analogie fonctionnelle d'une véritable dépendance démographique positive à la densité.
+Intérêt général : interaction entre dispersion locale, hétérogénéité spatiale et coexistence.
 
-**[HYPOTHÈSE AVELUNE — absence de secours avant redondance]** Une lignée à implantation unique ne peut bénéficier d'aucun vrai secours spatial de sa propre lignée avant d'avoir déjà réussi sa première propagation. Le modèle peut donc posséder par construction une phase de **point unique de défaillance biologique**. La littérature métapopulationnelle invite à mesurer explicitement quand apparaît une redondance réellement protectrice.
+## 4. Corpus initial — établissement, assemblage et succession
 
-**[HYPOTHÈSE AVELUNE — redondance corrélée]** Une seconde implantation voisine n'est pas nécessairement une redondance indépendante si les deux emplacements subissent les mêmes vagues ou les mêmes conditions. La métrique utile pourrait être le temps jusqu'à une **redondance de risque suffisamment décorrélée**, et non simplement le temps jusqu'au premier budding.
+### [RÉFÉRENCE] Keitt, Lewis & Holt — effets d’Allee et frontières d’invasion
 
-**[HYPOTHÈSE AVELUNE — compromis de vie]** Une diversité durable peut nécessiter des compromis réels entre colonisation, compétition, longévité, tolérance aux perturbations ou exploitation des milieux. Avant d'ajouter une capacité locale complexe, il faut vérifier si les traits existants produisent effectivement de tels compromis ou s'ils classent implicitement certaines lignées comme meilleures presque partout.
+Keitt, T. H.; Lewis, M. A.; Holt, R. D. (2001), **“Allee Effects, Invasion Pinning, and Species’ Borders”**, *The American Naturalist* 157(2), 203–216.  
+DOI : https://doi.org/10.1086/318633
 
-**[HYPOTHÈSE AVELUNE — perturbation fertile]** Les vagues ne devraient pas être évaluées seulement par les morts qu'elles causent. Une perturbation peut aussi créer des fenêtres de colonisation, modifier les voisinages et renouveler des opportunités. Il faut donc mesurer la naissance et l'établissement **après** perturbation, pas uniquement la cause terminale des extinctions.
+Intérêt général : effets possibles de dépendances à la densité sur l’expansion spatiale.  
+Limite : citer ce travail ne signifie pas qu’Avelune implémente un modèle d’Allee.
 
-**[HYPOTHÈSE AVELUNE — histoire locale]** L'amélioration de coexistence observée avec R2.7 peut être compatible avec une importance accrue de l'histoire locale et des effets de priorité. Cela reste une interprétation de travail : seule une analyse dédiée peut montrer si le mécanisme produit réellement cette contingence historique.
+### [RÉFÉRENCE] Fukami et al. — histoire d’assemblage
 
-## 7. Diagnostics prioritaires après R2.10
+Fukami, T.; Bezemer, T. M.; Mortimer, S. R.; van der Putten, W. H. (2005), **“Species divergence and trait convergence in experimental plant community assembly”**, *Ecology Letters* 8(12), 1283–1290.  
+DOI : https://doi.org/10.1111/j.1461-0248.2005.00829.x
 
-Sous réserve du verdict R2.10, privilégier d'abord des mesures ou expériences minimales capables de départager les mécanismes :
+Intérêt général : articulation entre contingence historique, effets de priorité et filtrage déterministe.
 
-1. comparer explicitement temps vers éligibilité, temps éligibilité→propagation et cadence/exposition réelle aux vagues ;
-2. mesurer les compromis de traits des lignées survivantes et éteintes plutôt que seulement leurs moyennes globales ;
-3. distinguer première propagation et première **redondance de risque** ;
-4. mesurer la probabilité d'établissement et de diversification dans les fenêtres post-perturbation ;
-5. mesurer connectivité, qualité locale et éventuels effets source–puits au niveau des lignées déjà multi-sites ;
-6. si un seuil est causal, tester la **forme du mécanisme** avant de régler numériquement le seuil existant.
+### [RÉFÉRENCE] Connell & Slatyer — mécanismes de succession
 
-Ces diagnostics ne constituent pas une décision d'ajouter une banque de propagules, une dormance, un nouveau stade, une nouvelle capacité ou un nouveau paramètre. Toute nouvelle mécanique devra être justifiée par un résultat causal, puis testée contre un contrôle apparié.
+Connell, J. H.; Slatyer, R. O. (1977), **“Mechanisms of Succession in Natural Communities and Their Role in Community Stability and Organization”**, *The American Naturalist* 111(982), 1119–1144.  
+DOI : https://doi.org/10.1086/283241
 
-## 8. Frontière public / secret
+Intérêt général : cadres conceptuels de succession et rôle de l’histoire des communautés.
 
-Ce cahier peut publier les références, leur rôle, les hypothèses générales et les résultats suffisamment agrégés.
+## 5. Corpus initial — perturbation et mosaïque spatiale
 
-Restent hors GitHub : recettes exactes du Cœur, paramètres, seuils, fonctions de fitness/viabilité, distributions secrètes, signatures de lignées ou de régions, mapping exact d'une publication vers un coefficient propriétaire, causalités narratives réservées et tout élément permettant de reconstruire le fonctionnement caché du monde.
+### [RÉFÉRENCE] Levin & Paine — perturbation et formation de patches
 
-## 9. Règle d'entretien
+Levin, S. A.; Paine, R. T. (1974), **“Disturbance, Patch Formation, and Community Structure”**, *Proceedings of the National Academy of Sciences* 71(7), 2744–2747.  
+DOI : https://doi.org/10.1073/pnas.71.7.2744
 
-Le corpus est vivant. Toute nouvelle source effectivement utilisée doit être ajoutée avec son rôle et ses limites. Une source abandonnée peut rester avec la raison du rejet. Les décisions du Cœur doivent pouvoir être retracées jusqu'aux références, hypothèses et tests qui les ont éclairées, sans confondre plausibilité écologique et validation interne d'Avelune.
+Intérêt général : perturbations localisées, hétérogénéité spatio-temporelle et structure des communautés.
+
+### [RÉFÉRENCE] Paine & Levin — dynamique des paysages perturbés
+
+Paine, R. T.; Levin, S. A. (1981), **“Intertidal Landscapes: Disturbance and the Dynamics of Pattern”**, *Ecological Monographs* 51(2), 145–178.  
+DOI : https://doi.org/10.2307/2937261
+
+Intérêt général : formation, âge, taille et renouvellement des patches dans un paysage soumis à perturbation.
+
+### [RÉFÉRENCE] Hastings — perturbation, coexistence et histoire
+
+Hastings, A. (1980), **“Disturbance, coexistence, history, and competition for space”**, *Theoretical Population Biology* 18(3), 363–373.  
+DOI : https://doi.org/10.1016/0040-5809(80)90059-3
+
+Intérêt général : les effets d’une perturbation dépendent du contexte, de l’histoire et de la structure compétitive.
+
+## 6. Hypothèses publiques de méthode
+
+Les hypothèses partageables restent volontairement générales :
+
+- **[HYPOTHÈSE AVELUNE]** la structure spatiale et l’histoire locale peuvent être aussi importantes que les agrégats globaux ;
+- **[HYPOTHÈSE AVELUNE]** plusieurs échelles de temps doivent être confrontées avant d’interpréter un comportement comme stable ou instable ;
+- **[HYPOTHÈSE AVELUNE]** une perturbation doit être étudiée par ses effets à court et long terme, pas uniquement par une métrique instantanée ;
+- **[HYPOTHÈSE AVELUNE]** coexistence, occupation, diversité et persistance ne doivent pas être traitées comme des synonymes ;
+- **[HYPOTHÈSE AVELUNE]** une explication causale doit être préférée à un réglage opportuniste lorsqu’un diagnostic peut départager plusieurs interprétations.
+
+Les traductions de ces principes vers les mécanismes actuellement testés sont documentées hors GitHub lorsque leur précision révélerait le Cœur.
+
+## 7. Méthode expérimentale
+
+Lorsque pertinent, les expériences du Cœur privilégient :
+
+- contrôles et candidats comparables ;
+- campagnes multi-seeds ;
+- observateurs qui n’altèrent pas le mécanisme étudié ;
+- distinction entre corrélation, cause terminale et cause structurelle ;
+- horizons multiples ;
+- reproductibilité à version, entrées et seed identiques ;
+- conservation du contexte matériel lorsque la performance fait partie du verdict.
+
+Les résultats publiés doivent rester suffisamment agrégés pour être utiles au pilotage sans exposer les mécanismes réservés.
+
+## 8. Entretien
+
+Toute nouvelle source effectivement utilisée est ajoutée avec son rôle, ses limites et la date ou phase à partir de laquelle elle influence réellement le raisonnement.
+
+Une source abandonnée peut rester comme historique avec la raison du rejet. Une référence consultée après coup ne doit jamais être présentée comme origine d’une décision antérieure.
+
+Le registre propriétaire conserve, lorsque nécessaire, le lien précis entre source, hypothèse interne, expérience, résultat et décision. Le registre public conserve seulement ce qui peut être partagé sans dévoiler le CODEX ou la recette du Cœur.
