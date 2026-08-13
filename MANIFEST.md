@@ -50,15 +50,21 @@ Le Cœur ne dépend d’aucun interpréteur. Les futurs visuel et sonore s’y r
 
 ### Univers sonore / MUSIQUE-0
 
-Documentation partageable :
+Documentation et terrain partageables :
 
 - `docs/23_univers_sonore_contrat_public.md`
 - `docs/26_univers_sonore_references_methode.md`
 - `docs/27_musique0_cahier_integration.md`
 - `docs/contracts/representation-semantic-v0.schema.json`
 - `docs/contracts/musique0-fixtures/`
+- `lab/musique0/README.md`
+- `lab/musique0/GATE0_READY.md`
+- `lab/musique0/.gitignore`
+- `tools/musique0/check_public_fixtures.py`
 
-MUSIQUE-0 est autorisé comme laboratoire hors ligne et réversible. Le premier contrat technique est une **enveloppe expérimentale neutre**, alimentée actuellement par des fixtures synthétiques A/B/C et leur manifeste. Elle sert à tester versionnement, validation, découplage et remplacement de source sans prétendre décrire la structure réelle du Cœur.
+MUSIQUE-0 est autorisé comme laboratoire hors ligne et réversible. Le **Gate 0 est VERT** : le contrat expérimental 0.2.0, les trois fixtures synthétiques neutres, leur manifeste et le contrôleur autonome forment un socle reproductible qui ne dépend ni du jeu ni du Cœur.
+
+Les futurs replays, entrées classées, sorties intermédiaires et rendus de travail restent hors GitHub par défaut dans les zones locales protégées du laboratoire. Le prochain Gate concerne l'inspection d'un export Cœur clos et la conception d'un adaptateur privé à partir de son format réellement constaté.
 
 Aucun moteur audio final et aucune intégration live au Cœur canonique ne sont actés.
 
@@ -128,7 +134,7 @@ Pour l’état courant :
 3. `docs/index.md`
 4. `docs/development/PROJECT_STATUS_2026-08-12.md`
 5. `docs/21_coeur_vivant_genese_canonique.md`, `docs/22_coeur_vivant_validation_2026-08-12.md` et `docs/25_coeur_vivant_references_methode.md`
-6. `docs/23_univers_sonore_contrat_public.md`, `docs/26_univers_sonore_references_methode.md` et `docs/27_musique0_cahier_integration.md`
+6. `docs/23_univers_sonore_contrat_public.md`, `docs/26_univers_sonore_references_methode.md`, `docs/27_musique0_cahier_integration.md` et `lab/musique0/GATE0_READY.md`
 7. `docs/24_visuel_coeur_contrat_public.md` pour le visuel du Cœur et le LAB VISUEL
 8. `docs/real/` pour TA3
 9. le dossier `docs/development/proto0.2/` de `develop/proto-0.2.2-playtest` pour le candidat jouable courant.
