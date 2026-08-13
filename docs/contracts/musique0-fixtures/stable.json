@@ -1,0 +1,37 @@
+{
+  "contract_id": "avelune.representation.semantic",
+  "schema_version": "0.1.0",
+  "projection_profile": "public-lab-v0",
+  "source": {
+    "kind": "synthetic",
+    "source_id": "musique0-fixture-stable",
+    "source_version": "synthetic-0.1",
+    "adapter_version": "fixture-direct-0.1",
+    "replay_id": "fixture-stable-v0"
+  },
+  "frame": {
+    "state_id": "stable-0001",
+    "sequence": 1,
+    "logical_time": 100,
+    "mode": "full",
+    "scope": {
+      "kind": "world",
+      "id": "synthetic-world"
+    }
+  },
+  "descriptors": {
+    "living.activity": {"value": 0.58, "trend": 0.02, "persistence": 0.80},
+    "living.diversity": {"value": 0.66, "trend": 0.01, "persistence": 0.84},
+    "living.turnover": {"value": 0.24, "trend": -0.01, "persistence": 0.40},
+    "system.stability": {"value": 0.78, "trend": 0.02, "persistence": 0.88},
+    "space.contrast": {"value": 0.42, "trend": 0.00, "persistence": 0.72},
+    "change.disturbance": {"value": 0.10, "trend": -0.02, "persistence": 0.18},
+    "change.recovery": {"value": 0.28, "trend": 0.00, "persistence": 0.34},
+    "change.novelty": {"value": 0.22, "trend": 0.01, "persistence": 0.25},
+    "history.memory": {"value": 0.54, "trend": 0.00, "persistence": 0.90}
+  },
+  "events": [],
+  "extensions": {
+    "lab.fixture_label": "relative-stability"
+  }
+}
