@@ -44,26 +44,45 @@ L'implantation initiale doit toutefois conserver un garde-fou d'équité : posit
 
 ## Temporalité fictionnelle
 
-- **Tour** : unité abstraite de calcul et de choix lorsque le gameplay l'utilise.
-- **Phase** : période définissant les actions autorisées.
-- **Cycle** : séquence complète associée à une vague et ses conséquences.
-- **Régime / saison d'Avelune** : contexte long du monde si cette couche est retenue ; il ne s'agit pas nécessairement d'une saison terrestre calendaire.
-- **Chapitre** : transformation importante du jeu ou du monde.
-- **Époque** : changement historique exceptionnel, si ce niveau s'avère nécessaire.
+Pour les futurs développements du jeu, **le tour n'est plus une unité fondamentale de gameplay**.
+
+Les notions utiles deviennent notamment :
+
+- **opération / action** : décision du joueur appliquée au monde à un instant donné ;
+- **durée** : intervalle nécessaire à une construction, recherche, production, transport ou autre processus ;
+- **échéance** : instant où une opération devient achevée, disponible ou produit une conséquence ;
+- **cycle** : séquence causale complète associée à un phénomène du monde, lorsqu'une telle lecture est utile ;
+- **régime / saison d'Avelune** : contexte long du monde si cette couche est retenue ; il ne s'agit pas nécessairement d'une saison terrestre calendaire ;
+- **chapitre** : transformation importante du jeu ou du monde ;
+- **époque** : changement historique exceptionnel, si ce niveau s'avère nécessaire.
 
 La version logicielle reste distincte de cette chronologie.
 
-## Trois horloges à ne pas confondre
+## Décision de gameplay continu — 13 août 2026
 
-Le projet distingue désormais trois temporalités qui peuvent coexister sans imposer le même mode de jeu :
+La cible de développement est désormais un **monde persistant à temps continu, avec interactions asynchrones et sans notion de tour globale ou individuelle**.
+
+Le joueur joue lorsqu'il le souhaite. Ses constructions, recherches, productions, transports et autres opérations sont datés et possèdent des durées ou cadences définies par le moteur de jeu. Aucun joueur ne fait « avancer le tour » du monde et aucun autre joueur n'attend qu'il termine une phase.
+
+Une vague ou une autre perturbation appartient à la continuité du monde. Le gameplay ne repose pas structurellement sur un compteur de tours restant avant son arrivée ni sur une fenêtre fixe de préparation exprimée en tours. Des signes, estimations ou informations acquises peuvent exister, mais ils constituent une information de jeu et non une horloge fondamentale.
+
+Cette décision s'applique à **toute nouvelle itération de prototype et à la production**.
+
+Le **PROTO-0.2.2 existant constitue une exception historique volontaire** : son fonctionnement en tours reste inchangé jusqu'à sa clôture. Il ne doit pas être rétrofité pour adopter cette architecture ; sa fonction est de terminer la validation pour laquelle il a été construit.
+
+## Trois temporalités à ne pas confondre
+
+Le projet distingue trois notions qui ne jouent pas le même rôle :
 
 1. **temps de laboratoire du Cœur** : ticks, cycles et unités accélérées utilisés pour simuler, comparer et qualifier les mécanismes ;
 2. **temps canonique du monde** : continuité interne de l'instance persistante d'Avelune ;
-3. **temps de gameplay / temps humain** : sessions, tours, délais ou actions vécus par les joueurs.
+3. **temps humain et orchestration du gameplay** : instants de connexion, décisions des joueurs, durées et échéances des opérations.
+
+La troisième notion n'est pas une seconde horloge biologique. Elle décrit comment le moteur de jeu interface l'activité humaine avec le temps canonique.
 
 Les « années » utilisées dans les campagnes accélérées actuelles du laboratoire ne constituent donc **pas encore une année calendaire canonique d'Avelune** et ne doivent pas être converties rétroactivement en durée fictionnelle.
 
-Un jeu au tour par tour peut parfaitement coexister avec un Cœur continu : les commandes du joueur sont discrètes tandis que le monde peut évoluer entre elles. De même, un passage ultérieur du gameplay vers davantage de temps réel ne doit pas nécessiter de modifier les lois du Cœur si les interfaces temporelles restent découplées.
+Le Cœur doit pouvoir continuer à évoluer indépendamment du nombre de joueurs connectés. Le moteur de jeu traduit ensuite les actions humaines en opérations datées sans imposer de synchronisation collective.
 
 ## Conversion temps humain ↔ temps d'Avelune — décision ouverte
 
@@ -78,9 +97,9 @@ Cette conversion devra être décidée après stabilisation suffisante du Cœur 
 - durée souhaitée des chapitres, saisons ou époques ;
 - horizon réel de plusieurs années que l'instance canonique doit pouvoir traverser sans intervention structurelle.
 
-La conversion doit être **configurable et versionnée à l'interface temporelle**, et non enfouie dans les lois biologiques. Cela permet de tester plusieurs accélérations, de ralentir ou accélérer la présentation du temps avant lancement canonique et de faire évoluer le mode de jeu sans réécrire le Cœur.
+La conversion doit être **configurable et versionnée à l'interface temporelle**, et non enfouie dans les lois biologiques. Les durées de construction, recherche, production ou transport relèvent de l'orchestration du jeu ; elles peuvent être équilibrées sans réécrire les lois du Cœur.
 
-Une fois l'instance canonique lancée, toute modification de cette conversion devient une décision majeure : elle doit préserver la continuité historique et ne pas produire de saut arbitraire de l'état du monde.
+Une fois l'instance canonique lancée, toute modification importante de cette conversion devient une décision majeure : elle doit préserver la continuité historique et ne pas produire de saut arbitraire de l'état du monde.
 
 ## Histoire réelle et histoire fictionnelle
 
