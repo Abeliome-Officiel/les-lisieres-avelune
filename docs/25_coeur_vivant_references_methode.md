@@ -110,19 +110,103 @@ DOI : https://doi.org/10.1016/0040-5809(80)90059-3
 
 Intérêt général : les effets d’une perturbation dépendent du contexte, de l’histoire et de la structure compétitive.
 
-## 6. Hypothèses publiques de méthode
+## 6. Corpus complémentaire — micro-vivant, dormance et écologie virus–hôte
+
+Ce volet élargit volontairement le corpus au vivant microscopique. Son intérêt est méthodologique : les microorganismes fournissent des systèmes expérimentaux où croissance, activité, dormance, compétition, coopération, spatialisation et coévolution peuvent être suivies sur de nombreuses générations. Leur biologie n’est pas transposée littéralement à Avelune.
+
+### [RÉFÉRENCE] Jones & Lennon — dormance et diversité microbienne
+
+Jones, S. E.; Lennon, J. T. (2010), **“Dormancy contributes to the maintenance of microbial diversity”**, *Proceedings of the National Academy of Sciences* 107(13), 5881–5886.  
+DOI : https://doi.org/10.1073/pnas.0912765107
+
+Intérêt général : distinction entre fraction active et réservoir dormant ; rôle possible d’états réversibles de faible activité dans la persistance et la diversité de communautés soumises à des conditions variables.
+
+### [RÉFÉRENCE] Balaban et al. — persistance comme commutation phénotypique
+
+Balaban, N. Q.; Merrin, J.; Chait, R.; Kowalik, L.; Leibler, S. (2004), **“Bacterial persistence as a phenotypic switch”**, *Science* 305(5690), 1622–1625.  
+DOI : https://doi.org/10.1126/science.1099390
+
+Intérêt général : une population génétiquement homogène peut contenir des états physiologiques différents dont certains survivent temporairement à une forte perturbation sans constituer une résistance génétique permanente.
+
+### [RÉFÉRENCE] Kussell & Leibler — diversité phénotypique en environnement fluctuant
+
+Kussell, E.; Leibler, S. (2005), **“Phenotypic diversity, population growth, and information in fluctuating environments”**, *Science* 309(5743), 2075–2078.  
+DOI : https://doi.org/10.1126/science.1114383
+
+Intérêt général : comparaison entre réponse pilotée par l’environnement et diversification phénotypique stochastique lorsque les conditions fluctuent.
+
+### [RÉFÉRENCE] Acar, Mettetal & van Oudenaarden — taux de commutation et cadence environnementale
+
+Acar, M.; Mettetal, J. T.; van Oudenaarden, A. (2008), **“Stochastic switching as a survival strategy in fluctuating environments”**, *Nature Genetics* 40, 471–475.  
+DOI : https://doi.org/10.1038/ng.110
+
+Intérêt général : démonstration expérimentale que l’avantage de différents taux de commutation phénotypique dépend de la fréquence des changements environnementaux.
+
+### [RÉFÉRENCE] Schwartz et al. — coévolution bactéries–phages avec banque dormante
+
+Schwartz, D. A.; Shoemaker, W. R.; Măgălie, A.; Weitz, J. S.; Lennon, J. T. (2023), **“Bacteria-phage coevolution with a seed bank”**, *The ISME Journal* 17, 1315–1325.  
+DOI : https://doi.org/10.1038/s41396-023-01449-2
+
+Intérêt général : une banque dormante peut modifier démographie, diversité et intensité de coévolution dans un système hôte–virus.  
+Limite : ce résultat concerne un système biologique précis et ne justifie pas l’introduction automatique d’une dormance ou d’un analogue viral dans Avelune.
+
+### [RÉFÉRENCE] Vidakovic et al. — architecture collective et protection virale
+
+Vidakovic, L.; Singh, P. K.; Hartmann, R.; Nadell, C. D.; Drescher, K. (2018), **“Dynamic biofilm architecture confers individual and collective mechanisms of viral protection”**, *Nature Microbiology* 3, 26–31.  
+DOI : https://doi.org/10.1038/s41564-017-0050-1
+
+Intérêt général : l’organisation spatiale et une structure collective peuvent modifier l’exposition à une perturbation biologique ; la géométrie d’une communauté peut donc faire partie de sa dynamique écologique.
+
+### [RÉFÉRENCE] Lennon & Martiny — évolution rapide et impacts viraux
+
+Lennon, J. T.; Martiny, J. B. H. (2008), **“Rapid evolution buffers ecosystem impacts of viruses in a microbial food web”**, *Ecology Letters* 11(11), 1178–1188.  
+DOI : https://doi.org/10.1111/j.1461-0248.2008.01225.x
+
+Intérêt général : les effets écologiques d’une pression virale peuvent évoluer dans le temps lorsque la réponse évolutive de l’hôte intervient à une échelle comparable aux changements écologiques.
+
+### [RÉFÉRENCE] Gude et al. — motilité, compétition spatiale et compromis
+
+Gude, S.; Pinçe, E.; Taute, K. M.; Seinen, A.-B.; Shimizu, T. S.; Tans, S. J. et al. (2020), **“Bacterial coexistence driven by motility and spatial competition”**, *Nature* 578, 588–592.  
+DOI : https://doi.org/10.1038/s41586-020-2033-2
+
+Intérêt général : un compromis entre croissance et migration, combiné à la structure spatiale, peut inverser des hiérarchies compétitives et maintenir de la diversité.
+
+### [RÉFÉRENCE] LaSarre et al. — mutualisme et cross-feeding
+
+LaSarre, B.; McCully, A. L.; Lennon, J. T.; McKinlay, J. B. (2017), **“Microbial mutualism dynamics governed by dose-dependent toxicity of cross-fed nutrients”**, *The ISME Journal* 11, 337–348.  
+DOI : https://doi.org/10.1038/ismej.2016.141
+
+Intérêt général : les échanges entre populations peuvent stabiliser une coexistence mais aussi créer des dépendances et des effets non linéaires ; une interaction positive n’est pas nécessairement stabilisante à toute intensité.
+
+### [RÉFÉRENCE] Le Gac et al. — coexistence et divergence de lignées sur longue durée
+
+Le Gac, M.; Plucain, J.; Hindré, T.; Lenski, R. E.; Schneider, D. (2012), **“Ecological and evolutionary dynamics of coexisting lineages during a long-term experiment with Escherichia coli”**, *Proceedings of the National Academy of Sciences* 109(24), 9487–9492.  
+DOI : https://doi.org/10.1073/pnas.1207091109
+
+Intérêt général : coexistence durable, divergence écologique et modification progressive des interactions peuvent se produire entre lignées issues d’un ancêtre commun.
+
+### [RÉFÉRENCE] Power et al. — transfert horizontal et innovation adaptative
+
+Power, J. J.; Pinheiro, F.; Pompei, S.; Kovacova, V.; Yüksel, M.; Rathmann, I.; Förster, M.; Lässig, M.; Maier, B. (2021), **“Adaptive evolution of hybrid bacteria by horizontal gene transfer”**, *Proceedings of the National Academy of Sciences* 118(10), e2007873118.  
+DOI : https://doi.org/10.1073/pnas.2007873118
+
+Intérêt général : le transfert horizontal peut créer rapidement de nouvelles combinaisons adaptatives et modifier les trajectoires évolutives.  
+Limite : sa présence dans le corpus ne signifie pas qu’un mécanisme analogue soit requis ou souhaitable dans le Cœur.
+
+## 7. Hypothèses publiques de méthode
 
 Les hypothèses partageables restent volontairement générales :
 
 - **[HYPOTHÈSE AVELUNE]** la structure spatiale et l’histoire locale peuvent être aussi importantes que les agrégats globaux ;
 - **[HYPOTHÈSE AVELUNE]** plusieurs échelles de temps doivent être confrontées avant d’interpréter un comportement comme stable ou instable ;
 - **[HYPOTHÈSE AVELUNE]** une perturbation doit être étudiée par ses effets à court et long terme, pas uniquement par une métrique instantanée ;
-- **[HYPOTHÈSE AVELUNE]** coexistence, occupation, diversité et persistance ne doivent pas être traitées comme des synonymes ;
+- **[HYPOTHÈSE AVELUNE]** coexistence, occupation, diversité, activité et persistance ne doivent pas être traitées comme des synonymes ;
+- **[HYPOTHÈSE AVELUNE]** des compromis entre stratégies peuvent maintenir une diversité que n’explique pas une hiérarchie unique de performance ;
 - **[HYPOTHÈSE AVELUNE]** une explication causale doit être préférée à un réglage opportuniste lorsqu’un diagnostic peut départager plusieurs interprétations.
 
 Les applications propres au Cœur sont classées avant toute publication.
 
-## 7. Méthode expérimentale
+## 8. Méthode expérimentale
 
 Lorsque pertinent, les expériences du Cœur privilégient :
 
@@ -136,7 +220,7 @@ Lorsque pertinent, les expériences du Cœur privilégient :
 
 Les résultats publiés doivent rester suffisamment agrégés pour être utiles au pilotage sans cartographier le savoir classé.
 
-## 8. Entretien
+## 9. Entretien
 
 Toute nouvelle source effectivement utilisée est ajoutée avec son rôle, ses limites et la date ou phase à partir de laquelle elle influence réellement le raisonnement.
 
