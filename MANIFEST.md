@@ -6,9 +6,9 @@ Projet : **Les Lisières d’Avelune**
 Baseline d’intégration : `main`  
 Candidat jouable : `develop/proto-0.2.2-playtest`  
 Chantiers parallèles actuels : **Cœur vivant** et **Tableau Réel (TA3)**.  
-Conceptions de représentation cadrées : **univers sonore** et **visuel du Cœur / LAB VISUEL**.
+Conceptions de représentation cadrées : **MUSIQUE-0 / univers sonore** et **visuel du Cœur / LAB VISUEL**.
 
-Le dépôt GitHub contient les éléments destinés au développement partagé. L’implémentation détaillée du laboratoire du Cœur, les recettes exactes de traduction vers les représentations et les informations d’exploitation internes ne font pas partie de ce manifeste.
+Le dépôt GitHub contient uniquement les éléments destinés au développement partagé. Les informations classées dans les espaces internes ne sont pas inventoriées ici. La frontière de publication porte sur le contenu comme sur la structure documentaire.
 
 ## Politique d’intégrité
 
@@ -42,18 +42,25 @@ Documentation partageable :
 
 - `docs/21_coeur_vivant_genese_canonique.md`
 - `docs/22_coeur_vivant_validation_2026-08-12.md`
+- `docs/25_coeur_vivant_references_methode.md`
 
-Le moteur de laboratoire détaillé reste dans son dépôt propriétaire séparé. Les documents GitHub n’en publient que le contrat et les résultats agrégés nécessaires au pilotage.
+Le moteur de laboratoire détaillé reste dans son dépôt propriétaire séparé. Les documents GitHub n’en publient que le contrat, la méthode autorisée et les résultats suffisamment agrégés nécessaires au pilotage.
 
 Le Cœur ne dépend d’aucun interpréteur. Les futurs visuel et sonore s’y raccordent par adaptateurs et contrats sémantiques versionnés ; ils ne prennent pas les structures internes du laboratoire comme API durable.
 
-### Univers sonore
+### Univers sonore / MUSIQUE-0
 
 Documentation partageable :
 
 - `docs/23_univers_sonore_contrat_public.md`
+- `docs/26_univers_sonore_references_methode.md`
+- `docs/27_musique0_cahier_integration.md`
+- `docs/contracts/representation-semantic-v0.schema.json`
+- `docs/contracts/musique0-fixtures/`
 
-Le sonore est une couche de représentation en aval de l’état canonique ; il ne modifie pas le rôle du Cœur et ne fait pas partie du PROTO courant. Les recettes propriétaires et informations réservées restent dans le stockage interne approprié et ne sont pas des contenus GitHub.
+MUSIQUE-0 est autorisé comme laboratoire hors ligne et réversible. Le premier contrat technique est une **enveloppe expérimentale neutre**, alimentée actuellement par des fixtures synthétiques A/B/C et leur manifeste. Elle sert à tester versionnement, validation, découplage et remplacement de source sans prétendre décrire la structure réelle du Cœur.
+
+Aucun moteur audio final et aucune intégration live au Cœur canonique ne sont actés.
 
 ### Visuel du Cœur / LAB VISUEL
 
@@ -63,9 +70,11 @@ Documentation partageable :
 
 Le visuel est une couche de représentation en aval. Le LAB peut être développé avant l’achèvement du Cœur uniquement contre un sous-ensemble sémantique suffisamment stable, sous forme de contrat versionné alimentable par fixtures, replays et futurs états canoniques.
 
-Le contrat public documente la séparation anti-réécriture, la continuité visuelle, la mue comme cas de transformation, la qualité adaptative sobre/normal/riche, le rendu client par défaut, les cadences découplées, les gates de ressources et les références de recherche.
+Le contrat public documente la séparation anti-réécriture, la continuité visuelle, la qualité adaptative, le rendu client par défaut, les cadences découplées, les gates de ressources et les références de recherche.
 
-Les recettes propriétaires, paramètres réservés, mécanismes causaux non publics et informations narratives sensibles restent hors GitHub. Le manifeste n’en décrit pas l’organisation interne.
+### Frontière de publication
+
+GitHub est traité comme une surface de publication même lorsque le dépôt est privé. Les documents partageables décrivent uniquement les garanties, interfaces, méthodes, références et résultats autorisés. Ils ne cartographient pas l’organisation du savoir classé sous prétexte d’indiquer ce qui reste confidentiel.
 
 ### Tableau Réel
 
@@ -86,6 +95,7 @@ Contient notamment :
 - état courant au 12 août 2026 ;
 - audit du 6 août ;
 - architecture actuelle/cible ;
+- arbitrage transversal de pérennité et ressources ;
 - politique de données ;
 - méthode de développement ;
 - dette technique ;
@@ -95,7 +105,7 @@ Contient notamment :
 ### Conception et historique
 
 - `docs/conception/`
-- `docs/00_vision.md` à `docs/24_visuel_coeur_contrat_public.md`
+- documents numérotés de conception sous `docs/`
 - `logs/`
 - `csv/`
 - `data/`
@@ -117,8 +127,8 @@ Pour l’état courant :
 2. `ROADMAP.md`
 3. `docs/index.md`
 4. `docs/development/PROJECT_STATUS_2026-08-12.md`
-5. `docs/21_coeur_vivant_genese_canonique.md` et `docs/22_coeur_vivant_validation_2026-08-12.md`
-6. `docs/23_univers_sonore_contrat_public.md` pour la direction sonore partageable
+5. `docs/21_coeur_vivant_genese_canonique.md`, `docs/22_coeur_vivant_validation_2026-08-12.md` et `docs/25_coeur_vivant_references_methode.md`
+6. `docs/23_univers_sonore_contrat_public.md`, `docs/26_univers_sonore_references_methode.md` et `docs/27_musique0_cahier_integration.md`
 7. `docs/24_visuel_coeur_contrat_public.md` pour le visuel du Cœur et le LAB VISUEL
 8. `docs/real/` pour TA3
 9. le dossier `docs/development/proto0.2/` de `develop/proto-0.2.2-playtest` pour le candidat jouable courant.
