@@ -1,6 +1,6 @@
 # Cœur vivant — méthode de synthèse trans-échelles
 
-> **Statut : note méthodologique partageable — v0.1**  
+> **Statut : note méthodologique partageable — v0.2**  
 > Date : 13 août 2026
 
 ## 1. Principe
@@ -122,7 +122,39 @@ Face à une difficulté du Cœur, l’ordre méthodologique est :
 
 Cela protège le Cœur contre l’empilement de fonctionnalités biologiques séduisantes mais inutiles.
 
-## 8. Bibliographie
+## 8. Références charnières pour la synthèse entre échelles
+
+Ces travaux complètent le corpus spécialisé en fournissant des cadres explicitement utiles pour raisonner entre niveaux d’organisation.
+
+### [RÉFÉRENCE] Levin — pattern et échelle
+
+Levin, S. A. (1992), **“The Problem of Pattern and Scale in Ecology”**, *Ecology* 73(6), 1943–1967.  
+DOI : https://doi.org/10.2307/1941447
+
+Intérêt général : il n’existe pas une échelle naturelle unique à laquelle tous les phénomènes écologiques doivent être compris ; les mécanismes causaux peuvent opérer à une autre échelle que les motifs observés. Cette distinction justifie une méthode de traduction entre niveaux plutôt qu’une identification directe du vivant d’Avelune à une échelle terrestre.
+
+### [RÉFÉRENCE] Chesson — mécanismes de maintien de la diversité
+
+Chesson, P. (2000), **“Mechanisms of Maintenance of Species Diversity”**, *Annual Review of Ecology and Systematics* 31, 343–366.  
+DOI : https://doi.org/10.1146/annurev.ecolsys.31.1.343
+
+Intérêt général : distinction entre mécanismes qui réduisent les différences moyennes d’aptitude et mécanismes qui stabilisent réellement la coexistence, notamment par dépendance à la fréquence et variation spatiale ou temporelle.
+
+### [RÉFÉRENCE] Schoener — boucles éco-évolutives
+
+Schoener, T. W. (2011), **“The Newest Synthesis: Understanding the Interplay of Evolutionary and Ecological Dynamics”**, *Science* 331(6016), 426–429.  
+DOI : https://doi.org/10.1126/science.1193954
+
+Intérêt général : l’évolution peut agir sur des échelles temporelles écologiques et modifier à son tour l’environnement sélectif ; écologie et évolution peuvent donc former des boucles de rétroaction plutôt qu’une chaîne à sens unique.
+
+### [RÉFÉRENCE] Koskella, Hall & Metcalf — théorie écologique appliquée au microbiome
+
+Koskella, B.; Hall, L. J.; Metcalf, C. J. E. (2017), **“The microbiome beyond the horizon of ecological and evolutionary theory”**, *Nature Ecology & Evolution* 1, 1606–1615.  
+DOI : https://doi.org/10.1038/s41559-017-0340-2
+
+Intérêt général : montre à la fois la puissance et les limites du transfert de théories écologiques générales vers des communautés microbiennes ; utile comme garde-fou contre l’application littérale d’un modèle d’une échelle à une autre.
+
+## 9. Bibliographie spécialisée
 
 Le corpus détaillé est tenu dans [`25_coeur_vivant_references_methode.md`](25_coeur_vivant_references_methode.md).
 
