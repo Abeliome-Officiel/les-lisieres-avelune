@@ -4,15 +4,25 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import test from 'node:test';
 
+import { adaptSyntheticSourceA, adaptSyntheticSourceB } from '../src/adapters.mjs';
 import { renderFakeScene } from '../src/fake-renderer.mjs';
 import { assertVisualPublicProfile } from '../src/public-profile.mjs';
 import { decideFrameApplication } from '../src/sequence.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const fixtureRoot = path.resolve(here, '../../../docs/contracts/visuel0-fixtures');
+const sourceRoot = path.resolve(here, '../fixtures');
+
+async function readJson(root, name) {
+  return JSON.parse(await readFile(path.join(root, name), 'utf8'));
+}
 
 async function fixture(name) {
-  return JSON.parse(await readFile(path.join(fixtureRoot, name), 'utf8'));
+  return readJson(fixtureRoot, name);
+}
+
+async function syntheticSource(name) {
+  return readJson(sourceRoot, name);
 }
 
 test('VISUEL-0 accepts the stable synthetic public fixture', async () => {
@@ -34,6 +44,19 @@ test('VISUEL-0 preserves projected identity across a major transformation', asyn
     renderedBefore.primitives[0].visualSignature,
     renderedAfter.primitives[0].visualSignature
   );
+});
+
+test('two incompatible synthetic source structures produce the same public profile', async () => {
+  const sourceA = await syntheticSource('source-a.json');
+  const sourceB = await syntheticSource('source-b.json');
+
+  const payloadA = adaptSyntheticSourceA(sourceA);
+  const payloadB = adaptSyntheticSourceB(sourceB);
+
+  assertVisualPublicProfile(payloadA);
+  assertVisualPublicProfile(payloadB);
+  assert.deepEqual(payloadA, payloadB);
+  assert.deepEqual(renderFakeScene(payloadA), renderFakeScene(payloadB));
 });
 
 test('VISUEL-0 rejects an unexpected top-level field', async () => {
