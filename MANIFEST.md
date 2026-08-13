@@ -61,8 +61,11 @@ Documentation et terrain partageables :
 - `lab/musique0/GATE0_READY.md`
 - `lab/musique0/.gitignore`
 - `tools/musique0/check_public_fixtures.py`
+- `tools/musique0/bootstrap_local_lab.sh`
 
 MUSIQUE-0 est autorisé comme laboratoire hors ligne et réversible. Le **Gate 0 est VERT** : le contrat expérimental 0.2.0, les trois fixtures synthétiques neutres, leur manifeste et le contrôleur autonome forment un socle reproductible qui ne dépend ni du jeu ni du Cœur.
+
+Le bootstrap local vérifie ce socle puis crée les zones privées avec permissions restrictives et contrôle leur exclusion de Git avant toute manipulation réelle.
 
 Les futurs replays, entrées classées, sorties intermédiaires et rendus de travail restent hors GitHub par défaut dans les zones locales protégées du laboratoire. Le prochain Gate concerne l'inspection d'un export Cœur clos et la conception d'un adaptateur privé à partir de son format réellement constaté.
 
