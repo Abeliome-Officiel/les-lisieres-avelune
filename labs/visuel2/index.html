@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Avelune — VISUEL-2 Canvas reference probe</title>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #070910; color: #e7e8ee; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: radial-gradient(circle at 50% 0%, #171a28 0, #090b12 46%, #05070b 100%); }
+    main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 40px; }
+    header { display: flex; justify-content: space-between; gap: 24px; align-items: end; margin-bottom: 18px; }
+    h1 { margin: 0; font-size: clamp(1.3rem, 3vw, 2rem); font-weight: 650; letter-spacing: -0.02em; }
+    header p { margin: 7px 0 0; color: #aeb2c0; max-width: 760px; line-height: 1.45; }
+    .tag { flex: 0 0 auto; border: 1px solid #34394a; border-radius: 999px; padding: 7px 10px; color: #c8cbd5; font-size: .78rem; }
+    .layout { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 16px; }
+    .stage, .panel { border: 1px solid #282d3b; border-radius: 18px; background: rgba(12, 14, 22, .86); box-shadow: 0 18px 55px rgba(0,0,0,.24); }
+    .stage { overflow: hidden; min-height: 620px; }
+    canvas { display: block; width: 100%; height: 620px; }
+    .panel { padding: 16px; align-self: start; }
+    fieldset { border: 0; padding: 0; margin: 0 0 16px; }
+    legend { margin-bottom: 10px; font-weight: 650; }
+    label { display: grid; gap: 6px; margin: 0 0 12px; color: #c9ccd6; font-size: .9rem; }
+    select, button { width: 100%; padding: 9px 10px; border-radius: 9px; border: 1px solid #353b4d; background: #111522; color: #f1f2f6; }
+    button { cursor: pointer; font-weight: 650; }
+    button:hover { background: #171c2a; }
+    .check { display: flex; align-items: center; gap: 9px; }
+    .check input { width: 18px; height: 18px; }
+    #status { min-height: 44px; margin: 8px 0 16px; color: #b7bbca; font-size: .83rem; line-height: 1.45; }
+    #metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    #metrics div { padding: 9px; border: 1px solid #252a37; border-radius: 10px; background: #0d1018; min-width: 0; }
+    #metrics strong { display: block; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    #metrics span { display: block; margin-top: 2px; color: #8f95a6; font-size: .68rem; line-height: 1.25; }
+    #copy-status { min-height: 18px; margin: 7px 0 0; color: #9ea4b5; font-size: .72rem; }
+    .note { margin-top: 14px; color: #858b9b; font-size: .75rem; line-height: 1.45; }
+    @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } .stage, canvas { min-height: 520px; height: 520px; } header { align-items: start; flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>VISUEL-2 — Canvas reference probe</h1>
+        <p>Premier rendu vivant mesurable sur données synthétiques. Ce laboratoire ne représente aucune vérité biologique et ne consomme aucune donnée réelle du Cœur.</p>
+      </div>
+      <div class="tag">CONTROL RENDERER · NON CANONIQUE</div>
+    </header>
+
+    <div class="layout">
+      <section class="stage" aria-label="Scène expérimentale Avelune"><canvas id="world"></canvas></section>
+      <aside class="panel">
+        <fieldset>
+          <legend>Présentation</legend>
+          <label>Scénario<select id="scenario"><option value="stable">État stable</option><option value="transition">Transformation majeure</option></select></label>
+          <label>Qualité<select id="quality"><option value="sober">Sobre</option><option value="normal" selected>Normal — cible</option><option value="rich">Riche</option></select></label>
+          <label>Charge synthétique<select id="count"><option value="1">1 forme</option><option value="16" selected>16 formes</option><option value="64">64 formes</option><option value="128">128 formes</option></select></label>
+          <label class="check"><input id="reduced-motion" type="checkbox"> Mouvement réduit</label>
+        </fieldset>
+
+        <div id="status"></div>
+
+        <fieldset>
+          <legend>Mesures locales</legend>
+          <div id="metrics" aria-live="polite"></div>
+        </fieldset>
+
+        <button id="copy-report" type="button">Copier le relevé</button>
+        <div id="copy-status" aria-live="polite"></div>
+        <p class="note">Les temps affichés mesurent le thread navigateur et les commandes Canvas. Ils ne mesurent pas directement le temps GPU ni l’énergie. Le rendu est une baseline de comparaison, pas une direction artistique finale.</p>
+      </aside>
+    </div>
+  </main>
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+name: VISUEL-2 canvas probe
+
+on:
+  push:
+    branches:
+      - develop/visuel-2-canvas-probe
+  pull_request:
+    branches:
+      - develop/visuel-1-foundation
+
+permissions:
+  contents: read
+
+jobs:
+  canvas-probe:
+    name: Contract, plan and Canvas reference renderer
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Re-run VISUEL-0 gate
+        working-directory: labs/visuel0
+        run: npm test
+
+      - name: Re-run VISUEL-1 gate
+        working-directory: labs/visuel1
+        run: npm test
+
+      - name: Run VISUEL-2 renderer tests
+        working-directory: labs/visuel2
+        run: npm test
+
+      - name: Smoke-test dependency-free local server
+        shell: bash
+        run: |
+          node labs/visuel2/server.mjs > /tmp/visuel2-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill $SERVER_PID || true' EXIT
+          for attempt in {1..20}; do
+            if curl --fail --silent http://127.0.0.1:4173/labs/visuel2/ >/tmp/visuel2-index.html; then
+              break
+            fi
+            sleep 0.2
+          done
+          grep -q 'VISUEL-2 — Canvas reference probe' /tmp/visuel2-index.html
+          curl --fail --silent http://127.0.0.1:4173/docs/contracts/visuel0-fixtures/stable-full.json >/dev/null
+          curl --fail --silent http://127.0.0.1:4173/labs/visuel2/app.mjs >/dev/null
