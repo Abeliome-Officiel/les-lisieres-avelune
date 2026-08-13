@@ -1,0 +1,33 @@
+{
+  "manifest_id": "avelune.musique0.public-neutral-fixtures",
+  "manifest_version": "0.1.0",
+  "schema_path": "docs/contracts/representation-semantic-v0.schema.json",
+  "schema_version": "0.2.0",
+  "classification": "shareable-neutral-synthetic",
+  "purpose": "Valider le format, le versionnement et le découplage du pipeline sans représenter la structure réelle du Cœur.",
+  "fixtures": [
+    {
+      "id": "fixture-a-v0",
+      "path": "docs/contracts/musique0-fixtures/fixture-a.json",
+      "sha256": "70dbea039829440e9c4daed888f46b266e3ff901b86d88fc51c205293d1e102d",
+      "git_blob": "d3ecf9000f4ffb33f8371ac280174a5efb5148bf"
+    },
+    {
+      "id": "fixture-b-v0",
+      "path": "docs/contracts/musique0-fixtures/fixture-b.json",
+      "sha256": "5d66a44fc3d4ebd2cb6c74a2d46f5d1b02531458d1e93fdf025fd71961dc4e57",
+      "git_blob": "2b8293f24c39947d9280944f290702fbb09e39e2"
+    },
+    {
+      "id": "fixture-c-v0",
+      "path": "docs/contracts/musique0-fixtures/fixture-c.json",
+      "sha256": "872a9bf1c028ad34b590adaeb672947ff5307dde1a4e7ecdaa6e55c53ae4d043",
+      "git_blob": "4a093e6565dd126b361cfe972b0683823f29812f"
+    }
+  ],
+  "validation": {
+    "json_schema": "passed",
+    "validated_against": "draft-2020-12",
+    "notes": "Les trois fixtures sont volontairement neutres et synthétiques. Aucun vocabulaire de descripteur ne doit être interprété comme un contrat canonique du Cœur."
+  }
+}
