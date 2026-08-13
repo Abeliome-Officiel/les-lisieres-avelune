@@ -1,0 +1,77 @@
+{
+  "contract_id": "avelune.representation.semantic",
+  "schema_version": "0.1.0",
+  "projection_profile": "visual-lab-v0",
+  "source": {
+    "kind": "synthetic",
+    "source_id": "visual-public-projection",
+    "source_version": "projection-synthetic-0.1",
+    "adapter_version": "public-adapter-synthetic-0.1",
+    "replay_id": "visuel0-stable-v0"
+  },
+  "frame": {
+    "state_id": "visual-stable-0001",
+    "sequence": 1,
+    "logical_time": 100,
+    "mode": "full",
+    "scope": {
+      "kind": "scene",
+      "id": "view-scene-alpha"
+    }
+  },
+  "descriptors": {},
+  "events": [],
+  "extensions": {
+    "visual.scene": {
+      "entities": [
+        {
+          "entity_id": "view-form-alpha",
+          "entity_type": "living-form",
+          "pose": {
+            "x": 0.38,
+            "y": 0.61,
+            "scale": 0.42,
+            "depth_hint": 0.1
+          },
+          "appearance": {
+            "cohesion": 0.72,
+            "elongation": 0.44,
+            "branching": 0.34,
+            "softness": 0.68,
+            "translucency": 0.51,
+            "surface_detail": 0.46,
+            "luminosity": 0.28,
+            "motion_amplitude": 0.18,
+            "pulse": 0.22,
+            "diffuseness": 0.19
+          },
+          "transition_state": "stable"
+        },
+        {
+          "entity_id": "view-form-beta",
+          "entity_type": "living-form",
+          "pose": {
+            "x": 0.67,
+            "y": 0.48,
+            "scale": 0.29,
+            "depth_hint": -0.2
+          },
+          "appearance": {
+            "cohesion": 0.39,
+            "elongation": 0.63,
+            "branching": 0.71,
+            "symmetry": 0.27,
+            "softness": 0.41,
+            "translucency": 0.63,
+            "surface_detail": 0.57,
+            "luminosity": 0.36,
+            "motion_amplitude": 0.31,
+            "pulse": 0.11,
+            "diffuseness": 0.43
+          },
+          "transition_state": "stable"
+        }
+      ]
+    }
+  }
+}
