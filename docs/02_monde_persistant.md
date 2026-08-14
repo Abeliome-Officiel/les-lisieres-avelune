@@ -86,7 +86,7 @@ Le Cœur doit pouvoir continuer à évoluer indépendamment du nombre de joueurs
 
 ## Conversion temps humain ↔ temps d'Avelune — décision ouverte
 
-Au 13 août 2026, aucune équivalence canonique du type **« 1 année humaine = N années d'Avelune »** n'est actée.
+Au 14 août 2026, aucune équivalence canonique du type **« 1 année humaine = N années d'Avelune »** n'est actée.
 
 Cette conversion devra être décidée après stabilisation suffisante du Cœur à partir de critères perceptifs et systémiques :
 
@@ -96,6 +96,10 @@ Cette conversion devra être décidée après stabilisation suffisante du Cœur 
 - capacité d'un joueur absent à revenir dans un monde transformé mais encore intelligible ;
 - durée souhaitée des chapitres, saisons ou époques ;
 - horizon réel de plusieurs années que l'instance canonique doit pouvoir traverser sans intervention structurelle.
+
+Les diagnostics récents du Cœur ont renforcé un prérequis supplémentaire : la conversion ne doit pas être choisie avant d'avoir caractérisé le **spectre temporel écologique** du modèle. Il faut connaître les ordres relatifs d'établissement, récupération, accès à la propagation, reproduction, profondeur générationnelle et perturbations avant de transformer ces dynamiques en rythme perceptible pour les joueurs.
+
+Cette caractérisation sert à éviter deux erreurs symétriques : accélérer le calendrier au point de transformer une pression écologique en succession artificiellement brutale, ou ralentir les phénomènes au point que la réponse évolutive du monde devienne pratiquement invisible à l'échelle humaine.
 
 La conversion doit être **configurable et versionnée à l'interface temporelle**, et non enfouie dans les lois biologiques. Les durées de construction, recherche, production ou transport relèvent de l'orchestration du jeu ; elles peuvent être équilibrées sans réécrire les lois du Cœur.
 
