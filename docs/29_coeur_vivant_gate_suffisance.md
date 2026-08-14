@@ -1,7 +1,7 @@
 # Cœur vivant — gate de suffisance et limite de recherche
 
-> **Statut : règle méthodologique partageable — v0.1**  
-> Date : 13 août 2026
+> **Statut : règle méthodologique partageable — v0.2**  
+> Date : 14 août 2026
 
 ## 1. Principe : viser la suffisance durable, pas la perfection
 
@@ -112,9 +112,17 @@ Après le diagnostic R2.10, la stratégie est :
 - une famille candidate qui échoue à un test de falsification clair est mise de côté ;
 - une famille prometteuse reçoit une campagne de confirmation longue et hors échantillon.
 
+Les campagnes R2.11 à R2.12b ont renforcé cette stratégie : elles ont permis de passer d’un goulot de persistance encore largement opaque à une chaîne causale beaucoup mieux bornée, sans introduire de nouvelle biologie. Les résultats partageables indiquent qu’une part majeure du goulot dépend des perturbations, qu’un filtrage reproductif peut devenir un changement générationnel hérité, et que le contexte spatial n’explique pas à lui seul le signal observé.
+
+Le contre-factuel supprimant la perte directe des perturbations n’est pas un candidat de production : il conduit rapidement à un régime de saturation différent. Le problème de recherche n’est donc pas réduit à « diminuer la mortalité », mais à qualifier le rapport entre perturbation, récupération, reproduction, profondeur générationnelle et diversité.
+
+Avant toute nouvelle mécanique biologique, la priorité est désormais de caractériser le **spectre temporel** du système et d’exploiter les données déjà acquises lorsque cela permet encore de départager les hypothèses. Cette étape contribue aussi à la future interface entre temps de laboratoire, temps canonique et orchestration humaine.
+
 Si plusieurs cycles successifs de recherche n’améliorent plus la compréhension causale ni les critères de qualification, on considère que la recherche ouverte a atteint son rendement décroissant et l’on passe à la stratégie de repli définie ci-dessous plutôt que d’empiler de nouvelles idées.
 
 Les seuils quantitatifs internes de décision sont pré-enregistrés dans la documentation propriétaire avant les campagnes concernées.
+
+Le pilotage de cette convergence se fait **par cycles scientifiques et critères de décision**, pas par une date calendaire de fin arbitraire. Une date de gel n’est actée que lorsqu’elle devient une conséquence réaliste de l’état de qualification, et non un substitut aux preuves attendues.
 
 ## 6. Si aucun modèle ne franchit la gate
 
