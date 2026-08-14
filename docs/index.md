@@ -8,13 +8,13 @@ Cet index distingue les **principes de conception partageables**, les **jalons j
 - `v0.8.3` : dernière baseline de conception figée avant PROTO-0.1.
 - **PROTO-0.1** : jalon jouable intégré à `main`.
 - **PROTO-0.2.2** : candidat de playtest distribué sur `develop/proto-0.2.2-playtest` ; son intégration dans `main` reste une décision explicite.
-- **Cœur vivant / CŒUR-0** : chantier headless distinct, actuellement en campagne de diagnostic R2.10.
+- **Cœur vivant / CŒUR-0** : diagnostics R2.10 à R2.12b clos ; le goulot précoce est causalement relié aux perturbations, une réponse évolutive héritée est observée et le prochain axe prioritaire est la caractérisation du spectre temporel avant toute nouvelle mécanique.
 - **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; première source physique d’énergie AvLab active en lecture seule ; Phase B suivante.
 - **Univers sonore / MUSIQUE-0** : préproduction v0.2 autorisée hors ligne sur enveloppe sémantique versionnée, fixtures neutres et replays autorisés ; aucun moteur audio choisi et aucune intégration live au Cœur actée.
 - **Visuel du Cœur / LAB VISUEL** : cahier de préproduction v0.3 cadré ; développement anticipé autorisé uniquement via projection publique minimale et contrat sémantique versionné, sans dépendance durable aux internes du Cœur.
 - **Arbitrage transversal** : doctrine de pérennité, ressources, données et matériel actée le 13 août 2026 ; ce cadre n’est pas un runtime supplémentaire.
 
-État de pilotage détaillé : **[Avelune — état de développement au 12 août 2026](development/PROJECT_STATUS_2026-08-12.md)**.
+État de pilotage détaillé : **[Avelune — état de développement au 12 août 2026](development/PROJECT_STATUS_2026-08-12.md)**. Les jalons scientifiques plus récents du Cœur sont consignés dans les notes de recherche dédiées et dans l’état opérationnel Drive.
 
 Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation normale des contenus partageables est de nouveau autorisée. Les anciens clones/worktrees doivent être vérifiés avant réutilisation afin de ne pas réintroduire un historique antérieur.
 
@@ -47,6 +47,7 @@ Lorsqu’un document historique contredit un référentiel plus récent, il rest
 - **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)**
 - **[Cœur vivant — synthèse trans-échelles](28_coeur_vivant_synthese_trans_echelles.md)**
 - **[Cœur vivant — gate de suffisance et limite de recherche](29_coeur_vivant_gate_suffisance.md)**
+- **[Cœur vivant — perturbations, sélection et transmission](30_coeur_vivant_selection_perturbations.md)**
 - **[Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)**
 - **[Univers sonore — références et méthode MUSIQUE-0](26_univers_sonore_references_methode.md)**
 - **[MUSIQUE-0 — intégration](27_musique0_cahier_integration.md)**
@@ -75,9 +76,11 @@ Ordre de travail révisé :
 
 Le principe anti-réécriture est obligatoire : **un interpréteur ne consomme pas durablement les structures internes d’une révision du Cœur**. Une évolution interne doit être absorbée autant que possible par l’adaptateur ou une migration explicite du contrat. Le protocole de transport, la grammaire et le renderer doivent pouvoir évoluer indépendamment lorsqu’ils ne changent pas la signification des données.
 
-Au 12 août, les diagnostics R2.6 à R2.9 ont isolé le problème de persistance précoce des lignées ; R2.10 mesure le goulot entre établissement, première propagation et exposition aux vagues. Les détails de laboratoire restent hors dépôt.
+Au 14 août, les diagnostics R2.10 à R2.12b ont successivement localisé le goulot de persistance, confirmé le rôle causal des perturbations, observé une transmission générationnelle du filtrage reproductif et contrôlé qu’un effet propre subsiste au-delà du seul contexte spatial et de l’adéquation initiale. Le contre-factuel supprimant la perte directe n’est pas retenu comme modèle écologique. Les détails, valeurs et variables internes restent hors dépôt.
 
-La recherche du Cœur suit la même règle de traçabilité : sources extérieures, hypothèses Avelune, résultats internes et décisions actées sont distingués explicitement. Voir **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)**.
+La prochaine question prioritaire est la caractérisation du **spectre temporel** — établissement, récupération, propagation, reproduction, profondeur générationnelle et cadence des perturbations — avant toute introduction d’une nouvelle mécanique si les données existantes permettent encore de départager les hypothèses.
+
+La recherche du Cœur suit la même règle de traçabilité : sources extérieures, hypothèses Avelune, résultats internes et décisions actées sont distingués explicitement. Voir **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)** et **[Cœur vivant — perturbations, sélection et transmission](30_coeur_vivant_selection_perturbations.md)**.
 
 La méthode de synthèse entre macro-vivant, micro-vivant et vivant imaginaire est formalisée dans **[Cœur vivant — synthèse trans-échelles](28_coeur_vivant_synthese_trans_echelles.md)**. La condition de sortie de recherche ouverte et la qualification de CŒUR-0 sont définies dans **[Cœur vivant — gate de suffisance et limite de recherche](29_coeur_vivant_gate_suffisance.md)**.
 
