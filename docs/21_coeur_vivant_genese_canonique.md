@@ -1,7 +1,7 @@
 # Avelune — Cœur vivant et genèse canonique
 
-> **Statut : contrat de production expurgé — v0.3**  
-> Date : 13 août 2026  
+> **Statut : contrat de production expurgé — v0.4**  
+> Date : 16 août 2026  
 > Les recettes exactes, paramètres internes, causalités réservées et vérités narratives sensibles sont conservés hors GitHub.
 
 ## 1. Finalité
@@ -89,7 +89,7 @@ Le moteur peut faire apparaître des structures organisées transitoires avant l
 
 Des transformations majeures d’un même vivant, dont des **mues** au sens générique, peuvent être expérimentées tôt. Le Cœur demeure l’autorité sur l’identité et la transformation ; le rendu ne déduit ni ne crée des faits canoniques à partir de l’apparence.
 
-## 8. Arrivée future des joueurs
+## 8. Arrivée future des joueurs et périmètre v1.0
 
 Lorsque les premiers Corcites jouables arrivent, ils doivent s’implanter dans **l’état réellement atteint par Avelune**.
 
@@ -97,7 +97,9 @@ Le monde n’est pas remis à neuf pour leur arrivée.
 
 Une couche d’implantation devra cependant garantir une équité raisonnable : elle sélectionne des positions viables et comparables sans effacer l’histoire des régions. L’équité porte sur la capacité de commencer à jouer, pas sur l’identité parfaite des terrains.
 
-Après l’arrivée des joueurs, les actions agrégées des Corcites peuvent devenir une force supplémentaire. Avelune garde sa dynamique propre, mais une activité collective persistante peut infléchir son histoire à long terme.
+Pour la **v1.0**, la relation avec le Cœur reste volontairement **unidirectionnelle** : le Cœur produit l’état canonique et le jeu le consomme par des interfaces explicites. Les actions de gameplay d’un Corcite ne renvoient pas d’effet vers la biologie du Cœur dans cette version.
+
+Une éventuelle rétroaction écologique future des Corcites vers le monde vivant reste une piste post-v1 à étudier et valider séparément. Elle n’est ni une dépendance de CŒUR-0 ni une obligation du socle de production.
 
 ## 9. Persistance, données et durée inconnue
 
@@ -168,6 +170,8 @@ Toute charge significative doit pouvoir être qualifiée comme permanente, péri
 
 Les métriques et seuils chiffrés de validation peuvent rester hors de ce document.
 
+La qualification de CŒUR-0 vise une **suffisance durable**, pas une perfection biologique. Elle doit couvrir la tenue à temps long, la robustesse sur des cas indépendants et la capacité opérationnelle du runtime avant naissance canonique.
+
 ## 12. Observatoire analytique
 
 Une fois le moteur headless jugé viable, un **Observatoire privé** pourra afficher les séries temporelles nécessaires à l’analyse et à la calibration.
@@ -178,7 +182,7 @@ Le port hôte réservé pour une éventuelle exposition HTTP de ce chantier est 
 
 L’Observatoire ne fait pas partie du chemin de survie canonique : sa panne ou son arrêt ne doit pas empêcher le Cœur sain de continuer.
 
-## 13. LAB VISUEL et L’Orée
+## 13. LAB VISUEL et Fenêtre sur la Lisière
 
 Le **LAB VISUEL peut être ouvert avant l’achèvement complet du Cœur** dès qu’un sous-ensemble sémantique est suffisamment stable pour être représenté sans figer les mécanismes expérimentaux.
 
@@ -198,11 +202,11 @@ Les fixtures synthétiques, exports de simulations enregistrées et futurs état
 
 Le LAB peut tester tôt continuité d’identité, transformations majeures, temps long, traces, accessibilité, qualité adaptative et coût de rendu. Il reste **non canonique** tant que les gates de production ne sont pas franchies.
 
-L’**Orée** est la façade contemplative pérenne destinée à traduire le vrai état du monde : vitrine de genèse, écran d’accueil public, seuil facultatif vers le jeu, point d’observation ultérieur ou façade de maintenance.
+La **Fenêtre sur la Lisière**, désignée dans certains documents antérieurs comme **l’Orée**, est un module contemplatif **pérenne du produit final**. Elle est destinée à traduire le vrai état du monde : accueil public possible, page de contemplation dédiée, seuil facultatif vers le jeu, point d’observation permanent ou façade de maintenance. Son emplacement exact dans l’expérience reste ouvert ; son caractère permanent ne l’est plus.
 
 La scène recherchée doit rester onirique, féerique, calme et peu explicative. La version publique ne doit ni exposer la recette du Cœur ni transformer les états internes en dashboard technique.
 
-La production définitive de l’Orée reste postérieure à une stabilisation suffisante du contrat et à la validation des coûts, de la dégradation et de la pérennité.
+La production définitive de la Fenêtre reste postérieure à une stabilisation suffisante du contrat de lecture et à la validation des coûts, de la dégradation, de la pérennité et du fonctionnement continu du Cœur.
 
 Voir `docs/24_visuel_coeur_contrat_public.md`.
 
@@ -232,24 +236,28 @@ Le rendu est effectué côté client autant que possible. Le serveur publie des 
 
 Si une ressource manque ou si un interpréteur tombe, le mode dégradé porte d’abord sur la qualité, la fréquence ou la disponibilité de la représentation. Le Cœur ne doit pas modifier silencieusement ses lois pour masquer une limite de rendu.
 
-Si le jeu est indisponible mais que le Cœur fonctionne, l’Orée peut continuer à refléter l’état réel. Si le Cœur lui-même est indisponible, elle peut afficher le dernier snapshot validé et des micro-animations d’ambiance, mais elle ne doit jamais inventer une évolution canonique côté client.
+Si le jeu est indisponible mais que le Cœur fonctionne, la Fenêtre peut continuer à refléter l’état réel. Si le Cœur lui-même est indisponible, elle peut afficher le dernier snapshot validé et des micro-animations d’ambiance, mais elle ne doit jamais inventer une évolution canonique côté client.
 
 Voir `docs/development/ARBITRATION_LONGEVITY_AND_RESOURCES.md`, `docs/development/adr/ADR-0003-CORE-REPRESENTATION-INDEPENDENCE.md`, `docs/23_univers_sonore_contrat_public.md` et `docs/24_visuel_coeur_contrat_public.md`.
 
 ## 15. Ordre de réalisation
 
-Le Cœur et ses interpréteurs n’avancent pas selon une chaîne rigide « Cœur fini puis rendu ». L’ordre cible devient :
+Le Cœur et ses interpréteurs ne suivent pas une chaîne rigide interdisant tout travail préparatoire en aval. Les LABS visuel et sonore peuvent progresser sur contrats, fixtures et replays lorsqu’un sous-ensemble sémantique est stable, mais **la production et la mise en ligne du monde réel suivent des gates explicites**.
+
+Ordre cible :
 
 1. documentation, frontières public/secret et invariants ;
 2. moteur headless + persistance + simulateur accéléré ;
-3. campagnes longues et tests d’invariants ;
-4. dès qu’un sous-ensemble sémantique est suffisamment stable : **contrat de représentation v0 + fixtures/replays + LAB VISUEL ou sonore isolé** ;
-5. Observatoire analytique et poursuite des diagnostics du Cœur ;
-6. faire évoluer les adaptateurs et le contrat sans coupler les interpréteurs aux mécanismes expérimentaux ;
-7. validation sauvegarde/restauration/migrations, pérennité et ressources cumulées ;
-8. gates de compatibilité des interpréteurs : remplacement, mode dégradé, accessibilité et budget ;
-9. seulement après stabilisation suffisante : Orée et représentations de production ;
-10. seulement après validation opérationnelle et comportementale suffisante : naissance de l’instance canonique.
+3. campagnes longues, qualification scientifique et tests d’invariants ;
+4. contrat sémantique minimal + adaptateurs + fixtures/replays permettant aux LABS en aval d’avancer sans dépendre des internes ;
+5. qualification opérationnelle : sauvegarde, restauration, reprise, migrations, coûts et fonctionnement continu réel ;
+6. caractérisation suffisante du temps biologique puis fixation/versionnement de l’interface temporelle canonique ;
+7. stabilisation du contrat de lecture de production ;
+8. développement et mise en ligne de la **Fenêtre sur la Lisière définitive**, premier consommateur permanent privilégié du monde canonique ;
+9. branchement progressif des autres interpréteurs, Tableaux, panneaux et services en aval sur la même vérité canonique ;
+10. poursuite du développement et intégration du jeu v1.0 autour de ce monde déjà vivant, sans rétroaction gameplay → biologie du Cœur en v1.0.
+
+La Fenêtre n’est pas remplacée par le jeu lorsqu’il arrive : elle reste un accès contemplatif au même Avelune.
 
 L’investissement artistique et technique peut donc commencer de façon contrôlée avant la fin du Cœur. **La production massive de contenu reste en revanche différée tant que le contrat et les mécanismes amont nécessaires ne sont pas suffisamment stables.**
 
