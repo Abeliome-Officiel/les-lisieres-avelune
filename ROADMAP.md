@@ -1,82 +1,137 @@
 # Roadmap — Les Lisières d’Avelune
 
-## État au 13 août 2026
+## État au 16 août 2026
 
-Le projet avance actuellement sur **trois axes runtime indépendants** :
+Le projet avance sur plusieurs chantiers distincts, avec une règle de priorité claire : **le Cœur autonome doit être suffisamment viable, compris et exploitable avant de devenir le monde canonique de production**.
 
 | Axe | État | Prochaine gate |
 |---|---|---|
-| PROTO jouable | PROTO-0.2.2 validé sur `develop/proto-0.2.2-playtest` | playtests puis décision explicite d’intégration |
-| Cœur vivant | laboratoire headless, diagnostic R2.10 en cours | identifier le goulot de persistance avant nouveau mécanisme |
-| Tableau Réel | Gate 0 validé | Phase B : socle persistant autonome hors PROTO |
+| PROTO jouable | PROTO-0.2.2 conservé comme jalon historique de validation | playtests puis clôture explicite, sans rétrofit de son architecture en tours |
+| Cœur vivant | laboratoire headless, sélection/transmission démontrées, qualification de stabilité très long terme en cours | fermer les gates scientifique, adversariale et opérationnelle puis fixer l’interface temporelle canonique |
+| Fenêtre sur la Lisière | module contemplatif définitif cadré, LAB possible sur contrat/fixtures | production après validation suffisante du Cœur et stabilisation du contrat de lecture |
+| Tableau Réel | Gate 0 validé | poursuivre son socle autonome hors PROTO |
 
-Les **univers sonore et visuel** sont cadrés comme chantiers de représentation et de préproduction. Ils ne deviennent pas de nouveaux axes canoniques et ne modifient pas le PROTO courant.
+Les univers visuel et sonore sont des **interpréteurs en aval**. Ils ne constituent pas une seconde vérité du monde et ne doivent pas devenir des dépendances de survie du Cœur.
 
-Le LAB VISUEL peut progresser avant l’achèvement du Cœur uniquement à travers un **contrat sémantique versionné** alimenté par fixtures, replays ou adaptateurs. Il ne doit jamais prendre les structures internes du Cœur comme API durable.
-
-Le nettoyage de l’historique GitHub est clos. Le dépôt peut de nouveau être synchronisé normalement, avec contrôle obligatoire des anciens clones/worktrees avant réutilisation.
+Le nettoyage de l’historique GitHub est clos. Le dépôt peut être synchronisé normalement, avec contrôle obligatoire des anciens clones/worktrees avant réutilisation.
 
 ## 1. PROTO-0.2.2
 
-Le candidat distribué a passé sa gate technique :
-
-- 380 tests réussis ;
-- `svelte-check` vert ;
-- build production vert ;
-- PostgreSQL et migration validés ;
-- sessions distribuées, reprise, persistance et conflits validés ;
-- feedback persistant et notification validés ;
-- revue desktop/mobile acceptable.
+Le candidat distribué a passé sa gate technique.
 
 ### À faire
 
 - [ ] distribuer/continuer le playtest humain ;
 - [ ] centraliser les retours sans modifier le jalon hors bug bloquant ;
 - [ ] analyser compréhension, rythme, arbitrages, fatigue cognitive et identité visuelle ;
-- [ ] décider explicitement si/quand PROTO-0.2.2 devient la nouvelle baseline de `main` ;
+- [ ] décider explicitement de la clôture et de ce qui doit être repris dans les développements ultérieurs ;
+- [ ] ne pas rétrofiter le PROTO pour adopter le gameplay continu de production ;
 - [ ] ne pas injecter automatiquement les moteurs du Cœur dans le prototype.
+
+Le tour par tour reste propre à ce prototype. Toute nouvelle itération de production vise un monde et un gameplay continus et asynchrones.
 
 ## 2. Cœur vivant / CŒUR-0
 
-Le Cœur est le monde autonome avant les joueurs. Son implémentation de laboratoire reste séparée du dépôt partageable.
+Le Cœur est le monde autonome avant les joueurs. Son implémentation propriétaire de laboratoire reste séparée du dépôt partageable.
 
 ### Acquis
 
 - [x] moteur headless et simulations accélérées ;
-- [x] reproductibilité et reprise de baseline ;
+- [x] reproductibilité de campagnes et reprise de baseline ;
 - [x] divergence régionale et mémoire locale ;
-- [x] campagnes longues multi-seeds ;
-- [x] diagnostic de l’établissement ;
-- [x] baseline R2.7 réduisant le turnover sans déstabiliser l’occupation globale ;
-- [x] identification d’un goulot de disparition avant première propagation locale ;
+- [x] campagnes longues multi-seeds et contrôles hors échantillon ;
+- [x] diagnostic de l’établissement et du cycle précoce des lignées ;
+- [x] chaîne fonctionnelle de variation, succès reproductif différentiel, transmission et changement générationnel démontrée ;
+- [x] rôle des perturbations qualifié comme composante réelle du renouvellement et du filtrage, sans en faire un simple mécanisme destructeur à supprimer ;
+- [x] absence de course monotone simple vers un optimum unique sur les horizons déjà qualifiés ;
 - [x] principe d’un contrat sémantique de représentation indépendant des internes du Cœur.
 
 ### En cours
 
-- [ ] R2.10 : distinguer incapacité à atteindre l’état de propagation, attente avant propagation et érosion par les vagues ;
-- [ ] lire la campagne forte avant toute modification mécanique ;
-- [ ] si deux mécanismes restent plausibles, les comparer en parallèle sur seeds appariées.
-
-### En parallèle, lorsque le sous-ensemble sémantique suffit
-
-- [ ] définir le plus petit contrat de représentation v0 utile au LAB ;
-- [ ] exporter quelques états/replays de référence par adaptateur ;
-- [ ] conserver les mécaniques expérimentales derrière l’adaptateur ;
-- [ ] tester qu’une révision fictive du Cœur peut être absorbée sans réécrire les interpréteurs.
+- [ ] qualification de stabilité très long terme : distinguer convergence vers un régime durable et dérive lente persistante ;
+- [ ] surveiller contraction de diversité, dominance et profondeur générationnelle sans modifier la biologie tant qu’une insuffisance n’est pas démontrée ;
+- [ ] fermer la qualification scientifique sur horizons et cas indépendants ;
+- [ ] préparer ensuite la qualification adversariale ciblée ;
+- [ ] qualifier l’exploitation réelle : persistance, reprise, migrations, coût et fonctionnement continu.
 
 ### Avant instance canonique
 
-- [ ] validation longue supplémentaire lorsque le mécanisme est stabilisé ;
-- [ ] validation sauvegarde/restauration/migrations pour durée indéterminée ;
-- [ ] Observatoire analytique privé ;
-- [ ] stabilisation progressive du contrat sémantique ;
-- [ ] validation des budgets cumulés, modes dégradés et stratégie de remplacement ;
-- [ ] Orée de production seulement après gates suffisantes ;
-- [ ] naissance canonique uniquement après validation des opérations et du comportement long terme.
+- [ ] caractériser suffisamment le spectre temporel biologique ;
+- [ ] fixer et versionner l’interface temps biologique / temps canonique / orchestration humaine ;
+- [ ] démontrer sauvegarde, restauration, reprise et migrations sans perte d’histoire ;
+- [ ] éprouver le runtime en fonctionnement continu réel avec étapes d’endurance progressives ;
+- [ ] stabiliser le contrat de lecture de production ;
+- [ ] valider budgets cumulés, modes dégradés et stratégie de remplacement ;
+- [ ] ne déclarer une instance canonique qu’après fermeture explicite de ces gates.
 
-Voir : `docs/21_coeur_vivant_genese_canonique.md` et `docs/22_coeur_vivant_validation_2026-08-12.md`.
+Voir : `docs/21_coeur_vivant_genese_canonique.md`, `docs/29_coeur_vivant_gate_suffisance.md` et `docs/30_coeur_vivant_selection_perturbations.md`.
 
-## 3. Tableau Réel — TA3
+## 3. Périmètre v1.0 : relation jeu ↔ Cœur
+
+La v1.0 conserve une frontière simple et volontaire :
+
+```text
+Cœur autonome
+    ↓
+état canonique
+    ↓
+projection / contrat de lecture versionné
+    ↓
+Fenêtre sur la Lisière, sonore, Tableaux, panneaux et jeu
+```
+
+Pour la **v1.0**, les actions de gameplay d’un Corcite **ne renvoient pas d’effet vers la biologie du Cœur**. Le jeu consomme le monde vivant ; il ne réécrit pas sa trajectoire biologique.
+
+Les rétroactions écologiques avancées — par exemple exploitation transformant le milieu ou modification indirecte de perturbations — restent des pistes de recherche post-v1. Elles ne doivent ni charger CŒUR-0 ni retarder la première production.
+
+## 4. Fenêtre sur la Lisière / Orée
+
+La **Fenêtre sur la Lisière** est un module permanent du projet final, pas une démo destinée à être supprimée.
+
+Son emplacement exact reste ouvert : page d’accueil, page dédiée de contemplation ou accès multiples. Elle doit pouvoir rester disponible lorsque le jeu complet existe et continuer à montrer le même monde canonique.
+
+### Avant production
+
+- [ ] stabiliser le contrat de lecture minimal nécessaire ;
+- [ ] vérifier par liste positive qu’aucune donnée privée inutile n’est envoyée au client ;
+- [ ] valider fixtures, replays et état réel derrière la même interface ;
+- [ ] démontrer resynchronisation et reprise sur état complet ;
+- [ ] mesurer budgets client/serveur et modes dégradés ;
+- [ ] vérifier qu’un changement du Cœur peut être absorbé par adaptateur/migration sans réécrire la grammaire visuelle.
+
+### Production
+
+- [ ] brancher la Fenêtre sur le vrai état canonique après qualification suffisante du Cœur ;
+- [ ] la mettre en ligne comme premier consommateur permanent privilégié du monde vivant ;
+- [ ] conserver la priorité à la contemplation, l’onirisme, la féerie et l’imagination ;
+- [ ] ne jamais transformer la façade publique en exposition des mécanismes propriétaires du Cœur.
+
+Voir : `docs/24_visuel_coeur_contrat_public.md`.
+
+## 5. Univers sonore
+
+### Acquis de conception
+
+- [x] le Cœur reste le moteur de l’état canonique ;
+- [x] le sonore est un interpréteur en aval, au même niveau conceptuel que le visuel ;
+- [x] direction : satisfaisante, contemplative, onirique et féerique ;
+- [x] séparation musique du monde / sons du jeu / signaux d’information ;
+- [x] accessibilité sensorielle paramétrique ;
+- [x] séparation explicite entre contrat partageable et recettes internes.
+
+### À reprendre
+
+- [ ] définir la grammaire musicale d’Avelune ;
+- [ ] définir mémoire et transformation des motifs ;
+- [ ] arbitrer la part commune au monde et l’adaptation locale ;
+- [ ] fixer contraintes de sécurité et de confort sonore ;
+- [ ] mesurer le budget cumulé avec le jeu et le visuel ;
+- [ ] comparer les moteurs de rendu sur un prototype isolé ;
+- [ ] choisir une technologie seulement à partir de besoins stabilisés.
+
+Voir : `docs/23_univers_sonore_contrat_public.md`.
+
+## 6. Tableau Réel — TA3
 
 Le Gate 0 a invalidé l’idée de dépendre du conteneur ou de la base du PROTO.
 
@@ -96,115 +151,47 @@ Le Gate 0 a invalidé l’idée de dépendre du conteneur ou de la base du PROTO
 - [ ] migrations réversibles et testées si nécessaire ;
 - [ ] démontrer que TA3 reste disponible PROTO arrêté.
 
-### Phases suivantes
-
-- [ ] domaine/agrégations et tests ;
-- [ ] interface publique ;
-- [ ] préchargement des données actées ;
-- [ ] adaptateur PROTO unidirectionnel ;
-- [ ] énergie/carbone ;
-- [ ] acceptation et déploiement.
-
 Voir `docs/real/`.
 
-## 4. Univers sonore — conception future
+## 7. Recherche post-v1 — interaction Corcite / monde vivant
 
-### Acquis de conception
+Le pool d’idées conserve, sans les transformer en décisions de production :
 
-- [x] le Cœur reste exclusivement le moteur d’évolution du vivant ;
-- [x] le sonore est un interpréteur en aval de l’état canonique, au même niveau conceptuel que le visuel ;
-- [x] direction : satisfaisante, contemplative, onirique et féerique ;
-- [x] séparation musique du monde / sons du jeu / signaux d’information ;
-- [x] accessibilité sensorielle paramétrique, sans « mode neuroA » unique ;
-- [x] séparation explicite entre contrat partageable et recettes internes.
+- ressources éventuellement épuisables avec renouvellement, transformation ou nouvelles opportunités ;
+- possibilité que certaines ressources soient une traduction gameplay de populations ou lignées vivantes ;
+- conséquences écologiques positives, négatives ou mixtes de certaines exploitations ;
+- modifications externes du milieu ou de perturbations ;
+- déplacement ou réancrage avancé d’un Corcite.
 
-### À reprendre plus tard
+Ces pistes peuvent être étudiées ultérieurement en laboratoire. Elles ne constituent pas des fonctionnalités promises de la v1.0 et ne doivent pas être introduites dans le Cœur autonome sans gate explicite.
 
-- [ ] définir la grammaire musicale d’Avelune ;
-- [ ] définir la mémoire et la transformation des motifs ;
-- [ ] arbitrer la part commune au monde et l’adaptation locale ;
-- [ ] fixer les contraintes de sécurité et de confort sonore ;
-- [ ] mesurer le budget CPU/RAM/réseau avec le jeu et le visuel ;
-- [ ] comparer les moteurs de rendu sur un prototype isolé ;
-- [ ] choisir une technologie seulement à partir de besoins stabilisés.
+## 8. Documentation et gouvernance
 
-Voir : `docs/23_univers_sonore_contrat_public.md`.
-
-## 5. Visuel du Cœur / LAB VISUEL — préproduction
-
-### Acquis de conception
-
-- [x] représentation strictement en aval du Cœur ;
-- [x] architecture contract-first avec adaptateur privé de version ;
-- [x] projection publique par liste positive : aucun état privé inutile n’est transmis au navigateur ;
-- [x] même contrat pour fixtures, replays et future production ;
-- [x] contrat indépendant du protocole de transport ;
-- [x] état complet de resynchronisation prévu en cas de trou ou incompatibilité ;
-- [x] versions source/Cœur, adaptateur/contrat, grammaire et renderer distinguées ;
-- [x] direction : satisfaisante, contemplative, onirique et féerique ;
-- [x] continuité d’identité et cohérence temporelle comme contraintes ;
-- [x] mue utilisable comme cas de test de transformation majeure ;
-- [x] niveaux sobre / normal / riche à partir du même canon ;
-- [x] rendu client par défaut et cadences Cœur/publication/rendu découplées ;
-- [x] bibliographie initiale : L-systems/Algorithmic Botany, Clades, réaction-diffusion, cohérence temporelle, LOD, WCAG et documentation de renderer candidat ;
-- [x] frontière public/privé renforcée : GitHub ne décrit ni organisation ni mécanismes réservés du CODEX.
-
-### VISUEL-0 — prochaine gate
-
-- [ ] définir un contrat sémantique v0 **minimal**, versionné et validé par schéma ;
-- [ ] définir la projection de publication et tester l’absence de données privées dans les payloads client ;
-- [ ] créer des fixtures synthétiques représentatives sans recopier les internes du Cœur ;
-- [ ] écrire un adaptateur d’exports/replays de simulations existantes ;
-- [ ] prouver que fixtures, replay local et flux simulé alimentent exactement le même LAB ;
-- [ ] définir état complet, identifiant/ordre d’état et mécanisme de resynchronisation ;
-- [ ] limiter chaque payload à la scène ou région utile au rendu ;
-- [ ] créer un renderer factice pour tester l’indépendance du contrat ;
-- [ ] simuler une révision incompatible du Cœur et la corriger uniquement par adaptateur/migration ;
-- [ ] tester séparément les changements de source, contrat, grammaire et renderer ;
-- [ ] mesurer un premier budget CPU/GPU/RAM/réseau côté client et côté serveur ;
-- [ ] ne figer aucun contenu futur inutile à la validation du LAB.
-
-### VISUEL-1 à VISUEL-5, seulement après gate
-
-- [ ] coût minimal du vivant et cohérence temporelle ;
-- [ ] continuité d’identité et premières mues ;
-- [ ] variations historiques sans dépendance aux mécanismes privés ;
-- [ ] environnement, traces et vagues ;
-- [ ] Orée expérimentale ;
-- [ ] mesures en charge avec jeu et sonore représentatifs ;
-- [ ] choix de renderer seulement après comparaison mesurée.
-
-Voir : `docs/24_visuel_coeur_contrat_public.md`.
-
-## 6. Documentation et gouvernance
-
-- [x] GitHub redevient la source de vérité des contenus destinés au dépôt ;
-- [x] documentation de pilotage synchronisée au 12 août ;
-- [x] documentation TA3 partageable migrée vers GitHub ;
-- [x] frontière public/secret du futur univers sonore formalisée ;
-- [x] contrat visuel partageable, mue comme cas de test, gates anti-réécriture et références documentés ;
-- [x] projection publique, resynchronisation et frontières de version ajoutées au cahier visuel ;
-- [x] reformulation de la documentation visuelle publique pour ne pas exposer la structure des mécanismes réservés ;
+- [x] GitHub est la source de vérité des contenus destinés au dépôt ;
+- [x] frontière public/secret du Cœur et des interpréteurs formalisée ;
+- [x] contrats visuel et sonore partageables séparés des recettes propriétaires ;
+- [x] projection publique, resynchronisation et frontières de version documentées ;
+- [x] séparation explicite v1.0 entre lecture du Cœur et futures rétroactions écologiques ;
+- [x] statut permanent de la Fenêtre sur la Lisière documenté ;
 - [ ] conserver hors dépôt les détails propriétaires et opérationnels ;
-- [ ] nettoyer progressivement du Drive les doublons qui n’avaient été créés que pendant le gel GitHub ;
 - [ ] ne supprimer une information sensible d’un stockage temporaire qu’après vérification de sa copie de référence.
 
-## 7. Principes invariants
+## 9. Principes invariants
 
-- monde partagé unique ;
+- monde partagé persistant ;
 - Corcite comme personnage, organisme et cité ;
 - progression principalement horizontale ;
 - échec fertile ;
 - absence non punitive ;
 - pas de classement humiliant ;
-- pas de FOMO/micro-dopamine comme moteur de rétention ;
+- pas de FOMO comme moteur de rétention ;
 - plusieurs styles de jeu légitimes ;
 - accessibilité intégrée ;
-- identité queer et non genrée ;
 - sobriété technique ;
 - séparation entre prototype, monde autonome, instrumentation du projet et représentations visuelle/sonore ;
-- interpréteurs anticipés branchés sur un contrat versionné, jamais sur les internes provisoires du Cœur ;
+- interpréteurs branchés sur un contrat versionné, jamais sur les internes provisoires du Cœur ;
 - projection minimale avant envoi aux clients ;
-- protocole de transport distinct du contrat sémantique ;
+- protocoles de transport distincts de la sémantique ;
 - versions source/contrat/grammaire/renderer découplées ;
-- budgets de ressources arbitrés au niveau du système complet et non de chaque brique isolément.
+- budgets de ressources arbitrés au niveau du système complet ;
+- aucune idée future ne devient une obligation simplement parce qu’elle est techniquement possible ou cohérente avec le monde.
