@@ -42,13 +42,15 @@ Une future instance canonique peut vivre longtemps avant l'arrivée des joueurs.
 
 L'implantation initiale doit toutefois conserver un garde-fou d'équité : positions viables et comparables sans exiger des terrains identiques ni effacer l'histoire locale.
 
+Pour la **v1.0**, l'arrivée des Corcites ne crée pas une boucle de rétroaction vers la biologie du Cœur. Le Cœur continue sa trajectoire autonome ; le jeu et ses modules lisent l'état canonique par des interfaces versionnées. Toute influence écologique future d'un Corcite sur le Cœur est un chantier post-v1 distinct et non une propriété implicite du socle.
+
 ## Temporalité fictionnelle
 
 Pour les futurs développements du jeu, **le tour n'est plus une unité fondamentale de gameplay**.
 
 Les notions utiles deviennent notamment :
 
-- **opération / action** : décision du joueur appliquée au monde à un instant donné ;
+- **opération / action** : décision du joueur appliquée au système de jeu à un instant donné ;
 - **durée** : intervalle nécessaire à une construction, recherche, production, transport ou autre processus ;
 - **échéance** : instant où une opération devient achevée, disponible ou produit une conséquence ;
 - **cycle** : séquence causale complète associée à un phénomène du monde, lorsqu'une telle lecture est utile ;
@@ -78,15 +80,15 @@ Le projet distingue trois notions qui ne jouent pas le même rôle :
 2. **temps canonique du monde** : continuité interne de l'instance persistante d'Avelune ;
 3. **temps humain et orchestration du gameplay** : instants de connexion, décisions des joueurs, durées et échéances des opérations.
 
-La troisième notion n'est pas une seconde horloge biologique. Elle décrit comment le moteur de jeu interface l'activité humaine avec le temps canonique.
+La troisième notion n'est pas une seconde horloge biologique. Elle décrit comment le moteur de jeu orchestre l'activité humaine autour du temps canonique.
 
 Les « années » utilisées dans les campagnes accélérées actuelles du laboratoire ne constituent donc **pas encore une année calendaire canonique d'Avelune** et ne doivent pas être converties rétroactivement en durée fictionnelle.
 
-Le Cœur doit pouvoir continuer à évoluer indépendamment du nombre de joueurs connectés. Le moteur de jeu traduit ensuite les actions humaines en opérations datées sans imposer de synchronisation collective.
+Le Cœur doit pouvoir continuer à évoluer indépendamment du nombre de joueurs connectés. En v1.0, le moteur de jeu date et orchestre les actions humaines dans ses propres systèmes sans les convertir en commandes biologiques adressées au Cœur.
 
 ## Conversion temps humain ↔ temps d'Avelune — décision ouverte
 
-Au 14 août 2026, aucune équivalence canonique du type **« 1 année humaine = N années d'Avelune »** n'est actée.
+Au 16 août 2026, aucune équivalence canonique du type **« 1 année humaine = N années d'Avelune »** n'est actée.
 
 Cette conversion devra être décidée après stabilisation suffisante du Cœur à partir de critères perceptifs et systémiques :
 
@@ -97,7 +99,7 @@ Cette conversion devra être décidée après stabilisation suffisante du Cœur 
 - durée souhaitée des chapitres, saisons ou époques ;
 - horizon réel de plusieurs années que l'instance canonique doit pouvoir traverser sans intervention structurelle.
 
-Les diagnostics récents du Cœur ont renforcé un prérequis supplémentaire : la conversion ne doit pas être choisie avant d'avoir caractérisé le **spectre temporel écologique** du modèle. Il faut connaître les ordres relatifs d'établissement, récupération, accès à la propagation, reproduction, profondeur générationnelle et perturbations avant de transformer ces dynamiques en rythme perceptible pour les joueurs.
+Les diagnostics récents du Cœur ont renforcé un prérequis supplémentaire : la conversion ne doit pas être choisie avant d'avoir caractérisé le **spectre temporel écologique** du modèle. Il faut connaître les ordres relatifs des processus biologiques et des perturbations avant de transformer ces dynamiques en rythme perceptible pour les joueurs.
 
 Cette caractérisation sert à éviter deux erreurs symétriques : accélérer le calendrier au point de transformer une pression écologique en succession artificiellement brutale, ou ralentir les phénomènes au point que la réponse évolutive du monde devienne pratiquement invisible à l'échelle humaine.
 
