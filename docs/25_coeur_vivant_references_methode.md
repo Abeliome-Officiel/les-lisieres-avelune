@@ -1,6 +1,6 @@
 # Cœur vivant — références scientifiques et méthode de recherche
 
-> Date : 13 août 2026  
+> Date : 17 août 2026  
 > Statut : **cahier partageable de recherche**.  
 > Les références extérieures, leur portée générale et la méthode de recherche sont partageables. Seuls les éléments explicitement autorisés à la publication sont décrits ici.
 
@@ -227,3 +227,54 @@ Toute nouvelle source effectivement utilisée est ajoutée avec son rôle, ses l
 Une source abandonnée peut rester comme historique avec la raison du rejet. Une référence consultée après coup ne doit jamais être présentée comme origine d’une décision antérieure.
 
 La documentation propriétaire conserve les liens internes nécessaires à la recherche. Le registre public conserve seulement ce qui est explicitement partageable selon la Constitution vivante.
+
+## 10. Synthèse trans-échelles — macro, micro et vivant imaginaire
+
+Le Cœur ne choisit pas une biologie terrestre « macro » contre une biologie « micro ». Il construit un vivant imaginaire à échelle propre. Les études de populations, espèces et communautés éclairent notamment coexistence, dispersion, métapopulations, succession, perturbations et trajectoires longues ; les systèmes microbiens et virus–hôtes éclairent notamment états réversibles, dormance, compromis rapides, organisation collective, coévolution et évolution sur de nombreuses générations.
+
+La méthode n’importe pas les objets biologiques ; elle compare les fonctions causales qui se retrouvent ou se répondent entre échelles : hétérogénéité spatiale et temporelle, compromis, récupération depuis la rareté, redondance spatiale ou temporelle, mémoire, perturbation fertile, organisation collective et boucles éco-évolutives. Une convergence entre échelles rend un principe intéressant à tester ; elle ne constitue jamais une obligation d’implémentation.
+
+### [RÉFÉRENCE] Levin — motifs et échelles
+
+Levin, S. A. (1992), **“The Problem of Pattern and Scale in Ecology”**, *Ecology* 73(6), 1943–1967.  
+DOI : https://doi.org/10.2307/1941447
+
+Intérêt général : les motifs observés et les mécanismes qui les produisent peuvent se situer à des échelles différentes ; il n’existe pas une échelle naturelle unique de description de tous les phénomènes écologiques.
+
+### [RÉFÉRENCE] Chesson — maintien de la diversité
+
+Chesson, P. (2000), **“Mechanisms of Maintenance of Species Diversity”**, *Annual Review of Ecology and Systematics* 31, 343–366.  
+DOI : https://doi.org/10.1146/annurev.ecolsys.31.1.343
+
+Intérêt général : distinction entre mécanismes qui réduisent des différences moyennes d’aptitude et mécanismes qui stabilisent réellement la coexistence, notamment via dépendance à la fréquence et variation spatio-temporelle.
+
+### [RÉFÉRENCE] Schoener — dynamiques écologiques et évolutives
+
+Schoener, T. W. (2011), **“The Newest Synthesis: Understanding the Interplay of Evolutionary and Ecological Dynamics”**, *Science* 331(6016), 426–429.  
+DOI : https://doi.org/10.1126/science.1193954
+
+Intérêt général : écologie et évolution peuvent former des boucles de rétroaction sur des échelles temporelles comparables.
+
+### [RÉFÉRENCE] Koskella, Hall & Metcalf — changement d’échelle
+
+Koskella, B.; Hall, L. J.; Metcalf, C. J. E. (2017), **“The microbiome beyond the horizon of ecological and evolutionary theory”**, *Nature Ecology & Evolution* 1, 1606–1615.  
+DOI : https://doi.org/10.1038/s41559-017-0340-2
+
+Intérêt général : les théories écologiques générales peuvent éclairer les communautés microbiennes tout en exigeant des garde-fous contre les transferts littéraux entre échelles.
+
+Règle de sélection : conserver la baseline déjà validée ; utiliser la littérature nouvelle pour proposer observateurs, interprétations, variables à mesurer, familles de mécanismes candidats et critères de réfutation ; ne remplacer un mécanisme existant qu’après démonstration expérimentale contrôlée. La cohérence recherchée pour Avelune est causale et évolutive, pas taxonomique.
+
+## 11. Temporalités, échelles et éco-évolution
+
+### [RÉFÉRENCE] Yoshida et al. — évolution rapide et dynamique écologique
+
+Yoshida, T.; Jones, L. E.; Ellner, S. P.; Fussmann, G. F.; Hairston, N. G. Jr (2003), **“Rapid evolution drives ecological dynamics in a predator–prey system”**, *Nature* 424, 303–306.  
+DOI : https://doi.org/10.1038/nature01767
+
+Intérêt général : ce système expérimental montre qu’une évolution rapide peut se dérouler sur une échelle comparable à la dynamique écologique et en modifier directement la dynamique.  
+Limite : il s’agit d’un microcosme prédateur–proie ; aucune cadence numérique n’est transposée à Avelune.
+
+Levin (1992), déjà cité ci-dessus, reste la référence méthodologique principale pour le problème d’échelle. Paine & Levin (1981), cités dans la section perturbations, documentent quant à eux la construction et le renouvellement de motifs spatiaux sous l’effet de perturbations répétées et de leur histoire.
+
+- **[HYPOTHÈSE AVELUNE]** la littérature ne fournit pas une « bonne vitesse » universelle pour Avelune. Elle conduit à préserver les rapports entre phénomènes biologiques, puis à choisir la conversion vers le temps humain à partir des temporalités propres mesurées dans le Cœur et de la perception recherchée dans la Fenêtre sur la Lisière.
+- **[ACTÉ — MÉTHODE]** une modification du facteur de conversion temps réel ↔ temps canonique ne constitue pas une modification biologique si elle agit globalement sur le Cœur et préserve les rapports internes entre phénomènes. Les valeurs du facteur et leur historique opérationnel restent hors de ce registre partageable.
