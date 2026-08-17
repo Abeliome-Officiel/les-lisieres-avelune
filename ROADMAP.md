@@ -1,13 +1,13 @@
 # Roadmap — Les Lisières d’Avelune
 
-## État au 16 août 2026
+## État au 17 août 2026
 
 Le projet avance sur plusieurs chantiers distincts, avec une règle de priorité claire : **le Cœur autonome doit être suffisamment viable, compris et exploitable avant de devenir le monde canonique de production**.
 
 | Axe | État | Prochaine gate |
 |---|---|---|
 | PROTO jouable | PROTO-0.2.2 conservé comme jalon historique de validation | playtests puis clôture explicite, sans rétrofit de son architecture en tours |
-| Cœur vivant | laboratoire headless, sélection/transmission démontrées, qualification de stabilité très long terme en cours | fermer les gates scientifique, adversariale et opérationnelle puis fixer l’interface temporelle canonique |
+| Cœur vivant | laboratoire headless ; évolution et tenue longue qualifiées ; largeur hors échantillon en cours | fermer la qualification adversariale puis opérationnelle et fixer l’interface temporelle canonique |
 | Fenêtre sur la Lisière | module contemplatif définitif cadré, LAB possible sur contrat/fixtures | production après validation suffisante du Cœur et stabilisation du contrat de lecture |
 | Tableau Réel | Gate 0 validé | poursuivre son socle autonome hors PROTO |
 
@@ -43,20 +43,29 @@ Le Cœur est le monde autonome avant les joueurs. Son implémentation propriéta
 - [x] diagnostic de l’établissement et du cycle précoce des lignées ;
 - [x] chaîne fonctionnelle de variation, succès reproductif différentiel, transmission et changement générationnel démontrée ;
 - [x] rôle des perturbations qualifié comme composante réelle du renouvellement et du filtrage, sans en faire un simple mécanisme destructeur à supprimer ;
-- [x] absence de course monotone simple vers un optimum unique sur les horizons déjà qualifiés ;
-- [x] principe d’un contrat sémantique de représentation indépendant des internes du Cœur.
+- [x] absence de course monotone simple vers un optimum unique sur les horizons qualifiés ;
+- [x] qualification temporelle longue jugée suffisante pour écarter, à ce stade, un ratchet conduisant à l’effondrement ou à la monoculture ;
+- [x] principe d’un contrat sémantique de représentation indépendant des internes du Cœur ;
+- [x] doctrine de robustesse explicitée : **robuste ne signifie pas immortel ni protégé par un sauvetage automatique**.
 
 ### En cours
 
-- [ ] qualification de stabilité très long terme : distinguer convergence vers un régime durable et dérive lente persistante ;
-- [ ] surveiller contraction de diversité, dominance et profondeur générationnelle sans modifier la biologie tant qu’une insuffisance n’est pas démontrée ;
-- [ ] fermer la qualification scientifique sur horizons et cas indépendants ;
-- [ ] préparer ensuite la qualification adversariale ciblée ;
-- [ ] qualifier l’exploitation réelle : persistance, reprise, migrations, coût et fonctionnement continu.
+- [ ] qualification adversariale de largeur sur des mondes entièrement hors échantillon, avec biologie inchangée ;
+- [ ] rechercher les queues stochastiques réellement problématiques sans confondre crise écologique légitime et fragilité structurelle ;
+- [ ] ne prolonger un cas défavorable que si son analyse laisse une question scientifique précise ouverte ;
+- [ ] préparer ensuite la qualification opérationnelle : persistance, reprise, migrations, coût et fonctionnement continu.
+
+### Règle de robustesse
+
+Le Cœur n’a pas pour objectif de maintenir la vie coûte que coûte. Il doit pouvoir subir des pertes, raréfactions, crises, transformations durables, extinctions locales et récupérations incomplètes lorsque ces conséquences découlent de ses lois.
+
+Ce qui doit être exclu est une fragilité triviale sous des situations admissibles, pas l’existence de conséquences sévères. Aucun mécanisme caché ne doit restaurer automatiquement l’état antérieur, garantir la survie ou maintenir artificiellement une diversité cible.
+
+Une catastrophe cohérente peut appartenir à l’histoire d’Avelune. Une corruption d’état, un bug ou une dérive numérique reste un défaut technique.
 
 ### Avant instance canonique
 
-- [ ] caractériser suffisamment le spectre temporel biologique ;
+- [ ] caractériser suffisamment le spectre temporel biologique pour la conversion de production ;
 - [ ] fixer et versionner l’interface temps biologique / temps canonique / orchestration humaine ;
 - [ ] démontrer sauvegarde, restauration, reprise et migrations sans perte d’histoire ;
 - [ ] éprouver le runtime en fonctionnement continu réel avec étapes d’endurance progressives ;
@@ -173,6 +182,7 @@ Ces pistes peuvent être étudiées ultérieurement en laboratoire. Elles ne con
 - [x] projection publique, resynchronisation et frontières de version documentées ;
 - [x] séparation explicite v1.0 entre lecture du Cœur et futures rétroactions écologiques ;
 - [x] statut permanent de la Fenêtre sur la Lisière documenté ;
+- [x] robustesse du Cœur distinguée explicitement d’une immortalité ou d’un sauvetage administratif ;
 - [ ] conserver hors dépôt les détails propriétaires et opérationnels ;
 - [ ] ne supprimer une information sensible d’un stockage temporaire qu’après vérification de sa copie de référence.
 
@@ -188,6 +198,7 @@ Ces pistes peuvent être étudiées ultérieurement en laboratoire. Elles ne con
 - plusieurs styles de jeu légitimes ;
 - accessibilité intégrée ;
 - sobriété technique ;
+- un monde robuste peut souffrir, perdre et changer : robustesse n’est ni immobilité ni immortalité ;
 - séparation entre prototype, monde autonome, instrumentation du projet et représentations visuelle/sonore ;
 - interpréteurs branchés sur un contrat versionné, jamais sur les internes provisoires du Cœur ;
 - projection minimale avant envoi aux clients ;
