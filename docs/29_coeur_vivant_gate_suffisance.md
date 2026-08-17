@@ -1,7 +1,7 @@
 # Cœur vivant — gate de suffisance et limite de recherche
 
-> **Statut : règle méthodologique partageable — v0.2**  
-> Date : 14 août 2026
+> **Statut : règle méthodologique partageable — v0.3**  
+> Date : 17 août 2026
 
 ## 1. Principe : viser la suffisance durable, pas la perfection
 
@@ -10,6 +10,18 @@ Le Cœur n’a pas besoin d’être un modèle biologique parfait. Il doit être
 La recherche s’arrête lorsque les risques résiduels deviennent acceptables et connus, et que de nouvelles modifications apportent surtout des gains marginaux ou déplacent les compromis sans résoudre de défaillance structurelle.
 
 L’absence de perfection n’est donc pas un motif pour prolonger indéfiniment la préproduction.
+
+### 1.1 Robustesse ne signifie pas immortalité
+
+La robustesse recherchée n’est pas une garantie de survie de chaque forme, lignée, région ou état du monde.
+
+Avelune doit pouvoir subir des pertes, des crises, des raréfactions, des changements de régime, des extinctions locales, des cicatrices et des récupérations incomplètes. Une perturbation forte peut modifier durablement l’histoire du monde sans constituer à elle seule une défaillance du Cœur.
+
+Ce que la qualification doit écarter est la **fragilité structurelle triviale** : un système qui s’effondre mécaniquement sous une situation admissible parce que ses dynamiques ne peuvent plus produire de réponse cohérente.
+
+Inversement, aucun mécanisme caché ne doit être ajouté uniquement pour garantir la survie, restaurer automatiquement un état antérieur ou maintenir artificiellement une valeur cible de diversité. La réponse doit provenir des lois ordinaires du monde.
+
+Une catastrophe cohérente produite par ces lois peut appartenir à l’histoire canonique. Un bug, une corruption d’état ou une dérive numérique reste un défaut technique et ne doit jamais être requalifié en événement narratif.
 
 ## 2. Runs multi-questions
 
@@ -36,7 +48,9 @@ CŒUR-0 peut être considéré comme **suffisamment mûr pour la production** lo
 - pas de monoculture, extinction globale ou état absorbant récurrent hors comportements explicitement acceptés ;
 - diversité, coexistence, renouvellement et persistance restent compatibles entre eux au lieu d’être optimisés séparément ;
 - les lignées peuvent naître, échouer, persister, diverger et disparaître sans qu’un seul résultat domine mécaniquement toutes les trajectoires ;
-- les perturbations peuvent être traversées et produire des conséquences durables sans remettre continuellement le monde à zéro.
+- les perturbations peuvent produire de vraies pertes et transformations durables sans remettre continuellement le monde à zéro ni déclencher un sauvetage automatique.
+
+Une forte baisse locale ou temporaire n’est donc pas automatiquement un échec de qualification. L’analyse doit distinguer une réponse écologique forte mais cohérente, une transition vers un autre régime viable, une catastrophe légitime et une fragilité structurelle.
 
 ### 3.2 Robustesse hors échantillon
 
@@ -56,7 +70,7 @@ Le moteur doit rester cohérent sous des situations rares mais plausibles :
 - configurations spatiales atypiques ;
 - reprise après arrêt et redémarrage du runtime.
 
-Les cas impossibles ou volontairement non supportés doivent être explicitement bornés.
+Les cas impossibles ou volontairement non supportés doivent être explicitement bornés. Les conditions adversariales ne doivent pas être fabriquées en modifiant arbitrairement une recette interne dont le domaine canonique n’est pas défini : elles doivent rester interprétables comme cas admissibles du système effectivement qualifié.
 
 ### 3.4 Stabilité temporelle
 
@@ -64,7 +78,9 @@ Les métriques pertinentes doivent être examinées par fenêtres temporelles su
 
 Le passage en production exige l’absence de « ratchet » caché : un indicateur qui paraît sain en moyenne mais dérive lentement vers un état pathologique au fil du temps.
 
-Lorsque l’échelle canonique de temps sera définitivement reliée au temps réel, la campagne de qualification finale devra couvrir en simulation accélérée un horizon nettement supérieur à l’intervalle de production que l’on souhaite pouvoir traverser sans intervention structurelle.
+La qualification temporelle longue de la baseline actuelle est désormais considérée **suffisamment close pour CŒUR-0** : les campagnes prolongées et leurs analyses de renouvellement ne montrent pas de trajectoire nécessitant une correction biologique pour éviter un effondrement lent ou une monoculture. Cette conclusion porte sur la suffisance durable, pas sur une stationnarité mathématique parfaite.
+
+Lorsque l’échelle canonique de temps sera définitivement reliée au temps réel, la qualification opérationnelle devra encore vérifier que cette dynamique reste exploitable dans le runtime de production.
 
 ### 3.5 Explicabilité causale suffisante
 
@@ -95,34 +111,22 @@ Le modèle doit également tenir comme logiciel :
 La décision de gel de CŒUR-0 doit comporter trois validations distinctes :
 
 1. **Qualification scientifique** : comportement dynamique jugé suffisamment robuste sur campagnes indépendantes et horizons multiples.
-2. **Qualification adversariale** : campagnes volontairement difficiles et cas limites ne révèlent pas de faiblesse structurelle non acceptée.
+2. **Qualification adversariale** : campagnes difficiles et hors échantillon ne révèlent pas de faiblesse structurelle non acceptée ; elles n’exigent pas que toute trajectoire reste confortable ou identique.
 3. **Qualification opérationnelle** : persistance, redémarrage, sauvegarde, migration, coût et observabilité permettent une exploitation de longue durée.
 
 Le gel ne signifie pas que le Cœur ne changera plus jamais. Il signifie que les changements ultérieurs passent par des versions, migrations et preuves de non-régression, plutôt que par une recherche ouverte permanente.
 
-## 5. Critère d’arrêt de la recherche ouverte
+## 5. État de convergence au 17 août 2026
 
-Le nombre de runs n’est pas à lui seul un critère d’arrêt. Cependant, la recherche doit avoir une limite pour éviter une optimisation sans fin.
+Les campagnes diagnostiques successives ont permis de passer d’un goulot de persistance encore opaque à une dynamique évolutive causalement mieux comprise, sans ajouter de mécanisme de survie artificiel.
 
-Après le diagnostic R2.10, la stratégie est :
+La qualification de profondeur temporelle est considérée suffisamment acquise pour ne pas justifier une nouvelle prolongation par principe. Le chantier adversarial porte maintenant sur la **largeur hors échantillon** : observer un grand ensemble de mondes indépendants avec la biologie inchangée et rechercher des queues rares réellement problématiques.
 
-- exploiter en priorité les runs capables de départager plusieurs hypothèses à la fois ;
-- privilégier d’abord les explications utilisant les mécanismes déjà présents ;
-- tester seulement les familles de mécanismes nouvelles soutenues par les diagnostics ;
-- une famille candidate qui échoue à un test de falsification clair est mise de côté ;
-- une famille prometteuse reçoit une campagne de confirmation longue et hors échantillon.
+Cette campagne n’a pas pour objectif de démontrer que le Cœur « survit coûte que coûte ». Une trajectoire sévère devient un cas à expliquer, pas automatiquement un FAIL. Un prolongement ciblé n’est justifié que si l’analyse révèle une question résiduelle précise que les données présentes ne permettent pas de trancher.
 
-Les campagnes R2.11 à R2.12b ont renforcé cette stratégie : elles ont permis de passer d’un goulot de persistance encore largement opaque à une chaîne causale beaucoup mieux bornée, sans introduire de nouvelle biologie. Les résultats partageables indiquent qu’une part majeure du goulot dépend des perturbations, qu’un filtrage reproductif peut devenir un changement générationnel hérité, et que le contexte spatial n’explique pas à lui seul le signal observé.
+Si cette qualification est satisfaisante, le risque principal se déplace vers le runtime réel : persistance, reprise après interruption, rattrapage, croissance des données, coût et fonctionnement continu. L’interface temporelle canonique et le contrat de lecture de production sont stabilisés dans cette phase avant naissance canonique.
 
-Le contre-factuel supprimant la perte directe des perturbations n’est pas un candidat de production : il conduit rapidement à un régime de saturation différent. Le problème de recherche n’est donc pas réduit à « diminuer la mortalité », mais à qualifier le rapport entre perturbation, récupération, reproduction, profondeur générationnelle et diversité.
-
-Avant toute nouvelle mécanique biologique, la priorité est désormais de caractériser le **spectre temporel** du système et d’exploiter les données déjà acquises lorsque cela permet encore de départager les hypothèses. Cette étape contribue aussi à la future interface entre temps de laboratoire, temps canonique et orchestration humaine.
-
-Si plusieurs cycles successifs de recherche n’améliorent plus la compréhension causale ni les critères de qualification, on considère que la recherche ouverte a atteint son rendement décroissant et l’on passe à la stratégie de repli définie ci-dessous plutôt que d’empiler de nouvelles idées.
-
-Les seuils quantitatifs internes de décision sont pré-enregistrés dans la documentation propriétaire avant les campagnes concernées.
-
-Le pilotage de cette convergence se fait **par cycles scientifiques et critères de décision**, pas par une date calendaire de fin arbitraire. Une date de gel n’est actée que lorsqu’elle devient une conséquence réaliste de l’état de qualification, et non un substitut aux preuves attendues.
+Les seuils quantitatifs, distributions détaillées, seeds, paramètres, recettes et mappings causaux utilisés pour ces décisions restent dans la documentation propriétaire.
 
 ## 6. Si aucun modèle ne franchit la gate
 
@@ -132,13 +136,15 @@ L’échec à atteindre la gate complète n’implique pas l’abandon d’Avelu
 
 Geler le sous-ensemble de lois qui est robuste et retirer ou différer les dimensions qui provoquent l’instabilité. Un Cœur plus simple mais fiable est préférable à un écosystème théoriquement plus riche qui exige des corrections permanentes.
 
-### Repli B — ajouter des garde-fous structurels explicites
+### Repli B — garde-fous structurels uniquement s’ils deviennent de vraies lois du monde
 
-Si un petit nombre de pathologies extrêmes subsiste, introduire des lois de conservation, bornes ou mécanismes homéostatiques minimaux, documentés comme lois du monde et testés comme tels. Ils ne doivent pas maquiller une dynamique mal comprise ni déclencher des corrections arbitraires au cas par cas.
+Si une pathologie extrême est clairement comprise et qu’une borne ou une loi de conservation est nécessaire, elle doit être explicite, causale, testable et cohérente avec le monde. Elle ne peut pas servir de filet invisible garantissant la survie, restaurant l’état antérieur ou maintenant une diversité cible.
+
+Un garde-fou qui améliore une métrique en masquant une dynamique mal comprise est rejeté.
 
 ### Repli C — architecture hybride bornée
 
-Si l’émergence totalement libre reste impraticable, conserver un moteur dynamique local mais encadrer certains renouvellements globaux par une couche canonique déterministe et versionnée. Le monde demeure autonome, mais certaines transitions extrêmes sont administrées par des règles explicites plutôt que laissées à une dynamique non maîtrisée.
+Si l’émergence totalement libre reste impraticable, conserver un moteur dynamique local mais encadrer certaines transitions extrêmes par une couche canonique déterministe et versionnée. Cette option n’est acceptable que si les règles correspondantes ont un statut explicite dans le monde ; elle ne doit pas simuler secrètement une immortalité administrative.
 
 ### Repli D — dissocier profondeur simulée et profondeur perçue
 
@@ -150,8 +156,8 @@ Ce dernier repli préserve l’intégrité du projet : aucune représentation ne
 
 On arrête lorsque le modèle est **suffisamment bon pour être exploité et suffisamment compris pour être surveillé**, pas lorsqu’il est parfait.
 
-La question de qualification n’est donc pas « peut-il fonctionner éternellement ? », impossible à démontrer, mais :
+La question de qualification n’est donc pas « peut-il fonctionner éternellement ? », impossible à démontrer, ni « peut-il empêcher toute catastrophe ? », ce qui serait contraire au vivant recherché. Elle est :
 
-> **avons-nous accumulé assez de preuves indépendantes pour considérer que les principaux modes d’échec sont connus, rares ou bornés, récupérables, et que le modèle peut traverser une durée de production largement inférieure à son horizon testé sans intervention structurelle régulière ?**
+> **avons-nous accumulé assez de preuves indépendantes pour considérer que les principaux modes de fragilité structurelle sont connus, rares ou bornés, que les réactions fortes restent causalement compréhensibles, et que le modèle peut traverser une durée de production largement inférieure à son horizon testé sans intervention structurelle régulière ?**
 
 Si la réponse est oui, CŒUR-0 est gelable. Si elle reste non après épuisement raisonnable des hypothèses causales les plus prometteuses, on applique un repli contrôlé au lieu de prolonger indéfiniment la recherche.
