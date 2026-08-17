@@ -1,7 +1,7 @@
 # Visuel du Cœur et représentation du vivant — contrat partageable
 
-> **Statut : cahier de préproduction partageable — v0.3**  
-> Date : 13 août 2026  
+> **Statut : cahier de préproduction partageable — v0.4**  
+> Date : 17 août 2026  
 > Les recettes propriétaires, paramètres non publics, causalités cachées et mécanismes réservés restent hors GitHub.
 
 ## 1. Finalité
@@ -260,13 +260,21 @@ Le LAB n’autorise une production visuelle de grande ampleur que si les points 
 - **dégradation** : le mode sobre reste fonctionnel et identifiable ;
 - **pérennité** : les données nécessaires à reconstruire une apparence ne dépendent pas d’un cache ou format propriétaire unique.
 
-## 18. Frontière de publication
+## 18. Fenêtre permanente et âge d’Avelune
+
+La **Fenêtre sur la Lisière** est un module permanent : une fois mise en ligne, elle reste disponible pendant les phases de développement, les essais avec joueurs, la sortie du jeu et après celle-ci. Elle peut changer de place ou de forme dans l’expérience, mais elle ne devient pas un teaser à supprimer.
+
+La Fenêtre doit afficher un **âge d’Avelune** dérivé de l’âge canonique du monde. Cet âge est une information historique publique autorisée ; il ne doit pas exposer la recette de conversion temporelle, les paramètres internes du Cœur ni les causalités réservées. Le choix de son unité, de sa notation et de sa formulation éditoriale reste ouvert.
+
+La perception visuelle du temps doit rester distincte du calcul biologique : la scène peut interpoler et rendre lisibles des évolutions lentes, mais elle ne modifie ni la vitesse du Cœur ni les événements canoniques pour produire artificiellement davantage de spectacle.
+
+## 19. Frontière de publication
 
 GitHub peut documenter les principes d’architecture, exigences de qualité et d’accessibilité, références extérieures, stratégies de repli, interfaces expurgées et résultats de validation suffisamment agrégés.
 
 Les recettes propriétaires, paramètres réservés, mécanismes causaux non publics, signatures internes et informations narratives sensibles restent dans les espaces privés appropriés. La documentation publique ne doit pas détailler leur organisation ni permettre d’en reconstruire la structure.
 
-## 19. Références initiales
+## 20. Références initiales
 
 - Prusinkiewicz et collaborateurs — *Modeling Plant Development with L-systems* : https://algorithmicbotany.org/papers/modeling-plant-development-with-l-systems.html
 - Algorithmic Botany Lab — *Clades* : https://algorithmicbotany.org/clades/about.html
@@ -279,7 +287,7 @@ Les recettes propriétaires, paramètres réservés, mécanismes causaux non pub
 - PixiJS v8 — `ParticleContainer` : https://pixijs.com/8.x/guides/components/scene-objects/particle-container
 - PixiJS v8 — `cacheAsTexture` : https://pixijs.com/8.x/guides/components/scene-objects/container/cache-as-texture
 
-## 20. Questions encore ouvertes
+## 21. Questions encore ouvertes
 
 - vocabulaire minimal exact du contrat sémantique v0 ;
 - politique de compatibilité et migration entre versions du contrat ;
@@ -292,6 +300,7 @@ Les recettes propriétaires, paramètres réservés, mécanismes causaux non pub
 - budgets chiffrés sur matériel représentatif ;
 - seuils perceptifs justifiant les effets coûteux ;
 - stratégie finale de cache et reconstruction ;
-- articulation avec l’identité visuelle générale du jeu.
+- articulation avec l’identité visuelle générale du jeu ;
+- unité et formulation publique de l’âge d’Avelune.
 
 Le principe retenu est plus important que la bibliothèque : **Avelune produit le vivant ; le visuel lui donne une perception cohérente, accessible, historique, sobre et remplaçable.**
