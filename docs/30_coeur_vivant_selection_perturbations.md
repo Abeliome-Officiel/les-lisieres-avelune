@@ -1,7 +1,7 @@
 # Cœur vivant — perturbations, sélection et transmission
 
-> **Statut : note de recherche partageable — v0.1**  
-> Date : 14 août 2026  
+> **Statut : note de recherche partageable — v0.2**  
+> Date : 17 août 2026  
 > Les paramètres, traits internes, seuils, métriques détaillées, recettes et mappings causaux propriétaires restent hors GitHub.
 
 ## 1. Objet
@@ -26,7 +26,7 @@ Elle montre qu'un filtrage différentiel peut atteindre la reproduction puis se 
 
 **variation → filtrage différentiel → succès reproductif différentiel → héritage → changement générationnel.**
 
-Cette conclusion ne signifie pas que toute pression produit automatiquement une adaptation durable ni que la dynamique est déjà qualifiée pour la production.
+Cette conclusion ne signifie pas que toute pression produit automatiquement une adaptation durable ni que chaque lignée doit survivre.
 
 ## 4. [TESTÉ] Effet propre des perturbations et rôle du contexte
 
@@ -42,32 +42,48 @@ Le résultat est donc compatible avec une interaction entre **caractéristiques 
 
 ## 5. [TESTÉ] Pas de simple course monotone vers un optimum unique
 
-Sur l'horizon actuellement observé, les campagnes ne montrent pas une progression simple où les mêmes caractéristiques seraient toujours poussées dans la même direction jusqu'à une borne extrême.
+Les campagnes longues ne montrent pas une progression simple où les mêmes caractéristiques seraient toujours poussées dans la même direction jusqu'à une borne extrême.
 
-Après un filtrage initial fort, les pressions reproductives observées peuvent changer de direction ou s'atténuer. La domination d'une seule lignée n'est pas devenue générale sur l'horizon étudié.
+Après un filtrage initial fort, les pressions reproductives observées peuvent changer de direction ou s'atténuer. La domination d'une seule lignée n'est pas devenue générale sur les horizons qualifiés.
 
-En revanche, la dispersion des traits se resserre suffisamment pour que la conservation de diversité sur des horizons plus longs reste un point de qualification explicite.
+La qualification temporelle ultérieure a prolongé cette observation : la dispersion du vivant peut se resserrer pendant une phase longue sans que ce mouvement reste un ratchet inexorable. Les analyses tardives sont compatibles avec un régime durable de renouvellement et de mémoire longue, sans correction biologique destinée à forcer la survie.
 
-## 6. Conséquence méthodologique
+Les distributions, valeurs et mécanismes précis permettant ce diagnostic restent propriétaires.
 
-À ce stade, le chantier n'a pas besoin d'inventer un mécanisme artificiel de « sélection naturelle » pour expliquer les résultats observés : variation, transmission et succès reproductif différentiel existent déjà dans la dynamique testée.
+## 6. [ACTÉ] Robustesse : permettre la réaction, pas garantir la survie
 
-La question de recherche prioritaire devient le **spectre temporel** du système :
+Le rôle des perturbations interdit une lecture où « robuste » signifierait « empêcher les pertes ».
 
-- temps d'établissement ;
-- temps d'accès à la propagation ;
-- temps de reproduction ;
-- récupération après perturbation ;
-- fréquence et succession des perturbations ;
-- profondeur générationnelle réellement obtenue ;
-- maintien de diversité à temps long.
+Le Cœur doit pouvoir :
 
-Cette caractérisation doit précéder toute décision sur une nouvelle mécanique biologique si les données existantes suffisent encore à départager les hypothèses.
+- perdre des formes ou des lignées ;
+- traverser des crises ou raréfactions ;
+- changer de composition et de régime ;
+- conserver des cicatrices ;
+- récupérer partiellement, différemment ou pas immédiatement.
 
-Elle contribuera également à la future conversion entre temps de laboratoire, temps canonique d'Avelune et orchestration du gameplay, sans confondre ces trois notions.
+Une conséquence sévère n'est pas un échec simplement parce qu'elle est sévère. Elle devient problématique lorsqu'elle révèle une fragilité structurelle disproportionnée ou un état pathologique que les lois ordinaires ne permettent plus de comprendre comme dynamique du monde.
 
-## 7. Frontière de publication
+Inversement, un mécanisme caché qui restaurerait automatiquement l'état précédent, garantirait la survie ou maintiendrait une diversité cible ne serait pas une preuve de robustesse : il masquerait la dynamique que la qualification cherche précisément à observer.
 
-Les résultats détaillés, valeurs numériques, identités des variables internes, recettes de contre-factuels, seuils et chaînes causales propriétaires sont conservés dans la documentation privée du Cœur.
+## 7. État méthodologique au 17 août 2026
 
-La présente note ne constitue ni une spécification de reproduction du moteur ni une preuve de qualification CŒUR-0. Elle documente uniquement l'état partageable des connaissances et le changement de question scientifique qui en découle.
+La profondeur temporelle de la baseline actuelle est considérée suffisamment qualifiée pour CŒUR-0 au titre du risque de dérive lente. Cela ne constitue ni une preuve d'immortalité ni une promesse qu'aucune catastrophe ne pourra jamais survenir.
+
+La qualification se poursuit sur la **largeur hors échantillon** avec la biologie inchangée afin de rechercher des trajectoires rares et de distinguer :
+
+- réponse écologique forte mais valide ;
+- transition vers un autre régime viable ;
+- événement exceptionnel cohérent ;
+- fragilité structurelle ;
+- défaut technique.
+
+Aucun prolongement ou nouveau mécanisme n'est justifié automatiquement par l'observation d'un cas défavorable. Il faut d'abord établir quelle question causale reste réellement ouverte.
+
+Cette phase prépare ensuite la qualification opérationnelle du Cœur en fonctionnement continu réel et la future interface entre temps de laboratoire, temps canonique d'Avelune et orchestration du gameplay.
+
+## 8. Frontière de publication
+
+Les résultats détaillés, valeurs numériques, identités des variables internes, recettes de contre-factuels, seuils, seeds, trajectoires et chaînes causales propriétaires sont conservés dans la documentation privée du Cœur.
+
+La présente note ne constitue ni une spécification de reproduction du moteur ni un inventaire des mécanismes réservés. Elle documente uniquement les conclusions générales nécessaires pour comprendre la direction scientifique et la doctrine de robustesse du projet.
