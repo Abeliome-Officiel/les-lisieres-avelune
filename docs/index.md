@@ -2,21 +2,22 @@
 
 Cet index distingue les **principes de conception partageables**, les **jalons jouables**, le **Cœur vivant**, le **Tableau Réel**, les couches de représentation, les documents historiques et les informations propriétaires conservées hors dépôt.
 
-## 1. État courant
+## 1. État courant — 18 août 2026
 
 - `v0.8` : ancien jalon historique.
 - `v0.8.3` : dernière baseline de conception figée avant PROTO-0.1.
 - **PROTO-0.1** : jalon jouable intégré à `main`.
 - **PROTO-0.2.2** : candidat de playtest distribué sur `develop/proto-0.2.2-playtest` ; son intégration dans `main` reste une décision explicite.
-- **Cœur vivant / CŒUR-0** : diagnostics R2.10 à R2.12b clos ; le goulot précoce est causalement relié aux perturbations, une réponse évolutive héritée est observée et le prochain axe prioritaire est la caractérisation du spectre temporel avant toute nouvelle mécanique.
-- **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; première source physique d’énergie AvLab active en lecture seule ; Phase B suivante.
-- **Univers sonore / MUSIQUE-0** : préproduction v0.2 autorisée hors ligne sur enveloppe sémantique versionnée, fixtures neutres et replays autorisés ; aucun moteur audio choisi et aucune intégration live au Cœur actée.
-- **Visuel du Cœur / LAB VISUEL** : cahier de préproduction v0.3 cadré ; développement anticipé autorisé uniquement via projection publique minimale et contrat sémantique versionné, sans dépendance durable aux internes du Cœur.
-- **Arbitrage transversal** : doctrine de pérennité, ressources, données et matériel actée le 13 août 2026 ; ce cadre n’est pas un runtime supplémentaire.
+- **Cœur vivant / CŒUR-0** : qualification biologique, temporelle et de largeur hors échantillon suffisamment close ; aucun prolongement biologique n’est ouvert. La gate active est désormais l’ingénierie du Cœur permanent et sa qualification opérationnelle.
+- **Fenêtre sur la Lisière** : module contemplatif définitif ; premier consommateur de production privilégié du futur contrat de lecture ; elle reste présente lorsque le jeu complet existe et affiche un âge d’Avelune dérivé du temps canonique.
+- **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; Phase B suivante.
+- **Univers sonore / MUSIQUE-0** : préproduction autorisée hors ligne sur contrat versionné, fixtures et replays ; aucun moteur audio n’est imposé au Cœur.
+- **Visuel du Cœur / LAB VISUEL** : développement anticipé autorisé derrière une projection sémantique versionnée ; aucune dépendance durable aux internes du Cœur.
+- **Arbitrage transversal** : pérennité, réversibilité, ressources, données et matériel restent des contraintes de système, pas un runtime supplémentaire.
 
-État de pilotage détaillé : **[Avelune — état de développement au 12 août 2026](development/PROJECT_STATUS_2026-08-12.md)**. Les jalons scientifiques plus récents du Cœur sont consignés dans les notes de recherche dédiées et dans l’état opérationnel Drive.
+Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation normale des contenus partageables est autorisée, sous réserve de contrôler les anciens clones/worktrees avant réutilisation.
 
-Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation normale des contenus partageables est de nouveau autorisée. Les anciens clones/worktrees doivent être vérifiés avant réutilisation afin de ne pas réintroduire un historique antérieur.
+Les métriques, seeds, paramètres, recettes, causalités détaillées et autres éléments classés du Cœur restent hors dépôt.
 
 ## 2. Comprendre le jeu
 
@@ -38,7 +39,9 @@ Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation no
 
 Lorsqu’un document historique contredit un référentiel plus récent, il reste une trace et non une source normative.
 
-### Références de préproduction
+## 3. Cœur vivant / genèse canonique
+
+Références partageables :
 
 - **[Manifeste de conception — Faire Monde](17_manifeste_faire_monde.md)**
 - **[Système d'évolution du monde et des vagues — contrat expurgé](19_systeme_evolution_vague_v0.2.md)**
@@ -48,41 +51,55 @@ Lorsqu’un document historique contredit un référentiel plus récent, il rest
 - **[Cœur vivant — synthèse trans-échelles](28_coeur_vivant_synthese_trans_echelles.md)**
 - **[Cœur vivant — gate de suffisance et limite de recherche](29_coeur_vivant_gate_suffisance.md)**
 - **[Cœur vivant — perturbations, sélection et transmission](30_coeur_vivant_selection_perturbations.md)**
-- **[Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)**
-- **[Univers sonore — références et méthode MUSIQUE-0](26_univers_sonore_references_methode.md)**
-- **[MUSIQUE-0 — intégration](27_musique0_cahier_integration.md)**
-- **[Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)**
+- **[Temporalité canonique et genèse](31_temporalite_canonique_genese.md)**
+- **[Cœur vivant — contrat de lecture des modules](32_coeur_contrat_lecture_modules.md)**
 - [Modèle évolutif de vague — notice historique](18_modele_vague_evolutive.md)
 
-Les contenus classés ne sont pas des contenus GitHub. La documentation partageable décrit uniquement les contrats, exigences, méthodes, références et résultats autorisés sans détailler l’organisation du savoir propriétaire.
+### État scientifique
 
-GitHub conserve les contrats, interfaces, exigences, architecture, tests partageables, références extérieures et résultats de validation suffisamment agrégés.
+Les campagnes successives ont qualifié le cycle précoce des lignées, le rôle des perturbations, la transmission générationnelle, la tenue à temps long et la largeur hors échantillon. Les campagnes indépendantes récentes ne font pas apparaître de nouvelle classe de fragilité structurelle nécessitant une correction biologique.
 
-## 3. Cœur vivant / genèse canonique
+La recherche biologique ouverte est donc **suffisamment close** au sens de la gate de suffisance durable. Cette formule ne signifie ni modèle parfait, ni stationnarité mathématique démontrée, ni impossibilité d’un événement écologique extrême.
 
-Le chantier est parallèle et indépendant du playtest PROTO-0.2.2.
+Un nouveau chantier biologique ne sera ouvert qu’en présence d’une régression, d’une anomalie ou d’une question causale nouvelle et explicite.
 
-Ordre de travail révisé :
+### Gate active
 
-1. moteur headless autonome ;
-2. persistance, journal causal et simulateur accéléré ;
-3. campagnes longues et multi-seeds ;
-4. dès qu’un sous-ensemble sémantique est assez stable, projection publique minimale + contrat de représentation v0 + fixtures/replays ;
-5. LAB VISUEL et/ou sonore isolé, derrière des adaptateurs de version, pendant que les diagnostics du Cœur continuent ;
-6. Observatoire analytique privé et poursuite de la validation du Cœur ;
-7. validation de la pérennité, des migrations, des ressources cumulées et des modes dégradés ;
-8. Orée et autres rendus de production seulement lorsque leurs gates et le contrat sont suffisamment stabilisés ;
-9. seulement après validation suffisante : instance canonique persistante.
+L’ordre de travail devient :
 
-Le principe anti-réécriture est obligatoire : **un interpréteur ne consomme pas durablement les structures internes d’une révision du Cœur**. Une évolution interne doit être absorbée autant que possible par l’adaptateur ou une migration explicite du contrat. Le protocole de transport, la grammaire et le renderer doivent pouvoir évoluer indépendamment lorsqu’ils ne changent pas la signification des données.
+1. persistance et snapshots de production ;
+2. arrêt, reprise, restauration, crash-consistency et absence de deuxième histoire ;
+3. migrations/versionnement et croissance maîtrisée des données ;
+4. politique de panne et éventuel rattrapage du temps ;
+5. qualification du coût permanent et fonctionnement continu réel ;
+6. fixation de l’interface temporelle / horloge canonique ;
+7. stabilisation du contrat de lecture ;
+8. branchement de la Fenêtre sur la Lisière ;
+9. autres modules aval et poursuite du jeu v1.0.
 
-Au 14 août, les diagnostics R2.10 à R2.12b ont successivement localisé le goulot de persistance, confirmé le rôle causal des perturbations, observé une transmission générationnelle du filtrage reproductif et contrôlé qu’un effet propre subsiste au-delà du seul contexte spatial et de l’adéquation initiale. Le contre-factuel supprimant la perte directe n’est pas retenu comme modèle écologique. Les détails, valeurs et variables internes restent hors dépôt.
+### Identité des mondes et modules
 
-La prochaine question prioritaire est la caractérisation du **spectre temporel** — établissement, récupération, propagation, reproduction, profondeur générationnelle et cadence des perturbations — avant toute introduction d’une nouvelle mécanique si les données existantes permettent encore de départager les hypothèses.
+Plusieurs instances de laboratoire peuvent exister. À version, configuration, état initial, seed et entrées identiques, elles doivent être reproductibles ; des seeds ou entrées différentes permettent normalement des histoires distinctes. Une seule instance peut porter l’identité d’**Avelune canonique**.
 
-La recherche du Cœur suit la même règle de traçabilité : sources extérieures, hypothèses Avelune, résultats internes et décisions actées sont distingués explicitement. Voir **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)** et **[Cœur vivant — perturbations, sélection et transmission](30_coeur_vivant_selection_perturbations.md)**.
+Le principe anti-réécriture reste obligatoire : **un client ne consomme pas durablement les structures internes du Cœur**.
 
-La méthode de synthèse entre macro-vivant, micro-vivant et vivant imaginaire est formalisée dans **[Cœur vivant — synthèse trans-échelles](28_coeur_vivant_synthese_trans_echelles.md)**. La condition de sortie de recherche ouverte et la qualification de CŒUR-0 sont définies dans **[Cœur vivant — gate de suffisance et limite de recherche](29_coeur_vivant_gate_suffisance.md)**.
+Architecture générale :
+
+```text
+Cœur / état privé
+        ↓
+adaptateur de version
+        ↓
+projection sémantique autorisée
+        ↓
+contrat de lecture versionné
+        ↓
+transport remplaçable
+        ↓
+Fenêtre / visuel / sonore / Tableaux / panneaux / jeu
+```
+
+Fixtures, replays et instance active doivent pouvoir présenter le même contrat. Une panne d’un client ne doit pas arrêter un Cœur sain. Pour la v1.0, cette frontière est en lecture seule vis-à-vis de la biologie.
 
 ## 4. Tableau Réel
 
@@ -93,13 +110,9 @@ Le Tableau Réel suit le projet **réel** sans le confondre avec le monde de jeu
 - [Plan d’exécution post-Gate 0](real/EXECUTION_PLAN.md)
 - [Source énergie AvLab — télémétrie locale](real/AVLAB_POWER_TELEMETRY.md)
 
-Décision structurante : TA3 doit disposer de son propre stockage et runtime persistants. Les PROTO, instruments, saisies et futures sources de production s’y raccordent par des adaptateurs remplaçables.
-
-La télémétrie électrique AvLab est actuellement une source locale de lecture seule ; son stockage de collecte est un staging remplaçable et non le registre canonique TA3.
+Décision structurante : TA3 dispose de son propre stockage et runtime persistants. Les PROTO, instruments, saisies et futures sources de production s’y raccordent par des adaptateurs remplaçables.
 
 ## 5. PROTO-0.1 — baseline de `main`
-
-Documents de référence :
 
 - [Périmètre du prototype jouable](proto0/PROTO0_PLAYABLE_SCOPE.md)
 - [Gate de playtest](proto0/PROTO0_PLAYTEST_READY.md)
@@ -116,7 +129,7 @@ Branche : [`develop/proto-0.2.2-playtest`](https://github.com/Avelune-Officiel/l
 
 Cahier : [`docs/development/proto0.2`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest/docs/development/proto0.2)
 
-Le jalon teste volontairement une boucle simplifiée et distribuable : implantation, économie, recherche, préparation défensive, vague, conséquences et adaptation. Les moteurs du Cœur vivant ne sont pas réinjectés automatiquement dans ce prototype.
+Le jalon teste volontairement une boucle simplifiée et distribuable. Les moteurs du Cœur vivant ne sont pas réinjectés automatiquement dans ce prototype. Son tour par tour reste propre au prototype ; les développements ultérieurs visent un monde et un gameplay continus et asynchrones.
 
 ## 7. Architecture et méthode
 
@@ -147,10 +160,6 @@ Direction visuelle actuelle : **poétique · onirique · féerique · organique 
 
 Direction sonore initiale : **satisfaisante · contemplative · onirique · féerique**.
 
-Le visuel de préproduction privilégie une grammaire visuelle indépendante du renderer, la continuité d’identité à travers les transformations, la cohérence temporelle, une qualité adaptative sobre/normal/riche et un budget mesuré avec les autres charges du système.
-
-MUSIQUE-0 privilégie une enveloppe sémantique neutre, des fixtures/replays indépendants de la source, une grammaire séparée du renderer et des gates explicites avant tout branchement live.
-
 ## 9. Historique
 
 - [Mini-prototype historique](07_prototype_mvp.md)
@@ -173,9 +182,10 @@ Ces fichiers restent utiles pour la traçabilité mais ne reprennent pas autorit
 - identité queer et non genrée ;
 - monde autonome même sans joueur ;
 - séparation entre prototype jouable, Cœur vivant et Tableau Réel ;
-- séparation entre état canonique et représentations visuelle/sonore ;
+- séparation entre état canonique et représentations ;
+- **robustesse ne signifie ni immobilité ni immortalité** ;
 - **le Cœur survit à la disparition ou au remplacement de ses représentations** ;
-- **les interpréteurs anticipés consomment un contrat versionné, jamais les internes provisoires comme API durable** ;
+- **les interpréteurs consomment un contrat versionné, jamais les internes comme API durable** ;
 - **les clients ne reçoivent que l’état sémantique autorisé nécessaire à leur rôle** ;
 - protocole de transport distinct du contrat sémantique ;
 - versions source/contrat/grammaire/renderer découplées ;
@@ -183,7 +193,6 @@ Ces fichiers restent utiles pour la traçabilité mais ne reprennent pas autorit
 - coût permanent et croissance des données mesurés ;
 - budget visuel/sonore évalué avec le jeu et le Cœur, jamais isolément ;
 - dégradation gracieuse des fonctions non canoniques avant altération des lois ;
-- matériel dimensionné et renouvelé à partir de mesures et de criticité ;
 - observabilité et capacité d’action restent des responsabilités distinctes ;
 - séparation entre documentation partageable et informations propriétaires ;
 - **la confidentialité porte aussi sur la structure documentaire : ne pas cartographier un mécanisme réservé pour dire qu’il est secret** ;
