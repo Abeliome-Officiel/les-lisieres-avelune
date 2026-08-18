@@ -1,6 +1,6 @@
 # Roadmap — Les Lisières d’Avelune
 
-## État au 18 août 2026
+## État au 19 août 2026
 
 Le projet avance sur plusieurs chantiers distincts, avec une règle de priorité claire : **le Cœur autonome doit être suffisamment viable, compris et exploitable avant de porter des mondes canoniques de production**.
 
@@ -10,7 +10,7 @@ Le projet avance sur plusieurs chantiers distincts, avec une règle de priorité
 | Cœur vivant | qualification biologique et adversariale suffisamment close ; aucun prolongement biologique ouvert | ingénierie du Cœur permanent, qualification opérationnelle, puis interface temporelle canonique |
 | Multi-monde / exploitation | pluralité d’instances canoniques actée architecturalement ; Tableau Univers cadré | rendre l’identité de monde portable, qualifier création/migration/capacité avant ouverture multi-instance |
 | Fenêtre sur la Lisière | module contemplatif définitif cadré, LAB possible sur contrat/fixtures | production après qualification opérationnelle suffisante et stabilisation du contrat de lecture multi-instance |
-| Tableau Réel | Gate 0 validé | poursuivre son socle autonome hors PROTO |
+| Tableau Réel | Gate B validé ; architecture v1 figée | Gate C : domaine, SQLite, migrations, baseline et restauration locale |
 
 Les univers visuel et sonore sont des **interpréteurs en aval**. Ils ne constituent pas une seconde vérité du monde et ne doivent pas devenir des dépendances de survie du Cœur.
 
@@ -190,7 +190,7 @@ Voir : `docs/23_univers_sonore_contrat_public.md`.
 
 ## 7. Tableau Réel — TA3
 
-Le Gate 0 a invalidé l’idée de dépendre du conteneur ou de la base du PROTO.
+Le Gate 0 a invalidé l’idée de dépendre du conteneur ou de la base du PROTO. Le Gate B a ensuite figé le socle autonome minimal.
 
 ### Phase A — terminée
 
@@ -200,15 +200,29 @@ Le Gate 0 a invalidé l’idée de dépendre du conteneur ou de la base du PROTO
 - [x] date zéro fixée au 26 juillet 2026 ;
 - [x] séparation des données destinées à la publication et des données internes.
 
-### Phase B — prochaine
+### Phase B — terminée
 
-- [ ] auditer le socle persistant hors PROTO ;
-- [ ] choisir le plus petit runtime autonome approprié ;
-- [ ] créer le stockage TA3 propre ;
-- [ ] migrations réversibles et testées si nécessaire ;
-- [ ] démontrer que TA3 reste disponible PROTO arrêté.
+- [x] audit du socle persistant hors PROTO ;
+- [x] absence de socle TA3 existant pertinent établie ;
+- [x] service applicatif autonome unique retenu ;
+- [x] SQLite retenu comme stockage persistant propre ;
+- [x] absence de PostgreSQL supplémentaire actée ;
+- [x] publication sans port hôte dédié possible via le reverse proxy ;
+- [x] staging énergie AVLAB existant identifié et qualifié comme non canonique ;
+- [x] besoin d’une destination de sauvegarde Avelune dédiée hors hôte identifié.
 
-Voir `docs/real/`.
+### Phase C — prochaine
+
+- [ ] créer le workspace et le runtime TA3 propres ;
+- [ ] créer le schéma SQLite et ses migrations ;
+- [ ] implémenter événements, provenance, statuts de vérité, corrections et idempotence ;
+- [ ] charger la baseline financière et institutionnelle ;
+- [ ] produire une sauvegarde SQLite cohérente ;
+- [ ] démontrer une restauration locale complète.
+
+Puis : adaptateurs énergie/PROTO, interface publique, sauvegarde hors hôte dédiée et tests d’indépendance.
+
+Voir `docs/real/`, notamment `docs/real/CAHIER_DES_CHARGES.md`.
 
 ## 8. Recherche post-v1 — interaction Corcite / monde vivant
 
@@ -234,6 +248,7 @@ Ces pistes peuvent être étudiées ultérieurement en laboratoire. Elles ne con
 - [x] qualification biologique/adversariale suffisamment close ;
 - [x] frontière générale de lecture des modules documentée ;
 - [x] architecture multi-monde et Tableau Univers documentés sans divulguer de background réservé ;
+- [x] cahier des charges complet TA3 documenté après Gate B ;
 - [ ] conserver hors dépôt les détails propriétaires et opérationnels ;
 - [ ] ne supprimer une information sensible d’un stockage temporaire qu’après vérification de sa copie de référence.
 
