@@ -1,7 +1,7 @@
 # Cœur vivant — gate de suffisance et limite de recherche
 
-> **Statut : règle méthodologique partageable — v0.3**  
-> Date : 17 août 2026
+> **Statut : règle méthodologique partageable — v0.4**  
+> Date : 18 août 2026
 
 ## 1. Principe : viser la suffisance durable, pas la perfection
 
@@ -57,6 +57,8 @@ Une forte baisse locale ou temporaire n’est donc pas automatiquement un échec
 La validation finale ne doit pas utiliser uniquement les seeds, conditions initiales et cas ayant servi à concevoir ou régler le modèle.
 
 Une campagne de confirmation doit employer des seeds et scénarios **tenus à l’écart du réglage**, afin de vérifier que le Cœur ne fonctionne pas seulement sur les cas déjà observés.
+
+Cette qualification est désormais close pour CŒUR-0 au niveau de suffisance retenu : une large campagne indépendante, avec biologie inchangée, reproduit le régime déjà observé sans faire apparaître de nouvelle famille de fragilité structurelle. Les trajectoires rares observées restent des cas écologiques à interpréter, non des échecs par définition.
 
 ### 3.3 Robustesse aux conditions limites
 
@@ -114,17 +116,21 @@ La décision de gel de CŒUR-0 doit comporter trois validations distinctes :
 2. **Qualification adversariale** : campagnes difficiles et hors échantillon ne révèlent pas de faiblesse structurelle non acceptée ; elles n’exigent pas que toute trajectoire reste confortable ou identique.
 3. **Qualification opérationnelle** : persistance, redémarrage, sauvegarde, migration, coût et observabilité permettent une exploitation de longue durée.
 
+Au 18 août 2026, les deux premières familles sont considérées suffisamment franchies pour CŒUR-0. La troisième devient la gate active.
+
 Le gel ne signifie pas que le Cœur ne changera plus jamais. Il signifie que les changements ultérieurs passent par des versions, migrations et preuves de non-régression, plutôt que par une recherche ouverte permanente.
 
-## 5. État de convergence au 17 août 2026
+## 5. État de convergence au 18 août 2026
 
 Les campagnes diagnostiques successives ont permis de passer d’un goulot de persistance encore opaque à une dynamique évolutive causalement mieux comprise, sans ajouter de mécanisme de survie artificiel.
 
-La qualification de profondeur temporelle est considérée suffisamment acquise pour ne pas justifier une nouvelle prolongation par principe. Le chantier adversarial porte maintenant sur la **largeur hors échantillon** : observer un grand ensemble de mondes indépendants avec la biologie inchangée et rechercher des queues rares réellement problématiques.
+La qualification de profondeur temporelle est close au niveau de suffisance durable retenu. La qualification de largeur hors échantillon est également close : une large campagne indépendante avec biologie inchangée reproduit les distributions de référence, ne montre pas d’enrichissement des queues défavorables et ne révèle aucune nouvelle classe de collapse structurel.
 
-Cette campagne n’a pas pour objectif de démontrer que le Cœur « survit coûte que coûte ». Une trajectoire sévère devient un cas à expliquer, pas automatiquement un FAIL. Un prolongement ciblé n’est justifié que si l’analyse révèle une question résiduelle précise que les données présentes ne permettent pas de trancher.
+Les cas atypiques ne sont pas supprimés ni « corrigés » pour améliorer les métriques. Ils sont conservés comme cas de non-régression et rappellent qu’un monde robuste peut rester fortement asymétrique, subir des pertes ou évoluer selon une trajectoire rare sans être défaillant.
 
-Si cette qualification est satisfaisante, le risque principal se déplace vers le runtime réel : persistance, reprise après interruption, rattrapage, croissance des données, coût et fonctionnement continu. L’interface temporelle canonique et le contrat de lecture de production sont stabilisés dans cette phase avant naissance canonique.
+Aucun prolongement biologique supplémentaire n’est justifié à ce jalon. La recherche biologique ouverte de CŒUR-0 est donc **suffisamment close** ; elle ne sera rouverte qu’en présence d’une anomalie, d’une régression ou d’une question causale nouvelle et explicite.
+
+Le risque principal se déplace maintenant vers le runtime réel : persistance, reprise après interruption, atomicité, migrations, croissance des données, coût, politique de panne et fonctionnement continu. L’interface temporelle canonique et le contrat de lecture de production sont stabilisés dans cette phase avant naissance canonique.
 
 Les seuils quantitatifs, distributions détaillées, seeds, paramètres, recettes et mappings causaux utilisés pour ces décisions restent dans la documentation propriétaire.
 
