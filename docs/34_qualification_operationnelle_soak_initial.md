@@ -1,6 +1,6 @@
 # Cœur vivant — qualification opérationnelle initiale en fonctionnement continu
 
-> **Statut : protocole partageable — v0.1**  
+> **Statut : protocole partageable — v0.2**  
 > Date : 18 août 2026  
 > Les seeds, chemins privés, seuils détaillés et résultats bruts restent hors GitHub.
 
@@ -14,11 +14,11 @@ Ce test n’est pas une nouvelle campagne biologique accélérée. Il cherche à
 
 ## 2. Fenêtre de test initiale
 
-La première fenêtre est fixée du lancement du 18 août 2026 jusqu’au **vendredi 21 août 2026 à 12:00 heure locale de l’hôte**.
-
-Si le lancement intervient après le milieu d’après-midi du 18 août, cette fenêtre est légèrement inférieure à 72 heures ; la date/heure de fin fixée fait foi pour ce premier soak.
+La première fenêtre est fixée à **72 heures réelles continues à compter du démarrage effectif du runtime**. La date/heure d’arrêt n’est donc pas fixée à l’avance : le timestamp de démarrage enregistré par le protocole fait foi, et l’arrêt nominal intervient exactement 72 heures plus tard.
 
 Le Cœur ne reçoit aucune intervention manuelle de confort pendant la fenêtre. Les protections automatiques de sécurité restent toutefois actives : un arrêt automatique motivé par température, mémoire, stockage, corruption ou autre condition de sûreté constitue un résultat du test, pas une violation du protocole.
+
+Un arrêt prématuré, un redémarrage spontané, une perte de progression ou une interruption du runtime est enregistré comme événement du soak et doit être analysé avant toute reprise ou nouvelle tentative.
 
 ## 3. Ce que le test doit mesurer
 
@@ -45,7 +45,7 @@ La fin du runtime ne vaut pas verdict à elle seule.
 Les données doivent être :
 
 1. contrôlées pour leur intégrité ;
-2. analysées sur l’ensemble de la fenêtre ;
+2. analysées sur l’ensemble des 72 heures ;
 3. comparées aux attentes et aux limites matérielles ;
 4. examinées pour les tendances lentes ;
 5. confirmées avant de conclure PASS, PASS AVEC RÉSERVES ou FAIL.
