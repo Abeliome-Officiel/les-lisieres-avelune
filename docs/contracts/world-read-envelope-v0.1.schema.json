@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://avelune.invalid/contracts/world-read-envelope-v0.1.schema.json",
+  "title": "Avelune WorldReadEnvelope v0.1",
+  "description": "Noyau contractuel partageable pour les modules aval d'Avelune. Le payload reste spécialisé par projection et ne doit contenir que des données allowlistées.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "projection_version",
+    "world_instance_id",
+    "source_kind",
+    "stream_id",
+    "canonicality",
+    "state_revision",
+    "canonical_age",
+    "frame_kind",
+    "payload"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "0.1"
+    },
+    "projection_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "world_instance_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_kind": {
+      "enum": ["fixture", "replay", "lab_live", "canonical_live"]
+    },
+    "stream_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonicality": {
+      "enum": ["LAB", "STAGING", "CANONICAL"]
+    },
+    "state_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "canonical_age": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit"],
+      "properties": {
+        "value": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unit": {
+          "const": "canonical_hour"
+        }
+      }
+    },
+    "frame_kind": {
+      "enum": ["snapshot", "delta", "event_batch"]
+    },
+    "base_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "frame_kind": {
+            "const": "delta"
+          }
+        }
+      },
+      "then": {
+        "required": ["base_revision"]
+      }
+    }
+  ]
+}
