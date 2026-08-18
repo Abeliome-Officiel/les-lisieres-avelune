@@ -1,181 +1,372 @@
 # Cœur vivant — contrat de lecture des modules
 
-> **Statut : architecture partageable — v0.2**  
+> **Statut : architecture partageable — v0.3**  
 > Date : 18 août 2026  
-> Ce document décrit la frontière de raccordement sans exposer les structures, recettes, paramètres ou causalités propriétaires du Cœur.
+> Ce document est l’autorité architecturale partageable pour la frontière **Cœur → modules**. Il décrit les garanties de raccordement sans exposer les structures, recettes, paramètres ou causalités propriétaires du Cœur.
 
 ## 1. Principe
 
 Le Cœur d’une instance est l’autorité sur l’état canonique de ce monde. Les modules externes — Fenêtre sur la Lisière, visuel, sonore, Tableaux, panneaux et jeu — sont des **clients en aval**.
 
-Ils ne doivent pas importer durablement les structures internes du Cœur ni devenir nécessaires à sa survie.
+Ils ne doivent ni importer durablement les structures internes du Cœur, ni devenir nécessaires à sa survie, ni constituer une seconde autorité.
 
 Architecture de référence :
 
 ```text
 état privé du Cœur
         ↓
-adaptateur de version
+CœurReadAdapter
+normalisation privée/versionnée
         ↓
-projection sémantique autorisée
+modèle d’observation normalisé
+PRIVÉ / interne
         ↓
-contrat de lecture versionné
-        ↓
-transport remplaçable
-        ↓
-module client
+allowlists spécialisées
+        ├─ WorldReadEnvelope + VisualPayload
+        ├─ WorldReadEnvelope + MusicPayload
+        └─ autres projections futures
 ```
 
-Le contrat sémantique est la frontière durable. Le protocole de transport est un choix technique remplaçable.
+Il n’existe **ni un adaptateur VISUEL ni un adaptateur MUSIQUE relisant chacun les internes du Cœur**, ni un contrat public géant faisant l’union de toutes les données utiles à tous les clients.
 
-## 2. Identité d’instance et pluralité des mondes
+Le noyau commun porte uniquement les primitives universelles d’identité, d’ordre, de temps, de source et de compatibilité. Chaque projection spécialisée reçoit ensuite seulement les données nécessaires à son rôle.
 
-Une instance du Cœur possède une identité persistante, un état, un âge canonique et une histoire de versions/migrations.
+Le protocole de transport est distinct de la sémantique du contrat.
 
-À version, configuration, état initial, seed et entrées identiques, le laboratoire doit pouvoir reproduire la même trajectoire. Des instances utilisant des seeds différentes ou recevant des entrées différentes produisent normalement des histoires différentes tout en obéissant aux mêmes lois.
+## 2. Responsabilité de la projection
 
-Une différence de seed ne constitue pas une garantie mathématique que chaque état agrégé sera unique à chaque instant. Elle permet une divergence stochastique des trajectoires.
+Le `CœurReadAdapter` appartient au périmètre **CŒUR / intégration**, pas aux renderers.
 
-Plusieurs **instances canoniques de production** peuvent exister en parallèle lorsque la capacité de jeu l’exige. Chaque instance possède sa propre histoire canonique et n’échange ni état, ressource, événement, Corcite ni effet de gameplay avec une autre instance.
+Dans les laboratoires, il peut être un outil offline :
 
-Le « monde partagé unique » signifie qu’à l’intérieur d’une instance tous les clients et joueurs partagent une seule vérité canonique. Il ne signifie pas que le service Avelune doit rester un singleton mondial pour toute sa population humaine.
+```text
+artefact clos → CœurReadAdapter CLI → semantic replay
+```
 
-Les mondes de laboratoire, tests, replays ou validations restent explicitement non canoniques. Un redémarrage, une migration ou une restauration contrôlée ne crée pas une nouvelle identité de monde.
+Plus tard, il pourra devenir une couche légère de publication en lecture seule contre un état **committé** du Cœur, sans accrocher un renderer ou un client réseau dans la boucle biologique.
 
-Voir `docs/33_multi_monde_capacite_et_tableau_univers.md`.
+L’interface historique `observer(state, events)` reste utile à l’instrumentation de laboratoire et possède des preuves de neutralité, mais elle n’est pas contractualisée comme API de production VISUEL/MUSIQUE.
 
-## 3. Ce que fournit le contrat
+## 3. WorldReadEnvelope v0.1 — noyau commun
 
-La projection dépend du rôle du client et suit une logique de liste positive : ne publier que ce qui est nécessaire.
+Le noyau contractuel commun est conceptuellement :
 
-Le contrat peut notamment contenir, sans révéler les mécanismes réservés :
+```text
+WorldReadEnvelope {
+  contract_version
+  projection_version
+  world_instance_id
+  source_kind
+  stream_id
+  canonicality
+  state_revision
+  canonical_age
+  frame_kind
+  payload
+}
+```
 
-- version du contrat et métadonnées de compatibilité ;
-- `world_instance_id` ou identité équivalente de l’instance source ;
-- révision ou ordre canonique de l’état publié ;
-- âge ou temps canonique sous une forme adaptée au client ;
-- descripteurs sémantiques autorisés du monde ou de régions ;
-- identifiants stables nécessaires à la continuité d’identité ;
-- événements ou marqueurs de changement autorisés ;
-- snapshot complet de la projection pour initialisation et resynchronisation.
+Pour la première version, les valeurs de `source_kind` couvrent au minimum :
 
-L’identité d’instance fait partie du contrat afin qu’un client ne puisse jamais mélanger deux histoires canoniques.
+```text
+fixture | replay | lab_live | canonical_live
+```
 
-Ce document ne définit volontairement pas la liste concrète des champs internes qui alimentent ces descripteurs.
+et `frame_kind` :
 
-## 4. Ce que le contrat ne fournit pas aux clients publics
+```text
+snapshot | delta | event_batch
+```
 
-Un client public ne reçoit pas directement :
+**REPLAY-0.1 utilise uniquement des snapshots complets.** Les deltas viennent après validation de la frontière et de la resynchronisation.
 
-- classes ou objets internes du moteur ;
-- schéma privé de persistance ;
-- configuration ou seed canonique ;
-- seuils, coefficients ou recettes ;
-- métriques de laboratoire inutiles au client ;
-- mappings permettant de reconstruire une causalité réservée ;
-- journal causal propriétaire complet.
+Le schéma partageable du noyau v0.1 est conservé sous `docs/contracts/world-read-envelope-v0.1.schema.json`.
 
-L’Observatoire propriétaire peut disposer d’une projection privée plus riche. Cette projection reste distincte de la projection publique.
+## 4. Identité d’instance
 
-## 5. Branchements possibles sans modifier le Cœur
+`world_instance_id` est l’identité persistante et opaque d’un monde.
+
+Règles actées :
+
+- généré une seule fois pour une vraie instance ;
+- non dérivé de la seed, du hostname ou de la date ;
+- stable à travers redémarrage, migration et restauration contrôlée du même monde ;
+- un clone destiné à une qualification destructive reçoit une **nouvelle** identité LAB ;
+- un replay transporte l’identité du monde d’origine, mais possède son propre `replay_id` et son propre `stream_id`.
+
+Une première implémentation peut utiliser UUIDv4.
+
+Le nom humain d’un monde est une métadonnée distincte.
+
+Pour les caches et mémoires de modules, `representation_id` seul ne suffit jamais : le namespace minimal inclut `world_instance_id`.
+
+## 5. Révision canonique et temps
+
+`state_revision` est un entier monotone identifiant l’ordre des états **committés**.
+
+Il est distinct de :
+
+```text
+canonical_age
+wall clock
+SQLite rowid
+publication sequence
+```
+
+La règle cible est :
+
+```text
+état committé N   → state_revision N
+état suivant      → state_revision N+1
+```
+
+La révision doit être persistée atomiquement avec l’état qu’elle identifie.
+
+`canonical_age` représente l’âge monotone du monde et reste indépendant du temps machine et du facteur réel ↔ canonique. Une représentation initiale explicite en heures canoniques est admise.
+
+La politique d’arrêt du Cœur — pause de l’âge ou rattrapage déterministe — reste ouverte ; le contrat doit pouvoir représenter les deux sans changement de schéma.
+
+## 6. Stream et canonicalité
+
+`stream_id` identifie une session de publication. Il peut changer après redémarrage du publisher sans changer `world_instance_id`.
+
+Un changement de `stream_id` signifie : **la session de transport a changé ; vérifier la continuité ou resynchroniser**.
+
+Chaque source porte également une canonicalité explicite, avec une sémantique équivalente à :
+
+```text
+LAB | STAGING | CANONICAL
+```
+
+Une simulation ou un replay de laboratoire ne doit jamais être confondu avec l’histoire canonique d’une vraie Avelune.
+
+## 7. Identifiants de représentation
+
+Lorsqu’une continuité perceptive doit être exposée, l’adaptateur fournit des identifiants opaques :
+
+- `representation_id` pour une entité/représentation autorisée ;
+- `region_id` pour une région ou scène autorisée ;
+- `event_id` pour un événement publiable.
+
+Ces identifiants sont stables dans le scope du monde concerné et ne doivent pas encoder une sémantique biologique reconstructible.
+
+La méthode de correspondance entre identité interne et identité de représentation reste avant la frontière partageable.
+
+## 8. État, transition et événement
+
+Le contrat distingue :
+
+- **state** : propriété durable ;
+- **transition** : changement entre deux états ;
+- **event** : fait ponctuel canonique explicitement publiable.
+
+Un client ne transforme pas arbitrairement toute différence numérique en événement.
+
+Un événement publiable porte les primitives nécessaires à sa déduplication et à son ordre, ainsi qu’un payload allowlisté. Les causes internes, seuils, tirages ou paramètres réservés ne franchissent pas cette frontière.
+
+## 9. Descripteurs perceptifs
+
+Le contrat peut transporter, après allowlist :
+
+- identité monde/région/représentation ;
+- présence, apparition, disparition, persistance et transformation significative ;
+- localisation ou portée autorisée ;
+- descripteurs qualitatifs ou normalisés conçus pour la représentation ;
+- révision et âge canonique ;
+- changements observables explicitement publiables.
+
+La liste exacte des descripteurs VISUEL/MUSIQUE n’est pas figée par ce document.
+
+Une métrique scientifique n’est **pas** automatiquement une propriété artistique. Paramètres, seuils, coefficients, seed, RNG, diagnostics scientifiques, généalogie complète ou attributs permettant de reconstruire les recettes ne sont pas publiés par défaut.
+
+## 10. Projections spécialisées
+
+Le noyau commun ne doit pas devenir un « super-contrat » transportant tout ce qui pourrait intéresser tous les clients.
+
+Répartition :
+
+```text
+CŒUR / intégration
+- identité monde
+- révision
+- temps
+- source / canonicalité
+- ordre / resynchronisation
+- primitives d’identité persistante
+- faits canoniques publiables
+- classification et frontière d’exposition
+
+VISUEL
+- VisualPayload
+- grammaire visuelle
+- continuité graphique
+- renderer, LOD, accessibilité
+
+MUSIQUE
+- MusicPayload
+- état perceptif musical
+- mémoire
+- grammaire, thèmes, composition
+- renderer audio, accessibilité
+```
+
+Le Cœur peut refuser une donnée demandée si son exposition nécessiterait de publier un secret ou d’inventer un fait canonique.
+
+## 11. Sources interchangeables
 
 Un même client doit pouvoir fonctionner contre :
 
 ```text
-fixture synthétique
-replay enregistré
+fixture
+replay
 snapshot de test
-instance de laboratoire
-instance canonique de production sélectionnée
+LAB
+production
 ```
 
-à condition que ces sources présentent le même contrat versionné et une identité de source explicite.
+sans modifier sa grammaire ou son renderer.
 
-Ainsi, développer ou remplacer un renderer, un interpréteur sonore ou une Fenêtre ne requiert pas de modifier la biologie du Cœur.
+Pour un même état source `S`, la projection obtenue par replay et par source LAB/live simulée doit être sémantiquement équivalente après exclusion des seules métadonnées de transport :
 
-Si un nouveau module a besoin d’une information absente, la première question est : **cette information appartient-elle réellement au contrat sémantique ?** Si oui, la projection peut être étendue de façon minimale, versionnée et testée. Cela ne justifie pas une dépendance directe aux internes.
+```text
+semantic_hash(P_replay) == semantic_hash(P_live)
+```
 
-## 6. Transport indépendant
+Le client peut connaître `source_kind`, mais aucune décision de rendu ne dépend de ce choix.
 
-Le transport pourra évoluer selon les besoins : fichier/replay hors ligne, lecture locale, HTTP, flux d’événements, connexion persistante ou autre mécanisme approprié.
+## 12. Avelune Semantic Replay v0.1
 
-Changer de transport ne doit pas changer la signification du contrat.
+Le format de replay sémantique de laboratoire est :
 
-Le Cœur ne doit pas augmenter sa cadence biologique pour satisfaire une fréquence d’animation. Les clients peuvent mettre en cache, interpoler ou lisser une représentation entre états publiés, mais ne doivent pas inventer une évolution canonique profonde.
+```text
+replay/
+├── manifest.json
+├── frames.ndjson
+└── checksums.sha256
+```
 
-## 7. Snapshots, événements et resynchronisation
+Le manifeste décrit notamment : version de format/contrat/projection, classification, source, canonicalité, `world_instance_id`, `replay_id`, `stream_id`, nombre de frames, premières/dernières révisions et positions canoniques, version d’adaptateur et empreintes des fichiers.
 
-Un client ne doit pas supposer qu’il recevra chaque mise à jour sans interruption.
+Les métadonnées de provenance propriétaires restent dans une variante PRIVATE et n’ont aucune raison d’être présentes dans un replay SHAREABLE.
 
-Le modèle de lecture doit donc permettre :
+`frames.ndjson` contient une projection complète par ligne pour REPLAY-0.1.
 
-1. chargement d’un snapshot cohérent d’une instance identifiée ;
-2. consommation ordonnée des changements autorisés de cette même instance ;
-3. détection d’une rupture, d’un retard ou d’un changement inattendu d’identité de source ;
-4. resynchronisation depuis un nouvel état complet.
+Voir `docs/contracts/avelune-semantic-replay-v0.1.md`.
 
-Cette règle évite qu’une coupure réseau, un redémarrage de client ou une erreur de routage produise une seconde interprétation de l’histoire ou mélange deux mondes.
+Deux catégories ne doivent jamais être confondues :
 
-## 8. Lecture seule en v1.0
+1. **raw/private observer replay** : données internes, source de conversion uniquement ;
+2. **semantic replay** : sortie du `CœurReadAdapter` + allowlist, seule catégorie durable consommée par VISUEL/MUSIQUE.
+
+## 13. Snapshots, deltas et resynchronisation
+
+Le modèle de production cible reste :
+
+```text
+snapshot complet cohérent
+        ↓
+changements ordonnés
+        ↓
+trou / désordre / nouvelle session
+        ↓
+RESYNC_REQUIRED
+        ↓
+nouveau snapshot complet
+```
+
+Un futur delta porte `base_revision=N` et `state_revision=N+1`. Il est applicable seulement si `local_revision == base_revision`.
+
+Le client ne fabrique jamais une révision absente.
+
+## 14. Cadence
+
+La cadence finale de publication reste ouverte. Le modèle cible est hybride : périodique + événementiel.
+
+Budget de conception provisoire, **pas un SLA** : les clients doivent tolérer aussi bien des rafales allant jusqu’à environ une frame sémantique par seconde que plusieurs dizaines de secondes ou minutes sans changement significatif.
+
+Le Cœur ne change jamais sa cadence biologique pour satisfaire une animation ou une musique. Les modules interpolent et temporisent localement sans inventer de faits canoniques.
+
+## 15. Volume — budget de conception
+
+La taille finale n’est pas connue. Pour éviter de supposer un monde minuscule, les projections de scène/région doivent rester robustes à des ordres de grandeur allant approximativement de `10²` à `10⁴` éléments sémantiques potentiels.
+
+Une vue normale doit chercher des snapshots compacts et des deltas nettement plus petits. Ces valeurs sont des budgets de conception, pas des capacités promises du Cœur.
+
+## 16. Classification
+
+### SHAREABLE
+
+Peut comprendre les primitives contractuelles et les identifiants/descripteurs explicitement allowlistés nécessaires au rôle du client.
+
+### PRIVATE
+
+Contient par défaut les sources brutes, identités internes, configuration, seeds, instrumentation scientifique, mappings privés, stockage brut, provenance propriétaire et diagnostics causaux.
+
+### CODEX
+
+Aucun contenu CODEX ne doit être nécessaire au fonctionnement normal de VISUEL ou MUSIQUE. Si un renderer a besoin d’un champ CODEX, la frontière est incorrecte.
+
+Un artefact de replay possède une classification homogène. Une version SHAREABLE est produite explicitement par allowlist ; elle n’est pas un replay PRIVATE avec quelques champs « cachés ».
+
+## 17. Lecture seule en v1.0
 
 Pour la v1.0, la frontière avec la biologie est unidirectionnelle :
 
 ```text
-Cœur autonome
-    ↓
-état canonique
-    ↓
-contrat de lecture
-    ↓
-modules
+Cœur autonome → état canonique → contrat de lecture → modules
 ```
 
 Les actions de gameplay d’un Corcite ne sont pas renvoyées vers la biologie du Cœur dans cette version.
 
-Une future API d’actions, si elle est un jour décidée pour une version ultérieure, sera une responsabilité distincte du contrat de lecture et devra posséder ses propres lois, validations et contrôles.
-
-## 9. Dégradation et indépendance
+## 18. Dégradation et indépendance
 
 La panne, le remplacement ou l’arrêt d’un module externe ne doit pas arrêter un Cœur sain ni modifier sa trajectoire.
 
-Si un client ne peut plus lire le flux, il peut conserver le dernier état validé et dégrader sa représentation. Il ne doit pas fabriquer un nouvel état canonique local.
+Si un client perd le flux, il peut conserver le dernier état validé, dégrader sa représentation et demander une resynchronisation. Il ne crée pas un nouvel état canonique local.
 
-Cette indépendance permet plusieurs générations de Fenêtre, visuel, sonore ou interface au-dessus du même monde persistant, et permet à un même type de client d’observer plusieurs instances sans les fusionner.
+## 19. Gates avant branchement live
 
-## 10. Gates avant branchement de production
+Avant raccordement durable :
 
-Avant de considérer un module raccordé proprement :
+1. l’adaptateur ne modifie pas le state ;
+2. aucun champ privé non allowlisté ne sort ;
+3. `world_instance_id` est vérifié de bout en bout ;
+4. `state_revision` est monotone et correctement persisté ;
+5. resynchronisation par snapshot fonctionnelle ;
+6. trou de delta détecté ;
+7. replay/live sémantiquement équivalents ;
+8. renderer arrêté → Cœur inchangé ;
+9. publisher arrêté → Cœur inchangé ;
+10. source A ne peut pas alimenter silencieusement cache/mémoire B ;
+11. version incompatible → échec explicite, aucune approximation silencieuse ;
+12. coût de publication/consommation mesuré avec les composants réellement concurrents.
 
-- le module fonctionne sur fixture et replay sans Cœur actif ;
-- une révision simulée de la source est absorbée par l’adaptateur ou une migration explicite ;
-- la perte d’événements est récupérable par resynchronisation ;
-- l’arrêt du module n’affecte pas le Cœur ;
-- la projection publique passe un audit de fuite ;
-- les versions du Cœur, de l’adaptateur/contrat, du transport et du renderer/interpréteur restent distinguées ;
-- l’identité d’instance est transportée et vérifiée de bout en bout ;
-- un test prouve qu’aucun cache, replay ou flux d’un monde ne peut être appliqué silencieusement à un autre ;
-- les coûts de publication et de consommation sont mesurés avec les autres composants réellement actifs.
+## 20. Restrictions de qualification opérationnelle
 
-## 11. Fenêtre sur la Lisière et sélection d’instance
+Pendant un soak dont le protocole a été figé avant T0, aucun nouveau consommateur, observer, service de publication ou benchmark de représentation ne doit être ajouté en cours de route.
 
-La **Fenêtre sur la Lisière** est destinée à être le premier consommateur permanent privilégié de ce contrat de lecture. Elle reste ensuite présente lorsque d’autres modules et le jeu complet sont ajoutés.
+VISUEL/MUSIQUE travaillent alors sur documentation, fixtures, code offline et artefacts clos. Les composants destinés à participer à un futur soak de capacité doivent être définis et gelés **avant** son démarrage.
 
-Elle doit pouvoir sélectionner la Lisière/instance observée par une interaction simple, par exemple un menu déroulant. Changer de sélection change uniquement la source canonique lue par la Fenêtre ; cela ne déplace aucun Corcite et ne modifie aucun monde.
+## 21. Fenêtre, sonore et autres modules
 
-Le sonore, les Tableaux, panneaux et futurs clients doivent suivre la même discipline de frontière plutôt que créer chacun un accès propriétaire différent aux internes du Cœur.
+La Fenêtre sur la Lisière est destinée à être le premier consommateur permanent privilégié de cette frontière. Le sonore, les Tableaux, panneaux et futurs clients suivent ensuite la même discipline de raccordement.
 
-## 12. Tableau Univers
+VISUEL et MUSIQUE peuvent être artistiquement coordonnés, mais restent indépendants :
 
-Le Tableau Univers est un client/superviseur multi-instance distinct du Tableau Monde.
+```text
+Cœur → contrat commun → VISUEL
+                    └→ MUSIQUE
+```
 
-Il peut agréger les informations d’exploitation autorisées de plusieurs mondes et permettre de sélectionner le Tableau Monde correspondant, mais il ne devient pas l’autorité sur leur état canonique. Une panne du Tableau Univers ne doit pas arrêter les Cœurs sains.
+et jamais :
 
-Le Tableau Univers peut piloter des opérations d’exploitation explicites — création, placement, migration ou ouverture d’une instance — à travers des interfaces administratives séparées du contrat de lecture biologique. Ces actions doivent rester auditables et ne doivent jamais être confondues avec une écriture dans la biologie d’un monde existant.
+```text
+Cœur → VISUEL → MUSIQUE
+Cœur → MUSIQUE → VISUEL
+```
 
-Voir `docs/33_multi_monde_capacite_et_tableau_univers.md`.
+## 22. Frontière de confidentialité
 
-## 13. Frontière de confidentialité
+GitHub peut documenter l’existence du contrat, ses propriétés, ses versions, ses tests, les identités opaques nécessaires à l’interopérabilité, les formats de replay partageables et les catégories sémantiques autorisées.
 
-GitHub peut documenter l’existence du contrat, ses propriétés, son versionnement, ses tests, la pluralité d’instances et les catégories sémantiques nécessaires à l’interopérabilité.
-
-Restent hors dépôt les détails permettant de reconstruire les mécanismes du Cœur : champs sources privés, mappings exacts, paramètres, seeds, seuils, recettes, causalités réservées et tout background confidentiel non nécessaire à l’architecture publique.
+Restent hors dépôt les détails permettant de reconstruire les mécanismes du Cœur : champs sources privés, mappings exacts, paramètres, seeds, seuils, recettes, causalités réservées, instrumentation brute et background confidentiel non nécessaire à l’architecture publique.
