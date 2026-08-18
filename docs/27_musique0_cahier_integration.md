@@ -1,177 +1,359 @@
 # MUSIQUE-0 — cahier des charges d’intégration
 
-> **Statut : préproduction partageable — v0.2**  
-> **Verdict : VERT pour un laboratoire hors ligne et réversible.**  
-> Ce document autorise un banc d’essai découplé ; il ne sélectionne aucun moteur audio et ne fixe aucune décision propriétaire de traduction.
+> **Statut : préproduction partageable — v0.3**  
+> Date : 18 août 2026  
+> **Verdict : VERT pour MUSIQUE-0/1/2 hors ligne.**  
+> Ce document n’autorise ni accès direct aux internes du Cœur, ni branchement live pendant une qualification opérationnelle en cours, ni choix prématuré d’un moteur audio.
 
-## 1. Objectif
+## 1. Situation et objectif
 
-MUSIQUE-0 doit permettre de prototyper la musique évolutive d’Avelune avant que le Cœur soit terminé **sans créer une dépendance qui imposerait une réécriture lors du branchement final**.
+La recherche biologique ouverte de CŒUR-0 est considérée suffisamment close pour avancer vers l’ingénierie de production. La qualification opérationnelle du Cœur permanent est en cours et reste indépendante de MUSIQUE.
 
-La règle centrale est :
+MUSIQUE-0 doit maintenant démontrer qu’une histoire d’Avelune peut devenir une structure musicale cohérente, mémorielle, personnalisable et reproductible **sans faire de la musique une dépendance du Cœur ni une seconde simulation biologique**.
 
-> **la grammaire musicale ne dépend jamais directement des structures internes d’une révision du Cœur.**
+La règle centrale reste :
 
-Toute dépendance à la source est confinée dans un adaptateur remplaçable.
+> **la grammaire musicale ne dépend jamais des structures internes d’une révision du Cœur.**
 
-## 2. Architecture anti-réécriture
+MUSIQUE ne possède pas d’adaptateur source relisant le Cœur. Cette responsabilité appartient à `CœurReadAdapter`, dans le périmètre CŒUR/intégration.
+
+## 2. Architecture active
 
 ```text
-source autorisée / replay / fixture
-            ↓
-   adaptateur de source
-            ↓
- projection sémantique autorisée
-            ↓
- contrat sémantique versionné
-            ↓
-     grammaire musicale
-            ↓
-    renderer remplaçable
-            ↓
-   préférences sensorielles
+état privé du Cœur
+        ↓
+CœurReadAdapter commun
+        ↓
+normalisation privée
+        ↓
+allowlist MUSIQUE
+        ↓
+WorldReadEnvelope + MusicPayload
+        ↓
+état perceptif musical
+        ↓
+mémoire / musical_plan
+        ↓
+thème esthétique du joueur
+        ↓
+préférences sensorielles
+        ↓
+renderer remplaçable
 ```
 
-Les fixtures synthétiques, les replays autorisés et une future source active doivent devenir interchangeables **à partir de la frontière contractuelle**.
+VISUEL suit une projection spécialisée sœur à partir de la même normalisation amont. Il n’existe ni adaptateur MUSIQUE lisant directement le Cœur, ni dépendance VISUEL → MUSIQUE ou MUSIQUE → VISUEL.
 
-Le renderer ne connaît aucune structure privée du Cœur. Inversement, le Cœur ne connaît aucune technologie de rendu sonore.
+Fixtures, replay, LAB et future production deviennent interchangeables **à partir de la frontière contractuelle**.
 
-## 3. Responsabilités
+## 3. Répartition des responsabilités
 
-- **source canonique** : produit les faits et l’histoire ;
-- **projection/adaptateur** : traduit une source/version vers la sémantique explicitement autorisée ;
-- **contrat** : décrit le sens des données nécessaires à une représentation ;
-- **grammaire musicale** : transforme cette sémantique en comportements musicaux ;
-- **renderer** : matérialise ces comportements en audio ;
-- **accessibilité** : transforme ou simplifie le rendu sans modifier le canon.
+### CŒUR / intégration
 
-Le protocole de transport est distinct du contrat. Le LAB lit d’abord des fichiers ; la production pourra employer un transport différent si la sémantique reste compatible.
+Décide et garantit : identité du monde, révision, âge canonique, source/canonicalité, ordre, resynchronisation, primitives d’identité persistante, faits canoniques publiables et frontière d’exposition.
 
-## 4. Versions indépendantes
+### MUSIQUE
 
-Maintenir séparément :
+Décide : `MusicPayload` proposé, état perceptif musical, mémoire, grammaire, motifs, structure, thèmes du joueur, composition, renderer et accessibilité sonore.
 
-1. version de la source ;
-2. version de l’adaptateur et du contrat ;
-3. version de la grammaire musicale ;
-4. version du renderer.
+Le Cœur ne choisit ni tonalité, ni instrument, ni thème.
 
-Une évolution interne de la source qui conserve la même signification est absorbée par l’adaptateur. Si la signification elle-même change, le contrat évolue explicitement et sa compatibilité est testée.
+## 4. WorldReadEnvelope v0.1
 
-## 5. Contrat expérimental v0
+Le noyau contractuel commun est décrit dans `docs/32_coeur_contrat_lecture_modules.md` et schématisé par :
 
-Le premier artefact technique est un **enveloppe de représentation expérimentale**, volontairement petite et transport-neutre. Elle doit porter seulement ce qui est nécessaire pour tester le découplage : version, provenance autorisée, séquence, temps logique, portée, état complet ou incrémental, descripteurs et événements explicitement autorisés.
+`docs/contracts/world-read-envelope-v0.1.schema.json`
 
-Cette enveloppe n’est pas déclarée contrat universel définitif d’Avelune. Le visuel et le sonore pourront partager un socle commun ou utiliser des contrats frères si leurs sémantiques divergent. Ce choix sera fait sur besoin démontré, pas par symétrie architecturale.
+Il porte au minimum les primitives suivantes :
 
-Le contrat n’expose que la sémantique autorisée et reste indépendant de la structure privée de sa source.
+```text
+contract_version
+projection_version
+world_instance_id
+source_kind
+stream_id
+canonicality
+state_revision
+canonical_age
+frame_kind
+payload
+```
 
-Le schéma technique initial est conservé sous `docs/contracts/representation-semantic-v0.schema.json`.
+Le `payload` est spécialisé. MUSIQUE ne reçoit pas automatiquement les données utiles au VISUEL ou aux outils d’administration.
 
-## 6. Replays et fixtures
+L’ancien `representation-semantic-v0.schema.json` et ses trois fixtures neutres sont conservés comme **jalon historique Gate 0** ayant prouvé le découplage initial. Ils ne constituent plus la baseline active du contrat commun.
 
-Chaque replay de laboratoire doit pouvoir être accompagné d’un manifeste suffisant pour identifier sa provenance autorisée, les versions nécessaires à sa reproduction, sa période logique, sa portée, son intégrité et sa classification.
+## 5. MusicPayload v0.1 expérimental
 
-Le corpus expérimental devra couvrir plusieurs régimes et transitions contrastés, et inclure des cas appariés lorsque cela est pertinent. Les fixtures publiques de démarrage restent **neutres et synthétiques** : elles valident le schéma et le pipeline sans prétendre représenter la structure réelle du Cœur.
+`MusicPayload` doit exprimer uniquement les faits et descripteurs perceptifs dont MUSIQUE démontre réellement le besoin.
 
-Les scénarios sémantiques plus expressifs peuvent être testés dans l’espace interne approprié avant toute décision de publication.
+Il n’est pas une copie renommée des champs du Cœur.
 
-## 7. Grammaire musicale minimale
+La procédure pour chaque besoin est :
 
-Le laboratoire peut explorer des propriétés musicales générales telles que densité, tension et résolution, registre, richesse timbrale, activité rythmique, continuité, vitesse de transformation et silence.
+```text
+MUSIQUE propose un besoin perceptif X
+        ↓
+CŒUR/intégration vérifie :
+- X est-il canonique/observable ?
+- X est-il publiable sans fuite ?
+- X peut-il être dérivé de manière stable ?
+        ↓
+acceptation minimale ou refus
+```
 
-Ces propriétés sont musicales, pas canoniques. Les détails propriétaires de la grammaire expérimentale sont versionnés et testés dans l’espace interne approprié. GitHub conserve seulement les interfaces, méthodes et critères nécessaires au développement partagé.
+Aucun coefficient, seuil, RNG, seed, fonction interne, diagnostic scientifique ou causalité propriétaire ne devient un descripteur simplement parce qu’il serait pratique musicalement.
 
-## 8. Gates
+## 6. État perceptif et grammaire
 
-### G0 — Documentation et publication
-Architecture, méthode, références, frontières et règles d’hygiène documentaire présentes.
+Après `MusicPayload`, MUSIQUE crée son propre **état perceptif musical**. Cette couche est aval et non canonique.
 
-### G1 — Contrat
-Le schéma v0 accepte plusieurs fixtures synthétiques neutres sans importer le Cœur.
+La grammaire peut ensuite explorer des propriétés musicales générales telles que :
 
-### G2 — Adaptateur
-Deux sources ou deux versions simulées peuvent produire une sortie contractuelle compatible sans modifier la grammaire.
+- densité ;
+- tension et résolution ;
+- registre ;
+- richesse timbrale ;
+- activité rythmique ;
+- continuité ;
+- vitesse de transformation ;
+- espace ;
+- silence.
 
-### G3 — Replay
-Un replay et son manifeste sont validables, versionnés et vérifiables.
+Ces propriétés sont musicales, pas biologiques.
 
-### G4 — Renderer
-Un renderer factice puis un renderer sonore peuvent consommer la même sortie de grammaire sans changement du Cœur.
+Le premier objectif n’est pas un beau WAV final mais un **`musical_plan` déterministe et inspectable**.
 
-### G5 — Perception
-Des trajectoires contrastées produisent des différences perceptibles mais cohérentes et la longue durée reste compatible avec la direction sonore.
+## 7. Reproductibilité
 
-### G6 — Accessibilité
-Le rendu peut être fortement simplifié sans supprimer d’information fonctionnelle critique.
+Pour le laboratoire :
 
-### G7 — Ressources
-Le coût isolé est connu, puis la charge cumulée est mesurée avec les briques réellement concurrentes.
+```text
+même semantic replay
++ même contrat
++ même MusicPayload/projection version
++ même grammaire
++ même configuration MUSIQUE
+= même musical_plan
+```
 
-### G8 — Branchement
-Un replay peut être remplacé par un flux simulé respectant la même frontière contractuelle sans modifier la grammaire.
+Cette exigence porte sur la structure musicale. Le rendu audio final pourra être qualifié avec des tolérances propres aux plateformes et moteurs ; il n’est pas nécessaire de supposer dès maintenant un WAV bit-identique partout.
 
-### G9 — Évolution
-Une évolution plausible de la source peut être absorbée par un adaptateur ou une migration explicite du contrat sans réécriture globale du LAB.
+## 8. Mémoire musicale
+
+La mémoire musicale est **réelle mais non canonique**.
+
+Elle doit être :
+
+- reconstructible depuis un replay compatible ;
+- versionnée avec la grammaire ;
+- partitionnée par `world_instance_id` ;
+- indépendante de la seed du Cœur ;
+- supprimable/régénérable sans changer l’histoire du monde ;
+- incapable de mélanger silencieusement deux Avelunes.
+
+Les caches associés à une représentation utilisent au minimum :
+
+```text
+world_instance_id + representation_id
+```
+
+Un test majeur opposera deux histoires différentes qui convergent vers un état final proche : leur mémoire musicale doit pouvoir conserver des différences perceptibles pertinentes.
+
+## 9. Thème musical du joueur
+
+Le thème est une **lentille esthétique aval**, séparée de l’état perceptif et de la mémoire.
+
+Il peut agir sur l’orchestration, les familles de timbres, la couleur harmonique, le caractère acoustique/électronique/organique, l’ornementation, l’espace, le registre et d’autres dimensions artistiques compatibles avec la direction Avelune.
+
+Il ne modifie pas les faits du monde.
+
+Un changement de thème ne doit pas réinitialiser l’histoire musicale. Les motifs et continuités existants doivent pouvoir être réinterprétés dans la nouvelle palette.
+
+Gate MUSIQUE-1 : **une même trajectoire doit pouvoir être rendue par au moins deux thèmes sensiblement différents tout en restant reconnaissable comme la même histoire musicale.**
+
+La liste concrète des thèmes n’est pas actée à ce stade.
+
+## 10. Accessibilité indépendante du thème
+
+Thème esthétique et préférences sensorielles sont deux dimensions différentes.
+
+Les axes de confort/accessibilité restent ajustables indépendamment autant que pertinent : dynamique, densité, répétition, richesse spectrale, basses, aigus, spatialisation, nombre de couches, complexité rythmique, sons ponctuels et quantité de silence.
+
+Pas de mode neuroA unique. Des profils de départ sont possibles seulement s’ils restent modifiables.
+
+Toute information critique possède un équivalent non sonore et les signaux fonctionnels restent reconnaissables quel que soit le thème.
+
+## 11. Temporalités et replay clock
+
+Toujours distinguer :
+
+```text
+temps LAB
+temps canonique
+temps humain
+temps musical
+```
+
+Le replay loader fournit l’âge et l’ordre canoniques. MUSIQUE possède une **replay clock** et un temps musical propres pour compresser, ralentir, temporiser ou lisser l’écoute en laboratoire.
+
+Cette horloge d’interprétation ne fabrique jamais un fait canonique absent.
+
+La cadence actuelle d’un soak ou d’une campagne n’est jamais transformée implicitement en tempo ou cadence musicale de production.
+
+## 12. Avelune Semantic Replay v0.1
+
+Le format actif de replay de laboratoire est documenté dans :
+
+`docs/contracts/avelune-semantic-replay-v0.1.md`
+
+Structure :
+
+```text
+replay/
+├── manifest.json
+├── frames.ndjson
+└── checksums.sha256
+```
+
+REPLAY-0.1 utilise des snapshots complets ordonnés par `state_revision`. Les deltas viennent plus tard.
+
+Deux catégories sont séparées :
+
+- raw/private replay ou observation brute : source interne éventuelle, jamais contrat durable MUSIQUE ;
+- semantic replay : sortie du `CœurReadAdapter` et de l’allowlist, seule entrée durable du pipeline MUSIQUE.
+
+Un artefact est homogènement PRIVATE ou SHAREABLE.
+
+## 13. Fixtures et corpus
+
+Le corpus initial doit comporter :
+
+- fixtures neutres de validation de structure ;
+- stabilité longue ;
+- variation lente ;
+- transition significative ;
+- rupture puis récupération ;
+- deux histoires différentes convergeant vers un état final comparable ;
+- changement de `stream_id` ;
+- trou/résynchronisation simulés ;
+- tentative de mélange entre deux `world_instance_id`, qui doit échouer.
+
+Les fixtures expressives restent explicitement synthétiques jusqu’à réception d’un semantic replay réel autorisé.
+
+## 14. Sources closes réelles
+
+Une baseline R1.1 figée peut servir à valider la mécanique de replay, l’ordre, les checksums et la reproductibilité.
+
+Le premier replay réellement riche du vivant sera produit par CŒUR/intégration depuis un artefact R2 clos approprié, sans que MUSIQUE lise directement sa structure privée.
+
+Le diagnostic réduit R2.10 inspecté historiquement n’est pas retenu comme replay musical : il contient des résultats scientifiques agrégés, pas une histoire sémantique temporelle adaptée au client.
+
+Le clone privé créé lors de cette inspection reste un artefact de recherche figé et n’est pas poursuivi comme adaptateur MUSIQUE.
+
+## 15. Gates MUSIQUE
+
+### G0 — historique : PASS
+
+Documentation initiale, frontière de publication, enveloppe neutre et fixtures A/B/C validées. `lab/musique0/GATE0_READY.md` reste une preuve datée et n’est pas réécrit rétroactivement.
+
+### M0.1 — contrat commun
+
+`WorldReadEnvelope v0.1` validable, identité/ordre/temps/source explicitement séparés.
+
+### M0.2 — loader replay
+
+Manifest, NDJSON et checksums validés ; version incompatible → échec explicite.
+
+### M0.3 — isolement multi-monde
+
+Aucun cache, motif, événement ou mémoire du monde A ne peut être appliqué silencieusement au monde B.
+
+### M0.4 — état perceptif
+
+Une même sémantique produit un état perceptif stable sans accès aux internes du Cœur.
+
+### M0.5 — musical_plan
+
+Plan déterministe et reproductible sur plusieurs trajectoires synthétiques.
+
+### M1 — thèmes
+
+Au moins deux thèmes nettement différents préservent la reconnaissance de la même histoire structurelle.
+
+### M2 — mémoire
+
+Continuité longue, reprise, reconstruction depuis replay et histoires convergentes qualifiées.
+
+### M3 — renderer
+
+Renderer factice puis audio consomment le même `musical_plan` sans modifier la grammaire ni le Cœur.
+
+### M4 — accessibilité
+
+Réduction forte de plusieurs axes indépendants sans perte d’information fonctionnelle critique.
+
+### M5 — perception
+
+Trajectoires contrastées perceptiblement différentes mais cohérentes avec l’identité **satisfaisante · contemplative · onirique · féerique**.
+
+### M6 — ressources
+
+Coût isolé connu puis charge cumulée testée avec les composants réellement concurrents.
+
+### M7 — replay/live
+
+Pour un même état source, replay et source LAB/live produisent une sémantique équivalente hors métadonnées de transport ; aucune logique musicale ne dépend de `source_kind`.
 
 Une gate échouée ne peut pas être contournée par un accès direct aux internes du Cœur.
 
-## 9. Charge machine
+## 16. Charge machine et qualification Cœur
 
 Le budget final n’est jamais celui de la musique seule.
 
-- côté navigateur : jeu + visuel + audio + accessibilité + réseau ;
-- côté serveur : Cœur/backend + services réellement colocalisés ;
-- côté laboratoire : campagnes scientifiques et expériences de représentation restent séparées par défaut.
+Pendant un soak Cœur dont le protocole est déjà figé, MUSIQUE n’ajoute **aucun** observer, service de publication, accès au SQLite actif, benchmark audio/GPU ou charge lourde concurrente.
 
-Mesurer selon le domaine : CPU, GPU, RAM, I/O, stockage, réseau, énergie et thermique, en régime normal et aux pointes plausibles.
+Le travail autorisé reste : documentation, schémas, fixtures, code offline, tests unitaires et replays clos.
 
-En contention, dégrader d’abord la sophistication ou la fréquence du rendu non canonique. Le sonore peut être suspendu ; le canon ne change pas.
+Un futur test de cohabitation ne sera valable que si la vraie publication/consommation a été définie et figée **avant T0** du protocole concerné.
 
-## 10. Accessibilité
+## 17. Technologie
 
-Pas de mode neuroA unique. Les axes de réglage sensoriel restent indépendants autant que possible et doivent permettre une réduction substantielle du rendu sans modifier les règles ni les droits de jeu.
+Aucun moteur audio n’est sélectionné.
 
-Toute information critique possède un équivalent non sonore.
+Ordre de décision :
 
-## 11. Références
+```text
+besoins → hypothèses → prototype → mesures → comparaison → choix
+```
 
-Le corpus spécialisé est documenté dans [`26_univers_sonore_references_methode.md`](26_univers_sonore_references_methode.md). Les statuts **[RÉFÉRENCE]**, **[HYPOTHÈSE AVELUNE]**, **[TESTÉ]** et **[ACTÉ]** ne doivent jamais être confondus.
+Évaluer ensuite compatibilité navigateur, latence, qualité, procéduralité, CPU/GPU/RAM/réseau/énergie, maintenance, pérennité et migration possible.
 
-## 12. Hygiène CODEX et publication
+## 18. Frontière public / privé / CODEX
 
-Partageables : architecture nécessaire au développement commun, interfaces autorisées, méthode, références, gates, résultats suffisamment agrégés et budgets non révélateurs.
+Les interfaces, méthodes, formats partageables, critères, références et résultats suffisamment agrégés peuvent être documentés sur GitHub.
 
-Les éléments internes ne sont **pas inventoriés** dans ce document. Leur simple existence, leur organisation ou leurs relations ne sont pas exposées lorsqu’elles ne sont pas nécessaires à la compréhension du contrat public.
+Les recettes de traduction, mappings, réglages propriétaires et autres informations classées restent dans les espaces internes appropriés.
 
-Une information est classée avant synchronisation. Une vérité profonde du monde relève du CODEX approprié ; un savoir-faire technique propriétaire reste dans l’espace interne prévu pour les moteurs et recettes ; une interface nécessaire au développement partagé peut être publiée après expurgation. Il n’existe pas de « CODEX musical » créé par symétrie : le classement dépend de la nature de l’information.
+Aucun contenu CODEX ne doit être nécessaire au fonctionnement normal de MUSIQUE. Si le renderer ou la grammaire réclame un champ CODEX, la frontière est mauvaise.
 
-GitHub est traité comme une surface de publication même lorsque le dépôt est privé.
+## 19. Références et méthode
 
-## 13. Validation du cahier
+Le corpus spécialisé reste dans `26_univers_sonore_references_methode.md` avec les statuts : **[RÉFÉRENCE]**, **[HYPOTHÈSE AVELUNE]**, **[TESTÉ]**, **[ACTÉ]**.
 
-Le cahier est suffisamment complet et réaliste pour démarrer parce que :
+Aucune source extérieure ne devient une loi par autorité.
 
-- le Cœur reste autonome ;
-- les internes provisoires ne deviennent pas une API durable ;
-- source, contrat, grammaire et renderer sont versionnés séparément ;
-- les cadences peuvent être découplées ;
-- l’état exposé est limité à ce qui est explicitement autorisé ;
-- les ressources cumulées sont une gate ;
-- l’accessibilité est structurelle ;
-- les références sont traçables ;
-- les migrations de frontière sont testables ;
-- l’hygiène CODEX s’applique au contenu comme à la structure documentaire.
+## 20. Séquence technique immédiate MUSIQUE-0.1
 
-Ce verdict autorise **MUSIQUE-0 hors ligne**. Il n’autorise pas encore l’intégration live au Cœur canonique.
+1. adopter `WorldReadEnvelope v0.1` comme noyau actif ;
+2. définir un `MusicPayload v0.1` synthétique minimal, sans prétendre décrire les internes du Cœur ;
+3. implémenter le loader `Avelune Semantic Replay v0.1` ;
+4. créer le corpus historique synthétique et les tests d’isolement multi-monde ;
+5. créer l’état perceptif musical v0.1 ;
+6. produire un `musical_plan` abstrait déterministe ;
+7. ajouter mémoire reconstructible et déduplication d’événements ;
+8. intégrer l’interface de thème joueur séparée de l’accessibilité ;
+9. créer un renderer factice ;
+10. préparer le protocole d’écoute comparative ;
+11. consommer ensuite un semantic replay réel lorsqu’il est livré par CŒUR/intégration.
 
-## 14. Première étape technique
-
-1. maintenir un schéma d’enveloppe neutre `representation-semantic-v0` ;
-2. créer trois fixtures synthétiques neutres A/B/C ;
-3. créer un manifeste de corpus ;
-4. valider mécaniquement ces fixtures contre le schéma ;
-5. prouver qu’un lecteur factice peut les consommer sans connaissance du Cœur ;
-6. seulement ensuite inspecter la forme réelle d’un export de campagne close afin de préparer un adaptateur privé.
-
-Cette étape ne choisit aucun moteur audio et ne dépend d’aucun code du Cœur.
+Cette séquence peut progresser longtemps **sans aucune nouvelle exposition de la biologie privée et sans attendre la fin du soak opérationnel**.
