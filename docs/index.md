@@ -1,6 +1,6 @@
 # Documentation — Les Lisières d’Avelune
 
-Cet index distingue les **principes de conception partageables**, les **jalons jouables**, le **Cœur vivant**, le **Tableau Réel**, les couches de représentation, les documents historiques et les informations propriétaires conservées hors dépôt.
+Cet index distingue les **principes de conception partageables**, les **jalons jouables**, le **Cœur vivant**, l’architecture multi-monde, le **Tableau Réel**, les couches de représentation, les documents historiques et les informations propriétaires conservées hors dépôt.
 
 ## 1. État courant — 18 août 2026
 
@@ -9,7 +9,9 @@ Cet index distingue les **principes de conception partageables**, les **jalons j
 - **PROTO-0.1** : jalon jouable intégré à `main`.
 - **PROTO-0.2.2** : candidat de playtest distribué sur `develop/proto-0.2.2-playtest` ; son intégration dans `main` reste une décision explicite.
 - **Cœur vivant / CŒUR-0** : qualification biologique, temporelle et de largeur hors échantillon suffisamment close ; aucun prolongement biologique n’est ouvert. La gate active est désormais l’ingénierie du Cœur permanent et sa qualification opérationnelle.
-- **Fenêtre sur la Lisière** : module contemplatif définitif ; premier consommateur de production privilégié du futur contrat de lecture ; elle reste présente lorsque le jeu complet existe et affiche un âge d’Avelune dérivé du temps canonique.
+- **Multi-monde** : plusieurs instances canoniques autonomes peuvent être exploitées en parallèle pour répartir la population ; chacune possède son histoire et aucune interaction de gameplay n’existe entre elles. L’identité d’un monde doit être indépendante de la machine physique qui l’héberge.
+- **Tableau Univers** : couche de supervision multi-instance cadrée ; elle doit inventorier mondes/hôtes, permettre l’accès aux Tableaux Monde et anticiper le besoin d’une nouvelle instance sans piloter la biologie.
+- **Fenêtre sur la Lisière** : module contemplatif définitif ; premier consommateur de production privilégié du futur contrat de lecture ; elle reste présente lorsque le jeu complet existe, affiche l’âge de l’instance observée et peut sélectionner une autre Lisière/instance.
 - **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; Phase B suivante.
 - **Univers sonore / MUSIQUE-0** : préproduction autorisée hors ligne sur contrat versionné, fixtures et replays ; aucun moteur audio n’est imposé au Cœur.
 - **Visuel du Cœur / LAB VISUEL** : développement anticipé autorisé derrière une projection sémantique versionnée ; aucune dépendance durable aux internes du Cœur.
@@ -17,7 +19,7 @@ Cet index distingue les **principes de conception partageables**, les **jalons j
 
 Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation normale des contenus partageables est autorisée, sous réserve de contrôler les anciens clones/worktrees avant réutilisation.
 
-Les métriques, seeds, paramètres, recettes, causalités détaillées et autres éléments classés du Cœur restent hors dépôt.
+Les métriques, seeds, paramètres, recettes, causalités détaillées et backgrounds réservés restent hors dépôt.
 
 ## 2. Comprendre le jeu
 
@@ -53,6 +55,7 @@ Références partageables :
 - **[Cœur vivant — perturbations, sélection et transmission](30_coeur_vivant_selection_perturbations.md)**
 - **[Temporalité canonique et genèse](31_temporalite_canonique_genese.md)**
 - **[Cœur vivant — contrat de lecture des modules](32_coeur_contrat_lecture_modules.md)**
+- **[Multi-monde, capacité et Tableau Univers](33_multi_monde_capacite_et_tableau_univers.md)**
 - [Modèle évolutif de vague — notice historique](18_modele_vague_evolutive.md)
 
 ### État scientifique
@@ -67,32 +70,36 @@ Un nouveau chantier biologique ne sera ouvert qu’en présence d’une régress
 
 L’ordre de travail devient :
 
-1. persistance et snapshots de production ;
-2. arrêt, reprise, restauration, crash-consistency et absence de deuxième histoire ;
-3. migrations/versionnement et croissance maîtrisée des données ;
-4. politique de panne et éventuel rattrapage du temps ;
-5. qualification du coût permanent et fonctionnement continu réel ;
-6. fixation de l’interface temporelle / horloge canonique ;
-7. stabilisation du contrat de lecture ;
-8. branchement de la Fenêtre sur la Lisière ;
-9. autres modules aval et poursuite du jeu v1.0.
+1. identité persistante et namespacing d’une instance de monde ;
+2. persistance et snapshots de production ;
+3. arrêt, reprise, restauration, crash-consistency et absence de deuxième histoire ;
+4. migration d’un même monde entre hôtes ;
+5. migrations/versionnement et croissance maîtrisée des données ;
+6. politique de panne et éventuel rattrapage du temps ;
+7. qualification du coût permanent et fonctionnement continu réel ;
+8. fixation de l’interface temporelle / horloge canonique ;
+9. stabilisation du contrat de lecture multi-instance ;
+10. branchement de la Fenêtre sur la Lisière ;
+11. autres modules aval et poursuite du jeu v1.0.
 
 ### Identité des mondes et modules
 
-Plusieurs instances de laboratoire peuvent exister. À version, configuration, état initial, seed et entrées identiques, elles doivent être reproductibles ; des seeds ou entrées différentes permettent normalement des histoires distinctes. Une seule instance peut porter l’identité d’**Avelune canonique**.
+Plusieurs instances canoniques de production peuvent exister. Chacune partage le même socle de lois/genèse versionné mais possède sa propre seed privée, son propre âge, son propre état et sa propre histoire. Les mondes ne communiquent pas entre eux.
+
+Le monde partagé reste unique **à l’intérieur de chaque instance** : tous les clients et joueurs de cette instance lisent la même vérité canonique.
 
 Le principe anti-réécriture reste obligatoire : **un client ne consomme pas durablement les structures internes du Cœur**.
 
 Architecture générale :
 
 ```text
-Cœur / état privé
+Cœur / état privé d’une instance
         ↓
 adaptateur de version
         ↓
 projection sémantique autorisée
         ↓
-contrat de lecture versionné
+contrat de lecture versionné + identité d’instance
         ↓
 transport remplaçable
         ↓
@@ -101,9 +108,25 @@ Fenêtre / visuel / sonore / Tableaux / panneaux / jeu
 
 Fixtures, replays et instance active doivent pouvoir présenter le même contrat. Une panne d’un client ne doit pas arrêter un Cœur sain. Pour la v1.0, cette frontière est en lecture seule vis-à-vis de la biologie.
 
-## 4. Tableau Réel
+## 4. Multi-monde et exploitation
 
-Le Tableau Réel suit le projet **réel** sans le confondre avec le monde de jeu.
+Voir **[Multi-monde, capacité et Tableau Univers](33_multi_monde_capacite_et_tableau_univers.md)**.
+
+Principes visibles :
+
+- un compte peut porter des Corcites distincts sur plusieurs mondes ;
+- un Corcite ne migre pas vers un autre monde ;
+- le joueur choisit un monde ouvert disposant de capacité ;
+- rejoindre le monde d’un proche est possible si une place reste disponible ;
+- un monde peut fermer puis rouvrir les nouvelles implantations selon sa capacité réelle ;
+- l’inactivité très longue et la libération de capacité restent à concevoir sans rendre l’absence punitive ;
+- un monde doit pouvoir migrer vers un autre hôte sans changer d’identité ;
+- la croissance des inscriptions peut déclencher une alerte de préparation d’un nouveau monde, jamais une modification du Cœur existant ;
+- la naissance automatique complète n’est pas actée : la validation humaine reste le point de départ.
+
+## 5. Tableau Réel
+
+Le Tableau Réel suit le projet **réel** sans le confondre avec le monde de jeu ni avec le Tableau Univers.
 
 - [Index TA3](real/README.md)
 - [Spécification fonctionnelle et architecture](real/SPECIFICATION.md)
@@ -112,7 +135,7 @@ Le Tableau Réel suit le projet **réel** sans le confondre avec le monde de jeu
 
 Décision structurante : TA3 dispose de son propre stockage et runtime persistants. Les PROTO, instruments, saisies et futures sources de production s’y raccordent par des adaptateurs remplaçables.
 
-## 5. PROTO-0.1 — baseline de `main`
+## 6. PROTO-0.1 — baseline de `main`
 
 - [Périmètre du prototype jouable](proto0/PROTO0_PLAYABLE_SCOPE.md)
 - [Gate de playtest](proto0/PROTO0_PLAYTEST_READY.md)
@@ -123,7 +146,7 @@ Décision structurante : TA3 dispose de son propre stockage et runtime persistan
 
 Les documents P0–P10 restent historiques.
 
-## 6. PROTO-0.2.2 — candidat distribué
+## 7. PROTO-0.2.2 — candidat distribué
 
 Branche : [`develop/proto-0.2.2-playtest`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest)
 
@@ -131,7 +154,7 @@ Cahier : [`docs/development/proto0.2`](https://github.com/Avelune-Officiel/les-l
 
 Le jalon teste volontairement une boucle simplifiée et distribuable. Les moteurs du Cœur vivant ne sont pas réinjectés automatiquement dans ce prototype. Son tour par tour reste propre au prototype ; les développements ultérieurs visent un monde et un gameplay continus et asynchrones.
 
-## 7. Architecture et méthode
+## 8. Architecture et méthode
 
 - [Index développement](development/README.md)
 - [État du projet — 12 août 2026](development/PROJECT_STATUS_2026-08-12.md)
@@ -146,7 +169,7 @@ Le jalon teste volontairement une boucle simplifiée et distribuable. Les moteur
 - [ADR-0002 — contenu data-driven](development/adr/ADR-0002-DATA-DRIVEN-CONTENT.md)
 - **[ADR-0003 — Cœur indépendant de ses représentations](development/adr/ADR-0003-CORE-REPRESENTATION-INDEPENDENCE.md)**
 
-## 8. Identité et direction artistique
+## 9. Identité et direction artistique
 
 - [Charte graphique de travail](art/CHARTE_GRAPHIQUE.md)
 - [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
@@ -154,25 +177,19 @@ Le jalon teste volontairement une boucle simplifiée et distribuable. Les moteur
 - [MUSIQUE-0 — intégration](27_musique0_cahier_integration.md)
 - [Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)
 - [Assets GitHub](assets/README.md)
-- [Brief visuel PROTO-0.2 / Gen3 corrigé](https://github.com/Avelune-Officiel/les-lisieres-avelune/blob/develop/proto-0.2.2-playtest/docs/development/proto0.2/06_VISUAL_BRIEF_GEN3.md)
 
 Direction visuelle actuelle : **poétique · onirique · féerique · organique · minérale · florale-abstraite · queer**, avec pour la représentation vivante une recherche **satisfaisante · contemplative · onirique · féerique**.
 
 Direction sonore initiale : **satisfaisante · contemplative · onirique · féerique**.
 
-## 9. Historique
-
-- [Mini-prototype historique](07_prototype_mvp.md)
-- [Prototype logiciel minimal historique](16_proto_minimal.md)
-- [Socle mécanique v0.8](13_socle_mecanique_v0.8.md)
-
-Ces fichiers restent utiles pour la traçabilité mais ne reprennent pas autorité sur les référentiels plus récents.
-
 ## 10. Principes à garder visibles
 
-- monde partagé unique ;
+- monde partagé persistant **par instance** ;
+- plusieurs mondes de production autonomes possibles, sans interaction entre eux ;
 - coopération directe facultative ;
 - progression principalement horizontale ;
+- Corcite lié à son monde, sans migration de progression inter-instance ;
+- identité d’un monde indépendante de la machine physique ;
 - échec fertile ;
 - absence non punitive ;
 - pas de classement humiliant ;
@@ -181,7 +198,7 @@ Ces fichiers restent utiles pour la traçabilité mais ne reprennent pas autorit
 - accessibilité intégrée ;
 - identité queer et non genrée ;
 - monde autonome même sans joueur ;
-- séparation entre prototype jouable, Cœur vivant et Tableau Réel ;
+- séparation entre prototype jouable, Cœur vivant, Tableau Univers et Tableau Réel ;
 - séparation entre état canonique et représentations ;
 - **robustesse ne signifie ni immobilité ni immortalité** ;
 - **le Cœur survit à la disparition ou au remplacement de ses représentations** ;
