@@ -13,8 +13,8 @@ Cet index distingue les **principes de conception partageables**, les **jalons j
 - **Tableau Univers** : couche de supervision multi-instance cadrée ; elle doit inventorier mondes/hôtes, permettre l’accès aux Tableaux Monde et anticiper le besoin d’une nouvelle instance sans piloter la biologie.
 - **Fenêtre sur la Lisière** : module contemplatif définitif ; premier consommateur de production privilégié du futur contrat de lecture ; elle reste présente lorsque le jeu complet existe, affiche l’âge de l’instance observée et peut sélectionner une autre Lisière/instance.
 - **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; Phase B suivante.
-- **Univers sonore / MUSIQUE-0** : préproduction autorisée hors ligne sur contrat versionné, fixtures et replays ; aucun moteur audio n’est imposé au Cœur.
-- **Visuel du Cœur / LAB VISUEL** : développement anticipé autorisé derrière une projection sémantique versionnée ; aucune dépendance durable aux internes du Cœur.
+- **Univers sonore / MUSIQUE-0.1** : développement hors ligne autorisé derrière `WorldReadEnvelope + MusicPayload` ; replay sémantique, mémoire, plan musical et thème joueur peuvent avancer sans accès biologique direct.
+- **Visuel du Cœur / LAB VISUEL** : développement anticipé autorisé derrière la même frontière amont et une projection `VisualPayload` spécialisée ; aucune dépendance durable aux internes du Cœur.
 - **Arbitrage transversal** : pérennité, réversibilité, ressources, données et matériel restent des contraintes de système, pas un runtime supplémentaire.
 
 Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation normale des contenus partageables est autorisée, sous réserve de contrôler les anciens clones/worktrees avant réutilisation.
@@ -55,6 +55,8 @@ Références partageables :
 - **[Cœur vivant — perturbations, sélection et transmission](30_coeur_vivant_selection_perturbations.md)**
 - **[Temporalité canonique et genèse](31_temporalite_canonique_genese.md)**
 - **[Cœur vivant — contrat de lecture des modules](32_coeur_contrat_lecture_modules.md)**
+- **[WorldReadEnvelope v0.1 — schéma](contracts/world-read-envelope-v0.1.schema.json)**
+- **[Avelune Semantic Replay v0.1](contracts/avelune-semantic-replay-v0.1.md)**
 - **[Multi-monde, capacité et Tableau Univers](33_multi_monde_capacite_et_tableau_univers.md)**
 - [Modèle évolutif de vague — notice historique](18_modele_vague_evolutive.md)
 
@@ -95,18 +97,21 @@ Architecture générale :
 ```text
 Cœur / état privé d’une instance
         ↓
-adaptateur de version
+CœurReadAdapter commun / normalisation privée
         ↓
-projection sémantique autorisée
+WorldReadEnvelope minimal
         ↓
-contrat de lecture versionné + identité d’instance
+projections allowlistées spécialisées
+        ├─ VisualPayload
+        ├─ MusicPayload
+        └─ autres projections
         ↓
-transport remplaçable
-        ↓
-Fenêtre / visuel / sonore / Tableaux / panneaux / jeu
+transports et clients remplaçables
 ```
 
-Fixtures, replays et instance active doivent pouvoir présenter le même contrat. Une panne d’un client ne doit pas arrêter un Cœur sain. Pour la v1.0, cette frontière est en lecture seule vis-à-vis de la biologie.
+Il n’existe ni un adaptateur VISUEL et un adaptateur MUSIQUE relisant chacun les internes, ni un super-contrat public faisant l’union de tous les besoins clients.
+
+Fixtures, semantic replays et instance active doivent pouvoir présenter la même sémantique contractuelle. Une panne d’un client ne doit pas arrêter un Cœur sain. Pour la v1.0, cette frontière est en lecture seule vis-à-vis de la biologie.
 
 ## 4. Multi-monde et exploitation
 
@@ -175,6 +180,7 @@ Le jalon teste volontairement une boucle simplifiée et distribuable. Les moteur
 - [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
 - [Univers sonore — références et méthode](26_univers_sonore_references_methode.md)
 - [MUSIQUE-0 — intégration](27_musique0_cahier_integration.md)
+- [MUSIQUE-0.1 — baseline du 18 août](../lab/musique0/MUSIQUE0_1_BASELINE_20260818.md)
 - [Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)
 - [Assets GitHub](assets/README.md)
 
@@ -202,6 +208,7 @@ Direction sonore initiale : **satisfaisante · contemplative · onirique · fée
 - séparation entre état canonique et représentations ;
 - **robustesse ne signifie ni immobilité ni immortalité** ;
 - **le Cœur survit à la disparition ou au remplacement de ses représentations** ;
+- **une seule normalisation privée du Cœur alimente un noyau commun minimal puis des projections spécialisées allowlistées** ;
 - **les interpréteurs consomment un contrat versionné, jamais les internes comme API durable** ;
 - **les clients ne reçoivent que l’état sémantique autorisé nécessaire à leur rôle** ;
 - protocole de transport distinct du contrat sémantique ;
