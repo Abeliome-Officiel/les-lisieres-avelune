@@ -1,14 +1,14 @@
 # Roadmap — Les Lisières d’Avelune
 
-## État au 17 août 2026
+## État au 18 août 2026
 
 Le projet avance sur plusieurs chantiers distincts, avec une règle de priorité claire : **le Cœur autonome doit être suffisamment viable, compris et exploitable avant de devenir le monde canonique de production**.
 
 | Axe | État | Prochaine gate |
 |---|---|---|
 | PROTO jouable | PROTO-0.2.2 conservé comme jalon historique de validation | playtests puis clôture explicite, sans rétrofit de son architecture en tours |
-| Cœur vivant | laboratoire headless ; évolution et tenue longue qualifiées ; largeur hors échantillon en cours | fermer la qualification adversariale puis opérationnelle et fixer l’interface temporelle canonique |
-| Fenêtre sur la Lisière | module contemplatif définitif cadré, LAB possible sur contrat/fixtures | production après validation suffisante du Cœur et stabilisation du contrat de lecture |
+| Cœur vivant | qualification biologique et adversariale suffisamment close ; aucun prolongement biologique ouvert | ingénierie du Cœur permanent, qualification opérationnelle, puis interface temporelle canonique |
+| Fenêtre sur la Lisière | module contemplatif définitif cadré, LAB possible sur contrat/fixtures | production après qualification opérationnelle suffisante et stabilisation du contrat de lecture |
 | Tableau Réel | Gate 0 validé | poursuivre son socle autonome hors PROTO |
 
 Les univers visuel et sonore sont des **interpréteurs en aval**. Ils ne constituent pas une seconde vérité du monde et ne doivent pas devenir des dépendances de survie du Cœur.
@@ -45,15 +45,21 @@ Le Cœur est le monde autonome avant les joueurs. Son implémentation propriéta
 - [x] rôle des perturbations qualifié comme composante réelle du renouvellement et du filtrage, sans en faire un simple mécanisme destructeur à supprimer ;
 - [x] absence de course monotone simple vers un optimum unique sur les horizons qualifiés ;
 - [x] qualification temporelle longue jugée suffisante pour écarter, à ce stade, un ratchet conduisant à l’effondrement ou à la monoculture ;
+- [x] qualification de largeur hors échantillon close sans nouvelle classe de fragilité structurelle ;
+- [x] recherche biologique ouverte suffisamment close ; aucun prolongement biologique automatique justifié ;
 - [x] principe d’un contrat sémantique de représentation indépendant des internes du Cœur ;
 - [x] doctrine de robustesse explicitée : **robuste ne signifie pas immortel ni protégé par un sauvetage automatique**.
 
-### En cours
+### Gate active — Cœur permanent / qualification opérationnelle
 
-- [ ] qualification adversariale de largeur sur des mondes entièrement hors échantillon, avec biologie inchangée ;
-- [ ] rechercher les queues stochastiques réellement problématiques sans confondre crise écologique légitime et fragilité structurelle ;
-- [ ] ne prolonger un cas défavorable que si son analyse laisse une question scientifique précise ouverte ;
-- [ ] préparer ensuite la qualification opérationnelle : persistance, reprise, migrations, coût et fonctionnement continu.
+- [ ] définir l’identité persistante d’une instance et garantir qu’un redémarrage ne crée pas un second monde ;
+- [ ] démontrer snapshots et restauration cohérents ;
+- [ ] tester arrêt propre, reprise, crash et atomicité ;
+- [ ] arbitrer et tester la politique de temps écoulé pendant une panne du Cœur ;
+- [ ] valider migrations/versionnement sans perte d’histoire ;
+- [ ] mesurer croissance des données, rétention, CPU, RAM, I/O, stockage et latence ;
+- [ ] éprouver le runtime en fonctionnement continu réel par étapes d’endurance progressives ;
+- [ ] conserver des cas adversariaux connus comme sentinelles privées de non-régression plutôt que les « corriger ».
 
 ### Règle de robustesse
 
@@ -65,7 +71,7 @@ Une catastrophe cohérente peut appartenir à l’histoire d’Avelune. Une corr
 
 ### Avant instance canonique
 
-- [ ] caractériser suffisamment le spectre temporel biologique pour la conversion de production ;
+- [x] qualifier suffisamment le spectre temporel biologique pour cesser les prolongations exploratoires ;
 - [ ] fixer et versionner l’interface temps biologique / temps canonique / orchestration humaine ;
 - [ ] démontrer sauvegarde, restauration, reprise et migrations sans perte d’histoire ;
 - [ ] éprouver le runtime en fonctionnement continu réel avec étapes d’endurance progressives ;
@@ -73,7 +79,7 @@ Une catastrophe cohérente peut appartenir à l’histoire d’Avelune. Une corr
 - [ ] valider budgets cumulés, modes dégradés et stratégie de remplacement ;
 - [ ] ne déclarer une instance canonique qu’après fermeture explicite de ces gates.
 
-Voir : `docs/21_coeur_vivant_genese_canonique.md`, `docs/29_coeur_vivant_gate_suffisance.md` et `docs/30_coeur_vivant_selection_perturbations.md`.
+Voir : `docs/21_coeur_vivant_genese_canonique.md`, `docs/29_coeur_vivant_gate_suffisance.md`, `docs/30_coeur_vivant_selection_perturbations.md`, `docs/31_temporalite_canonique_genese.md` et `docs/32_coeur_contrat_lecture_modules.md`.
 
 ## 3. Périmètre v1.0 : relation jeu ↔ Cœur
 
@@ -84,6 +90,8 @@ Cœur autonome
     ↓
 état canonique
     ↓
+adaptateur de version
+    ↓
 projection / contrat de lecture versionné
     ↓
 Fenêtre sur la Lisière, sonore, Tableaux, panneaux et jeu
@@ -91,13 +99,15 @@ Fenêtre sur la Lisière, sonore, Tableaux, panneaux et jeu
 
 Pour la **v1.0**, les actions de gameplay d’un Corcite **ne renvoient pas d’effet vers la biologie du Cœur**. Le jeu consomme le monde vivant ; il ne réécrit pas sa trajectoire biologique.
 
+Un module ne lit pas directement les structures privées du Cœur. Le transport est remplaçable et distinct de la sémantique ; fixtures, replays et instance active doivent pouvoir présenter le même contrat. L’arrêt d’un client ne doit pas arrêter un Cœur sain.
+
 Les rétroactions écologiques avancées — par exemple exploitation transformant le milieu ou modification indirecte de perturbations — restent des pistes de recherche post-v1. Elles ne doivent ni charger CŒUR-0 ni retarder la première production.
 
 ## 4. Fenêtre sur la Lisière / Orée
 
 La **Fenêtre sur la Lisière** est un module permanent du projet final, pas une démo destinée à être supprimée.
 
-Son emplacement exact reste ouvert : page d’accueil, page dédiée de contemplation ou accès multiples. Elle doit pouvoir rester disponible lorsque le jeu complet existe et continuer à montrer le même monde canonique.
+Son emplacement exact reste ouvert : page d’accueil, page dédiée de contemplation ou accès multiples. Elle doit pouvoir rester disponible lorsque le jeu complet existe et continuer à montrer le même monde canonique. Elle affiche un âge d’Avelune dérivé de l’âge canonique sans exposer les paramètres internes du Cœur.
 
 ### Avant production
 
@@ -115,7 +125,7 @@ Son emplacement exact reste ouvert : page d’accueil, page dédiée de contempl
 - [ ] conserver la priorité à la contemplation, l’onirisme, la féerie et l’imagination ;
 - [ ] ne jamais transformer la façade publique en exposition des mécanismes propriétaires du Cœur.
 
-Voir : `docs/24_visuel_coeur_contrat_public.md`.
+Voir : `docs/24_visuel_coeur_contrat_public.md` et `docs/32_coeur_contrat_lecture_modules.md`.
 
 ## 5. Univers sonore
 
@@ -183,6 +193,8 @@ Ces pistes peuvent être étudiées ultérieurement en laboratoire. Elles ne con
 - [x] séparation explicite v1.0 entre lecture du Cœur et futures rétroactions écologiques ;
 - [x] statut permanent de la Fenêtre sur la Lisière documenté ;
 - [x] robustesse du Cœur distinguée explicitement d’une immortalité ou d’un sauvetage administratif ;
+- [x] qualification biologique/adversariale suffisamment close ;
+- [x] frontière générale de lecture des modules documentée ;
 - [ ] conserver hors dépôt les détails propriétaires et opérationnels ;
 - [ ] ne supprimer une information sensible d’un stockage temporaire qu’après vérification de sa copie de référence.
 
