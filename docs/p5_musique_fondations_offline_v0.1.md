@@ -1,7 +1,7 @@
 # P5B — MUSIQUE / UNIVERS SONORE — fondations offline v0.1
 
 > Date : 19 août 2026  
-> Statut : **architecture PASS · MUS-0 OFFLINE PASS · P5B OFFLINE GLOBAL NON · LIVE BLOCKED OUI**
+> Statut : **architecture PASS · MUS-0 OFFLINE PASS · MUS-1A PASS · P5B OFFLINE GLOBAL NON · LIVE BLOCKED OUI**
 
 ## Mission
 
@@ -93,6 +93,22 @@ Une longue séquence synthétique de 5 000 snapshots a également été consomm�
 
 La projection événementielle et la déduplication `event_id` sont volontairement différées jusqu’à l’existence d’un contrat événementiel P1 qualifié. P5B n’invente pas ce contrat pour satisfaire une checklist locale.
 
+## MUS-1A — état perceptif — PASS
+
+La première tranche MUS-1 qualifie `MusicPerceptionState` avec **92/92 tests PASS**.
+
+Cette couche est construite uniquement depuis `MusicSemanticObservation` déjà validée par MUS-0. Elle retire avant toute mémoire ou composition les métadonnées purement transport :
+
+- `source_kind` ;
+- `stream_id` ;
+- `publication_seq`.
+
+Elle conserve les faits sémantiques utiles, notamment `world_instance_id`, `state_revision`, `canonical_age`, l’exhaustivité historique déclarée et les profils perceptifs autorisés.
+
+Un `semantic_fingerprint` déterministe permet de démontrer l’identité d’une observation sémantique entre fixture et replay. Cette empreinte n’est ni une seed, ni une identité canonique, ni un motif musical.
+
+MUS-1A n’introduit encore aucun historique, motif, lissage, tempo, rythme, thème, accessibilité, renderer ou audio.
+
 ## Thème et adaptation à l’observateur
 
 Le thème est une couche de présentation musicale située après la structure/mémoire et avant le renderer. Il peut modifier fortement l’orchestration, les familles timbrales, la couleur harmonique, le registre, l’espace, la densité et d’autres dimensions esthétiques sans modifier les faits ni l’histoire musicale structurelle.
@@ -107,9 +123,9 @@ Le goût et l’accessibilité restent séparés : un même thème doit pouvoir 
 
 Entrée P1, `MusicPayload` expérimental, loader/session, replay loader, replay clock, resynchronisation, isolation multi-Avelune, allowlist, fixtures, streaming, compatibilité et tests de frontière.
 
-### MUS-1 — état perceptif et mémoire — **NEXT**
+### MUS-1 — état perceptif et mémoire — **ACTIVE**
 
-État musical non canonique, mémoire reconstructible et bornée, reprise après snapshot, aucune invention de passé manquant, partitionnement strict par monde.
+`MusicPerceptionState` est qualifié. La prochaine tranche construit une mémoire reconstructible et bornée, sans conservation illimitée de l’historique brut, sans invention du passé manquant et avec partitionnement strict par monde.
 
 ### MUS-2 — grammaire abstraite
 
