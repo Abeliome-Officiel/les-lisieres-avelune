@@ -122,7 +122,8 @@ EOF
 python3 -m unittest discover -s tests -p 'test_*.py'
 
 git add README.md .gitignore pyproject.toml src tests docs fixtures
-git commit -m "chore: bootstrap P5B MUSIQUE offline" >/dev/null
+git -c user.name='P5B Bootstrap' -c user.email='p5b-bootstrap@invalid.local' \
+  commit -m "chore: bootstrap P5B MUSIQUE offline" >/dev/null
 
 if [[ -n "$(git remote)" ]]; then
   echo "FAIL: unexpected remote configured" >&2
