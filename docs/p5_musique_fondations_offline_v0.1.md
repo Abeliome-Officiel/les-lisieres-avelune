@@ -1,7 +1,7 @@
 # P5B — MUSIQUE / UNIVERS SONORE — fondations offline v0.1
 
 > Date : 19 août 2026  
-> Statut : **architecture PASS · MUS-0 OFFLINE PASS · MUS-1A PASS · P5B OFFLINE GLOBAL NON · LIVE BLOCKED OUI**
+> Statut : **architecture PASS · MUS-0 OFFLINE PASS · MUS-1A PASS · MUS-1B PASS · P5B OFFLINE GLOBAL NON · LIVE BLOCKED OUI**
 
 ## Mission
 
@@ -109,6 +109,25 @@ Un `semantic_fingerprint` déterministe permet de démontrer l’identité d’u
 
 MUS-1A n’introduit encore aucun historique, motif, lissage, tempo, rythme, thème, accessibilité, renderer ou audio.
 
+## MUS-1B — mémoire monde bornée — PASS
+
+MUS-1B qualifie la première mémoire historique avec **107/107 tests PASS**.
+
+La mémoire conserve uniquement :
+
+- le `MusicPerceptionState` courant ;
+- des résumés exacts des observations effectivement reçues ;
+- une petite fenêtre récente à capacité fixe ;
+- une empreinte de trajectoire déterministe.
+
+Elle ne stocke pas l’historique brut complet. Un replay identique reconstruit une mémoire identique et une séquence de 5 000 observations ne fait pas croître la fenêtre historique.
+
+Deux trajectoires différentes peuvent rejoindre le même état courant et la même fenêtre récente tout en conservant une mémoire historique distincte. Cette différence de trajectoire n’est pas encore traduite en musique.
+
+Une discontinuité `RESYNC` est conservée explicitement : la nouvelle observation est acceptée, mais aucune transition entre l’ancien et le nouvel état n’est inventée. L’empreinte de trajectoire sert à la provenance et ne devient jamais une seed ou un paramètre musical.
+
+La tranche suivante qualifie la continuité par identifiants opaques. La cible de sobriété est une mémoire proportionnelle à la cardinalité du snapshot courant, complétée d’une rétention fixe pour les identifiants récemment absents ; elle ne doit pas croître avec le nombre historique total d’identifiants.
+
 ## Thème et adaptation à l’observateur
 
 Le thème est une couche de présentation musicale située après la structure/mémoire et avant le renderer. Il peut modifier fortement l’orchestration, les familles timbrales, la couleur harmonique, le registre, l’espace, la densité et d’autres dimensions esthétiques sans modifier les faits ni l’histoire musicale structurelle.
@@ -125,7 +144,9 @@ Entrée P1, `MusicPayload` expérimental, loader/session, replay loader, replay 
 
 ### MUS-1 — état perceptif et mémoire — **ACTIVE**
 
-`MusicPerceptionState` est qualifié. La prochaine tranche construit une mémoire reconstructible et bornée, sans conservation illimitée de l’historique brut, sans invention du passé manquant et avec partitionnement strict par monde.
+`MusicPerceptionState` et la mémoire monde bornée sont qualifiés. La prochaine tranche ferme la continuité `region_id` / `representation_id` sans historique d’identités illimité et sans invention à travers absence ou resync.
+
+La déduplication `event_id` reste différée jusqu’à l’existence d’une projection événementielle P1 qualifiée.
 
 ### MUS-2 — grammaire abstraite
 
