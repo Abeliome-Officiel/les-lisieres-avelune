@@ -1,7 +1,7 @@
 # P5B — MUSIQUE / UNIVERS SONORE — fondations offline v0.1
 
 > Date : 19 août 2026  
-> Statut : **architecture PASS · cahier des charges VERT pour reconstruction offline · OFFLINE PASS NON · LIVE BLOCKED OUI**
+> Statut : **architecture PASS · MUS-0 OFFLINE PASS · P5B OFFLINE GLOBAL NON · LIVE BLOCKED OUI**
 
 ## Mission
 
@@ -53,7 +53,45 @@ La forme P1 qualifiée distingue :
 
 Un saut de `state_revision` ne constitue donc pas à lui seul un trou de flux lorsque les snapshots publiés restent contigus. P5B ne suppose pas non plus que l’historique événementiel est exhaustif et n’invente jamais des événements absents.
 
-Le schéma partageable commun doit être synchronisé par le propriétaire de P1 avant que P5B ne fige son propre contrat d’entrée. P5B ne crée pas de fork amont.
+Le schéma partageable commun doit être synchronisé par le propriétaire de P1. P5B ne crée pas de fork amont ; ce gap documentaire ne bloque pas la fondation offline P5B qualifiée.
+
+## MusicPayload expérimental qualifié
+
+MUS-0 qualifie côté consommation un `MusicPayload v0.1-exp` fondé sur cinq axes perceptifs ordinaux `0..4` :
+
+- `presence` ;
+- `activity` ;
+- `variation` ;
+- `continuity` ;
+- `transformation`.
+
+Ces axes ne sont ni des métriques biologiques, ni des paramètres musicaux, ni des paramètres audio. Aucun mapping Cœur → MusicPayload n’est publié ou défini dans P5B.
+
+Les scopes admis sont le monde, des régions opaques et des représentations opaques. Les identifiants ne codent aucune race, généalogie, recette ou information biologique privée.
+
+## Qualification MUS-0 — PASS
+
+La fondation contractuelle offline MUS-0 est fermée avec **80/80 tests PASS**. La qualification couvre notamment :
+
+- séparation `publication_seq` / `state_revision` / `canonical_age` ;
+- resynchronisation et redémarrage de stream ;
+- doublons idempotents et doublons contradictoires ;
+- isolation stricte par `world_instance_id` ;
+- JSON strict et allowlist ;
+- contrôles explicites de confidentialité ;
+- semantic replay `manifest.json` + `frames.ndjson` + `checksums.sha256` ;
+- contrôle SHA-256 ;
+- lecture streaming ligne par ligne ;
+- politique de compatibilité de versions injectée et fail-closed ;
+- équivalence sémantique fixture/replay hors métadonnées de transport ;
+- historique partiel respecté sans invention d’événements ;
+- absence d’import du Cœur, P2, P3 ou P4 ;
+- absence de dépendance runtime tierce ;
+- absence de dépendance réseau et d’artefact audio.
+
+Une longue séquence synthétique de 5 000 snapshots a également été consommée par le chemin streaming avec mémoire de lecture bornée. Il s’agit d’une gate de fondation, pas encore d’un benchmark de production audio.
+
+La projection événementielle et la déduplication `event_id` sont volontairement différées jusqu’à l’existence d’un contrat événementiel P1 qualifié. P5B n’invente pas ce contrat pour satisfaire une checklist locale.
 
 ## Thème et adaptation à l’observateur
 
@@ -65,13 +103,13 @@ Le goût et l’accessibilité restent séparés : un même thème doit pouvoir 
 
 ## Phases
 
-### MUS-0 — fondation contractuelle offline
+### MUS-0 — fondation contractuelle offline — **PASS / CLOSED**
 
-Entrée P1, `MusicPayload` expérimental, loader/session, replay loader, replay clock, resynchronisation, isolation multi-Avelune, allowlist, fixtures et tests de frontière.
+Entrée P1, `MusicPayload` expérimental, loader/session, replay loader, replay clock, resynchronisation, isolation multi-Avelune, allowlist, fixtures, streaming, compatibilité et tests de frontière.
 
-### MUS-1 — état perceptif et mémoire
+### MUS-1 — état perceptif et mémoire — **NEXT**
 
-État musical non canonique, mémoire reconstructible et bornée, déduplication, reprise après snapshot, aucune invention de passé manquant.
+État musical non canonique, mémoire reconstructible et bornée, reprise après snapshot, aucune invention de passé manquant, partitionnement strict par monde.
 
 ### MUS-2 — grammaire abstraite
 
@@ -89,38 +127,16 @@ Même pipeline sur une projection réelle produite offline par P1 depuis un arte
 
 Ports stables, reprise/resync, préférences, budget cumulé, intégration offline et readiness replay → live.
 
-## Corpus de qualification offline
-
-Le corpus doit couvrir au minimum : stabilité, saut de révision canonique sans gap de publication, doublon, vrai gap de publication, changement de stream, isolation de deux mondes, longue histoire lente, transition, événement dupliqué, historique partiel, deux histoires divergentes puis partiellement convergentes, deux thèmes, accessibilité forte, version incompatible, champ non allowlisté, replay corrompu, interchangeabilité fixture/replay et longue séquence pour la mémoire.
-
-## Gates du socle
-
-Le socle ne sera déclaré `OFFLINE PASS` qu’après qualification mécanique de :
-
-- validation/versionnement stricts ;
-- continuité `publication_seq` ;
-- resynchronisation ;
-- isolation multi-Avelune ;
-- intégrité replay ;
-- déduplication ;
-- absence d’invention d’histoire ;
-- mémoire reconstructible et bornée ;
-- déterminisme du plan structurel ;
-- thème n’altérant pas l’histoire ;
-- accessibilité n’altérant pas faits/mémoire/structure ;
-- renderer découplé du contrat monde ;
-- aucune importation des internes Cœur/P2/P3/P4 ;
-- scan de fuite ;
-- non-régression de coût offline.
-
 ## Statut des dépendances
 
-- P0/O1 : **intouchable** ; ne bloque pas le travail offline.
-- P1 : frontière amont ; synchronisation documentaire `publication_seq` encore nécessaire avant gel du contrat MUS-0.
+- P0/O1 : **intouchable** ; ne bloque pas MUS-1→3 offline.
+- P1 : frontière amont ; gap documentaire `publication_seq` encore ouvert côté forme partageable, non bloquant pour MUS-0 qualifié.
+- P0 live + P1 live : bloquants pour le futur branchement live.
+- premier replay réel MUSIQUE : encore ouvert, non bloquant pour MUS-1→3 offline.
 - P2/P3/P4 : non bloquants pour P5B offline.
 - P6 : intégrateur futur, non bloquant.
 - P8 : persistance future des préférences, non bloquante pour les profils locaux.
-- moteur audio final, races et TF/TD/RPG : non requis pour fermer les fondations P5B.
+- moteur audio final, races et TF/TD/RPG : non requis à ce stade.
 
 ## Critère anti-réécriture
 
