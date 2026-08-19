@@ -33,6 +33,14 @@ mkdir -p \
   docs \
   reports-local
 
+touch \
+  src/avelune_music/contracts/.gitkeep \
+  src/avelune_music/input/.gitkeep \
+  src/avelune_music/session/.gitkeep \
+  src/avelune_music/replay/.gitkeep \
+  src/avelune_music/payload/.gitkeep \
+  fixtures/.gitkeep
+
 cat > README.md <<'EOF'
 # P5B MUSIQUE — Avelune
 
@@ -76,8 +84,6 @@ version = "0.0.0"
 description = "P5B MUSIQUE offline foundation for Avelune"
 requires-python = ">=3.11"
 dependencies = []
-
-[tool.unittest]
 EOF
 
 cat > src/avelune_music/__init__.py <<'EOF'
