@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'labs/p5a-visuel0/**'
+      - 'tools/p5-visuel/**'
       - 'docs/development/p5-visuel/**'
       - 'docs/34_visuel_references_methode.md'
       - '.github/workflows/p5a-visuel0-clean.yml'
@@ -12,6 +13,7 @@ on:
       - develop/p5a-visuel0-clean
     paths:
       - 'labs/p5a-visuel0/**'
+      - 'tools/p5-visuel/**'
       - 'docs/development/p5-visuel/**'
       - 'docs/34_visuel_references_methode.md'
       - '.github/workflows/p5a-visuel0-clean.yml'
@@ -24,6 +26,22 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Test clean P5A baseline
+
+      - name: Test clean P5A repository scaffold
         working-directory: labs/p5a-visuel0
         run: npm test
+
+      - name: Syntax-check local tools
+        run: |
+          bash -n tools/p5-visuel/preflight_local_repo.sh
+          bash -n tools/p5-visuel/bootstrap_local_repo.sh
+
+      - name: Exercise isolated bootstrap
+        run: |
+          target="$RUNNER_TEMP/p5a-visuel-bootstrap"
+          tools/p5-visuel/preflight_local_repo.sh "$target"
+          tools/p5-visuel/bootstrap_local_repo.sh "$target"
+          test "$(git -C "$target" remote | wc -l)" -eq 0
+          test -z "$(git -C "$target" status --porcelain)"
+          grep -q 'P5A VISUEL' "$target/README.md"
+          grep -q 'publication_seq' "$target/docs/BASELINE.md"
