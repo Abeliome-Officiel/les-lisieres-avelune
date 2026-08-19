@@ -16,29 +16,68 @@ esac
 printf 'P5A_VISUEL_PREFLIGHT target=%s\n' "$TARGET"
 
 command -v git >/dev/null
-command -v node >/dev/null
+printf 'GIT=%s\n' "$(git --version)"
 
-printf 'git=%s\n' "$(git --version)"
-printf 'node=%s\n' "$(node --version 2>&1)"
-
-node_major=$(node --version | sed -E 's/^v([0-9]+).*/\1/')
-if [[ "$node_major" -lt 24 ]]; then
-  echo "WARN: Node < 24; bootstrap Git possible, canonical P5A tests require Node 24.x"
-  echo "node24_ready=NO"
-else
-  echo "node24_ready=YES"
+# Prefer an explicit P5A node, then a user-local Node 24, then PATH.
+NODE_BIN=${P5A_NODE_BIN:-}
+if [[ -z "$NODE_BIN" ]]; then
+  shopt -s nullglob
+  candidates=("$HOME"/.local/node-v24*-linux-x64/bin/node)
+  shopt -u nullglob
+  if ((${#candidates[@]})); then
+    NODE_BIN=$(printf '%s\n' "${candidates[@]}" | sort -V | tail -n 1)
+  elif command -v node >/dev/null 2>&1; then
+    NODE_BIN=$(command -v node)
+  fi
 fi
 
+if [[ -z "$NODE_BIN" || ! -x "$NODE_BIN" ]]; then
+  echo "NODE=ABSENT"
+  echo "NODE24_READY=NO"
+  exit 1
+fi
+
+NODE_VERSION=$($NODE_BIN --version 2>&1)
+NODE_MAJOR=$(printf '%s' "$NODE_VERSION" | sed -E 's/^v([0-9]+).*/\1/')
+printf 'NODE_BIN=%s\n' "$NODE_BIN"
+printf 'NODE=%s\n' "$NODE_VERSION"
+
+if [[ "$NODE_MAJOR" -lt 24 ]]; then
+  echo "NODE24_READY=NO"
+  exit 1
+fi
+echo "NODE24_READY=YES"
+
+TARGET_STATE=ABSENT
 if [[ -e "$TARGET" ]]; then
   if [[ ! -d "$TARGET" ]]; then
     echo "FAIL: target exists and is not a directory" >&2
     exit 1
   fi
-  if [[ -n "$(find "$TARGET" -mindepth 1 -maxdepth 1 -print -quit)" ]]; then
-    echo "FAIL: target exists and is not empty; clean bootstrap requires a new/empty directory" >&2
+
+  if [[ -z "$(find "$TARGET" -mindepth 1 -maxdepth 1 -print -quit)" ]]; then
+    TARGET_STATE=EMPTY
+  elif [[ -d "$TARGET/.git" \
+       && -f "$TARGET/package.json" \
+       && -f "$TARGET/README.md" \
+       && -f "$TARGET/test/bootstrap.test.mjs" \
+       && -d "$TARGET/src/contracts" \
+       && -d "$TARGET/src/input" \
+       && -d "$TARGET/src/session" \
+       && -d "$TARGET/src/replay" \
+       && -d "$TARGET/src/payload" \
+       && -d "$TARGET/src/grammar" \
+       && -d "$TARGET/src/presentation" \
+       && -d "$TARGET/src/renderers" ]]; then
+    TARGET_STATE=BOOTSTRAPPED
+  else
+    echo "TARGET_STATE=UNKNOWN_NONEMPTY"
+    echo "FAIL: non-empty target is not a recognized P5A bootstrap" >&2
     exit 1
   fi
 fi
+
+echo "TARGET_STATE=$TARGET_STATE"
 
 parent=$(dirname "$TARGET")
 if [[ ! -d "$parent" ]]; then
@@ -50,10 +89,35 @@ if [[ ! -w "$parent" ]]; then
   exit 1
 fi
 
+if [[ "$TARGET_STATE" == "BOOTSTRAPPED" ]]; then
+  branch=$(git -C "$TARGET" branch --show-current)
+  remote_count=$(git -C "$TARGET" remote | wc -l)
+  dirty=$(git -C "$TARGET" status --porcelain)
+  printf 'TARGET_BRANCH=%s\n' "$branch"
+  printf 'TARGET_REMOTE_COUNT=%s\n' "$remote_count"
+  if [[ "$branch" != "main" ]]; then
+    echo "FAIL: bootstrapped target must be on local main" >&2
+    exit 1
+  fi
+  if [[ "$remote_count" -ne 0 ]]; then
+    echo "FAIL: bootstrapped target must have no remote" >&2
+    exit 1
+  fi
+  if [[ -n "$dirty" ]]; then
+    echo "FAIL: bootstrapped target worktree is dirty" >&2
+    exit 1
+  fi
+  (
+    cd "$TARGET"
+    PATH="$(dirname "$NODE_BIN"):$PATH" npm test
+  )
+  echo "TARGET_BOOTSTRAP_TESTS=PASS"
+fi
+
 # O1 / Cœur active runtime must not be inspected by this preflight.
-echo "o1_touch=NO"
-echo "coeur_sqlite_touch=NO"
-echo "legacy_visuel_copy=NO"
-echo "network_required_for_preflight=NO"
-echo "renderer_dependency_required=NO"
+echo "O1_TOUCH=NO"
+echo "COEUR_SQLITE_TOUCH=NO"
+echo "LEGACY_VISUEL_COPY=NO"
+echo "NETWORK_REQUIRED_FOR_PREFLIGHT=NO"
+echo "RENDERER_DEPENDENCY_REQUIRED=NO"
 echo "P5A_VISUEL_LOCAL_PREFLIGHT=PASS"
