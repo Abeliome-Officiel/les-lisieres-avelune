@@ -2,22 +2,29 @@
 
 Ce répertoire décrit uniquement le **terrain partageable** du chantier P5B. Il ne contient ni recettes musicales propriétaires, ni replay privé, ni données brutes du Cœur.
 
-L’ancien `lab/musique0/` reste historique. P5B repart sur une fondation propre et n’a aucune obligation de compatibilité avec ce LAB.
+L’ancien `lab/musique0/` reste historique. La fondation P5B actuelle a été reconstruite proprement contre la frontière P1 qualifiée.
 
 ## Statut
 
 - architecture : **PASS** ;
-- MUS-0 fondation contractuelle offline : **PASS / CLOSED** ;
-- MUS-1A état perceptif : **PASS** ;
-- MUS-1B mémoire monde bornée : **PASS** ;
-- MUS-1C continuité bornée des identités opaques : **PASS** ;
-- MUS-1 global : **NON ENCORE QUALIFIÉ** — MUS-1P persistance/restart puis MUS-1D final gate ;
-- P5B offline global : **NON** — MUS-1 à MUS-3 restent à qualifier ;
+- MUS-0 fondation contractuelle : **PASS / FROZEN** ;
+- MUS-1 état perceptif + mémoire : **PASS / FROZEN** ;
+- MUS-2 grammaire abstraite + temporalité + motifs + thème + accessibilité : **PASS / FROZEN** ;
+- MUS-3 renderer témoin + qualification perceptive : **NEXT** ;
+- P5B offline global : **NON** tant que MUS-3 n’est pas qualifié ;
 - live : **BLOCKED** ;
 - accès O1 : **NO** ;
-- audio : **NONE** à ce stade.
+- renderer/audio : **NONE** dans la baseline MUS-2.
 
-MUS-0 a fermé avec 80/80 tests PASS. MUS-1C porte la suite cumulée à 125/125 tests PASS avant le lot de persistance.
+Qualification MUS-2 : **294/294 tests PASS**.
+
+Baseline locale de qualification :
+
+`314f4b4218e136f109deb8d0999a7b555ca4e141`
+
+Tag :
+
+`p5b-mus2-offline-pass-20260819`
 
 ## Entrée autorisée
 
@@ -33,76 +40,114 @@ P5B
 
 P5B ne lit jamais directement le Cœur, sa base, P2, P3 ou P4.
 
-P5B peut conserver un harnais local de continuité pour les fixtures/replays offline, mais **ne devient pas une seconde autorité de continuité live**. La détection des gaps, changements de stream/monde et la qualification du resync restent des responsabilités P1. P5B décide uniquement comment sa mémoire aval réagit à une discontinuité déjà qualifiée.
+P1 reste seul propriétaire de la qualification live des gaps, changements de stream/monde et resynchronisations. Les mécanismes de session locaux P5B ne servent que de harnais offline.
 
-## Frontière qualifiée par MUS-0
+## MusicPayload v0.1-exp
+
+Les cinq axes expérimentaux restent :
+
+- `presence` ;
+- `activity` ;
+- `variation` ;
+- `continuity` ;
+- `transformation`.
+
+Ils sont ordinaux `0..4` et ne sont ni biologiques, ni des paramètres audio.
+
+Le structural probe MUS-2 a parcouru les **3 125 profils monde possibles** et obtenu :
+
+- 5/5 axes structurellement effectifs ;
+- 5/5 signatures distinctes ;
+- saut local maximal = 1 ;
+- 1 574 vecteurs de plan courant distincts.
+
+Aucune extension du payload n’est donc demandée à ce stade. Cette suffisance reste provisoire jusqu’aux essais perceptifs.
+
+## Chaîne qualifiée MUS-0→2
 
 ```text
-métadonnées P1 consommées
-        +
-MusicPayload v0.1-exp
-        ↓
 MusicSemanticObservation
+        ↓
+MusicPerceptionState
+        ↓
+MusicMemoryState
+        ↓
+CompositionEvidenceProjector
+        ↓
+StructuralMemoryEvidence
+        +
+TemporalStructuralEvidence
+        ↓
+StructuralCompositionPlan
+        ├── StructuralMusicalPlan
+        └── StructuralMotifPlan
+        ↓
+ThemeProfile
+        ↓
+StyledMusicalPlan
+        ↓
+AccessibilityProfile
+        ↓
+AccessibleMusicalPlan
 ```
 
-Les cinq axes expérimentaux de `MusicPayload` sont `presence`, `activity`, `variation`, `continuity` et `transformation`, sur une échelle ordinale 0..4. Ils ne sont ni biologiques, ni musicaux, ni audio.
+## Garde-fous
 
-MUS-0 qualifie également `publication_seq`, `state_revision`, `canonical_age`, resync, isolation multi-Avelune, JSON strict, allowlist, semantic replay SHA-256, streaming et compatibilité fail-closed.
+- `history_digest` et `semantic_fingerprint` ne deviennent jamais des seeds ou des entrées compositionnelles ;
+- cadence/nombre de publications ≠ durée musicale ;
+- temporalité fondée sur `canonical_age` ;
+- `RESYNC` ne crée aucune transition fictive ;
+- le présent garde la priorité sur l’histoire longue ;
+- `region_id` / `representation_id` servent à la continuité, jamais à créer une variante musicale depuis leur valeur ;
+- aucun motif fantôme n’est produit depuis les caches d’entités absentes ;
+- thème et accessibilité sont des couches séparées ;
+- l’accessibilité utilise des contrôles indépendants, pas un profil diagnostique unique ;
+- aucune structure privée, seed, RNG, paramètre biologique ou CODEX ne traverse la frontière partageable.
 
-`event_history_exhaustive=false` reste respecté : P5B n’invente pas les événements absents. Une projection événementielle et `event_id` ne seront ajoutés qu’après qualification d’un contrat P1 correspondant.
+## MUS-2 — résultat
 
-## Mémoire MUS-1
+MUS-2 qualifie une composition **abstraite** uniquement :
 
-MUS-1A retire les métadonnées de transport avant mémoire/composition et construit un `MusicPerceptionState` déterministe.
+- evidence compositionnelle allowlistée ;
+- mémoire temporelle de changements réellement observés ;
+- fenêtres recent/intermediate en temps canonique ;
+- macro-plan structurel ;
+- motifs abstraits ;
+- thème esthétique post-structure ;
+- accessibilité post-thème ;
+- déterminisme du pipeline.
 
-MUS-1B conserve un état courant, des résumés historiques interprétables et une fenêtre récente bornée. Une discontinuité n’est jamais transformée en transition supposée.
+Il ne contient encore aucune note concrète, aucun BPM, instrument, preset, MIDI, sample ou moteur audio.
 
-MUS-1C conserve la continuité locale de `region_id` / `representation_id` sans table historique infinie : les identités actives suivent le snapshot courant et seules des identités récemment absentes peuvent être retenues dans un cache à capacité fixe. Une absence ou une éviction n’implique jamais naissance, mort ou extinction.
+## Prochaine étape : MUS-3
 
-## MUS-1P — persistance/restart avant fermeture
+MUS-3 doit introduire une frontière de rendu remplaçable :
 
-MUS-1 ne sera pas déclaré PASS avant qualification d’une persistance locale **non autoritative**, versionnée et déterministe de `MusicMemoryState`.
+```text
+AccessibleMusicalPlan
+        ↓
+RendererPort
+        ↓
+renderer témoin
+```
 
-Objectifs :
+Objectifs immédiats : fake renderer de contrôle, premier renderer audio témoin isolé, protocole d’écoute comparative et mesures locales de coût. Le choix du moteur audio final reste ouvert.
 
-- save → restart → restore restitue exactement la même mémoire ;
-- snapshot partitionné par `world_instance_id` ;
-- version/politiques mémoire vérifiées explicitement ;
-- snapshot corrompu ou incompatible : échec P5B local uniquement ;
-- aucun effet sur le Cœur ;
-- aucune histoire fabriquée ;
-- reconstruction depuis semantic replay qualifié si disponible ;
-- sinon reprise avec perte de mémoire explicitement connue côté P5B.
+## Baselines gelées
 
-## Invariants avant MUS-2
+- MUS-0 : `5835597c9dbdc1a4f20ed3778a6ff2fc2c518d10` — `p5b-mus0-offline-pass-20260819` ;
+- MUS-1 : `7557f001b56cb252da6a0e2ec8fe0e559c9c3342` — `p5b-mus1-offline-pass-20260819` ;
+- MUS-2 : `314f4b4218e136f109deb8d0999a7b555ca4e141` — `p5b-mus2-offline-pass-20260819`.
 
-- `history_digest` et `semantic_fingerprint` sont des preuves d’intégrité/provenance, **jamais des seeds ni des données compositionnelles** ;
-- `samples`, `observation_count` et les nombres de transitions mesurent l’observation, **pas la durée canonique** ;
-- toute durée/persistance musicale future doit s’appuyer sur `canonical_age` et une sémantique temporelle explicite ;
-- `frame_kind`, `event_history_exhaustive`, resync et autres métadonnées épistémiques peuvent contrôler la mise à jour de mémoire mais ne deviennent pas humeur, tension ou événement musical du monde ;
-- la grammaire future devra équilibrer présent, mémoire récente et influence historique longue afin que l’histoire colore sans figer la réponse au présent ;
-- `MusicPayload v0.1-exp` reste volontairement minimal : aucune extension vers P1/P0 sans manque concret démontré.
-
-## Ordre de travail
-
-1. ~~fondation contrat/session/replay/`MusicPayload`~~ — **MUS-0 PASS** ;
-2. ~~`MusicPerceptionState`~~ — **MUS-1A PASS** ;
-3. ~~mémoire monde reconstructible et bornée~~ — **MUS-1B PASS** ;
-4. ~~continuité bornée des identités opaques~~ — **MUS-1C PASS** ;
-5. qualifier persistance/restart de `MusicMemoryState` — **MUS-1P NEXT** ;
-6. fermer MUS-1 par gate finale — MUS-1D ;
-7. construire `StructuralMusicalPlan` sans moteur audio ;
-8. ajouter thèmes observateur et accessibilité en couches séparées ;
-9. ajouter un renderer témoin remplaçable ;
-10. qualifier l’ensemble offline avant tout live.
+Ne pas rouvrir ces baselines hors défaut démontré.
 
 ## Séparation public / privé
 
-Partageable ici : contrats de consommation, interfaces, gates, fixtures neutres, résultats agrégés, méthodologie et références.
+Partageable ici : architecture aval, interfaces, invariants, gates, résultats agrégés, méthodologie et références.
 
-Privé/Coffre : mappings exacts, recettes, provenance propriétaire, replays sensibles, paramètres de composition révélateurs, causalités et toute information permettant d’inférer le Cœur.
+Privé/Coffre : recettes exactes de pondération et traduction, règles propriétaires de motifs/temporalité, causalités, replays sensibles, paramètres révélateurs et toute information permettant d’inférer le Cœur.
 
-Référentiels :
+Référentiels principaux :
 
 - `docs/p5_musique_fondations_offline_v0.1.md` ;
-- `docs/p5_musique_mus1p_persistence_restart_gate.md` — décision de revue avant fermeture MUS-1.
+- `docs/26_univers_sonore_references_methode.md`.
