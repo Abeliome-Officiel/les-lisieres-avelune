@@ -1,67 +1,77 @@
 # P5B — MUSIQUE / UNIVERS SONORE — fondations offline v0.1
 
 > Date : 19 août 2026  
-> Statut : **architecture PASS · MUS-0 OFFLINE PASS/FROZEN · MUS-1 OFFLINE PASS/FROZEN · P5B OFFLINE GLOBAL NON · LIVE BLOCKED OUI**
+> Statut : **architecture PASS · MUS-0 PASS/FROZEN · MUS-1 PASS/FROZEN · MUS-2 PASS/FROZEN · MUS-3 NEXT · P5B OFFLINE GLOBAL NON · LIVE BLOCKED**
 
 ## Mission
 
-P5B construit le sous-système musical réutilisable par la Fenêtre puis par le futur jeu. Il interprète une projection sémantique autorisée d’Avelune sans lire directement le Cœur ni devenir une seconde autorité.
+P5B construit le sous-système musical réutilisable par la Fenêtre puis par le futur jeu. Il interprète exclusivement une projection sémantique autorisée d’Avelune ; il ne lit pas directement le Cœur et ne devient jamais une seconde autorité canonique ou de continuité live.
 
-Chaîne cible :
+Chaîne qualifiée à la fermeture de MUS-2 :
 
 ```text
 P1 / Lecteur du Cœur
         ↓
 WorldReadEnvelope + MusicPayload
         ↓
-état perceptif musical
+MusicSemanticObservation
         ↓
-mémoire historique aval
+MusicPerceptionState
         ↓
-preuves compositionnelles allowlistées
+MusicMemoryState
         ↓
-structure musicale
+CompositionEvidenceProjector
         ↓
-thème choisi par l’observateur
+StructuralMemoryEvidence
+        +
+TemporalStructuralEvidence
         ↓
-préférences sensorielles
+StructuralCompositionPlan
+        ├── StructuralMusicalPlan
+        └── StructuralMotifPlan
         ↓
-renderer audio remplaçable
+ThemeProfile
+        ↓
+StyledMusicalPlan
+        ↓
+AccessibilityProfile
+        ↓
+AccessibleMusicalPlan
 ```
 
-## Reconstruction propre
+Aucun renderer audio ne fait encore partie de cette chaîne qualifiée.
 
-P5B n’a aucune obligation de compatibilité avec l’ancien LAB MUSIQUE-0. Les anciens schémas, fixtures, noms de classes et formats intermédiaires restent des jalons historiques. Une brique n’est reprise que si elle s’intègre naturellement à la frontière P1 qualifiée et repasse les gates P5B.
+## Principes invariants
 
-Sont conservés comme invariants de conception :
-
-- direction **satisfaisante · contemplative · onirique · féerique** ;
-- Cœur strictement indépendant du sonore ;
-- mémoire musicale de l’histoire ;
-- adaptation aux goûts de l’observateur ;
-- thème musical sélectionnable/modifiable localement ;
-- accessibilité paramétrique indépendante du thème ;
-- moteur audio remplaçable ;
-- corpus scientifique et artistique sourcé ;
-- séparation `[RÉFÉRENCE] / [HYPOTHÈSE AVELUNE] / [TESTÉ] / [ACTÉ]`.
+- direction artistique : **satisfaisante · contemplative · onirique · féerique** ;
+- le Cœur reste exclusivement l’autorité du vivant et de l’état canonique ;
+- P1 reste seul propriétaire de la qualification live des publications, gaps, changements de stream/monde et resynchronisations ;
+- la mémoire musicale est aval, non canonique, reconstructible et strictement isolée par `world_instance_id` ;
+- `world_instance_id`, `region_id` et `representation_id` sont des identités/adresses opaques, jamais des seeds ou des données créatives ;
+- `history_digest` et `semantic_fingerprint` servent à l’intégrité/provenance, jamais à la composition ;
+- les compteurs de publications/observations ne deviennent jamais une durée musicale ;
+- les métadonnées de provenance, recovery ou incomplétude contrôlent la connaissance, pas le caractère musical du monde ;
+- thème esthétique et accessibilité restent deux couches distinctes ;
+- aucun « mode neuroA » unique n’est créé ; les contrôles d’accessibilité sont indépendants ;
+- renderer et technologie audio restent remplaçables.
 
 ## Frontière P1
 
-P5B dépend uniquement du contrat de lecture P1. Les responsabilités P2 Observabilité, P3 Orchestrateur et P4 Tableaux ne constituent pas des sources perceptives pour la musique.
+P5B dépend uniquement du contrat de lecture P1. P2 Observabilité, P3 Orchestrateur et P4 Tableaux ne sont pas des sources perceptives pour la musique.
 
-La forme P1 qualifiée distingue :
+La consommation P1 distingue explicitement :
 
 - `publication_seq` : continuité de publication dans une session ;
-- `state_revision` : révision de l’état canonique représenté ;
-- `canonical_age` : position dans le temps canonique.
+- `state_revision` : révision canonique représentée ;
+- `canonical_age` : coordonnée temporelle canonique.
 
-Un saut de `state_revision` ne constitue donc pas à lui seul un trou de flux lorsque les snapshots publiés restent contigus. P5B ne suppose pas non plus que l’historique événementiel est exhaustif et n’invente jamais des événements absents.
+Un saut de `state_revision` n’est donc pas un gap lorsque `publication_seq` reste contigu. `event_history_exhaustive=false` reste respecté : P5B n’invente aucun événement intermédiaire absent.
 
-Le schéma partageable commun doit être synchronisé par le propriétaire de P1. P5B ne crée pas de fork amont ; ce gap documentaire ne bloque pas les baselines offline P5B déjà qualifiées.
+La projection événementielle et la déduplication `event_id` restent différées jusqu’à l’existence d’un contrat P1 qualifié correspondant.
 
-## MusicPayload expérimental qualifié
+## MusicPayload v0.1-exp
 
-MUS-0 qualifie côté consommation un `MusicPayload v0.1-exp` fondé sur cinq axes perceptifs ordinaux `0..4` :
+Le payload expérimental reste volontairement minimal avec cinq axes perceptifs ordinaux `0..4` :
 
 - `presence` ;
 - `activity` ;
@@ -69,138 +79,140 @@ MUS-0 qualifie côté consommation un `MusicPayload v0.1-exp` fondé sur cinq ax
 - `continuity` ;
 - `transformation`.
 
-Ces axes ne sont ni des métriques biologiques, ni des paramètres musicaux, ni des paramètres audio. Aucun mapping Cœur → MusicPayload n’est publié ou défini dans P5B.
+Ces axes ne sont ni des métriques biologiques, ni des paramètres musicaux, ni des commandes audio.
 
-Les scopes admis sont le monde, des régions opaques et des représentations opaques. Les identifiants ne codent aucune race, généalogie, recette ou information biologique privée.
+La qualification MUS-2 a exploré les **3 125 combinaisons** du profil monde :
 
-## Qualification MUS-0 — PASS / FROZEN
+- 5/5 axes ont un effet structurel mesurable ;
+- 5/5 produisent des signatures structurelles distinctes ;
+- le saut maximal du plan pour un voisin ordinal est de 1 ;
+- 1 574 vecteurs de plan courant distincts sont obtenus.
 
-La fondation contractuelle offline MUS-0 est fermée avec **80/80 tests PASS**. La qualification couvre notamment :
+Conclusion : `MusicPayload v0.1-exp` est **provisoirement suffisant** pour poursuivre. Aucune extension P1/P0 n’est demandée sans insuffisance perceptive concrète et reproductible.
 
-- séparation `publication_seq` / `state_revision` / `canonical_age` ;
-- resynchronisation et redémarrage de stream ;
-- doublons idempotents et doublons contradictoires ;
-- isolation stricte par `world_instance_id` ;
-- JSON strict et allowlist ;
-- contrôles explicites de confidentialité ;
-- semantic replay `manifest.json` + `frames.ndjson` + `checksums.sha256` ;
-- contrôle SHA-256 ;
-- lecture streaming ligne par ligne ;
-- politique de compatibilité de versions injectée et fail-closed ;
-- équivalence sémantique fixture/replay hors métadonnées de transport ;
-- historique partiel respecté sans invention d’événements ;
-- absence d’import du Cœur, P2, P3 ou P4 ;
-- absence de dépendance runtime tierce ;
-- absence de dépendance réseau et d’artefact audio.
+## MUS-0 — fondation contractuelle — PASS / FROZEN
 
-Baseline locale : `5835597c9dbdc1a4f20ed3778a6ff2fc2c518d10`, tag `p5b-mus0-offline-pass-20260819`.
+Qualification : **80/80 tests PASS**.
 
-La projection événementielle et la déduplication `event_id` sont volontairement différées jusqu’à l’existence d’un contrat événementiel P1 qualifié. P5B n’invente pas ce contrat pour satisfaire une checklist locale.
+Baseline : `5835597c9dbdc1a4f20ed3778a6ff2fc2c518d10`  
+Tag : `p5b-mus0-offline-pass-20260819`
 
-## Qualification MUS-1 — PASS / FROZEN
+MUS-0 qualifie notamment session/replay, séparation publication/révision/âge, isolation multi-Avelune, JSON strict, allowlist, contrôles de confidentialité, semantic replay `manifest.json + frames.ndjson + checksums.sha256`, lecture streaming et compatibilité fail-closed.
 
-MUS-1 ferme l’état perceptif et la mémoire aval avec **148/148 tests PASS** lors de la gate finale MUS-1D.
+## MUS-1 — état perceptif et mémoire — PASS / FROZEN
 
-Baseline locale de qualification : `7557f001b56cb252da6a0e2ec8fe0e559c9c3342`, tag `p5b-mus1-offline-pass-20260819`.
+Qualification : **148/148 tests PASS**.
 
-MUS-1 qualifie les tranches suivantes :
+Baseline : `7557f001b56cb252da6a0e2ec8fe0e559c9c3342`  
+Tag : `p5b-mus1-offline-pass-20260819`
 
-- **MUS-1A** — `MusicPerceptionState` déterministe, sans métadonnées de transport ;
-- **MUS-1B** — mémoire monde reconstructible, historiquement informative et structurellement bornée ;
-- **MUS-1C** — continuité bornée des `region_id` / `representation_id`, avec rétention fixe et sans inférence biologique sur absence/réapparition ;
-- **MUS-1P** — snapshot mémoire canonique côté P5B, restart/restore exact et recovery fail-closed ;
-- **MUS-1D** — requalification finale des tests, dépendances, frontières d’autorité, persistance, recovery, isolation et garde-fous pré-MUS-2.
+MUS-1 qualifie :
 
-La mémoire reste :
+- `MusicPerceptionState` déterministe et débarrassé des métadonnées de transport ;
+- mémoire monde bornée et reconstructible ;
+- continuité bornée des régions/représentations opaques sans inférence biologique ;
+- snapshot mémoire local déterministe et versionné ;
+- restart/restore exact ;
+- recovery depuis replay qualifié ;
+- aucune fausse histoire lorsque les preuves sont insuffisantes ;
+- maintien de P1 comme seule autorité de continuité live.
 
-- aval et non canonique ;
-- strictement partitionnée par `world_instance_id` ;
-- reconstructible depuis replay qualifié ;
-- persistable localement sans devenir une sauvegarde du monde ;
-- bornée par l’état courant et des capacités de rétention fixes, pas par l’historique brut complet.
+## MUS-2 — grammaire abstraite — PASS / FROZEN
 
-Snapshot valide → restore exact. Snapshot invalide + replay qualifié → rebuild exact. Preuve insuffisante → aucune mémoire historique fabriquée.
+Qualification finale : **294/294 tests PASS**.
 
-P1 reste seul arbitre de continuité live. Les gardes de publication P5B restent des harnais offline ; P5B ne redécide pas en production les gaps, changements de stream/monde ou la nécessité de `RESYNC`.
+Baseline fonctionnelle avant rapport : `7513eacf8f8bc8b10821c10507ff55ea8276fa0b`  
+Commit de qualification : `314f4b4218e136f109deb8d0999a7b555ca4e141`  
+Tag : `p5b-mus2-offline-pass-20260819`
 
-## Frontière obligatoire avant la composition
+### Evidence compositionnelle
 
-MUS-2 ne permet pas au futur interpréteur musical de parcourir librement l’objet technique `MusicMemoryState`.
+`StructuralMusicInterpreter` ne parcourt jamais librement `MusicMemoryState`.
 
-La frontière actée est :
+`CompositionEvidenceProjector` produit une projection allowlistée, inspectable et déterministe. N’y entrent pas : hashes de provenance, compteurs de publication, transport, statuts de recovery ni métadonnées épistémiques.
+
+### Temporalité canonique
+
+La mémoire temporelle conserve uniquement des **changements réellement observés** et les situe par `canonical_age`.
+
+- répéter la publication du même état ne crée aucun mouvement temporel supplémentaire ;
+- `recent` et `intermediate` utilisent des fenêtres canoniques disjointes ;
+- `RESYNC` ouvre un nouveau segment et ne fabrique aucune transition à travers le trou ;
+- le présent garde l’autorité principale ;
+- l’influence récente/intermédiaire reste bornée ;
+- l’histoire longue peut laisser une empreinte sans écraser le présent.
+
+### Structure et motifs
+
+`StructuralCompositionPlan` réunit un macro-plan abstrait et des motifs structurels abstraits.
+
+Les identifiants opaques servent uniquement à l’adressage de continuité. Leur valeur ou leur hash ne produit aucune variante musicale. Les caches d’entités absentes ne génèrent aucun motif fantôme.
+
+### Thèmes
+
+`ThemeProfile` intervient après la structure.
+
+Même structure + même thème donne le même plan stylisé. Deux thèmes distincts peuvent produire des traitements esthétiques distincts sans modifier la structure, les motifs ni l’histoire interprétée.
+
+### Accessibilité
+
+`AccessibilityProfile` intervient après le thème.
+
+- contrôles indépendants et non diagnostiques ;
+- profil neutre transparent ;
+- contraintes d’accessibilité prioritaires sur la présentation esthétique ;
+- aucune réécriture du thème choisi ou du `StructuralCompositionPlan`.
+
+Les limites audio concrètes — fréquences, dynamique, transitoires, spatialisation effective — appartiennent à la qualification du futur renderer.
+
+### Ce que MUS-2 ne contient pas
+
+- aucun renderer ;
+- aucun moteur audio ;
+- aucun WAV/MIDI ;
+- aucune note ou hauteur concrète ;
+- aucun BPM ;
+- aucun instrument/preset/sample ;
+- aucune dépendance réseau ;
+- aucune donnée privée du Cœur ou CODEX.
+
+## MUS-3 — prochaine phase
+
+MUS-3 introduira une frontière de rendu remplaçable :
 
 ```text
-MusicMemoryState
+AccessibleMusicalPlan
         ↓
-CompositionEvidenceProjector
+RendererPort
         ↓
-StructuralMemoryEvidence
-        ↓
-StructuralMusicInterpreter
-        ↓
-StructuralMusicalPlan
+renderer témoin
 ```
 
-`StructuralMemoryEvidence` doit être une projection allowlistée des seules preuves interprétables autorisées pour la composition.
+Objectifs :
 
-Sont explicitement **non compositionnels** :
+- faux renderer de contrôle ;
+- premier renderer audio témoin isolé et remplaçable ;
+- qualification perceptive comparative ;
+- vérification des thèmes et adaptations d’accessibilité sur sorties réellement audibles ;
+- mesures locales CPU/RAM/latence/stockage ;
+- aucune sélection prématurée du moteur audio final.
 
-- `history_digest` ;
-- `semantic_fingerprint` ;
-- statuts/diagnostics de recovery ;
-- `source_kind`, `stream_id`, `publication_seq` ;
-- `frame_kind`, `event_history_exhaustive`, `RESYNC` en tant que caractères musicaux ;
-- compteurs d’observation pris à tort comme durée canonique.
+## Phases suivantes
 
-Les compteurs `samples`, `observation_count` ou `linked_transitions` décrivent la quantité d’observation, pas une durée vécue. Toute politique de durée musicale future doit partir de `canonical_age` avec une sémantique temporelle explicite.
+- **MUS-4** : premier semantic replay réel clos produit par P1 depuis un artefact autorisé, traversant le même pipeline sans accès aux internes du Cœur ;
+- **MUS-5** : paquet de préparation P6 / futur live, ports stables, reprise/resync, préférences, budgets cumulés et readiness replay → live.
 
-## Thème et adaptation à l’observateur
+## Dépendances et gaps
 
-Le thème est une couche de présentation musicale située après la structure/mémoire et avant le renderer. Il peut modifier fortement l’orchestration, les familles timbrales, la couleur harmonique, le registre, l’espace, la densité et d’autres dimensions esthétiques sans modifier les faits ni l’histoire musicale structurelle.
-
-Changer de thème ne remet pas la mémoire à zéro. Une même histoire doit pouvoir être rendue par au moins deux thèmes nettement différents tout en restant la même histoire d’Avelune.
-
-Le goût et l’accessibilité restent séparés : un même thème doit pouvoir être utilisé avec des réglages sensoriels très différents.
-
-## Phases
-
-### MUS-0 — fondation contractuelle offline — **PASS / CLOSED / FROZEN**
-
-Entrée P1, `MusicPayload` expérimental, loader/session, replay loader, replay clock, resynchronisation, isolation multi-Avelune, allowlist, fixtures, streaming, compatibilité et tests de frontière.
-
-### MUS-1 — état perceptif et mémoire — **PASS / CLOSED / FROZEN**
-
-`MusicPerceptionState`, mémoire monde bornée, continuité d’identités opaques, snapshot/restart/recovery et gate finale sont qualifiés. La déduplication `event_id` reste différée jusqu’à l’existence d’une projection événementielle P1 qualifiée.
-
-### MUS-2 — grammaire abstraite — **NEXT**
-
-Première tranche : `CompositionEvidenceProjector` → `StructuralMemoryEvidence`. Puis seulement `StructuralMusicInterpreter` → `StructuralMusicalPlan`, temporalité musicale, continuité, motifs, transformations et silence. Thèmes et accessibilité restent des couches aval séparées.
-
-### MUS-3 — renderer témoin et qualification perceptive
-
-Port de rendu, fake renderer, premier renderer audio témoin remplaçable, protocole d’écoute comparative et mesures locales.
-
-### MUS-4 — premier semantic replay réel clos
-
-Même pipeline sur une projection réelle produite offline par P1 depuis un artefact clos, sans accès aux internes du Cœur et sans refonte conceptuelle.
-
-### MUS-5 — paquet de préparation P6 / futur live
-
-Ports stables, reprise/resync, préférences, budget cumulé, intégration offline et readiness replay → live.
-
-## Statut des dépendances
-
-- P0/O1 : **intouchable** ; ne bloque pas MUS-2→3 offline.
-- P1 : frontière amont ; gap documentaire `publication_seq` encore ouvert côté forme partageable, non bloquant pour les baselines offline qualifiées.
-- P0 live + P1 live : bloquants pour le futur branchement live.
-- premier replay réel MUSIQUE : encore ouvert, non bloquant pour MUS-2→3 offline.
-- P2/P3/P4 : non bloquants pour P5B offline.
-- P6 : intégrateur futur, non bloquant.
-- P8 : persistance future des préférences, non bloquante pour les profils locaux.
-- moteur audio final, races et TF/TD/RPG : non requis à ce stade.
+- P0/O1 : intouchable pendant sa campagne active ;
+- `GAP-P1-DOC` : forme partageable de certains détails P1 à synchroniser, non bloquante pour les baselines offline ;
+- P0 live + P1 live : bloquants pour le futur live ;
+- premier replay réel MUSIQUE : encore ouvert, non bloquant pour MUS-3 ;
+- P2/P3/P4/P6/P8 : non bloquants pour MUS-3 offline ;
+- moteur audio final, races et gameplay TF/TD/RPG : non requis pour MUS-3.
 
 ## Critère anti-réécriture
 
-La future livraison d’un semantic replay réel P1 doit traverser le même pipeline que les fixtures et produire le même type de plan musical sans accès aux internes du Cœur et sans refonte conceptuelle de la grammaire ou du renderer.
+La future livraison d’un semantic replay réel P1 doit traverser le même pipeline que les fixtures et produire les mêmes types de plans sans accès aux internes du Cœur et sans refonte conceptuelle des couches MUS-0→3.
 
-Le corpus de références scientifiques et artistiques existant est conservé et reste référencé dans `docs/26_univers_sonore_references_methode.md`.
+Le corpus de références scientifiques et artistiques reste documenté dans `docs/26_univers_sonore_references_methode.md`. Les références informent les hypothèses et protocoles ; elles ne prescrivent pas directement les recettes d’Avelune.
