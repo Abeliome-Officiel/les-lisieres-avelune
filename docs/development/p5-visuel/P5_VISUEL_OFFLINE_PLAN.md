@@ -4,6 +4,27 @@
 >
 > Ce document décrit le périmètre P5A VISUEL après qualification offline de P1/P2/P3/P4. Il ne remplace pas l'autorité de P1 sur `WorldReadEnvelope` et ne publie aucun détail privé du Cœur.
 
+## 0. Règle de méthode — invariants avant héritage de code
+
+P5 ne cherche pas à conserver l'implémentation historique pour elle-même.
+
+Lorsque l'architecture qualifiée, les contrats amont ou l'expérience acquise montrent qu'une branche de LAB est devenue artificielle, trop couplée ou coûteuse à adapter, la solution préférée peut être de **jeter cette implémentation et reconstruire proprement depuis la bonne frontière**, même si une partie du code fonctionnait déjà.
+
+Ordre de conservation :
+
+1. lois et frontières d'Avelune ;
+2. invariants perceptifs et artistiques actés ;
+3. connaissances acquises, résultats de tests et mesures ;
+4. références scientifiques, artistiques et techniques ayant réellement nourri le chantier ;
+5. formats/contrats qualifiés ;
+6. code existant seulement s'il reste naturellement compatible avec les points précédents.
+
+Un ancien module peut donc être conservé comme **preuve, comparaison ou source de connaissance** sans être réutilisé dans la baseline finale.
+
+Les grands principes perceptifs restent indépendants de l'implémentation. Par exemple, les rendus et futurs interpréteurs peuvent être adaptés aux préférences de l'observateur — préférences sensorielles, qualité, thème ou direction perceptive lorsque le module concerné le prévoit — sans modifier l'état canonique ni l'histoire du monde.
+
+Les sources de recherche sont pérennes : abandonner Canvas, PixiJS, une grammaire morphologique ou une technique expérimentale ne supprime pas les études, œuvres, standards, précédents ni résultats documentés qui ont éclairé la décision. Ils restent dans le registre avec leur statut `[RÉFÉRENCE] / [HYPOTHÈSE AVELUNE] / [TESTÉ] / [ACTÉ]`.
+
 ## 1. Mission et frontière
 
 P5A construit la grammaire visuelle et le sous-système de rendu réutilisables par P6 Fenêtre puis, lorsque pertinent, par le futur jeu.
@@ -51,15 +72,16 @@ CREAD v0.1 ne garantit pas un historique événementiel exhaustif : P5 ne dédui
 - isolation multi-Avelune ;
 - allowlist et scan de fuite ;
 - fixture/replay équivalents ;
-- bridge vers VISUEL-1 existant.
+- grammaire minimale propre, construite depuis la frontière P1 ;
+- comparaison avec les anciennes briques VISUEL-0/1/1B pour récupérer seulement ce qui reste sain.
 
-### VISUEL-1 — grammaire et coût minimal — BRIQUE EXISTANTE À REQUALIFIER
+### VISUEL-1 — grammaire et coût minimal — À REQUALIFIER / RECONSTRUIRE SI NÉCESSAIRE
 
-Plan de rendu neutre, déterminisme de présentation, profils `SOBRE/NORMAL/RICHE`, préférences sensorielles indépendantes et port renderer.
+Le plan de rendu neutre, le déterminisme de présentation, les profils `SOBRE/NORMAL/RICHE`, les préférences sensorielles indépendantes et le port renderer restent des **principes à préserver**. Leur implémentation historique n'est pas une contrainte de compatibilité.
 
-### VISUEL-1B — renderer témoin — BRIQUE EXISTANTE À REQUALIFIER
+### VISUEL-1B — renderer témoin — RÉFÉRENCE, PAS HÉRITAGE OBLIGATOIRE
 
-Canvas 2D reste un témoin de contrôle, pas un choix final.
+Canvas 2D reste un témoin de contrôle et une baseline de comparaison. Il peut être repris, simplifié ou remplacé si une baseline propre est plus rationnelle. Il ne sélectionne pas le renderer final.
 
 ### VISUEL-2 — continuité / croissance / mue
 
@@ -117,8 +139,8 @@ Port/API de rendu stable, profils qualité/accessibilité, reprise/resync, budge
 15. qualité matérielle ≠ préférences sensorielles ;
 16. mouvement/couleur réduits conservent l'information critique ;
 17. déterminisme de préparation ;
-18. fake renderer et Canvas consomment le même port ;
-19. fixture → replay sans réécriture du plan/renderer ;
+18. au moins deux renderers/ports de test peuvent consommer la même grammaire sans imposer de changement au contrat ;
+19. fixture → replay ne change ni la sémantique visuelle ni les invariants artistiques ; une réimplémentation interne propre reste autorisée ;
 20. benchmark offline de non-régression.
 
 Le benchmark matériel de production et le choix du renderer final ne font pas partie de cette gate de fondation.
@@ -142,13 +164,15 @@ P2, P3 et P4 ne bloquent pas le socle offline P5. P8 ne bloque pas les préfére
 - confondre qualité matérielle et accessibilité ;
 - faire d'une commodité Canvas/Pixi une exigence Cœur ;
 - absorber le périmètre P6 dans P5 ;
-- attendre le live alors que la gate offline est qualifiable sur fixtures.
+- attendre le live alors que la gate offline est qualifiable sur fixtures ;
+- **suradapter un ancien prototype pour préserver du code au lieu de reconstruire une frontière propre** ;
+- perdre la traçabilité d'une étude ou d'un essai simplement parce que la technique qu'il motivait est abandonnée.
 
 ## 8. Verdict courant
 
 **OFFLINE PASS = NON.**
 
-Les briques historiques VISUEL-0 (9/9), VISUEL-1 (7/7) et Canvas (5/5) restent utiles mais ne sont pas requalifiées contre P1 du 19 août et ne chargent pas encore le replay sémantique final.
+Les briques historiques VISUEL-0 (9/9), VISUEL-1 (7/7) et Canvas (5/5) restent des preuves utiles. Elles ne sont ni sacrées ni automatiquement reprises : elles précèdent P1 du 19 août et seront évaluées morceau par morceau contre la nouvelle baseline.
 
 **LIVE BLOCKED = OUI.**
 
@@ -156,4 +180,21 @@ Blocages : protocole O1 intouchable ; primitives atomiques P0 non encore livrée
 
 ## 9. Prochaine étape
 
-Rebaser la plomberie VISUEL-0 sur le contrat P1 qualifié, construire les fixtures/tests ci-dessus et reconnecter la sortie au **plan VISUEL-1 et au Canvas VISUEL-1B existants sans réécriture substantielle**. Cette absence de réécriture est la preuve anti-couplage recherchée.
+Créer une **baseline VISUEL-0 propre depuis la frontière P1 qualifiée**, puis seulement comparer l'ancien code avec cette architecture.
+
+Pour chaque brique historique :
+
+```text
+compatible naturellement et plus simple à conserver ? → réutiliser
+nécessite adaptateurs artificiels, exceptions ou dette ? → jeter / réécrire
+```
+
+La gate n'est donc plus « préserver le plan/renderer existant ». La gate est : **obtenir une architecture simple, testable et indépendante qui conserve les invariants d'Avelune sans dépendre de l'histoire accidentelle des prototypes**.
+
+## 10. Capital scientifique et artistique à conserver
+
+Le chantier conserve un registre durable des sources réellement utilisées pour réfléchir à la représentation : L-systems et Algorithmic Botany, Clades, réaction-diffusion, cohérence temporelle, LOD, formes implicites/SDF/metaballs, particules/champs de flux, WCAG/W3C, renderers et futures références pertinentes.
+
+Une source peut rester importante même si l'hypothèse qu'elle a inspirée échoue. Le statut du registre doit alors évoluer plutôt que disparaître : `[RÉFÉRENCE]` reste la référence ; `[HYPOTHÈSE AVELUNE]` décrit la transposition envisagée ; `[TESTÉ]` enregistre le résultat, y compris négatif ; `[ACTÉ]` consigne la décision retenue.
+
+Le code est remplaçable ; **l'apprentissage documenté ne l'est pas**.
