@@ -39,8 +39,8 @@ jobs:
       - name: Exercise isolated bootstrap
         run: |
           target="$RUNNER_TEMP/p5a-visuel-bootstrap"
-          tools/p5-visuel/preflight_local_repo.sh "$target"
-          tools/p5-visuel/bootstrap_local_repo.sh "$target"
+          bash tools/p5-visuel/preflight_local_repo.sh "$target"
+          bash tools/p5-visuel/bootstrap_local_repo.sh "$target"
           test "$(git -C "$target" remote | wc -l)" -eq 0
           test -z "$(git -C "$target" status --porcelain)"
           grep -q 'P5A VISUEL' "$target/README.md"
