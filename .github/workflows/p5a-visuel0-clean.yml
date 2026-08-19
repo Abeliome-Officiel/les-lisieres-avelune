@@ -1,0 +1,29 @@
+name: P5A VISUEL-0 clean baseline
+
+on:
+  pull_request:
+    paths:
+      - 'labs/p5a-visuel0/**'
+      - 'docs/development/p5-visuel/**'
+      - 'docs/34_visuel_references_methode.md'
+      - '.github/workflows/p5a-visuel0-clean.yml'
+  push:
+    branches:
+      - develop/p5a-visuel0-clean
+    paths:
+      - 'labs/p5a-visuel0/**'
+      - 'docs/development/p5-visuel/**'
+      - 'docs/34_visuel_references_methode.md'
+      - '.github/workflows/p5a-visuel0-clean.yml'
+
+jobs:
+  offline-scaffold:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Test clean P5A baseline
+        working-directory: labs/p5a-visuel0
+        run: npm test
