@@ -1,23 +1,31 @@
 # P5B MUSIQUE — MUS-1P persistance/restart et garde-fous avant MUS-2
 
 > Date : 19 août 2026  
-> Statut : **MUS-1A PASS · MUS-1B PASS · MUS-1C PASS · MUS-1P REQUIRED · MUS-1 OFFLINE NOT YET QUALIFIED**
+> Statut : **MUS-1A PASS · MUS-1B PASS · MUS-1C PASS · MUS-1P PASS · MUS-1 OFFLINE READY FOR FINAL GATE · LIVE BLOCKED**
 
-## Pourquoi MUS-1P existe
+## Résultat MUS-1P
 
-La revue de fermeture MUS-1 a identifié une responsabilité structurelle absente : `MusicMemoryState` est reconstructible depuis replay et borné en mémoire, mais il doit également survivre à un redémarrage du processus P5B sans perte silencieuse de l'histoire musicale déjà connue.
+MUS-1P est qualifié avec **148/148 tests PASS**, `compileall` PASS, `diff-check` PASS, audit mémoire RNG/horloge/réseau PASS et audit de frontière d'autorité P1 PASS.
 
-La séquence devient donc :
+La mémoire P5B dispose désormais d'un snapshot JSON canonique, déterministe, versionné et non autoritatif. Le round-trip `save → restart logique → restore` restitue exactement le même `MusicMemoryState`. Les corruptions, versions incompatibles, types non allowlistés et incohérences de monde/révision/âge/fingerprint sont refusés en fail-closed.
+
+Le recovery qualifié distingue :
+
+- snapshot valide → `RESTORED` ;
+- snapshot invalide + semantic replay qualifié → `REBUILT_FROM_REPLAY` ;
+- preuve insuffisante → `PARTIAL_RESTART_REQUIRED`, sans mémoire historique fabriquée.
+
+La séquence est maintenant :
 
 ```text
-MUS-1C
+MUS-1C PASS
   ↓
-MUS-1P — persistence / restart memory
+MUS-1P PASS
   ↓
 MUS-1D — final offline qualification
 ```
 
-MUS-1A, MUS-1B et MUS-1C restent qualifiés ; ils ne sont pas remis à zéro.
+MUS-1A, MUS-1B, MUS-1C et MUS-1P restent qualifiés ; ils ne sont pas remis à zéro.
 
 ## Autorité de continuité
 
@@ -43,18 +51,22 @@ MusicMemoryState
 
 Les gardes de continuité P5B utilisés offline restent des harnais de compatibilité/tests. En production, la qualification des gaps, changements de stream/monde et resync appartient à P1. P5B décide seulement comment sa mémoire réagit à une discontinuité déjà qualifiée.
 
+Les composants de persistance/recovery MUS-1P ne réimplémentent ni `PublicationSession`, ni `ReadSession`, ni `ContinuityGuard`.
+
 ## Snapshot de mémoire
 
-MUS-1P doit qualifier un snapshot local P5B :
+Le snapshot local P5B qualifié est :
 
 - non autoritatif ;
 - versionné ;
 - strictement validé ;
 - partitionné par `world_instance_id` ;
 - déterministe ;
-- compatible avec les versions/politiques mémoire attendues.
+- protégé par SHA-256 ;
+- compatible uniquement avec les versions/politiques mémoire explicitement admises ;
+- écrit atomiquement sur le filesystem local.
 
-Le round-trip requis est :
+Le round-trip qualifié est :
 
 ```text
 MusicMemoryState
@@ -66,7 +78,7 @@ restore
 même MusicMemoryState
 ```
 
-Un snapshot invalide ne doit jamais être restauré partiellement.
+Un snapshot invalide n'est jamais restauré partiellement.
 
 ## Corruption et incompatibilité
 
@@ -75,9 +87,11 @@ Une corruption ou incompatibilité de snapshot :
 - affecte P5B uniquement ;
 - n'affecte jamais le Cœur ;
 - ne crée aucune histoire fictive ;
-- doit produire un état d'échec/dégradation explicite.
+- produit un état d'échec/dégradation explicite.
 
-Recovery préféré : reconstruction depuis un semantic replay qualifié disponible. Sans replay suffisant, P5B peut repartir du prochain état P1 qualifié avec une perte de mémoire explicitement connue. Cette perte de connaissance est une information épistémique, pas un événement d'Avelune.
+Recovery préféré : reconstruction depuis un semantic replay qualifié disponible. Sans replay suffisant, P5B conserve explicitement la perte de connaissance ; cette perte est une information épistémique, pas un événement d'Avelune.
+
+`MemoryRecoveryStatus` reste séparé de `MusicMemoryState`.
 
 ## Garde-fous MUS-2
 
@@ -99,21 +113,42 @@ Une cadence de publication différente ne doit pas, à elle seule, modifier l'in
 
 Le fait que le stockage soit borné ne signifie pas que les cumuls historiques doivent dominer éternellement la musique. MUS-2 devra distinguer explicitement le présent, la mémoire récente et une influence historique plus longue afin que l'histoire ancienne laisse une couleur sans empêcher la réponse au présent.
 
+### Frontière de preuves compositionnelles
+
+MUS-2 ne doit pas laisser l'interpréteur structurel fouiller librement l'objet technique `MusicMemoryState`. La prochaine frontière doit projeter une allowlist de preuves interprétables, conceptuellement :
+
+```text
+MusicMemoryState
+        ↓
+CompositionEvidenceProjector
+        ↓
+StructuralMemoryEvidence
+        ↓
+StructuralMusicInterpreter
+        ↓
+StructuralMusicalPlan
+```
+
+Cette frontière doit exclure les hashes, statuts de recovery, provenance de transport et compteurs pris à tort comme temps canonique.
+
 ### MusicPayload reste expérimental
 
 `MusicPayload v0.1-exp` reste volontairement minimal avec cinq axes perceptifs ordinaux. Aucun enrichissement vers P1/P0 n'est demandé sans insuffisance concrète, reproductible et documentée lors des essais de grammaire.
 
 ## Gate MUS-1D
 
-`MUS_1_OFFLINE=PASS` ne peut être prononcé qu'après :
+`MUS_1_OFFLINE=PASS` ne peut être prononcé qu'après la gate finale qui revalide notamment :
 
-- MUS-1P PASS ;
-- round-trip snapshot exact ;
+- les **148 tests** existants ;
+- round-trip snapshot exact et sérialisation déterministe ;
 - corruption/incompatibilité isolée à P5B ;
-- absence de fausse histoire lors du recovery ;
-- frontière d'autorité P1/P5B explicitement conservée ;
-- hashes interdits comme données compositionnelles ;
-- compteurs d'observation explicitement distincts du temps canonique ;
-- métadonnées épistémiques exclues des faits musicaux.
+- recovery replay exact et absence de fausse histoire ;
+- frontière d'autorité P1/P5B ;
+- bornes de mémoire monde et d'identités ;
+- isolation multi-Avelune ;
+- hashes classés non compositionnels ;
+- compteurs d'observation distincts du temps canonique ;
+- métadonnées épistémiques exclues des faits musicaux ;
+- absence de RNG, réseau, audio et dépendance runtime au Cœur/P2/P3/P4.
 
-Après seulement cette gate, MUS-2 peut ouvrir `StructuralMusicalPlan` sans moteur audio ni renderer.
+Après seulement cette gate, MUS-2 pourra ouvrir la projection de preuves compositionnelles puis `StructuralMusicalPlan`, toujours sans moteur audio ni renderer.
