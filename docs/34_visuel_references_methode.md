@@ -1,7 +1,7 @@
 # VISUEL du vivant — références et méthode de recherche
 
-> **Statut : registre partageable de recherche — v0.1**  
-> Date : 18 août 2026  
+> **Statut : registre partageable de recherche — v0.2**  
+> Date : 19 août 2026  
 > Les références extérieures servent à formuler et tester des hypothèses. Elles ne décrivent ni les recettes propriétaires d’Avelune ni les mécanismes internes du Cœur.
 
 ## 1. Discipline documentaire
@@ -25,6 +25,8 @@ Ce que le LAB VISUEL a effectivement vérifié sur ses propres fixtures, replays
 Ce qui est explicitement retenu comme décision d’Avelune après confrontation avec les besoins, mesures et lois du projet.
 
 Une référence peut inspirer ou contredire une piste sans devenir une norme. Une technique pertinente dans un article peut être écartée si son coût, son accessibilité, sa maintenance ou son comportement temporel ne conviennent pas à Avelune.
+
+**La pérennité du registre est indépendante de celle du code.** Une étude, œuvre ou norme ne disparaît pas du corpus parce que le prototype, renderer ou algorithme qu’elle a inspiré est supprimé. Un résultat négatif ou un abandon technique est documenté dans `[TESTÉ]` et/ou `[ACTÉ]` plutôt que d’effacer la source et l’apprentissage associé.
 
 ## 2. L-systems et développement procédural
 
@@ -229,8 +231,21 @@ Une nouvelle étude ou création documentée n’est ajoutée au registre que si
 - perception du vivant ;
 - histoire perceptible ;
 - accessibilité sensorielle ;
+- personnalisation perceptive selon les préférences de l'observateur sans altération du canon ;
 - sobriété/LOD/cache ;
 - rendu navigateur ;
 - évaluation perceptive ou protocole de comparaison.
 
 Pour chaque ajout, conserver la séparation `[RÉFÉRENCE] / [HYPOTHÈSE AVELUNE] / [TESTÉ] / [ACTÉ]` et ne jamais publier la correspondance propriétaire exacte entre les internes du Cœur et les descripteurs de représentation.
+
+## 12. Abandon technique et conservation des connaissances
+
+Le registre ne suit pas la durée de vie des prototypes. Si un prototype est jeté ou une branche reconstruite :
+
+- les références consultées restent identifiées ;
+- les hypothèses testées restent traçables ;
+- les résultats négatifs restent documentés ;
+- les raisons d'abandon peuvent devenir une décision `[ACTÉ]` lorsqu'elles sont suffisamment établies ;
+- une nouvelle implémentation peut repartir de zéro tout en bénéficiant des connaissances déjà acquises.
+
+Cette règle permet de reconstruire proprement le logiciel sans reconstruire artificiellement la mémoire scientifique et artistique du projet.
