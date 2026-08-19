@@ -102,4 +102,7 @@ Partageable ici : contrats de consommation, interfaces, gates, fixtures neutres,
 
 Privé/Coffre : mappings exacts, recettes, provenance propriétaire, replays sensibles, paramètres de composition révélateurs, causalités et toute information permettant d’inférer le Cœur.
 
-Référentiel : `docs/p5_musique_fondations_offline_v0.1.md`.
+Référentiels :
+
+- `docs/p5_musique_fondations_offline_v0.1.md` ;
+- `docs/p5_musique_mus1p_persistence_restart_gate.md` — décision de revue avant fermeture MUS-1.
