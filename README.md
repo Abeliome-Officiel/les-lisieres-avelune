@@ -2,148 +2,122 @@
 
 > **Un monde partagé à habiter, comprendre et transformer.**
 
-**Les Lisières d’Avelune** est un projet de jeu navigateur persistant centré sur le développement d’un **Corcite**, corps-cité organique vivant. Le projet mêle gestion systémique, production, recherche, défense contre les vagues issues de la Fracture, progression RPG transversale, narration textuelle et monde partagé évolutif.
+**Les Lisières d’Avelune** est un projet de jeu navigateur persistant centré sur le développement d’un **Corcite**, corps-cité organique vivant, dans un monde autonome qui continue d’exister indépendamment de la présence des joueurs.
 
 **Poétique · Onirique · Féerique · Organique · Minéral · Floral-abstrait · Queer**
 
 ---
 
-## État du projet — 12 août 2026
+## État du projet — 20 août 2026
 
-Avelune avance désormais sur trois chantiers distincts :
-
-| Chantier | État |
+| Axe | État actuel |
 |---|---|
-| **PROTO-0.2.2** | candidat de playtest distribué validé sur `develop/proto-0.2.2-playtest` |
-| **Cœur vivant / CŒUR-0** | laboratoire headless autonome ; diagnostic de persistance R2.10 en cours |
-| **Tableau Réel (TA3)** | Gate 0 validé ; architecture persistante autonome ; Phase B suivante |
+| **PROTO-0 → PROTO-0.2.2** | **CLOS / HISTORIQUE** — objectif de validation rempli ; aucun nouveau développement, playtest structurant ou retrofit de production |
+| **Cœur vivant / CŒUR-0** | qualification biologique suffisamment close ; qualification opérationnelle prioritaire en cours ; runtime actif non touché par les travaux documentaires |
+| **P1 — Lecteur du Cœur** | baseline offline qualifiée ; convergence P1↔P5A↔P5B qualifiée |
+| **P2 — Observabilité** | OBS-0 offline qualifié et gelé |
+| **P3 — Orchestrateur** | ORCH-0 offline qualifié et gelé |
+| **P4 — Tableaux Monde / Univers** | baseline offline qualifiée et gelée |
+| **P5A — Visuel** | baseline offline qualifiée ; convergence avec P1 qualifiée |
+| **P5B — Musique / Sonore** | baseline offline globale qualifiée ; convergence avec P1 qualifiée |
+| **P6 — Fenêtre sur les Avelunes** | P6-0 offline qualifié ; phase suivante différée jusqu’au verdict du protocole Cœur en cours |
+| **Tableau Réel — TA3** | service autonome séparé du PROTO ; surfaces publique et privée distinctes ; écritures privées toujours soumises à leurs gates de sécurité |
 
-Le nettoyage contrôlé de l’ancien historique GitHub est **clos** et la synchronisation normale du dépôt est rétablie. Les anciens clones/worktrees doivent être contrôlés avant réutilisation.
+Le nettoyage contrôlé de l’ancien historique GitHub est **clos**. Les références actuelles sont la source de vérité ; tout ancien clone ou worktree issu d’un graphe antérieur doit être contrôlé avant réutilisation.
 
-`main` reste la **baseline stable d’intégration** tant qu’une fusion plus récente n’est pas décidée explicitement.
+`main` reste la **baseline stable d’intégration** du dépôt partageable.
 
 ### Accès rapide
 
-- [État détaillé au 12 août 2026](docs/development/PROJECT_STATUS_2026-08-12.md)
-- [Roadmap](ROADMAP.md)
+- [Roadmap actuelle](ROADMAP.md)
 - [Index documentaire](docs/index.md)
-- [Cœur vivant — contrat de production](docs/21_coeur_vivant_genese_canonique.md)
-- [Cœur vivant — état agrégé de validation](docs/22_coeur_vivant_validation_2026-08-12.md)
+- [Clôture du PROTO](docs/development/PROTO_CLOSURE_2026-08-20.md)
+- [Cœur vivant — genèse canonique](docs/21_coeur_vivant_genese_canonique.md)
+- [Cœur vivant — contrat de lecture des modules](docs/32_coeur_contrat_lecture_modules.md)
+- [Multi-monde, capacité et Tableau Univers](docs/33_multi_monde_capacite_et_tableau_univers.md)
+- [Univers sonore](docs/23_univers_sonore_contrat_public.md)
+- [Visuel du Cœur](docs/24_visuel_coeur_contrat_public.md)
 - [Tableau Réel](docs/real/README.md)
-- [Candidat PROTO-0.2.2](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest)
 
 ---
 
-## PROTO-0.2.2
+## PROTO — chantier terminé
 
-PROTO-0.2.2 est un **mini-jeu de validation distribué**, pas le jeu final. Il teste une boucle complète et compréhensible :
+La lignée **PROTO-0 / PROTO-0.1 / PROTO-0.2 / PROTO-0.2.2** a servi à éprouver rapidement des boucles de jeu, l’interface et un mode de diffusion de playtest. Elle constitue désormais un **jalon historique**, pas une base de production.
+
+Conséquences :
+
+- le PROTO n’est plus un chantier actif ;
+- aucune dette technique propre au PROTO ne remonte automatiquement dans le backlog courant ;
+- aucune modernisation ou migration de son architecture n’est engagée pour préparer le futur jeu ;
+- ses branches, tests et documents peuvent être conservés pour traçabilité ;
+- le tour par tour du PROTO ne devient pas la structure temporelle du jeu final ;
+- le Cœur, TA3 et les modules P1–P8 ne dépendent pas du runtime ou de la base du PROTO ;
+- une éventuelle instance encore en ligne est seulement en maintien transitoire jusqu’à son décommissionnement.
+
+Une expérience locale de durcissement des secrets a été testée mais **non intégrée** : elle n’a été ni poussée ni déployée et est volontairement abandonnée avec le prototype. Elle ne constitue pas un chantier restant.
+
+Voir [la décision de clôture](docs/development/PROTO_CLOSURE_2026-08-20.md).
+
+---
+
+## Cœur vivant et architecture durable
+
+Le **Cœur vivant** est l’autorité canonique sur l’état vivant d’une Avelune. Il doit pouvoir fonctionner avant les joueurs, conserver son histoire et survivre au remplacement de ses représentations.
+
+L’architecture durable suit une séparation d’autorité stricte :
 
 ```text
-implanter
-→ extraire
-→ transformer / fabriquer
-→ rechercher / évoluer
-→ préparer les défenses
-→ subir une vague
-→ lire les conséquences
-→ adapter le Corcite
-→ gagner ou perdre le run
+CŒUR / état canonique privé
+        ↓
+P1 — Lecteur du Cœur
+        ↓
+WorldReadEnvelope + projections spécialisées
+        ├─ P5A — Visuel
+        └─ P5B — Musique / Sonore
+                 ↓
+        P6 — Fenêtre sur les Avelunes
 ```
 
-Référence fonctionnelle : `d3b080c` — `PROTO-0.2.2: finaliser le playtest distribue`.
+En parallèle :
 
-Validation acquise :
+- **P2 Observabilité** mesure sans devenir autorité ;
+- **P3 Orchestrateur** porte le control plane et le cycle de vie des mondes ;
+- **P4 Tableaux Monde / Univers** fournit les vues opérateur à partir de P1/P2/P3 ;
+- le futur serveur de jeu restera une autorité de domaine séparée ;
+- aucune représentation ne doit écrire dans la biologie du Cœur par commodité.
 
-- `svelte-check` : 0 erreur, 0 warning ;
-- 380/380 tests PROTO réussis ;
-- build production validé ;
-- PostgreSQL 17 réel + migration validés ;
-- création, reprise et sauvegarde des sessions validées ;
-- conflits last-write-wins journalisés ;
-- feedback enregistré avant notification ;
-- SMTP facultatif et non destructif ;
-- revue desktop/mobile acceptable pour diffusion.
-
-### Modèle de jeu du jalon
-
-Le Corcite est représenté par un plateau hexagonal concret :
-
-- `1 bâtiment = 1 case` ;
-- ressources de sol pour l’extraction ;
-- stockage fourni par les bâtiments de stockage ;
-- inventaire mécanique global ;
-- extraction, transformation et fabrication ;
-- énergie, population et entretien ;
-- recherche courte et bornée ;
-- défense volontairement simplifiée pour le playtest.
-
-Le RPG reste une couche transversale, pas une troisième boucle artificiellement symétrique à la production et à la défense.
-
-Pour ce jalon uniquement, la vague de test est volontairement plus simple que la future vague du jeu. Les anciennes caractéristiques historiques ne constituent pas automatiquement le canon du Cœur vivant.
-
-### Playtest distribué
-
-PROTO-0.2.2 apporte une couche minimale de sessions distribuées :
-
-- session anonyme ;
-- code public de reprise ;
-- sauvegarde PostgreSQL versionnée ;
-- stratégie last-write-wins avec journalisation ;
-- télémétrie structurée utile au playtest ;
-- formulaire permanent de signalement/proposition ;
-- aucune création de compte joueur nécessaire pour ce lot.
-
-Après diffusion, le jalon doit rester gelé hors bugs bloquants pendant la collecte des retours.
+Le travail offline de P1 à P6 peut être qualifié sans accéder au runtime Cœur actif. Les phases live restent soumises aux gates opérationnelles du Cœur et à une séquence d’intégration explicite.
 
 ---
 
-## Cœur vivant
+## Plusieurs Avelunes, une identité indépendante des machines
 
-Le **Cœur vivant** est le moteur autonome qui doit faire vivre Avelune indépendamment du gameplay et de la présence des joueurs.
+L’architecture autorise plusieurs instances canoniques autonomes en parallèle. Chaque Avelune :
 
-Une future instance canonique devra pouvoir :
+- possède un `world_instance_id` stable ;
+- conserve sa propre histoire ;
+- ne se confond pas avec son host ;
+- ne partage pas son canon avec une autre instance ;
+- doit pouvoir être sauvegardée, restaurée et migrée sans changer d’identité.
 
-- fonctionner avant l’arrivée des joueurs ;
-- conserver son histoire ;
-- produire des transformations locales persistantes ;
-- être sauvegardée, restaurée et migrée ;
-- continuer ensuite dans le jeu produit sans remise à zéro de convenance.
+Un compte pourra observer ou rejoindre plusieurs mondes selon les règles du futur jeu, mais un Corcite appartient à une seule Avelune et ne devient pas un objet migrable entre mondes.
 
-Le laboratoire CŒUR-0 est séparé du prototype jouable. Son implémentation détaillée reste hors GitHub ; le dépôt contient seulement les contrats et résultats agrégés partageables.
+---
 
-### Validation actuelle
+## Fenêtre sur les Avelunes
 
-Les campagnes R2 ont isolé un goulot de persistance des formes pré-corcitiques : les lignées disparues meurent presque toujours alors qu’elles sont encore limitées à leur première implantation et avant leur première propagation locale.
+La **Fenêtre sur les Avelunes** est un produit permanent, contemplatif et non administratif. Elle assemble les projections du Lecteur, le Visuel et le Sonore afin de montrer une Avelune vivante sans devenir une seconde vérité du monde.
 
-La baseline de travail R2.7 réduit le turnover local et allonge la coexistence sans modification importante démontrée de l’occupation globale. R2.10 mesure maintenant si le goulot vient principalement de l’atteinte de l’état reproductif, de l’attente avant propagation ou de l’érosion par les vagues.
-
-Voir [l’état agrégé de validation](docs/22_coeur_vivant_validation_2026-08-12.md).
+La fondation P6-0 est qualifiée offline. Le branchement live attend les gates correspondantes du Cœur et de P1.
 
 ---
 
 ## Tableau Réel
 
-Le **Tableau Réel (TA3)** mesure le projet Avelune dans le monde réel : âge du projet, temps humain, matériel, énergie, coûts, financement, empreinte carbone connue et métriques globales de vie.
+Le **Tableau Réel (TA3)** mesure le projet Avelune dans le monde réel : temps humain, matériel, énergie, dépenses, financement, empreinte carbone connue et quelques indicateurs agrégés.
 
-Le Gate 0 a établi une contrainte structurante : TA3 ne doit dépendre ni du conteneur ni de la base d’un PROTO éphémère.
-
-Architecture retenue :
-
-```text
-sources temporaires / instruments / saisies
-                    ↓
-            adaptateurs de source
-                    ↓
-          stockage persistant TA3
-                    ↓
-              agrégats
-                    ↓
-          interface publique
-```
-
-Une source indisponible rend sa donnée ancienne ou inconnue ; elle ne rend pas TA3 indisponible.
-
-La Phase B doit auditer le socle persistant disponible hors PROTO puis choisir le plus petit runtime autonome adapté. Aucune migration TA3 ne doit être créée dans la base du PROTO.
+TA3 est volontairement autonome : il ne dépend ni du conteneur ni de la base du PROTO. Sa surface publique est en lecture seule ; sa surface privée est distincte et les écritures restent bloquées tant que leurs gates d’authentification et de sécurité ne sont pas fermées.
 
 Voir [`docs/real/`](docs/real/README.md).
 
@@ -151,46 +125,27 @@ Voir [`docs/real/`](docs/real/README.md).
 
 ## Direction du jeu à long terme
 
-Les Lisières d’Avelune vise un monde partagé unique dans lequel les Corcites contribuent collectivement à la préservation de la Lisière sans imposer une présence sociale permanente.
-
 Principes structurants :
 
-- monde partagé unique ;
+- monde partagé persistant par instance ;
 - Corcite comme personnage, organisme et cité ;
 - progression principalement horizontale ;
 - plusieurs styles de jeu légitimes ;
-- coopération possible sans obligation permanente ;
-- échec fertile ;
-- absence non punitive ;
+- coopération possible sans obligation sociale permanente ;
+- échec fertile et absence non punitive ;
 - pas de classement humiliant ;
 - pas de FOMO ou de micro-dopamine comme moteur de rétention ;
-- challenge systémique plutôt que punition artificielle ;
-- accessibilité intégrée, notamment pour les profils TSA, TDAH et dys ;
-- identité queer et non genrée intégrée à la conception.
-
-Le contenu et les systèmes futurs ne sont ajoutés qu’après validation de leur besoin et de leur intérêt joueur.
-
----
-
-## Architecture de développement
-
-Socle applicatif : **SvelteKit + TypeScript**.  
-Persistance du playtest distribué : **PostgreSQL 17**.
-
-Principes :
-
-- règles métier testables hors UI ;
-- séparation données, logique, état et présentation ;
-- simulations utilisant les mêmes règles que le runtime correspondant ;
-- pas d’abstraction spéculative ;
-- paramètres de laboratoire versionnés ;
-- attention explicite aux coûts CPU, RAM et réseau ;
-- séparation stricte entre PROTO jouable, Cœur vivant, Tableau Réel et rendu graphique.
+- accessibilité intégrée ;
+- identité queer et non genrée intégrée à la conception ;
+- gameplay de production continu et asynchrone plutôt que dépendant d’un tour global ;
+- représentations visuelles et sonores strictement en aval du canon.
 
 ---
 
 ## Frontière de publication
 
-GitHub est la source de vérité des contrats, décisions partageables, documentation de développement et code destiné au dépôt.
+GitHub est la source de vérité du **code et de la documentation partageables**.
 
-Les informations propriétaires du moteur du monde, données privées et détails d’exploitation restent dans les espaces internes appropriés. Le fait que le dépôt soit privé ne transforme pas ces informations en contenu GitHub acceptable.
+Les recettes propriétaires du Cœur, seeds, paramètres, causalités détaillées, CODEX, credentials, clés privées et informations d’exploitation sensibles restent hors dépôt. Le fait que le dépôt soit privé ne transforme pas ces éléments en contenu GitHub acceptable.
+
+Les documents historiques restent disponibles pour la traçabilité, mais leur présence ne leur redonne pas autorité sur les référentiels plus récents.
