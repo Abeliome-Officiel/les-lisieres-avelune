@@ -1,0 +1,61 @@
+{
+  "contract_id": "avelune.representation.semantic",
+  "schema_version": "0.1.0",
+  "projection_profile": "visual-lab-v0",
+  "source": {
+    "kind": "synthetic",
+    "source_id": "visual-public-projection",
+    "source_version": "projection-synthetic-0.1",
+    "adapter_version": "public-adapter-synthetic-0.1",
+    "replay_id": "visuel0-transition-v0"
+  },
+  "frame": {
+    "state_id": "visual-transition-0021",
+    "sequence": 21,
+    "logical_time": 201,
+    "mode": "full",
+    "scope": {
+      "kind": "scene",
+      "id": "view-scene-transition"
+    }
+  },
+  "descriptors": {},
+  "events": [
+    {
+      "event_id": "view-transition-01",
+      "type": "visual.transition",
+      "phase": "end",
+      "intensity": 0.72
+    }
+  ],
+  "extensions": {
+    "visual.scene": {
+      "entities": [
+        {
+          "entity_id": "view-form-mu-01",
+          "entity_type": "living-form",
+          "pose": {
+            "x": 0.5,
+            "y": 0.56,
+            "scale": 0.46,
+            "depth_hint": 0
+          },
+          "appearance": {
+            "cohesion": 0.68,
+            "elongation": 0.51,
+            "branching": 0.47,
+            "symmetry": 0.54,
+            "softness": 0.62,
+            "translucency": 0.59,
+            "surface_detail": 0.48,
+            "luminosity": 0.33,
+            "motion_amplitude": 0.21,
+            "pulse": 0.35,
+            "diffuseness": 0.22
+          },
+          "transition_state": "stable"
+        }
+      ]
+    }
+  }
+}

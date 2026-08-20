@@ -1,0 +1,11 @@
+{
+  "synthetic_format": "B",
+  "revision": "beta-12",
+  "scene_items": {
+    "one": {
+      "public_alias": "view-form-adapter-proof",
+      "placement": [0.44, 0.52, 0.4],
+      "style_vector": [0.71, 0.38, 0.29, 0.69, 0.48, 0.36, 0.27, 0.19, 0.25, 0.16]
+    }
+  }
+}

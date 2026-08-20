@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://avelune.invalid/contracts/visuel0/visual-scene-v0.schema.json",
+  "title": "Avelune VISUEL-0 public scene profile",
+  "description": "Profil VISUEL-0 expérimental. Il restreint l'enveloppe sémantique partagée à une projection visuelle synthétique et explicitement autorisée.",
+  "allOf": [
+    {
+      "$ref": "../representation-semantic-v0.schema.json"
+    },
+    {
+      "type": "object",
+      "properties": {
+        "projection_profile": {
+          "const": "visual-lab-v0"
+        },
+        "source": {
+          "type": "object",
+          "properties": {
+            "source_id": {
+              "const": "visual-public-projection"
+            },
+            "source_version": {
+              "type": "string",
+              "pattern": "^projection-synthetic-0\\.[0-9]+$"
+            },
+            "adapter_version": {
+              "type": "string",
+              "pattern": "^public-adapter-synthetic-0\\.[0-9]+$"
+            }
+          }
+        },
+        "descriptors": {
+          "type": "object",
+          "maxProperties": 0
+        },
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "visual.transition"
+              }
+            }
+          }
+        },
+        "extensions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["visual.scene"],
+          "properties": {
+            "visual.scene": {
+              "$ref": "#/$defs/visualScene"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "unitValue": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "visualScene": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entities"],
+      "properties": {
+        "entities": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "$ref": "#/$defs/visualEntity"
+          }
+        }
+      }
+    },
+    "visualEntity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["entity_id", "entity_type", "pose", "appearance"],
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "pattern": "^view-[a-z0-9-]{3,48}$",
+          "description": "Alias de projection. Il ne constitue pas un identifiant canonique interne."
+        },
+        "entity_type": {
+          "const": "living-form"
+        },
+        "pose": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["x", "y", "scale"],
+          "properties": {
+            "x": {"$ref": "#/$defs/unitValue"},
+            "y": {"$ref": "#/$defs/unitValue"},
+            "scale": {"$ref": "#/$defs/unitValue"},
+            "depth_hint": {
+              "type": "number",
+              "minimum": -1,
+              "maximum": 1
+            }
+          }
+        },
+        "appearance": {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 3,
+          "properties": {
+            "cohesion": {"$ref": "#/$defs/unitValue"},
+            "elongation": {"$ref": "#/$defs/unitValue"},
+            "branching": {"$ref": "#/$defs/unitValue"},
+            "symmetry": {"$ref": "#/$defs/unitValue"},
+            "softness": {"$ref": "#/$defs/unitValue"},
+            "translucency": {"$ref": "#/$defs/unitValue"},
+            "surface_detail": {"$ref": "#/$defs/unitValue"},
+            "luminosity": {"$ref": "#/$defs/unitValue"},
+            "motion_amplitude": {"$ref": "#/$defs/unitValue"},
+            "pulse": {"$ref": "#/$defs/unitValue"},
+            "diffuseness": {"$ref": "#/$defs/unitValue"}
+          },
+          "description": "Vocabulaire strictement visuel de laboratoire. Il ne décrit pas la biologie canonique et ne révèle aucune recette de projection."
+        },
+        "transition_state": {
+          "enum": ["stable", "changing"]
+        }
+      }
+    }
+  }
+}
