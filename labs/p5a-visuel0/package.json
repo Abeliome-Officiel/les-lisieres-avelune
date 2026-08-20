@@ -1,0 +1,11 @@
+{
+  "name": "avelune-p5a-visuel0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  }
+}
