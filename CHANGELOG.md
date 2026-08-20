@@ -1,5 +1,33 @@
 # Changelog
 
+## Clôture PROTO et synchronisation documentaire — 2026-08-20
+
+- classement définitif de **PROTO-0 / PROTO-0.1 / PROTO-0.2 / PROTO-0.2.2** comme jalons **CLOS / HISTORIQUES** ;
+- arrêt explicite de toute logique de playtest structurant, retrofit architectural, modernisation ou durcissement applicatif du PROTO ;
+- conservation des branches, tests et documents uniquement comme preuves historiques jusqu’au nettoyage GitHub ;
+- ajout de `docs/development/PROTO_CLOSURE_2026-08-20.md` comme décision partageable de clôture ;
+- classement d’une expérience locale de secrets-fichiers testée avec succès comme **non intégrée / non publiée / volontairement abandonnée**, donc hors backlog actif ;
+- confirmation que le futur jeu, TA3 et les modules durables P1–P8 ne dépendent pas du runtime, de la base, des sessions ou du tour par tour du PROTO ;
+- mise à jour de `README.md`, `ROADMAP.md`, `docs/index.md` et `MANIFEST.md` pour supprimer le statut de candidat actif du PROTO ;
+- ajout d’un snapshot `docs/development/PROJECT_STATUS_2026-08-20.md` couvrant Cœur, P1–P6, TA3, GitHub et sécurité ;
+- confirmation que le nettoyage de l’ancien historique sensible GitHub reste clos et que les références actuelles sont la source de vérité ;
+- maintien du contrôle obligatoire des anciens clones/worktrees issus du graphe antérieur avant réutilisation ;
+- séparation maintenue entre identité GitHub Avelune et identités personnelles dans les procédures d’exploitation ;
+- rappel de la frontière de publication : aucun credential, secret runtime, clé privée, recovery code, seed privée, recette Cœur, causalité réservée ou CODEX dans GitHub ;
+- hygiène GitHub encore ouverte : classification des branches, PR draft historiques, `tmp-unused`, branche Sentinelle, protection de `main`, CI et sécurité du dépôt ;
+- aucun changement apporté au Cœur actif par cette synchronisation documentaire.
+
+## Convergence modules et état offline — 2026-08-20
+
+- P1 / Lecteur du Cœur : baseline offline qualifiée et convergence avec P5A/P5B qualifiée ;
+- P2 / Observabilité : OBS-0 offline qualifié et gelé ;
+- P3 / Orchestrateur : ORCH-0 offline qualifié et gelé ;
+- P4 / Tableaux Monde / Univers : baseline offline qualifiée et gelée ;
+- P5A / Visuel : baseline offline qualifiée, renderer-neutral et alignée sur la frontière P1 ;
+- P5B / Musique : baseline offline globale qualifiée, mémoire bornée/reconstructible et convergence P1 qualifiée ;
+- P6 / Fenêtre sur les Avelunes : P6-0 offline qualifié ; phase suivante explicitement différée jusqu’au verdict du protocole Cœur en cours ;
+- séquence post-protocole conservée sans raccourci : primitives autoritatives, neutralité, arrêt/reprise, crash/atomicité, politique de temps, CREAD-LIVE, OBS/ORCH live, migration réelle, modules aval live, isolation des pannes puis endurance intégrée longue avant décision CŒUR-1.
+
 ## Visuel du Cœur — contrat anti-réécriture et LAB VISUEL — 2026-08-13
 
 - ajout de `docs/24_visuel_coeur_contrat_public.md` comme cahier de préproduction partageable ;
