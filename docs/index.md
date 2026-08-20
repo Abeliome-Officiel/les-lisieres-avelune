@@ -1,27 +1,38 @@
 # Documentation — Les Lisières d’Avelune
 
-Cet index distingue les **principes de conception partageables**, les **jalons jouables**, le **Cœur vivant**, l’architecture multi-monde, le **Tableau Réel**, les couches de représentation, les documents historiques et les informations propriétaires conservées hors dépôt.
+Cet index distingue les **référentiels partageables actuels**, les modules durables, le **Cœur vivant**, le **Tableau Réel**, les représentations et les **jalons historiques**.
 
-## 1. État courant — 18 août 2026
+## 1. État courant — 20 août 2026
 
-- `v0.8` : ancien jalon historique.
-- `v0.8.3` : dernière baseline de conception figée avant PROTO-0.1.
-- **PROTO-0.1** : jalon jouable intégré à `main`.
-- **PROTO-0.2.2** : candidat de playtest distribué sur `develop/proto-0.2.2-playtest` ; son intégration dans `main` reste une décision explicite.
-- **Cœur vivant / CŒUR-0** : qualification biologique, temporelle et de largeur hors échantillon suffisamment close ; aucun prolongement biologique n’est ouvert. La gate active est désormais l’ingénierie du Cœur permanent et sa qualification opérationnelle.
-- **Multi-monde** : plusieurs instances canoniques autonomes peuvent être exploitées en parallèle pour répartir la population ; chacune possède son histoire et aucune interaction de gameplay n’existe entre elles. L’identité d’un monde doit être indépendante de la machine physique qui l’héberge.
-- **Tableau Univers** : couche de supervision multi-instance cadrée ; elle doit inventorier mondes/hôtes, permettre l’accès aux Tableaux Monde et anticiper le besoin d’une nouvelle instance sans piloter la biologie.
-- **Fenêtre sur la Lisière** : module contemplatif définitif ; premier consommateur de production privilégié du futur contrat de lecture ; elle reste présente lorsque le jeu complet existe, affiche l’âge de l’instance observée et peut sélectionner une autre Lisière/instance.
-- **Tableau Réel (TA3)** : Gate 0 validé ; architecture persistante autonome retenue ; Phase B suivante.
-- **Univers sonore / MUSIQUE-0.1** : développement hors ligne autorisé derrière `WorldReadEnvelope + MusicPayload` ; replay sémantique, mémoire, plan musical et thème joueur peuvent avancer sans accès biologique direct.
-- **Visuel du Cœur / LAB VISUEL** : développement anticipé autorisé derrière la même frontière amont et une projection `VisualPayload` spécialisée ; aucune dépendance durable aux internes du Cœur.
-- **Arbitrage transversal** : pérennité, réversibilité, ressources, données et matériel restent des contraintes de système, pas un runtime supplémentaire.
+- **PROTO-0 / 0.1 / 0.2 / 0.2.2** : **CLOS / HISTORIQUE**. Aucun nouveau développement, playtest structurant ou retrofit de production. Les branches et documents restent des preuves historiques jusqu’au nettoyage GitHub.
+- **Cœur vivant / CŒUR-0** : qualification biologique suffisamment close ; qualification opérationnelle prioritaire en cours. Aucun travail documentaire ou module aval ne doit perturber le runtime actif.
+- **P1 — Lecteur du Cœur** : baseline offline qualifiée ; convergence avec P5A et P5B qualifiée ; live bloqué par les gates autoritatives/opérationnelles prévues.
+- **P2 — Observabilité** : OBS-0 offline qualifié et gelé.
+- **P3 — Orchestrateur** : ORCH-0 offline qualifié et gelé.
+- **P4 — Tableaux Monde / Univers** : baseline offline qualifiée et gelée.
+- **P5A — Visuel** : baseline offline qualifiée ; convergence P1 qualifiée.
+- **P5B — Musique / Sonore** : baseline offline globale qualifiée ; convergence P1 qualifiée.
+- **P6 — Fenêtre sur les Avelunes** : P6-0 OFFLINE = PASS ; phase suivante en attente du verdict du protocole Cœur en cours.
+- **Tableau Réel (TA3)** : autonome du PROTO ; surfaces publique et privée séparées ; écritures privées toujours soumises à leurs gates de sécurité.
+- **GitHub / sécurité** : purge de l’ancien historique sensible close ; hygiène des branches/PR et protection de `main` encore ouvertes.
 
-Le nettoyage de l’ancien historique GitHub est **clos**. La synchronisation normale des contenus partageables est autorisée, sous réserve de contrôler les anciens clones/worktrees avant réutilisation.
+Les métriques sensibles, seeds, paramètres, recettes, causalités détaillées, CODEX, credentials et détails d’exploitation réservés restent hors dépôt.
 
-Les métriques, seeds, paramètres, recettes, causalités détaillées et backgrounds réservés restent hors dépôt.
+Lorsqu’un document historique contredit un référentiel plus récent, il reste une trace et non une source normative.
 
-## 2. Comprendre le jeu
+---
+
+## 2. Entrées principales
+
+- [README du projet](../README.md)
+- [Roadmap actuelle](../ROADMAP.md)
+- [Manifeste du dépôt](../MANIFEST.md)
+- [Changelog](../CHANGELOG.md)
+- [Clôture définitive du PROTO](development/PROTO_CLOSURE_2026-08-20.md)
+
+---
+
+## 3. Comprendre le jeu
 
 - [Vision actuelle](00_vision.md)
 - [Corps-cité](01_concept_corps_cite.md)
@@ -34,190 +45,179 @@ Les métriques, seeds, paramètres, recettes, causalités détaillées et backgr
 - [Background](10_background_avelune.md)
 - [Trame RPG](14_trame_rpg.md)
 - [Passage et Lisière](15_lisiere_et_passage.md)
-- [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
-- [Univers sonore — références et méthode MUSIQUE-0](26_univers_sonore_references_methode.md)
-- [MUSIQUE-0 — cahier des charges d’intégration](27_musique0_cahier_integration.md)
-- [Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)
 
-Lorsqu’un document historique contredit un référentiel plus récent, il reste une trace et non une source normative.
+---
 
-## 3. Cœur vivant / genèse canonique
+## 4. Cœur vivant et genèse canonique
 
 Références partageables :
 
-- **[Manifeste de conception — Faire Monde](17_manifeste_faire_monde.md)**
-- **[Système d'évolution du monde et des vagues — contrat expurgé](19_systeme_evolution_vague_v0.2.md)**
-- **[Moteur de naissance des vagues — contrat expurgé](20_moteur_naissance_vagues_v0.1.md)**
-- **[Cœur vivant et genèse canonique](21_coeur_vivant_genese_canonique.md)**
-- **[Cœur vivant — références scientifiques et méthode](25_coeur_vivant_references_methode.md)**
-- **[Cœur vivant — synthèse trans-échelles](28_coeur_vivant_synthese_trans_echelles.md)**
-- **[Cœur vivant — gate de suffisance et limite de recherche](29_coeur_vivant_gate_suffisance.md)**
-- **[Cœur vivant — perturbations, sélection et transmission](30_coeur_vivant_selection_perturbations.md)**
-- **[Temporalité canonique et genèse](31_temporalite_canonique_genese.md)**
-- **[Cœur vivant — contrat de lecture des modules](32_coeur_contrat_lecture_modules.md)**
-- **[WorldReadEnvelope v0.1 — schéma](contracts/world-read-envelope-v0.1.schema.json)**
-- **[Avelune Semantic Replay v0.1](contracts/avelune-semantic-replay-v0.1.md)**
-- **[Multi-monde, capacité et Tableau Univers](33_multi_monde_capacite_et_tableau_univers.md)**
-- [Modèle évolutif de vague — notice historique](18_modele_vague_evolutive.md)
+- [Manifeste de conception — Faire Monde](17_manifeste_faire_monde.md)
+- [Système d’évolution du monde et des vagues — contrat expurgé](19_systeme_evolution_vague_v0.2.md)
+- [Moteur de naissance des vagues — contrat expurgé](20_moteur_naissance_vagues_v0.1.md)
+- [Cœur vivant et genèse canonique](21_coeur_vivant_genese_canonique.md)
+- [État agrégé historique de validation](22_coeur_vivant_validation_2026-08-12.md)
+- [Références scientifiques et méthode](25_coeur_vivant_references_methode.md)
+- [Synthèse trans-échelles](28_coeur_vivant_synthese_trans_echelles.md)
+- [Gate de suffisance et limite de recherche](29_coeur_vivant_gate_suffisance.md)
+- [Perturbations, sélection et transmission](30_coeur_vivant_selection_perturbations.md)
+- [Temporalité canonique et genèse](31_temporalite_canonique_genese.md)
+- [Contrat de lecture des modules](32_coeur_contrat_lecture_modules.md)
+- [Multi-monde, capacité et Tableau Univers](33_multi_monde_capacite_et_tableau_univers.md)
+- [WorldReadEnvelope v0.1 — schéma](contracts/world-read-envelope-v0.1.schema.json)
+- [Avelune Semantic Replay v0.1](contracts/avelune-semantic-replay-v0.1.md)
 
-### État scientifique
-
-Les campagnes successives ont qualifié le cycle précoce des lignées, le rôle des perturbations, la transmission générationnelle, la tenue à temps long et la largeur hors échantillon. Les campagnes indépendantes récentes ne font pas apparaître de nouvelle classe de fragilité structurelle nécessitant une correction biologique.
-
-La recherche biologique ouverte est donc **suffisamment close** au sens de la gate de suffisance durable. Cette formule ne signifie ni modèle parfait, ni stationnarité mathématique démontrée, ni impossibilité d’un événement écologique extrême.
-
-Un nouveau chantier biologique ne sera ouvert qu’en présence d’une régression, d’une anomalie ou d’une question causale nouvelle et explicite.
-
-### Gate active
-
-L’ordre de travail devient :
-
-1. identité persistante et namespacing d’une instance de monde ;
-2. persistance et snapshots de production ;
-3. arrêt, reprise, restauration, crash-consistency et absence de deuxième histoire ;
-4. migration d’un même monde entre hôtes ;
-5. migrations/versionnement et croissance maîtrisée des données ;
-6. politique de panne et éventuel rattrapage du temps ;
-7. qualification du coût permanent et fonctionnement continu réel ;
-8. fixation de l’interface temporelle / horloge canonique ;
-9. stabilisation du contrat de lecture multi-instance ;
-10. branchement de la Fenêtre sur la Lisière ;
-11. autres modules aval et poursuite du jeu v1.0.
-
-### Identité des mondes et modules
-
-Plusieurs instances canoniques de production peuvent exister. Chacune partage le même socle de lois/genèse versionné mais possède sa propre seed privée, son propre âge, son propre état et sa propre histoire. Les mondes ne communiquent pas entre eux.
-
-Le monde partagé reste unique **à l’intérieur de chaque instance** : tous les clients et joueurs de cette instance lisent la même vérité canonique.
-
-Le principe anti-réécriture reste obligatoire : **un client ne consomme pas durablement les structures internes du Cœur**.
-
-Architecture générale :
+### Frontière durable
 
 ```text
 Cœur / état privé d’une instance
         ↓
-CœurReadAdapter commun / normalisation privée
+P1 — Lecteur / normalisation privée
         ↓
 WorldReadEnvelope minimal
         ↓
 projections allowlistées spécialisées
         ├─ VisualPayload
         ├─ MusicPayload
-        └─ autres projections
-        ↓
-transports et clients remplaçables
+        └─ autres projections autorisées
 ```
 
-Il n’existe ni un adaptateur VISUEL et un adaptateur MUSIQUE relisant chacun les internes, ni un super-contrat public faisant l’union de tous les besoins clients.
+Un consommateur ne lit pas directement les structures privées du Cœur. Fixtures, replays et sources live doivent pouvoir présenter la même sémantique contractuelle. Pour la v1.0, cette frontière reste en lecture seule vis-à-vis de la biologie.
 
-Fixtures, semantic replays et instance active doivent pouvoir présenter la même sémantique contractuelle. Une panne d’un client ne doit pas arrêter un Cœur sain. Pour la v1.0, cette frontière est en lecture seule vis-à-vis de la biologie.
+---
 
-## 4. Multi-monde et exploitation
+## 5. Modules autour du Cœur
 
-Voir **[Multi-monde, capacité et Tableau Univers](33_multi_monde_capacite_et_tableau_univers.md)**.
+### P1 — Lecteur
+
+Autorité partageable : [Contrat de lecture des modules](32_coeur_contrat_lecture_modules.md) et les contrats `docs/contracts/`.
+
+P1 possède la continuité de publication, la resynchronisation et la frontière entre le Cœur privé et les projections aval.
+
+### P2 — Observabilité
+
+Observabilité non autoritative : métriques, santé, fraîcheur, incidents et rétention sans action sur le canon.
+
+### P3 — Orchestrateur
+
+Control plane séparé : cycle de vie des instances, opérations idempotentes, placement et garde-fous. Il ne devient pas autorité biologique.
+
+### P4 — Tableaux Monde / Univers
+
+Vues opérateur construites à partir de P1/P2/P3 ; aucune lecture directe du Cœur.
+
+### P5A — Visuel
+
+- [Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)
+
+Le visuel est une projection aval, renderer-neutral et non autoritative.
+
+### P5B — Musique / Sonore
+
+- [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
+- [Références et méthode](26_univers_sonore_references_methode.md)
+- [Cahier d’intégration MUSIQUE-0](27_musique0_cahier_integration.md)
+- `lab/musique0/` pour les éléments partageables présents sur `main`.
+
+Le sonore interprète le monde sans modifier son canon. Les thèmes et préférences restent présentationnels.
+
+### P6 — Fenêtre sur les Avelunes
+
+P6 assemble P1 + P5A + P5B dans un produit contemplatif permanent. P6-0 est qualifié offline ; le live attend les gates Cœur/P1 prévues.
+
+---
+
+## 6. Multi-monde et exploitation
+
+Voir [Multi-monde, capacité et Tableau Univers](33_multi_monde_capacite_et_tableau_univers.md).
 
 Principes visibles :
 
-- un compte peut porter des Corcites distincts sur plusieurs mondes ;
-- un Corcite ne migre pas vers un autre monde ;
-- le joueur choisit un monde ouvert disposant de capacité ;
-- rejoindre le monde d’un proche est possible si une place reste disponible ;
-- un monde peut fermer puis rouvrir les nouvelles implantations selon sa capacité réelle ;
-- l’inactivité très longue et la libération de capacité restent à concevoir sans rendre l’absence punitive ;
-- un monde doit pouvoir migrer vers un autre hôte sans changer d’identité ;
-- la croissance des inscriptions peut déclencher une alerte de préparation d’un nouveau monde, jamais une modification du Cœur existant ;
-- la naissance automatique complète n’est pas actée : la validation humaine reste le point de départ.
+- une Avelune possède une identité stable indépendante de son host ;
+- plusieurs instances canoniques autonomes peuvent exister ;
+- leurs états, histoires, sauvegardes, caches et flux ne se mélangent pas ;
+- un Corcite appartient à une seule instance ;
+- la croissance de fréquentation peut déclencher une décision d’ouvrir un nouveau monde, jamais accélérer ou ralentir la biologie d’un monde existant ;
+- la migration d’une instance entre hôtes doit conserver son identité.
 
-## 5. Tableau Réel
+---
 
-Le Tableau Réel suit le projet **réel** sans le confondre avec le monde de jeu ni avec le Tableau Univers.
+## 7. Tableau Réel
+
+Le Tableau Réel suit le **projet réel** sans se confondre avec le monde de jeu ni avec le Tableau Univers.
 
 - [Index TA3](real/README.md)
 - [Spécification fonctionnelle et architecture](real/SPECIFICATION.md)
-- [Plan d’exécution post-Gate 0](real/EXECUTION_PLAN.md)
+- [Plan d’exécution](real/EXECUTION_PLAN.md)
 - [Source énergie AvLab — télémétrie locale](real/AVLAB_POWER_TELEMETRY.md)
 
-Décision structurante : TA3 dispose de son propre stockage et runtime persistants. Les PROTO, instruments, saisies et futures sources de production s’y raccordent par des adaptateurs remplaçables.
+TA3 dispose de son propre stockage et runtime persistants. Le PROTO n’est plus une source structurante et son extinction ne doit pas affecter TA3.
 
-## 6. PROTO-0.1 — baseline de `main`
+---
 
-- [Périmètre du prototype jouable](proto0/PROTO0_PLAYABLE_SCOPE.md)
-- [Gate de playtest](proto0/PROTO0_PLAYTEST_READY.md)
-- [Jalon lisibilité et temporalité](proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md)
+## 8. PROTO — archive historique
+
+**Statut : CLOS / HISTORIQUE depuis le 20 août 2026.**
+
+Référence de clôture : [PROTO_CLOSURE_2026-08-20.md](development/PROTO_CLOSURE_2026-08-20.md).
+
+Documents historiques conservés :
+
+- [Périmètre PROTO-0.1](proto0/PROTO0_PLAYABLE_SCOPE.md)
+- [Gate de playtest PROTO-0.1](proto0/PROTO0_PLAYTEST_READY.md)
+- [Lisibilité et temporalité](proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md)
 - [Carnet de test](proto0/PROTO0_TEST_NOTEBOOK.md)
-- [Rapport d'équilibrage automatisé](proto0/PROTO0_PLAYABLE_BALANCE_REPORT.md)
+- [Rapport d’équilibrage](proto0/PROTO0_PLAYABLE_BALANCE_REPORT.md)
 - [Parcours technique de référence](proto0/PROTO0_PLAYABLE_REFERENCE_PLAYTHROUGH.md)
 
-Les documents P0–P10 restent historiques.
+Les branches `develop/proto-*`, `automation/proto02-*`, `codex/proto02-bootstrap` et documents associés sont à considérer comme historiques jusqu’à leur classification dans le nettoyage GitHub. Leur présence ne constitue pas une roadmap.
 
-## 7. PROTO-0.2.2 — candidat distribué
+---
 
-Branche : [`develop/proto-0.2.2-playtest`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest)
-
-Cahier : [`docs/development/proto0.2`](https://github.com/Avelune-Officiel/les-lisieres-avelune/tree/develop/proto-0.2.2-playtest/docs/development/proto0.2)
-
-Le jalon teste volontairement une boucle simplifiée et distribuable. Les moteurs du Cœur vivant ne sont pas réinjectés automatiquement dans ce prototype. Son tour par tour reste propre au prototype ; les développements ultérieurs visent un monde et un gameplay continus et asynchrones.
-
-## 8. Architecture et méthode
+## 9. Architecture, développement et gouvernance
 
 - [Index développement](development/README.md)
-- [État du projet — 12 août 2026](development/PROJECT_STATUS_2026-08-12.md)
-- [Audit développement et architecture — 2026-08-06](development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)
+- [État historique au 12 août](development/PROJECT_STATUS_2026-08-12.md)
+- [Audit développement et architecture](development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)
 - [Architecture actuelle et cible](development/ARCHITECTURE_CURRENT_AND_TARGET.md)
-- **[Arbitrage transversal — pérennité, ressources et matériel](development/ARBITRATION_LONGEVITY_AND_RESOURCES.md)**
+- [Arbitrage transversal — pérennité, ressources et matériel](development/ARBITRATION_LONGEVITY_AND_RESOURCES.md)
 - [Politique données/configuration](development/DATA_CONFIGURATION_POLICY.md)
 - [Méthode de développement](development/GAME_DEVELOPMENT_METHOD.md)
 - [Dette technique et prochaines étapes](development/TECHNICAL_DEBT_AND_NEXT_STEPS.md)
 - [Tests, sécurité et persistance](development/TEST_SECURITY_PERSISTENCE_STRATEGY.md)
-- [ADR-0001 — cœur métier indépendant de l'UI](development/adr/ADR-0001-FUNCTIONAL-CORE.md)
+- [ADR-0001 — cœur métier indépendant de l’UI](development/adr/ADR-0001-FUNCTIONAL-CORE.md)
 - [ADR-0002 — contenu data-driven](development/adr/ADR-0002-DATA-DRIVEN-CONTENT.md)
-- **[ADR-0003 — Cœur indépendant de ses représentations](development/adr/ADR-0003-CORE-REPRESENTATION-INDEPENDENCE.md)**
+- [ADR-0003 — Cœur indépendant de ses représentations](development/adr/ADR-0003-CORE-REPRESENTATION-INDEPENDENCE.md)
 
-## 9. Identité et direction artistique
+Le nettoyage de l’ancien historique sensible GitHub est clos. Les anciennes copies pré-purge doivent être contrôlées avant réutilisation. L’hygiène courante du dépôt — branches, PR draft, protection de `main`, CI et sécurité GitHub — reste un chantier de gouvernance distinct.
+
+---
+
+## 10. Identité et direction artistique
 
 - [Charte graphique de travail](art/CHARTE_GRAPHIQUE.md)
-- [Univers sonore — contrat partageable](23_univers_sonore_contrat_public.md)
-- [Univers sonore — références et méthode](26_univers_sonore_references_methode.md)
-- [MUSIQUE-0 — intégration](27_musique0_cahier_integration.md)
-- [MUSIQUE-0.1 — baseline du 18 août](../lab/musique0/MUSIQUE0_1_BASELINE_20260818.md)
-- [Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)
+- [Univers sonore](23_univers_sonore_contrat_public.md)
+- [Visuel du Cœur](24_visuel_coeur_contrat_public.md)
 - [Assets GitHub](assets/README.md)
 
-Direction visuelle actuelle : **poétique · onirique · féerique · organique · minérale · florale-abstraite · queer**, avec pour la représentation vivante une recherche **satisfaisante · contemplative · onirique · féerique**.
+Direction visuelle : **poétique · onirique · féerique · organique · minérale · florale-abstraite · queer**.
 
-Direction sonore initiale : **satisfaisante · contemplative · onirique · féerique**.
+Direction visuelle et sonore du vivant : **satisfaisante · contemplative · onirique · féerique**.
 
-## 10. Principes à garder visibles
+---
 
-- monde partagé persistant **par instance** ;
-- plusieurs mondes de production autonomes possibles, sans interaction entre eux ;
-- coopération directe facultative ;
-- progression principalement horizontale ;
-- Corcite lié à son monde, sans migration de progression inter-instance ;
-- identité d’un monde indépendante de la machine physique ;
-- échec fertile ;
-- absence non punitive ;
-- pas de classement humiliant ;
-- pas de FOMO/micro-dopamine comme moteur de rétention ;
-- plusieurs styles et profondeurs de jeu légitimes ;
-- accessibilité intégrée ;
-- identité queer et non genrée ;
-- monde autonome même sans joueur ;
-- séparation entre prototype jouable, Cœur vivant, Tableau Univers et Tableau Réel ;
-- séparation entre état canonique et représentations ;
-- **robustesse ne signifie ni immobilité ni immortalité** ;
-- **le Cœur survit à la disparition ou au remplacement de ses représentations** ;
-- **une seule normalisation privée du Cœur alimente un noyau commun minimal puis des projections spécialisées allowlistées** ;
-- **les interpréteurs consomment un contrat versionné, jamais les internes comme API durable** ;
-- **les clients ne reçoivent que l’état sémantique autorisé nécessaire à leur rôle** ;
-- protocole de transport distinct du contrat sémantique ;
-- versions source/contrat/grammaire/renderer découplées ;
-- technologies et formats choisis avec une voie de migration réaliste ;
-- coût permanent et croissance des données mesurés ;
-- budget visuel/sonore évalué avec le jeu et le Cœur, jamais isolément ;
-- dégradation gracieuse des fonctions non canoniques avant altération des lois ;
-- observabilité et capacité d’action restent des responsabilités distinctes ;
-- séparation entre documentation partageable et informations propriétaires ;
-- **la confidentialité porte aussi sur la structure documentaire : ne pas cartographier un mécanisme réservé pour dire qu’il est secret** ;
-- **références extérieures, hypothèses Avelune, résultats testés et décisions actées restent traçables et distincts**.
+## 11. Frontière de publication
+
+GitHub contient le **code et la documentation partageables**.
+
+Ne pas y publier :
+
+- secrets techniques ou credentials ;
+- clés privées ou recovery codes ;
+- seeds privées ;
+- recettes propriétaires du Cœur ;
+- paramètres et causalités détaillés réservés ;
+- CODEX ou inventaires de secrets ;
+- dumps bruts d’un runtime privé présentés comme documentation.
+
+Le dépôt privé reste traité comme une surface de publication. Une donnée privée ou propriétaire ne devient pas partageable parce que le dépôt exige une authentification.
