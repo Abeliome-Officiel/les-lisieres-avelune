@@ -13,8 +13,8 @@
 | Axe | État actuel |
 |---|---|
 | **PROTO-0 → PROTO-0.2.2** | **CLOS / HISTORIQUE** — objectif de validation rempli ; aucun nouveau développement, playtest structurant ou retrofit de production |
-| **Cœur vivant / CŒUR-0** | qualification biologique suffisamment close ; O1 72 h **PASS / CLOSED / FROZEN** ; prochain chantier autoritatif : P0-AUTH puis gates de reprise/crash/temps |
-| **P1 — Lecteur du Cœur** | baseline offline qualifiée ; gate transverse P1↔P5A↔P5B **PASS / CLOSED** ; P1 reste l’unique autorité de continuité |
+| **Cœur vivant / CŒUR-0** | qualification biologique suffisamment close ; O1 72 h **PASS / CLOSED / FROZEN** ; **P0-AUTH + neutralité + O2/O3/O4 PASS / CLOSED** ; prochaine gate : CREAD-LIVE |
+| **P1 — Lecteur du Cœur** | baseline offline qualifiée ; gate transverse P1↔P5A↔P5B **PASS / CLOSED** ; P1 reste l’unique autorité de continuité ; CREAD-LIVE désormais débloqué côté P0 |
 | **P2 — Observabilité** | OBS-0 offline qualifié et gelé |
 | **P3 — Orchestrateur** | ORCH-0 offline qualifié et gelé |
 | **P4 — Tableaux Monde / Univers** | baseline offline qualifiée et gelée |
@@ -31,6 +31,7 @@ Le nettoyage contrôlé de l’ancien historique GitHub est **clos**. Les réfé
 
 - [Roadmap actuelle](ROADMAP.md)
 - [Index documentaire](docs/index.md)
+- [Clôture P0-AUTH / O2 / O3 / O4](docs/development/P0_AUTH_CLOSURE_2026-08-21.md)
 - [Clôture du PRE-P6 transverse](docs/development/PRE_P6_TRANSVERSE_2026-08-21.md)
 - [Clôture du PROTO](docs/development/PROTO_CLOSURE_2026-08-20.md)
 - [Cœur vivant — genèse canonique](docs/21_coeur_vivant_genese_canonique.md)
@@ -66,7 +67,9 @@ Voir [la décision de clôture](docs/development/PROTO_CLOSURE_2026-08-20.md).
 
 Le **Cœur vivant** est l’autorité canonique sur l’état vivant d’une Avelune. Il doit pouvoir fonctionner avant les joueurs, conserver son histoire et survivre au remplacement de ses représentations.
 
-O1 a qualifié le fonctionnement continu initial du Cœur sur 72 h réelles. Le chantier suivant porte sur l’autorité persistée — identité du monde, révision d’état, âge canonique et état committé — puis sur les gates de reprise, crash, politique de temps et migration avant l’intégration live complète.
+O1 a qualifié le fonctionnement continu initial du Cœur sur 72 h réelles. **P0-AUTH est maintenant fermé avec PASS**, ainsi que la neutralité biologique/RNG, O2 arrêt/reprise, O3 crash/atomicité et O4. L’autorité canonique associe désormais au même état committé l’identité persistante du monde, sa révision canonique et son âge canonique exact. La politique qualifiée d’indisponibilité du Cœur est **PAUSE** : le temps mural écoulé pendant l’arrêt n’est pas transformé automatiquement en vieillissement canonique.
+
+La prochaine gate est **CREAD-LIVE**, puis OBS-1/ORCH-1 selon dépendances et **O5-MIGRATION** avant les raccords live aval définitifs. Voir [la clôture P0-AUTH partageable](docs/development/P0_AUTH_CLOSURE_2026-08-21.md).
 
 L’architecture durable suit une séparation d’autorité stricte :
 
@@ -98,7 +101,7 @@ En parallèle :
 - le futur serveur de jeu restera une autorité de domaine séparée ;
 - aucune représentation ne doit écrire dans la biologie du Cœur par commodité.
 
-Le travail offline de P1 à P6 peut être qualifié sans accéder au runtime Cœur actif. Les phases live restent soumises aux gates opérationnelles du Cœur et à une séquence d’intégration explicite.
+Le travail offline de P1 à P6 peut être qualifié sans accéder au runtime Cœur actif. Les phases live restent soumises à CREAD-LIVE et à la séquence d’intégration explicite.
 
 ---
 
@@ -120,7 +123,7 @@ Un compte pourra observer ou rejoindre plusieurs mondes selon les règles du fut
 
 La **Fenêtre sur les Avelunes** est un produit permanent, contemplatif et non administratif. Elle assemble les projections du Lecteur, le Visuel et le Sonore afin de montrer une Avelune vivante sans devenir une seconde vérité du monde.
 
-La fondation P6-0 est qualifiée offline et le gate transverse P1↔P5A↔P5B est clos avec PASS. Le contrat de fondation P6 est donc prêt et le travail offline peut continuer sur les contrats, fixtures, replays, assemblage, lifecycle, accessibilité et budgets. Le **raccord live** reste en attente de **CREAD-LIVE** et des gates Cœur correspondantes.
+La fondation P6-0 est qualifiée offline et le gate transverse P1↔P5A↔P5B est clos avec PASS. Le contrat de fondation P6 est donc prêt et le travail offline peut continuer sur les contrats, fixtures, replays, assemblage, lifecycle, accessibilité et budgets. Le **raccord live** reste en attente de **CREAD-LIVE** ; les gates P0-AUTH/O2/O3/O4 qui le précédaient sont désormais fermées.
 
 ---
 
