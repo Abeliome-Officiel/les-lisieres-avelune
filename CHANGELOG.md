@@ -1,5 +1,21 @@
 # Changelog
 
+## O1 et clôture PRE-P6 transverse — 2026-08-21
+
+- qualification opérationnelle initiale O1 du Cœur close avec **PASS** après 72 h réelles ; preuves privées gelées hors GitHub ;
+- maintien de la clôture biologique CŒUR-0 : aucune nouvelle campagne biologique ouverte par ce jalon ;
+- gate transverse offline **P1 ↔ P5A ↔ P5B** exécuté et clos avec **PASS** ;
+- confirmation que **P1 reste l’unique autorité de continuité** et que les consommateurs aval ne recalculent pas une seconde continuité ;
+- confirmation de l’absence de second guard P5A et d’absence de seconde autorité active P5B sur le chemin convergé ;
+- qualification de la matrice de continuité C01–C08 ;
+- forme publique de `canonical_age` fixée contractuellement comme chaîne décimale exacte, sans fixer son unité ni sa sémantique P0 ;
+- confirmation que les projections visuelle et sonore convergées sont consommables directement, sans couche de traduction ou réparation spécifique à P6 ;
+- `CONTRACT_READY_FOR_P6_1=YES` et clôture de la dette PRE-P6 transverse ;
+- distinction de gouvernance P6 : fondation et travail offline autorisés ; intégration live toujours bloquée jusqu’à CREAD-LIVE ;
+- ajout de `docs/development/PRE_P6_TRANSVERSE_2026-08-21.md` comme rapport partageable de clôture ;
+- mise à jour de `README.md`, `ROADMAP.md`, `docs/index.md` et `docs/32_coeur_contrat_lecture_modules.md` ;
+- aucune seed, recette Cœur, RNG, causalité privée, credential ou donnée runtime propriétaire publiée.
+
 ## Clôture PROTO et synchronisation documentaire — 2026-08-20
 
 - classement définitif de **PROTO-0 / PROTO-0.1 / PROTO-0.2 / PROTO-0.2.2** comme jalons **CLOS / HISTORIQUES** ;
@@ -191,28 +207,4 @@ Consolidation rétrospective des décisions prises après v0.8.
 - Lisière locale avec cinq états d'Entame ;
 - TF minimal et progression horizontale ;
 - Trame d'Avelune d100 hybride, trois modes de fiche et Dissonance ;
-- Échos territoriaux et internes ;
-- La Genèse, Les Prémices et L'Éveil intégrés au background ;
-- ajout du mini-prototype algorithmique intégré ;
-- décisions DEC-122 à DEC-144 et mécanismes MEC-083 à MEC-100.
-
-## v0.7
-
-- simplification des symbioses ;
-- grille hexagonale définitive ;
-- revue structurée des décisions et interactions.
-
-<!-- PROTO0_PLAYABLE_UX_2026_08_06 -->
-## PROTO-0.1 jouable — lisibilité et temporalité — 2026-08-06
-
-- navigation joueur restructurée ;
-- ressources et capacités rendues lisibles ;
-- choix de testeur restauré ;
-- rapports joueur de tour ajoutés ;
-- recherches jouables ramenées à un tour sans modifier la référence historique ;
-- construction et fabrication réellement résolues sur un tour ;
-- annulation des décisions matérielles avant résolution ;
-- conflits de ressources explicites sans priorité automatique ;
-- validation : 346 tests réussis, 0 erreur, 0 warning et build production réussi.
-
-Voir `docs/proto0/PROTO0_PLAYABLE_UX_TEMPORALITY_2026-08-06.md`.
+- Échos territoriaux et différenciation passive du Corcite.
