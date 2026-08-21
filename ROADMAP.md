@@ -7,8 +7,8 @@ Le projet a quitté la phase où le PROTO constituait un chantier actif. La prio
 | Axe | État | Prochaine gate |
 |---|---|---|
 | **PROTO** | **CLOS / HISTORIQUE** | décommissionnement lorsque décidé ; aucune reprise fonctionnelle |
-| **Cœur / CŒUR-0** | biologie suffisamment close ; O1 72 h PASS/CLOSED/FROZEN | P0-AUTH, neutralité biologique/RNG, O2, O3, O4, puis CREAD-LIVE |
-| **P1 — Lecteur** | offline qualifié ; convergence et gate transverse P1↔P5A↔P5B PASS | CREAD-LIVE après primitives autoritatives P0 et gates post-O1 |
+| **Cœur / CŒUR-0** | biologie suffisamment close ; O1 PASS/CLOSED/FROZEN ; **P0-AUTH + neutralité + O2/O3/O4 PASS/CLOSED** | **CREAD-LIVE**, puis OBS-1/ORCH-1 selon dépendances et O5-MIGRATION |
+| **P1 — Lecteur** | offline qualifié ; convergence et gate transverse P1↔P5A↔P5B PASS | **CREAD-LIVE** sur la nouvelle autorité P0 qualifiée |
 | **P2 — Observabilité** | OBS-0 offline qualifié et gelé | OBS-1 lorsque les sources live sont autorisées |
 | **P3 — Orchestrateur** | ORCH-0 offline qualifié et gelé | ORCH-1 sur instance LAB dédiée après gates requises |
 | **P4 — Tableaux** | offline qualifié et gelé | reprise uniquement lors de l’arrivée de sources live réelles |
@@ -47,9 +47,11 @@ Voir [`docs/development/PROTO_CLOSURE_2026-08-20.md`](docs/development/PROTO_CLO
 
 ## 2. Cœur vivant — priorité actuelle
 
-Le Cœur est le moteur autonome d’une Avelune. La qualification biologique ouverte est considérée suffisamment close. O1 a également qualifié le fonctionnement continu initial pendant 72 h réelles ; son verdict est **PASS**, ses preuves sont gelées et ce jalon est clos.
+Le Cœur est le moteur autonome d’une Avelune. La qualification biologique ouverte est considérée suffisamment close. O1 a qualifié le fonctionnement continu initial pendant 72 h réelles ; son verdict est **PASS**, ses preuves sont gelées et ce jalon est clos.
 
-### Principes déjà fermés
+P0-AUTH et les gates post-O1 immédiates sont maintenant également closes : **neutralité biologique/RNG PASS, O2 PASS, O3 PASS, O4 PASS**. La politique qualifiée pendant une indisponibilité du Cœur est **PAUSE**.
+
+### Principes et gates fermés
 
 - [x] le Cœur est l’autorité canonique sur l’état vivant ;
 - [x] l’identité d’un monde est indépendante de son host ;
@@ -58,25 +60,27 @@ Le Cœur est le moteur autonome d’une Avelune. La qualification biologique ouv
 - [x] l’arrêt d’un module aval ne doit pas arrêter un Cœur sain ;
 - [x] aucune fréquentation joueur ne change la vitesse ou les lois biologiques du monde ;
 - [x] la v1.0 ne prévoit pas de rétroaction gameplay → biologie du Cœur ;
-- [x] O1 72 h : fonctionnement continu initial qualifié et archivé.
+- [x] O1 72 h : fonctionnement continu initial qualifié et archivé ;
+- [x] **P0-AUTH** : identité, révision canonique, âge canonique exact et état associés au même commit autoritatif ;
+- [x] neutralité biologique/RNG de la couche d’autorité ;
+- [x] **O2** — arrêt propre et reprise exacts ;
+- [x] **O3** — crash, atomicité et recovery ;
+- [x] **O4** — politique de downtime qualifiée : `PAUSE`.
+
+Voir [`docs/development/P0_AUTH_CLOSURE_2026-08-21.md`](docs/development/P0_AUTH_CLOSURE_2026-08-21.md).
 
 ### Séquence opérationnelle restante
 
-1. **P0-AUTH** : primitives autoritatives atomiques `world_instance_id`, `state_revision`, `canonical_age`, `state` ;
-2. preuve de neutralité biologique/RNG des changements d’infrastructure ;
-3. **O2** — arrêt/reprise exacts ;
-4. **O3** — crash, atomicité et recovery ;
-5. **O4** — politique de temps pendant indisponibilité ;
-6. **CREAD-LIVE** ;
-7. **OBS-1 / ORCH-1** selon dépendances ;
-8. **O5-MIGRATION** — migration réelle sans changement d’identité ;
-9. **P5A / P5B / P6 live** ;
-10. qualification de l’isolation des pannes aval ;
-11. freeze de la configuration intégrée ;
-12. endurance intégrée longue **10 jours / 240 h** ;
-13. analyse exhaustive puis décision d’entrée dans **CŒUR-1**.
+1. **CREAD-LIVE** — raccorder P1 à l’autorité P0 par une frontière minimale/versionnée et qualifier replay/live ;
+2. **OBS-1 / ORCH-1** selon dépendances ;
+3. **O5-MIGRATION** — migration LAB réelle sans changement d’identité et sans double autorité ;
+4. **P5A / P5B / P6 live** ;
+5. qualification de l’isolation des pannes aval ;
+6. freeze de la configuration intégrée ;
+7. endurance intégrée longue **10 jours / 240 h** ;
+8. analyse exhaustive puis décision d’entrée dans **CŒUR-1**.
 
-La durée d’un soak ne vaut jamais PASS à elle seule.
+La durée d’un soak ne vaut jamais PASS à elle seule. **O5-MIGRATION ne doit pas être omis.**
 
 ---
 
@@ -93,12 +97,13 @@ P1 constitue l’unique frontière durable entre les structures privées du Cœu
 - [x] convergence contractuelle P1↔P5A↔P5B qualifiée ;
 - [x] gate transverse P1↔P5A↔P5B exécuté : **PASS / CLOSED** ;
 - [x] `canonical_age` conservé comme chaîne décimale exacte sur le wire ;
-- [x] `event_history_exhaustive` relève de la décision de continuité P1.
+- [x] `event_history_exhaustive` relève de la décision de continuité P1 ;
+- [x] P0 fournit désormais les primitives autoritatives requises ;
+- [x] la sémantique P0 qualifiée de `canonical_age` est exacte et la politique de downtime du Cœur est `PAUSE`.
 
-### Bloqué
+### Prochaine gate
 
-- [ ] CREAD-LIVE attend P0-AUTH puis O2/O3/O4 ;
-- [ ] la sémantique autoritative exacte de `canonical_age` reste propriété P0 et ne doit pas être inventée par les consommateurs.
+- [ ] **CREAD-LIVE** : adapter la source réelle P0 à la session P1 existante, vérifier l’identité et l’allowlist, démontrer l’équivalence sémantique replay/live et mesurer le coût de projection.
 
 ---
 
@@ -178,10 +183,11 @@ La **Fenêtre sur les Avelunes** est le premier produit intégrateur contemplati
 - [x] PRE-P6 transverse = PASS / CLOSED ;
 - [x] contrat de fondation P6 prêt, sans couche de traduction/réparation transverse ;
 - [x] travail P6 offline autorisé ;
+- [x] gates amont P0-AUTH/O2/O3/O4 closes ;
 - [ ] **P6 live** : attente de CREAD-LIVE ;
 - [ ] aucune connexion directe au Cœur privé.
 
-Le PASS transverse ferme une dette contractuelle ; il n’autorise pas le raccord live avant les gates P0/P1 prévues.
+Le PASS transverse ferme une dette contractuelle ; il n’autorise pas le raccord live avant CREAD-LIVE.
 
 ---
 
