@@ -5,8 +5,8 @@ Cet index distingue les **référentiels partageables actuels**, les modules dur
 ## 1. État courant — 21 août 2026
 
 - **PROTO-0 / 0.1 / 0.2 / 0.2.2** : **CLOS / HISTORIQUE**. Aucun nouveau développement, playtest structurant ou retrofit de production. Les branches et documents restent des preuves historiques.
-- **Cœur vivant / CŒUR-0** : qualification biologique suffisamment close ; O1 72 h **PASS / CLOSED / FROZEN** ; prochain chantier : P0-AUTH puis neutralité, O2, O3, O4 et CREAD-LIVE.
-- **P1 — Lecteur du Cœur** : baseline offline qualifiée ; gate transverse P1↔P5A↔P5B **PASS / CLOSED** ; P1 reste l’unique autorité de continuité ; live bloqué par les gates P0/opérationnelles prévues.
+- **Cœur vivant / CŒUR-0** : qualification biologique suffisamment close ; O1 72 h **PASS / CLOSED / FROZEN** ; **P0-AUTH, neutralité biologique/RNG, O2, O3 et O4 PASS / CLOSED** ; prochaine gate : **CREAD-LIVE**.
+- **P1 — Lecteur du Cœur** : baseline offline qualifiée ; gate transverse P1↔P5A↔P5B **PASS / CLOSED** ; P1 reste l’unique autorité de continuité ; CREAD-LIVE est désormais débloqué côté P0.
 - **P2 — Observabilité** : OBS-0 offline qualifié et gelé.
 - **P3 — Orchestrateur** : ORCH-0 offline qualifié et gelé.
 - **P4 — Tableaux Monde / Univers** : baseline offline qualifiée et gelée.
@@ -28,6 +28,7 @@ Lorsqu’un document historique contredit un référentiel plus récent, il rest
 - [Roadmap actuelle](../ROADMAP.md)
 - [Manifeste du dépôt](../MANIFEST.md)
 - [Changelog](../CHANGELOG.md)
+- [Clôture P0-AUTH / O2 / O3 / O4 — 21 août 2026](development/P0_AUTH_CLOSURE_2026-08-21.md)
 - [Clôture PRE-P6 transverse — 21 août 2026](development/PRE_P6_TRANSVERSE_2026-08-21.md)
 - [Clôture définitive du PROTO](development/PROTO_CLOSURE_2026-08-20.md)
 
@@ -68,7 +69,7 @@ Références partageables :
 - [WorldReadEnvelope v0.1 — schéma](contracts/world-read-envelope-v0.1.schema.json)
 - [Avelune Semantic Replay v0.1](contracts/avelune-semantic-replay-v0.1.md)
 
-### Frontière durable qualifiée offline
+### Frontière durable qualifiée
 
 ```text
 Cœur / état privé d’une instance
@@ -88,11 +89,13 @@ visuel    sonore
        P6
 ```
 
-P1 possède la continuité de publication et la resynchronisation. Un consommateur ne lit pas directement les structures privées du Cœur et ne crée pas une seconde autorité à partir de `state_revision`, `publication_seq` ou `canonical_age`.
+P0 qualifie désormais un état canonique committé cohérent portant ensemble `world_instance_id`, `state_revision`, `canonical_age` et l’état vivant. P1 possède la continuité de publication et la resynchronisation. Un consommateur ne lit pas directement les structures privées du Cœur et ne crée pas une seconde autorité à partir de `state_revision`, `publication_seq` ou `canonical_age`.
 
-`canonical_age` est transporté publiquement sous forme de chaîne décimale exacte. Son unité, sa primitive persistée et sa politique de progression restent à fermer côté P0.
+`canonical_age` est transporté publiquement sous forme de chaîne décimale exacte. Sa progression autoritative est cohérente avec la progression biologique committée ; lorsqu’un Cœur est arrêté, la politique qualifiée est **PAUSE**. Les consommateurs n’en déduisent ni unité de présentation, ni `canonical_hour`, ni facteur temps réel.
 
-Fixtures, replays et sources live doivent pouvoir présenter la même sémantique contractuelle. Pour la v1.0, cette frontière reste en lecture seule vis-à-vis de la biologie.
+Fixtures, replays et sources live doivent pouvoir présenter la même sémantique contractuelle. Pour la v1.0, cette frontière reste en lecture seule vis-à-vis de la biologie. La prochaine gate est **CREAD-LIVE**.
+
+Voir [la clôture partageable P0-AUTH / O2 / O3 / O4](development/P0_AUTH_CLOSURE_2026-08-21.md).
 
 ---
 
@@ -102,7 +105,7 @@ Fixtures, replays et sources live doivent pouvoir présenter la même sémantiqu
 
 Autorité partageable : [Contrat de lecture des modules](32_coeur_contrat_lecture_modules.md) et les contrats `docs/contracts/`.
 
-P1 possède la continuité de publication, la resynchronisation et la frontière entre le Cœur privé et les projections aval. Le gate transverse PRE-P6 a confirmé cette autorité unique.
+P1 possède la continuité de publication, la resynchronisation et la frontière entre le Cœur privé et les projections aval. Le gate transverse PRE-P6 a confirmé cette autorité unique. Les primitives autoritatives P0 requises sont maintenant qualifiées ; **CREAD-LIVE** est le chantier suivant.
 
 ### P2 — Observabilité
 
@@ -142,7 +145,7 @@ P6_LIVE_INTEGRATION=WAIT_CREAD_LIVE
 P6_LIVE_AUTHORIZED=NO
 ```
 
-Voir [le rapport partageable PRE-P6](development/PRE_P6_TRANSVERSE_2026-08-21.md).
+Les gates P0-AUTH/O2/O3/O4 qui précédaient CREAD-LIVE sont closes. Voir [le rapport partageable P0-AUTH](development/P0_AUTH_CLOSURE_2026-08-21.md) et [le rapport PRE-P6](development/PRE_P6_TRANSVERSE_2026-08-21.md).
 
 ---
 
@@ -158,6 +161,8 @@ Principes visibles :
 - un Corcite appartient à une seule instance ;
 - la croissance de fréquentation peut déclencher une décision d’ouvrir un nouveau monde, jamais accélérer ou ralentir la biologie d’un monde existant ;
 - la migration d’une instance entre hôtes doit conserver son identité.
+
+**O5-MIGRATION** reste une gate LAB obligatoire avant le raccord live aval définitif.
 
 ---
 
@@ -196,6 +201,7 @@ Les branches `develop/proto-*`, `automation/proto02-*`, `codex/proto02-bootstrap
 ## 9. Architecture, développement et gouvernance
 
 - [Index développement](development/README.md)
+- [Clôture P0-AUTH / O2 / O3 / O4](development/P0_AUTH_CLOSURE_2026-08-21.md)
 - [Clôture PRE-P6 transverse](development/PRE_P6_TRANSVERSE_2026-08-21.md)
 - [État historique au 12 août](development/PROJECT_STATUS_2026-08-12.md)
 - [Audit développement et architecture](development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)

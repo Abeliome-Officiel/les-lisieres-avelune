@@ -1,6 +1,6 @@
 # Cœur vivant — contrat de lecture des modules
 
-> **Statut : architecture partageable — v0.4**  
+> **Statut : architecture partageable — v0.5**  
 > Date : 21 août 2026  
 > Ce document est l’autorité architecturale partageable pour la frontière **Cœur → modules**. Il décrit les garanties de raccordement sans exposer les structures, recettes, paramètres ou causalités propriétaires du Cœur.
 
@@ -127,6 +127,8 @@ Règles :
 
 Pour les caches et mémoires de modules, `representation_id` seul ne suffit jamais : le namespace minimal inclut `world_instance_id`.
 
+P0-AUTH a qualifié cette identité côté autorité canonique. Lors d’une création orchestrée, l’identité provisionnée par P3 et celle portée par P0 doivent correspondre exactement ; une divergence est bloquante.
+
 ## 6. Révision canonique et ordre de publication
 
 `state_revision` identifie l’ordre des états **committés** du Cœur. Il reste distinct de :
@@ -135,6 +137,7 @@ Pour les caches et mémoires de modules, `representation_id` seul ne suffit jama
 canonical_age
 publication_seq
 wall clock
+version de schéma
 SQLite rowid
 identifiant d’événement
 ```
@@ -143,11 +146,11 @@ identifiant d’événement
 
 Conséquence qualifiée : un saut de `state_revision` n’est **pas automatiquement** un gap de publication. La continuité est décidée par P1 à partir de son contrat de session, pas par les renderers.
 
-La manière exacte dont P0 persiste et incrémente `state_revision` reste du ressort de P0-AUTH.
+P0-AUTH qualifie `state_revision` comme un entier monotone de commit canonique. La manière exacte dont P0 stocke et incrémente cette valeur reste privée et n’est pas une dépendance des clients.
 
 ## 7. canonical_age
 
-La **forme publique de transport qualifiée** est une **chaîne décimale exacte**.
+La **forme publique de transport qualifiée** reste une **chaîne décimale exacte**.
 
 Exemples de forme :
 
@@ -157,17 +160,24 @@ Exemples de forme :
 "0.0001"
 ```
 
-Cette forme évite les pertes de précision et n’impose aucune unité aux consommateurs.
+Cette forme évite les pertes de précision et n’impose aucune représentation numérique flottante aux consommateurs.
 
-Le contrat de lecture ne fixe pas :
+P0-AUTH qualifie désormais les garanties sémantiques suivantes :
 
-- l’unité canonique ;
-- la primitive persistée côté P0 ;
-- le facteur temps réel ↔ temps canonique ;
-- une notion de `canonical_hour` ;
-- la politique de pause ou de rattrapage pendant une indisponibilité.
+- `canonical_age` appartient au même commit autoritatif que `world_instance_id`, `state_revision` et l’état vivant ;
+- sa valeur est exacte et sa progression active suit exactement le delta de temps biologique logique du commit ;
+- un offset décimal exact peut être conservé sans dérive ;
+- si le **Cœur lui-même** est arrêté, la politique qualifiée est `PAUSE` : le temps mural d’indisponibilité ne crée pas de vieillissement canonique ;
+- un client n’infère ni âge manquant, ni rattrapage, ni progression locale.
 
-Ces sémantiques restent **BLOCKED_BY_P0_AUTH** puis par les gates opérationnelles correspondantes.
+Le contrat de lecture ne fixe toujours pas :
+
+- la primitive de stockage interne utilisée par P0 ;
+- une notion publique de `canonical_hour` ;
+- le facteur temps réel ↔ temps canonique de présentation ou d’exploitation ;
+- la manière dont l’UX traduit cet âge pour un humain.
+
+Ces choix restent distincts du transport. Ils sont versionnés lorsqu’ils deviennent nécessaires et ne sont jamais inventés par P1, P5 ou P6.
 
 ## 8. ContinuityDecision
 
@@ -316,22 +326,27 @@ Visuel et sonore restent indépendants : une panne de l’un ne doit pas imposer
 
 ## 21. Gates avant branchement live
 
-Avant raccordement durable :
+Les deux premières conditions ont été qualifiées par P0-AUTH :
 
-1. P0 fournit un état committé autoritatif cohérent ;
-2. les métadonnées d’identité/révision/âge correspondent au même commit canonique que l’état ;
-3. l’adaptateur/lecteur ne modifie pas l’état ;
-4. aucun champ privé non allowlisté ne sort ;
-5. `world_instance_id` est vérifié de bout en bout ;
-6. continuité, duplicate, gap, changement de stream/monde et resynchronisation restent autorité P1 ;
-7. replay/live sont sémantiquement équivalents ;
-8. renderer arrêté → Cœur inchangé ;
-9. publisher/lecteur arrêté → Cœur inchangé ;
-10. source A ne peut pas alimenter silencieusement cache/mémoire B ;
-11. version incompatible → échec explicite, aucune approximation silencieuse ;
-12. coût de publication/consommation est mesuré avec les composants réellement concurrents.
+- [x] P0 fournit un état committé autoritatif cohérent ;
+- [x] les métadonnées d’identité/révision/âge correspondent au même commit canonique que l’état.
 
-## 22. Statut PRE-P6 et suite
+**CREAD-LIVE** doit maintenant qualifier la frontière réelle P0 → P1 :
+
+1. l’adaptateur/lecteur ne modifie pas l’état ;
+2. aucun champ privé non allowlisté ne sort ;
+3. `world_instance_id` est vérifié de bout en bout ;
+4. continuité, duplicate, gap, changement de stream/monde et resynchronisation restent autorité P1 ;
+5. replay/live sont sémantiquement équivalents ;
+6. renderer arrêté → Cœur inchangé ;
+7. publisher/lecteur arrêté → Cœur inchangé ;
+8. source A ne peut pas alimenter silencieusement cache/mémoire B ;
+9. version incompatible → échec explicite, aucune approximation silencieuse ;
+10. coût de publication/consommation est mesuré avec les composants réellement concurrents.
+
+Aucune de ces gates n’autorise un accès direct au stockage privé du Cœur.
+
+## 22. Statut PRE-P6, P0 et suite
 
 Le gate transverse P1↔P5A↔P5B est clos :
 
@@ -339,6 +354,16 @@ Le gate transverse P1↔P5A↔P5B est clos :
 TRANSVERSE_P1_P5A_P5B_FORMAL_GATE=PASS
 CONTRACT_READY_FOR_P6_1=YES
 PRE_P6_TRANSVERSE=CLOSED
+```
+
+P0 et les gates opérationnelles immédiates sont également clos :
+
+```text
+P0_AUTH=PASS
+BIOLOGICAL_RNG_NEUTRALITY=PASS
+O2_CLEAN_RESTART=PASS
+O3_CRASH_ATOMICITY=PASS
+O4_DOWNTIME_POLICY=PAUSE
 ```
 
 Cette fermeture autorise le **travail P6 offline** mais pas le raccord live :
@@ -350,28 +375,24 @@ P6_LIVE_INTEGRATION=WAIT_CREAD_LIVE
 P6_LIVE_AUTHORIZED=NO
 ```
 
-La chaîne amont restante vers le live est :
+La chaîne amont restante vers le live est désormais :
 
 ```text
-P0-AUTH
-  ↓
-neutralité biologique / RNG
-  ↓
-O2
-  ↓
-O3
-  ↓
-O4
-  ↓
 CREAD-LIVE
+  ↓
+OBS-1 / ORCH-1 selon dépendances
+  ↓
+O5-MIGRATION
   ↓
 raccords live aval
 ```
 
-Voir également `docs/development/PRE_P6_TRANSVERSE_2026-08-21.md`.
+**O5-MIGRATION reste obligatoire** avant la qualification intégrée finale : la migration LAB devra préserver `world_instance_id` et le canon sans maintenir deux autorités actives.
+
+Voir également `docs/development/P0_AUTH_CLOSURE_2026-08-21.md` et `docs/development/PRE_P6_TRANSVERSE_2026-08-21.md`.
 
 ## 23. Frontière de confidentialité
 
 GitHub peut documenter l’existence du contrat, ses propriétés, ses versions, ses tests, les identités opaques nécessaires à l’interopérabilité, les formats de replay partageables et les catégories sémantiques autorisées.
 
-Restent hors dépôt les détails permettant de reconstruire les mécanismes du Cœur : champs sources privés, mappings exacts, paramètres, seeds, seuils, recettes, causalités réservées, instrumentation brute et background confidentiel non nécessaire à l’architecture partageable.
+Restent hors dépôt les détails permettant de reconstruire les mécanismes du Cœur : champs sources privés, mappings exacts, paramètres, seeds, seuils, recettes, causalités réservées, instrumentation brute, structure de stockage interne, états RNG et background confidentiel non nécessaire à l’architecture partageable.
