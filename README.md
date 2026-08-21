@@ -8,19 +8,19 @@
 
 ---
 
-## État du projet — 20 août 2026
+## État du projet — 21 août 2026
 
 | Axe | État actuel |
 |---|---|
 | **PROTO-0 → PROTO-0.2.2** | **CLOS / HISTORIQUE** — objectif de validation rempli ; aucun nouveau développement, playtest structurant ou retrofit de production |
-| **Cœur vivant / CŒUR-0** | qualification biologique suffisamment close ; qualification opérationnelle prioritaire en cours ; runtime actif non touché par les travaux documentaires |
-| **P1 — Lecteur du Cœur** | baseline offline qualifiée ; convergence P1↔P5A↔P5B qualifiée |
+| **Cœur vivant / CŒUR-0** | qualification biologique suffisamment close ; O1 72 h **PASS / CLOSED / FROZEN** ; prochain chantier autoritatif : P0-AUTH puis gates de reprise/crash/temps |
+| **P1 — Lecteur du Cœur** | baseline offline qualifiée ; gate transverse P1↔P5A↔P5B **PASS / CLOSED** ; P1 reste l’unique autorité de continuité |
 | **P2 — Observabilité** | OBS-0 offline qualifié et gelé |
 | **P3 — Orchestrateur** | ORCH-0 offline qualifié et gelé |
 | **P4 — Tableaux Monde / Univers** | baseline offline qualifiée et gelée |
-| **P5A — Visuel** | baseline offline qualifiée ; convergence avec P1 qualifiée |
-| **P5B — Musique / Sonore** | baseline offline globale qualifiée ; convergence avec P1 qualifiée |
-| **P6 — Fenêtre sur les Avelunes** | P6-0 offline qualifié ; phase suivante différée jusqu’au verdict du protocole Cœur en cours |
+| **P5A — Visuel** | baseline offline qualifiée ; frontière convergée avec P1 qualifiée ; aucune seconde autorité de continuité |
+| **P5B — Musique / Sonore** | baseline offline globale qualifiée ; frontière convergée avec P1 qualifiée ; aucune seconde autorité active sur le chemin convergé |
+| **P6 — Fenêtre sur les Avelunes** | P6-0 offline qualifié ; contrat de fondation prêt ; travail offline autorisé ; intégration live en attente de CREAD-LIVE |
 | **Tableau Réel — TA3** | service autonome séparé du PROTO ; surfaces publique et privée distinctes ; écritures privées toujours soumises à leurs gates de sécurité |
 
 Le nettoyage contrôlé de l’ancien historique GitHub est **clos**. Les références actuelles sont la source de vérité ; tout ancien clone ou worktree issu d’un graphe antérieur doit être contrôlé avant réutilisation.
@@ -31,6 +31,7 @@ Le nettoyage contrôlé de l’ancien historique GitHub est **clos**. Les réfé
 
 - [Roadmap actuelle](ROADMAP.md)
 - [Index documentaire](docs/index.md)
+- [Clôture du PRE-P6 transverse](docs/development/PRE_P6_TRANSVERSE_2026-08-21.md)
 - [Clôture du PROTO](docs/development/PROTO_CLOSURE_2026-08-20.md)
 - [Cœur vivant — genèse canonique](docs/21_coeur_vivant_genese_canonique.md)
 - [Cœur vivant — contrat de lecture des modules](docs/32_coeur_contrat_lecture_modules.md)
@@ -65,6 +66,8 @@ Voir [la décision de clôture](docs/development/PROTO_CLOSURE_2026-08-20.md).
 
 Le **Cœur vivant** est l’autorité canonique sur l’état vivant d’une Avelune. Il doit pouvoir fonctionner avant les joueurs, conserver son histoire et survivre au remplacement de ses représentations.
 
+O1 a qualifié le fonctionnement continu initial du Cœur sur 72 h réelles. Le chantier suivant porte sur l’autorité persistée — identité du monde, révision d’état, âge canonique et état committé — puis sur les gates de reprise, crash, politique de temps et migration avant l’intégration live complète.
+
 L’architecture durable suit une séparation d’autorité stricte :
 
 ```text
@@ -72,12 +75,20 @@ CŒUR / état canonique privé
         ↓
 P1 — Lecteur du Cœur
         ↓
-WorldReadEnvelope + projections spécialisées
-        ├─ P5A — Visuel
-        └─ P5B — Musique / Sonore
-                 ↓
-        P6 — Fenêtre sur les Avelunes
+ReadSessionItem
+├─ WorldReadEnvelope
+└─ ContinuityDecision
+        ↓
+   ┌────┴────┐
+   ↓         ↓
+ P5A       P5B
+visuel    sonore
+   └────┬────┘
+        ↓
+P6 — Fenêtre sur les Avelunes
 ```
+
+P1 est l’unique autorité de continuité. Les consommateurs aval peuvent valider la forme de leurs entrées, mais ne recalculent ni gap, ni doublon, ni changement de session ou de monde depuis `state_revision`, `publication_seq` ou `canonical_age`.
 
 En parallèle :
 
@@ -109,7 +120,7 @@ Un compte pourra observer ou rejoindre plusieurs mondes selon les règles du fut
 
 La **Fenêtre sur les Avelunes** est un produit permanent, contemplatif et non administratif. Elle assemble les projections du Lecteur, le Visuel et le Sonore afin de montrer une Avelune vivante sans devenir une seconde vérité du monde.
 
-La fondation P6-0 est qualifiée offline. Le branchement live attend les gates correspondantes du Cœur et de P1.
+La fondation P6-0 est qualifiée offline et le gate transverse P1↔P5A↔P5B est clos avec PASS. Le contrat de fondation P6 est donc prêt et le travail offline peut continuer sur les contrats, fixtures, replays, assemblage, lifecycle, accessibilité et budgets. Le **raccord live** reste en attente de **CREAD-LIVE** et des gates Cœur correspondantes.
 
 ---
 
