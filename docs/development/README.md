@@ -4,11 +4,11 @@ Ce dossier regroupe la documentation technique, la méthode de développement, l
 
 ## État courant
 
-Point de référence : **[Avelune — état du projet au 20 août 2026](PROJECT_STATUS_2026-08-20.md)**.
+Point de référence général : **[Avelune — état du projet au 20 août 2026](PROJECT_STATUS_2026-08-20.md)**, complété par les clôtures datées du 21 août.
 
 Les axes actifs doivent être lus séparément :
 
-- **Cœur vivant / CŒUR-0** : qualification opérationnelle prioritaire ;
+- **Cœur vivant / CŒUR-0** : O1 et P0-AUTH/O2/O3/O4 fermés ; prochaine gate CREAD-LIVE ;
 - **P1–P6** : modules durables autour du Cœur, avec baselines offline qualifiées à différents niveaux ;
 - **Tableau Réel (TA3)** : instrumentation persistante du projet réel ;
 - **GitHub / sécurité** : gouvernance du dépôt, branches/PR, protections et CI.
@@ -29,6 +29,8 @@ Une expérience locale de durcissement des secrets a été testée mais non int�
 
 Documentation partageable principale :
 
+- [Clôture P0-AUTH / O2 / O3 / O4 — 21 août 2026](P0_AUTH_CLOSURE_2026-08-21.md)
+- [Clôture PRE-P6 transverse — 21 août 2026](PRE_P6_TRANSVERSE_2026-08-21.md)
 - [Cœur vivant et genèse canonique](../21_coeur_vivant_genese_canonique.md)
 - [Références scientifiques et méthode](../25_coeur_vivant_references_methode.md)
 - [Gate de suffisance](../29_coeur_vivant_gate_suffisance.md)
@@ -36,7 +38,9 @@ Documentation partageable principale :
 - [Contrat de lecture des modules](../32_coeur_contrat_lecture_modules.md)
 - [Multi-monde, capacité et Tableau Univers](../33_multi_monde_capacite_et_tableau_univers.md)
 
-L’implémentation exacte, les seeds, paramètres et causalités propriétaires restent hors GitHub. Le dépôt publie les contrats, méthodes autorisées et résultats suffisamment agrégés.
+O1 est **PASS / CLOSED / FROZEN**. P0-AUTH, la neutralité biologique/RNG, O2 arrêt/reprise, O3 crash/atomicité et O4 sont également **PASS / CLOSED**. La politique qualifiée d’arrêt du Cœur est **PAUSE**. La prochaine gate est **CREAD-LIVE**, puis OBS-1/ORCH-1 selon dépendances et O5-MIGRATION avant la qualification live aval finale.
+
+L’implémentation exacte, les seeds, paramètres, RNG, structures de persistance et causalités propriétaires restent hors GitHub. Le dépôt publie les contrats, méthodes autorisées et résultats suffisamment agrégés.
 
 Le runtime actif ne doit pas être perturbé par les travaux documentaires ou les qualifications offline des modules aval.
 
@@ -44,7 +48,7 @@ Le runtime actif ne doit pas être perturbé par les travaux documentaires ou le
 
 ### P1 — Lecteur du Cœur
 
-Baseline offline qualifiée ; frontière `WorldReadEnvelope` ; continuité et resynchronisation sous autorité P1 ; convergence P5A/P5B qualifiée offline.
+Baseline offline qualifiée ; frontière `WorldReadEnvelope` ; continuité et resynchronisation sous autorité P1 ; convergence P5A/P5B qualifiée offline. Les primitives P0 nécessaires sont désormais qualifiées ; **CREAD-LIVE** est la prochaine gate.
 
 ### P2 — Observabilité
 
@@ -72,7 +76,7 @@ Baseline offline globale qualifiée derrière P1.
 
 ### P6 — Fenêtre sur les Avelunes
 
-P6-0 offline qualifié. La phase suivante attend les gates Cœur/P1 prévues et ne doit pas être branchée opportunistement sur le runtime actif.
+P6-0 offline qualifié. Le travail offline est autorisé, mais l’intégration live reste en attente de **CREAD-LIVE** ; aucun raccord direct opportuniste au runtime Cœur n’est autorisé.
 
 ## Tableau Réel
 
@@ -90,10 +94,12 @@ Le nettoyage historique sensible est clos. Les références réécrites sont la 
 
 L’hygiène courante reste ouverte : branches historiques, PR draft, `tmp-unused`, branche Sentinelle, protection de `main`, CI et automatisation sécurité.
 
-GitHub reste une surface partageable même lorsque le dépôt est privé : aucun secret technique, clé privée, recovery code, seed privée, recette Cœur, causalité réservée ou CODEX ne doit y être publié.
+GitHub reste une surface partageable même lorsque le dépôt est privé : aucun secret technique, clé privée, recovery code, seed privée, recette Cœur, RNG, détail de persistance propriétaire, causalité réservée ou CODEX ne doit y être publié.
 
 ## Documents structurants
 
+- [Clôture P0-AUTH / O2 / O3 / O4 — 21 août 2026](P0_AUTH_CLOSURE_2026-08-21.md)
+- [Clôture PRE-P6 transverse — 21 août 2026](PRE_P6_TRANSVERSE_2026-08-21.md)
 - [Snapshot courant — 20 août 2026](PROJECT_STATUS_2026-08-20.md)
 - [Clôture du PROTO](PROTO_CLOSURE_2026-08-20.md)
 - [Snapshot historique — 12 août 2026](PROJECT_STATUS_2026-08-12.md)
@@ -113,7 +119,7 @@ GitHub reste une surface partageable même lorsque le dépôt est privé : aucun
 Les documents historiques restent conservés pour traçabilité. Lorsqu’ils sont contredits, l’ordre de priorité est :
 
 1. `README.md`, `ROADMAP.md` et `docs/index.md` ;
-2. snapshot de pilotage courant ;
+2. clôtures datées et snapshot de pilotage courant ;
 3. contrats/ADR/règles plus récents ;
 4. état réel du code ou de la branche concernée.
 
