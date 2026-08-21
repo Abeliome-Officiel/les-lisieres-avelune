@@ -2,17 +2,17 @@
 
 Cet index distingue les **référentiels partageables actuels**, les modules durables, le **Cœur vivant**, le **Tableau Réel**, les représentations et les **jalons historiques**.
 
-## 1. État courant — 20 août 2026
+## 1. État courant — 21 août 2026
 
-- **PROTO-0 / 0.1 / 0.2 / 0.2.2** : **CLOS / HISTORIQUE**. Aucun nouveau développement, playtest structurant ou retrofit de production. Les branches et documents restent des preuves historiques jusqu’au nettoyage GitHub.
-- **Cœur vivant / CŒUR-0** : qualification biologique suffisamment close ; qualification opérationnelle prioritaire en cours. Aucun travail documentaire ou module aval ne doit perturber le runtime actif.
-- **P1 — Lecteur du Cœur** : baseline offline qualifiée ; convergence avec P5A et P5B qualifiée ; live bloqué par les gates autoritatives/opérationnelles prévues.
+- **PROTO-0 / 0.1 / 0.2 / 0.2.2** : **CLOS / HISTORIQUE**. Aucun nouveau développement, playtest structurant ou retrofit de production. Les branches et documents restent des preuves historiques.
+- **Cœur vivant / CŒUR-0** : qualification biologique suffisamment close ; O1 72 h **PASS / CLOSED / FROZEN** ; prochain chantier : P0-AUTH puis neutralité, O2, O3, O4 et CREAD-LIVE.
+- **P1 — Lecteur du Cœur** : baseline offline qualifiée ; gate transverse P1↔P5A↔P5B **PASS / CLOSED** ; P1 reste l’unique autorité de continuité ; live bloqué par les gates P0/opérationnelles prévues.
 - **P2 — Observabilité** : OBS-0 offline qualifié et gelé.
 - **P3 — Orchestrateur** : ORCH-0 offline qualifié et gelé.
 - **P4 — Tableaux Monde / Univers** : baseline offline qualifiée et gelée.
-- **P5A — Visuel** : baseline offline qualifiée ; convergence P1 qualifiée.
-- **P5B — Musique / Sonore** : baseline offline globale qualifiée ; convergence P1 qualifiée.
-- **P6 — Fenêtre sur les Avelunes** : P6-0 OFFLINE = PASS ; phase suivante en attente du verdict du protocole Cœur en cours.
+- **P5A — Visuel** : baseline offline qualifiée ; frontière P1 convergée et gate transverse qualifié.
+- **P5B — Musique / Sonore** : baseline offline globale qualifiée ; frontière P1 convergée et gate transverse qualifié.
+- **P6 — Fenêtre sur les Avelunes** : P6-0 OFFLINE = PASS ; contrat de fondation prêt ; travail offline autorisé ; intégration live en attente de CREAD-LIVE.
 - **Tableau Réel (TA3)** : autonome du PROTO ; surfaces publique et privée séparées ; écritures privées toujours soumises à leurs gates de sécurité.
 - **GitHub / sécurité** : purge de l’ancien historique sensible close ; hygiène des branches/PR et protection de `main` encore ouvertes.
 
@@ -28,6 +28,7 @@ Lorsqu’un document historique contredit un référentiel plus récent, il rest
 - [Roadmap actuelle](../ROADMAP.md)
 - [Manifeste du dépôt](../MANIFEST.md)
 - [Changelog](../CHANGELOG.md)
+- [Clôture PRE-P6 transverse — 21 août 2026](development/PRE_P6_TRANSVERSE_2026-08-21.md)
 - [Clôture définitive du PROTO](development/PROTO_CLOSURE_2026-08-20.md)
 
 ---
@@ -67,22 +68,31 @@ Références partageables :
 - [WorldReadEnvelope v0.1 — schéma](contracts/world-read-envelope-v0.1.schema.json)
 - [Avelune Semantic Replay v0.1](contracts/avelune-semantic-replay-v0.1.md)
 
-### Frontière durable
+### Frontière durable qualifiée offline
 
 ```text
 Cœur / état privé d’une instance
         ↓
 P1 — Lecteur / normalisation privée
         ↓
-WorldReadEnvelope minimal
+ReadSessionItem
+├─ WorldReadEnvelope
+└─ ContinuityDecision
         ↓
-projections allowlistées spécialisées
-        ├─ VisualPayload
-        ├─ MusicPayload
-        └─ autres projections autorisées
+   ┌────┴────┐
+   ↓         ↓
+ P5A       P5B
+visuel    sonore
+   └────┬────┘
+        ↓
+       P6
 ```
 
-Un consommateur ne lit pas directement les structures privées du Cœur. Fixtures, replays et sources live doivent pouvoir présenter la même sémantique contractuelle. Pour la v1.0, cette frontière reste en lecture seule vis-à-vis de la biologie.
+P1 possède la continuité de publication et la resynchronisation. Un consommateur ne lit pas directement les structures privées du Cœur et ne crée pas une seconde autorité à partir de `state_revision`, `publication_seq` ou `canonical_age`.
+
+`canonical_age` est transporté publiquement sous forme de chaîne décimale exacte. Son unité, sa primitive persistée et sa politique de progression restent à fermer côté P0.
+
+Fixtures, replays et sources live doivent pouvoir présenter la même sémantique contractuelle. Pour la v1.0, cette frontière reste en lecture seule vis-à-vis de la biologie.
 
 ---
 
@@ -92,7 +102,7 @@ Un consommateur ne lit pas directement les structures privées du Cœur. Fixture
 
 Autorité partageable : [Contrat de lecture des modules](32_coeur_contrat_lecture_modules.md) et les contrats `docs/contracts/`.
 
-P1 possède la continuité de publication, la resynchronisation et la frontière entre le Cœur privé et les projections aval.
+P1 possède la continuité de publication, la resynchronisation et la frontière entre le Cœur privé et les projections aval. Le gate transverse PRE-P6 a confirmé cette autorité unique.
 
 ### P2 — Observabilité
 
@@ -110,7 +120,7 @@ Vues opérateur construites à partir de P1/P2/P3 ; aucune lecture directe du C�
 
 - [Visuel du Cœur — contrat partageable](24_visuel_coeur_contrat_public.md)
 
-Le visuel est une projection aval, renderer-neutral et non autoritative.
+Le visuel est une projection aval, renderer-neutral et non autoritative. Le gate transverse confirme l’absence de seconde autorité de continuité sur le chemin convergé.
 
 ### P5B — Musique / Sonore
 
@@ -119,11 +129,20 @@ Le visuel est une projection aval, renderer-neutral et non autoritative.
 - [Cahier d’intégration MUSIQUE-0](27_musique0_cahier_integration.md)
 - `lab/musique0/` pour les éléments partageables présents sur `main`.
 
-Le sonore interprète le monde sans modifier son canon. Les thèmes et préférences restent présentationnels.
+Le sonore interprète le monde sans modifier son canon. Les thèmes et préférences restent présentationnels. Les surfaces historiques ne deviennent pas la frontière d’intégration P6 lorsqu’elles ne font pas partie du chemin convergé qualifié.
 
 ### P6 — Fenêtre sur les Avelunes
 
-P6 assemble P1 + P5A + P5B dans un produit contemplatif permanent. P6-0 est qualifié offline ; le live attend les gates Cœur/P1 prévues.
+P6 assemble P1 + P5A + P5B dans un produit contemplatif permanent. P6-0 est qualifié offline et le gate transverse est clos avec PASS.
+
+```text
+P6_OFFLINE_FOUNDATION_CONTRACT_READY=YES
+P6_OFFLINE_WORK=AUTHORIZED
+P6_LIVE_INTEGRATION=WAIT_CREAD_LIVE
+P6_LIVE_AUTHORIZED=NO
+```
+
+Voir [le rapport partageable PRE-P6](development/PRE_P6_TRANSVERSE_2026-08-21.md).
 
 ---
 
@@ -177,6 +196,7 @@ Les branches `develop/proto-*`, `automation/proto02-*`, `codex/proto02-bootstrap
 ## 9. Architecture, développement et gouvernance
 
 - [Index développement](development/README.md)
+- [Clôture PRE-P6 transverse](development/PRE_P6_TRANSVERSE_2026-08-21.md)
 - [État historique au 12 août](development/PROJECT_STATUS_2026-08-12.md)
 - [Audit développement et architecture](development/AUDIT_DEVELOPPEMENT_ARCHITECTURE_2026-08-06.md)
 - [Architecture actuelle et cible](development/ARCHITECTURE_CURRENT_AND_TARGET.md)
