@@ -1,260 +1,222 @@
 # Roadmap — Les Lisières d’Avelune
 
-## État au 21 août 2026
+## État au 22 août 2026
 
-Le projet a quitté la phase où le PROTO constituait un chantier actif. La priorité est désormais de qualifier puis intégrer durablement le **Cœur autonome** et les modules qui l’entourent, sans réouvrir les jalons déjà fermés.
+Cette roadmap décrit le **chemin critique courant**. Les jalons fermés restent documentés dans `docs/development/` mais ne redeviennent pas des chantiers actifs sans défaut démontré ou décision explicite.
 
 | Axe | État | Prochaine gate |
 |---|---|---|
-| **PROTO** | **CLOS / HISTORIQUE** | décommissionnement lorsque décidé ; aucune reprise fonctionnelle |
-| **Cœur / CŒUR-0** | biologie suffisamment close ; O1 PASS/CLOSED/FROZEN ; **P0-AUTH + neutralité + O2/O3/O4 PASS/CLOSED** | **CREAD-LIVE**, puis OBS-1/ORCH-1 selon dépendances et O5-MIGRATION |
-| **P1 — Lecteur** | offline qualifié ; convergence et gate transverse P1↔P5A↔P5B PASS | **CREAD-LIVE** sur la nouvelle autorité P0 qualifiée |
-| **P2 — Observabilité** | OBS-0 offline qualifié et gelé | OBS-1 lorsque les sources live sont autorisées |
-| **P3 — Orchestrateur** | ORCH-0 offline qualifié et gelé | ORCH-1 sur instance LAB dédiée après gates requises |
-| **P4 — Tableaux** | offline qualifié et gelé | reprise uniquement lors de l’arrivée de sources live réelles |
-| **P5A — Visuel** | offline qualifié ; frontière convergée avec P1 ; aucun second guard | travail offline autorisé ; live après CREAD-LIVE |
-| **P5B — Musique** | offline global qualifié ; frontière convergée avec P1 ; aucune seconde autorité active sur le chemin convergé | travail offline autorisé ; live après CREAD-LIVE |
-| **P6 — Fenêtre sur les Avelunes** | P6-0 offline qualifié ; contrat de fondation prêt ; PRE-P6 transverse CLOSED/PASS | travail offline autorisé ; intégration live en attente de CREAD-LIVE |
-| **TA3 — Tableau Réel** | autonome du PROTO ; surfaces publique/privée séparées | fermer les gates d’authentification avant toute écriture privée |
-| **GitHub / sécurité** | historique sensible nettoyé ; hygiène du dépôt encore ouverte | branches/PR, protection de `main`, CI/sécurité et documentation |
+| **PROTO** | **CLOS / HISTORIQUE** | décommissionnement lorsqu’il sera décidé ; aucune reprise fonctionnelle |
+| **Cœur / P0** | biologie suffisamment close ; O1 PASS/CLOSED/FROZEN ; P0-AUTH + neutralité + O2/O3/O4 PASS/CLOSED | **reste fermé** ; seulement régression/défaut ou changement explicite |
+| **P1 — Lecteur** | offline et convergence transverse qualifiés | **CREAD-LIVE** |
+| **P3 — Orchestrateur** | ORCH-0 offline qualifié | **ORCH-1 après CREAD-LIVE PASS** |
+| **P2 — Observabilité** | surface autonome OBS-1 qualifiée ; dépendances live restantes | **finalisation unique après ORCH-1** |
+| **P4 — Tableaux** | contrat offline qualifié | raccord lorsque P1/P2/P3 live sont disponibles |
+| **P5A — Visuel** | offline/convergence P1 qualifiés | live après les gates amont |
+| **P5B — Musique** | offline/convergence P1 qualifiés | live après les gates amont |
+| **P6 — Fenêtre sur les Avelunes** | fondation offline qualifiée | live après les gates amont |
+| **O5-MIGRATION** | obligatoire, non exécuté | après P1/P3/P2 qualifiés |
+| **TA3 — Tableau Réel** | autonome du PROTO | poursuite de ses gates propres |
 
 ---
 
-## 1. PROTO — fermé
+## 1. Jalons fermés
 
-La lignée **PROTO-0 / PROTO-0.1 / PROTO-0.2 / PROTO-0.2.2** est terminée.
+### CŒUR-0 / O1 / P0
 
-### Acquis
+Sont considérés fermés pour la version actuelle :
 
-- [x] plusieurs boucles de gameplay et d’interface ont été éprouvées ;
-- [x] une version distribuable avec sessions persistantes a été qualifiée comme prototype ;
-- [x] les enseignements utiles ont été séparés des choix purement temporaires ;
-- [x] le tour par tour a été identifié comme propriété du prototype, non comme temporalité cible du jeu final ;
-- [x] TA3 a été rendu indépendant du runtime et de la base du PROTO ;
-- [x] la clôture documentaire explicite du chantier a été actée le 20 août 2026.
-
-### Règle définitive
-
-- [x] aucun nouveau playtest structurant n’est une gate du projet ;
-- [x] aucune modernisation, migration de secrets, convergence d’architecture ou dette technique propre au PROTO n’est poursuivie ;
-- [x] les branches et documents restent historiques jusqu’au nettoyage GitHub ;
-- [x] le futur jeu et P1–P8 ne dépendent pas du code, du stockage ou du runtime PROTO ;
-- [ ] décommissionner l’éventuelle instance restante lorsque l’opération sera décidée et vérifier la suppression des routes, credentials et données devenus inutiles.
-
-Voir [`docs/development/PROTO_CLOSURE_2026-08-20.md`](docs/development/PROTO_CLOSURE_2026-08-20.md).
-
----
-
-## 2. Cœur vivant — priorité actuelle
-
-Le Cœur est le moteur autonome d’une Avelune. La qualification biologique ouverte est considérée suffisamment close. O1 a qualifié le fonctionnement continu initial pendant 72 h réelles ; son verdict est **PASS**, ses preuves sont gelées et ce jalon est clos.
-
-P0-AUTH et les gates post-O1 immédiates sont maintenant également closes : **neutralité biologique/RNG PASS, O2 PASS, O3 PASS, O4 PASS**. La politique qualifiée pendant une indisponibilité du Cœur est **PAUSE**.
-
-### Principes et gates fermés
-
-- [x] le Cœur est l’autorité canonique sur l’état vivant ;
-- [x] l’identité d’un monde est indépendante de son host ;
-- [x] plusieurs Avelunes canoniques peuvent exister sans mélanger leurs histoires ;
-- [x] les représentations sont strictement en aval ;
-- [x] l’arrêt d’un module aval ne doit pas arrêter un Cœur sain ;
-- [x] aucune fréquentation joueur ne change la vitesse ou les lois biologiques du monde ;
-- [x] la v1.0 ne prévoit pas de rétroaction gameplay → biologie du Cœur ;
-- [x] O1 72 h : fonctionnement continu initial qualifié et archivé ;
-- [x] **P0-AUTH** : identité, révision canonique, âge canonique exact et état associés au même commit autoritatif ;
+- [x] qualification biologique CŒUR-0 suffisamment close ;
+- [x] O1 — endurance initiale 72 h : PASS / CLOSED / FROZEN ;
+- [x] P0-AUTH — état canonique committé avec identité, révision et âge exact ;
 - [x] neutralité biologique/RNG de la couche d’autorité ;
-- [x] **O2** — arrêt propre et reprise exacts ;
-- [x] **O3** — crash, atomicité et recovery ;
-- [x] **O4** — politique de downtime qualifiée : `PAUSE`.
+- [x] O2 — arrêt/reprise ;
+- [x] O3 — crash/atomicité/recovery ;
+- [x] O4 — politique de downtime `PAUSE`.
+
+P0 reste l’autorité canonique et **ne revient pas en chantier normal** pendant CREAD-LIVE. Un ajout d’intégration strictement nécessaire à la lecture ne vaut pas réouverture de P0-AUTH et doit préserver ses invariants et régressions.
 
 Voir [`docs/development/P0_AUTH_CLOSURE_2026-08-21.md`](docs/development/P0_AUTH_CLOSURE_2026-08-21.md).
 
-### Séquence opérationnelle restante
+### PRE-P6 transverse
 
-1. **CREAD-LIVE** — raccorder P1 à l’autorité P0 par une frontière minimale/versionnée et qualifier replay/live ;
-2. **OBS-1 / ORCH-1** selon dépendances ;
-3. **O5-MIGRATION** — migration LAB réelle sans changement d’identité et sans double autorité ;
-4. **P5A / P5B / P6 live** ;
-5. qualification de l’isolation des pannes aval ;
-6. freeze de la configuration intégrée ;
-7. endurance intégrée longue **10 jours / 240 h** ;
-8. analyse exhaustive puis décision d’entrée dans **CŒUR-1**.
+- [x] convergence P1↔P5A↔P5B ;
+- [x] P1 reste l’unique autorité de continuité ;
+- [x] C01–C08 qualifiés offline ;
+- [x] projections visuelle et sonore convergées consommables sans couche de réparation P6.
 
-La durée d’un soak ne vaut jamais PASS à elle seule. **O5-MIGRATION ne doit pas être omis.**
+Voir [`docs/development/PRE_P6_TRANSVERSE_2026-08-21.md`](docs/development/PRE_P6_TRANSVERSE_2026-08-21.md).
 
 ---
 
-## 3. P1 — Lecteur du Cœur
+## 2. Chantier critique actif — P1 / CREAD-LIVE
 
-P1 constitue l’unique frontière durable entre les structures privées du Cœur et les consommateurs aval.
+CREAD-LIVE doit fournir l’interface live officielle du Cœur sans exposer ses internes.
 
-### Acquis
+Architecture de principe :
 
-- [x] CREAD-OFFLINE qualifié ;
-- [x] séparation `publication_seq` / `state_revision` / `canonical_age` ;
-- [x] replay et source live conçus derrière la même frontière sémantique ;
-- [x] continuité et resynchronisation restent autorité P1 ;
-- [x] convergence contractuelle P1↔P5A↔P5B qualifiée ;
-- [x] gate transverse P1↔P5A↔P5B exécuté : **PASS / CLOSED** ;
-- [x] `canonical_age` conservé comme chaîne décimale exacte sur le wire ;
-- [x] `event_history_exhaustive` relève de la décision de continuité P1 ;
-- [x] P0 fournit désormais les primitives autoritatives requises ;
-- [x] la sémantique P0 qualifiée de `canonical_age` est exacte et la politique de downtime du Cœur est `PAUSE`.
+```text
+P0 / état canonique privé
+        ↓
+lecture read-only + validation
+        ↓
+normalisation privée + allowlist
+        ↓
+transport local remplaçable
+        ↓
+P1 / Lecteur
+publication + session + continuité
+```
 
-### Prochaine gate
+Décisions actées pour v1 :
 
-- [ ] **CREAD-LIVE** : adapter la source réelle P0 à la session P1 existante, vérifier l’identité et l’allowlist, démontrer l’équivalence sémantique replay/live et mesurer le coût de projection.
+- [x] P1 n’accède pas directement au stockage privé du Cœur ;
+- [x] le raw state ne franchit pas la frontière P1 ;
+- [x] normalisation et allowlist positives avant la frontière ;
+- [x] transport local v1 par Unix Domain Socket ;
+- [x] request/response ;
+- [x] JSON UTF-8 versionné ;
+- [x] transport distinct de la sémantique et remplaçable.
 
----
+À qualifier avant PASS :
 
-## 4. P2 / P3 / P4 — exploitation durable
+- [ ] primitive de lecture strictement read-only ;
+- [ ] observation normalisée v1 et mapping versionné ;
+- [ ] DTO/snapshot CREAD v1 ;
+- [ ] serveur/client live ;
+- [ ] exactitude `world_instance_id`, `state_revision`, `canonical_age` ;
+- [ ] absence de fuite privée ;
+- [ ] C01–C08 live ;
+- [ ] replay/live equivalence ;
+- [ ] restart/reconnect ;
+- [ ] isolation d’une panne ou lenteur P1 ;
+- [ ] aucune backpressure bloquante vers le Cœur ;
+- [ ] tailles maximales, timeouts et politique de cadence ;
+- [ ] coût CPU/RAM/I/O/latence ;
+- [ ] régressions P0/P1.
 
-### P2 — Observabilité
+Voir [`docs/development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md`](docs/development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md).
 
-- [x] OBS-0 offline qualifié ;
-- [x] métriques allowlistées, santé/fraîcheur, incidents et rétention offline ;
-- [x] aucune autorité canonique ou pouvoir d’action ;
-- [ ] OBS-1 live à raccorder lorsque les sources sont autorisées.
+### Jalon de sortie CREAD
 
-### P3 — Orchestrateur
+Si `CREAD_LIVE=PASS`, le projet pourra considérer au niveau **théorique/LAB** :
 
-- [x] ORCH-0 offline qualifié ;
-- [x] modèle monde/host/placement/opération ;
-- [x] idempotence, locks, confirmation humaine et recovery offline ;
-- [x] `SecretRef` plutôt que secrets bruts ;
-- [ ] ORCH-1 réel sur LAB dédié ;
-- [ ] backup/restore/migration réels à qualifier avant exploitation permanente.
+```text
+P0 = Cœur autoritatif qualifié
+P1 = interface live qualifiée
+P0 + P1 = socle canonique fonctionnel d’Avelune
+```
 
-### P4 — Tableau Monde / Tableau Univers
-
-- [x] baseline offline qualifiée ;
-- [x] lecture P1/P2/P3 sans accès direct au Cœur ;
-- [x] UX opérateur non autoritative ;
-- [ ] reprise lorsque les vraies surfaces OBS-1/ORCH-1/CREAD-LIVE existent.
-
----
-
-## 5. P5A — Visuel
-
-Le visuel traduit une projection autorisée en représentation perceptive sans inventer de biologie.
-
-- [x] VISUEL-0 offline qualifié ;
-- [x] déterminisme, isolation multi-Avelune, fail-closed et renderer-neutral qualifiés ;
-- [x] convergence P1 qualifiée ;
-- [x] gate transverse commun PASS ;
-- [x] aucune seconde autorité de continuité ;
-- [x] forme publique de `canonical_age` transportée sans perte ;
-- [ ] travail offline autorisé sur besoins démontrés ;
-- [ ] travail live après CREAD-LIVE ;
-- [ ] direction artistique finale à poursuivre uniquement sur besoins démontrés ;
-- [ ] aucun enrichissement préventif du payload visuel.
+P0 et P1 resteront alors fermés pour v1 hors défaut/régression démontré, changement volontaire de contrat/version ou nouvelle exigence explicitement décidée.
 
 ---
 
-## 6. P5B — Musique / Sonore
+## 3. Après CREAD — P3 / ORCH-1
 
-Le sonore est un interpréteur strictement aval du monde.
+ORCH-1 vient **immédiatement après CREAD-LIVE PASS**.
 
-- [x] MUS-0, MUS-1 et MUS-2 qualifiés ;
-- [x] P5B OFFLINE GLOBAL = PASS ;
-- [x] mémoire bornée, persistance/restart et recovery sans invention du passé ;
-- [x] renderer témoin remplaçable qualifié ;
-- [x] convergence P1 qualifiée ;
-- [x] gate transverse commun PASS ;
-- [x] l’ancien mécanisme de session de publication n’est pas autorité active sur le chemin convergé ;
-- [x] forme publique de `canonical_age` transportée sans perte ;
-- [ ] qualification artistique approfondie facultative ;
-- [ ] moteur audio final ouvert ;
-- [ ] live après CREAD-LIVE.
+P3 doit rendre le socle P0/P1 exploitable sans le redessiner :
 
-Les thèmes et réglages d’accessibilité restent en présentation et ne modifient jamais le canon.
+- [ ] matérialiser les identités runtime et permissions distinctes ;
+- [ ] matérialiser le runtime directory et les permissions du transport CREAD ;
+- [ ] lifecycle réel start/stop/restart ;
+- [ ] executor LAB réel ;
+- [ ] backup/restore réels et contrôles d’intégrité ;
+- [ ] faits opérationnels publiables vers P2 ;
+- [ ] mesurer le coût opérationnel ;
+- [ ] préparer les primitives nécessaires à la migration sans déclarer O5 PASS.
 
----
-
-## 7. P6 — Fenêtre sur les Avelunes
-
-La **Fenêtre sur les Avelunes** est le premier produit intégrateur contemplatif permanent.
-
-- [x] P6-0 OFFLINE = PASS ;
-- [x] intégration P1 + P5A + P5B sur fixtures/contrats ;
-- [x] isolation multi-monde ;
-- [x] perte visuel/sonore dégradable sans invention d’état ;
-- [x] préférences locales non canoniques ;
-- [x] PRE-P6 transverse = PASS / CLOSED ;
-- [x] contrat de fondation P6 prêt, sans couche de traduction/réparation transverse ;
-- [x] travail P6 offline autorisé ;
-- [x] gates amont P0-AUTH/O2/O3/O4 closes ;
-- [ ] **P6 live** : attente de CREAD-LIVE ;
-- [ ] aucune connexion directe au Cœur privé.
-
-Le PASS transverse ferme une dette contractuelle ; il n’autorise pas le raccord live avant CREAD-LIVE.
+P3 ne modifie ni la sémantique P0, ni la continuité P1, ni le contrat CREAD qualifié.
 
 ---
 
-## 8. Tableau Réel — TA3
+## 4. Après ORCH-1 — P2 / OBS-1 FINALIZATION
 
-TA3 mesure le projet dans le monde réel et reste séparé du Cœur, du Tableau Univers et du PROTO.
+P2 reste gelé pendant P1 puis P3 afin d’éviter deux réouvertures successives.
 
-### Acquis
+État déjà acquis :
 
-- [x] stockage/runtime autonomes ;
-- [x] journal événementiel et provenance propres ;
-- [x] surface publique en lecture seule ;
-- [x] surface privée séparée ;
-- [x] aucune administration du Cœur par TA3.
+- [x] OBS-0 ;
+- [x] Host live ;
+- [x] freshness / alertes / incidents ;
+- [x] isolation de panne P2 ;
+- [x] coût initial mesuré ;
+- [x] frontière passive P3 ;
+- [x] contrat P2→P4.
 
-### Gates restantes
+Après ORCH-1 :
 
-- [ ] terminer la qualification d’authentification forte de la console privée ;
-- [ ] conserver les écritures privées désactivées jusqu’à fermeture des gates sécurité ;
-- [ ] qualifier les sauvegardes/restaurations indépendantes et la rétention ;
-- [ ] poursuivre la minimisation des données et l’audit des imports.
-
-Voir [`docs/real/`](docs/real/README.md).
-
----
-
-## 9. GitHub, secrets et sécurité
-
-### Acquis
-
-- [x] purge contrôlée de l’ancien historique sensible close et vérifiée ;
-- [x] références réécrites devenues source de vérité ;
-- [x] anciens clones/worktrees pré-purge classés à contrôler avant réutilisation ;
-- [x] séparation entre identité GitHub Avelune et identités personnelles dans les procédures d’exploitation ;
-- [x] politique de secrets : credentials humains, secrets runtime, clés SSH et recovery codes traités dans leurs espaces appropriés ;
-- [x] GitHub reste une surface partageable même lorsque le dépôt est privé.
-
-### Hygiène encore ouverte
-
-- [ ] classifier puis rationaliser les branches historiques ;
-- [ ] fermer/classer les PR draft VISUEL supersédées ;
-- [ ] traiter `tmp-unused` ;
-- [ ] revoir `security/sentinel-baseline-2026-08-20` ;
-- [ ] mettre en place une protection/ruleset adaptée de `main` ;
-- [ ] renforcer CI, audit de dépendances/images et politique `.github` ;
-- [ ] maintenir une sauvegarde Avelune réellement indépendante de l’hôte lorsque requise.
-
-Ces tâches sont des chantiers de gouvernance et de sécurité du dépôt ; **elles ne rouvrent pas le PROTO**.
+- [ ] raccorder `core.*` / `reader.*` via les surfaces P1 autorisées ;
+- [ ] raccorder `orchestrator.*` / `backup.*` via P3 ;
+- [ ] fermer OBS-1 complet sans lecture des stockages privés P0/P1/P3 ;
+- [ ] conserver P2 strictement non autoritatif.
 
 ---
 
-## 10. Futur jeu
+## 5. O5-MIGRATION — obligatoire
 
-Le futur jeu TF/TD/RPG devra se brancher sur les fondations durables sans réutiliser le PROTO comme runtime de production.
+O5 reste une gate distincte de P3/ORCH-1.
 
-Principes :
+Elle devra démontrer sur LAB réel :
 
-- serveur de jeu autoritatif séparé du Cœur ;
-- compte, Corcite et `world_instance_id` comme identités distinctes ;
-- gameplay continu et asynchrone ;
-- consommation du monde vivant via P1 ;
-- réutilisation des briques Visuel, Sonore, Observabilité, Orchestrateur, Tableaux et préférences lorsque pertinent ;
-- aucune rétroaction biologique v1.0 sans décision future explicite ;
-- absence non punitive, progression principalement horizontale et accessibilité intégrée.
+- même `world_instance_id` ;
+- état canonique intact ;
+- révision et âge cohérents ;
+- historique/RNG préservés selon les garanties P0 ;
+- changement réel de placement ;
+- ancienne autorité arrêtée ;
+- une seule nouvelle autorité active ;
+- P1 reconnecté correctement ;
+- P2 capable d’observer la transition sans devenir autorité du verdict.
+
+**O5 ne doit jamais disparaître du chemin critique.**
 
 ---
 
-## Règle de pilotage
+## 6. Aval live puis endurance
 
-Un chantier fermé ne redevient pas actif parce qu’un ancien fichier, une branche ou une dette locale existe encore. Toute réouverture doit être motivée par un besoin actuel démontré et attribuée au module qui en possède réellement l’autorité.
+Après O5 :
+
+1. P5A / P5B / P6 live ;
+2. P4 raccord opérateur lorsque nécessaire ;
+3. qualification de l’isolation intégrée des pannes ;
+4. freeze des versions et de la configuration ;
+5. endurance intégrée **240 h / 10 jours** ;
+6. analyse exhaustive ;
+7. décision d’entrée dans **CŒUR-1**.
+
+Le temps écoulé n’est jamais à lui seul un verdict PASS.
+
+---
+
+## 7. PROTO et futur jeu
+
+Le PROTO reste clos/historique. Le futur jeu ne réutilise ni son runtime, ni sa base, ni son tour par tour comme architecture de production.
+
+Le futur gameplay devra consommer le monde vivant via les contrats durables P0/P1 et les modules qualifiés, sans créer une seconde vérité du monde.
+
+---
+
+## 8. GitHub, secrets et publication
+
+GitHub porte le code et la documentation partageables. Restent hors dépôt : recettes propriétaires, seeds/RNG, causalités détaillées, CODEX, credentials, clés privées, mappings privés et détails d’exploitation inutiles à la compréhension du contrat.
+
+Hygiène toujours ouverte : protection de `main`, rationalisation des branches/PR historiques, CI/SCA/SAST/secret scanning et contrôles de dépendances.
+
+---
+
+## Ordre de pilotage autoritatif
+
+```text
+P1 — CREAD-LIVE
+→ P3 — ORCH-1
+→ P2 — OBS-1 FINALIZATION
+→ P4 — si nécessaire
+→ O5-MIGRATION
+→ P5A / P5B / P6 live
+→ isolation intégrée
+→ freeze intégré
+→ endurance 240 h
+→ analyse exhaustive
+→ décision CŒUR-1
+```

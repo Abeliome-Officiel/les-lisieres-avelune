@@ -1,82 +1,90 @@
 # Cœur vivant — contrat de lecture des modules
 
-> **Statut : architecture partageable — v0.5**  
-> Date : 21 août 2026  
-> Ce document est l’autorité architecturale partageable pour la frontière **Cœur → modules**. Il décrit les garanties de raccordement sans exposer les structures, recettes, paramètres ou causalités propriétaires du Cœur.
+> **Statut : architecture partageable — v0.6**  
+> Date : 22 août 2026  
+> Ce document décrit la frontière **Cœur → modules** sans exposer structures, recettes, paramètres, causalités propriétaires ni détails d’exploitation sensibles.
 
 ## 1. Principe
 
-Le Cœur d’une instance est l’autorité sur l’état canonique de ce monde. Les modules externes — Fenêtre sur les Avelunes, visuel, sonore, Tableaux, panneaux et jeu — sont des **clients en aval**.
-
-Ils ne doivent ni importer durablement les structures internes du Cœur, ni devenir nécessaires à sa survie, ni constituer une seconde autorité.
-
-Architecture qualifiée offline :
+Le Cœur d’une instance est l’autorité sur l’état canonique de ce monde. Les modules externes sont des clients en aval : ils ne deviennent ni une seconde vérité ni une dépendance nécessaire à la survie du Cœur.
 
 ```text
-état privé du Cœur
+P0 / état canonique privé
         ↓
-P1 / normalisation privée et source
+frontière CREAD privée
+lecture + validation + normalisation + allowlist
         ↓
-ReadSession
+P1 / Lecteur du Cœur
         ↓
 ReadSessionItem
 ├─ WorldReadEnvelope
 └─ ContinuityDecision
         ↓
-   ┌────┴────┐
-   ↓         ↓
- P5A       P5B
-visuel    sonore
-   └────┬────┘
-        ↓
-P6 — Fenêtre sur les Avelunes
+modules aval
 ```
 
-Le protocole de transport est distinct de la sémantique du contrat.
+**P1 est l’unique autorité de continuité de publication.**
 
-## 2. Autorités et responsabilités
-
-La frontière durable sépare explicitement :
+## 2. Autorités
 
 ```text
 P0 / Cœur
 - état canonique
-- identité canonique du monde
-- révision canonique
-- âge canonique
+- world_instance_id
+- state_revision
+- canonical_age
 
 P1 / Lecteur
 - projection de lecture
-- session de lecture
 - ordre de publication
-- continuité
-- doublons / gaps
-- changement de stream
-- changement de monde
+- ReadSession
+- duplicate / gap
+- changements stream / monde
 - resynchronisation
 - qualification de l’historique exploitable
 
-P5A / Visuel
-- interprétation visuelle de la projection autorisée
-- continuité perceptive locale
-- renderer et qualité de présentation
+P2 / Observabilité
+- mesure et fraîcheur non autoritatives
 
-P5B / Sonore
-- interprétation musicale de la projection autorisée
-- mémoire musicale bornée
-- composition et rendering
+P3 / Orchestrateur
+- lifecycle, placement et opérations
 
-P6 / Fenêtre
-- assemblage de sorties qualifiées
-- lifecycle d’observation
-- accessibilité et présentation
+P5/P6
+- interprétation et présentation en aval
 ```
 
-**P1 est l’unique autorité de continuité.** Les consommateurs peuvent vérifier la forme et les invariants locaux de leurs données, mais ils ne recalculent pas une seconde décision de continuité à partir de `publication_seq`, `state_revision`, `canonical_age`, timestamps ou identifiants d’événements.
+Aucun module ne reconstruit silencieusement l’autorité d’un autre.
 
-## 3. ReadSessionItem — frontière convergée
+## 3. État autoritatif P0
 
-La forme de consommation durable qualifiée offline est conceptuellement :
+P0-AUTH a qualifié un état committé cohérent associant au même commit :
+
+- `world_instance_id` ;
+- `state_revision` ;
+- `canonical_age` ;
+- état canonique.
+
+Le mode de stockage, les transactions et structures internes restent privés.
+
+`world_instance_id` est opaque et indépendant du host. `state_revision` est distinct de `publication_seq`, du temps mural, d’une version de schéma ou d’un identifiant de stockage.
+
+## 4. canonical_age
+
+La forme publique de transport est une **chaîne décimale exacte** :
+
+```text
+"100"
+"100.25"
+"0.0001"
+```
+
+P0 qualifie l’âge canonique ; P1 le transporte sans perte. Si le Cœur est arrêté, la politique qualifiée est `PAUSE` : le temps mural d’indisponibilité ne crée pas automatiquement de vieillissement canonique.
+
+Aucun client n’invente un âge manquant, un rattrapage ou une progression locale.
+
+## 5. ReadSessionItem
+
+La frontière convergée des consommateurs est conceptuellement :
 
 ```text
 ReadSessionItem {
@@ -85,314 +93,179 @@ ReadSessionItem {
 }
 ```
 
-`WorldReadEnvelope` transporte l’état/projection et les primitives communes. `ContinuityDecision` transporte la décision P1 sur la continuité de publication.
+`WorldReadEnvelope` transporte les primitives contractuelles et une projection spécialisée allowlistée. `ContinuityDecision` porte la décision P1 concernant la continuité.
 
-Les surfaces historiques ou de compatibilité propres à un module ne deviennent pas la frontière d’intégration simplement parce qu’elles restent présentes dans son code.
+## 6. Continuité
 
-## 4. WorldReadEnvelope — noyau commun
+P1 seul décide notamment :
 
-Le noyau contractuel commun comprend conceptuellement :
+- premier état ;
+- publication contiguë ;
+- duplicate ;
+- gap ;
+- changement de stream ;
+- changement de monde ;
+- nouvelle session ;
+- resynchronisation ;
+- `event_history_exhaustive` lorsqu’il est exposé.
 
-```text
-WorldReadEnvelope {
-  contract_version
-  projection_version
-  world_instance_id
-  source_kind
-  stream_id
-  canonicality
-  publication_seq
-  state_revision
-  canonical_age
-  frame_kind
-  payload
-}
-```
+Un saut de `state_revision` n’est pas automatiquement un gap de publication.
 
-Les valeurs exactes du schéma sont versionnées dans `docs/contracts/`.
+Le gate transverse PRE-P6 a qualifié la matrice C01–C08 offline. CREAD-LIVE doit confirmer ces comportements sur la source live réelle.
 
-Pour la première famille de contrats, `source_kind` couvre les sources de fixture, replay, LAB et live canonique. `frame_kind` distingue les formes de publication autorisées par la version de contrat.
+## 7. CREAD-LIVE — frontière réelle P0 → P1
 
-## 5. Identité d’instance
+CREAD-LIVE applique le moindre privilège : **le processus P1 ne lit pas directement le stockage privé du Cœur et ne reçoit pas le raw state**.
 
-`world_instance_id` est l’identité persistante et opaque d’un monde.
-
-Règles :
-
-- généré une seule fois pour une vraie instance ;
-- non dérivé de la seed, du hostname, du chemin, du process ou de la date ;
-- stable à travers redémarrage, migration et restauration contrôlée du même monde ;
-- un clone destiné à une qualification destructive reçoit une nouvelle identité LAB ;
-- le nom humain d’un monde est une métadonnée distincte.
-
-Pour les caches et mémoires de modules, `representation_id` seul ne suffit jamais : le namespace minimal inclut `world_instance_id`.
-
-P0-AUTH a qualifié cette identité côté autorité canonique. Lors d’une création orchestrée, l’identité provisionnée par P3 et celle portée par P0 doivent correspondre exactement ; une divergence est bloquante.
-
-## 6. Révision canonique et ordre de publication
-
-`state_revision` identifie l’ordre des états **committés** du Cœur. Il reste distinct de :
+La frontière v1 suit :
 
 ```text
-canonical_age
-publication_seq
-wall clock
-version de schéma
-SQLite rowid
-identifiant d’événement
+P0 privé
+        ↓
+lecture strictement read-only
+        ↓
+validation du committed state
+        ↓
+normalisation privée versionnée
+        ↓
+positive allowlist
+        ↓
+message CREAD versionné
+        ↓
+transport local
+        ↓
+P1
 ```
 
-`publication_seq` appartient à la publication P1 et n’est pas une révision canonique du monde.
+Ainsi, une information privée n’est pas « protégée » parce qu’elle serait simplement ignorée après transmission : elle ne franchit pas la frontière si elle n’est pas nécessaire.
 
-Conséquence qualifiée : un saut de `state_revision` n’est **pas automatiquement** un gap de publication. La continuité est décidée par P1 à partir de son contrat de session, pas par les renderers.
+## 8. Transport CREAD v1
 
-P0-AUTH qualifie `state_revision` comme un entier monotone de commit canonique. La manière exacte dont P0 stocke et incrémente cette valeur reste privée et n’est pas une dépendance des clients.
+L’implémentation v1 retient une **Unix Domain Socket locale**, en request/response, avec un message JSON UTF-8 versionné.
 
-## 7. canonical_age
+Ce choix est une décision d’implémentation, pas une sémantique du contrat : le transport reste remplaçable.
 
-La **forme publique de transport qualifiée** reste une **chaîne décimale exacte**.
+Les détails concrets de chemins runtime, identités système, permissions et topologie restent privés. Aucun listener réseau ou broker externe n’est requis pour CREAD v1.
 
-Exemples de forme :
+Le transport ne devient pas une API générale d’inspection du Cœur : il sert à obtenir une observation qualifiée et allowlistée.
+
+## 9. Données qui ne franchissent pas la frontière
+
+Ne sont pas exposés par défaut :
+
+- seed et état RNG ;
+- recettes, coefficients et seuils ;
+- structures de persistance ;
+- diagnostics scientifiques privés ;
+- causalités propriétaires ;
+- CODEX ;
+- credentials et secrets techniques ;
+- tout champ non requis par le contrat aval.
+
+Une allowlist positive produit l’artefact de lecture ; on ne part pas d’un dump privé dont quelques champs seraient masqués.
+
+## 10. Normalisation et projections
+
+La normalisation privée commune est distincte des projections spécialisées visuelles ou sonores.
 
 ```text
-"100"
-"100.25"
-"0.0001"
+internes P0
+↓
+normalisation sémantique commune
+↓
+contrat P1 minimal
+↓
+projections spécialisées allowlistées
 ```
 
-Cette forme évite les pertes de précision et n’impose aucune représentation numérique flottante aux consommateurs.
+CREAD-LIVE ne doit pas inventer ou publier les recettes propriétaires Cœur → descripteurs perceptifs. Les projections visuelle et sonore convergées restent les contrats qualifiés par leurs chantiers respectifs.
 
-P0-AUTH qualifie désormais les garanties sémantiques suivantes :
+## 11. Sources et replay
 
-- `canonical_age` appartient au même commit autoritatif que `world_instance_id`, `state_revision` et l’état vivant ;
-- sa valeur est exacte et sa progression active suit exactement le delta de temps biologique logique du commit ;
-- un offset décimal exact peut être conservé sans dérive ;
-- si le **Cœur lui-même** est arrêté, la politique qualifiée est `PAUSE` : le temps mural d’indisponibilité ne crée pas de vieillissement canonique ;
-- un client n’infère ni âge manquant, ni rattrapage, ni progression locale.
+Fixtures, replay, LAB et live doivent converger vers la même sémantique P1.
 
-Le contrat de lecture ne fixe toujours pas :
+Pour un même état source, replay et live doivent produire une observation sémantiquement équivalente après exclusion des seules métadonnées propres au transport/runtime.
 
-- la primitive de stockage interne utilisée par P0 ;
-- une notion publique de `canonical_hour` ;
-- le facteur temps réel ↔ temps canonique de présentation ou d’exploitation ;
-- la manière dont l’UX traduit cet âge pour un humain.
+Le replay durable consommable par les modules est sémantique et allowlisté ; les replays privés bruts ne deviennent pas un format client.
 
-Ces choix restent distincts du transport. Ils sont versionnés lorsqu’ils deviennent nécessaires et ne sont jamais inventés par P1, P5 ou P6.
+## 12. Cadence et coût
 
-## 8. ContinuityDecision
+La cadence biologique du Cœur, la cadence de lecture/publication P1 et la cadence de rendu sont distinctes.
 
-`ContinuityDecision` appartient à P1 et exprime les décisions nécessaires à une consommation sûre : continuité, duplicate, gap, nouvelle session, changement de monde/stream, resynchronisation et qualification de l’historique lorsque nécessaire.
+CREAD-LIVE doit qualifier une politique de lecture/publication, des timeouts et des limites de message à partir de mesures réelles. Une lenteur ou panne P1 ne doit pas exercer de backpressure bloquante sur le commit canonique.
 
-`event_history_exhaustive`, lorsqu’il est nécessaire à un consommateur, relève de cette décision de continuité P1 ; il n’est pas ré-inféré par P5B ou P6.
+Le coût pertinent comprend lecture, normalisation, sérialisation, transport et publication, avec CPU/RAM/I/O/latence mesurés.
 
-## 9. Matrice transverse C01–C08
+## 13. Restart, panne et resynchronisation
 
-Le gate PRE-P6 du 21 août 2026 a qualifié la compatibilité P1/P5A/P5B sur la matrice suivante :
+P1 doit pouvoir s’arrêter, redémarrer et se reconnecter sans modifier P0. Après reprise, il décide de la continuité à partir des faits réellement disponibles et n’invente pas d’historique perdu.
 
-- **C01** — premier snapshot ;
-- **C02** — publication contiguë ;
-- **C03** — saut de `state_revision` sans gap de publication ;
-- **C04** — duplicate `publication_seq` rejeté par P1 ;
-- **C05** — gap de publication ;
-- **C06** — reprise contiguë sans invention d’un historique perdu ;
-- **C07** — changement de stream → nouvelle session ;
-- **C08** — changement de monde → nouvelle session.
+Un arrêt ou échec du reader, du publisher, d’un renderer ou d’un module aval ne doit pas arrêter un Cœur sain.
 
-Verdict : **PASS**.
+P0 O2/O3/O4 restent des gates fermées ; CREAD-LIVE vérifie comment P1 observe correctement leurs conséquences sans les réexécuter comme nouveau chantier P0.
 
-## 10. État, transition et événement
+## 14. Gates CREAD-LIVE
 
-Le contrat distingue :
+Avant PASS, démontrer notamment :
 
-- **state** : propriété durable ;
-- **transition** : changement entre deux états ;
-- **event** : fait ponctuel canonique explicitement publiable.
+- lecture P0 strictement read-only ;
+- aucune permission de lecture directe du stockage P0 pour le processus P1 ;
+- allowlist positive et versionnée ;
+- identité/révision/âge exacts ;
+- aucun raw state ou secret au wire ;
+- version incompatible → fail explicit ;
+- C01–C08 live ;
+- replay/live equivalence ;
+- restart/reconnect ;
+- isolation des pannes ;
+- aucune backpressure bloquante vers P0 ;
+- limites/timeouts/cadence qualifiés ;
+- coût mesuré ;
+- régressions P0/P1 préservées.
 
-Un client ne transforme pas arbitrairement toute différence numérique en événement.
+## 15. Conséquence d’un PASS CREAD-LIVE
 
-Un événement publiable porte uniquement les primitives nécessaires à son rôle et un payload allowlisté. Les causes internes, seuils, tirages ou paramètres réservés ne franchissent pas cette frontière.
-
-## 11. Identifiants et descripteurs de représentation
-
-Lorsqu’une continuité perceptive doit être exposée, la projection peut fournir des identifiants opaques tels que :
-
-- `representation_id` pour une entité/représentation autorisée ;
-- `region_id` pour une région ou scène autorisée ;
-- `event_id` pour un événement publiable.
-
-Ces identifiants sont stables dans le scope du monde concerné et ne doivent pas encoder une sémantique biologique reconstructible.
-
-Une métrique scientifique n’est **pas** automatiquement une propriété artistique. Paramètres, seuils, coefficients, seed, RNG, diagnostics scientifiques, généalogie complète ou attributs permettant de reconstruire les recettes ne sont pas publiés par défaut.
-
-## 12. Projections spécialisées
-
-Le noyau commun ne devient pas un « super-contrat » transportant tout ce qui pourrait intéresser tous les clients.
-
-La convergence qualifiée utilise des projections spécialisées distinctes pour le visuel et le sonore. P5A et P5B consomment directement leur forme convergée sans qu’une couche de réparation spécifique à P6 soit nécessaire.
+Un PASS permettra de considérer, au niveau **théorique/LAB** :
 
 ```text
-P6_TRANSLATION_REQUIRED=NO
-P6_CONTRACT_REPAIR_REQUIRED=NO
+P0 = Cœur autoritatif qualifié
+P1 = interface live qualifiée
+P0 + P1 = socle canonique fonctionnel d’Avelune
 ```
 
-Les mappings exacts Cœur → descripteurs perceptifs restent avant la frontière de publication lorsqu’ils sont propriétaires.
+Cela ne vaut pas encore qualification complète d’exploitation, d’observabilité, de migration ou d’endurance.
 
-## 13. Sources interchangeables
-
-Un même client doit pouvoir fonctionner contre des fixtures, replays, sources LAB et sources live autorisées sans modifier sa grammaire ou son renderer.
-
-Le client peut connaître `source_kind`, mais aucune décision sur la vérité canonique ne dépend de cette seule valeur.
-
-Pour un même état source, la projection obtenue par replay et par source live doit être sémantiquement équivalente après exclusion des seules métadonnées de transport.
-
-## 14. Replays sémantiques
-
-Le format de replay sémantique partageable reste versionné sous `docs/contracts/`.
-
-Deux catégories ne doivent jamais être confondues :
-
-1. **raw/private observer replay** : données internes, source éventuelle de conversion uniquement ;
-2. **semantic replay** : sortie allowlistée, seule catégorie durable consommée par les modules partageables.
-
-Les métadonnées de provenance propriétaires restent hors replay SHAREABLE.
-
-## 15. Snapshots, gaps et resynchronisation
-
-Le modèle de production cible reste :
+L’ordre suivant est :
 
 ```text
-état cohérent publié
-        ↓
-publications ordonnées
-        ↓
-trou / désordre / nouvelle session
-        ↓
-décision P1
-        ↓
-resynchronisation lorsque requise
-        ↓
-nouvel état cohérent
+P3 — ORCH-1
+→ P2 — OBS-1 finalisation
+→ P4 si nécessaire
+→ O5-MIGRATION
+→ P5A/P5B/P6 live
+→ isolation intégrée
+→ freeze intégré
+→ endurance 240 h
+→ analyse exhaustive
+→ décision CŒUR-1
 ```
 
-Le client ne fabrique jamais une révision ou un historique absent.
-
-## 16. Cadence
-
-La cadence finale de publication reste une propriété de l’intégration et ne doit jamais imposer la cadence biologique du Cœur.
-
-Les modules interpolent et temporisent localement sans inventer de faits canoniques.
-
-Les budgets de cadence restent des budgets de conception tant qu’un SLA réel n’a pas été qualifié.
-
-## 17. Volume et coût
-
-La taille finale du monde n’est pas supposée petite. Les projections doivent rester compactes, versionnées et mesurables.
-
-Le coût pertinent est le coût cumulé du Cœur, du Lecteur et des consommateurs réellement actifs dans une configuration gelée, pas un benchmark isolé d’un renderer.
-
-## 18. Classification
+## 16. Classification
 
 ### SHAREABLE
 
-Peut comprendre les primitives contractuelles et les identifiants/descripteurs explicitement allowlistés nécessaires au rôle du client.
+Contrats, invariants, formes allowlistées, principes de séparation des responsabilités et résultats agrégés.
 
 ### PRIVATE
 
-Contient par défaut les sources brutes, identités internes, configuration, seeds, instrumentation scientifique, mappings privés, stockage brut, provenance propriétaire et diagnostics causaux.
+Internes du Cœur, mappings privés, stockage, paramètres, topologie et détails d’exploitation non nécessaires au contrat.
 
-### CODEX
+### SECRET / CODEX
 
-Aucun contenu CODEX ne doit être nécessaire au fonctionnement normal de VISUEL ou MUSIQUE. Si un renderer a besoin d’un champ CODEX, la frontière est incorrecte.
+Recettes, causalités profondes, seeds/RNG, mécanismes latents et contenu narratif/cosmologique réservé ne sont jamais requis pour le fonctionnement normal des clients.
 
-Un artefact SHAREABLE est produit explicitement par allowlist ; ce n’est pas un artefact PRIVATE dont quelques champs auraient simplement été masqués.
+## 17. Références de phase
 
-## 19. Lecture seule en v1.0
-
-Pour la v1.0, la frontière avec la biologie est unidirectionnelle :
-
-```text
-Cœur autonome → état canonique → P1 → modules
-```
-
-Les actions de gameplay d’un Corcite ne sont pas renvoyées vers la biologie du Cœur dans cette version.
-
-## 20. Dégradation et indépendance
-
-La panne, le remplacement ou l’arrêt d’un module externe ne doit pas arrêter un Cœur sain ni modifier sa trajectoire.
-
-Si un client perd le flux, il peut conserver le dernier état validé comme stale explicite, dégrader sa représentation et attendre la resynchronisation décidée par P1. Il ne crée pas un nouvel état canonique local.
-
-Visuel et sonore restent indépendants : une panne de l’un ne doit pas imposer l’arrêt de l’autre.
-
-## 21. Gates avant branchement live
-
-Les deux premières conditions ont été qualifiées par P0-AUTH :
-
-- [x] P0 fournit un état committé autoritatif cohérent ;
-- [x] les métadonnées d’identité/révision/âge correspondent au même commit canonique que l’état.
-
-**CREAD-LIVE** doit maintenant qualifier la frontière réelle P0 → P1 :
-
-1. l’adaptateur/lecteur ne modifie pas l’état ;
-2. aucun champ privé non allowlisté ne sort ;
-3. `world_instance_id` est vérifié de bout en bout ;
-4. continuité, duplicate, gap, changement de stream/monde et resynchronisation restent autorité P1 ;
-5. replay/live sont sémantiquement équivalents ;
-6. renderer arrêté → Cœur inchangé ;
-7. publisher/lecteur arrêté → Cœur inchangé ;
-8. source A ne peut pas alimenter silencieusement cache/mémoire B ;
-9. version incompatible → échec explicite, aucune approximation silencieuse ;
-10. coût de publication/consommation est mesuré avec les composants réellement concurrents.
-
-Aucune de ces gates n’autorise un accès direct au stockage privé du Cœur.
-
-## 22. Statut PRE-P6, P0 et suite
-
-Le gate transverse P1↔P5A↔P5B est clos :
-
-```text
-TRANSVERSE_P1_P5A_P5B_FORMAL_GATE=PASS
-CONTRACT_READY_FOR_P6_1=YES
-PRE_P6_TRANSVERSE=CLOSED
-```
-
-P0 et les gates opérationnelles immédiates sont également clos :
-
-```text
-P0_AUTH=PASS
-BIOLOGICAL_RNG_NEUTRALITY=PASS
-O2_CLEAN_RESTART=PASS
-O3_CRASH_ATOMICITY=PASS
-O4_DOWNTIME_POLICY=PAUSE
-```
-
-Cette fermeture autorise le **travail P6 offline** mais pas le raccord live :
-
-```text
-P6_OFFLINE_FOUNDATION_CONTRACT_READY=YES
-P6_OFFLINE_WORK=AUTHORIZED
-P6_LIVE_INTEGRATION=WAIT_CREAD_LIVE
-P6_LIVE_AUTHORIZED=NO
-```
-
-La chaîne amont restante vers le live est désormais :
-
-```text
-CREAD-LIVE
-  ↓
-OBS-1 / ORCH-1 selon dépendances
-  ↓
-O5-MIGRATION
-  ↓
-raccords live aval
-```
-
-**O5-MIGRATION reste obligatoire** avant la qualification intégrée finale : la migration LAB devra préserver `world_instance_id` et le canon sans maintenir deux autorités actives.
-
-Voir également `docs/development/P0_AUTH_CLOSURE_2026-08-21.md` et `docs/development/PRE_P6_TRANSVERSE_2026-08-21.md`.
-
-## 23. Frontière de confidentialité
-
-GitHub peut documenter l’existence du contrat, ses propriétés, ses versions, ses tests, les identités opaques nécessaires à l’interopérabilité, les formats de replay partageables et les catégories sémantiques autorisées.
-
-Restent hors dépôt les détails permettant de reconstruire les mécanismes du Cœur : champs sources privés, mappings exacts, paramètres, seeds, seuils, recettes, causalités réservées, instrumentation brute, structure de stockage interne, états RNG et background confidentiel non nécessaire à l’architecture partageable.
+- [`docs/development/P0_AUTH_CLOSURE_2026-08-21.md`](development/P0_AUTH_CLOSURE_2026-08-21.md)
+- [`docs/development/PRE_P6_TRANSVERSE_2026-08-21.md`](development/PRE_P6_TRANSVERSE_2026-08-21.md)
+- [`docs/development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md`](development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md)
