@@ -1,6 +1,6 @@
 # Cœur vivant — contrat de lecture des modules
 
-> **Statut : architecture partageable — v0.6**  
+> **Statut : architecture partageable — v0.7 — CREAD-LIVE applicatif qualifié**  
 > Date : 22 août 2026  
 > Ce document décrit la frontière **Cœur → modules** sans exposer structures, recettes, paramètres, causalités propriétaires ni détails d’exploitation sensibles.
 
@@ -111,30 +111,32 @@ P1 seul décide notamment :
 
 Un saut de `state_revision` n’est pas automatiquement un gap de publication.
 
-Le gate transverse PRE-P6 a qualifié la matrice C01–C08 offline. CREAD-LIVE doit confirmer ces comportements sur la source live réelle.
+Le gate transverse PRE-P6 a qualifié la matrice C01–C08 offline. CREAD-LIVE a confirmé que la source live compose avec les mêmes `WorldReadEnvelope` et `ReadSession` sans introduire une seconde logique de continuité.
 
 ## 7. CREAD-LIVE — frontière réelle P0 → P1
 
-CREAD-LIVE applique le moindre privilège : **le processus P1 ne lit pas directement le stockage privé du Cœur et ne reçoit pas le raw state**.
+CREAD-LIVE v1 est **PASS au niveau de la frontière applicative**.
+
+Il applique le moindre privilège : **le processus P1 ne lit pas directement le stockage privé du Cœur et ne reçoit pas le raw state**.
 
 La frontière v1 suit :
 
 ```text
 P0 privé
         ↓
-lecture strictement read-only
+lecture read-only vis-à-vis de l’état autoritatif
         ↓
 validation du committed state
         ↓
 normalisation privée versionnée
         ↓
-positive allowlist
+positive allowlist + identifiants opaques
         ↓
 message CREAD versionné
         ↓
 transport local
         ↓
-P1
+validation stricte P1
 ```
 
 Ainsi, une information privée n’est pas « protégée » parce qu’elle serait simplement ignorée après transmission : elle ne franchit pas la frontière si elle n’est pas nécessaire.
@@ -145,9 +147,11 @@ L’implémentation v1 retient une **Unix Domain Socket locale**, en request/res
 
 Ce choix est une décision d’implémentation, pas une sémantique du contrat : le transport reste remplaçable.
 
-Les détails concrets de chemins runtime, identités système, permissions et topologie restent privés. Aucun listener réseau ou broker externe n’est requis pour CREAD v1.
+Les détails concrets de chemins runtime, identités système, permissions, secrets techniques et topologie restent privés. Aucun listener réseau ou broker externe n’est requis pour CREAD v1.
 
 Le transport ne devient pas une API générale d’inspection du Cœur : il sert à obtenir une observation qualifiée et allowlistée.
+
+La qualification applicative ne remplace pas la qualification système P3 : ORCH-1 doit matérialiser l’isolation réelle du service et du canal local.
 
 ## 9. Données qui ne franchissent pas la frontière
 
@@ -160,6 +164,7 @@ Ne sont pas exposés par défaut :
 - causalités propriétaires ;
 - CODEX ;
 - credentials et secrets techniques ;
+- identifiants internes et coordonnées privées non nécessaires ;
 - tout champ non requis par le contrat aval.
 
 Une allowlist positive produit l’artefact de lecture ; on ne part pas d’un dump privé dont quelques champs seraient masqués.
@@ -178,13 +183,13 @@ contrat P1 minimal
 projections spécialisées allowlistées
 ```
 
-CREAD-LIVE ne doit pas inventer ou publier les recettes propriétaires Cœur → descripteurs perceptifs. Les projections visuelle et sonore convergées restent les contrats qualifiés par leurs chantiers respectifs.
+CREAD-LIVE ne publie ni n’invente les recettes propriétaires Cœur → descripteurs perceptifs. Les projections visuelle et sonore restent les contrats qualifiés par leurs chantiers respectifs.
 
 ## 11. Sources et replay
 
-Fixtures, replay, LAB et live doivent converger vers la même sémantique P1.
+Fixtures, replay, LAB et live convergent vers la même sémantique P1.
 
-Pour un même état source, replay et live doivent produire une observation sémantiquement équivalente après exclusion des seules métadonnées propres au transport/runtime.
+La qualification CREAD-LIVE a démontré l’équivalence live/replay au niveau `WorldReadEnvelope` + `ReadSession` pour un même état sémantique publié.
 
 Le replay durable consommable par les modules est sémantique et allowlisté ; les replays privés bruts ne deviennent pas un format client.
 
@@ -192,44 +197,46 @@ Le replay durable consommable par les modules est sémantique et allowlisté ; l
 
 La cadence biologique du Cœur, la cadence de lecture/publication P1 et la cadence de rendu sont distinctes.
 
-CREAD-LIVE doit qualifier une politique de lecture/publication, des timeouts et des limites de message à partir de mesures réelles. Une lenteur ou panne P1 ne doit pas exercer de backpressure bloquante sur le commit canonique.
+CREAD-LIVE a qualifié des limites et timeouts explicites ainsi qu’un coût local borné et mesuré. Les valeurs concrètes de déploiement et la cadence opérationnelle finale restent une responsabilité ORCH-1 et doivent être choisies à partir de mesures, sans redéfinir la sémantique CREAD.
 
-Le coût pertinent comprend lecture, normalisation, sérialisation, transport et publication, avec CPU/RAM/I/O/latence mesurés.
+Une lenteur ou panne P1 ne doit pas devenir une écriture ou un mécanisme d’autorité sur P0.
 
 ## 13. Restart, panne et resynchronisation
 
-P1 doit pouvoir s’arrêter, redémarrer et se reconnecter sans modifier P0. Après reprise, il décide de la continuité à partir des faits réellement disponibles et n’invente pas d’historique perdu.
+Le client P1 a été qualifié pour se reconnecter après redémarrage du service CREAD et échouer explicitement lorsque la source est indisponible.
 
-Un arrêt ou échec du reader, du publisher, d’un renderer ou d’un module aval ne doit pas arrêter un Cœur sain.
+La continuité après reprise reste décidée par P1 à partir des faits réellement disponibles ; aucun historique perdu n’est inventé.
 
-P0 O2/O3/O4 restent des gates fermées ; CREAD-LIVE vérifie comment P1 observe correctement leurs conséquences sans les réexécuter comme nouveau chantier P0.
+Un arrêt ou échec du reader, du publisher, d’un renderer ou d’un module aval ne doit pas modifier un Cœur sain.
 
-## 14. Gates CREAD-LIVE
+P0 O2/O3/O4 restent des gates fermées ; CREAD-LIVE observe leurs conséquences sans les réexécuter comme nouveau chantier P0.
 
-Avant PASS, démontrer notamment :
+## 14. Gates CREAD-LIVE — résultat
 
-- lecture P0 strictement read-only ;
-- aucune permission de lecture directe du stockage P0 pour le processus P1 ;
-- allowlist positive et versionnée ;
-- identité/révision/âge exacts ;
-- aucun raw state ou secret au wire ;
-- version incompatible → fail explicit ;
-- C01–C08 live ;
-- replay/live equivalence ;
-- restart/reconnect ;
-- isolation des pannes ;
-- aucune backpressure bloquante vers P0 ;
-- limites/timeouts/cadence qualifiés ;
-- coût mesuré ;
-- régressions P0/P1 préservées.
+Qualification applicative :
 
-## 15. Conséquence d’un PASS CREAD-LIVE
+- [x] lecture P0 read-only vis-à-vis de l’état autoritatif ;
+- [x] P1 sans lecture directe du stockage P0 ;
+- [x] allowlist positive et versionnée ;
+- [x] identité/révision/âge exacts ;
+- [x] aucun raw state ou secret au wire ;
+- [x] version et forme incompatibles → échec explicite ;
+- [x] continuité live déléguée au `ReadSession` P1 existant ;
+- [x] replay/live equivalence ;
+- [x] restart/reconnect ;
+- [x] limites et timeouts explicites ;
+- [x] coût local borné et mesuré ;
+- [x] régressions P0/P1 préservées.
 
-Un PASS permettra de considérer, au niveau **théorique/LAB** :
+Reste hors de ce PASS : la matérialisation système définitive des identités de service, permissions, lifecycle, secrets runtime et isolation hôte. Cette gate appartient à P3 / ORCH-1.
+
+## 15. Conséquence du PASS CREAD-LIVE
+
+Au niveau **théorique/LAB** :
 
 ```text
 P0 = Cœur autoritatif qualifié
-P1 = interface live qualifiée
+P1 = interface live applicative qualifiée
 P0 + P1 = socle canonique fonctionnel d’Avelune
 ```
 
@@ -239,9 +246,9 @@ L’ordre suivant est :
 
 ```text
 P3 — ORCH-1
-→ P2 — OBS-1 finalisation
+→ P2 — OBS-1 FINALIZATION
 → P4 si nécessaire
-→ O5-MIGRATION
+→ O5-MIGRATION obligatoire
 → P5A/P5B/P6 live
 → isolation intégrée
 → freeze intégré

@@ -6,22 +6,21 @@ Cet index pointe vers les **référentiels partageables actuels**. Les documents
 
 - **PROTO** : **CLOS / HISTORIQUE**.
 - **Cœur / P0** : biologie suffisamment close ; O1 PASS/CLOSED/FROZEN ; P0-AUTH, neutralité, O2, O3 et O4 PASS/CLOSED ; P0 reste fermé.
-- **P1 — Lecteur** : baseline offline et convergence transverse qualifiées ; **CREAD-LIVE est le chantier critique actif**.
-- **P3 — Orchestrateur** : ORCH-0 qualifié ; ORCH-1 vient après CREAD-LIVE PASS.
-- **P2 — Observabilité** : surface autonome OBS-1 qualifiée ; finalisation live reportée après ORCH-1.
-- **P4 — Tableaux** : contrat offline qualifié ; raccord live lorsque P1/P2/P3 le permettent.
-- **P5A / P5B / P6** : fondations offline qualifiées ; raccords live après les gates amont.
-- **O5-MIGRATION** : obligatoire après P1/P3/P2 et avant la phase live aval définitive.
+- **P1 — Lecteur** : baseline offline, convergence transverse et **CREAD-LIVE applicatif qualifiés** ; P1 reste gelé hors défaut/régression/évolution de contrat.
+- **P3 — Orchestrateur** : ORCH-0 qualifié ; **ORCH-1 est la gate critique active**.
+- **P2 — Observabilité** : surface autonome OBS-1 qualifiée ; finalisation unique reportée après ORCH-1.
+- **P4 — Tableaux** : contrat offline qualifié ; raccord si nécessaire lorsque P1/P2/P3 le permettent.
+- **P5A / P5B / P6** : fondations offline qualifiées ; raccords live après P3, P2 et O5.
+- **O5-MIGRATION** : obligatoire après P3/P2 et avant la phase live aval définitive.
 - **TA3** : autonome du PROTO et soumis à ses gates propres.
 
 Ordre courant :
 
 ```text
-P1 — CREAD-LIVE
-→ P3 — ORCH-1
+P3 — ORCH-1
 → P2 — OBS-1 FINALIZATION
 → P4 si nécessaire
-→ O5-MIGRATION
+→ O5-MIGRATION obligatoire
 → P5A / P5B / P6 live
 → isolation intégrée
 → freeze intégré
@@ -38,7 +37,7 @@ Les métriques sensibles, seeds, RNG, recettes, causalités détaillées, CODEX,
 
 - [README du projet](../README.md)
 - [Roadmap actuelle](../ROADMAP.md)
-- [Architecture CREAD-LIVE — 22 août 2026](development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md)
+- [CREAD-LIVE — architecture et PASS applicatif](development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md)
 - [Clôture P0-AUTH / O2 / O3 / O4](development/P0_AUTH_CLOSURE_2026-08-21.md)
 - [Clôture PRE-P6 transverse](development/PRE_P6_TRANSVERSE_2026-08-21.md)
 - [Clôture du PROTO](development/PROTO_CLOSURE_2026-08-20.md)
@@ -61,7 +60,7 @@ Références partageables principales :
 - [Gate de suffisance](29_coeur_vivant_gate_suffisance.md)
 - [Temporalité canonique](31_temporalite_canonique_genese.md)
 - [Contrat de lecture des modules](32_coeur_contrat_lecture_modules.md)
-- [Architecture CREAD-LIVE](development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md)
+- [CREAD-LIVE](development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md)
 - [WorldReadEnvelope v0.1 — schéma](contracts/world-read-envelope-v0.1.schema.json)
 - [Avelune Semantic Replay v0.1](contracts/avelune-semantic-replay-v0.1.md)
 
@@ -81,9 +80,9 @@ modules aval
 
 P0 qualifie l’identité, la révision et l’âge canonique du monde. P1 qualifie la continuité de publication. Un consommateur ne lit pas directement les structures privées du Cœur.
 
-CREAD-LIVE v1 retient un transport local par Unix Domain Socket, mais le transport reste remplaçable et distinct de la sémantique. Les détails de déploiement restent privés.
+CREAD-LIVE v1 est **PASS au niveau applicatif**. Il utilise un transport local par Unix Domain Socket, mais le transport reste remplaçable et distinct de la sémantique. Les détails d’exploitation restent privés et la matérialisation système définitive appartient à P3 / ORCH-1.
 
-Si CREAD-LIVE passe ses gates, P0 + P1 pourra être considéré comme **socle canonique fonctionnel au niveau théorique/LAB** : Cœur autoritatif + interface live qualifiée.
+P0 + P1 constitue désormais le **socle canonique fonctionnel au niveau théorique/LAB** : Cœur autoritatif + interface live applicative qualifiée.
 
 ---
 
@@ -91,7 +90,7 @@ Si CREAD-LIVE passe ses gates, P0 + P1 pourra être considéré comme **socle ca
 
 ### P1 — Lecteur
 
-Autorité de lecture et de continuité. Chantier actif : **CREAD-LIVE**.
+Autorité de lecture et de continuité. CREAD-LIVE applicatif est qualifié ; P1 reste gelé hors défaut/régression ou évolution contractuelle explicite.
 
 ### P2 — Observabilité
 
@@ -99,11 +98,11 @@ Mesure non autoritative. La surface autonome est qualifiée ; la finalisation li
 
 ### P3 — Orchestrateur
 
-Control plane séparé. ORCH-1 suit immédiatement CREAD-LIVE et doit matérialiser l’exploitation du socle P0/P1 sans en redéfinir les contrats.
+Control plane séparé. **ORCH-1 est le chantier critique actif** et doit matérialiser l’exploitation et l’isolation système du socle P0/P1 sans en redéfinir les contrats.
 
 ### P4 — Tableaux Monde / Univers
 
-Vues opérateur à partir de faits P1/P2/P3 qualifiés ; aucune lecture directe du Cœur.
+Vues opérateur à partir de faits P1/P2/P3 qualifiés ; aucune lecture directe du Cœur. Raccord seulement si nécessaire après les gates amont.
 
 ### P5A — Visuel
 
@@ -117,7 +116,7 @@ Vues opérateur à partir de faits P1/P2/P3 qualifiés ; aucune lecture directe 
 
 ### P6 — Fenêtre sur les Avelunes
 
-P6-0 est qualifié offline ; le travail offline reste autorisé. Le raccord live reste en attente des gates amont.
+P6-0 est qualifié offline ; le travail offline reste autorisé. Le raccord live attend la séquence P3 → P2 → O5 et une autorisation explicite de phase.
 
 ---
 
