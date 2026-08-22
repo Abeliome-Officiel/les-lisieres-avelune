@@ -1,47 +1,51 @@
 # CREAD-LIVE — frontière live P0 → P1
 
-> Statut : cadrage architectural partageable — 22 août 2026  
-> Implémentation et qualification : en cours dans P1 / Lecteur du Cœur.
+> Statut : **PASS — frontière applicative qualifiée** — 22 août 2026  
+> La qualification système du déploiement reste une gate P3 / ORCH-1.
 
 ## Objet
 
 P0 porte l’état canonique d’une Avelune. P1 est le read plane durable qui publie une projection autorisée et porte l’autorité de continuité de publication.
 
-CREAD-LIVE doit raccorder ces deux responsabilités sans transformer P1 en lecteur des structures privées du Cœur et sans créer une seconde autorité.
+CREAD-LIVE raccorde ces deux responsabilités sans transformer P1 en lecteur des structures privées du Cœur et sans créer une seconde autorité.
 
-## Séparation des responsabilités
+## Architecture qualifiée
 
 ```text
 P0 / Cœur
 état canonique committé
         ↓
-frontière privée de lecture
+frontière privée de lecture read-only
 validation + normalisation + allowlist
+        ↓
+observation CREAD versionnée
         ↓
 transport local remplaçable
         ↓
 P1 / Lecteur
-publication + session + continuité
+validation + publication + session + continuité
         ↓
 modules aval
 ```
 
-Principes :
+Principes qualifiés :
 
 - P0 reste l’unique autorité canonique ;
 - P1 reste l’unique autorité de continuité de publication ;
 - P1 ne lit pas directement le stockage privé du Cœur ;
+- le raw state ne franchit pas la frontière P1 ;
 - la projection positive est construite avant la frontière P1 ;
+- les identifiants exposés sont opaques et ne révèlent pas les identifiants ou coordonnées privés du Cœur ;
 - aucune seed, RNG, recette, causalité privée, structure de persistance ou donnée non nécessaire ne franchit cette frontière ;
 - le protocole de transport est remplaçable et ne définit pas la sémantique du contrat.
 
 ## Transport CREAD v1
 
-L’implémentation v1 retient une communication locale par **Unix Domain Socket**, en request/response et avec un message JSON UTF-8 versionné.
+CREAD v1 utilise une communication locale par **Unix Domain Socket**, en request/response et avec un message JSON UTF-8 versionné.
 
-Ce choix vise une surface locale minimale et une séparation effective des privilèges sans ajouter de listener réseau ou de broker. Les chemins runtime, comptes système, permissions concrètes et détails d’exploitation restent privés.
+Ce choix conserve une surface locale minimale sans listener réseau ni broker. Les chemins runtime, comptes système, permissions concrètes, secrets techniques et détails d’exploitation restent privés.
 
-Le transport ne doit jamais devenir une API générique permettant d’interroger les internes du Cœur. La surface v1 sert à obtenir une observation courante qualifiée et allowlistée.
+Le transport ne devient pas une API générique d’inspection du Cœur : il sert uniquement à obtenir une observation courante qualifiée et allowlistée.
 
 ## Invariants
 
@@ -50,24 +54,50 @@ Le transport ne doit jamais devenir une API générique permettant d’interroge
 - `canonical_age` est transporté sans perte sous forme décimale exacte ;
 - un état publié correspond à un seul état committé cohérent ;
 - une version incompatible échoue explicitement ;
-- un arrêt, ralentissement ou échec de P1 ne doit pas bloquer ni modifier un Cœur sain ;
-- replay et live doivent être sémantiquement équivalents pour un même état source ;
+- un arrêt ou échec du Lecteur ne modifie pas le Cœur ;
+- replay et live sont sémantiquement équivalents au niveau publié ;
 - P1 conserve seul les décisions de duplicate, gap, changement de stream/monde, resynchronisation et exhaustivité d’historique.
 
-## Qualification attendue
+## Qualification obtenue
 
-CREAD-LIVE doit notamment démontrer : lecture strictement read-only côté source, allowlist positive, absence de fuite privée, C01–C08 en live, replay/live equivalence, restart/reconnect, isolation des pannes, absence de backpressure vers le Cœur, limites et timeouts bornés et coût mesuré.
+Les gates CREAD-LIVE ont qualifié :
 
-Un PASS CREAD-LIVE permettra de considérer **P0 + P1 comme le socle canonique fonctionnel d’Avelune au niveau théorique/LAB** : le Cœur autoritatif et son interface live qualifiée. Cela ne vaut pas encore qualification complète d’exploitation, de migration ou d’endurance intégrée.
+- lecture P0 read-only vis-à-vis de l’état autoritatif ;
+- observation normalisée et allowlist positive ;
+- client/serveur local versionnés ;
+- validation stricte et comportement fail-closed ;
+- exactitude identité/révision/âge canonique ;
+- absence de fuite des champs privés recherchés ;
+- limites de trame et timeouts explicites ;
+- restart/reconnect ;
+- équivalence live/replay au niveau `WorldReadEnvelope` + `ReadSession` ;
+- conservation de P1 comme unique autorité de continuité ;
+- régressions complètes P0 et P1 ;
+- coût local borné et mesuré.
+
+Les résultats détaillés d’exploitation, les mappings privés et les secrets ne sont pas publiés ici.
+
+## Portée du PASS
+
+`CREAD_LIVE=PASS_APPLICATION_BOUNDARY` permet de considérer au niveau **théorique/LAB** :
+
+```text
+P0 = Cœur autoritatif qualifié
+P1 = interface live applicative qualifiée
+P0 + P1 = socle canonique fonctionnel d’Avelune
+```
+
+Cela ne vaut **pas** qualification complète de l’isolation hôte ou de l’exploitation de production.
+
+La gate suivante appartient à **P3 / ORCH-1** : matérialisation des identités de service, permissions minimales, lifecycle, gestion des secrets techniques, résistance aux substitutions de services, backup/restore opérationnels et isolation réelle. Ces détails restent hors documentation partageable.
 
 ## Ordre après CREAD-LIVE
 
 ```text
-P1 — CREAD-LIVE
-→ P3 — ORCH-1
-→ P2 — OBS-1 finalisation
+P3 — ORCH-1
+→ P2 — OBS-1 FINALIZATION
 → P4 — raccord opérateur si nécessaire
-→ O5-MIGRATION
+→ O5-MIGRATION obligatoire
 → P5A / P5B / P6 live
 → isolation intégrée
 → freeze intégré
@@ -76,8 +106,8 @@ P1 — CREAD-LIVE
 → décision CŒUR-1
 ```
 
-P2 reste gelé pendant CREAD-LIVE puis ORCH-1 afin de ne reprendre qu’une fois lorsque les sources live P1 et P3 nécessaires existent réellement.
+P2 reste gelé pendant ORCH-1 afin de ne reprendre qu’une fois lorsque les sources live P1 et P3 nécessaires existent réellement.
 
 ## Frontière de publication
 
-Ce document décrit uniquement le contrat et les garanties partageables. Les structures internes du Cœur, mappings privés, recettes, paramètres, détails de persistance, topologie d’exploitation et secrets restent hors GitHub.
+Ce document décrit uniquement les contrats, invariants et résultats agrégés partageables. Les structures internes du Cœur, mappings privés, recettes, paramètres, détails de persistance, topologie d’exploitation, permissions concrètes et secrets restent hors GitHub.
