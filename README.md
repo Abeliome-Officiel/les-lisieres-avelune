@@ -14,13 +14,13 @@
 |---|---|
 | **PROTO-0 → PROTO-0.2.2** | **CLOS / HISTORIQUE** — objectif de validation rempli ; aucun nouveau développement, playtest structurant ou retrofit de production |
 | **Cœur vivant / CŒUR-0** | qualification biologique suffisamment close ; O1 72 h **PASS / CLOSED / FROZEN** ; **P0-AUTH + neutralité + O2/O3/O4 PASS / CLOSED** ; P0 reste fermé |
-| **P1 — Lecteur du Cœur** | baseline offline qualifiée ; gate transverse P1↔P5A↔P5B **PASS / CLOSED** ; **CREAD-LIVE est le chantier critique actif** |
-| **P2 — Observabilité** | surface autonome OBS-1 qualifiée ; finalisation live gelée jusqu’après ORCH-1 |
-| **P3 — Orchestrateur** | ORCH-0 offline qualifié et gelé ; ORCH-1 vient après CREAD-LIVE PASS |
+| **P1 — Lecteur du Cœur** | baseline offline et convergence transverse qualifiées ; **CREAD-LIVE PASS au niveau applicatif / FROZEN** |
+| **P3 — Orchestrateur** | ORCH-0 offline qualifié et gelé ; **ORCH-1 est la gate critique active** |
+| **P2 — Observabilité** | surface autonome OBS-1 qualifiée ; finalisation unique gelée jusqu’après ORCH-1 |
 | **P4 — Tableaux Monde / Univers** | baseline offline qualifiée ; raccord live après disponibilité des sources qualifiées |
-| **P5A — Visuel** | baseline offline qualifiée ; frontière convergée avec P1 qualifiée ; aucune seconde autorité de continuité |
-| **P5B — Musique / Sonore** | baseline offline globale qualifiée ; frontière convergée avec P1 qualifiée ; aucune seconde autorité active sur le chemin convergé |
-| **P6 — Fenêtre sur les Avelunes** | P6-0 offline qualifié ; contrat de fondation prêt ; travail offline autorisé ; intégration live en attente de CREAD-LIVE |
+| **P5A — Visuel** | baseline offline qualifiée ; frontière convergée avec P1 qualifiée ; live après les gates amont |
+| **P5B — Musique / Sonore** | baseline offline globale qualifiée ; frontière convergée avec P1 qualifiée ; live après les gates amont |
+| **P6 — Fenêtre sur les Avelunes** | P6-0 offline qualifié ; contrat de fondation prêt ; intégration live après P3/P2/O5 |
 | **Tableau Réel — TA3** | service autonome séparé du PROTO ; surfaces publique et privée distinctes ; écritures privées toujours soumises à leurs gates de sécurité |
 
 Le nettoyage contrôlé de l’ancien historique GitHub est **clos**. Les références actuelles sont la source de vérité ; tout ancien clone ou worktree issu d’un graphe antérieur doit être contrôlé avant réutilisation.
@@ -31,7 +31,7 @@ Le nettoyage contrôlé de l’ancien historique GitHub est **clos**. Les réfé
 
 - [Roadmap actuelle](ROADMAP.md)
 - [Index documentaire](docs/index.md)
-- [Architecture CREAD-LIVE](docs/development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md)
+- [CREAD-LIVE — architecture et PASS applicatif](docs/development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md)
 - [Clôture P0-AUTH / O2 / O3 / O4](docs/development/P0_AUTH_CLOSURE_2026-08-21.md)
 - [Clôture du PRE-P6 transverse](docs/development/PRE_P6_TRANSVERSE_2026-08-21.md)
 - [Clôture du PROTO](docs/development/PROTO_CLOSURE_2026-08-20.md)
@@ -68,11 +68,11 @@ Voir [la décision de clôture](docs/development/PROTO_CLOSURE_2026-08-20.md).
 
 Le **Cœur vivant** est l’autorité canonique sur l’état vivant d’une Avelune. Il doit pouvoir fonctionner avant les joueurs, conserver son histoire et survivre au remplacement de ses représentations.
 
-O1 a qualifié le fonctionnement continu initial du Cœur sur 72 h réelles. **P0-AUTH est maintenant fermé avec PASS**, ainsi que la neutralité biologique/RNG, O2 arrêt/reprise, O3 crash/atomicité et O4. L’autorité canonique associe au même état committé l’identité persistante du monde, sa révision canonique et son âge canonique exact. La politique qualifiée d’indisponibilité du Cœur est **PAUSE** : le temps mural écoulé pendant l’arrêt n’est pas transformé automatiquement en vieillissement canonique.
+O1 a qualifié le fonctionnement continu initial du Cœur sur 72 h réelles. **P0-AUTH est fermé avec PASS**, ainsi que la neutralité biologique/RNG, O2 arrêt/reprise, O3 crash/atomicité et O4. L’autorité canonique associe au même état committé l’identité persistante du monde, sa révision canonique et son âge canonique exact. La politique qualifiée d’indisponibilité du Cœur est **PAUSE** : le temps mural écoulé pendant l’arrêt n’est pas transformé automatiquement en vieillissement canonique.
 
-La gate critique active est **P1 / CREAD-LIVE**. Elle doit fournir une frontière de lecture live versionnée et à privilèges minimaux entre P0 et P1. P1 ne lit pas directement le stockage privé du Cœur : la validation, la normalisation et l’allowlist sont réalisées avant la frontière du Lecteur. L’implémentation v1 retient un transport local remplaçable par Unix Domain Socket ; les détails d’exploitation restent privés.
+**CREAD-LIVE v1 est désormais qualifié au niveau applicatif.** P1 ne lit pas directement le stockage privé du Cœur : la lecture, la validation, la normalisation et l’allowlist sont réalisées avant la frontière du Lecteur. Le transport local v1 utilise une Unix Domain Socket et reste remplaçable ; les détails d’exploitation et secrets techniques restent privés. Replay et live ont été qualifiés comme sémantiquement équivalents au niveau publié, et P1 demeure l’unique autorité de continuité.
 
-Après CREAD-LIVE, l’ordre retenu est **P3 / ORCH-1 → P2 / OBS-1 finalisation → O5-MIGRATION**, puis les raccords live aval. Voir [l’architecture CREAD-LIVE](docs/development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md) et [la clôture P0-AUTH](docs/development/P0_AUTH_CLOSURE_2026-08-21.md).
+La gate critique active est maintenant **P3 / ORCH-1**. Elle doit matérialiser l’isolation système et l’exploitation réelle du socle P0/P1 sans redessiner leurs contrats. Ensuite viennent **P2 / OBS-1 finalisation → P4 si nécessaire → O5-MIGRATION obligatoire**, puis les raccords live aval. Voir [CREAD-LIVE](docs/development/CREAD_LIVE_ARCHITECTURE_2026-08-22.md) et [la clôture P0-AUTH](docs/development/P0_AUTH_CLOSURE_2026-08-21.md).
 
 L’architecture durable suit une séparation d’autorité stricte :
 
@@ -106,7 +106,7 @@ En parallèle :
 - le futur serveur de jeu restera une autorité de domaine séparée ;
 - aucune représentation ne doit écrire dans la biologie du Cœur par commodité.
 
-Si CREAD-LIVE est qualifié avec ses régressions et gates d’isolation, **P0 + P1 pourra être considéré comme le socle canonique fonctionnel d’Avelune au niveau théorique/LAB** : le Cœur autoritatif et son interface live. Cela ne remplace pas la qualification d’exploitation P3, l’observabilité complète P2, O5-MIGRATION ni l’endurance intégrée.
+**P0 + P1 est maintenant le socle canonique fonctionnel d’Avelune au niveau théorique/LAB** : Cœur autoritatif + interface live applicative qualifiée. Cela ne remplace pas la qualification d’exploitation P3, l’observabilité complète P2, O5-MIGRATION ni l’endurance intégrée.
 
 ---
 
@@ -128,7 +128,7 @@ Un compte pourra observer ou rejoindre plusieurs mondes selon les règles du fut
 
 La **Fenêtre sur les Avelunes** est un produit permanent, contemplatif et non administratif. Elle assemble les projections du Lecteur, le Visuel et le Sonore afin de montrer une Avelune vivante sans devenir une seconde vérité du monde.
 
-La fondation P6-0 est qualifiée offline et le gate transverse P1↔P5A↔P5B est clos avec PASS. Le contrat de fondation P6 est donc prêt et le travail offline peut continuer sur les contrats, fixtures, replays, assemblage, lifecycle, accessibilité et budgets. Le **raccord live** reste en attente de **CREAD-LIVE** ; les gates P0-AUTH/O2/O3/O4 qui le précédaient sont désormais fermées.
+La fondation P6-0 est qualifiée offline et le gate transverse P1↔P5A↔P5B est clos avec PASS. CREAD-LIVE est également qualifié au niveau applicatif. Le contrat de fondation P6 reste prêt et le travail offline peut continuer ; le **raccord live** attend désormais la séquence **P3 ORCH-1 → P2 OBS-1 FINALIZATION → O5-MIGRATION** et une autorisation explicite de phase.
 
 ---
 
