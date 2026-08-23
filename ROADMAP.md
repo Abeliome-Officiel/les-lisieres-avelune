@@ -1,6 +1,6 @@
 # Roadmap — Les Lisières d’Avelune
 
-## État au 22 août 2026
+## État au 23 août 2026
 
 Cette roadmap décrit le **chemin critique courant**. Les jalons fermés restent documentés dans `docs/development/` mais ne redeviennent pas des chantiers actifs sans défaut démontré ou décision explicite.
 
@@ -16,6 +16,7 @@ Cette roadmap décrit le **chemin critique courant**. Les jalons fermés restent
 | **P5B — Musique** | offline/convergence P1 qualifiés | live après les gates amont |
 | **P6 — Fenêtre sur les Avelunes** | fondation offline qualifiée | live après les gates amont |
 | **O5-MIGRATION** | obligatoire, non exécuté | après P3/P2 et avant les raccords live aval définitifs |
+| **PORTABILITÉ** | **chantier parallèle ouvert / non intrusif** | audits read-only P0/P0-AUTH/P1/P3 ; aucune réouverture automatique |
 | **TA3 — Tableau Réel** | autonome du PROTO | poursuite de ses gates propres |
 
 ---
@@ -160,7 +161,28 @@ Le temps écoulé n’est jamais à lui seul un verdict PASS.
 
 ---
 
-## 7. PROTO et futur jeu
+## 7. Chantier parallèle — portabilité
+
+Le chantier de portabilité est **ouvert en parallèle** et ne modifie pas le chemin critique ci-dessus.
+
+Principes :
+
+- [ ] commencer par un inventaire read-only des dépendances au langage/runtime ;
+- [ ] auditer P0, P0-AUTH, P1 et P3 sans les rouvrir automatiquement ;
+- [ ] distinguer formats/contrats réellement portables et détails d’implémentation ;
+- [ ] créer des fixtures et vecteurs de test inter-langages avant tout portage réel ;
+- [ ] ne modifier une baseline qualifiée qu’après démonstration d’un couplage concret et décision explicite ;
+- [ ] requalifier uniquement les dépendances réellement touchées.
+
+L’acte intervient après fermeture de P0/CŒUR-0, P0-AUTH et P1/CREAD-LIVE. **P3 n’est pas encore entièrement clos** : ORCH-0 est qualifié et ORCH-1 est actif. Le chantier audite donc P3 pendant sa phase actuelle sans prétendre rouvrir ORCH-0.
+
+Le constat initial est que l’architecture est largement favorable à la migration, mais que l’interchangeabilité déterministe stricte d’un Cœur réimplémenté dans un autre langage n’est pas encore une propriété qualifiée.
+
+Voir [`docs/development/PORTABILITY_PARALLEL_WORKSTREAM_2026-08-23.md`](docs/development/PORTABILITY_PARALLEL_WORKSTREAM_2026-08-23.md).
+
+---
+
+## 8. PROTO et futur jeu
 
 Le PROTO reste clos/historique. Le futur jeu ne réutilise ni son runtime, ni sa base, ni son tour par tour comme architecture de production.
 
@@ -168,7 +190,7 @@ Le futur gameplay devra consommer le monde vivant via les contrats durables P0/P
 
 ---
 
-## 8. GitHub, secrets et publication
+## 9. GitHub, secrets et publication
 
 GitHub porte le code et la documentation partageables. Restent hors dépôt : recettes propriétaires, seeds/RNG, causalités détaillées, CODEX, credentials, clés privées, mappings privés et détails d’exploitation inutiles à la compréhension du contrat.
 
@@ -190,3 +212,5 @@ P3 — ORCH-1
 → analyse exhaustive
 → décision CŒUR-1
 ```
+
+Le chantier **PORTABILITÉ** progresse en parallèle et ne s’insère dans cet ordre que si une future gate explicite démontre qu’une migration technique est nécessaire avant la baseline visée.
