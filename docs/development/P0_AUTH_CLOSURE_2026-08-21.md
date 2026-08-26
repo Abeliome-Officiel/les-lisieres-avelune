@@ -120,8 +120,30 @@ décision de baseline d'entrée CŒUR-1
 
 **O5-MIGRATION reste obligatoire** : une migration réelle LAB devra conserver l'identité du monde et son état canonique sans créer deux autorités actives.
 
+## Addendum D17 — migration et portabilité — 26 août 2026
+
+La règle D17 impose que la passation finale signale explicitement les particularités susceptibles d'affecter une migration ou un remplacement technologique. Cet addendum **ne rouvre pas P0** et ne modifie aucun PASS existant.
+
+Particularités P0 à conserver dans le préflight d'une future migration :
+
+- **migration réelle / O5** : l'identité et l'histoire canoniques doivent être conservées et le cutover doit maintenir une seule autorité active ; O5 reste requis et n'est pas revendiqué PASS par cette clôture ;
+- **portage vers un autre langage/runtime** : la persistance et les identités P0 sont conçues de manière favorable à la portabilité, mais une équivalence bit-exacte avec une réimplémentation non-Python n'est pas actuellement une propriété qualifiée ; certains comportements déterministes et numériques restent liés à l'implémentation tant qu'ils n'ont pas été spécifiés et requalifiés comme contrat inter-langages.
+
+Cette dette de portabilité est **documentée et non bloquante pour la baseline actuelle**. Un portage réel exigerait un audit et une requalification ciblés avant substitution de l'implémentation canonique ; il ne justifie pas une réouverture préventive de P0.
+
+Les références détaillées, contraintes internes et preuves restent dans le Coffre et dans le registre central privé de migration/portabilité conformément à la frontière de publication.
+
+```text
+MIGRATION_PORTABILITY_SPECIAL_NOTES=DOCUMENTED
+P0_BASELINE_REOPENED=NO
+O5_REQUIRED=YES
+CROSS_LANGUAGE_BIT_EXACT=NOT_CLAIMED
+```
+
 ## Frontière de publication
 
 Cette clôture n'autorise pas la publication du code propriétaire du Cœur. Restent hors GitHub : recettes, paramètres, seuils, seeds, RNG, structures privées, détails de stockage, mappings causaux, procédures internes de faute, informations d'exploitation sensibles et CODEX.
 
-Aucune nouvelle règle constitutionnelle n'est nécessaire pour ce PASS technique : les principes de temps canonique explicite/versionné, identité indépendante de la machine, migration et séparation des autorités étaient déjà actés.
+Les particularités détaillées de migration/portabilité, les mécanismes d'implémentation et les preuves privées restent également hors dépôt ; GitHub ne porte que les garanties et statuts agrégés nécessaires à la reprise.
+
+Aucune nouvelle règle constitutionnelle n'est créée par cet addendum : D17 complète les principes existants de migration, réversibilité et portabilité sans transformer une dette documentée en réouverture automatique.
